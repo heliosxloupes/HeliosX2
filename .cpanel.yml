@@ -6,6 +6,6 @@ deployment:
     - /bin/echo "Clearing npm cache..."
     - npm cache clean --force
     - /bin/echo "Installing dependencies..."
-    - npm install --legacy-peer-deps
+    - npm install
     - /bin/echo "Building Next.js application..."
     - npm run build

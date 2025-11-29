@@ -146,11 +146,14 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
   useEffect(() => {
     if (params.slug !== 'galileo' || !textOverlayRef.current) return
 
+    let rafId: number
+    let ticking = false
+
     const handleScroll = () => {
-      if (!textOverlayRef.current) return
-      
-      const scrollPosition = window.scrollY || window.pageYOffset
-      setScrollY(scrollPosition)
+      if (!textOverlayRef.current) {
+        ticking = false
+        return
+      }
       
       const heroSection = textOverlayRef.current.closest(`.${styles.hero}`)
       if (heroSection) {
@@ -159,19 +162,24 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
         const heroHeight = rect.height
         const viewportHeight = window.innerHeight
         
-        const scrollProgress = Math.max(0, Math.min(1, -heroTop / (heroHeight - viewportHeight)))
-        const parallaxOffset = scrollProgress * 30
-        const opacity = Math.max(0.3, 1 - scrollProgress * 0.7)
-        
-        textOverlayRef.current.style.transform = `translateY(calc(-50% + ${parallaxOffset}px))`
-        textOverlayRef.current.style.opacity = String(opacity)
+        // Only calculate if hero section is visible
+        if (heroTop < viewportHeight && heroTop + heroHeight > 0) {
+          const scrollProgress = Math.max(0, Math.min(1, -heroTop / (heroHeight - viewportHeight)))
+          const parallaxOffset = scrollProgress * 30
+          const opacity = Math.max(0.3, 1 - scrollProgress * 0.7)
+          
+          textOverlayRef.current.style.transform = `translateY(calc(-50% + ${parallaxOffset}px))`
+          textOverlayRef.current.style.opacity = String(opacity)
+        }
       }
+      ticking = false
     }
 
-    let rafId: number
     const onScroll = () => {
-      if (rafId) cancelAnimationFrame(rafId)
-      rafId = requestAnimationFrame(handleScroll)
+      if (!ticking) {
+        rafId = requestAnimationFrame(handleScroll)
+        ticking = true
+      }
     }
 
     window.addEventListener('scroll', onScroll, { passive: true })

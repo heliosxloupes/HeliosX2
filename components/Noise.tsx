@@ -58,8 +58,8 @@ const Noise: React.FC<NoiseProps> = ({
 
     const loop = () => {
       // Increase refresh interval significantly to reduce CPU usage
-      // Only update every 10 frames instead of every 2
-      if (frame % (patternRefreshInterval * 5) === 0) {
+      // Only update every 20 frames (reduced from 10) for better performance
+      if (frame % (patternRefreshInterval * 10) === 0) {
         drawGrain();
       }
       frame++;

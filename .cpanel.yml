@@ -2,9 +2,9 @@
 deployment:
   tasks:
     # Simple deployment script for HeliosX on cPanel
-    # 1. Install/update production dependencies
-    - /bin/echo "Installing production dependencies..."
-    - npm install --production
+    # 1. Install all dependencies (including dev dependencies for build)
+    - /bin/echo "Installing dependencies..."
+    - npm install
 
     # 2. Build the Next.js app
     - /bin/echo "Building Next.js application..."

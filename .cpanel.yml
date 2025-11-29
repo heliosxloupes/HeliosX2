@@ -4,7 +4,7 @@ deployment:
     # Simple deployment script for HeliosX on cPanel
     # 1. Install all dependencies (including dev dependencies for build)
     - /bin/echo "Installing dependencies..."
-    - npm install
+    - npm install --legacy-peer-deps
 
     # 2. Build the Next.js app
     - /bin/echo "Building Next.js application..."

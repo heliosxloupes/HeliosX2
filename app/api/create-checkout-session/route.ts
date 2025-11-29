@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
 const stripe = new Stripe('sk_test_51SV0NsLQ1qA2EZ9RmR1DPwnqHMb92UNhzLIkq3U7eUEwbxJMZSVXSa26hhsnbgo5aCyKHrXYJiEVUQoAKJW8WPNf00GK2SjsiI', {
-  apiVersion: '2024-12-18.acacia',
+  apiVersion: '2025-11-17.clover',
 })
 
 // Product ID mapping

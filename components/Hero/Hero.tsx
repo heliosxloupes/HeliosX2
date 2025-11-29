@@ -870,7 +870,7 @@ export default function Hero() {
         {/* ColorBends Overlay - Only render when fully visible to prevent flickering */}
         {isDiveDeeperFullyVisible && (
           <div className={styles.colorBendsOverlay}>
-            <ColorBends />
+            <ColorBends className="" style={{}} />
           </div>
         )}
         

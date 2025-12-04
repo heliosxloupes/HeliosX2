@@ -1,13 +1,9 @@
-'use client'
+"use client";
 
-import { useState, useRef, Fragment } from 'react'
-
+import { useState, useRef } from 'react'
 import Image from 'next/image'
-
-import Header from '@/components/Header'
-
+import Header from "@/components/Header";
 import { addToCart } from '@/lib/cart'
-
 import { useRouter } from 'next/navigation'
 
 const heroImages = [
@@ -93,7 +89,7 @@ const frameConfigs: FrameConfig[] = [
   },
 ]
 
-export default function GalileoProductPage() {
+export default function Galileo2Page() {
   const router = useRouter()
 
   // MAIN HERO IMAGE STATE
@@ -137,11 +133,14 @@ export default function GalileoProductPage() {
   }
 
   return (
-    <Fragment>
+    <>
       <Header />
+
       <main className="min-h-screen bg-black text-neutral-100">
-        {/* HERO: main product image + right column */}
+
+        {/* ================= HERO SECTION ================= */}
         <section className="mx-auto flex flex-col lg:flex-row min-h-[calc(100vh-80px)] max-w-[1400px] px-4 lg:px-10 pt-6 lg:pt-10 gap-8 lg:gap-12">
+
           {/* LEFT – MAIN IMAGE */}
           <div className="w-full lg:flex-[1.25] flex items-center">
             <div className="w-full rounded-[32px] overflow-hidden bg-black/60 shadow-[0_0_60px_rgba(0,0,0,0.7)]">
@@ -193,229 +192,228 @@ export default function GalileoProductPage() {
             </div>
           </div>
 
-          {/* RIGHT – TEXT / MAG / FRAMES / CART */}
+          {/* RIGHT – TEXT / FRAMES / CART */}
           <div className="hidden lg:flex w-full lg:flex-[0.9] flex-col gap-8 justify-start">
-              {/* Title + copy */}
-              <div>
-                <p className="mb-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-neutral-500">
-                  HeliosX • Galileo
-                </p>
-                <h1 className="text-2xl font-semibold text-neutral-50 sm:text-3xl">
-                  Galileo Surgical Loupes
-                </h1>
-                <p className="mt-3 text-sm leading-relaxed text-neutral-300">
-                  Versatile, lightweight optics designed for operators who want
-                  precision without overhead. Galileo balances field of view,
-                  depth, and comfort for high-precision surgical and dental
-                  work.
-                </p>
-              </div>
+            {/* Title + copy */}
+            <div>
+              <p className="mb-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-neutral-500">
+                HeliosX • Galileo
+              </p>
+              <h1 className="text-2xl font-semibold text-neutral-50 sm:text-3xl">
+                Galileo Surgical Loupes
+              </h1>
+              <p className="mt-3 text-sm leading-relaxed text-neutral-300">
+                Versatile, lightweight optics designed for operators who want
+                precision without overhead. Galileo balances field of view,
+                depth, and comfort for high-precision surgical and dental
+                work.
+              </p>
+            </div>
 
-              {/* Highlights */}
-              <div className="rounded-3xl border border-white/10 bg-neutral-900/70 p-4 text-xs text-neutral-200 shadow-[0_24px_80px_rgba(0,0,0,0.6)]">
-                <p className="mb-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-neutral-500">
-                  Highlights
-                </p>
-                <div className="grid grid-cols-2 gap-3 text-[0.75rem]">
-                  <div className="flex items-start gap-2">
-                    <span className="mt-[3px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
-                      <span className="h-2 w-2 rounded-full bg-black" />
-                    </span>
-                    <span>Light weight, reduced volume barrels.</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="mt-[3px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
-                      <span className="h-2 w-2 rounded-full bg-black" />
-                    </span>
-                    <span>Multi-layer coated premium lenses.</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="mt-[3px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
-                      <span className="h-2 w-2 rounded-full bg-black" />
-                    </span>
-                    <span>Extra-wide field of view &amp; depth.</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="mt-[3px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
-                      <span className="h-2 w-2 rounded-full bg-black" />
-                    </span>
-                    <span>Prescription compatible &amp; light-source ready.</span>
-                  </div>
+            {/* Highlights */}
+            <div className="rounded-3xl border border-white/10 bg-neutral-900/70 p-4 text-xs text-neutral-200 shadow-[0_24px_80px_rgba(0,0,0,0.6)]">
+              <p className="mb-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-neutral-500">
+                Highlights
+              </p>
+              <div className="grid grid-cols-2 gap-3 text-[0.75rem]">
+                <div className="flex items-start gap-2">
+                  <span className="mt-[3px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
+                    <span className="h-2 w-2 rounded-full bg-black" />
+                  </span>
+                  <span>Light weight, reduced volume barrels.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="mt-[3px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
+                    <span className="h-2 w-2 rounded-full bg-black" />
+                  </span>
+                  <span>Multi-layer coated premium lenses.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="mt-[3px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
+                    <span className="h-2 w-2 rounded-full bg-black" />
+                  </span>
+                  <span>Extra-wide field of view &amp; depth.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="mt-[3px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
+                    <span className="h-2 w-2 rounded-full bg-black" />
+                  </span>
+                  <span>Prescription compatible &amp; light-source ready.</span>
                 </div>
               </div>
+            </div>
 
-              {/* Magnification */}
-              <div>
-                <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-neutral-500">
-                  Magnification
-                </p>
-                <div className="flex gap-2">
-                  {(['2.5x', '3.0x', '3.5x'] as Magnification[]).map(mag => (
+            {/* Magnification */}
+            <div>
+              <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-neutral-500">
+                Magnification
+              </p>
+              <div className="flex gap-2">
+                {(['2.5x', '3.0x', '3.5x'] as Magnification[]).map(mag => (
+                  <button
+                    key={mag}
+                    onClick={() => setSelectedMag(mag)}
+                    className={`rounded-full px-4 py-1.5 text-xs font-medium transition ${
+                      selectedMag === mag
+                        ? 'bg-white text-black shadow-[0_0_24px_rgba(255,255,255,0.45)]'
+                        : 'border border-white/15 bg-black/40 text-neutral-200 hover:border-white/40'
+                    }`}
+                  >
+                    {mag}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Frame styles */}
+            <div className="rounded-3xl border border-white/10 bg-neutral-900/80 p-4 text-xs text-neutral-200 shadow-[0_24px_80px_rgba(0,0,0,0.7)]">
+              <p className="mb-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-neutral-500">
+                Frame style
+              </p>
+
+              {/* Frame thumbnails grid */}
+              <div className="mb-3 grid grid-cols-3 gap-2">
+                {frameConfigs.map(frame => {
+                  const isActive = frame.id === selectedFrameId
+                  return (
                     <button
-                      key={mag}
-                      onClick={() => setSelectedMag(mag)}
-                      className={`rounded-full px-4 py-1.5 text-xs font-medium transition ${
-                        selectedMag === mag
-                          ? 'bg-white text-black shadow-[0_0_24px_rgba(255,255,255,0.45)]'
-                          : 'border border-white/15 bg-black/40 text-neutral-200 hover:border-white/40'
+                      key={frame.id}
+                      onClick={() => {
+                        setSelectedFrameId(frame.id)
+                        // default color for new frame
+                        setSelectedFrameColor(frame.colors[0].value)
+                      }}
+                      className={`relative overflow-hidden rounded-2xl border bg-black/40 transition ${
+                        isActive
+                          ? 'border-emerald-400 shadow-[0_0_24px_rgba(16,185,129,0.6)]'
+                          : 'border-white/10 hover:border-white/40'
                       }`}
                     >
-                      {mag}
+                      <div className="relative h-16 w-full">
+                        <Image
+                          src={frame.baseImage}
+                          alt={frame.label}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <span className="absolute bottom-1 left-2 rounded-full bg-black/70 px-2 py-[2px] text-[0.6rem] font-medium text-neutral-100">
+                        {frame.label}
+                      </span>
                     </button>
-                  ))}
-                </div>
+                  )
+                })}
               </div>
 
-              {/* Frame styles */}
-              <div className="rounded-3xl border border-white/10 bg-neutral-900/80 p-4 text-xs text-neutral-200 shadow-[0_24px_80px_rgba(0,0,0,0.7)]">
-                <p className="mb-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-neutral-500">
-                  Frame style
+              {/* Active frame description */}
+              <div className="mb-2 text-[0.7rem] text-neutral-300">
+                <p className="font-semibold text-neutral-100">
+                  {currentFrameConfig.label}{' '}
+                  {currentColorConfig.name && `• ${currentColorConfig.name}`}
                 </p>
-
-                {/* Frame thumbnails grid */}
-                <div className="mb-3 grid grid-cols-3 gap-2">
-                  {frameConfigs.map(frame => {
-                    const isActive = frame.id === selectedFrameId
-                    return (
-                      <button
-                        key={frame.id}
-                        onClick={() => {
-                          setSelectedFrameId(frame.id)
-                          // default color for new frame
-                          setSelectedFrameColor(frame.colors[0].value)
-                        }}
-                        className={`relative overflow-hidden rounded-2xl border bg-black/40 transition ${
-                          isActive
-                            ? 'border-emerald-400 shadow-[0_0_24px_rgba(16,185,129,0.6)]'
-                            : 'border-white/10 hover:border-white/40'
-                        }`}
-                      >
-                        <div className="relative h-16 w-full">
-                          <Image
-                            src={frame.baseImage}
-                            alt={frame.label}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                        <span className="absolute bottom-1 left-2 rounded-full bg-black/70 px-2 py-[2px] text-[0.6rem] font-medium text-neutral-100">
-                          {frame.label}
-                        </span>
-                      </button>
-                    )
-                  })}
-                </div>
-
-                {/* Active frame description */}
-                <div className="mb-2 text-[0.7rem] text-neutral-300">
-                  <p className="font-semibold text-neutral-100">
-                    {currentFrameConfig.label}{' '}
-                    {currentColorConfig.name && `• ${currentColorConfig.name}`}
-                  </p>
-                  <p className="mt-1">
-                    Choose a base frame, then fine-tune the finish. All frames
-                    support light mounts and prescription builds.
-                  </p>
-                </div>
-
-                {/* Color pills */}
-                <div className="mb-3 flex flex-wrap gap-2">
-                  {currentFrameConfig.colors.map(color => {
-                    const active = color.value === selectedFrameColor
-                    return (
-                      <button
-                        key={color.value}
-                        onClick={() => setSelectedFrameColor(color.value)}
-                        className={`rounded-full px-3 py-1 text-[0.7rem] transition ${
-                          active
-                            ? 'bg-white text-black shadow-[0_0_18px_rgba(255,255,255,0.5)]'
-                            : 'border border-white/20 bg-black/40 text-neutral-200 hover:border-white/50'
-                        }`}
-                      >
-                        {color.name}
-                      </button>
-                    )
-                  })}
-                </div>
-
-                {/* Preview window */}
-                <div className="relative mt-2 overflow-hidden rounded-2xl border border-white/15 bg-black/70">
-                  <div className="relative h-32 w-full sm:h-36">
-                    <Image
-                      src={currentColorConfig.image}
-                      alt={`${currentFrameConfig.label} ${currentColorConfig.name}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
+                <p className="mt-1">
+                  Choose a base frame, then fine-tune the finish. All frames
+                  support light mounts and prescription builds.
+                </p>
               </div>
 
-              {/* Pricing / Add to cart */}
-              <div className="mt-1 rounded-3xl border border-white/10 bg-neutral-900/90 p-4 text-xs text-neutral-200 shadow-[0_26px_90px_rgba(0,0,0,0.8)]">
-                <p className="text-[0.6rem] font-semibold uppercase tracking-[0.25em] text-neutral-500">
-                  Starting at
-                </p>
-                <div className="mt-1 flex items-end justify-between">
-                  <div>
-                    <div className="text-2xl font-semibold text-neutral-50">
-                      ${basePrice}
-                      <span className="ml-1 text-[0.65rem] font-normal text-neutral-400">
-                        USD
-                      </span>
-                    </div>
-                    <p className="mt-1 text-[0.7rem] text-neutral-400">
-                      You'll finalize IPD, working distance, and prescription
-                      details after checkout.
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[0.7rem] text-neutral-400">
-                      Qty
+              {/* Color pills */}
+              <div className="mb-3 flex flex-wrap gap-2">
+                {currentFrameConfig.colors.map(color => {
+                  const active = color.value === selectedFrameColor
+                  return (
+                    <button
+                      key={color.value}
+                      onClick={() => setSelectedFrameColor(color.value)}
+                      className={`rounded-full px-3 py-1 text-[0.7rem] transition ${
+                        active
+                          ? 'bg-white text-black shadow-[0_0_18px_rgba(255,255,255,0.5)]'
+                          : 'border border-white/20 bg-black/40 text-neutral-200 hover:border-white/50'
+                      }`}
+                    >
+                      {color.name}
+                    </button>
+                  )
+                })}
+              </div>
+
+              {/* Preview window */}
+              <div className="relative mt-2 overflow-hidden rounded-2xl border border-white/15 bg-black/70">
+                <div className="relative h-32 w-full sm:h-36">
+                  <Image
+                    src={currentColorConfig.image}
+                    alt={`${currentFrameConfig.label} ${currentColorConfig.name}`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Pricing / Add to cart */}
+            <div className="mt-1 rounded-3xl border border-white/10 bg-neutral-900/90 p-4 text-xs text-neutral-200 shadow-[0_26px_90px_rgba(0,0,0,0.8)]">
+              <p className="text-[0.6rem] font-semibold uppercase tracking-[0.25em] text-neutral-500">
+                Starting at
+              </p>
+              <div className="mt-1 flex items-end justify-between">
+                <div>
+                  <div className="text-2xl font-semibold text-neutral-50">
+                    ${basePrice}
+                    <span className="ml-1 text-[0.65rem] font-normal text-neutral-400">
+                      USD
                     </span>
-                    <div className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-black/60 px-2 py-1">
-                      <button
-                        onClick={() =>
-                          setQuantity(q => (q > 1 ? q - 1 : 1))
-                        }
-                        className="px-2 text-sm text-neutral-300 hover:text-white"
-                      >
-                        –
-                      </button>
-                      <span className="min-w-[1.5rem] text-center text-sm text-neutral-100">
-                        {quantity}
-                      </span>
-                      <button
-                        onClick={() => setQuantity(q => q + 1)}
-                        className="px-2 text-sm text-neutral-300 hover:text-white"
-                      >
-                        +
-                      </button>
-                    </div>
+                  </div>
+                  <p className="mt-1 text-[0.7rem] text-neutral-400">
+                    You'll finalize IPD, working distance, and prescription
+                    details after checkout.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[0.7rem] text-neutral-400">
+                    Qty
+                  </span>
+                  <div className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-black/60 px-2 py-1">
+                    <button
+                      onClick={() =>
+                        setQuantity(q => (q > 1 ? q - 1 : 1))
+                      }
+                      className="px-2 text-sm text-neutral-300 hover:text-white"
+                    >
+                      –
+                    </button>
+                    <span className="min-w-[1.5rem] text-center text-sm text-neutral-100">
+                      {quantity}
+                    </span>
+                    <button
+                      onClick={() => setQuantity(q => q + 1)}
+                      className="px-2 text-sm text-neutral-300 hover:text-white"
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
-
-                <div className="mt-3 flex items-center justify-between text-[0.7rem] text-neutral-300">
-                  <span>Subtotal</span>
-                  <span className="font-semibold">${subtotal}.00</span>
-                </div>
-
-                <button
-                  onClick={handleAddToCart}
-                  className="mt-4 w-full rounded-full bg-white py-2.5 text-sm font-semibold text-black shadow-[0_0_40px_rgba(255,255,255,0.6)] transition hover:bg-neutral-100"
-                >
-                  Add to cart
-                </button>
-                <p className="mt-2 text-[0.65rem] leading-relaxed text-neutral-500">
-                  No hidden service contracts, mandatory bundles, or surprise
-                  fees—just the loupes you actually need.
-                </p>
               </div>
+
+              <div className="mt-3 flex items-center justify-between text-[0.7rem] text-neutral-300">
+                <span>Subtotal</span>
+                <span className="font-semibold">${subtotal}.00</span>
+              </div>
+
+              <button
+                onClick={handleAddToCart}
+                className="mt-4 w-full rounded-full bg-white py-2.5 text-sm font-semibold text-black shadow-[0_0_40px_rgba(255,255,255,0.6)] transition hover:bg-neutral-100"
+              >
+                Add to cart
+              </button>
+              <p className="mt-2 text-[0.65rem] leading-relaxed text-neutral-500">
+                No hidden service contracts, mandatory bundles, or surprise
+                fees—just the loupes you actually need.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* TECHNICAL DETAILS + BANNER */}
+        {/* ================= TECHNICAL DETAILS SECTION ================= */}
         <section
           id="technical-details"
           ref={techRef}
@@ -569,28 +567,25 @@ export default function GalileoProductPage() {
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* BOTTOM BANNER – brighter overlay */}
-            <div className="mt-8 w-full">
-              <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-[32px]">
-                <Image
-                  src="/Galileo/walkinghallway2.png"
-                  alt="Surgeon walking hallway with Galileo loupes"
-                  width={1600}
-                  height={600}
-                  className="h-[260px] w-full object-cover lg:h-[340px]"
-                />
-                {/* Dark overlay reduced from ~70% to 40% */}
-                <div className="absolute inset-0 bg-black/40" />
-                <div className="absolute inset-0 flex items-center justify-between px-6 lg:px-12">
-                  <div className="max-w-xl space-y-1">
-                    <p className="text-[0.7rem] uppercase tracking-[0.25em] text-neutral-300">
-                      Built for real operators
-                    </p>
-                    <h3 className="text-lg lg:text-xl font-semibold text-white">
-                      Precision optics that keep up with your cases.
-                    </h3>
-                  </div>
+          {/* Bottom Banner */}
+          <div className="mt-8 w-full">
+            <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-[32px]">
+              <img
+                src="/Galileo/walkinghallway2.png"
+                alt="Surgeon hallway"
+                className="h-[260px] lg:h-[340px] w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="absolute inset-0 flex items-center px-6 lg:px-12">
+                <div className="max-w-xl space-y-1">
+                  <p className="text-[0.7rem] uppercase tracking-[0.25em] text-neutral-300">
+                    Built for real operators
+                  </p>
+                  <h3 className="text-lg lg:text-xl font-semibold text-white">
+                    Precision optics that keep up with your cases.
+                  </h3>
                 </div>
               </div>
             </div>
@@ -598,6 +593,6 @@ export default function GalileoProductPage() {
         </section>
 
       </main>
-    </Fragment>
-  )
+    </>
+  );
 }

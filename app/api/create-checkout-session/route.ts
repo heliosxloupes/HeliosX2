@@ -88,14 +88,15 @@ export async function POST(req: Request) {
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items,
-      success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/cart?cancelled=1`,
+      ui_mode: 'embedded',
+      return_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     })
 
     console.log('Stripe session created:', session.id)
+    console.log('Client secret:', session.client_secret ? 'Present' : 'Missing')
 
-    // Return session ID for redirect checkout
-    return NextResponse.json({ id: session.id })
+    // Return client_secret for embedded checkout
+    return NextResponse.json({ client_secret: session.client_secret })
   } catch (err: any) {
     console.error('Stripe checkout session error:', err)
     console.error('Error details:', {

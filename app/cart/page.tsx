@@ -5,18 +5,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Header from '@/components/Header'
 import { getCart } from '@/lib/cart'
-
-type CartItem = {
-  productSlug: string
-  name: string
-  shortName?: string
-  image?: string
-  price: number
-  quantity: number
-  frameStyle?: string
-  frameColor?: string
-  magnification?: string
-}
+import type { CartItem } from '@/lib/cart'
 
 const PRESCRIPTION_ESTIMATE = 200 // USD – for cart display
 const WARRANTY_ESTIMATE = 99     // USD – for cart display
@@ -172,16 +161,15 @@ export default function CartPage() {
                             <p className="mt-1 text-sm font-medium text-neutral-50">
                               {item.name}
                             </p>
-                            <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-[0.7rem] text-neutral-300">
-                              {item.magnification && (
-                                <span>Mag: {item.magnification}</span>
-                              )}
-                              {item.frameStyle && (
-                                <span>Frame: {item.frameStyle}</span>
-                              )}
-                              {item.frameColor && (
-                                <span>Color: {item.frameColor}</span>
-                              )}
+                            <div className="mt-2 space-y-1 text-[0.78rem] text-neutral-200">
+                              <p className="flex gap-2">
+                                <span className="text-neutral-400">Magnification:</span>
+                                <span>{item.selectedMagnification ?? 'Not selected'}</span>
+                              </p>
+                              <p className="flex gap-2">
+                                <span className="text-neutral-400">Frame:</span>
+                                <span>{item.selectedFrameName ?? 'Not selected'}</span>
+                              </p>
                             </div>
                           </div>
 

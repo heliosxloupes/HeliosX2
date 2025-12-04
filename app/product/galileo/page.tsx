@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useRef } from 'react'
 
@@ -196,7 +196,7 @@ export default function GalileoProductPage() {
               {/* Title + copy */}
               <div>
                 <p className="mb-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-neutral-500">
-                  HeliosX • Galileo
+                  HeliosX · Galileo
                 </p>
                 <h1 className="text-2xl font-semibold text-neutral-50 sm:text-3xl">
                   Galileo Surgical Loupes
@@ -308,7 +308,7 @@ export default function GalileoProductPage() {
                 <div className="mb-2 text-[0.7rem] text-neutral-300">
                   <p className="font-semibold text-neutral-100">
                     {currentFrameConfig.label}{' '}
-                    {currentColorConfig.name && `• ${currentColorConfig.name}`}
+                    {currentColorConfig.name && `· ${currentColorConfig.name}`}
                   </p>
                   <p className="mt-1">
                     Choose a base frame, then fine-tune the finish. All frames
@@ -378,7 +378,7 @@ export default function GalileoProductPage() {
                         }
                         className="px-2 text-sm text-neutral-300 hover:text-white"
                       >
-                        –
+                        —
                       </button>
                       <span className="min-w-[1.5rem] text-center text-sm text-neutral-100">
                         {quantity}
@@ -462,7 +462,7 @@ export default function GalileoProductPage() {
                       Extra-wide field of view and generous depth of field for
                       stable focus.
                     </li>
-                    <li>IPD range: 54–72 mm.</li>
+                    <li>IPD range: 54—72 mm.</li>
                   </ul>
                 </div>
 
@@ -473,16 +473,16 @@ export default function GalileoProductPage() {
                   </h3>
                   <ul className="mt-3 space-y-2 text-[0.75rem]">
                     <li>
-                      <span className="font-semibold">2.5x</span> — WD 300–580
-                      mm, FOV 150–170 mm, DOF 200 mm.
+                      <span className="font-semibold">2.5x</span> — WD 300—580
+                      mm, FOV 150—170 mm, DOF 200 mm.
                     </li>
                     <li>
-                      <span className="font-semibold">3.0x</span> — WD 300–580
-                      mm, FOV 130–150 mm, DOF 200 mm.
+                      <span className="font-semibold">3.0x</span> — WD 300—580
+                      mm, FOV 130—150 mm, DOF 200 mm.
                     </li>
                     <li>
-                      <span className="font-semibold">3.5x</span> — WD 300–580
-                      mm, FOV 110–130 mm, DOF 200 mm.
+                      <span className="font-semibold">3.5x</span> — WD 300—580
+                      mm, FOV 110—130 mm, DOF 200 mm.
                     </li>
                     <li>Compatible with fixed LED light sources and packs.</li>
                     <li>Bright, uniform spot with long-lasting illumination.</li>
@@ -561,3 +561,4 @@ export default function GalileoProductPage() {
     </>
   )
 }
+

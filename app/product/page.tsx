@@ -1,236 +1,54 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useRef, useLayoutEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import Header from '@/components/Header'
-import Image from 'next/image'
-import Noise from '@/components/Noise'
-import { addToCart, getCart } from '@/lib/cart'
-// Component added by Ansh - github.com/ansh-dhanani
-import GradualBlur from '@/components/GradualBlur'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Lenis from 'lenis'
-import ScrollReveal from '@/components/ScrollReveal'
-import styles from './ProductMenu.module.css'
+import React, { useRef, useLayoutEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
+import Noise from "@/components/Noise";
+import Header from "@/components/Header";
 
 // Register GSAP plugins
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function ProductMenuPage() {
-  const router = useRouter()
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-  const [visibleLines, setVisibleLines] = useState<{ [key: number]: boolean[] }>({})
-  const textOverlayRefs = useRef<(HTMLDivElement | null)[]>([])
-  
-  const productTextLines = [
-    // Galileo (index 0)
-    [
-      'Lightweight',
-      'Modern design',
-      'Variable magnification: 2.5x • 3.0x • 3.5x'
-    ],
-    // Newton (index 1)
-    [
-      'Ultra-light',
-      'Comfort Designed',
-      'Magnification: 2.5x • 3.0x • 3.5x'
-    ],
-    // Apollo (index 2)
-    [
-      'Next generation design',
-      'Precision-engineered',
-      'Ergonomic form',
-      'Magnification: 3.0x • 4.0x • 5.0x • 6.0x'
-    ],
-    // Kepler (index 3)
-    [
-      'Signature Design',
-      'Upgraded optics',
-      'Optimized for comfort',
-      'Magnification: 4.0x • 5.0x • 6.0x'
-    ]
-  ]
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+};
 
-  const productImages = [
-    '/Galileo/GalileoMainProduct(notext).png',
-    '/Newton/NewtonMainProduct(notext).png',
-    '/Apollo/ApollomainProduct(Notext).png',
-    '/Keppler/KepplerMainProduct(Notext).png',
-  ]
+export default function ProductPage() {
+  return (
+    <>
+      <Header />
+      <main className="bg-black text-white min-h-screen">
+        <ParallaxProductHero />
+        <OurLoupesGrid />
+        <OrderingInfoSection />
+      </main>
+    </>
+  );
+}
 
-  const productTitles = ['Galileo', 'Newton', 'Apollo', 'Keppler']
-  
-  const productMagnifications = [
-    '2.5x • 3.0x • 3.5x',  // Galileo
-    '2.5x • 3.0x • 3.5x',  // Newton
-    '3.0x • 4.0x • 5.0x • 6.0x',  // Apollo
-    '4.0x • 5.0x • 6.0x'   // Keppler
-  ]
+/* --------------------------------------------- */
+/*  PARALLAX HERO – GSAP SCROLLTRIGGER LAYERS    */
+/* --------------------------------------------- */
 
-  const productData = [
-    {
-      slug: 'galileo',
-      name: 'Galileo Surgical Loupes',
-      shortName: 'Galileo',
-      price: 499,
-      image: '/Galileo/GalileoMainProduct.png',
-    },
-    {
-      slug: 'newton',
-      name: 'Newton Surgical Loupes',
-      shortName: 'Newton',
-      price: 449,
-      image: '/Newton/NewtonMainProduct.png',
-    },
-    {
-      slug: 'apollo',
-      name: 'Apollo Surgical Loupes',
-      shortName: 'Apollo',
-      price: 599,
-      image: '/Apollo/ApollomainProduct.png',
-    },
-    {
-      slug: 'kepler',
-      name: 'Kepler Surgical Loupes',
-      shortName: 'Kepler',
-      price: 549,
-      image: '/KepplerMainProduct.png',
-    },
-  ]
+function ParallaxProductHero() {
+  const heroRef = useRef<HTMLDivElement | null>(null);
+  const layeredImageSectionRef = useRef<HTMLDivElement | null>(null);
+  const basexImageRef = useRef<HTMLDivElement | null>(null);
+  const basex1ImageRef = useRef<HTMLDivElement | null>(null);
+  const basex2ImageRef = useRef<HTMLDivElement | null>(null);
+  const basex3ImageRef = useRef<HTMLDivElement | null>(null);
+  const basex4ImageRef = useRef<HTMLDivElement | null>(null);
+  const logoContainerRef = useRef<HTMLDivElement | null>(null);
+  const textContainerRef = useRef<HTMLDivElement | null>(null);
+  const lenisRef = useRef<Lenis | null>(null);
 
-  const handleScrollArrowClick = () => {
-    if (titleTextContainerRef.current && lenisRef.current) {
-      const targetSection = titleTextContainerRef.current.closest('section')
-      if (targetSection) {
-        const targetPosition = targetSection.offsetTop
-        lenisRef.current.scrollTo(targetPosition, {
-          duration: 1.5,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        })
-      }
-    }
-  }
-
-  const handleImageClick = (index: number) => {
-    setSelectedIndex(index)
-    const product = productData[index]
-    
-    // Check if item already exists in cart
-    const cart = getCart()
-    const existingItem = cart.find(item => item.productSlug === product.slug)
-    
-    // Only add if item doesn't exist in cart (each click should only add one item)
-    if (!existingItem) {
-      // Mark that this item was added from the product listing page
-      // This will be checked when navigating back
-      sessionStorage.setItem(`added_from_product_${product.slug}`, 'true')
-      
-      // Add to cart with quantity 1
-      addToCart({
-        productSlug: product.slug,
-        name: product.name,
-        shortName: product.shortName,
-        price: product.price,
-        quantity: 1,
-        image: product.image,
-      })
-    }
-
-    // Navigate to product detail page after animation
-    setTimeout(() => {
-      // Scroll to top before navigation to ensure clean state
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-      router.push(`/product/${product.slug}`)
-      setSelectedIndex(null)
-    }, 500) // Delay for smoother click animation
-  }
-
-  const pageRef = useRef<HTMLElement>(null)
-  const imageRefs = useRef<(HTMLDivElement | null)[]>([])
-  const productSectionRef = useRef<HTMLDivElement>(null)
-  const productCardRefs = useRef<(HTMLDivElement | null)[]>([])
-  const titleTextContainerRef = useRef<HTMLDivElement>(null)
-  const arrowRef = useRef<SVGPathElement>(null)
-  const productTitleRefs = useRef<(HTMLDivElement | null)[]>([])
-  const productMagnificationRefs = useRef<(HTMLDivElement | null)[]>([])
-  const galileoCardRef = useRef<HTMLDivElement>(null)
-
-  // Track which products have started animating
-  const animationStartedRef = useRef<{ [key: number]: boolean }>({})
-
-  // Staggered reveal animation for product texts - triggered when image comes into view
-  useEffect(() => {
-    const observers: IntersectionObserver[] = []
-    const allTimeouts: { [key: number]: NodeJS.Timeout[] } = {}
-
-    // Create intersection observer for each image
-    imageRefs.current.forEach((imageRef, productIndex) => {
-      if (!imageRef) return
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && !animationStartedRef.current[productIndex]) {
-              // Mark as started
-              animationStartedRef.current[productIndex] = true
-              
-              // Image is in view, start animating its text
-              const lines = productTextLines[productIndex]
-              const timeouts: NodeJS.Timeout[] = []
-              
-              lines.forEach((_, lineIndex) => {
-                const timeout = setTimeout(() => {
-                  setVisibleLines(prev => {
-                    const newLines = { ...prev }
-                    if (!newLines[productIndex]) {
-                      newLines[productIndex] = []
-                    }
-                    newLines[productIndex][lineIndex] = true
-                    return newLines
-                  })
-                }, 300 + lineIndex * 400) // 300ms initial delay, 400ms between each line
-                timeouts.push(timeout)
-              })
-              
-              allTimeouts[productIndex] = timeouts
-            }
-          })
-        },
-        {
-          threshold: 0.3, // Trigger when 30% of image is visible
-          rootMargin: '0px'
-        }
-      )
-
-      observer.observe(imageRef)
-      observers.push(observer)
-    })
-
-    return () => {
-      observers.forEach(observer => observer.disconnect())
-      Object.values(allTimeouts).forEach(timeouts => 
-        timeouts.forEach(timeout => clearTimeout(timeout))
-      )
-    }
-  }, [])
-
-
-  // Refs for the 3D image layers
-  const layeredImageSectionRef = useRef<HTMLDivElement>(null)
-  const basexImageRef = useRef<HTMLDivElement>(null)
-  const basex1ImageRef = useRef<HTMLDivElement>(null)
-  const basex2ImageRef = useRef<HTMLDivElement>(null)
-  const basex3ImageRef = useRef<HTMLDivElement>(null)
-  const basex4ImageRef = useRef<HTMLDivElement>(null)
-  const logoContainerRef = useRef<HTMLDivElement>(null)
-  const lenisRef = useRef<Lenis | null>(null)
-  const scrollArrowRef = useRef<HTMLDivElement>(null)
-
-  // Setup Lenis and GSAP ScrollTrigger for 3D layered images
   useLayoutEffect(() => {
     // Initialize Lenis
     const lenis = new Lenis({
@@ -242,50 +60,19 @@ export default function ProductMenuPage() {
       wheelMultiplier: 1,
       touchMultiplier: 2,
       infinite: false,
-    })
+    });
 
-    lenisRef.current = lenis
+    lenisRef.current = lenis;
 
-    // Function to set scroll limit based on final state
-    const setScrollLimit = () => {
-      if (layeredImageSectionRef.current && titleTextContainerRef.current && productSectionRef.current) {
-        const titleSection = titleTextContainerRef.current.closest('section')
-        
-        // Create a ScrollTrigger to limit scrolling when "Our Loupes" reaches top left
-        // Final state: "Our Loupes" fully visible at top left
-        // Reduced scroll space by 100px - stop 100px earlier
-        ScrollTrigger.create({
-          trigger: titleSection || titleTextContainerRef.current,
-          start: 'top top+=100', // Stop 100px before "Our Loupes" section reaches the top
-          end: 'top top+=100',
-          pin: false,
-          onEnter: () => {
-            // Prevent further scrolling when trigger point is reached
-            lenis.stop()
-          },
-          onLeaveBack: () => {
-            lenis.start()
-          }
-        })
-      }
-    }
-
-    // Wait for DOM to be ready, then set scroll limit
-    setTimeout(setScrollLimit, 100)
-    window.addEventListener('resize', setScrollLimit)
-
-    // RAF loop for Lenis with ScrollTrigger integration
     function raf(time: number) {
-      lenis.raf(time)
-      ScrollTrigger.update()
-      requestAnimationFrame(raf)
+      lenis.raf(time);
+      ScrollTrigger.update(); // Update ScrollTrigger on Lenis scroll
+      requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf)
+    requestAnimationFrame(raf);
 
-    // Link Lenis to ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update)
+    lenis.on('scroll', ScrollTrigger.update); // Link Lenis to ScrollTrigger
 
-    // Setup GSAP ScrollTrigger for 5-layer parallax effect (similar to Trona)
     if (
       layeredImageSectionRef.current &&
       basexImageRef.current &&
@@ -295,9 +82,8 @@ export default function ProductMenuPage() {
       basex4ImageRef.current
     ) {
       // basex (background) - static or very slow movement
-      // Clamped to maximum: -11.8064px
       gsap.to(basexImageRef.current, {
-        y: -12, // Clamped to maximum translation
+        y: -12,
         ease: 'none',
         scrollTrigger: {
           trigger: layeredImageSectionRef.current,
@@ -305,12 +91,11 @@ export default function ProductMenuPage() {
           end: 'bottom top',
           scrub: 2.0,
         },
-      })
+      });
 
       // basex4 (bottom layer) - slowest parallax movement
-      // Clamped to maximum: -35.4192px
       gsap.to(basex4ImageRef.current, {
-        y: -35, // Clamped to maximum translation
+        y: -35,
         ease: 'none',
         scrollTrigger: {
           trigger: layeredImageSectionRef.current,
@@ -318,12 +103,11 @@ export default function ProductMenuPage() {
           end: 'bottom top',
           scrub: 1.8,
         },
-      })
+      });
 
       // base3.5x (middle-bottom layer) - moderate movement
-      // Clamped to maximum: -59.032px
       gsap.to(basex3ImageRef.current, {
-        y: -59, // Clamped to maximum translation
+        y: -59,
         ease: 'none',
         scrollTrigger: {
           trigger: layeredImageSectionRef.current,
@@ -331,12 +115,11 @@ export default function ProductMenuPage() {
           end: 'bottom top',
           scrub: 1.5,
         },
-      })
+      });
 
       // basex2 (middle-top layer) - faster movement
-      // Clamped to maximum: -82.6448px
       gsap.to(basex2ImageRef.current, {
-        y: -83, // Clamped to maximum translation
+        y: -83,
         ease: 'none',
         scrollTrigger: {
           trigger: layeredImageSectionRef.current,
@@ -344,12 +127,11 @@ export default function ProductMenuPage() {
           end: 'bottom top',
           scrub: 1.2,
         },
-      })
+      });
 
       // basex1 (top layer) - fastest movement
-      // Clamped to maximum: -106.258px
       gsap.to(basex1ImageRef.current, {
-        y: -106, // Clamped to maximum translation
+        y: -106,
         ease: 'none',
         scrollTrigger: {
           trigger: layeredImageSectionRef.current,
@@ -357,12 +139,12 @@ export default function ProductMenuPage() {
           end: 'bottom top',
           scrub: 1.0,
         },
-      })
+      });
 
       // Logo animation - translates up when scrolling
       if (logoContainerRef.current) {
         gsap.to(logoContainerRef.current, {
-          y: -200, // Increased from -100px for more movement
+          y: -200,
           ease: 'none',
           scrollTrigger: {
             trigger: layeredImageSectionRef.current,
@@ -370,431 +152,418 @@ export default function ProductMenuPage() {
             end: 'bottom top',
             scrub: 1.2,
           },
-        })
+        });
       }
 
-    }
-
-    // ScrollReveal handles its own animation internally
-    
-    // Animate arrow being drawn
-    if (arrowRef.current && titleTextContainerRef.current) {
-      const arrow = arrowRef.current
-      const container = titleTextContainerRef.current
-      
-      // Get the total length of the arrow path
-      const pathLength = arrow.getTotalLength()
-      
-      // Set initial state - arrow is invisible (stroke-dasharray and stroke-dashoffset)
-      gsap.set(arrow, {
-        strokeDasharray: pathLength,
-        strokeDashoffset: pathLength,
-        opacity: 0
-      })
-      
-      // Animate arrow being drawn and fading in
-      gsap.to(arrow, {
-        strokeDashoffset: 0,
-        opacity: 1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: container,
-          start: 'top 85%',
-          end: 'top 65%',
-          scrub: 1.2,
-          onEnter: () => {
-            gsap.set(arrow, { strokeDashoffset: 0, opacity: 1 })
-          },
-          onLeave: () => {
-            gsap.set(arrow, { strokeDashoffset: 0, opacity: 1 })
-          },
-          onEnterBack: () => {
-            gsap.set(arrow, { strokeDashoffset: 0, opacity: 1 })
-          }
-        },
-      })
-    }
-
-    // Product cards - Grow in from below animation
-    if (productSectionRef.current && productCardRefs.current.length > 0) {
-      const section = productSectionRef.current
-      const cards = productCardRefs.current.filter(Boolean) as HTMLDivElement[]
-
-      cards.forEach((card, index) => {
-        if (!card) return
-
-        // Set initial state - start invisible, scaled down, and positioned below
-        gsap.set(card, {
-          opacity: 0,
-          scale: 0.3,
-          y: 100, // Start 100px below
-        })
-
-        // Calculate stagger - reduced delay for faster, smoother animation
-        const startOffset = index * 2 // 2% viewport offset for less delay
-
-        // Animate card growing in from below with smooth ease
-        gsap.to(card, {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          ease: 'power2.out',
+      // Text parallax animation - translates up when scrolling
+      if (textContainerRef.current) {
+        gsap.to(textContainerRef.current, {
+          y: -150,
+          ease: 'none',
           scrollTrigger: {
-            trigger: section,
-            start: `top ${85 - startOffset}%`, // Staggered start points
-            end: `top ${70 - startOffset}%`,
-            scrub: 0.8, // Smoother, more responsive scroll-based animation
-            onEnter: () => {
-              // Keep visible after animation
-              if (index === cards.length - 1) {
-                cards.forEach(c => {
-                  if (c) gsap.set(c, { opacity: 1, scale: 1, y: 0 })
-                })
-              }
-            },
-            onLeave: () => {
-              // Keep visible when scrolling past
-              gsap.set(card, { opacity: 1, scale: 1, y: 0 })
-            },
-            onEnterBack: () => {
-              // Keep visible when scrolling back up
-              gsap.set(card, { opacity: 1, scale: 1, y: 0 })
-            }
+            trigger: layeredImageSectionRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1.0,
           },
-        })
-      })
-    }
-
-    // Animate product title texts - smooth scroll-based animation with Lenis
-    // Animations trigger when scrolling to the bottom of the page
-    if (productSectionRef.current && productTitleRefs.current.length > 0) {
-      const section = productSectionRef.current
-      const titles = productTitleRefs.current.filter(Boolean) as HTMLHeadingElement[]
-      const magnifications = productMagnificationRefs.current.filter(Boolean) as HTMLParagraphElement[]
-
-      titles.forEach((title, index) => {
-        if (!title) return
-
-        // Get the corresponding product card
-        const card = productCardRefs.current[index]
-        if (!card) return
-
-        // Set initial state - start invisible and slightly below
-        gsap.set(title, {
-          opacity: 0,
-          y: 30,
-        })
-
-        // Animate title appearing (fade in and slide up) - smooth scroll-based
-        gsap.to(title, {
-          opacity: 1,
-          y: 0,
-          ease: 'power2.out',
-          duration: 1,
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%', // Start when card is 85% down the viewport
-            end: 'top 50%', // Complete when card reaches 50% of viewport
-            scrub: 1, // Smooth scroll-based animation (lower = more responsive)
-            markers: false, // Set to true for debugging
-            onEnter: () => {
-              // Ensure it stays visible after animation
-              gsap.set(title, { opacity: 1, y: 0 })
-            },
-            onLeave: () => {
-              gsap.set(title, { opacity: 1, y: 0 })
-            },
-            onEnterBack: () => {
-              gsap.set(title, { opacity: 1, y: 0 })
-            }
-          },
-        })
-
-        // Animate magnification text (fade in and slide from left)
-        const magnification = magnifications[index]
-        if (magnification) {
-          gsap.set(magnification, {
-            opacity: 0,
-            x: -30,
-          })
-          
-          gsap.to(magnification, {
-            opacity: 1,
-            x: 0,
-            ease: 'power2.out',
-            duration: 1,
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 85%',
-              end: 'top 50%',
-              scrub: 1,
-              onEnter: () => {
-                gsap.set(magnification, { opacity: 1, x: 0 })
-              },
-              onLeave: () => {
-                gsap.set(magnification, { opacity: 1, x: 0 })
-              },
-              onEnterBack: () => {
-                gsap.set(magnification, { opacity: 1, x: 0 })
-              }
-            },
-          })
-        }
-      })
+        });
+      }
     }
 
     return () => {
-      window.removeEventListener('resize', setScrollLimit)
       if (lenisRef.current) {
-        lenisRef.current.destroy()
+        lenisRef.current.destroy();
       }
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-    }
-  }, [])
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
 
   return (
-    <>
-      <Header />
-      <main ref={pageRef} className={styles.productMenuPage}>
-        {/* 3D Layered Images Section - Full Viewport */}
-        <section 
-          ref={layeredImageSectionRef}
-          className={styles.layeredImageSection}
-        >
-          <div className={styles.layeredImageContainer}>
-            {/* Tronaeast-style fade overlay - blends into background */}
-            <div className={styles.tronaeastFadeOverlay}></div>
-            
-            {/* basex - Main background image (lowest layer) */}
-            <div 
-              ref={basexImageRef}
-              className={styles.layeredImageLayer}
-              style={{ zIndex: 0 }}
-            >
-              <Image
-                src="/basex.png"
-                alt="Basex background"
-                fill
-                style={{ objectFit: 'cover' }}
-                priority
-              />
-            </div>
-            {/* basex4.5 - Bottom parallax layer */}
-            <div 
-              ref={basex4ImageRef}
-              className={styles.layeredImageLayer}
-              style={{ zIndex: 1 }}
-            >
-              <Image
-                src="/basex4.5.png"
-                alt="Basex4.5 layer"
-                fill
-                style={{ objectFit: 'cover' }}
-                priority
-              />
-            </div>
-            {/* base3.5x - Middle-bottom parallax layer */}
-            <div 
-              ref={basex3ImageRef}
-              className={styles.layeredImageLayer}
-              style={{ zIndex: 2 }}
-            >
-              <Image
-                src="/base3.5x.png"
-                alt="Base3.5x layer"
-                fill
-                style={{ objectFit: 'cover' }}
-                priority
-              />
-            </div>
-            {/* basex2 - Middle-top parallax layer */}
-            <div 
-              ref={basex2ImageRef}
-              className={styles.layeredImageLayer}
-              style={{ zIndex: 3 }}
-            >
-              <Image
-                src="/basex2.png"
-                alt="Basex2 layer"
-                fill
-                style={{ objectFit: 'cover' }}
-                priority
-              />
-            </div>
-            {/* basex1 - Top parallax layer (highest, most bottom of image visually) */}
-            <div 
-              ref={basex1ImageRef}
-              className={styles.layeredImageLayer}
-              style={{ zIndex: 4 }}
-            >
-              <Image
-                src="/basex1.png"
-                alt="Basex1 layer"
-                fill
-                style={{ objectFit: 'cover' }}
-                priority
-              />
-            </div>
-            
-            {/* HeliosX Logo Container - positioned above basex4, below basex2 layer */}
-            <div 
-              ref={logoContainerRef}
-              className={styles.logoInLayeredContainer}
-              style={{ zIndex: 2 }}
-            >
-              <div className={styles.upscaledLogoStack}>
-                <Image
-                  src="/UpscaledLogoNew.png"
-                  alt="HeliosX Logo"
-                  width={400}
-                  height={400}
-                  className={styles.upscaledLogoImage}
-                  quality={100}
-                  style={{
-                    width: 'auto',
-                    height: '320px',
-                    objectFit: 'contain',
-                    filter: 'brightness(0) invert(1)'
-                  }}
-                />
-              </div>
-            </div>
+    <section
+      ref={heroRef}
+      className="relative overflow-hidden bg-black pt-28 pb-24 md:pb-32 w-full"
+    >
+      {/* Parallax layers spanning full viewport width */}
+      <div ref={layeredImageSectionRef} className="pointer-events-none absolute inset-0 w-full">
+        <div className="relative h-[360px] md:h-[460px] lg:h-[520px] w-full">
+          {/* Tronaeast-style fade overlay - blends into background */}
+          <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-transparent via-transparent via-60% via-[rgba(0,0,0,0.2)] via-75% via-[rgba(0,0,0,0.5)] via-85% via-[rgba(0,0,0,0.8)] via-92% to-black" />
 
-            {/* Scroll Indicator Arrow - Bottom Center */}
-            <div 
-              ref={scrollArrowRef}
-              className={styles.scrollIndicatorArrow}
-              onClick={handleScrollArrowClick}
-            >
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </div>
+          {/* Base background layer – basex */}
+          <div
+            ref={basexImageRef}
+            className="absolute inset-0 overflow-hidden will-change-transform"
+            style={{ zIndex: 0 }}
+          >
+            <Image
+              src="/basex.png"
+              alt="HeliosX base optical layout"
+              fill
+              className="object-cover"
+              style={{
+                maskImage:
+                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
+              }}
+              priority
+            />
           </div>
-        </section>
 
-        {/* Title Text Section - "Our Loupes" with ScrollReveal */}
-        <section className={styles.titleTextSection}>
-          <div className={styles.titleTextContainer} ref={titleTextContainerRef}>
-            <ScrollReveal
-              scrollContainerRef={null}
-              enableBlur={true}
-              baseOpacity={0.1}
-              baseRotation={3}
-              blurStrength={4}
-              containerClassName={styles.titleText}
-              textClassName={styles.titleTextContent}
-              rotationEnd="center center"
-              wordAnimationEnd="center center"
-            >
-              Our Loupes
-            </ScrollReveal>
-            {/* Animated Arrow */}
-            <svg className={styles.titleArrow} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                ref={arrowRef}
-                d="M12 4 L12 20 M8 16 L12 20 L16 16"
-                stroke="#111111"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                fill="none"
-              />
-            </svg>
+          {/* Layer 4 – basex4.5 */}
+          <div
+            ref={basex4ImageRef}
+            className="absolute inset-0 overflow-hidden will-change-transform"
+            style={{ zIndex: 1 }}
+          >
+            <Image
+              src="/basex4.5.png"
+              alt="HeliosX 4.5x optical layout"
+              fill
+              className="object-cover"
+              style={{
+                maskImage:
+                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
+              }}
+              priority
+            />
           </div>
-        </section>
 
-        {/* Product Cards Section */}
-        <div className={styles.menuContainer} ref={productSectionRef}>
-          {/* Product Images Container */}
-          <div className={styles.productImagesContainer}>
-            {productImages.map((imageSrc, index) => {
-              const isHovered = hoveredIndex === index
-              const isSelected = selectedIndex === index
-              
-              return (
-              <div
-                key={index}
-                ref={(el) => { 
-                  imageRefs.current[index] = el
-                  productCardRefs.current[index] = el
+          {/* Layer 3 – basex3.5 */}
+          <div
+            ref={basex3ImageRef}
+            className="absolute inset-0 overflow-hidden will-change-transform"
+            style={{ zIndex: 2 }}
+          >
+            <Image
+              src="/base3.5x.png"
+              alt="HeliosX 3.5x optical layout"
+              fill
+              className="object-cover"
+              style={{
+                maskImage:
+                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
+              }}
+              priority
+            />
+          </div>
+
+          {/* HeliosX Logo Container - positioned at the very top layer (above all overlays) */}
+          <div
+            ref={logoContainerRef}
+            className="absolute top-[15%] left-[2rem] pointer-events-none will-change-transform"
+            style={{ zIndex: 12 }}
+          >
+            <div className="flex flex-col items-start gap-0">
+              <Image
+                src="/upscaledlogo.png"
+                alt="HeliosX Logo"
+                width={300}
+                height={300}
+                className="drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+                quality={100}
+                style={{
+                  width: "auto",
+                  height: "200px",
+                  objectFit: "contain",
+                  filter: "brightness(0) invert(1)",
                 }}
-                className={`${styles.productImageWrapper} ${isHovered ? styles.productImageWrapperHovered : ''} ${isSelected ? styles.productImageWrapperSelected : ''}`}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                onClick={() => handleImageClick(index)}
-              >
-                {/* Glow effect */}
-                <div className={styles.productImageGlow}></div>
-                <div className={`${styles.productImageFade} ${styles.productImageShadow}`}>
-                  <div className={`${styles.productImageInner} ${styles.productImageDark} ${index === 0 ? styles.productImageBright : ''}`}>
-                    <Image
-                      src={imageSrc}
-                      alt={`Product ${index + 1}`}
-                      width={600}
-                      height={400}
-                      style={{ 
-                        width: '100%', 
-                        height: 'auto',
-                        objectFit: 'contain'
-                      }}
-                      priority={index === 0}
-                    />
-                    <div className={styles.productImageDarkOverlay}></div>
-                    <div className={styles.productImageRetroOverlay}></div>
-                    <div className={styles.productImageNoise}>
-                      <Noise
-                        patternSize={250}
-                        patternScaleX={1}
-                        patternScaleY={1}
-                        patternRefreshInterval={2}
-                        patternAlpha={25}
-                      />
-                    </div>
-                    {/* Product Title Container */}
-                    <div className={styles.productTitleContainer}>
-                      <h1 
-                        ref={(el) => { productTitleRefs.current[index] = el }}
-                        className={styles.productTitle}
-                      >
-                        {productTitles[index]}
-                      </h1>
-                      <p 
-                        ref={(el) => { productMagnificationRefs.current[index] = el }}
-                        className={styles.productMagnificationText}
-                      >
-                        {productMagnifications[index]}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* Text Overlay - Hidden for now */}
-                <div 
-                  ref={(el) => { textOverlayRefs.current[index] = el }}
-                  className={styles.productTextOverlay}
-                  style={{
-                    display: 'none'
-                  }}
-                >
-                  <div className={styles.productTextContent}>
-                    {productTextLines[index].map((line, lineIdx) => (
-                      <div 
-                        key={lineIdx} 
-                        className={`${styles.productTextLine} ${visibleLines[index]?.[lineIdx] ? styles.productTextLineVisible : ''}`}
-                        style={{ '--line-index': lineIdx } as React.CSSProperties}
-                      >
-                        <span className={styles.productTextLineInner}>{line}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              )
-            })}
+              />
+            </div>
+          </div>
+
+          {/* basex2 - Middle-top parallax layer */}
+          <div
+            ref={basex2ImageRef}
+            className="absolute inset-0 overflow-hidden will-change-transform"
+            style={{ zIndex: 3 }}
+          >
+            <Image
+              src="/basex2.png"
+              alt="HeliosX 2x optical layout"
+              fill
+              className="object-cover"
+              style={{
+                maskImage:
+                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
+              }}
+              priority
+            />
+          </div>
+
+          {/* basex1 - Top parallax layer (highest, most bottom of image visually) */}
+          <div
+            ref={basex1ImageRef}
+            className="absolute inset-0 overflow-hidden will-change-transform"
+            style={{ zIndex: 4 }}
+          >
+            <Image
+              src="/basex1.png"
+              alt="HeliosX primary optical configuration"
+              fill
+              className="object-cover"
+              style={{
+                maskImage:
+                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
+              }}
+              priority
+            />
+            <div className="absolute inset-0 pointer-events-none z-10 mix-blend-mode-overlay opacity-100">
+              <Noise
+                patternSize={250}
+                patternScaleX={1}
+                patternScaleY={1}
+                patternRefreshInterval={2}
+                patternAlpha={5}
+              />
+            </div>
           </div>
         </div>
+      </div>
 
-      </main>
-    </>
-  )
+      {/* Text content over the parallax layers */}
+      <div className="relative z-10 px-4 md:px-8">
+        <div className="mx-auto max-w-6xl h-[360px] md:h-[460px] lg:h-[520px] flex items-center">
+          <div
+            ref={textContainerRef}
+            className="will-change-transform ml-4 md:-ml-12 lg:-ml-20"
+          >
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight text-white">
+              Choose the HeliosX system
+              <br />
+              that matches your craft.
+            </h1>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* --------------------------------------------- */
+/*  OUR LOUPES GRID – 4 CARDS HORIZONTAL         */
+/* --------------------------------------------- */
+
+function OurLoupesGrid() {
+  const products = [
+    {
+      slug: "galileo",
+      name: "Galileo",
+      magnification: "2.5x • 3.0x • 3.5x",
+      tagline: "Versatile field of view for general and reconstructive work.",
+      bullets: ["Lightweight", "Modern frame geometry", "Everyday precision"],
+      highlight: "Best for broad use and training.",
+      imageSrc: "/Galileo/GalileoMainProduct(notext).png",
+      imageAlt: "HeliosX Galileo loupes product image",
+    },
+    {
+      slug: "newton",
+      name: "Newton",
+      magnification: "2.5x • 3.0x • 3.5x",
+      tagline: "Ultra-light performance for long cases and full OR days.",
+      bullets: ["Ultra-light chassis", "Comfort-driven design", "Low fatigue"],
+      highlight: "Best when comfort is critical.",
+      imageSrc: "/Newton/NewtonMainProduct(notext).png",
+      imageAlt: "HeliosX Newton loupes product image",
+    },
+    {
+      slug: "apollo",
+      name: "Apollo",
+      magnification: "3.0x • 4.0x • 5.0x • 6.0x",
+      tagline: "High-magnification clarity for detail-obsessed operators.",
+      bullets: [
+        "Next-generation optics",
+        "Increased working precision",
+        "Ergonomic frame options",
+      ],
+      highlight: "Best for fine aesthetic & micro-oriented work.",
+      imageSrc: "/Apollo/ApollomainProduct(Notext).png",
+      imageAlt: "HeliosX Apollo loupes product image",
+    },
+    {
+      slug: "kepler",
+      name: "Kepler",
+      magnification: "4.0x • 5.0x • 6.0x",
+      tagline: "Maximal magnification for demanding micro and super-micro.",
+      bullets: [
+        "Signature optical stack",
+        "Upgraded contrast & resolution",
+        "Designed for advanced users",
+      ],
+      highlight: "Best for high-level microsurgery.",
+      imageSrc: "/Keppler/KepplerMainProduct(Notext).png",
+      imageAlt: "HeliosX Kepler loupes product image",
+    },
+  ];
+
+  return (
+    <section className="bg-black px-4 md:px-8 pb-16 md:pb-24">
+      <div className="mx-auto max-w-6xl space-y-8">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center space-y-3"
+        >
+          <p className="text-xs font-semibold tracking-[0.3em] text-neutral-500">
+            OUR LOUPES
+          </p>
+          <h2 className="text-2xl md:text-3xl font-semibold">
+            Four systems. One standard of excellence.
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8">
+          {products.map((product, index) => (
+            <motion.div
+              key={product.slug}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+              className="group relative"
+            >
+              <Link
+                href={`/product/${product.slug}`}
+                className="block rounded-2xl border border-white/10 bg-neutral-900/70 overflow-hidden hover:border-white/20 transition-all duration-300 hover:shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden bg-neutral-950">
+                  <Image
+                    src={product.imageSrc}
+                    alt={product.imageAlt}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 pointer-events-none z-10 mix-blend-mode-overlay opacity-100">
+                    <Noise
+                      patternSize={250}
+                      patternScaleX={1}
+                      patternScaleY={1}
+                      patternRefreshInterval={2}
+                      patternAlpha={5}
+                    />
+                  </div>
+                </div>
+
+                <div className="p-5 md:p-6 space-y-3">
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-semibold mb-1">
+                      {product.name}
+                    </h3>
+                    <p className="text-xs md:text-sm text-neutral-400 font-medium">
+                      {product.magnification}
+                    </p>
+                  </div>
+
+                  <p className="text-sm md:text-base text-neutral-300 leading-relaxed">
+                    {product.tagline}
+                  </p>
+
+                  <ul className="space-y-1.5 pt-2">
+                    {product.bullets.map((bullet, i) => (
+                      <li
+                        key={i}
+                        className="text-xs md:text-sm text-neutral-400 flex items-start"
+                      >
+                        <span className="mr-2 text-neutral-500">•</span>
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <p className="text-xs md:text-sm text-neutral-500 italic pt-2 border-t border-white/5">
+                    {product.highlight}
+                  </p>
+                  
+                  {/* Select Button */}
+                  <div className="pt-3">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href = `/product/${product.slug}`;
+                      }}
+                      className="w-full rounded-full border border-white/35 px-3 py-1.5 text-[0.7rem] font-semibold text-neutral-50 transition-all duration-300 hover:bg-white hover:text-black hover:border-white"
+                    >
+                      Select {product.name}
+                    </button>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* --------------------------------------------- */
+/*  ORDERING INFO SECTION                        */
+/* --------------------------------------------- */
+
+function OrderingInfoSection() {
+  return (
+    <section className="bg-black px-4 md:px-8 py-16 md:py-24 border-t border-white/10">
+      <div className="mx-auto max-w-4xl">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="space-y-8 text-center"
+        >
+          <div>
+            <p className="text-xs font-semibold tracking-[0.3em] text-neutral-500 mb-4">
+              ORDERING INFORMATION
+            </p>
+            <h2 className="text-2xl md:text-3xl font-semibold mb-6">
+              How to order your HeliosX system
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+            <div className="space-y-3">
+              <div className="text-2xl font-semibold text-neutral-400">01</div>
+              <h3 className="text-lg font-semibold">Choose your system</h3>
+              <p className="text-sm text-neutral-400">
+                Select from Galileo, Newton, Apollo, or Kepler based on your
+                surgical specialty and magnification needs.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <div className="text-2xl font-semibold text-neutral-400">02</div>
+              <h3 className="text-lg font-semibold">Customize</h3>
+              <p className="text-sm text-neutral-400">
+                Configure magnification, frame style, and add-ons like prescription
+                lenses or extended warranty.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <div className="text-2xl font-semibold text-neutral-400">03</div>
+              <h3 className="text-lg font-semibold">Checkout</h3>
+              <p className="text-sm text-neutral-400">
+                Complete your order securely. We&apos;ll ship within 3–5 business days
+                and provide tracking information.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 }

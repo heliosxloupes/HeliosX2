@@ -1,465 +1,309 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import Header from '@/components/Header'
 import Image from 'next/image'
-import Noise from '@/components/Noise'
-import { getCart, updateCartItemQuantity, removeFromCart, getCartTotal, getCartItemCount, updateCartAddOns, type CartItem } from '@/lib/cart'
-import styles from './Cart.module.css'
+import Header from '@/components/Header'
+import { getCart } from '@/lib/cart'
 
-function CartContent() {
+type CartItem = {
+  productSlug: string
+  name: string
+  shortName?: string
+  image?: string
+  price: number
+  quantity: number
+  frameStyle?: string
+  frameColor?: string
+  magnification?: string
+}
+
+const PRESCRIPTION_ESTIMATE = 200 // USD – for cart display
+const WARRANTY_ESTIMATE = 99     // USD – for cart display
+
+// If your cart library uses a different key, change this to match
+const CART_STORAGE_KEY = 'heliosx_cart'
+
+export default function CartPage() {
+  const [items, setItems] = useState<CartItem[]>([])
+  const [includePrescription, setIncludePrescription] = useState(false)
+  const [includeWarranty, setIncludeWarranty] = useState(false)
   const router = useRouter()
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
-  const [addOns, setAddOns] = useState({
-    case: 0,
-    cleaningKit: 0,
-    warranty: 0,
-  })
 
-  // Update add-ons when cart items change
   useEffect(() => {
-    if (cartItems.length > 0) {
-      const firstItem = cartItems[0]
-      setAddOns({
-        case: firstItem.hasPrescriptionLenses ? 1 : 0,
-        cleaningKit: 0,
-        warranty: firstItem.hasExtendedWarranty ? 1 : 0,
-      })
-    }
-  }, [cartItems])
-
-  // Load cart from localStorage
-  useEffect(() => {
-    const loadCart = () => {
-      setCartItems(getCart())
-    }
-    
-    loadCart()
-    
-    // Listen for cart updates
-    window.addEventListener('cartUpdated', loadCart)
-    
-    return () => {
-      window.removeEventListener('cartUpdated', loadCart)
+    try {
+      const cart = getCart() as CartItem[] | undefined
+      setItems(cart ?? [])
+    } catch (err) {
+      console.error('Error reading cart', err)
+      setItems([])
     }
   }, [])
 
-  const addOnProducts = [
-    {
-      id: 'case',
-      name: 'Prescription Lenses',
-      description: 'Custom prescription lenses tailored to your vision needs. Provide your prescription details after check out via email form.',
-      price: 129,
-      quantity: addOns.case,
-      setQuantity: (qty: number) => setAddOns({ ...addOns, case: qty }),
-      image: '/prescription.png',
-    },
-    {
-      id: 'warranty',
-      name: 'Extended Warranty',
-      description: 'Extended 2-year warranty for added peace of mind.',
-      price: 79,
-      quantity: addOns.warranty,
-      setQuantity: (qty: number) => setAddOns({ ...addOns, warranty: qty }),
-      image: '/warranty.png',
-    },
-    {
-      id: 'cleaningKit',
-      name: 'Headlight',
-      description: 'Headlight options coming in Q1 2026- Subscribe to Newsletter for more info.',
-      price: 39,
-      quantity: addOns.cleaningKit,
-      setQuantity: (qty: number) => setAddOns({ ...addOns, cleaningKit: qty }),
-      image: '/headlight.png',
-    },
-  ]
-
-  const updateQuantity = (productSlug: string, newQuantity: number) => {
-    updateCartItemQuantity(productSlug, newQuantity)
-    setCartItems(getCart())
-  }
-
-  const removeItem = (productSlug: string) => {
-    removeFromCart(productSlug)
-    setCartItems(getCart())
-  }
-
-  const mainTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-  const addOnsTotal = addOnProducts.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-  const total = mainTotal + addOnsTotal
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0) + Object.values(addOns).reduce((sum, qty) => sum + qty, 0)
-
-  // Build query string for checkout
-  const buildCheckoutQuery = () => {
-    if (cartItems.length === 0) return '/checkout'
-    
-    // Use the first item for checkout (Stripe embedded checkout will handle multiple items)
-    const firstItem = cartItems[0]
-    const queryParams = new URLSearchParams({
-      product: firstItem.productSlug,
-      quantity: firstItem.quantity.toString(),
-    })
-    if (firstItem.image) {
-      queryParams.append('image', firstItem.image)
+  const saveCart = (updated: CartItem[]) => {
+    if (typeof window === 'undefined') return
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(updated))
+      // Dispatch event so other components (like CartButton) can update
+      window.dispatchEvent(new CustomEvent('cartUpdated'))
+    } catch (err) {
+      console.error('Error saving cart', err)
     }
-    return `/checkout?${queryParams.toString()}`
+  }
+
+  const handleRemoveItem = (index: number) => {
+    setItems((prev) => {
+      const next = prev.filter((_, i) => i !== index)
+      saveCart(next)
+      return next
+    })
+  }
+
+  const baseSubtotal = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  )
+
+  const addOnTotal =
+    (includePrescription ? PRESCRIPTION_ESTIMATE : 0) +
+    (includeWarranty ? WARRANTY_ESTIMATE : 0)
+
+  const subtotal = baseSubtotal + addOnTotal
+
+  const handleCheckout = () => {
+    if (!items.length) return
+
+    // Persist add-on choices so /checkout can pick them up
+    if (typeof window !== 'undefined') {
+      const payload = {
+        prescription: includePrescription,
+        warranty: includeWarranty,
+      }
+      sessionStorage.setItem('heliosx_addons', JSON.stringify(payload))
+    }
+
+    router.push('/checkout')
+  }
+
+  const handleEditConfig = () => {
+    router.push('/product/galileo')
   }
 
   return (
     <>
       <Header />
-      <main className={styles.cartPage}>
-        <div className={styles.cartLayout}>
-          {/* Left Side - Product Image */}
-          <div className={styles.imageSection}>
-            <div className={styles.productImageWrapper}>
-              <Image
-                src="/Galileo/girlinmirror1.png"
-                alt="Checkout"
-                fill
-                style={{ objectFit: 'cover' }}
-                priority
-              />
-              {/* Noise overlay */}
-              <div className={styles.imageNoise}>
-                <Noise 
-                  patternSize={250}
-                  patternScaleX={1}
-                  patternScaleY={1}
-                  patternRefreshInterval={2}
-                  patternAlpha={8}
-                />
-              </div>
-              {/* Logo in top left */}
-              <Link href="/" className={styles.logoContainer}>
-                <Image
-                  src="/logominimalnowriting.png"
-                  alt="HeliosX Logo"
-                  width={60}
-                  height={60}
-                  style={{ objectFit: 'contain' }}
-                />
-              </Link>
-              {/* Text overlay at bottom left */}
-              <div className={styles.imageTextOverlay}>
-                <div className={styles.imageText}>
-                  <div className={`${styles.imageTextLine} ${styles.imageTextLineLarge}`}>You are one step closer</div>
-                  <div className={styles.imageTextLine} style={{ paddingLeft: '2rem' }}>to making the right decision</div>
-                  <div className={styles.imageTextLine} style={{ paddingLeft: '4rem' }}>for your EYES</div>
-                </div>
-              </div>
-              {/* Steps overlay on right side */}
-              <div className={styles.stepsOverlay}>
-                {cartItems.length > 0 ? (
-                  <Link href={buildCheckoutQuery()} className={styles.stepItemClickable}>
-                    <div className={styles.stepIcon}>
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="9" cy="21" r="1"/>
-                        <circle cx="20" cy="21" r="1"/>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                      </svg>
-                    </div>
-                    <div className={styles.stepText}>Check Out</div>
-                  </Link>
-                ) : (
-                  <div className={styles.stepItemDisabled}>
-                    <div className={styles.stepIcon}>
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.4">
-                        <circle cx="9" cy="21" r="1"/>
-                        <circle cx="20" cy="21" r="1"/>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                      </svg>
-                    </div>
-                    <div className={styles.stepText} style={{ opacity: 0.4 }}>Check Out</div>
-                  </div>
-                )}
-                <div className={styles.stepArrow}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"/>
-                    <polyline points="19 12 12 19 5 12"/>
-                  </svg>
-                </div>
-                <div className={styles.stepItem}>
-                  <div className={styles.stepIcon}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                      <polyline points="14 2 14 8 20 8"/>
-                      <line x1="16" y1="13" x2="8" y2="13"/>
-                      <line x1="16" y1="17" x2="8" y2="17"/>
-                      <polyline points="10 9 9 9 8 9"/>
-                    </svg>
-                  </div>
-                  <div className={styles.stepText}>Measurement Form</div>
-                </div>
-                <div className={styles.stepArrow}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"/>
-                    <polyline points="19 12 12 19 5 12"/>
-                  </svg>
-                </div>
-                <div className={styles.stepItem}>
-                  <div className={styles.stepIcon}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                      <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                      <line x1="12" y1="22.08" x2="12" y2="12"/>
-                    </svg>
-                  </div>
-                  <div className={styles.stepText}>Receive Your Loupes</div>
-                </div>
-              </div>
+      <main className="min-h-screen bg-black text-neutral-100">
+        <section className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 pb-16 pt-8 lg:grid-cols-[3fr,2.2fr] lg:px-8 lg:pt-10">
+          {/* LEFT – hero image */}
+          <div className="relative min-h-[320px] overflow-hidden rounded-[32px] bg-neutral-900 shadow-[0_0_60px_rgba(0,0,0,0.75)] lg:min-h-[520px]">
+            <Image
+              src="/Galileo/GalileoMain2.png"
+              alt="Galileo loupes hero"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+            <div className="absolute bottom-6 left-6 space-y-1 text-sm text-neutral-100">
+              <p className="text-xs uppercase tracking-[0.2em] text-neutral-300/80">
+                Cart
+              </p>
+              <h1 className="text-2xl font-semibold lg:text-3xl">
+                Review your configuration
+              </h1>
+              <p className="max-w-md text-xs text-neutral-300/80 lg:text-sm">
+                Confirm your loupe system and any add-ons before proceeding to
+                secure Stripe checkout.
+              </p>
             </div>
           </div>
 
-          {/* Right Side - Cart Interface */}
-          <div className={styles.cartInterface}>
-            <div className={styles.cartContent}>
-              {cartItems.length === 0 ? (
-                <div className={styles.emptyCart}>
-                  <h2>Your cart is empty</h2>
-                  <p>Add products from the product page to get started.</p>
-                  <Link href="/product" className={styles.checkoutButton}>
-                    Browse Products
-                  </Link>
-                </div>
+          {/* RIGHT – cart summary + add-ons */}
+          <aside className="flex flex-col gap-6">
+            {/* Main cart content */}
+            <div className="rounded-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)]">
+              <div className="mb-3 flex items-center justify-between">
+                <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                  Order summary
+                </h2>
+                {items.length > 0 && (
+                  <button
+                    onClick={handleEditConfig}
+                    className="text-[0.7rem] uppercase tracking-[0.18em] text-neutral-300 underline-offset-4 hover:underline"
+                  >
+                    Edit selection
+                  </button>
+                )}
+              </div>
+
+              {!items.length ? (
+                <p className="text-sm text-neutral-400">
+                  Your cart is empty. Select a system from the product page to
+                  continue.
+                </p>
               ) : (
-                <>
-                  {/* Scrollable Content Section */}
-                  <div className={styles.scrollableContent}>
-                    {/* Cart Items */}
-                    <div className={styles.cartItemsList}>
-                      {cartItems.map((item, index) => {
-                      // Check if this is the first Apollo item
-                      const isFirstApollo = item.productSlug === 'apollo' && 
-                        !cartItems.slice(0, index).some(i => i.productSlug === 'apollo')
-                      // Get the correct main image for each product
-                      const getProductImage = (slug: string) => {
-                        const imageMap: Record<string, string> = {
-                          'galileo': '/Galileo/GalileoMain2.png',
-                          'newton': '/Newton/NewtonMain.png',
-                          'kepler': '/Keppler/Kfinal.jpg',
-                          'apollo': '/Apollo/Apollofinal.png',
-                        }
-                        return imageMap[slug] || (item.image || '/loupesondesk2.png')
-                      }
-                      const imageSrc = getProductImage(item.productSlug)
-
-                      // Get frame labels for each product
-                      const getFrameLabels = (slug: string): string[] => {
-                        const frameMap: Record<string, string[]> = {
-                          'galileo': ['JJ20', 'JJ21', 'JJ22', 'JJ23', 'JJ24'],
-                          'kepler': ['JJ04', 'JJ21', 'JJ22', 'JJ23', 'JJ24'],
-                          'newton': ['H1', 'H2'],
-                          'apollo': ['JJ04', 'JJ20', 'JJ21', 'JJ22', 'JJ23', 'JJ24'],
-                        }
-                        return frameMap[slug] || []
-                      }
-                      // Get frame image for each product and frame label/name
-                      const getFrameImage = (slug: string, frameLabel: string): string | null => {
-                        const frameImageMap: Record<string, Record<string, string>> = {
-                          'galileo': {
-                            'Galileo1': '/Frames/JJ04B.png',
-                            'Galileo2': '/Frames/JJ20B.png',
-                            'Galileo3': '/Frames/JJ21G.png',
-                            'Galileo4': '/Frames/JJ22B.png',
-                            'Galileo5': '/Frames/JJ23Grey.png',
-                            'Galileo6': '/Frames/JJ24Grey.png',
-                            // Also support old label format for backwards compatibility
-                            'JJ04': '/Frames/JJ04B.png',
-                            'JJ20': '/Frames/JJ20B.png',
-                            'JJ21': '/Frames/JJ21G.png',
-                            'JJ22': '/Frames/JJ22B.png',
-                            'JJ23': '/Frames/JJ23Grey.png',
-                            'JJ24': '/Frames/JJ24Grey.png',
-                          },
-                          'newton': {
-                            'H1': '/Frames/h1black2.png',
-                            'H2': '/Frames/test2.png',
-                          },
-                          'apollo': {
-                            'JJ04': '/Frames/apolloblack.png',
-                            'JJ20': '/Frames/apollored.png',
-                            'JJ21': '/Frames/apollosand.png',
-                            'JJ22': '/Frames/apollogrey.png',
-                            'JJ23': '/Frames/apollomauve.png',
-                          },
-                        }
-                        return frameImageMap[slug]?.[frameLabel] || null
-                      }
-                      const frameLabels = getFrameLabels(item.productSlug)
-                      const selectedFrame = item.selectedFrameName || frameLabels[0] || ''
-                      const selectedFrameImage = item.selectedFrameImage || null
-
-                      return (
-                        <>
-                          {isFirstApollo && (
-                            <div className={styles.cartDivider}></div>
-                          )}
-                          <div key={item.productSlug} className={styles.mainProduct}>
-                          <div className={styles.mainProductTopRow}>
-                            <div className={styles.mainProductImage}>
-                              <Image
-                                src={imageSrc}
-                                alt={item.name}
-                                fill
-                                style={{ objectFit: 'cover' }}
-                              />
-                            </div>
-                            <div className={styles.mainProductInfo}>
-                              <h1 className={styles.mainProductTitle}>{item.shortName}</h1>
-                              <p className={styles.mainProductSubtitle}>Premium optics included</p>
-                              {/* Frame Selection - For all products */}
-                              {frameLabels.length > 0 && (
-                                <div className={styles.frameSelection}>
-                                  {selectedFrameImage && (
-                                    <div className={styles.frameIcon}>
-                                      <Image
-                                        src={selectedFrameImage}
-                                        alt={selectedFrame}
-                                        fill
-                                        style={{ objectFit: 'cover' }}
-                                      />
-                                    </div>
-                                  )}
-                                  <span className={styles.frameLabel}>Frame:</span>
-                                </div>
-                              )}
-                              {/* Magnification Selection - For Galileo, Newton, Apollo, Kepler */}
-                              {item.selectedMagnification && (
-                                <div className={styles.magnificationSelection}>
-                                  <div className={styles.magnificationIconStatic}>
-                                    <span className={styles.magnificationValueStatic}>{item.selectedMagnification}</span>
-                                  </div>
-                                  <span className={styles.magnificationLabel}>Magnification:</span>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div className={styles.mainProductPriceRow}>
-                            <span className={styles.mainProductPrice}>${item.price}</span>
-                            <div className={styles.quantitySelector}>
-                              <button 
-                                className={styles.quantityButton} 
-                                onClick={() => updateQuantity(item.productSlug, Math.max(1, item.quantity - 1))}
-                                aria-label="Decrease quantity"
-                              >
-                                −
-                              </button>
-                              <span className={styles.quantityValue}>{item.quantity}</span>
-                              <button 
-                                className={styles.quantityButton} 
-                                onClick={() => updateQuantity(item.productSlug, item.quantity + 1)}
-                                aria-label="Increase quantity"
-                              >
-                                +
-                              </button>
-                            </div>
-                            <button
-                              className={styles.removeButton}
-                              onClick={() => removeItem(item.productSlug)}
-                              aria-label="Remove item"
-                            >
-                              Remove
-                            </button>
-                          </div>
-                        </div>
-                        </>
-                      )
-                    })}
-                    </div>
-
-                    {/* Add-ons Section */}
-                    <div className={styles.addOnsSection}>
-                    <h2 className={styles.addOnsTitle}>Complete your HeliosX Setup</h2>
-                    {addOnProducts.map((item) => (
-                      <div 
-                        key={item.id} 
-                        className={`${styles.addOnItem} ${item.quantity > 0 ? styles.addOnItemSelected : ''} ${item.id === 'cleaningKit' ? styles.addOnItemDisabled : ''}`}
-                        onClick={() => {
-                          if (item.id !== 'cleaningKit') {
-                            const newQuantity = item.quantity === 0 ? 1 : 0
-                            
-                            // Update local state
-                            const updatedAddOns = {
-                              ...addOns,
-                              [item.id]: newQuantity,
-                            }
-                            setAddOns(updatedAddOns)
-                            item.setQuantity(newQuantity)
-                            
-                            // Update cart items with add-on selections
-                            updateCartAddOns(updatedAddOns.case > 0, updatedAddOns.warranty > 0)
-                          }
-                        }}
-                        style={item.id === 'cleaningKit' ? { cursor: 'default' } : {}}
-                      >
-                        <div className={styles.addOnImage}>
+                <ul className="space-y-5">
+                  {items.map((item, idx) => (
+                    <li
+                      key={`${item.productSlug}-${idx}`}
+                      className="flex gap-4 rounded-2xl bg-black/40 p-4"
+                    >
+                      <div className="relative h-20 w-28 overflow-hidden rounded-2xl bg-neutral-800">
+                        {item.image ? (
                           <Image
                             src={item.image}
                             alt={item.name}
                             fill
-                            style={{ objectFit: 'cover' }}
+                            className="object-cover"
                           />
-                          {item.quantity > 0 && (
-                            <div className={styles.checkmarkOverlay}>
-                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                              </svg>
-                            </div>
-                          )}
-                        </div>
-                        <div className={styles.addOnInfo}>
-                          <h3 className={styles.addOnName}>{item.name}</h3>
-                          <p className={styles.addOnDescription}>{item.description}</p>
-                          <span className={styles.addOnPrice}>${item.price}</span>
-                        </div>
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center text-xs text-neutral-500">
+                            No image
+                          </div>
+                        )}
                       </div>
-                    ))}
-                    </div>
-                  </div>
 
-                  {/* Footer Section */}
-                  <div className={styles.cartFooter}>
-                    <div className={styles.guarantees}>
-                      <span>Secure Payments</span>
-                      <span>30-Day Guarantee</span>
-                    </div>
-                    <div className={styles.totalSection}>
-                      <div className={styles.totalRow}>
-                        <span className={styles.totalLabel}>Total · {totalItems} {totalItems === 1 ? 'item' : 'items'}</span>
-                        <span className={styles.totalPrice}>${total}</span>
+                      <div className="flex flex-1 flex-col justify-between text-xs lg:text-sm">
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <p className="text-[0.7rem] uppercase tracking-[0.2em] text-neutral-400">
+                              {item.shortName ?? item.productSlug}
+                            </p>
+                            <p className="mt-1 text-sm font-medium text-neutral-50">
+                              {item.name}
+                            </p>
+                            <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-[0.7rem] text-neutral-300">
+                              {item.magnification && (
+                                <span>Mag: {item.magnification}</span>
+                              )}
+                              {item.frameStyle && (
+                                <span>Frame: {item.frameStyle}</span>
+                              )}
+                              {item.frameColor && (
+                                <span>Color: {item.frameColor}</span>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Remove button */}
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveItem(idx)}
+                            className="text-[0.65rem] text-neutral-500 hover:text-red-400"
+                          >
+                            Remove
+                          </button>
+                        </div>
+
+                        <div className="mt-2 flex items-center justify-between text-xs text-neutral-300">
+                          <span>Qty: {item.quantity}</span>
+                          <span className="text-sm font-semibold text-neutral-50">
+                            ${(item.price * item.quantity).toFixed(2)}
+                          </span>
+                        </div>
                       </div>
-                      <p className={styles.shippingNote}>Ships within 3-5 business days</p>
-                    </div>
-                    <div className={styles.checkoutSection}>
-                      <Link 
-                        href={buildCheckoutQuery()}
-                        className={styles.checkoutButton}
-                      >
-                        CHECKOUT
-                      </Link>
-                    </div>
-                  </div>
-                </>
+                    </li>
+                  ))}
+                </ul>
               )}
             </div>
-          </div>
-        </div>
+
+            {/* Add-ons */}
+            <div className="rounded-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)]">
+              <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                Optional add-ons
+              </h3>
+
+              <div className="space-y-4 text-sm text-neutral-200">
+                {/* Prescription lenses */}
+                <button
+                  type="button"
+                  onClick={() =>
+                    setIncludePrescription((prev) => !prev)
+                  }
+                  className={`flex w-full items-start justify-between rounded-2xl border px-4 py-3 text-left transition ${
+                    includePrescription
+                      ? 'border-white/70 bg-white/10'
+                      : 'border-white/10 bg-black/40 hover:border-white/30'
+                  }`}
+                >
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
+                      Prescription lenses
+                    </p>
+                    <p className="mt-1 text-sm text-neutral-100">
+                      Integrate your spectacle Rx directly into the system.
+                    </p>
+                    <p className="mt-1 text-[0.7rem] text-neutral-400">
+                      You&apos;ll upload your prescription and PD after
+                      checkout.
+                    </p>
+                  </div>
+                  <span className="ml-4 whitespace-nowrap text-sm font-semibold text-neutral-50">
+                    +${PRESCRIPTION_ESTIMATE}
+                  </span>
+                </button>
+
+                {/* Extended warranty */}
+                <button
+                  type="button"
+                  onClick={() => setIncludeWarranty((prev) => !prev)}
+                  className={`flex w-full items-start justify-between rounded-2xl border px-4 py-3 text-left transition ${
+                    includeWarranty
+                      ? 'border-white/70 bg-white/10'
+                      : 'border-white/10 bg-black/40 hover:border-white/30'
+                  }`}
+                >
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
+                      Extended warranty
+                    </p>
+                    <p className="mt-1 text-sm text-neutral-100">
+                      Extra coverage beyond the standard manufacturing
+                      warranty.
+                    </p>
+                    <p className="mt-1 text-[0.7rem] text-neutral-400">
+                      Covers qualifying defects and select repairs within the
+                      extended term.
+                    </p>
+                  </div>
+                  <span className="ml-4 whitespace-nowrap text-sm font-semibold text-neutral-50">
+                    +${WARRANTY_ESTIMATE}
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* Totals + CTA */}
+            <div className="rounded-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)]">
+              <div className="mb-2 flex items-center justify-between text-sm text-neutral-300">
+                <span>Items subtotal</span>
+                <span>${baseSubtotal.toFixed(2)}</span>
+              </div>
+              <div className="mb-4 flex items-center justify-between text-sm text-neutral-300">
+                <span>Add-ons</span>
+                <span>${addOnTotal.toFixed(2)}</span>
+              </div>
+              <div className="mb-4 flex items-center justify-between text-sm font-semibold text-neutral-50">
+                <span>Total</span>
+                <span>${subtotal.toFixed(2)}</span>
+              </div>
+
+              <button
+                disabled={!items.length}
+                onClick={handleCheckout}
+                className="flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-black shadow-[0_0_40px_rgba(255,255,255,0.25)] transition hover:translate-y-[1px] hover:bg-neutral-100 disabled:cursor-not-allowed disabled:bg-neutral-500 disabled:text-neutral-200 disabled:shadow-none"
+              >
+                Proceed to payment
+              </button>
+              <p className="mt-3 text-[0.65rem] text-neutral-500">
+                Test mode only – payments are processed in Stripe&apos;s sandbox
+                environment.
+              </p>
+            </div>
+          </aside>
+        </section>
       </main>
     </>
-  )
-}
-
-export default function CartPage() {
-  return (
-    <Suspense fallback={
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div>Loading...</div>
-      </div>
-    }>
-      <CartContent />
-    </Suspense>
   )
 }

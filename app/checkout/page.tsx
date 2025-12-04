@@ -1,382 +1,220 @@
 'use client'
 
-import { useEffect, useRef, useState, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
-import Script from 'next/script'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { loadStripe } from '@stripe/stripe-js'
 import Header from '@/components/Header'
-import Image from 'next/image'
-import Link from 'next/link'
-import { getCart, type CartItem } from '@/lib/cart'
-import styles from './Checkout.module.css'
+import { getCart } from '@/lib/cart'
 
-declare global {
-  interface Window {
-    Stripe: any
-  }
+type CartItem = {
+  productSlug: string
+  name: string
+  shortName?: string
+  image?: string
+  price: number
+  quantity: number
+  frameStyle?: string
+  frameColor?: string
+  magnification?: string
+  // add-on related:
+  isAddon?: boolean
+  stripePriceId?: string
 }
 
-function CheckoutContent() {
-  const searchParams = useSearchParams()
-  const productSlug = searchParams.get('product') || 'galileo'
-  const selectedImage = searchParams.get('image') || null
-  const checkoutRef = useRef<HTMLDivElement>(null)
-  const stripeRef = useRef<any>(null)
-  const checkoutInstanceRef = useRef<any>(null)
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
-  
-  // Product data
-  const productData: Record<string, {
-    name: string
-    shortName: string
-    price: number
-    image: string
-  }> = {
-    'galileo': {
-      name: 'Galileo Surgical Loupes',
-      shortName: 'Galileo',
-      price: 499,
-      image: '/loupesondesk2.png',
-    },
-    'kepler': {
-      name: 'Kepler Surgical Loupes',
-      shortName: 'Kepler',
-      price: 549,
-      image: '/loupesondesk2.png',
-    },
-    'apollo': {
-      name: 'Apollo Surgical Loupes',
-      shortName: 'Apollo',
-      price: 599,
-      image: '/loupesondesk2.png',
-    },
-    'newton': {
-      name: 'Newton Surgical Loupes',
-      shortName: 'Newton',
-      price: 449,
-      image: '/loupesondesk2.png',
-    },
-  }
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+)
 
-  // Get the correct main image for each product
-  const getProductImage = () => {
-    if (productSlug === 'galileo') {
-      return '/GalileoMain2.png'
-    } else if (productSlug === 'newton') {
-      return '/NewtonMain.png'
-    } else if (productSlug === 'apollo') {
-      return '/Apollofinal.png'
-    } else if (productSlug === 'kepler') {
-      return '/Kfinal.jpg'
-    }
-    return selectedImage || productData[productSlug]?.image || '/loupesondesk2.png'
-  }
-  const productImage = getProductImage()
-  const product = productData[productSlug] || productData['galileo']
-  const quantity = parseInt(searchParams.get('quantity') || '1')
-  const subtotal = product.price * quantity
-
-  // Get all cart items and reload when cart updates
-  useEffect(() => {
-    const loadCart = () => {
-      const freshCart = getCart()
-      setCartItems(freshCart)
-      console.log('Cart updated on checkout page:', freshCart)
-    }
-    loadCart()
-    
-    // Listen for cart updates
-    window.addEventListener('cartUpdated', loadCart)
-    
-    return () => {
-      window.removeEventListener('cartUpdated', loadCart)
-    }
-  }, [])
-
-  // Get the correct main image for each product
-  const getProductImageForItem = (slug: string) => {
-    const imageMap: Record<string, string> = {
-      'galileo': '/Galileo/GalileoMain2.png',
-      'newton': '/Newton/NewtonMain.png',
-      'kepler': '/Keppler/Kfinal.jpg',
-      'apollo': '/Apollo/Apollofinal.png',
-    }
-    return imageMap[slug] || '/loupesondesk2.png'
-  }
-
-  // Calculate total from all cart items
-  const totalSubtotal = cartItems.length > 0 
-    ? cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-    : subtotal
+export default function CheckoutPage() {
+  const [items, setItems] = useState<CartItem[]>([])
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
-    const initialize = async () => {
-      if (!window.Stripe || !checkoutRef.current) return
-      
-      // Destroy existing checkout instance if it exists
-      if (checkoutInstanceRef.current) {
-        checkoutInstanceRef.current.destroy()
-        checkoutInstanceRef.current = null
-      }
-      
-      try {
-        const stripe = window.Stripe('pk_test_51SV0NsLQ1qA2EZ9RUpWkvsfIuAp1G87iVvdp41hAmMG8Arbu4gTEvW3A5Ophytue5qwxuEwfMYpx7iHb6XnS7UBk006u9dGB2G')
-        stripeRef.current = stripe
+    const cart = getCart() as CartItem[] | undefined
+    if (!cart || !cart.length) {
+      router.replace('/cart')
+      return
+    }
 
-        // Get fresh cart data right before creating session
-        const freshCart = getCart()
-        const itemsToSend = freshCart.length > 0 ? freshCart.map((item: any) => ({
-          productSlug: item.productSlug,
-          quantity: item.quantity,
-          price: item.price,
-          stripeProductId: item.stripeProductId || null,
-          selectedMagnification: item.selectedMagnification || null,
-          hasPrescriptionLenses: item.hasPrescriptionLenses || false,
-          hasExtendedWarranty: item.hasExtendedWarranty || false,
-        })) : [{
-          productSlug: productSlug,
-          quantity: quantity,
-          price: product.price,
-          stripeProductId: null,
-          selectedMagnification: null,
-          hasPrescriptionLenses: false,
-          hasExtendedWarranty: false,
-        }]
-        
-        console.log('Creating Stripe session with cart items:', itemsToSend)
+    let mergedItems: CartItem[] = [...cart]
 
-        const fetchClientSecret = async () => {
-          const response = await fetch('/api/create-checkout-session', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              cartItems: itemsToSend,
-            }),
-          })
-          const { clientSecret } = await response.json()
-          return clientSecret
+    // Read add-ons from sessionStorage (set in /cart)
+    if (typeof window !== 'undefined') {
+      const raw = sessionStorage.getItem('heliosx_addons')
+      if (raw) {
+        try {
+          const flags = JSON.parse(raw) as {
+            prescription?: boolean
+            warranty?: boolean
+          }
+
+          if (flags.prescription) {
+            mergedItems.push({
+              productSlug: 'prescription-lenses',
+              name: 'Prescription Lenses',
+              price: 0, // actual price comes from Stripe price ID
+              quantity: 1,
+              isAddon: true,
+              stripePriceId:
+                process.env.NEXT_PUBLIC_STRIPE_PRICE_PRESCRIPTION,
+            })
+          }
+
+          if (flags.warranty) {
+            mergedItems.push({
+              productSlug: 'extended-warranty',
+              name: 'Extended Warranty',
+              price: 0,
+              quantity: 1,
+              isAddon: true,
+              stripePriceId:
+                process.env.NEXT_PUBLIC_STRIPE_PRICE_WARRANTY,
+            })
+          }
+        } catch (e) {
+          console.error('Failed to parse add-on flags', e)
         }
-
-        const checkout = await stripe.initEmbeddedCheckout({
-          fetchClientSecret,
-        })
-
-        checkoutInstanceRef.current = checkout
-        checkout.mount(checkoutRef.current)
-      } catch (error) {
-        console.error('Error initializing checkout:', error)
       }
     }
 
-    if (window.Stripe && checkoutRef.current) {
-      // Small delay to ensure cart is fully updated
-      const timeoutId = setTimeout(() => {
-        initialize()
-      }, 100)
-      
-      return () => {
-        clearTimeout(timeoutId)
-        if (checkoutInstanceRef.current) {
-          checkoutInstanceRef.current.destroy()
-        }
+    setItems(mergedItems)
+  }, [router])
+
+  const subtotal = items.reduce(
+    (sum, item) => sum + item.price * (item.isAddon ? 0 : item.quantity),
+    0
+  )
+
+  const handleStripeCheckout = async () => {
+    if (!items.length || loading) return
+
+    setLoading(true)
+
+    try {
+      const stripe = await stripePromise
+      if (!stripe) {
+        console.error('Stripe failed to load')
+        setLoading(false)
+        return
       }
-    } else {
-      // Wait for Stripe to load
-      const checkInterval = setInterval(() => {
-        if (window.Stripe && checkoutRef.current) {
-          clearInterval(checkInterval)
-          // Small delay to ensure cart is fully updated
-          setTimeout(() => {
-            initialize()
-          }, 100)
-        }
-      }, 100)
-      
-      return () => {
-        clearInterval(checkInterval)
-        if (checkoutInstanceRef.current) {
-          checkoutInstanceRef.current.destroy()
-        }
+
+      const res = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items }),
+      })
+
+      if (!res.ok) {
+        console.error('Failed to create checkout session')
+        setLoading(false)
+        return
       }
+
+      const data = await res.json()
+
+      const { error } = await (stripe as any).redirectToCheckout({
+        sessionId: data.id,
+      })
+
+      if (error) {
+        console.error(error.message)
+      }
+    } catch (err) {
+      console.error('Stripe checkout error', err)
+    } finally {
+      setLoading(false)
     }
-  }, [cartItems, productSlug, quantity])
+  }
 
   return (
     <>
-      <Script
-        src="https://js.stripe.com/clover/stripe.js"
-        strategy="lazyOnload"
-        onLoad={() => {
-          // Stripe script loaded
-        }}
-      />
       <Header />
-      <main className={styles.checkoutPage}>
-        {/* Logo in Top Margin */}
-        <div className={styles.topMargin}>
-          <Link href="/" className={styles.logo}>
-            <Image
-              src="/LogoMinimal.png"
-              alt="HeliosX"
-              width={300}
-              height={90}
-              priority
-            />
-          </Link>
-        </div>
-        <div className={styles.checkoutLayout}>
-          {/* Left Column - Stripe Embedded Checkout */}
-          <div className={styles.checkoutForm}>
-            <div className={styles.checkoutContent}>
-              <div className={styles.stripeCheckoutWrapper}>
-                <div id="checkout" ref={checkoutRef}></div>
-              </div>
+      <main className="min-h-screen bg-black text-neutral-100">
+        <section className="mx-auto flex max-w-4xl flex-col gap-8 px-4 pb-16 pt-10 lg:flex-row lg:px-8">
+          <div className="flex-1 rounded-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 p-6 shadow-[0_0_50px_rgba(0,0,0,0.7)]">
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
+              Payment
+            </p>
+            <h1 className="mt-2 text-2xl font-semibold lg:text-3xl">
+              Secure checkout
+            </h1>
+            <p className="mt-2 text-sm text-neutral-300">
+              You&apos;ll complete payment in Stripe&apos;s encrypted checkout.
+              All orders here are in test mode.
+            </p>
+
+            <div className="mt-6 space-y-4 text-sm text-neutral-200">
+              {items.map((item, idx) => (
+                <div
+                  key={`${item.productSlug}-${idx}`}
+                  className="rounded-2xl bg-black/50 p-4"
+                >
+                  <p className="text-[0.7rem] uppercase tracking-[0.2em] text-neutral-400">
+                    {item.isAddon
+                      ? 'Add-on'
+                      : item.shortName ?? item.productSlug}
+                  </p>
+                  <p className="mt-1 text-sm font-medium">{item.name}</p>
+                  {!item.isAddon && (
+                    <>
+                      <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-[0.7rem] text-neutral-300">
+                        {item.magnification && (
+                          <span>Mag: {item.magnification}</span>
+                        )}
+                        {item.frameStyle && (
+                          <span>Frame: {item.frameStyle}</span>
+                        )}
+                        {item.frameColor && (
+                          <span>Color: {item.frameColor}</span>
+                        )}
+                      </div>
+                      <div className="mt-2 flex items-center justify-between text-xs text-neutral-300">
+                        <span>Qty: {item.quantity}</span>
+                        <span className="text-sm font-semibold text-neutral-50">
+                          ${(item.price * item.quantity).toFixed(2)}
+                        </span>
+                      </div>
+                    </>
+                  )}
+                  {item.isAddon && (
+                    <p className="mt-1 text-[0.7rem] text-neutral-400">
+                      Billed via linked Stripe price ID.
+                    </p>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Right Column - Order Summary */}
-          <div className={styles.orderSummary}>
-            <div className={styles.orderSummaryContent}>
-              {(cartItems.length > 0 ? cartItems : [{
-                productSlug: productSlug,
-                name: product.name,
-                shortName: product.shortName,
-                price: product.price,
-                quantity: quantity,
-                image: productImage,
-                selectedFrameImage: null, // Will try to get from cart if available
-              }]).map((item, index) => {
-                const itemImage = cartItems.length > 0 
-                  ? getProductImageForItem(item.productSlug)
-                  : productImage
-                const itemName = cartItems.length > 0 
-                  ? (productData[item.productSlug]?.shortName || item.shortName || 'Unknown Item')
-                  : (product.shortName || 'Unknown Item')
-                const itemPrice = item.price
-                const itemQuantity = item.quantity
-                
-                const frameImage = cartItems.length > 0 
-                  ? (item.selectedFrameImage || null)
-                  : null
-                
-                const selectedMagnification = cartItems.length > 0 
-                  ? (item.selectedMagnification || null)
-                  : null
-                
-                const hasPrescriptionLenses = cartItems.length > 0 
-                  ? (item.hasPrescriptionLenses || false)
-                  : false
-                
-                const hasExtendedWarranty = cartItems.length > 0 
-                  ? (item.hasExtendedWarranty || false)
-                  : false
-                
-                return (
-                  <div key={`${item.productSlug}-${index}`} className={styles.orderItem}>
-                    <div className={styles.orderItemImageContainer}>
-                      <div className={styles.orderItemImage}>
-                        <Image
-                          src={itemImage}
-                          alt={itemName}
-                          fill
-                          style={{ objectFit: 'cover' }}
-                        />
-                        <div className={styles.quantityBadge}>{itemQuantity}</div>
-                      </div>
-                      {frameImage && (
-                        <div className={styles.frameImageContainer}>
-                          <Image
-                            src={frameImage}
-                            alt="Selected Frame"
-                            fill
-                            style={{ objectFit: 'cover' }}
-                          />
-                        </div>
-                      )}
-                      <div className={styles.selectionIconsContainer}>
-                        {selectedMagnification && (
-                          <div className={styles.magnificationImageContainer}>
-                            <div className={styles.magnificationIconStatic}>
-                              <span className={styles.magnificationValueStatic}>{selectedMagnification}</span>
-                            </div>
-                          </div>
-                        )}
-                        {hasPrescriptionLenses && (
-                          <div className={styles.addOnIconContainer}>
-                            <div className={styles.addOnIcon}>
-                              <span className={styles.addOnIconText}>RX</span>
-                            </div>
-                          </div>
-                        )}
-                        {hasExtendedWarranty && (
-                          <div className={styles.addOnIconContainer}>
-                            <div className={styles.addOnIcon}>
-                              <span className={styles.addOnIconText}>W</span>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className={styles.orderItemInfo}>
-                      <h3 className={styles.orderItemName}>{itemName}</h3>
-                      <p className={styles.orderItemPrice}>${itemPrice.toFixed(2)}</p>
-                    </div>
-                  </div>
-                )
-              })}
-
-              <div className={styles.discountSection}>
-                <input
-                  type="text"
-                  placeholder="Discount code"
-                  className={styles.discountInput}
-                />
-                <button type="button" className={styles.applyButton}>Apply</button>
-              </div>
-
-              <div className={styles.priceBreakdown}>
-                <div className={styles.priceRow}>
-                  <span>Subtotal</span>
-                  <span>${totalSubtotal.toFixed(2)}</span>
-                </div>
-                <div className={styles.priceRow}>
-                  <span>Shipping</span>
-                  <span className={styles.placeholderText}>Enter shipping address</span>
-                </div>
-                <div className={styles.priceRowTotal}>
-                  <span>Total</span>
-                  <span>USD ${totalSubtotal.toFixed(2)}</span>
-                </div>
-              </div>
-
-              <div className={styles.shippingRegions}>
-                <h3 className={styles.shippingRegionsTitle}>Shipping Regions</h3>
-                <div className={styles.shippingRegionsContent}>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <line x1="12" y1="16" x2="12" y2="12"/>
-                    <line x1="12" y1="8" x2="12.01" y2="8"/>
-                  </svg>
-                  <p>HeliosX currently ships only to the USA, Canada, Europe, Australia, New Zealand, Malaysia, Singapore, and Japan.</p>
-                </div>
-              </div>
+          <aside className="w-full max-w-sm rounded-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 p-6 shadow-[0_0_50px_rgba(0,0,0,0.7)]">
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-neutral-400">
+              Total (excluding add-ons shown on Stripe)
+            </h2>
+            <div className="mb-3 flex items-center justify-between text-sm text-neutral-300">
+              <span>Base loupes subtotal</span>
+              <span className="text-lg font-semibold text-neutral-50">
+                ${subtotal.toFixed(2)}
+              </span>
             </div>
-          </div>
-        </div>
+            <p className="mb-4 text-[0.7rem] text-neutral-400">
+              Final itemized total, including prescription lenses and extended
+              warranty, will be displayed directly in Stripe.
+            </p>
+            <button
+              onClick={handleStripeCheckout}
+              disabled={loading || !items.length}
+              className="flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-black shadow-[0_0_40px_rgba(255,255,255,0.25)] transition hover:translate-y-[1px] hover:bg-neutral-100 disabled:cursor-not-allowed disabled:bg-neutral-500 disabled:text-neutral-200 disabled:shadow-none"
+            >
+              {loading ? 'Redirecting…' : 'Pay with Stripe (test mode)'}
+            </button>
+            <p className="mt-3 text-[0.65rem] text-neutral-500">
+              Use Stripe test cards (e.g. 4242 4242 4242 4242, any future date,
+              any CVC) while you&apos;re in development.
+            </p>
+          </aside>
+        </section>
       </main>
     </>
-  )
-}
-
-export default function CheckoutPage() {
-  return (
-    <Suspense fallback={
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div>Loading...</div>
-      </div>
-    }>
-      <CheckoutContent />
-    </Suspense>
   )
 }

@@ -1,52 +1,54 @@
 'use client'
 
 import Link from 'next/link'
-
 import Image from 'next/image'
-
 import CartButton from '../CartButton'
 
 export default function Header() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
-        {/* Logo */}
+    <header className="sticky top-0 z-40 border-b border-white/5 bg-gradient-to-b from-black/95 via-black/90 to-black/80 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-3 lg:px-10 xl:px-16">
+        {/* Left: logo + wordmark (matches home2 style) */}
         <Link href="/home2" className="flex items-center gap-2">
           <Image
             src="/logominimalnowriting.png"
-            alt="HeliosX Logo"
-            width={28}
-            height={28}
-            className="object-contain brightness-0 invert"
+            alt="HeliosX logo"
+            width={32}
+            height={32}
+            className="h-8 w-8 object-contain brightness-0 invert"
+            priority
           />
-          <span className="text-sm font-semibold tracking-[0.25em] uppercase">
-            heliosX
+          <span className="hidden text-sm font-semibold uppercase tracking-[0.35em] text-neutral-200 sm:inline">
+            HELIOSX
           </span>
         </Link>
 
-        {/* Nav */}
-        <nav className="hidden items-center gap-8 text-sm text-white/70 md:flex">
-          <Link href="/product" className="hover:text-white transition-colors">
+        {/* Center: nav (Product / Features / Story / FAQ) */}
+        <nav className="hidden items-center gap-6 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-neutral-300 md:flex">
+          <Link href="/home2" className="transition hover:text-white">
+            Home
+          </Link>
+          <Link href="/product2" className="transition hover:text-white">
             Product
           </Link>
-          <Link href="/home2#features" className="hover:text-white transition-colors">
+          <Link href="/features" className="transition hover:text-white">
             Features
           </Link>
-          <Link href="/home2#story" className="hover:text-white transition-colors">
+          <Link href="/story" className="transition hover:text-white">
             Story
           </Link>
-          <Link href="/faq" className="hover:text-white transition-colors">
+          <Link href="/faq" className="transition hover:text-white">
             FAQ
           </Link>
         </nav>
 
-        {/* Right: cart + CTA */}
+        {/* Right: Cart + Order CTA */}
         <div className="flex items-center gap-3">
           <CartButton />
 
           <Link
-            href="/product"
-            className="rounded-full border border-white/20 bg-white text-black px-4 py-1.5 text-sm font-medium shadow-lg shadow-white/10 hover:bg-neutral-200 transition-colors"
+            href="/product2"
+            className="hidden rounded-full bg-white px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-black shadow-[0_0_32px_rgba(255,255,255,0.7)] transition hover:bg-neutral-100 md:inline-flex"
           >
             Order now
           </Link>

@@ -51,17 +51,41 @@
   align-items: center;
   justify-content: center;
   transition: background-color 0.1s ease-out;
+  /* Performance optimizations */
+  will-change: transform, opacity;
+  transform: translate3d(-50%, -50%, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 @media (max-width: 768px) {
   .hero {
     padding-top: calc(var(--header-height) + 1rem);
+    /* Disable smooth scrolling on mobile for better performance */
+    -webkit-overflow-scrolling: touch;
   }
 
   .device {
     width: calc(100vw - 1rem);
     height: calc(100vh - 1rem);
     border-radius: 12px;
+    /* Mobile performance: remove all transitions, use GPU acceleration */
+    transition: none !important;
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform, opacity;
+  }
+
+  /* Remove transitions from all animated elements on mobile */
+  .videoThumbnail {
+    transition: none !important;
+  }
+
+  .orderNowFixedSection {
+    transition: none !important;
+  }
+
+  .heroImageLayer {
+    transition: none !important;
   }
 
   .homeLogoContainer {
@@ -73,9 +97,9 @@
   }
 
   .imageTextOverlay {
-    top: 6rem;
-    left: 1.5rem;
-    max-width: calc(100vw - 3rem);
+    top: clamp(14rem, 30vw, 18rem) !important;
+    left: 1.5rem !important;
+    max-width: calc(100vw - 3rem) !important;
   }
 
   .imageHeadline {
@@ -129,6 +153,15 @@
   .imageTextLine {
     font-size: clamp(0.875rem, 3vw, 1.125rem);
   }
+
+  /* Hide newsletter and order now button on mobile */
+  .orderNowFixedSection {
+    display: none !important;
+  }
+
+  .bottomNewsletter {
+    display: none !important;
+  }
 }
 
 .deviceScreen {
@@ -146,6 +179,10 @@
   transform: translateZ(0);
   will-change: transform;
   backface-visibility: hidden;
+  /* Mobile performance optimizations */
+  -webkit-overflow-scrolling: touch;
+  -webkit-font-smoothing: antialiased;
+  contain: layout style paint;
 }
 
 .heroImageLayer {
@@ -195,27 +232,36 @@
 
 .imageTextOverlay {
   position: absolute;
-  top: 10rem;
-  left: 7rem;
+  top: clamp(6rem, 10vw, 10rem);
+  left: clamp(2rem, 7vw, 7rem);
   z-index: 10;
-  max-width: 600px;
+  max-width: clamp(300px, 50vw, 600px);
   pointer-events: none;
+}
+
+/* Mobile override - must come after base styles */
+@media (max-width: 768px) {
+  .imageTextOverlay {
+    top: clamp(18rem, 35vw, 22rem) !important;
+    left: 1.5rem !important;
+    max-width: calc(100vw - 3rem) !important;
+  }
 }
 
 .imageHeadline {
   font-family: var(--font-serif, 'Georgia', serif);
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(1.75rem, 5vw, 4.5rem);
   font-weight: 400;
   line-height: 1.1;
   color: #ffffff;
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 clamp(0.75rem, 1.5vw, 1.5rem) 0;
   letter-spacing: -0.02em;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .imageSubheadline {
   font-family: var(--font-system, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
-  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-size: clamp(0.875rem, 2.5vw, 1.75rem);
   font-weight: 400;
   line-height: 1.5;
   color: #ffffff;
@@ -281,15 +327,15 @@
 
 .videoThumbnail {
   position: fixed;
-  bottom: 4rem;
-  left: 4rem;
-  width: min(600px, 45vw);
+  bottom: clamp(2rem, 4vw, 4rem);
+  left: clamp(1rem, 4vw, 4rem);
+  width: clamp(200px, 45vw, 600px);
   aspect-ratio: 16 / 9;
   z-index: 3;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: clamp(8px, 1.2vw, 12px);
   overflow: hidden;
-  border: 3px solid #FF9B00; /* Orange border matching Order Now button */
+  border: clamp(2px, 0.3vw, 3px) solid #FF9B00; /* Orange border matching Order Now button */
   box-shadow: 0 8px 24px rgba(255, 155, 0, 0.2);
   transition: opacity 0.15s ease-out, transform 0.15s ease-out, box-shadow 0.3s ease;
   will-change: transform, opacity;
@@ -327,8 +373,8 @@
 }
 
 .playButton {
-  width: 80px;
-  height: 80px;
+  width: clamp(48px, 8vw, 80px);
+  height: clamp(48px, 8vw, 80px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1180,21 +1226,6 @@
     border-radius: 16px;
   }
 
-  .imageTextOverlay {
-    top: 2rem;
-    left: 2rem;
-    max-width: 85%;
-  }
-
-  .imageHeadline {
-    font-size: clamp(1.75rem, 6vw, 2.5rem);
-    margin-bottom: 1rem;
-  }
-
-  .imageSubheadline {
-    font-size: clamp(1rem, 3vw, 1.125rem);
-  }
-
   .device2 {
     width: calc(100vw - 3rem);
     height: calc(100vh - 3rem);
@@ -1207,31 +1238,6 @@
     border-radius: 16px;
   }
 
-  .videoThumbnail {
-    bottom: 3rem;
-    left: 3rem;
-    width: min(450px, 50vw);
-  }
-
-  .orderNowSection {
-    bottom: 3rem;
-  }
-
-  .orderNowButton {
-    padding: 0.875rem 2rem;
-    font-size: 0.875rem;
-  }
-
-  .playButton {
-    width: 56px;
-    height: 56px;
-  }
-
-  .playButton svg {
-    width: 24px;
-    height: 24px;
-  }
-
   .animatedText {
     font-size: clamp(1.5rem, 8vw, 3rem);
   }
@@ -1240,12 +1246,12 @@
 /* Order Now Section - Anchored to device 1 */
 .orderNowFixedSection {
   position: fixed;
-  bottom: calc(3rem + 6rem);
-  right: calc(4rem + 6rem);
+  bottom: clamp(2rem, calc(3rem + 6vw), calc(3rem + 6rem));
+  right: clamp(1rem, calc(4rem + 6vw), calc(4rem + 6rem));
   z-index: 40;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: clamp(0.75rem, 1vw, 1rem);
   align-items: center;
   transition: opacity 0.15s ease-out, transform 0.15s ease-out;
   will-change: transform, opacity;
@@ -1259,11 +1265,11 @@
 
 .bottomNewsletter {
   background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(245, 240, 232, 0.9));
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  padding: 1.25rem 2rem;
+  border: clamp(1px, 0.1vw, 1px) solid rgba(0, 0, 0, 0.2);
+  border-radius: clamp(6px, 0.8vw, 8px);
+  padding: clamp(1rem, 1.25vw, 1.25rem) clamp(1.5rem, 2vw, 2rem);
   position: relative;
-  max-width: 360px;
+  max-width: clamp(280px, 30vw, 360px);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   transform: translateZ(0) scale(1);
@@ -1320,15 +1326,15 @@
 
 .bottomNewsletterTitle {
   font-family: var(--font-system);
-  font-size: 32px;
+  font-size: clamp(1.5rem, 3.2vw, 32px);
   font-weight: 600;
   color: #000000;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 clamp(0.375rem, 0.5vw, 0.5rem) 0;
 }
 
 .bottomNewsletterText {
   font-family: var(--font-system);
-  font-size: 14px;
+  font-size: clamp(0.75rem, 1.4vw, 14px);
   font-weight: 700;
   color: #666666;
   margin: 0;
@@ -1425,13 +1431,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem 4rem;
-  border-radius: 12px; /* Less rounded, more rectangular */
+  padding: clamp(0.875rem, 1.5vw, 1.5rem) clamp(2rem, 4vw, 4rem);
+  border-radius: clamp(8px, 1.2vw, 12px); /* Less rounded, more rectangular */
   background: #FF9B00; /* Orange */
   color: #000000; /* Dark/black text */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: clamp(0.875rem, 1.25vw, 1.25rem);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
@@ -1441,7 +1447,7 @@
   border: none;
   position: relative;
   overflow: hidden;
-  min-width: 360px;
+  min-width: clamp(240px, 30vw, 360px);
   width: 100%;
 }
 
@@ -1471,19 +1477,3 @@
   transform: translateY(0);
 }
 
-@media (max-width: 768px) {
-  .orderNowFixedSection {
-    bottom: calc(2rem + 4rem);
-    right: calc(3rem + 4rem);
-  }
-
-  .stockStatusFixed {
-    font-size: 0.75rem;
-  }
-
-  .orderNowButtonFixed {
-    padding: 0.875rem 2rem;
-    font-size: 0.875rem;
-    min-width: 240px;
-  }
-}

@@ -251,8 +251,8 @@ function CheckoutContent() {
                   ? getProductImageForItem(item.productSlug)
                   : productImage
                 const itemName = cartItems.length > 0 
-                  ? (productData[item.productSlug]?.shortName || item.shortName)
-                  : product.shortName
+                  ? (productData[item.productSlug]?.shortName || item.shortName || 'Unknown Item')
+                  : (product.shortName || 'Unknown Item')
                 const itemPrice = item.price
                 const itemQuantity = item.quantity
                 

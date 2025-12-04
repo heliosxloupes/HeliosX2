@@ -35,12 +35,10 @@ export default function HomePage() {
           <InUseSection />
           <OpticalClaritySection />
           <UseCasesSection />
-          <AppsGridSection />
           <CustomizationSection />
           <ErgonomicsHealthSection />
           <DiveDeeperSection />
           <TestimonialsSection />
-          <PressLogosSection />
           <PublicBenefitSection />
           <ProductAtGlanceSection />
         </main>
@@ -715,44 +713,6 @@ function UseCasesSection() {
   );
 }
 
-/* -------------------- Apps Grid -------------------- */
-
-function AppsGridSection() {
-  return (
-    <section className="bg-black">
-      <motion.div
-        className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-        variants={fadeUp}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <div className="flex flex-col items-center text-center">
-          <h2 className="text-xl font-semibold md:text-2xl">
-            Works with the apps you already use.
-          </h2>
-          <p className="mt-3 max-w-md text-sm text-neutral-400">
-            Replace these with your app logos—productivity, reading, note-taking
-            and more.
-          </p>
-        </div>
-
-        <div className="mt-8 grid grid-cols-3 gap-4 md:grid-cols-6">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div
-              key={i}
-              className="flex aspect-square items-center justify-center rounded-2xl border border-white/10 bg-neutral-950/70 text-[0.65rem] text-neutral-400"
-            >
-              App {i + 1}
-            </div>
-          ))}
-        </div>
-      </motion.div>
-    </section>
-  );
-}
-
 /* --------------------------------------------- */
 /*  CUSTOMIZATION SECTION (replaces OR section)  */
 /* --------------------------------------------- */
@@ -1046,39 +1006,6 @@ function TestimonialCard({ name, handle, quote }: TestimonialCardProps) {
   );
 }
 
-/* -------------------- Press Logos -------------------- */
-
-function PressLogosSection() {
-  return (
-    <section className="border-t border-white/10 bg-black">
-      <motion.div
-        className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-12"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-        variants={fadeUp}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <p className="text-xs text-neutral-500">
-          As seen in / partners (swap these logos for real ones later):
-        </p>
-        <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-neutral-400 md:gap-8">
-          {["Outlet One", "Outlet Two", "Outlet Three", "Outlet Four"].map(
-            (logo) => (
-              <div
-                key={logo}
-                className="rounded-full border border-white/10 px-4 py-1"
-              >
-                {logo}
-              </div>
-            )
-          )}
-        </div>
-      </motion.div>
-    </section>
-  );
-}
-
 /* -------------------- Story / Company -------------------- */
 
 function PublicBenefitSection() {
@@ -1132,17 +1059,19 @@ function ProductAtGlanceSection() {
               At a glance
             </p>
             <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-              Your Device Name, at a glance.
+              HeliosX loupes, at a glance.
             </h2>
             <p className="mt-4 text-sm text-neutral-400 md:text-base">
-              Quick bullets for the core story—display, battery, apps, purpose.
+              Everything you need to know in one place: world-class optics,
+              honest pricing, and a fitting process designed around real OR
+              life.
             </p>
 
             <div className="mt-6 grid gap-4 text-sm text-neutral-200 md:grid-cols-2">
-              <BulletItem>Paper-like, low-glare display</BulletItem>
-              <BulletItem>All-day battery life</BulletItem>
-              <BulletItem>Runs the apps you need</BulletItem>
-              <BulletItem>Designed for focus, not distraction</BulletItem>
+              <BulletItem>Galilean optics with generous depth of field.</BulletItem>
+              <BulletItem>Magnification options from 2.5× to 6.0×.</BulletItem>
+              <BulletItem>Custom frame styles fitted to your anatomy.</BulletItem>
+              <BulletItem>Lightweight builds that respect your posture.</BulletItem>
             </div>
           </div>
 
@@ -1152,23 +1081,23 @@ function ProductAtGlanceSection() {
                 <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">
                   Starting at
                 </p>
-                <p className="mt-1 text-2xl font-semibold">$X.XX</p>
+                <p className="mt-1 text-2xl font-semibold">$499</p>
               </div>
               <div className="text-right text-xs text-neutral-500">
-                <p>Swap this with your</p>
-                <p>real pricing &amp; SKUs.</p>
+                <p>Transparent pricing.</p>
+                <p>No upsell games.</p>
               </div>
             </div>
 
-            <a
-              href="#"
+            <Link
+              href="/product/galileo"
               className="flex w-full items-center justify-center rounded-full bg-white px-5 py-2 text-sm font-semibold text-black shadow-lg shadow-white/15 hover:bg-neutral-200 transition-colors"
             >
-              Pre-order / Buy now
-            </a>
+              Shop HeliosX
+            </Link>
 
             <p className="text-xs text-neutral-500">
-              In stock · Ships in 3–5 business days (or your real timeline).
+              In stock · Ships in 3–5 business days with white-glove fitting support.
             </p>
           </div>
         </div>
@@ -1198,60 +1127,92 @@ function BulletItem({ children }: BulletItemProps) {
 
 function HeliosXFooter() {
   return (
-    <footer className="bg-black border-t border-white/10 px-4 md:px-8 py-10 md:py-12">
-      <div className="mx-auto max-w-6xl flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-        {/* Brand / mission */}
-        <div className="space-y-3 max-w-sm">
-          <p className="text-sm font-semibold text-neutral-100">
-            HeliosX
-          </p>
-          <p className="text-sm text-neutral-400">
-            Surgical loupes designed by surgeons, for surgeons—bringing
-            elite optical performance to more operators through honest,
-            transparent pricing.
-          </p>
-        </div>
-
-        {/* Links */}
-        <div className="grid grid-cols-2 gap-8 text-sm text-neutral-400">
-          <div className="space-y-2">
-            <p className="text-xs font-semibold tracking-[0.2em] text-neutral-500">
-              PRODUCT
-            </p>
-            <button className="block text-left hover:text-neutral-200">
-              Loupes
-            </button>
-            <button className="block text-left hover:text-neutral-200">
-              Light systems
-            </button>
-            <button className="block text-left hover:text-neutral-200">
-              Ordering & fittings
-            </button>
-          </div>
-          <div className="space-y-2">
-            <p className="text-xs font-semibold tracking-[0.2em] text-neutral-500">
-              COMPANY
-            </p>
-            <button className="block text-left hover:text-neutral-200">
-              About
-            </button>
-            <button className="block text-left hover:text-neutral-200">
-              Contact
-            </button>
-            <button className="block text-left hover:text-neutral-200">
-              Support
-            </button>
-          </div>
-        </div>
+    <footer className="relative overflow-hidden border-t border-white/10 bg-black px-4 md:px-8 py-12">
+      <div className="pointer-events-none absolute inset-0">
+        <Image
+          src="/Walkinghallway2.png"
+          alt="Surgeon walking through hallway"
+          fill
+          className="object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/90" />
       </div>
 
-      <div className="mx-auto max-w-6xl mt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <p className="text-xs text-neutral-500">
-          © {new Date().getFullYear()} HeliosX. All rights reserved.
-        </p>
-        <div className="flex gap-4 text-xs text-neutral-500">
-          <button className="hover:text-neutral-200">Privacy</button>
-          <button className="hover:text-neutral-200">Terms</button>
+      <div className="relative mx-auto max-w-6xl space-y-10">
+        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+          {/* Brand / mission */}
+          <div className="space-y-3 max-w-md">
+            <p className="text-sm font-semibold text-neutral-100">HeliosX</p>
+            <p className="text-sm text-neutral-300">
+              Surgical loupes designed by surgeons, for surgeons—bringing elite
+              optical performance to more operators through honest, transparent
+              pricing.
+            </p>
+            <p className="text-xs text-neutral-400">
+              Need guidance on frames, magnification, or fitting? Our team
+              answers within one business day.
+            </p>
+          </div>
+
+          {/* Links */}
+          <div className="grid grid-cols-2 gap-8 text-sm text-neutral-200">
+            <div className="space-y-2">
+              <p className="text-xs font-semibold tracking-[0.2em] text-neutral-400">
+                PRODUCT
+              </p>
+              <Link href="/product/galileo" className="block text-left hover:text-white">
+                Loupes
+              </Link>
+              <button className="block text-left text-neutral-300 hover:text-white">
+                Light systems
+              </button>
+              <button className="block text-left text-neutral-300 hover:text-white">
+                Ordering & fittings
+              </button>
+            </div>
+            <div className="space-y-2">
+              <p className="text-xs font-semibold tracking-[0.2em] text-neutral-400">
+                COMPANY
+              </p>
+              <button className="block text-left text-neutral-300 hover:text-white">
+                About
+              </button>
+              <button className="block text-left text-neutral-300 hover:text-white">
+                Contact
+              </button>
+              <button className="block text-left text-neutral-300 hover:text-white">
+                Support
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="relative flex flex-col gap-4 rounded-2xl border border-white/10 bg-black/50 p-5 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-sm font-semibold text-white">Bring HeliosX to your OR</p>
+            <p className="text-xs text-neutral-400">
+              Fit consultations, lead times, and ordering support—no pressure.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3 text-sm">
+            <Link
+              href="/product/galileo"
+              className="rounded-full bg-white px-4 py-2 font-semibold text-black shadow-lg shadow-white/10 hover:bg-neutral-200 transition"
+            >
+              Shop HeliosX
+            </Link>
+            <button className="rounded-full border border-white/20 bg-white/10 px-4 py-2 font-medium text-white backdrop-blur hover:bg-white/20">
+              Talk to us
+            </button>
+          </div>
+        </div>
+
+        <div className="relative flex flex-col gap-4 text-xs text-neutral-500 md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} HeliosX. All rights reserved.</p>
+          <div className="flex gap-4">
+            <button className="hover:text-neutral-200">Privacy</button>
+            <button className="hover:text-neutral-200">Terms</button>
+          </div>
         </div>
       </div>
     </footer>

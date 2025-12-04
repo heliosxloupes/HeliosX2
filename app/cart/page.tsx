@@ -86,8 +86,8 @@ export default function CartPage() {
           {/* LEFT – hero image */}
           <div className="relative min-h-[320px] overflow-hidden rounded-[32px] bg-neutral-900 shadow-[0_0_60px_rgba(0,0,0,0.75)] lg:min-h-[520px]">
             <Image
-              src="/Galileo/GalileoMain2.png"
-              alt="Galileo loupes hero"
+              src="/Successcheckout.png"
+              alt="Cart hero"
               fill
               className="object-cover"
               priority

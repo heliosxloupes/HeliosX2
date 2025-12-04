@@ -16,16 +16,39 @@ type IncomingItem = {
 export async function POST(req: Request) {
   try {
     const body = await req.json()
+    console.log('API received body:', JSON.stringify(body, null, 2))
     const items = (body.items ?? []) as IncomingItem[]
+    console.log('Parsed items:', JSON.stringify(items, null, 2))
 
     if (!items.length) {
+      console.error('No items in cart')
       return NextResponse.json(
         { error: 'No items in cart' },
         { status: 400 }
       )
     }
 
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+    // Validate required fields
+    for (const item of items) {
+      if (!item.name || item.price === undefined || !item.quantity) {
+        console.error('Invalid item:', item)
+        return NextResponse.json(
+          { error: `Invalid item: missing required fields (name, price, quantity)` },
+          { status: 400 }
+        )
+      }
+    }
+
+    const secretKey = process.env.STRIPE_SECRET_KEY
+    if (!secretKey) {
+      console.error('STRIPE_SECRET_KEY not found in environment')
+      return NextResponse.json(
+        { error: 'Server configuration error' },
+        { status: 500 }
+      )
+    }
+
+    const stripe = new Stripe(secretKey, {
       apiVersion: '2024-06-20' as any,
     })
 
@@ -59,18 +82,33 @@ export async function POST(req: Request) {
         }
       })
 
+    console.log('Creating Stripe session with line_items:', JSON.stringify(line_items, null, 2))
+    
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items,
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cart?success=1`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cart?cancelled=1`,
+      success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/cart?cancelled=1`,
     })
 
+    console.log('Stripe session created:', session.id)
+
+    // Return session ID for redirect checkout
     return NextResponse.json({ id: session.id })
-  } catch (err) {
-    console.error('Stripe checkout session error', err)
+  } catch (err: any) {
+    console.error('Stripe checkout session error:', err)
+    console.error('Error details:', {
+      message: err.message,
+      type: err.type,
+      code: err.code,
+      statusCode: err.statusCode
+    })
     return NextResponse.json(
-      { error: 'Unable to create checkout session' },
+      { 
+        error: 'Unable to create checkout session',
+        details: err.message || 'Unknown error'
+      },
       { status: 500 }
     )
   }

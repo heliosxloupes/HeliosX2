@@ -23,6 +23,9 @@ function CheckoutContent() {
   const stripeRef = useRef<any>(null)
   const checkoutInstanceRef = useRef<any>(null)
   const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [checkoutError, setCheckoutError] = useState<string | null>(null)
+
+  const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
   
   // Product data
   const productData: Record<string, {
@@ -111,15 +114,26 @@ function CheckoutContent() {
   useEffect(() => {
     const initialize = async () => {
       if (!window.Stripe || !checkoutRef.current) return
+
+      if (!publishableKey) {
+        console.error(
+          'Stripe publishable key not found. Please check your .env.local file.'
+        )
+        setCheckoutError(
+          'Error loading checkout. Stripe publishable key not found. Please check your .env.local file.'
+        )
+        return
+      }
       
       // Destroy existing checkout instance if it exists
       if (checkoutInstanceRef.current) {
         checkoutInstanceRef.current.destroy()
         checkoutInstanceRef.current = null
       }
-      
+
       try {
-        const stripe = window.Stripe('pk_test_51SV0NsLQ1qA2EZ9RUpWkvsfIuAp1G87iVvdp41hAmMG8Arbu4gTEvW3A5Ophytue5qwxuEwfMYpx7iHb6XnS7UBk006u9dGB2G')
+        setCheckoutError(null)
+        const stripe = window.Stripe(publishableKey)
         stripeRef.current = stripe
 
         // Get fresh cart data right before creating session
@@ -200,7 +214,7 @@ function CheckoutContent() {
         }
       }
     }
-  }, [cartItems, productSlug, quantity])
+  }, [cartItems, productSlug, publishableKey, quantity])
 
   return (
     <>
@@ -213,6 +227,11 @@ function CheckoutContent() {
       />
       <Header />
       <main className={styles.checkoutPage}>
+        {checkoutError && (
+          <div className={styles.errorBanner}>
+            {checkoutError}
+          </div>
+        )}
         {/* Logo in Top Margin */}
         <div className={styles.topMargin}>
           <Link href="/" className={styles.logo}>

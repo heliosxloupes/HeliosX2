@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, Fragment } from 'react'
 
 import Image from 'next/image'
 
@@ -137,7 +137,7 @@ export default function GalileoProductPage() {
   }
 
   return (
-    <>
+    <Fragment>
       <Header />
       <main className="min-h-screen bg-black text-neutral-100">
         {/* HERO: main product image + right column */}
@@ -598,6 +598,6 @@ export default function GalileoProductPage() {
         </section>
 
       </main>
-    </>
+    </Fragment>
   )
 }

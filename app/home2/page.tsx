@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
+import Header from "@/components/Header";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,7 +25,7 @@ export default function HomePage() {
   return (
     <LenisProvider>
       <div className="min-h-screen bg-black text-white">
-        <SiteHeader />
+        <Header />
 
         <main className="pt-20 space-y-24 md:space-y-32">
           <HeroSection />

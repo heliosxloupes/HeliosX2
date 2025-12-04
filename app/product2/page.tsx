@@ -8,6 +8,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import Noise from "@/components/Noise";
+import Header from "@/components/Header";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -21,11 +22,14 @@ const fadeUp = {
 
 export default function ProductPage() {
   return (
-    <main className="bg-black text-white min-h-screen">
-      <ParallaxProductHero />
-      <OurLoupesGrid />
-      <OrderingInfoSection />
-    </main>
+    <>
+      <Header />
+      <main className="bg-black text-white min-h-screen">
+        <ParallaxProductHero />
+        <OurLoupesGrid />
+        <OrderingInfoSection />
+      </main>
+    </>
   );
 }
 

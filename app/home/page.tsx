@@ -240,7 +240,7 @@ function ManifestoSection() {
         <div className="space-y-4">
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/60">
             <Image
-              src="/7ef08efa-a73a-4ffe-a485-8dfb785e91b1.png"
+              src="/hardcase1.png"
               alt="HeliosX loupes in protective hard case"
               fill
               className="object-cover"
@@ -373,17 +373,19 @@ function HorizontalScrollSection() {
                 </div>
                 {/* 3D Canvas */}
                 <div className="flex-1 h-[70vh] md:h-[80vh]">
-                  <div className="w-full h-full rounded-[32px] overflow-hidden border border-white/10 bg-neutral-900/70 shadow-[0_30px_90px_rgba(0,0,0,0.75)]">
-                    {/* ScrollDrivenScene triggerRef={sectionRef} */}
-                    <div className="relative w-full h-full">
-                      <Image
-                        src="/Newton/NewtonAsian2.png"
-                        alt="HeliosX loupes"
-                        fill
-                        className="object-cover"
-                      />
+                  <Link href="/product" className="block w-full h-full">
+                    <div className="w-full h-full rounded-[32px] overflow-hidden border border-white/10 bg-neutral-900/70 shadow-[0_30px_90px_rgba(0,0,0,0.75)] cursor-pointer transition-all hover:border-white/20 hover:shadow-[0_30px_90px_rgba(0,0,0,0.9)]">
+                      {/* ScrollDrivenScene triggerRef={sectionRef} */}
+                      <div className="relative w-full h-full">
+                        <Image
+                          src="/Newton/NewtonAsian2.png"
+                          alt="HeliosX loupes"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </div>
             </div>

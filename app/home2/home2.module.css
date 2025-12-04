@@ -1,7 +1,0 @@
-/* Main Container */
-.main {
-  width: 100%;
-  min-height: 100vh;
-  background: var(--background-primary, #f5f0e8);
-}
-

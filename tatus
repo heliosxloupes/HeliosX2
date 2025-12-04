@@ -1,0 +1,96 @@
+[1mdiff --git a/app/product/ProductPageTemplate.tsx b/app/product/ProductPageTemplate.tsx[m
+[1mnew file mode 100644[m
+[1mindex 0000000..70b2ff0[m
+[1m--- /dev/null[m
+[1m+++ b/app/product/ProductPageTemplate.tsx[m
+[36m@@ -0,0 +1,378 @@[m
+[32m+[m[32m'use client'[m
+[32m+[m
+[32m+[m[32mimport { useRef, useState } from 'react'[m
+[32m+[m[32mimport Image from 'next/image'[m
+[32m+[m[32mimport { useRouter } from 'next/navigation'[m
+[32m+[m
+[32m+[m[32mimport Header from '@/components/Header'[m
+[32m+[m[32mimport { addToCart } from '@/lib/cart'[m
+[32m+[m
+[32m+[m[32mexport type FrameId = 'JJ04B' | 'JJ20B' | 'JJ21G' | 'JJ22B' | 'JJ23Grey' | 'JJ24Grey'[m
+[32m+[m
+[32m+[m[32mexport type FrameConfig = {[m
+[32m+[m[32m  id: FrameId[m
+[32m+[m[32m  label: string[m
+[32m+[m[32m  baseImage: string[m
+[32m+[m[32m  colors: {[m
+[32m+[m[32m    name: string[m
+[32m+[m[32m    value: string[m
+[32m+[m[32m    image: string[m
+[32m+[m[32m  }[][m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport const frameConfigs: FrameConfig[] = [[m
+[32m+[m[32m  {[m
+[32m+[m[32m    id: 'JJ04B',[m
+[32m+[m[32m    label: 'JJ04',[m
+[32m+[m[32m    baseImage: '/Frames/JJ04B.png',[m
+[32m+[m[32m    colors: [[m
+[32m+[m[32m      { name: 'Black', value: 'black', image: '/Frames/JJ04B.png' },[m
+[32m+[m[32m      { name: 'Grey', value: 'grey', image: '/Frames/JJ04G.png' },[m
+[32m+[m[32m    ],[m
+[32m+[m[32m  },[m
+[32m+[m[32m  {[m
+[32m+[m[32m    id: 'JJ20B',[m
+[32m+[m[32m    label: 'JJ20',[m
+[32m+[m[32m    baseImage: '/Frames/JJ20B.png',[m
+[32m+[m[32m    colors: [{ name: 'Black', value: 'black', image: '/Frames/JJ20B.png' }],[m
+[32m+[m[32m  },[m
+[32m+[m[32m  {[m
+[32m+[m[32m    id: 'JJ21G',[m
+[32m+[m[32m    label: 'JJ21',[m
+[32m+[m[32m    baseImage: '/Frames/JJ21G.png',[m
+[32m+[m[32m    colors: [[m
+[32m+[m[32m      { name: 'Gold', value: 'gold', image: '/Frames/JJ21G.png' },[m
+[32m+[m[32m      { name: 'Steel', value: 'steel', image: '/Frames/JJ21S.png' },[m
+[32m+[m[32m    ],[m
+[32m+[m[32m  },[m
+[32m+[m[32m  {[m
+[32m+[m[32m    id: 'JJ22B',[m
+[32m+[m[32m    label: 'JJ22',[m
+[32m+[m[32m    baseImage: '/Frames/JJ22B.png',[m
+[32m+[m[32m    colors: [[m
+[32m+[m[32m      { name: 'Blue', value: 'blue', image: '/Frames/JJ22Blue.png' },[m
+[32m+[m[32m      { name: 'Gold', value: 'gold', image: '/Frames/JJ22Gold.png' },[m
+[32m+[m[32m      { name: 'Grey', value: 'grey', image: '/Frames/JJ22Grey.png' },[m
+[32m+[m[32m    ],[m
+[32m+[m[32m  },[m
+[32m+[m[32m  {[m
+[32m+[m[32m    id: 'JJ23Grey',[m
+[32m+[m[32m    label: 'JJ23',[m
+[32m+[m[32m    baseImage: '/Frames/JJ23Grey.png',[m
+[32m+[m[32m    colors: [[m
+[32m+[m[32m      { name: 'Grey', value: 'grey', image: '/Frames/JJ23Grey.png' },[m
+[32m+[m[32m      { name: 'Black', value: 'black', image: '/Frames/JJ23Black.png' },[m
+[32m+[m[32m      { name: 'Blue', value: 'blue', image: '/Frames/JJ23Blue.png' },[m
+[32m+[m[32m      { name: 'Red', value: 'red', image: '/Frames/JJ23Red.png' },[m
+[32m+[m[32m    ],[m
+[32m+[m[32m  },[m
+[32m+[m[32m  {[m
+[32m+[m[32m    id: 'JJ24Grey',[m
+[32m+[m[32m    label: 'JJ24',[m
+[32m+[m[32m    baseImage: '/Frames/JJ24Grey.png',[m
+[32m+[m[32m    colors: [[m
+[32m+[m[32m      { name: 'Grey', value: 'grey', image: '/Frames/JJ24Grey.png' },[m
+[32m+[m[32m      { name: 'Black', value: 'black', image: '/Frames/JJ24Black.png' },[m
+[32m+[m[32m      { name: 'Blue', value: 'blue', image: '/Frames/JJ24Blue.png' },[m
+[32m+[m[32m    ],[m
+[32m+[m[32m  },[m
+[32m+[m[32m][m
+[32m+[m
+[32m+[m[32mexport type ProductPageConfig = {[m
+[32m+[m[32m  slug: string[m
+[32m+[m[32m  name: string[m
+[32m+[m[32m  shortName: string[m
+[32m+[m[32m  description: string[m
+[32m+[m[32m  highlights: string[][m
+[32m+[m[32m  heroImages: string[][m
+[32m+[m[32m  magnifications: string[][m
+[32m+[m[32m  basePrice: number[m
+[32m+[m[32m  specTitle: str

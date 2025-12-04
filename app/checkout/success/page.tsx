@@ -31,7 +31,7 @@ export default function CheckoutSuccessPage() {
             initial={{ opacity: 0, y: 18, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.55, ease: 'easeOut' }}
-            className="relative w-full flex-1 overflow-hidden rounded-[32px] bg-neutral-900 shadow-[0_0_60px_rgba(0,0,0,0.9)]"
+            className="relative w-full flex-1 min-h-[320px] overflow-hidden rounded-[32px] bg-neutral-900 shadow-[0_0_60px_rgba(0,0,0,0.9)] lg:min-h-[520px]"
           >
             <Image
               src="/Successcheckout2.png"

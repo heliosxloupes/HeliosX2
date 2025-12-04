@@ -140,12 +140,13 @@ export default function GalileoProductPage() {
     <>
       <Header />
       <main className="min-h-screen bg-black text-neutral-100">
-        {/* TOP VIEWPORT: HERO + CONFIG */}
-        <section className="w-full pt-6 pb-20 lg:pb-28">
-          <div className="mx-auto flex max-w-[1400px] flex-col gap-10 px-4 lg:flex-row lg:items-start lg:px-10 xl:px-16">
-            {/* LEFT: HERO IMAGE + THUMBS */}
-            <div className="flex flex-1 flex-col items-center lg:items-start">
-              <div className="relative w-full max-w-[900px] overflow-hidden rounded-[32px] bg-black/80 shadow-[0_30px_120px_rgba(0,0,0,0.8)]">
+        {/* HERO: main product image + right column */}
+        <section className="mx-auto flex min-h-[calc(100vh-80px)] max-w-[1400px] px-4 lg:px-10 pt-6 lg:pt-10 gap-8 lg:gap-12">
+          {/* LEFT – MAIN IMAGE */}
+          <div className="w-full lg:flex-[1.25] flex items-center">
+            <div className="w-full rounded-[32px] overflow-hidden bg-black/60 shadow-[0_0_60px_rgba(0,0,0,0.7)]">
+              {/* Main image + thumbnails */}
+              <div className="relative w-full overflow-hidden">
                 {/* Taller on mobile, standard on desktop */}
                 <div className="relative aspect-[4/5] md:aspect-[3/4] lg:aspect-[16/9] w-full">
                   <Image
@@ -190,9 +191,10 @@ export default function GalileoProductPage() {
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* RIGHT: PRODUCT INFO + FRAME + CART */}
-            <div className="flex w-full max-w-md flex-col gap-6 lg:max-w-sm xl:max-w-md">
+          {/* RIGHT – TEXT / MAG / FRAMES / CART */}
+          <div className="hidden lg:flex w-full lg:flex-[0.9] flex-col gap-8 justify-start">
               {/* Title + copy */}
               <div>
                 <p className="mb-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-neutral-500">
@@ -413,150 +415,188 @@ export default function GalileoProductPage() {
           </div>
         </section>
 
-        {/* TECHNICAL DETAILS + IMAGE STRIP (SECOND VIEWPORT) */}
+        {/* TECHNICAL DETAILS + BANNER */}
         <section
+          id="technical-details"
           ref={techRef}
-          className="border-t border-white/10 bg-black pb-24 pt-16"
+          className="relative bg-black text-neutral-100 min-h-screen flex flex-col justify-center"
         >
-          <div className="mx-auto flex max-w-[1200px] flex-col gap-10 px-4 lg:px-10 xl:px-16">
-            <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-start">
-              <div className="max-w-lg">
-                <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-neutral-500">
-                  Technical detail
-                </p>
-                <h2 className="text-xl font-semibold text-neutral-50 sm:text-2xl">
-                  Galileo product specifications.
-                </h2>
-                <p className="mt-3 text-sm leading-relaxed text-neutral-300">
-                  Designed for high-precision work where clarity, color
-                  fidelity, and depth perception actually matter. Every Galileo
-                  unit is tuned for long-case comfort and compatibility with
-                  modern LED light systems.
-                </p>
+          <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-12 px-4 py-16 lg:px-10 lg:py-24">
+            {/* Section label + heading */}
+            <div className="space-y-2">
+              <p className="text-[0.7rem] uppercase tracking-[0.25em] text-neutral-400">
+                Technical detail
+              </p>
+              <h2 className="text-2xl lg:text-3xl font-semibold text-white">
+                Galileo product specifications.
+              </h2>
+            </div>
+
+            {/* Specs + images grid */}
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] items-start">
+              {/* LEFT – Structured specs */}
+              <div className="space-y-8 text-sm leading-relaxed text-neutral-200">
+                {/* Block: Weight + Optics */}
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <div className="space-y-2">
+                    <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                      Light weight
+                    </h3>
+                    <p>
+                      Volume reduced by 30% while maintaining excellent performance. Designed
+                      for long cases without unnecessary strain.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                      Excellent optics
+                    </h3>
+                    <ul className="list-disc space-y-1 pl-4">
+                      <li>A+ grade imported optical glass</li>
+                      <li>Multi-layer coated premium lenses</li>
+                      <li>High color fidelity, light transmittance &gt; 98%</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Block: Optical lens + light source */}
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <div className="space-y-2">
+                    <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                      Optical lens
+                    </h3>
+                    <ul className="list-disc space-y-1 pl-4">
+                      <li>Extra-wide field of view</li>
+                      <li>High color accuracy</li>
+                      <li>Designed for precise surgical and dental work</li>
+                    </ul>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                      Light source
+                    </h3>
+                    <ul className="list-disc space-y-1 pl-4">
+                      <li>Compatible with fixed light source and power supply</li>
+                      <li>Produces a bright, uniform spot</li>
+                      <li>Long-lasting illumination</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Block: General specs */}
+                <div className="space-y-3">
+                  <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                    General specifications
+                  </h3>
+                  <div className="grid gap-4 lg:grid-cols-2">
+                    <ul className="list-disc space-y-1 pl-4">
+                      <li>Product model: TTL-Galileo</li>
+                      <li>Magnification: 2.5x / 3.0x / 3.5x</li>
+                      <li>Weight: 35g / 36g / 37g (by mag)</li>
+                      <li>Frames: Optional, multiple styles</li>
+                      <li>Prescription available: Yes</li>
+                    </ul>
+                    <ul className="list-disc space-y-1 pl-4">
+                      <li>IPD range: 54–72 mm</li>
+                      <li>Barrels material: Metal</li>
+                      <li>Lens material: A+ grade optical glass</li>
+                      <li>Transmittance: 98%</li>
+                      <li>Fixed lights: Supported</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Block: Per-magnification details */}
+                <div className="space-y-3">
+                  <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                    Working distances &amp; fields
+                  </h3>
+                  <div className="grid gap-4 lg:grid-cols-3 text-xs">
+                    <div className="space-y-1">
+                      <p className="font-semibold text-neutral-100">2.5x</p>
+                      <p>Working distance: 300–580 mm</p>
+                      <p>Field of view: 150–170 mm</p>
+                      <p>Depth of field: 200 mm</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="font-semibold text-neutral-100">3.0x</p>
+                      <p>Working distance: 300–580 mm</p>
+                      <p>Field of view: 130–150 mm</p>
+                      <p>Depth of field: 200 mm</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="font-semibold text-neutral-100">3.5x</p>
+                      <p>Working distance: 300–580 mm</p>
+                      <p>Field of view: 110–130 mm</p>
+                      <p>Depth of field: 200 mm</p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="grid flex-1 grid-cols-1 gap-5 text-xs text-neutral-200 sm:grid-cols-2 lg:grid-cols-3">
-                {/* Column 1 */}
-                <div className="rounded-2xl border border-white/10 bg-neutral-900/70 p-4">
-                  <h3 className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-neutral-400">
-                    Core build
-                  </h3>
-                  <ul className="mt-3 space-y-2 text-[0.75rem]">
-                    <li>Volume reduced by ~30% while maintaining performance.</li>
-                    <li>Weight: 35g / 36g / 37g (2.5x / 3.0x / 3.5x).</li>
-                    <li>Barrels: metal construction, tuned for durability.</li>
-                    <li>Prescription compatible straight out of the box.</li>
-                  </ul>
+              {/* RIGHT – 3 imagery tiles */}
+              <div className="grid gap-4">
+                <div className="relative h-40 w-full overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/60">
+                  <Image
+                    src="/Galileo/cutegirlhallway.png"
+                    alt="Galileo in everyday clinical corridor"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
                 </div>
 
-                {/* Column 2 */}
-                <div className="rounded-2xl border border-white/10 bg-neutral-900/70 p-4">
-                  <h3 className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-neutral-400">
-                    Optics &amp; glass
-                  </h3>
-                  <ul className="mt-3 space-y-2 text-[0.75rem]">
-                    <li>A+ grade imported optical glass.</li>
-                    <li>Multi-layer coated lenses, high color fidelity.</li>
-                    <li>Transmittance &gt; 98% for bright, neutral images.</li>
-                    <li>
-                      Extra-wide field of view and generous depth of field for
-                      stable focus.
-                    </li>
-                    <li>IPD range: 54–72 mm.</li>
-                  </ul>
+                <div className="relative h-40 w-full overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/60">
+                  <Image
+                    src="/Galileo/girlinmirror.png"
+                    alt="Mirror fit check with Galileo loupes"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
                 </div>
 
-                {/* Column 3 */}
-                <div className="rounded-2xl border border-white/10 bg-neutral-900/70 p-4">
-                  <h3 className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-neutral-400">
-                    Magnification data
-                  </h3>
-                  <ul className="mt-3 space-y-2 text-[0.75rem]">
-                    <li>
-                      <span className="font-semibold">2.5x</span> — WD 300–580
-                      mm, FOV 150–170 mm, DOF 200 mm.
-                    </li>
-                    <li>
-                      <span className="font-semibold">3.0x</span> — WD 300–580
-                      mm, FOV 130–150 mm, DOF 200 mm.
-                    </li>
-                    <li>
-                      <span className="font-semibold">3.5x</span> — WD 300–580
-                      mm, FOV 110–130 mm, DOF 200 mm.
-                    </li>
-                    <li>Compatible with fixed LED light sources and packs.</li>
-                    <li>Bright, uniform spot with long-lasting illumination.</li>
-                  </ul>
+                <div className="relative h-40 w-full overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/60">
+                  <Image
+                    src="/Galileo/lockerroom.png"
+                    alt="Locker room perspective with Galileo"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
                 </div>
               </div>
             </div>
 
-            {/* Image strip */}
-            <div className="grid gap-4 md:grid-cols-3">
-              <div className="relative h-52 overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/60">
+            {/* BOTTOM BANNER – brighter overlay */}
+            <div className="mt-8 w-full">
+              <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-[32px]">
                 <Image
-                  src="/Galileo/cutegirlhallway.png"
-                  alt="Surgeon walking to the OR"
-                  fill
-                  className="object-cover"
+                  src="/Galileo/walkinghallway2.png"
+                  alt="Surgeon walking hallway with Galileo loupes"
+                  width={1600}
+                  height={600}
+                  className="h-[260px] w-full object-cover lg:h-[340px]"
                 />
-              </div>
-              <div className="relative h-52 overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/60">
-                <Image
-                  src="/Galileo/girlinmirror.png"
-                  alt="Surgeon fitting loupes in mirror"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="relative h-52 overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/60">
-                <Image
-                  src="/Galileo/lockerroom.png"
-                  alt="Locker room preparation with loupes"
-                  fill
-                  className="object-cover"
-                />
+                {/* Dark overlay reduced from ~70% to 40% */}
+                <div className="absolute inset-0 bg-black/40" />
+                <div className="absolute inset-0 flex items-center justify-between px-6 lg:px-12">
+                  <div className="max-w-xl space-y-1">
+                    <p className="text-[0.7rem] uppercase tracking-[0.25em] text-neutral-300">
+                      Built for real operators
+                    </p>
+                    <h3 className="text-lg lg:text-xl font-semibold text-white">
+                      Precision optics that keep up with your cases.
+                    </h3>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* BOTTOM BANNER */}
-        <section className="relative overflow-hidden border-t border-white/10">
-          <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-4 py-16 lg:px-10 xl:px-16">
-            <div className="relative z-10 max-w-xl space-y-3">
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-neutral-400">
-                Built for real operators
-              </p>
-              <h3 className="text-xl font-semibold text-white sm:text-2xl">
-                Designed in the OR, priced for reality.
-              </h3>
-              <p className="text-sm text-neutral-300">
-                HeliosX exists because surgeons shouldn&apos;t have to choose
-                between compromised tools and two months of rent. The work is
-                demanding enough—the access should be too.
-              </p>
-              <button
-                onClick={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' })
-                }}
-                className="mt-3 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-medium text-neutral-100 backdrop-blur-md transition hover:border-white hover:bg-white hover:text-black"
-              >
-                Back to top
-              </button>
-            </div>
-
-            <div className="pointer-events-none absolute inset-0">
-              <Image
-                src="/Walkinghallway2.png"
-                alt="Surgeon hallway banner"
-                fill
-                className="object-cover opacity-30"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-black/90" />
-            </div>
-          </div>
-        </section>
       </main>
     </>
   )

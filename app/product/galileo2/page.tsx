@@ -141,7 +141,7 @@ export default function GalileoProductPage() {
       <Header />
       <main className="min-h-screen bg-black text-neutral-100">
         {/* HERO: main product image + right column */}
-        <section className="mx-auto flex min-h-[calc(100vh-80px)] max-w-[1400px] px-4 lg:px-10 pt-6 lg:pt-10 gap-8 lg:gap-12">
+        <section className="mx-auto flex flex-col lg:flex-row min-h-[calc(100vh-80px)] max-w-[1400px] px-4 lg:px-10 pt-6 lg:pt-10 gap-8 lg:gap-12">
           {/* LEFT – MAIN IMAGE */}
           <div className="w-full lg:flex-[1.25] flex items-center">
             <div className="w-full rounded-[32px] overflow-hidden bg-black/60 shadow-[0_0_60px_rgba(0,0,0,0.7)]">

@@ -27,7 +27,7 @@ export default function HomePage() {
       <div className="min-h-screen bg-black text-white">
       <Header />
 
-        <main className="pt-10 md:pt-14 space-y-24 md:space-y-32">
+        <main className="pt-0 space-y-24 md:space-y-32">
           <HeroSection />
           <ManifestoSection />
           <HorizontalScrollSection />
@@ -73,8 +73,8 @@ function SiteHeader() {
           <a href="#product" className="hover:text-white transition-colors">
             Product
           </a>
-          <a href="#features" className="hover:text-white transition-colors">
-            Features
+          <a href="#education" className="hover:text-white transition-colors">
+            Education
           </a>
           <a href="#story" className="hover:text-white transition-colors">
             Story
@@ -104,7 +104,7 @@ function HeroSection() {
   return (
     <section id="top" className="relative bg-black">
       {/* Full viewport and flush under header */}
-      <div className="flex min-h-screen items-start justify-center px-4 pt-6 md:px-[50px] md:pt-10">
+      <div className="flex min-h-screen items-start justify-center px-4 pt-0 md:px-[50px] md:pt-0">
         {/* Fullscreen hero card with ~50px margin */}
         <div className="relative w-full h-[calc(100vh-80px)] rounded-[32px] overflow-hidden border border-white/10 bg-neutral-900/70">
           {/* BACKGROUND IMAGE */}

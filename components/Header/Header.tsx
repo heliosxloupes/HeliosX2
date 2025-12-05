@@ -6,7 +6,7 @@ import CartButton from '../CartButton'
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/5 bg-gradient-to-b from-black/95 via-black/90 to-black/80 backdrop-blur-xl">
+    <header className="fixed top-0 left-0 w-full z-50 bg-black/70 backdrop-blur-md border-b border-white/10">
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-3 lg:px-10 xl:px-16">
         {/* Left: logo + wordmark (matches home2 style) */}
         <Link href="/home" className="flex items-center gap-2">
@@ -23,7 +23,7 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* Center: nav (Product / Features / Story / FAQ) */}
+        {/* Center: nav (Product / Education / Story / FAQ) */}
         <nav className="hidden items-center gap-6 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-neutral-300 md:flex">
           <Link href="/home" className="transition hover:text-white">
             Home
@@ -31,10 +31,10 @@ export default function Header() {
           <Link href="/product" className="transition hover:text-white">
             Product
           </Link>
-          <Link href="/features" className="transition hover:text-white">
-            Features
+          <Link href="/education" className="transition hover:text-white">
+            Education
           </Link>
-          <Link href="/story" className="transition hover:text-white">
+          <Link href="/home#story" className="transition hover:text-white">
             Story
           </Link>
           <Link href="/faq" className="transition hover:text-white">

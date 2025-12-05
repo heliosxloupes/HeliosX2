@@ -9,6 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import Noise from "@/components/Noise";
 import Header from "@/components/Header";
+import OrderingInfoSection from "@/components/OrderingInfoSection";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -509,61 +510,3 @@ function OurLoupesGrid() {
   );
 }
 
-/* --------------------------------------------- */
-/*  ORDERING INFO SECTION                        */
-/* --------------------------------------------- */
-
-function OrderingInfoSection() {
-  return (
-    <section className="bg-black px-4 md:px-8 py-16 md:py-24 border-t border-white/10">
-      <div className="mx-auto max-w-4xl">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="space-y-8 text-center"
-        >
-          <div>
-            <p className="text-xs font-semibold tracking-[0.3em] text-neutral-500 mb-4">
-              ORDERING INFORMATION
-            </p>
-            <h2 className="text-2xl md:text-3xl font-semibold mb-6">
-              How to order your HeliosX system
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-            <div className="space-y-3">
-              <div className="text-2xl font-semibold text-neutral-400">01</div>
-              <h3 className="text-lg font-semibold">Choose your system</h3>
-              <p className="text-sm text-neutral-400">
-                Select from Galileo, Newton, Apollo, or Kepler based on your
-                surgical specialty and magnification needs.
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              <div className="text-2xl font-semibold text-neutral-400">02</div>
-              <h3 className="text-lg font-semibold">Customize</h3>
-              <p className="text-sm text-neutral-400">
-                Configure magnification, frame style, and add-ons like prescription
-                lenses or extended warranty.
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              <div className="text-2xl font-semibold text-neutral-400">03</div>
-              <h3 className="text-lg font-semibold">Checkout</h3>
-              <p className="text-sm text-neutral-400">
-                Complete your order securely. We&apos;ll ship within 3–5 business days
-                and provide tracking information.
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}

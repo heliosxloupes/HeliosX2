@@ -82,7 +82,7 @@ export default function CartPage() {
   return (
     <>
       <Header />
-      <main className="pt-16 bg-black text-neutral-100">
+      <main className="min-h-screen pt-16 bg-black text-neutral-100">
         <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 pb-8 pt-8 lg:grid-cols-[3fr,2.2fr] lg:items-stretch lg:gap-10 lg:px-8 lg:pb-8 lg:pt-6">
           {/* LEFT – hero image */}
           <div className="relative h-[320px] overflow-hidden rounded-[32px] bg-neutral-900 shadow-[0_0_60px_rgba(0,0,0,0.75)] lg:h-auto lg:min-h-[500px]">

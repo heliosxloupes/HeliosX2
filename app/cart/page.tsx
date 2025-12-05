@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Header from '@/components/Header'
 import { getCart } from '@/lib/cart'
 import type { CartItem } from '@/lib/cart'
+import Noise from '@/components/Noise'
 
 const PRESCRIPTION_ESTIMATE = 200 // USD – for cart display
 const WARRANTY_ESTIMATE = 99     // USD – for cart display
@@ -93,6 +94,12 @@ export default function CartPage() {
               priority
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+            <div 
+              className="pointer-events-none absolute inset-0 overflow-hidden rounded-[32px]"
+              style={{ mixBlendMode: 'overlay' }}
+            >
+              <Noise patternAlpha={4} />
+            </div>
             <div className="absolute bottom-6 left-6 space-y-1 text-sm text-neutral-100">
               <p className="text-xs uppercase tracking-[0.2em] text-neutral-300/80">
                 Cart

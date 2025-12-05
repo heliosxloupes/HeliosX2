@@ -124,7 +124,8 @@ export default function CheckoutPage() {
 
         const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
         if (!publishableKey) {
-          throw new Error('Stripe publishable key not found')
+          console.error('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set. Please configure it in your environment variables.')
+          throw new Error('Stripe publishable key not found. Please check your environment variables (NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) in Vercel settings.')
         }
 
         const stripe = window.Stripe(publishableKey)

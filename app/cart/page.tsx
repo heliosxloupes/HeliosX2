@@ -82,10 +82,10 @@ export default function CartPage() {
   return (
     <>
       <Header />
-      <main className="pt-24 bg-black text-neutral-100 lg:min-h-[calc(100vh-64px)] lg:max-h-[calc(100vh-64px)] lg:overflow-hidden">
-        <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 pb-12 pt-8 lg:h-full lg:grid-cols-[3fr,2.2fr] lg:items-stretch lg:gap-10 lg:px-8 lg:pb-8 lg:pt-6">
+      <main className="pt-16 bg-black text-neutral-100">
+        <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 pb-8 pt-8 lg:grid-cols-[3fr,2.2fr] lg:items-stretch lg:gap-10 lg:px-8 lg:pb-8 lg:pt-6">
           {/* LEFT – hero image */}
-          <div className="relative h-[320px] overflow-hidden rounded-[32px] bg-neutral-900 shadow-[0_0_60px_rgba(0,0,0,0.75)] lg:h-full lg:min-h-0">
+          <div className="relative h-[320px] overflow-hidden rounded-[32px] bg-neutral-900 shadow-[0_0_60px_rgba(0,0,0,0.75)] lg:h-auto lg:min-h-[500px]">
             <Image
               src="/cartgirl.png"
               alt="Cart hero"
@@ -115,7 +115,7 @@ export default function CartPage() {
           </div>
 
           {/* RIGHT – cart summary + add-ons */}
-          <aside className="flex h-full flex-col gap-6 lg:overflow-hidden">
+          <aside className="flex flex-col gap-6">
             {/* Main cart content */}
             <div className="flex flex-1 flex-col overflow-hidden rounded-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)]">
               <div className="mb-3 flex items-center justify-between">

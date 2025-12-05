@@ -165,7 +165,7 @@ function HeroSection() {
             {/* Bottom right: Newsletter and Order Now button with increased spacing and size */}
             <div className="flex flex-col items-end gap-10">
               {/* Newsletter - Made bigger */}
-              <div className="group relative">
+              <div className="hidden md:block group relative">
                 <div className="bg-gradient-to-r from-white/95 to-[#f5f0e8]/90 border border-black/20 rounded-[8px] px-6 py-4 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg max-w-[320px]">
                   <button className="absolute top-3 right-3 text-black/60 hover:text-black text-2xl leading-none w-7 h-7 flex items-center justify-center">×</button>
                   <h3 className="text-xl md:text-2xl font-semibold text-black mb-2 pr-8">Newsletter</h3>

@@ -15,7 +15,7 @@ const galileoConfig: ProductPageConfig = {
     'Prescription compatible & light-source ready.',
   ],
   heroImages: [
-    '/Galileo/GalileoMain2.png',
+    '/Galileo/galileoproduct.png',
     '/Galileo/BlackguyGalileo.png',
     '/Galileo/BlonddirectNew.png',
     '/Oldguy4Galileo.png',

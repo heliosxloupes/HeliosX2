@@ -86,7 +86,7 @@ export default function CartPage() {
           {/* LEFT – hero image */}
           <div className="relative h-[320px] overflow-hidden rounded-[32px] bg-neutral-900 shadow-[0_0_60px_rgba(0,0,0,0.75)] lg:h-full lg:min-h-0">
             <Image
-              src="/Successcheckout.png"
+              src="/cartgirl.png"
               alt="Cart hero"
               fill
               className="object-cover"

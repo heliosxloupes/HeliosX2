@@ -3,16 +3,38 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
+
 import Header from '@/components/Header'
 import { getCart } from '@/lib/cart'
 import type { CartItem } from '@/lib/cart'
 import Noise from '@/components/Noise'
 
 const PRESCRIPTION_ESTIMATE = 200 // USD – for cart display
-const WARRANTY_ESTIMATE = 99     // USD – for cart display
+const WARRANTY_ESTIMATE = 99 // USD – for cart display
 
 // If your cart library uses a different key, change this to match
 const CART_STORAGE_KEY = 'heliosx_cart'
+
+// Motion variants
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+}
+
+const listVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0 },
+}
 
 export default function CartPage() {
   const [items, setItems] = useState<CartItem[]>([])
@@ -82,10 +104,22 @@ export default function CartPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen pt-16 bg-black text-neutral-100">
-        <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 pb-8 pt-8 lg:grid-cols-[3fr,2.2fr] lg:items-stretch lg:gap-10 lg:px-8 lg:pb-8 lg:pt-6">
+      <main className="min-h-screen bg-black pt-16 text-neutral-100">
+        <section className="relative mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 pb-8 pt-8 lg:grid-cols-[3fr,2.2fr] lg:items-stretch lg:gap-10 lg:px-8 lg:pb-8 lg:pt-6">
+          {/* subtle background glow */}
+          <div className="pointer-events-none absolute inset-0 -z-10">
+            <div className="absolute -left-20 top-10 h-64 w-64 rounded-full bg-emerald-500/15 blur-3xl" />
+            <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-sky-500/10 blur-3xl" />
+          </div>
+
           {/* LEFT – hero image */}
-          <div className="relative h-[320px] overflow-hidden rounded-[32px] bg-neutral-900 shadow-[0_0_60px_rgba(0,0,0,0.75)] lg:h-auto lg:min-h-[500px]">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="relative h-[320px] overflow-hidden rounded-[32px] bg-neutral-900 shadow-[0_0_60px_rgba(0,0,0,0.75)] lg:h-auto lg:min-h-[500px]"
+          >
             <Image
               src="/cartgirl.png"
               alt="Cart hero"
@@ -93,8 +127,8 @@ export default function CartPage() {
               className="object-cover"
               priority
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-            <div 
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            <div
               className="pointer-events-none absolute inset-0 overflow-hidden rounded-[32px]"
               style={{ mixBlendMode: 'overlay' }}
             >
@@ -104,7 +138,7 @@ export default function CartPage() {
               <p className="text-xs uppercase tracking-[0.2em] text-neutral-300/80">
                 Cart
               </p>
-              <h1 className="text-2xl font-semibold lg:text-3xl">
+              <h1 className="bg-gradient-to-r from-white via-sky-200 to-emerald-200 bg-clip-text text-2xl font-semibold text-transparent lg:text-3xl">
                 Review your configuration
               </h1>
               <p className="max-w-md text-xs text-neutral-300/80 lg:text-sm">
@@ -112,12 +146,21 @@ export default function CartPage() {
                 secure Stripe checkout.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* RIGHT – cart summary + add-ons */}
-          <aside className="flex flex-col gap-6">
+          <motion.aside
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.6, delay: 0.05, ease: 'easeOut' }}
+            className="flex flex-col gap-6"
+          >
             {/* Main cart content */}
-            <div className="flex flex-1 flex-col overflow-hidden rounded-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)]">
+            <motion.div
+              variants={cardVariants}
+              className="flex flex-1 flex-col overflow-hidden rounded-3xl bg-gradient-to-b from-neutral-900/90 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)] backdrop-blur-xl"
+            >
               <div className="mb-3 flex items-center justify-between">
                 <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-neutral-400">
                   Order summary
@@ -138,11 +181,23 @@ export default function CartPage() {
                   continue.
                 </p>
               ) : (
-                <ul className="mt-2 space-y-5 overflow-y-auto pr-2 lg:max-h-[360px]">
+                <motion.ul
+                  variants={listVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="mt-2 space-y-5 overflow-y-auto pr-2 lg:max-h-[360px]"
+                >
                   {items.map((item, idx) => (
-                    <li
+                    <motion.li
                       key={`${item.productSlug}-${idx}`}
-                      className="flex gap-4 rounded-2xl bg-black/40 p-4"
+                      variants={cardVariants}
+                      whileHover={{ y: -3 }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 220,
+                        damping: 20,
+                      }}
+                      className="flex gap-4 rounded-2xl bg-black/45 p-4 ring-1 ring-white/5"
                     >
                       <div className="relative h-20 w-28 overflow-hidden rounded-2xl bg-neutral-800">
                         {item.image ? (
@@ -170,12 +225,18 @@ export default function CartPage() {
                             </p>
                             <div className="mt-2 space-y-1 text-[0.78rem] text-neutral-200">
                               <p className="flex gap-2">
-                                <span className="text-neutral-400">Magnification:</span>
-                                <span>{item.selectedMagnification ?? 'Not selected'}</span>
+                                <span className="text-neutral-400">
+                                  Magnification:
+                                </span>
+                                <span>
+                                  {item.selectedMagnification ?? 'Not selected'}
+                                </span>
                               </p>
                               <p className="flex gap-2">
                                 <span className="text-neutral-400">Frame:</span>
-                                <span>{item.selectedFrameName ?? 'Not selected'}</span>
+                                <span>
+                                  {item.selectedFrameName ?? 'Not selected'}
+                                </span>
                               </p>
                             </div>
                           </div>
@@ -197,28 +258,33 @@ export default function CartPage() {
                           </span>
                         </div>
                       </div>
-                    </li>
+                    </motion.li>
                   ))}
-                </ul>
+                </motion.ul>
               )}
-            </div>
+            </motion.div>
 
             {/* Add-ons */}
-            <div className="rounded-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)]">
+            <motion.div
+              variants={cardVariants}
+              className="rounded-3xl bg-gradient-to-b from-neutral-900/90 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)] backdrop-blur-xl"
+            >
               <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-neutral-400">
                 Optional add-ons
               </h3>
 
               <div className="space-y-4 text-sm text-neutral-200">
                 {/* Prescription lenses */}
-                <button
+                <motion.button
                   type="button"
                   onClick={() =>
                     setIncludePrescription((prev) => !prev)
                   }
+                  whileHover={{ y: -2 }}
+                  transition={{ type: 'spring', stiffness: 220, damping: 20 }}
                   className={`flex w-full items-start justify-between gap-4 rounded-2xl border px-4 py-3 text-left transition sm:items-center sm:gap-6 sm:px-5 sm:py-4 ${
                     includePrescription
-                      ? 'border-white/70 bg-white/10'
+                      ? 'border-white/70 bg-white/10 shadow-[0_0_30px_rgba(255,255,255,0.15)]'
                       : 'border-white/10 bg-black/40 hover:border-white/30'
                   }`}
                 >
@@ -248,15 +314,17 @@ export default function CartPage() {
                   <span className="ml-2 whitespace-nowrap text-sm font-semibold text-neutral-50 sm:ml-4">
                     +${PRESCRIPTION_ESTIMATE}
                   </span>
-                </button>
+                </motion.button>
 
                 {/* Extended warranty */}
-                <button
+                <motion.button
                   type="button"
                   onClick={() => setIncludeWarranty((prev) => !prev)}
+                  whileHover={{ y: -2 }}
+                  transition={{ type: 'spring', stiffness: 220, damping: 20 }}
                   className={`flex w-full items-start justify-between gap-4 rounded-2xl border px-4 py-3 text-left transition sm:items-center sm:gap-6 sm:px-5 sm:py-4 ${
                     includeWarranty
-                      ? 'border-white/70 bg-white/10'
+                      ? 'border-white/70 bg-white/10 shadow-[0_0_30px_rgba(255,255,255,0.15)]'
                       : 'border-white/10 bg-black/40 hover:border-white/30'
                   }`}
                 >
@@ -287,12 +355,15 @@ export default function CartPage() {
                   <span className="ml-2 whitespace-nowrap text-sm font-semibold text-neutral-50 sm:ml-4">
                     +${WARRANTY_ESTIMATE}
                   </span>
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
 
             {/* Totals + CTA */}
-            <div className="rounded-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)]">
+            <motion.div
+              variants={cardVariants}
+              className="rounded-3xl bg-gradient-to-b from-neutral-900/90 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)] backdrop-blur-xl"
+            >
               <div className="mb-2 flex items-center justify-between text-sm text-neutral-300">
                 <span>Items subtotal</span>
                 <span>${baseSubtotal.toFixed(2)}</span>
@@ -317,8 +388,8 @@ export default function CartPage() {
                 Test mode only – payments are processed in Stripe&apos;s sandbox
                 environment.
               </p>
-            </div>
-          </aside>
+            </motion.div>
+          </motion.aside>
         </section>
       </main>
     </>

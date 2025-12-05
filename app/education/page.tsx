@@ -3,6 +3,7 @@
 import Header from '@/components/Header'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { CardBody, CardContainer, CardItem } from '@/components/ui/3d-card'
 
 type Article = {
   id: string
@@ -25,7 +26,7 @@ const articles: Article[] = [
     topic: 'Oncologic facial surgery',
     level: 'Reconstructive',
     summary:
-      'Randomized trial showing that using 7× high-magnification loupes for pre-op tumor mapping improves first-pass margin clearance in facial BCC.',
+      'Randomized trial showing that using 7x high-magnification loupes for pre-op tumor mapping improves first-pass margin clearance in facial BCC.',
     bullets: [
       'Compared high-magnification loupe mapping vs standard assessment for facial basal cell carcinoma.',
       'High magnification group achieved a significantly lower rate of positive margins on initial resection.',
@@ -62,7 +63,7 @@ const articles: Article[] = [
     bullets: [
       'Loupe-assisted inspection outperformed naked eye for identifying plaque-type oral lichen planus and homogeneous leukoplakia.',
       'Physicians rated loupe use as improving efficiency and lesion boundary visualization.',
-      'Recommended clinical setup was ~3.5× magnification at an appropriate working distance.',
+      'Recommended clinical setup was ~3.5x magnification at an appropriate working distance.',
     ],
     pubmedUrl: 'https://pubmed.ncbi.nlm.nih.gov/34137223/',
   },
@@ -93,7 +94,7 @@ const articles: Article[] = [
     summary:
       'Cadaveric study defining bony landmarks and vectors for the trochlea and superior oblique tendon to make upper blepharoplasty safer during medial/central fat resection.',
     bullets: [
-      'Used 4× loupe magnification to map the relationship between trochlea, superior oblique tendon, and stable bony landmarks.',
+      'Used 4x loupe magnification to map the relationship between trochlea, superior oblique tendon, and stable bony landmarks.',
       'Provides reproducible distances from the superior orbital foramen and frontozygomatic suture to avoid injuring key structures.',
       'Translates directly into safer upper lid fat handling in everyday blepharoplasty.',
     ],
@@ -144,78 +145,95 @@ export default function EducationPage() {
               <h2 className="text-xl font-semibold text-white sm:text-2xl">
                 Loupe-driven papers to start with
               </h2>
-              <p className="mt-1 max-w-2xl text-xs text-neutral-400 sm:text-sm">
-                A small but meaningful set of studies you can actually cite when you argue for
-                better optics on your service or in your OR.
-              </p>
             </div>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {articles.map((article, idx) => (
-              <motion.article
+              <motion.div
                 key={article.id}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: idx * 0.05 }}
                 viewport={{ once: true, amount: 0.3 }}
-                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-800/80 bg-gradient-to-b from-neutral-900/80 via-neutral-950 to-black p-[1px]"
               >
-                {/* inner */}
-                <div className="relative flex h-full flex-col rounded-2xl bg-black/90 p-4 sm:p-5">
-                  {/* subtle glow */}
-                  <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-sky-500/10 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
-                  {/* badge row */}
-                  <div className="mb-3 flex items-center justify-between gap-2 text-[0.65rem] sm:text-[0.7rem]">
-                    <span className="rounded-full border border-sky-500/40 bg-sky-500/10 px-3 py-1 font-medium uppercase tracking-[0.18em] text-sky-300">
-                      {article.level}
-                    </span>
-                    <span className="text-neutral-500">{article.year}</span>
-                  </div>
-
-                  {/* title */}
-                  <h3 className="text-sm font-semibold text-white sm:text-[0.95rem]">
-                    {article.title}
-                  </h3>
-                  <p className="mt-1 text-[0.7rem] uppercase tracking-[0.18em] text-neutral-500">
-                    {article.journal} • {article.topic}
-                  </p>
-
-                  {/* summary */}
-                  <p className="mt-3 text-xs leading-relaxed text-neutral-300">{article.summary}</p>
-
-                  {/* bullets */}
-                  <ul className="mt-3 space-y-1.5 text-xs text-neutral-300/90">
-                    {article.bullets.map((b, i) => (
-                      <li key={i} className="flex gap-2">
-                        <span className="mt-0.5 inline-block h-1.5 w-1.5 flex-none rounded-full bg-sky-400/80" />
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* footer */}
-                  <div className="mt-4 flex items-center justify-between gap-3">
-                    <div className="flex flex-wrap gap-2 text-[0.7rem] text-neutral-400">
-                      <span className="rounded-full border border-neutral-700/70 px-2.5 py-1">
-                        PMID: {article.id}
+                <CardContainer className="inter-var h-full">
+                  <CardBody className="bg-gray-50/5 relative group/card flex h-full flex-col rounded-2xl border border-neutral-800/80 p-5 shadow-lg backdrop-blur-sm dark:bg-black">
+                    {/* Level + year row */}
+                    <div className="mb-3 flex items-center justify-between gap-2 text-[0.65rem] sm:text-[0.7rem]">
+                      <span className="rounded-full border border-sky-500/40 bg-sky-500/10 px-3 py-1 font-medium uppercase tracking-[0.18em] text-sky-300">
+                        {article.level}
                       </span>
+                      <span className="text-neutral-500">{article.year}</span>
                     </div>
-                    <Link
-                      href={article.pubmedUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1 rounded-full border border-sky-400/60 bg-sky-500/10 px-3 py-1.5 text-[0.7rem] font-medium text-sky-200 transition group-hover:border-sky-300 group-hover:bg-sky-500/15"
+
+                    {/* Title */}
+                    <CardItem
+                      translateZ="50"
+                      className="text-sm font-semibold text-white sm:text-[0.95rem]"
                     >
-                      View on PubMed
-                      <span aria-hidden className="translate-y-[0.5px] text-[0.9em]">
-                        ↗
-                      </span>
-                    </Link>
-                  </div>
-                </div>
-              </motion.article>
+                      {article.title}
+                    </CardItem>
+
+                    {/* Journal / topic */}
+                    <CardItem
+                      as="p"
+                      translateZ="55"
+                      className="mt-1 text-[0.7rem] uppercase tracking-[0.18em] text-neutral-500"
+                    >
+                      {article.journal} • {article.topic}
+                    </CardItem>
+
+                    {/* Summary */}
+                    <CardItem
+                      as="p"
+                      translateZ="60"
+                      className="mt-3 text-xs leading-relaxed text-neutral-300"
+                    >
+                      {article.summary}
+                    </CardItem>
+
+                    {/* Bullets */}
+                    <CardItem translateZ="80" className="mt-3">
+                      <ul className="space-y-1.5 text-xs text-neutral-300/90">
+                        {article.bullets.map((b, i) => (
+                          <li key={i} className="flex gap-2">
+                            <span className="mt-0.5 inline-block h-1.5 w-1.5 flex-none rounded-full bg-sky-400/80" />
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardItem>
+
+                    {/* Footer */}
+                    <div className="mt-4 flex items-center justify-between gap-3">
+                      <CardItem
+                        translateZ={20}
+                        as="div"
+                        className="flex flex-wrap gap-2 text-[0.7rem] text-neutral-400"
+                      >
+                        <span className="rounded-full border border-neutral-700/70 px-2.5 py-1">
+                          PMID: {article.id}
+                        </span>
+                      </CardItem>
+
+                      <CardItem
+                        translateZ={20}
+                        as={Link}
+                        href={article.pubmedUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 rounded-full border border-sky-400/60 bg-sky-500/10 px-3 py-1.5 text-[0.7rem] font-medium text-sky-200 transition group-hover/card:border-sky-300 group-hover/card:bg-sky-500/15"
+                      >
+                        View on PubMed
+                        <span aria-hidden className="translate-y-[0.5px] text-[0.9em]">
+                          ↗
+                        </span>
+                      </CardItem>
+                    </div>
+                  </CardBody>
+                </CardContainer>
+              </motion.div>
             ))}
           </div>
         </section>
@@ -232,7 +250,7 @@ export default function EducationPage() {
               </h3>
               <p className="text-xs text-neutral-400 sm:text-[0.8rem]">
                 As we grow HeliosX, we&apos;ll keep expanding this section with technique papers,
-                ergonomics data, and practical anatomy—so optics and access evolve together.
+                ergonomics data, and practical anatomy - so optics and access evolve together.
               </p>
             </div>
             <div className="flex items-center gap-3 text-xs">

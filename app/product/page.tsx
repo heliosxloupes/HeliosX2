@@ -24,7 +24,7 @@ export default function ProductPage() {
   return (
     <>
       <Header />
-      <main className="bg-black text-white min-h-screen">
+      <main className="pt-24 bg-black text-white min-h-screen">
         <ParallaxProductHero />
         <OurLoupesGrid />
         <OrderingInfoSection />

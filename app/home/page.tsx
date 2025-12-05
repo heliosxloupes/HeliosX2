@@ -27,7 +27,7 @@ export default function HomePage() {
       <div className="min-h-screen bg-black text-white">
       <Header />
 
-        <main className="pt-0 space-y-24 md:space-y-32">
+        <main className="pt-24 space-y-24 md:space-y-32">
           <HeroSection />
           <ManifestoSection />
           <HorizontalScrollSection />

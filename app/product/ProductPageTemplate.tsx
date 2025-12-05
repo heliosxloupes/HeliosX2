@@ -176,7 +176,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-black text-neutral-100">
+      <main className="pt-24 min-h-screen bg-black text-neutral-100">
         <section className="w-full pt-6 pb-20 lg:pb-28">
           <div className="mx-auto flex max-w-[1400px] flex-col gap-10 px-4 lg:flex-row lg:items-start lg:px-10 xl:px-16">
             <div className="flex flex-1 flex-col items-center lg:items-start">

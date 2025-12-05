@@ -23,7 +23,7 @@ export default function CheckoutSuccessPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-black text-neutral-100">
+      <main className="pt-24 min-h-screen bg-black text-neutral-100">
         <section className="relative mx-auto flex min-h-[calc(100vh-80px)] max-w-6xl flex-col gap-10 px-4 pb-16 pt-8 lg:flex-row lg:items-center lg:px-8 lg:pt-10">
 
           {/* LEFT – hero / emotional side */}

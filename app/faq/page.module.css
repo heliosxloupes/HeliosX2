@@ -2,6 +2,7 @@
   min-height: 100vh;
   background: black;
   color: white;
+  padding-top: 6rem; /* pt-24 equivalent */
 }
 
 .hero {

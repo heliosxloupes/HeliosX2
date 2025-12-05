@@ -81,7 +81,7 @@ export default function CartPage() {
   return (
     <>
       <Header />
-      <main className="bg-black text-neutral-100 lg:min-h-[calc(100vh-64px)] lg:max-h-[calc(100vh-64px)] lg:overflow-hidden">
+      <main className="pt-24 bg-black text-neutral-100 lg:min-h-[calc(100vh-64px)] lg:max-h-[calc(100vh-64px)] lg:overflow-hidden">
         <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 pb-12 pt-8 lg:h-full lg:grid-cols-[3fr,2.2fr] lg:items-stretch lg:gap-10 lg:px-8 lg:pb-8 lg:pt-6">
           {/* LEFT – hero image */}
           <div className="relative h-[320px] overflow-hidden rounded-[32px] bg-neutral-900 shadow-[0_0_60px_rgba(0,0,0,0.75)] lg:h-full lg:min-h-0">

@@ -156,9 +156,6 @@ function HeroSection() {
                 >
                   Shop HeliosX Loupes
                 </a>
-                <button className="text-sm text-neutral-200 underline-offset-4 hover:underline">
-                  Watch how surgeons use HeliosX
-                </button>
               </div>
             </div>
 

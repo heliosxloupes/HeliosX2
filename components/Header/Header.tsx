@@ -1,14 +1,65 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
 import Link from 'next/link'
 import Image from 'next/image'
 import CartButton from '../CartButton'
 
 export default function Header() {
+  const headerRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const header = headerRef.current
+    if (!header) return
+
+    // make sure header starts visible
+    gsap.set(header, { yPercent: 0 })
+
+    let lastScrollY = window.scrollY
+    let isHidden = false
+    const threshold = 12 // px of movement before we react
+
+    const onScroll = () => {
+      const currentY = window.scrollY
+      const delta = currentY - lastScrollY
+
+      // scrolling down
+      if (delta > threshold && currentY > 80 && !isHidden) {
+        isHidden = true
+        gsap.to(header, {
+          yPercent: -100,
+          duration: 0.35,
+          ease: 'power2.out',
+        })
+      }
+
+      // scrolling up
+      if (delta < -threshold && isHidden) {
+        isHidden = false
+        gsap.to(header, {
+          yPercent: 0,
+          duration: 0.35,
+          ease: 'power2.out',
+        })
+      }
+
+      lastScrollY = currentY
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [])
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-black/70 backdrop-blur-md border-b border-white/10">
+    <header
+      ref={headerRef}
+      className="fixed top-0 left-0 z-50 w-full bg-black/75 backdrop-blur-md border-b border-white/10"
+    >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-3 lg:px-10 xl:px-16">
-        {/* Left: logo + wordmark (matches home2 style) */}
+        {/* Left: logo + wordmark */}
         <Link href="/home" className="flex items-center gap-2">
           <Image
             src="/logominimalnowriting.png"

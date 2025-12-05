@@ -27,7 +27,7 @@ export default function HomePage() {
       <div className="min-h-screen bg-black text-white">
       <Header />
 
-        <main className="pt-20 space-y-24 md:space-y-32">
+        <main className="pt-10 md:pt-14 space-y-24 md:space-y-32">
           <HeroSection />
           <ManifestoSection />
           <HorizontalScrollSection />
@@ -38,7 +38,6 @@ export default function HomePage() {
           <CustomizationSection />
           <ErgonomicsHealthSection />
           <DiveDeeperSection />
-          <TestimonialsSection />
           <PublicBenefitSection />
           <ProductAtGlanceSection />
         </main>
@@ -105,7 +104,7 @@ function HeroSection() {
   return (
     <section id="top" className="relative bg-black">
       {/* Full viewport and flush under header */}
-      <div className="flex min-h-screen items-center justify-center px-4 md:px-[50px]">
+      <div className="flex min-h-screen items-start justify-center px-4 pt-6 md:px-[50px] md:pt-10">
         {/* Fullscreen hero card with ~50px margin */}
         <div className="relative w-full h-[calc(100vh-80px)] rounded-[32px] overflow-hidden border border-white/10 bg-neutral-900/70">
           {/* BACKGROUND IMAGE */}
@@ -143,7 +142,7 @@ function HeroSection() {
 
               <p className="text-base text-neutral-200 md:text-lg">
                 Created for those who pursue mastery. Engineered for excellence,
-                with perfect focus in every detail—without the gatekeeping.
+                with perfect focus in every detail.
               </p>
 
               <p className="text-sm text-neutral-300">
@@ -164,7 +163,7 @@ function HeroSection() {
             </div>
 
             {/* Bottom right: Newsletter and Order Now button with increased spacing and size */}
-            <div className="flex flex-col items-end gap-6">
+            <div className="flex flex-col items-end gap-10">
               {/* Newsletter - Made bigger */}
               <div className="group relative">
                 <div className="bg-gradient-to-r from-white/95 to-[#f5f0e8]/90 border border-black/20 rounded-[8px] px-6 py-4 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg max-w-[320px]">
@@ -179,7 +178,7 @@ function HeroSection() {
                     placeholder="Enter your email"
                     value={newsletterEmail}
                     onChange={(e) => setNewsletterEmail(e.target.value)}
-                    className="w-full bg-black/5 border border-black/20 rounded-md px-4 py-3 text-sm text-black mb-3 focus:outline-none focus:border-orange-400"
+                    className="w-full bg-black/60 border border-white/30 rounded-md px-4 py-3 text-sm text-white placeholder-white/70 mb-3 focus:outline-none focus:border-orange-400"
                   />
                   <button className="w-full bg-[#FF9B00] text-black font-semibold text-sm py-3 rounded-md hover:bg-[#FFB033] transition-colors">
                     Sign Up
@@ -508,7 +507,7 @@ function WhyHeliosXSection() {
           Designed for those who demand precision. Created for those who pursue mastery.
         </h3>
         <p className="text-sm md:text-base text-neutral-300">
-          Engineered for excellence. Perfect focus, every detail—without the gatekeeping.
+          Engineered for excellence. Perfect focus, every detail.
           No inflated pricing. Just fair access to elite optics so your skill, not your
           budget, defines your ceiling.
         </p>
@@ -945,69 +944,6 @@ function OutlinePill({ href, children }: OutlinePillProps) {
   );
 }
 
-/* -------------------- Testimonials -------------------- */
-
-function TestimonialsSection() {
-  return (
-    <section className="bg-black">
-      <motion.div
-        className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-        variants={fadeUp}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <h2 className="text-xl font-semibold md:text-2xl">
-          What people are saying.
-        </h2>
-        <p className="mt-2 max-w-md text-sm text-neutral-400">
-          Replace these with real quotes from early users, testers, or press.
-        </p>
-
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          <TestimonialCard
-            name="Person One"
-            handle="@handle1"
-            quote="This feels like a device that respects my time and attention."
-          />
-          <TestimonialCard
-            name="Person Two"
-            handle="@handle2"
-            quote="After a week, I realized I didn't miss my old laptop at all."
-          />
-          <TestimonialCard
-            name="Person Three"
-            handle="@handle3"
-            quote="The first screen I've used that actually makes me want to read more."
-          />
-        </div>
-      </motion.div>
-    </section>
-  );
-}
-
-interface TestimonialCardProps {
-  name: string;
-  handle: string;
-  quote: string;
-}
-
-function TestimonialCard({ name, handle, quote }: TestimonialCardProps) {
-  return (
-    <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-neutral-950/80 p-4 text-sm">
-      <p className="text-neutral-200">{quote}</p>
-      <div className="mt-4 flex items-center gap-3 text-xs text-neutral-500">
-        <div className="h-7 w-7 rounded-full bg-neutral-800" />
-        <div>
-          <p className="font-medium text-neutral-200">{name}</p>
-          <p>{handle}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 /* -------------------- Story / Company -------------------- */
 
 function PublicBenefitSection() {
@@ -1025,18 +961,31 @@ function PublicBenefitSection() {
           Company
         </p>
         <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-          Built as a company that cares how computers feel.
+          How HeliosX began.
         </h2>
         <p className="mt-4 text-sm text-neutral-400 md:text-base">
-          Use this section as a long-form letter: why you&apos;re building this,
-          what you refuse to compromise on, and how you plan to stay aligned
-          with users instead of ads or engagement games.
+          HeliosX began with a simple realization shared by surgeons at every
+          stage of training: the tools we rely on daily are treated like luxury
+          goods instead of necessities.
         </p>
         <p className="mt-4 text-sm text-neutral-400 md:text-base">
-          Talk about hardware choices, business model, roadmap, or anything that
-          makes your project different.
+          For decades, surgical optics have been locked behind inflated prices,
+          outdated designs, and a business model that assumes surgeons will
+          simply “accept it.” But we didn’t.
         </p>
-        <p className="mt-8 text-sm text-neutral-300">— Your Name, Founder</p>
+        <p className="mt-4 text-sm text-neutral-400 md:text-base">
+          We watched residents delay buying loupes because rent mattered more.
+          We saw medical students borrow gear because their budget had limits.
+          We listened to attendings who had used the same outdated optics for
+          years because upgrading felt irrational.
+        </p>
+        <p className="mt-4 text-sm text-neutral-400 md:text-base">
+          The problem was never the craftsmanship — it was the gatekeeping.
+        </p>
+        <p className="mt-4 text-sm text-neutral-400 md:text-base">
+          So we built an alternative.
+        </p>
+        <p className="mt-8 text-sm text-neutral-300">— Founder</p>
       </motion.div>
     </section>
   );

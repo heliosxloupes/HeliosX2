@@ -209,25 +209,36 @@ export default function CartPage() {
                   onClick={() =>
                     setIncludePrescription((prev) => !prev)
                   }
-                  className={`flex w-full items-start justify-between rounded-2xl border px-4 py-3 text-left transition ${
+                  className={`flex w-full items-start justify-between gap-4 rounded-2xl border px-4 py-3 text-left transition sm:items-center sm:gap-6 sm:px-5 sm:py-4 ${
                     includePrescription
                       ? 'border-white/70 bg-white/10'
                       : 'border-white/10 bg-black/40 hover:border-white/30'
                   }`}
                 >
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
-                      Prescription lenses
-                    </p>
-                    <p className="mt-1 text-sm text-neutral-100">
-                      Integrate your spectacle Rx directly into the system.
-                    </p>
-                    <p className="mt-1 text-[0.7rem] text-neutral-400">
-                      You&apos;ll upload your prescription and PD after
-                      checkout.
-                    </p>
+                  <div className="flex items-start gap-4 sm:gap-5">
+                    <div className="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/5 p-3 text-white shadow-[0_0_16px_rgba(255,255,255,0.05)] sm:h-14 sm:w-14">
+                      <Image
+                        src="/prescription.png"
+                        alt="Prescription icon"
+                        width={32}
+                        height={32}
+                        className="h-6 w-6 object-contain brightness-0 invert drop-shadow-[0_0_6px_rgba(255,255,255,0.35)] sm:h-7 sm:w-7"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
+                        Prescription lenses
+                      </p>
+                      <p className="text-sm text-neutral-100">
+                        Integrate your spectacle Rx directly into the system.
+                      </p>
+                      <p className="text-[0.7rem] text-neutral-400">
+                        You&apos;ll upload your prescription and PD after
+                        checkout.
+                      </p>
+                    </div>
                   </div>
-                  <span className="ml-4 whitespace-nowrap text-sm font-semibold text-neutral-50">
+                  <span className="ml-2 whitespace-nowrap text-sm font-semibold text-neutral-50 sm:ml-4">
                     +${PRESCRIPTION_ESTIMATE}
                   </span>
                 </button>
@@ -236,26 +247,37 @@ export default function CartPage() {
                 <button
                   type="button"
                   onClick={() => setIncludeWarranty((prev) => !prev)}
-                  className={`flex w-full items-start justify-between rounded-2xl border px-4 py-3 text-left transition ${
+                  className={`flex w-full items-start justify-between gap-4 rounded-2xl border px-4 py-3 text-left transition sm:items-center sm:gap-6 sm:px-5 sm:py-4 ${
                     includeWarranty
                       ? 'border-white/70 bg-white/10'
                       : 'border-white/10 bg-black/40 hover:border-white/30'
                   }`}
                 >
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
-                      Extended warranty
-                    </p>
-                    <p className="mt-1 text-sm text-neutral-100">
-                      Extra coverage beyond the standard manufacturing
-                      warranty.
-                    </p>
-                    <p className="mt-1 text-[0.7rem] text-neutral-400">
-                      Covers qualifying defects and select repairs within the
-                      extended term.
-                    </p>
+                  <div className="flex items-start gap-4 sm:gap-5">
+                    <div className="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/5 p-3 text-white shadow-[0_0_16px_rgba(255,255,255,0.05)] sm:h-14 sm:w-14">
+                      <Image
+                        src="/warranty.png"
+                        alt="Warranty icon"
+                        width={32}
+                        height={32}
+                        className="h-6 w-6 object-contain brightness-0 invert drop-shadow-[0_0_6px_rgba(255,255,255,0.35)] sm:h-7 sm:w-7"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
+                        Extended warranty
+                      </p>
+                      <p className="text-sm text-neutral-100">
+                        Extra coverage beyond the standard manufacturing
+                        warranty.
+                      </p>
+                      <p className="text-[0.7rem] text-neutral-400">
+                        Covers qualifying defects and select repairs within the
+                        extended term.
+                      </p>
+                    </div>
                   </div>
-                  <span className="ml-4 whitespace-nowrap text-sm font-semibold text-neutral-50">
+                  <span className="ml-2 whitespace-nowrap text-sm font-semibold text-neutral-50 sm:ml-4">
                     +${WARRANTY_ESTIMATE}
                   </span>
                 </button>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Playfair_Display } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from '@/components/SmoothScroll/SmoothScroll'
+import AmbientBackground from '@/components/AmbientBackground'
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
@@ -29,7 +30,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`lenis lenis-smooth ${playfairDisplay.variable}`}>
       <body>
-        <SmoothScroll>{children}</SmoothScroll>
+        <div className="site-shell">
+          <AmbientBackground />
+          <div className="site-content">
+            <SmoothScroll>{children}</SmoothScroll>
+          </div>
+        </div>
       </body>
     </html>
   )

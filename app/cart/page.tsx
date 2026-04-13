@@ -98,7 +98,8 @@ export default function CartPage() {
   }
 
   const handleEditConfig = () => {
-    router.push('/product/galileo')
+    const targetSlug = items[0]?.productSlug
+    router.push(targetSlug ? `/product/${targetSlug}` : '/product')
   }
 
   return (
@@ -154,12 +155,12 @@ export default function CartPage() {
             initial="hidden"
             animate="visible"
             transition={{ duration: 0.6, delay: 0.05, ease: 'easeOut' }}
-            className="flex flex-col gap-6"
+            className="flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start"
           >
             {/* Main cart content */}
             <motion.div
               variants={cardVariants}
-              className="flex flex-1 flex-col overflow-hidden rounded-3xl bg-gradient-to-b from-neutral-900/90 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)] backdrop-blur-xl"
+              className="flex flex-1 flex-col overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-b from-neutral-900/90 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)] backdrop-blur-xl"
             >
               <div className="mb-3 flex items-center justify-between">
                 <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-neutral-400">
@@ -176,10 +177,18 @@ export default function CartPage() {
               </div>
 
               {!items.length ? (
-                <p className="text-sm text-neutral-400">
-                  Your cart is empty. Select a system from the product page to
-                  continue.
-                </p>
+                <div className="rounded-2xl border border-white/8 bg-black/35 p-5">
+                  <p className="text-sm text-neutral-300">
+                    Your cart is empty. Start with the system that best matches your work.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => router.push('/product')}
+                    className="mt-4 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:bg-neutral-100"
+                  >
+                    Explore systems
+                  </button>
+                </div>
               ) : (
                 <motion.ul
                   variants={listVariants}
@@ -267,7 +276,7 @@ export default function CartPage() {
             {/* Add-ons */}
             <motion.div
               variants={cardVariants}
-              className="rounded-3xl bg-gradient-to-b from-neutral-900/90 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)] backdrop-blur-xl"
+              className="rounded-[32px] border border-white/10 bg-gradient-to-b from-neutral-900/90 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)] backdrop-blur-xl"
             >
               <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-neutral-400">
                 Optional add-ons
@@ -311,9 +320,14 @@ export default function CartPage() {
                       </p>
                     </div>
                   </div>
-                  <span className="ml-2 whitespace-nowrap text-sm font-semibold text-neutral-50 sm:ml-4">
-                    +${PRESCRIPTION_ESTIMATE}
-                  </span>
+                  <div className="ml-2 flex flex-col items-end gap-2 sm:ml-4">
+                    <span className="whitespace-nowrap text-sm font-semibold text-neutral-50">
+                      +${PRESCRIPTION_ESTIMATE}
+                    </span>
+                    <span className={`rounded-full px-2 py-1 text-[0.62rem] uppercase tracking-[0.2em] ${includePrescription ? 'bg-white text-black' : 'border border-white/15 text-neutral-400'}`}>
+                      {includePrescription ? 'Added' : 'Optional'}
+                    </span>
+                  </div>
                 </motion.button>
 
                 {/* Extended warranty */}
@@ -352,9 +366,14 @@ export default function CartPage() {
                       </p>
                     </div>
                   </div>
-                  <span className="ml-2 whitespace-nowrap text-sm font-semibold text-neutral-50 sm:ml-4">
-                    +${WARRANTY_ESTIMATE}
-                  </span>
+                  <div className="ml-2 flex flex-col items-end gap-2 sm:ml-4">
+                    <span className="whitespace-nowrap text-sm font-semibold text-neutral-50">
+                      +${WARRANTY_ESTIMATE}
+                    </span>
+                    <span className={`rounded-full px-2 py-1 text-[0.62rem] uppercase tracking-[0.2em] ${includeWarranty ? 'bg-white text-black' : 'border border-white/15 text-neutral-400'}`}>
+                      {includeWarranty ? 'Added' : 'Optional'}
+                    </span>
+                  </div>
                 </motion.button>
               </div>
             </motion.div>
@@ -362,7 +381,7 @@ export default function CartPage() {
             {/* Totals + CTA */}
             <motion.div
               variants={cardVariants}
-              className="rounded-3xl bg-gradient-to-b from-neutral-900/90 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)] backdrop-blur-xl"
+              className="rounded-[32px] border border-white/10 bg-gradient-to-b from-neutral-900/90 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)] backdrop-blur-xl"
             >
               <div className="mb-2 flex items-center justify-between text-sm text-neutral-300">
                 <span>Items subtotal</span>

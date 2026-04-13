@@ -1,33 +1,25 @@
 'use client'
 
-import { useEffect, useState, Suspense } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { Suspense, useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
+
 import Header from '@/components/Header'
-import BlurText from '@/components/BlurText'
 import { clearCart } from '@/lib/cart'
-import styles from './Return.module.css'
 
 function ReturnContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const sessionId = searchParams.get('session_id')
-  const [status, setStatus] = useState<string>('')
-  const [customerEmail, setCustomerEmail] = useState<string>('')
-  const [headlineAnimationComplete, setHeadlineAnimationComplete] = useState(false)
-  const [subheadlineAnimationComplete, setSubheadlineAnimationComplete] = useState(false)
-  const [newsletterEmail, setNewsletterEmail] = useState('')
+  const [status, setStatus] = useState<'loading' | 'complete' | 'error'>('loading')
+  const [customerEmail, setCustomerEmail] = useState('')
 
-  // Prevent scrolling on this page
   useEffect(() => {
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = 'unset'
+    if (!sessionId) {
+      setStatus('error')
+      return
     }
-  }, [])
-
-  useEffect(() => {
-    if (!sessionId) return
 
     const initialize = async () => {
       try {
@@ -36,108 +28,71 @@ function ReturnContent() {
 
         if (session.status === 'open') {
           router.replace('/checkout')
-        } else if (session.status === 'complete') {
-          // Clear the cart after successful checkout
-          clearCart()
-          setStatus('complete')
-          setCustomerEmail(session.customer_email || '')
-        } else {
-          setStatus(session.status || '')
+          return
         }
+
+        if (session.status === 'complete') {
+          clearCart()
+          setCustomerEmail(session.customer_email || '')
+          setStatus('complete')
+          return
+        }
+
+        setStatus('error')
       } catch (error) {
         console.error('Error fetching session status:', error)
+        setStatus('error')
       }
     }
 
     initialize()
-  }, [sessionId, router])
+  }, [router, sessionId])
 
-  if (status === 'complete') {
+  if (status === 'loading') {
     return (
       <>
         <Header />
-        <main className={styles.successPage}>
-          <div className={styles.imageContainer}>
-            <Image
-              src="/Apollo/Apollo3xAsian.png"
-              alt="Success"
-              fill
-              style={{ objectFit: 'cover' }}
-              priority
-            />
-            {/* Text Overlay - Top Left */}
-            <div className={styles.imageTextOverlay}>
-              <BlurText 
-                text="You are all set!"
-                className={styles.imageHeadline}
-                animateBy="words"
-                direction="top"
-                delay={100}
-                onAnimationComplete={() => setHeadlineAnimationComplete(true)}
-              />
-              {headlineAnimationComplete && (
-                <BlurText 
-                  key="subheadline"
-                  text="Just one last step regarding your specific vision details,"
-                  className={styles.imageSubheadline}
-                  animateBy="words"
-                  direction="top"
-                  delay={100}
-                  onAnimationComplete={() => setSubheadlineAnimationComplete(true)}
-                />
-              )}
-              {subheadlineAnimationComplete && (
-                <BlurText 
-                  key="thirdline"
-                  text="Look out for an email from us"
-                  className={styles.imageThirdLine}
-                  animateBy="words"
-                  direction="top"
-                  delay={100}
-                />
-              )}
+        <main className="min-h-screen bg-black pt-24 text-neutral-100">
+          <section className="mx-auto flex min-h-[calc(100vh-96px)] max-w-5xl items-center justify-center px-4 pb-12">
+            <div className="space-y-4 text-center">
+              <div className="mx-auto h-10 w-10 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+              <p className="text-sm uppercase tracking-[0.25em] text-neutral-500">Confirming checkout</p>
             </div>
-            {/* Social Media - Mid Left */}
-            <div className={styles.socialMediaContainer}>
-              <p className={styles.socialMediaText}>Follow us on Social Media</p>
-              <div className={styles.socialMediaIcons}>
-                <a 
-                  href="https://instagram.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className={styles.socialIcon}
-                  aria-label="Instagram"
+          </section>
+        </main>
+      </>
+    )
+  }
+
+  if (status === 'error') {
+    return (
+      <>
+        <Header />
+        <main className="min-h-screen bg-black pt-24 text-neutral-100">
+          <section className="mx-auto flex min-h-[calc(100vh-96px)] max-w-5xl items-center justify-center px-4 pb-12">
+            <div className="max-w-xl rounded-[32px] border border-white/10 bg-neutral-950/80 p-8 text-center shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
+              <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">Checkout status</p>
+              <h1 className="mt-3 text-2xl font-semibold text-white">We could not confirm this checkout.</h1>
+              <p className="mt-4 text-sm leading-6 text-neutral-300">
+                Please return to checkout and try again. If your payment already went through,
+                contact us and we will help reconcile it quickly.
+              </p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                <button
+                  onClick={() => router.push('/checkout')}
+                  className="rounded-full bg-white px-5 py-3 text-sm font-medium text-black transition hover:bg-neutral-100"
                 >
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path 
-                      d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" 
-                      fill="currentColor"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-          {/* Newsletter - Exact same as home page */}
-          <div className={styles.newsletterContainer}>
-            <div className={styles.bottomNewsletter}>
-              <button className={styles.bottomNewsletterClose}>×</button>
-              <h3 className={styles.bottomNewsletterTitle}>Newsletter</h3>
-              <p className={styles.bottomNewsletterText}>GET UPDATES • NO SPAM</p>
-              <div className={styles.bottomNewsletterEmailContainer}>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className={styles.bottomNewsletterEmailInput}
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                />
-                <button className={styles.bottomNewsletterSubmit}>
-                  Sign Up
+                  Back to checkout
+                </button>
+                <button
+                  onClick={() => router.push('/home')}
+                  className="rounded-full border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/10"
+                >
+                  Return home
                 </button>
               </div>
             </div>
-          </div>
+          </section>
         </main>
       </>
     )
@@ -146,10 +101,109 @@ function ReturnContent() {
   return (
     <>
       <Header />
-      <main className={styles.successPage}>
-        <div className={styles.loadingContainer}>
-          <h1>Loading...</h1>
-        </div>
+      <main className="min-h-screen bg-black pt-24 text-neutral-100">
+        <section className="relative mx-auto flex min-h-[calc(100vh-96px)] max-w-6xl flex-col gap-10 px-4 pb-16 lg:flex-row lg:items-center lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 18, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.55, ease: 'easeOut' }}
+            className="relative min-h-[340px] flex-1 overflow-hidden rounded-[32px] border border-white/10 bg-neutral-900 shadow-[0_0_60px_rgba(0,0,0,0.85)] lg:min-h-[540px]"
+          >
+            <Image
+              src="/Apollo/Apollo3xAsian.png"
+              alt="HeliosX checkout confirmation"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+
+            <div className="absolute bottom-6 left-6 right-6 space-y-3 text-neutral-100">
+              <p className="text-[0.7rem] uppercase tracking-[0.25em] text-neutral-300">
+                Payment complete
+              </p>
+              <h1 className="max-w-lg text-2xl font-semibold leading-tight lg:text-4xl">
+                Your HeliosX system is officially in motion.
+              </h1>
+              <p className="max-w-md text-sm leading-6 text-neutral-300">
+                We have your order. Next comes the fit-confirmation step so your final build feels
+                precise, personal, and ready for the field.
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.aside
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.08 }}
+            className="w-full max-w-md flex-1 space-y-6"
+          >
+            <div className="rounded-[32px] border border-white/10 bg-gradient-to-b from-neutral-900 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.8)]">
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-[0.7rem] uppercase tracking-[0.25em] text-neutral-500">
+                    Confirmation
+                  </p>
+                  <h2 className="mt-1 text-lg font-semibold text-neutral-50">
+                    Checkout verified
+                  </h2>
+                </div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-400/60 bg-emerald-500/10">
+                  <span className="text-lg">✓</span>
+                </div>
+              </div>
+
+              <p className="text-sm leading-6 text-neutral-300">
+                {customerEmail
+                  ? `A confirmation has been sent to ${customerEmail}.`
+                  : 'A confirmation email has been sent with your receipt and order summary.'}
+              </p>
+            </div>
+
+            <div className="space-y-4 rounded-[32px] border border-white/10 bg-gradient-to-b from-neutral-900/80 to-black p-6 shadow-[0_0_40px_rgba(0,0,0,0.8)]">
+              <p className="text-[0.7rem] uppercase tracking-[0.25em] text-neutral-500">
+                What happens next
+              </p>
+              <ul className="space-y-3 text-sm text-neutral-300">
+                <li className="flex gap-3">
+                  <span className="mt-[2px] h-[6px] w-[6px] rounded-full bg-neutral-200" />
+                  <span>Watch for your order confirmation and fit instructions by email.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-[2px] h-[6px] w-[6px] rounded-full bg-neutral-200" />
+                  <span>If you ordered prescription lenses, we will guide you through the Rx and PD step.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-[2px] h-[6px] w-[6px] rounded-full bg-neutral-200" />
+                  <span>Once fit details are confirmed, your system moves into production and then ships.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-4 rounded-[32px] border border-white/10 bg-gradient-to-r from-neutral-950 via-neutral-900 to-neutral-950 p-6 shadow-[0_0_45px_rgba(0,0,0,0.9)]">
+              <p className="text-[0.7rem] uppercase tracking-[0.25em] text-neutral-500">
+                Next move
+              </p>
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => router.push('/product')}
+                  className="flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition hover:bg-neutral-100"
+                >
+                  Explore more systems
+                </button>
+                <button
+                  onClick={() => router.push('/home')}
+                  className="flex w-full items-center justify-center rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-medium text-neutral-100 transition hover:bg-white/10"
+                >
+                  Back to home
+                </button>
+              </div>
+              <p className="text-[0.65rem] leading-5 text-neutral-500">
+                Questions about fit, prescription, or timing? Reach out and we will help directly.
+              </p>
+            </div>
+          </motion.aside>
+        </section>
       </main>
     </>
   )
@@ -157,11 +211,13 @@ function ReturnContent() {
 
 export default function ReturnPage() {
   return (
-    <Suspense fallback={
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div>Loading...</div>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-black text-neutral-300">
+          Loading...
+        </div>
+      }
+    >
       <ReturnContent />
     </Suspense>
   )

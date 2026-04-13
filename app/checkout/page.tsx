@@ -236,40 +236,46 @@ export default function CheckoutPage() {
       <main className="pt-24 min-h-screen bg-black text-neutral-100">
         <section className="mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-16 pt-10 lg:flex-row lg:px-8">
           {/* Left Column - Stripe Embedded Checkout */}
-          <div className="flex-1 rounded-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 p-6 shadow-[0_0_50px_rgba(0,0,0,0.7)]">
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
+          <div className="flex-1 rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(24,24,27,0.96),rgba(10,10,12,0.98))] p-6 shadow-[0_30px_100px_rgba(0,0,0,0.55)] md:p-8">
+            <p className="text-xs uppercase tracking-[0.22em] text-neutral-400">
               Payment
             </p>
-            <h1 className="mt-2 text-2xl font-semibold lg:text-3xl">
+            <h1 className="mt-2 text-2xl font-semibold tracking-tight lg:text-3xl">
               Secure checkout
             </h1>
-            <p className="mt-2 text-sm text-neutral-300">
-              Complete your payment securely with Stripe.
+            <p className="mt-2 max-w-xl text-sm leading-6 text-neutral-300">
+              Review your order and complete payment securely with Stripe&apos;s embedded checkout.
             </p>
 
             <div className="mt-6">
               {error ? (
-                <div className="rounded-2xl bg-red-900/20 border border-red-500/50 p-6">
+                <div className="rounded-2xl border border-red-500/50 bg-red-900/20 p-6">
                   <p className="text-red-400 font-semibold mb-2">Error loading checkout</p>
                   <p className="text-red-300 text-sm">{error}</p>
                 </div>
               ) : loading ? (
-                <div className="flex items-center justify-center py-20">
-                  <div className="text-neutral-400">Loading checkout...</div>
+                <div className="space-y-4 py-10">
+                  <div className="h-5 w-36 animate-pulse rounded-full bg-white/8" />
+                  <div className="grid gap-3">
+                    <div className="h-14 animate-pulse rounded-2xl bg-white/6" />
+                    <div className="h-14 animate-pulse rounded-2xl bg-white/6" />
+                    <div className="h-44 animate-pulse rounded-3xl bg-white/6" />
+                  </div>
+                  <div className="text-sm text-neutral-500">Loading secure Stripe checkout...</div>
                 </div>
               ) : (
                 <div 
                   id="checkout" 
                   ref={checkoutRef}
-                  className="min-h-[600px]"
+                  className="min-h-[600px] overflow-hidden rounded-[28px] border border-white/8 bg-[#f4eeea]"
                 ></div>
               )}
             </div>
           </div>
 
           {/* Right Column - Order Summary */}
-          <aside className="w-full max-w-sm rounded-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 p-6 shadow-[0_0_50px_rgba(0,0,0,0.7)]">
-            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-neutral-400">
+          <aside className="w-full max-w-sm rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(17,24,39,0.94),rgba(8,8,10,0.98))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.45)] lg:sticky lg:top-28 lg:self-start">
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-neutral-400">
               Order summary
             </h2>
 
@@ -277,7 +283,7 @@ export default function CheckoutPage() {
               {items.map((item, idx) => (
                 <div
                   key={`${item.productSlug}-${idx}`}
-                  className="rounded-2xl bg-black/50 p-4"
+                  className="rounded-2xl border border-white/8 bg-black/35 p-4 backdrop-blur-sm"
                 >
                   <div className="flex gap-4">
                     {item.image && (
@@ -336,9 +342,9 @@ export default function CheckoutPage() {
                   ${subtotal.toFixed(2)}
                 </span>
               </div>
-              <p className="text-[0.7rem] text-neutral-400">
-                Final itemized total, including prescription lenses and extended
-                warranty, will be displayed directly in Stripe.
+              <p className="text-[0.72rem] leading-5 text-neutral-400">
+                Final itemized totals, including prescription lenses and extended
+                warranty, are confirmed directly inside Stripe before payment.
               </p>
             </div>
           </aside>

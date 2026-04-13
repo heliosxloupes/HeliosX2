@@ -56,7 +56,7 @@ function MobileNav() {
   return (
     <>
       {/* Top bar */}
-      <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-black/75 backdrop-blur-md">
+      <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-black/72 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
           {/* Logo / brand */}
           <button
@@ -84,7 +84,7 @@ function MobileNav() {
             <button
               type="button"
               onClick={toggle}
-              className="relative flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-black/70 text-neutral-100"
+            className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/65 text-neutral-100 shadow-[0_10px_25px_rgba(0,0,0,0.28)]"
               aria-label="Toggle navigation"
             >
               <div className="flex flex-col items-center justify-center gap-1.5">
@@ -105,7 +105,7 @@ function MobileNav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="fixed inset-0 z-40 bg-black/75 backdrop-blur-lg overscroll-none"
+            className="fixed inset-0 z-40 bg-black/78 backdrop-blur-xl overscroll-none"
             onClick={toggle}
             onWheel={(e) => e.preventDefault()}
             onTouchMove={(e) => e.preventDefault()}
@@ -126,7 +126,7 @@ function MobileNav() {
                 duration: 0.26,
                 ease: [0.22, 0.61, 0.36, 1],
               }}
-              className="relative mx-auto flex h-full max-w-6xl flex-col px-4 pt-4 pb-10"
+              className="relative mx-auto flex h-full max-w-6xl flex-col px-4 pt-4 pb-8"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Top row inside menu */}
@@ -154,7 +154,7 @@ function MobileNav() {
                 <button
                   type="button"
                   onClick={toggle}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-black/70 text-neutral-100 text-xl"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-black/70 text-neutral-100 text-xl"
                   aria-label="Close navigation"
                 >
                   ×
@@ -204,6 +204,15 @@ function MobileNav() {
                   </ul>
                 </div>
 
+                <div className="rounded-[28px] border border-white/10 bg-white/6 p-4 backdrop-blur-xl">
+                  <p className="text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-neutral-400">
+                    HeliosX
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-neutral-200">
+                    Premium surgical loupes with a cleaner fit, stronger optics, and a calmer buying experience.
+                  </p>
+                </div>
+
                 <div>
                   <p className="mb-3 text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-neutral-400">
                     Quick links
@@ -249,7 +258,7 @@ function MobileNav() {
                     setOpen(false);
                     router.push("/product");
                   }}
-                  className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[0.7rem] font-medium text-neutral-50 transition hover:bg-white/20"
+                  className="rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[0.72rem] font-medium text-neutral-50 transition hover:bg-white/20"
                 >
                   View loupes
                 </button>

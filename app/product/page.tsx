@@ -6,7 +6,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
 import Noise from "@/components/Noise";
 import Header from "@/components/Header";
 import OrderingInfoSection from "@/components/OrderingInfoSection";
@@ -25,7 +24,7 @@ export default function ProductPage() {
   return (
     <>
       <Header />
-      <main className="pt-24 bg-black text-white min-h-screen">
+      <main className="bg-black pt-20 text-white min-h-screen md:pt-24">
         <ParallaxProductHero />
         <OurLoupesGrid />
         <OrderingInfoSection />
@@ -48,134 +47,104 @@ function ParallaxProductHero() {
   const basex4ImageRef = useRef<HTMLDivElement | null>(null);
   const logoContainerRef = useRef<HTMLDivElement | null>(null);
   const textContainerRef = useRef<HTMLDivElement | null>(null);
-  const lenisRef = useRef<Lenis | null>(null);
 
   useLayoutEffect(() => {
-    // Initialize Lenis
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-      infinite: false,
-    });
+    const mm = gsap.matchMedia();
 
-    lenisRef.current = lenis;
-
-    function raf(time: number) {
-      lenis.raf(time);
-      ScrollTrigger.update(); // Update ScrollTrigger on Lenis scroll
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    lenis.on('scroll', ScrollTrigger.update); // Link Lenis to ScrollTrigger
-
-    if (
-      layeredImageSectionRef.current &&
-      basexImageRef.current &&
-      basex1ImageRef.current &&
-      basex2ImageRef.current &&
-      basex3ImageRef.current &&
-      basex4ImageRef.current
-    ) {
-      // basex (background) - static or very slow movement
-      gsap.to(basexImageRef.current, {
-        y: -12,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: layeredImageSectionRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 2.0,
-        },
-      });
-
-      // basex4 (bottom layer) - slowest parallax movement
-      gsap.to(basex4ImageRef.current, {
-        y: -35,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: layeredImageSectionRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1.8,
-        },
-      });
-
-      // base3.5x (middle-bottom layer) - moderate movement
-      gsap.to(basex3ImageRef.current, {
-        y: -59,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: layeredImageSectionRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1.5,
-        },
-      });
-
-      // basex2 (middle-top layer) - faster movement
-      gsap.to(basex2ImageRef.current, {
-        y: -83,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: layeredImageSectionRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1.2,
-        },
-      });
-
-      // basex1 (top layer) - fastest movement
-      gsap.to(basex1ImageRef.current, {
-        y: -106,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: layeredImageSectionRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1.0,
-        },
-      });
-
-      // Logo animation - translates up when scrolling
-      if (logoContainerRef.current) {
-        gsap.to(logoContainerRef.current, {
-          y: -200,
-          ease: 'none',
+    mm.add("(min-width: 768px)", () => {
+      if (
+        layeredImageSectionRef.current &&
+        basexImageRef.current &&
+        basex1ImageRef.current &&
+        basex2ImageRef.current &&
+        basex3ImageRef.current &&
+        basex4ImageRef.current
+      ) {
+        gsap.to(basexImageRef.current, {
+          y: -12,
+          ease: "none",
           scrollTrigger: {
             trigger: layeredImageSectionRef.current,
-            start: 'top top',
-            end: 'bottom top',
+            start: "top top",
+            end: "bottom top",
+            scrub: 2.0,
+          },
+        });
+
+        gsap.to(basex4ImageRef.current, {
+          y: -35,
+          ease: "none",
+          scrollTrigger: {
+            trigger: layeredImageSectionRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.8,
+          },
+        });
+
+        gsap.to(basex3ImageRef.current, {
+          y: -59,
+          ease: "none",
+          scrollTrigger: {
+            trigger: layeredImageSectionRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.5,
+          },
+        });
+
+        gsap.to(basex2ImageRef.current, {
+          y: -83,
+          ease: "none",
+          scrollTrigger: {
+            trigger: layeredImageSectionRef.current,
+            start: "top top",
+            end: "bottom top",
             scrub: 1.2,
           },
         });
-      }
 
-      // Text parallax animation - translates up when scrolling
-      if (textContainerRef.current) {
-        gsap.to(textContainerRef.current, {
-          y: -150,
-          ease: 'none',
+        gsap.to(basex1ImageRef.current, {
+          y: -106,
+          ease: "none",
           scrollTrigger: {
             trigger: layeredImageSectionRef.current,
-            start: 'top top',
-            end: 'bottom top',
+            start: "top top",
+            end: "bottom top",
             scrub: 1.0,
           },
         });
+
+        if (logoContainerRef.current) {
+          gsap.to(logoContainerRef.current, {
+            y: -200,
+            ease: "none",
+            scrollTrigger: {
+              trigger: layeredImageSectionRef.current,
+              start: "top top",
+              end: "bottom top",
+              scrub: 1.2,
+            },
+          });
+        }
+
+        if (textContainerRef.current) {
+          gsap.to(textContainerRef.current, {
+            y: -150,
+            ease: "none",
+            scrollTrigger: {
+              trigger: layeredImageSectionRef.current,
+              start: "top top",
+              end: "bottom top",
+              scrub: 1.0,
+            },
+          });
+        }
       }
-    }
+    });
 
     return () => {
-      if (lenisRef.current) {
-        lenisRef.current.destroy();
-      }
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      mm.revert();
     };
   }, []);
 
@@ -183,11 +152,11 @@ function ParallaxProductHero() {
   return (
     <section
       ref={heroRef}
-      className="relative overflow-hidden bg-black pt-28 pb-24 md:pb-32 w-full"
+      className="relative w-full overflow-hidden bg-black pb-20 pt-24 md:pb-32 md:pt-28"
     >
       {/* Parallax layers spanning full viewport width */}
       <div ref={layeredImageSectionRef} className="pointer-events-none absolute inset-0 w-full">
-        <div className="relative h-[360px] md:h-[460px] lg:h-[520px] w-full">
+        <div className="relative h-[300px] w-full md:h-[460px] lg:h-[520px]">
           {/* Tronaeast-style fade overlay - blends into background */}
           <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-transparent via-transparent via-60% via-[rgba(0,0,0,0.2)] via-75% via-[rgba(0,0,0,0.5)] via-85% via-[rgba(0,0,0,0.8)] via-92% to-black" />
 
@@ -333,15 +302,15 @@ function ParallaxProductHero() {
 
       {/* Text content over the parallax layers */}
       <div className="relative z-10 px-4 md:px-8">
-        <div className="mx-auto max-w-6xl h-[360px] md:h-[460px] lg:h-[520px] flex items-center">
+        <div className="mx-auto flex h-[300px] max-w-6xl items-center md:h-[460px] lg:h-[520px]">
           <div
             ref={textContainerRef}
-            className="will-change-transform ml-4 md:-ml-12 lg:-ml-20"
+            className="ml-1 will-change-transform md:-ml-12 lg:-ml-20"
           >
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight text-white">
+            <h1 className="text-3xl font-semibold leading-tight text-white md:text-4xl lg:text-5xl">
               Choose the HeliosX system
               <br />
-              that matches your craft.
+              that matches your work.
             </h1>
           </div>
         </div>
@@ -436,8 +405,8 @@ function OurLoupesGrid() {
           <p className="text-xs font-semibold tracking-[0.3em] text-neutral-500">
             OUR LOUPES
           </p>
-          <h2 className="text-2xl md:text-3xl font-semibold">
-            Four systems. One standard of excellence.
+          <h2 className="text-2xl font-semibold md:text-3xl">
+            Four systems. One premium standard.
           </h2>
         </motion.div>
 

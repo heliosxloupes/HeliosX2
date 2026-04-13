@@ -15,14 +15,17 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     let rafId: number | null = null
 
     try {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const isTouchViewport = window.matchMedia('(max-width: 767px)').matches
+
       lenis = new Lenis({
-        duration: 1.2,
+        duration: prefersReducedMotion ? 0.8 : isTouchViewport ? 0.95 : 1.15,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: 'vertical',
         gestureOrientation: 'vertical',
-        smoothWheel: true,
+        smoothWheel: !prefersReducedMotion,
         wheelMultiplier: 1,
-        touchMultiplier: 2,
+        touchMultiplier: isTouchViewport ? 1.05 : 1.2,
         infinite: false,
       })
 

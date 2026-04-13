@@ -24,7 +24,7 @@ const fadeIn = {
 export default function HomePage() {
   return (
     <LenisProvider>
-      <div className="min-h-screen bg-black text-white">
+      <div className="min-h-screen bg-transparent text-white">
         <Header />
 
         <main className="space-y-20 pb-16 md:space-y-28 md:pb-24">
@@ -65,7 +65,7 @@ function HeroSection() {
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.86]);
 
   return (
-    <section id="top" className="relative overflow-hidden bg-black">
+    <section id="top" className="relative overflow-hidden bg-transparent">
       <div
         ref={heroWrapperRef}
         className="relative flex min-h-[100svh] items-end justify-center"
@@ -197,7 +197,7 @@ function HeroSection() {
 
 function ManifestoSection() {
   return (
-    <section id="manifesto" className="relative bg-black px-4 py-16 md:px-8 md:py-24">
+    <section id="manifesto" className="relative bg-transparent px-4 py-16 md:px-8 md:py-24">
       <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.4fr,1fr] md:items-center">
         <motion.div
           className="space-y-5"
@@ -332,7 +332,7 @@ function HorizontalStorySection() {
   ];
 
   return (
-    <section ref={sectionRef} className="relative bg-black" aria-label="HeliosX story panels">
+    <section ref={sectionRef} className="relative bg-transparent" aria-label="HeliosX story panels">
       <div className="block md:h-[175vh]">
         <div className="relative overflow-hidden md:sticky md:top-16 md:h-[calc(100vh-4rem)]">
           <div className="pointer-events-none absolute bottom-6 left-1/2 z-10 hidden h-1 w-40 -translate-x-1/2 overflow-hidden rounded-full bg-white/10 md:flex">
@@ -522,7 +522,7 @@ function StorySection() {
   return (
     <section
       id="story"
-      className="relative overflow-hidden bg-gradient-to-b from-black via-[#050814] to-black"
+      className="relative overflow-hidden bg-gradient-to-b from-transparent via-[#050814]/40 to-transparent"
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-emerald-500/12 blur-3xl" />
@@ -637,7 +637,7 @@ function BulletItem({ children }: { children: React.ReactNode }) {
 
 function HeliosXFooter() {
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-black px-4 py-12 md:px-8">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-transparent px-4 py-12 md:px-8">
       <div className="pointer-events-none absolute inset-0">
         <Image
           src="/Walkinghallway2.png"

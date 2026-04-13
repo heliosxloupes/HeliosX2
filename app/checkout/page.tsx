@@ -233,7 +233,7 @@ export default function CheckoutPage() {
         }}
       />
       <Header />
-      <main className="pt-24 min-h-screen bg-black text-neutral-100">
+      <main className="pt-24 min-h-screen bg-transparent text-neutral-100">
         <section className="mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-16 pt-10 lg:flex-row lg:px-8">
           {/* Left Column - Stripe Embedded Checkout */}
           <div className="flex-1 rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(24,24,27,0.96),rgba(10,10,12,0.98))] p-6 shadow-[0_30px_100px_rgba(0,0,0,0.55)] md:p-8">

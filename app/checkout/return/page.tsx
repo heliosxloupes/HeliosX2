@@ -52,7 +52,7 @@ function ReturnContent() {
     return (
       <>
         <Header />
-        <main className="min-h-screen bg-black pt-24 text-neutral-100">
+        <main className="min-h-screen bg-transparent pt-24 text-neutral-100">
           <section className="mx-auto flex min-h-[calc(100vh-96px)] max-w-5xl items-center justify-center px-4 pb-12">
             <div className="space-y-4 text-center">
               <div className="mx-auto h-10 w-10 animate-spin rounded-full border-2 border-white/20 border-t-white" />
@@ -68,7 +68,7 @@ function ReturnContent() {
     return (
       <>
         <Header />
-        <main className="min-h-screen bg-black pt-24 text-neutral-100">
+        <main className="min-h-screen bg-transparent pt-24 text-neutral-100">
           <section className="mx-auto flex min-h-[calc(100vh-96px)] max-w-5xl items-center justify-center px-4 pb-12">
             <div className="max-w-xl rounded-[32px] border border-white/10 bg-neutral-950/80 p-8 text-center shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
               <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">Checkout status</p>
@@ -101,7 +101,7 @@ function ReturnContent() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-black pt-24 text-neutral-100">
+      <main className="min-h-screen bg-transparent pt-24 text-neutral-100">
         <section className="relative mx-auto flex min-h-[calc(100vh-96px)] max-w-6xl flex-col gap-10 px-4 pb-16 lg:flex-row lg:items-center lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 18, scale: 0.98 }}
@@ -213,7 +213,7 @@ export default function ReturnPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-black text-neutral-300">
+        <div className="flex min-h-screen items-center justify-center bg-transparent text-neutral-300">
           Loading...
         </div>
       }

@@ -24,7 +24,7 @@ export default function ProductPage() {
   return (
     <>
       <Header />
-      <main className="bg-black pt-20 text-white min-h-screen md:pt-24">
+      <main className="bg-transparent pt-20 text-white min-h-screen md:pt-24">
         <ParallaxProductHero />
         <OurLoupesGrid />
         <OrderingInfoSection />
@@ -152,7 +152,7 @@ function ParallaxProductHero() {
   return (
     <section
       ref={heroRef}
-      className="relative w-full overflow-hidden bg-black pb-20 pt-24 md:pb-32 md:pt-28"
+      className="relative w-full overflow-hidden bg-transparent pb-20 pt-24 md:pb-32 md:pt-28"
     >
       {/* Parallax layers spanning full viewport width */}
       <div ref={layeredImageSectionRef} className="pointer-events-none absolute inset-0 w-full">
@@ -392,7 +392,7 @@ function OurLoupesGrid() {
   ];
 
   return (
-    <section className="bg-black px-4 md:px-8 pb-16 md:pb-24">
+    <section className="bg-transparent px-4 md:px-8 pb-16 md:pb-24">
       <div className="mx-auto max-w-6xl space-y-8">
         <motion.div
           variants={fadeUp}

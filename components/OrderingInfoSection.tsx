@@ -1,6 +1,6 @@
 function OrderingInfoSection() {
   return (
-    <section className="border-t border-neutral-800 bg-black">
+    <section className="border-t border-neutral-800 bg-transparent">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-10 max-w-3xl space-y-3">
           <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">

@@ -105,7 +105,7 @@ export default function CartPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-black pt-16 text-neutral-100">
+      <main className="min-h-screen bg-transparent pt-16 text-neutral-100">
         <section className="relative mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 pb-8 pt-8 lg:grid-cols-[3fr,2.2fr] lg:items-stretch lg:gap-10 lg:px-8 lg:pb-8 lg:pt-6">
           {/* subtle background glow */}
           <div className="pointer-events-none absolute inset-0 -z-10">

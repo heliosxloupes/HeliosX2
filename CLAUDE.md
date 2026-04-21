@@ -14,6 +14,19 @@ HeliosX sells affordable, reliable, well-designed surgical loupes and related ac
 - Human-centered, not sterile
 - Confident without sounding overhyped
 - Inspired by optics, surgical focus, depth, contrast, and precision
+- Built around access: elite surgical optics should not be gatekept by inflated pricing
+- Surgeon-first, anti-exploitation, and honest about the industry's pricing problem
+
+Core message:
+
+- Surgical precision, finally accessible.
+- Created for those who pursue mastery. Engineered for excellence, with perfect focus in every detail.
+- No gate keeping. Just fair pricing. Elite quality made truly affordable.
+- Skill thrives where access exists.
+- HeliosX exists because surgical optics should not be overpriced, gatekept, or reserved for a select few.
+- The problem is not craftsmanship. The problem is gatekeeping.
+
+Protect this message. Do not soften it into generic luxury language like "premium experience," "modern point of view," or "elevated product feel" unless the surrounding copy still clearly carries the access, fairness, mastery, and anti-gatekeeping stance.
 
 Primary brand direction:
 
@@ -69,6 +82,7 @@ Core folders:
 Important reference files:
 
 - `README.md` - project overview
+- `app/home/page.tsx` - canonical current homepage voice, messaging, and section copy
 - `app/globals.css` - current global visual source of truth for colors, ambient background, fonts, and body styling
 - `components/AmbientBackground.tsx` - current animated ambient background and accent-glow direction
 - `ARCHITECTURE_MAP.md` - architecture and inspiration notes
@@ -193,7 +207,7 @@ Layout rules:
 
 ## Copywriting
 
-Write like a premium medical product brand.
+Write like a premium medical product brand with a strong access mission. The voice should sound like surgeons building an alternative to overpriced, gatekept surgical optics.
 
 Good copy:
 
@@ -203,6 +217,9 @@ Good copy:
 - Confident
 - Benefit-led
 - Short enough to scan
+- Direct about fairness, access, and gatekeeping
+- Aspirational around mastery and precision
+- Grounded in real surgical work, not abstract luxury
 
 Avoid:
 
@@ -212,8 +229,29 @@ Avoid:
 - Unsupported clinical claims
 - Long paragraphs in marketing sections
 - Design commentary in visible UI text
+- Generic luxury ecommerce language that erases the mission
+- Softer replacements for the core message, such as "without the premium markup" when the stronger approved language is "No gate keeping. Just fair pricing. Elite quality made truly affordable."
+- Rewriting "Surgical precision, finally accessible" into a weaker headline unless explicitly asked
+- Removing the founder/gatekeeping story from the homepage without permission
 
 If writing medical, ergonomic, or optical claims, keep them conservative unless there is a source in the project.
+
+Preferred phrases and concepts:
+
+- "Surgical precision, finally accessible."
+- "Created for those who pursue mastery."
+- "Engineered for excellence. Perfect focus, every detail."
+- "No gate keeping. Just fair pricing. Elite quality made truly affordable."
+- "Skill thrives where access exists."
+- "Built for every specialty. Tailored to every surgeon."
+- "World-class optics, honest pricing, and a fitting process designed around real OR life."
+- Residents, medical students, attendings, and surgeons should not have to delay, borrow, or overpay for essential optics.
+
+Homepage copy rule:
+
+- Preserve the restored homepage message in `app/home/page.tsx`.
+- You may polish grammar, hierarchy, and fit, but do not replace the access/gatekeeping/fair-pricing story with generic premium-brand copy.
+- If visual changes require shorter text, compress the existing message rather than changing the message.
 
 ## Accessibility
 
@@ -351,6 +389,7 @@ Use this checklist for every design pass:
 - Is there one strong visual anchor?
 - Does the page feel premium without feeling generic?
 - Does the copy sound calm and trustworthy?
+- Does the copy clearly carry the access, fair-pricing, mastery, and anti-gatekeeping message?
 - Is the product easy to understand and buy?
 - Is motion adding clarity or atmosphere?
 - Does mobile feel intentionally designed?

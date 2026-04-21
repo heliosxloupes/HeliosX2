@@ -27,8 +27,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'SF Pro Display', 'Satoshi', 'system-ui', 'sans-serif'],
-        system: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['var(--font-manrope)', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['var(--font-syne)', 'system-ui', 'sans-serif'],
+        system: ['var(--font-manrope)', 'system-ui', '-apple-system', 'sans-serif'],
       },
       spacing: {
         'vw-4': '4vw',

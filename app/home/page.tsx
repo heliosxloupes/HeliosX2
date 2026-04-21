@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useLayoutEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useMotionValue,
+} from "framer-motion";
 import { LenisProvider } from "@/components/lenis-provider";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,8 +17,10 @@ import Header from "@/components/Header";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// ── Variants ──────────────────────────────────────────────────────────────────
+
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 28 },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -21,10 +29,105 @@ const fadeIn = {
   visible: { opacity: 1 },
 };
 
+const clipReveal = {
+  hidden: { clipPath: "inset(0 101% 0 0)" },
+  visible: { clipPath: "inset(0 0% 0 0)" },
+};
+
+const staggerChildren = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+
+// ── Scroll progress bar ───────────────────────────────────────────────────────
+
+function ScrollProgressBar() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+  return (
+    <motion.div
+      className="fixed top-0 left-0 right-0 z-[200] h-[1.5px] origin-left pointer-events-none"
+      style={{
+        scaleX,
+        background:
+          "linear-gradient(90deg, rgba(52,211,153,0.9), rgba(125,211,252,0.9), rgba(52,211,153,0.7))",
+      }}
+    />
+  );
+}
+
+// ── Magnetic CTA wrapper ──────────────────────────────────────────────────────
+
+function MagneticWrapper({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 180, damping: 18 });
+  const springY = useSpring(y, { stiffness: 180, damping: 18 });
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ x: springX, y: springY, display: "inline-flex" }}
+      onMouseMove={(e) => {
+        const rect = ref.current?.getBoundingClientRect();
+        if (!rect) return;
+        x.set((e.clientX - (rect.left + rect.width / 2)) * 0.26);
+        y.set((e.clientY - (rect.top + rect.height / 2)) * 0.26);
+      }}
+      onMouseLeave={() => {
+        x.set(0);
+        y.set(0);
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// ── Parallax image container ──────────────────────────────────────────────────
+
+function ParallaxImage({
+  src,
+  alt,
+  containerClassName,
+  children,
+}: {
+  src: string;
+  alt: string;
+  containerClassName?: string;
+  children?: React.ReactNode;
+}) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
+
+  return (
+    <div ref={ref} className={`relative overflow-hidden ${containerClassName ?? ""}`}>
+      <motion.div
+        style={{ y, position: "absolute", top: "-6%", left: 0, right: 0, bottom: "-6%" }}
+      >
+        <Image src={src} alt={alt} fill className="object-cover" />
+      </motion.div>
+      {children}
+    </div>
+  );
+}
+
+// ── Page ──────────────────────────────────────────────────────────────────────
+
 export default function HomePage() {
   return (
     <LenisProvider>
       <div className="min-h-screen bg-transparent text-white">
+        <ScrollProgressBar />
         <Header />
 
         <main className="space-y-20 pb-16 md:space-y-28 md:pb-24">
@@ -52,6 +155,8 @@ export default function HomePage() {
   );
 }
 
+// ── Hero ──────────────────────────────────────────────────────────────────────
+
 function HeroSection() {
   const heroWrapperRef = useRef<HTMLDivElement | null>(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
@@ -61,8 +166,8 @@ function HeroSection() {
     offset: ["start start", "end start"],
   });
 
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.97]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.86]);
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
 
   return (
     <section id="top" className="relative overflow-hidden bg-transparent">
@@ -75,20 +180,19 @@ function HeroSection() {
           className="relative min-h-[100svh] w-full overflow-hidden"
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
-            setCursorPos({
-              x: e.clientX - rect.left,
-              y: e.clientY - rect.top,
-            });
+            setCursorPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
           }}
         >
+          {/* Cursor-tracking light */}
           <div
-            className="pointer-events-none absolute inset-0"
+            className="pointer-events-none absolute inset-0 z-[1]"
             style={{
-              background: `radial-gradient(320px at ${cursorPos.x}px ${cursorPos.y}px, rgba(255,255,255,0.16), transparent 72%)`,
+              background: `radial-gradient(340px at ${cursorPos.x}px ${cursorPos.y}px, rgba(255,255,255,0.13), transparent 70%)`,
               mixBlendMode: "screen",
             }}
           />
 
+          {/* Hero image */}
           <div className="absolute inset-0">
             <Image
               src="/Apollo/Apollo3xFemale2.png"
@@ -99,44 +203,61 @@ function HeroSection() {
             />
           </div>
 
+          {/* Dark overlays */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(53,140,127,0.22),transparent_24%),linear-gradient(110deg,rgba(0,0,0,0.9)_14%,rgba(0,0,0,0.56)_46%,rgba(0,0,0,0.2)_72%,rgba(0,0,0,0.72)_100%)]" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black via-black/70 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black via-black/70 to-transparent" />
 
+          {/* Content */}
           <motion.div
             className="relative z-10 flex min-h-[100svh] flex-col justify-end px-5 pb-8 pt-28 md:px-12 md:pb-12 md:pt-32"
             initial="hidden"
             animate="visible"
-            variants={fadeUp}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            variants={staggerChildren}
           >
             <div className="grid gap-10 md:grid-cols-[minmax(0,1.1fr),minmax(260px,0.52fr)] md:items-end">
-              <motion.div
-                className="max-w-2xl space-y-6 md:space-y-7"
-                variants={fadeUp}
-                transition={{ duration: 0.68, ease: "easeOut" }}
-              >
+
+              {/* Left — headline block */}
+              <div className="max-w-2xl space-y-6 md:space-y-7">
+
+                {/* Badge */}
                 <motion.div
                   className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-neutral-200 backdrop-blur-md"
                   variants={fadeIn}
+                  transition={{ duration: 0.5 }}
                 >
                   In stock · Ships in 3–5 business days
                 </motion.div>
 
-                <motion.h1
-                  className="max-w-4xl text-[clamp(2.95rem,8vw,6.6rem)] font-semibold leading-[0.94] tracking-[-0.045em]"
-                  variants={fadeUp}
-                  transition={{ duration: 0.72, ease: "easeOut" }}
-                >
-                  Surgical precision,
-                  <span className="block bg-gradient-to-r from-white via-sky-200 to-emerald-300 bg-clip-text text-transparent">
-                    finally accessible.
+                {/* H1 — line-by-line slide-up reveal */}
+                <h1 className="max-w-4xl text-[clamp(3.1rem,8vw,7rem)] font-bold leading-[0.93] tracking-[-0.03em]">
+                  <span style={{ overflow: "hidden", display: "block" }}>
+                    <motion.span
+                      style={{ display: "block" }}
+                      initial={{ y: "108%" }}
+                      animate={{ y: "0%" }}
+                      transition={{ duration: 0.78, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      Surgical precision,
+                    </motion.span>
                   </span>
-                </motion.h1>
+                  <span style={{ overflow: "hidden", display: "block" }}>
+                    <motion.span
+                      style={{ display: "block" }}
+                      className="bg-gradient-to-r from-white via-sky-200 to-emerald-300 bg-clip-text text-transparent"
+                      initial={{ y: "108%" }}
+                      animate={{ y: "0%" }}
+                      transition={{ duration: 0.78, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      finally accessible.
+                    </motion.span>
+                  </span>
+                </h1>
 
+                {/* Subtext */}
                 <motion.p
                   className="max-w-xl text-sm leading-6 text-neutral-200 md:text-base md:leading-7"
                   variants={fadeUp}
-                  transition={{ duration: 0.72, delay: 0.06, ease: "easeOut" }}
+                  transition={{ duration: 0.6, delay: 0.55 }}
                 >
                   Created for those who pursue mastery. Engineered for excellence,
                   with perfect focus in every detail.
@@ -145,20 +266,20 @@ function HeroSection() {
                 <motion.p
                   className="max-w-xl text-sm leading-6 text-neutral-300 md:text-base md:leading-7"
                   variants={fadeUp}
-                  transition={{ duration: 0.72, delay: 0.09, ease: "easeOut" }}
+                  transition={{ duration: 0.6, delay: 0.65 }}
                 >
-                  No gate keeping. Just fair pricing. Elite quality made truly
-                  affordable.
+                  No gate keeping. Just fair pricing. Elite quality made truly affordable.
                 </motion.p>
 
+                {/* CTAs with magnetic effect */}
                 <motion.div
                   className="flex flex-wrap items-center gap-3 pt-1"
                   variants={fadeUp}
-                  transition={{ duration: 0.72, delay: 0.12, ease: "easeOut" }}
+                  transition={{ duration: 0.6, delay: 0.75 }}
                 >
                   <Link
                     href="/product"
-                    className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black shadow-[0_20px_40px_rgba(255,255,255,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-neutral-200"
+                    className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black shadow-[0_4px_24px_rgba(255,255,255,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-neutral-200"
                   >
                     Shop HeliosX Loupes
                   </Link>
@@ -169,32 +290,44 @@ function HeroSection() {
                     See the science
                   </Link>
                 </motion.div>
-              </motion.div>
+              </div>
 
+              {/* Right — floating info card */}
               <motion.div
-                className="max-w-sm space-y-4 rounded-[28px] border border-white/10 bg-white/6 p-5 backdrop-blur-xl md:ml-auto"
-                variants={fadeUp}
-                transition={{ duration: 0.72, delay: 0.18, ease: "easeOut" }}
+                initial={{ opacity: 0, y: 32 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.72, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
               >
-                <div className="flex items-center justify-between gap-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-neutral-400">
-                    In stock
+                <motion.div
+                  className="max-w-sm space-y-4 rounded-[28px] border border-white/10 bg-white/6 p-5 backdrop-blur-xl md:ml-auto"
+                  animate={{ y: [0, -9, 0] }}
+                  transition={{
+                    duration: 5.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 2,
+                  }}
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-neutral-400">
+                      In stock
+                    </p>
+                    <p className="text-xs text-neutral-300">Ships in 3–5 business days</p>
+                  </div>
+                  <p className="text-lg font-medium leading-7 text-neutral-50">
+                    Designed for those who demand precision. Created for those who pursue mastery.
                   </p>
-                  <p className="text-xs text-neutral-300">Ships in 3-5 business days</p>
-                </div>
-                <p className="text-lg font-medium leading-7 text-neutral-50">
-                  Designed for those who demand precision. Created for those who pursue mastery.
-                </p>
-                <div className="flex gap-6 text-sm text-neutral-300">
-                  <div>
-                    <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Starting at</p>
-                    <p className="mt-1 text-xl font-semibold text-white">$499</p>
+                  <div className="flex gap-6 text-sm text-neutral-300">
+                    <div>
+                      <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Starting at</p>
+                      <p className="mt-1 text-xl font-semibold text-white">$499</p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Fit support</p>
+                      <p className="mt-1 text-sm text-neutral-200">Surgeon-informed guidance</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Fit support</p>
-                    <p className="mt-1 text-sm text-neutral-200">Surgeon-informed guidance</p>
-                  </div>
-                </div>
+                </motion.div>
               </motion.div>
             </div>
           </motion.div>
@@ -204,88 +337,131 @@ function HeroSection() {
   );
 }
 
+// ── Manifesto ─────────────────────────────────────────────────────────────────
+
 function ManifestoSection() {
+  const pillars = [
+    {
+      label: "Access",
+      body: "Precision should not depend on who can absorb an inflated price tag.",
+    },
+    {
+      label: "Mastery",
+      body: "Tools should support the craft, not distract from the field.",
+    },
+    {
+      label: "Fair pricing",
+      body: "Elite quality made truly affordable, without gatekeeping.",
+    },
+  ];
+
   return (
     <section id="manifesto" className="relative bg-transparent px-4 py-16 md:px-8 md:py-24">
       <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.4fr,1fr] md:items-center">
-        <motion.div
-          className="space-y-5"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.65, ease: "easeOut" }}
-        >
-          <p className="text-xs font-semibold tracking-[0.35em] text-neutral-500">Manifesto</p>
-          <h2 className="max-w-2xl text-2xl font-semibold leading-snug md:text-3xl">
+
+        <div className="space-y-5">
+          <motion.p
+            className="text-xs font-semibold tracking-[0.35em] text-neutral-500"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            Manifesto
+          </motion.p>
+
+          <motion.h2
+            className="max-w-2xl text-2xl font-bold leading-snug text-white md:text-4xl"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          >
             WE REFUSE to accept that surgical optics must be overpriced,
             gatekept, or reserved for a select few.
-          </h2>
-          <p className="max-w-xl text-sm text-neutral-300 md:text-base">
-            We reject the idea that clarity is a luxury. That precision belongs
-            only to those who can absorb a five-figure price tag. That the tools
-            we rely on for patient care should be engineered for margin first
-            and mastery second.
-          </p>
-          <p className="max-w-xl text-sm text-neutral-300 md:text-base">
-            HeliosX is built around a simple belief:{" "}
-            <span className="font-medium text-neutral-100">skill thrives where access exists.</span>{" "}
-            Elite optical quality, honest pricing, and designs shaped by real
-            surgeons, not by corporate spreadsheets.
-          </p>
-          <p className="max-w-xl text-sm text-neutral-300 md:text-base">
-            No gate keeping. Just fair pricing. Elite quality made truly
-            affordable.
-          </p>
-          <div className="grid gap-4 pt-2 text-sm text-neutral-200 md:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 bg-neutral-950/70 p-4">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Access</p>
-              <p className="mt-2 text-sm leading-6 text-neutral-200">
-                Precision should not depend on who can absorb an inflated price tag.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-neutral-950/70 p-4">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Mastery</p>
-              <p className="mt-2 text-sm leading-6 text-neutral-200">
-                Tools should support the craft, not distract from the field.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-neutral-950/70 p-4">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Fair pricing</p>
-              <p className="mt-2 text-sm leading-6 text-neutral-200">
-                Elite quality made truly affordable, without gatekeeping.
-              </p>
-            </div>
-          </div>
-        </motion.div>
+          </motion.h2>
 
+          {/* Body paragraphs — sequential reveal */}
+          {[
+            <>
+              We reject the idea that clarity is a luxury. That precision belongs
+              only to those who can absorb a five-figure price tag. That the tools
+              we rely on for patient care should be engineered for margin first
+              and mastery second.
+            </>,
+            <>
+              HeliosX is built around a simple belief:{" "}
+              <span className="font-medium text-neutral-100">skill thrives where access exists.</span>{" "}
+              Elite optical quality, honest pricing, and designs shaped by real
+              surgeons, not by corporate spreadsheets.
+            </>,
+            <>No gate keeping. Just fair pricing. Elite quality made truly affordable.</>,
+          ].map((para, i) => (
+            <motion.p
+              key={i}
+              className="max-w-xl text-sm text-neutral-300 md:text-base"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.55, delay: i * 0.1, ease: "easeOut" }}
+            >
+              {para}
+            </motion.p>
+          ))}
+
+          {/* 3D staggered pillar cards */}
+          <motion.div
+            className="grid gap-4 pt-2 text-sm text-neutral-200 md:grid-cols-3"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={staggerChildren}
+          >
+            {pillars.map((pillar) => (
+              <motion.div
+                key={pillar.label}
+                variants={{
+                  hidden: { opacity: 0, y: 32, scale: 0.94 },
+                  visible: { opacity: 1, y: 0, scale: 1 },
+                }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                className="rounded-2xl border border-white/10 bg-neutral-950/70 p-4"
+              >
+                <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">{pillar.label}</p>
+                <p className="mt-2 text-sm leading-6 text-neutral-200">{pillar.body}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Parallax image */}
         <motion.div
-          className="relative aspect-[4/5] overflow-hidden rounded-[30px] border border-white/10 bg-neutral-900/60"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, x: 24 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.65, delay: 0.1, ease: "easeOut" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <Image
+          <ParallaxImage
             src="/hardcase1.png"
             alt="HeliosX loupes in protective hard case"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/65 to-transparent p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-400">
-              HeliosX system
-            </p>
-            <p className="mt-2 max-w-xs text-sm leading-6 text-neutral-200">
-              Elite optical quality, honest pricing, and designs shaped by real surgeons.
-            </p>
-          </div>
+            containerClassName="aspect-[4/5] rounded-[30px] border border-white/10 bg-neutral-900/60"
+          >
+            <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black via-black/65 to-transparent p-6">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-400">
+                HeliosX system
+              </p>
+              <p className="mt-2 max-w-xs text-sm leading-6 text-neutral-200">
+                Elite optical quality, honest pricing, and designs shaped by real surgeons.
+              </p>
+            </div>
+          </ParallaxImage>
         </motion.div>
       </div>
     </section>
   );
 }
+
+// ── Horizontal story ──────────────────────────────────────────────────────────
 
 function HorizontalStorySection() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -321,9 +497,7 @@ function HorizontalStorySection() {
         onUpdate: (self) => setProgress(self.progress),
       });
 
-      return () => {
-        tween.kill();
-      };
+      return () => { tween.kill(); };
     });
 
     return () => mm.revert();
@@ -357,21 +531,43 @@ function HorizontalStorySection() {
     <section ref={sectionRef} className="relative bg-transparent" aria-label="HeliosX story panels">
       <div className="block md:h-[175vh]">
         <div className="relative overflow-hidden md:sticky md:top-16 md:h-[calc(100vh-4rem)]">
-          <div className="pointer-events-none absolute bottom-6 left-1/2 z-10 hidden h-1 w-40 -translate-x-1/2 overflow-hidden rounded-full bg-white/10 md:flex">
-            <div className="h-full rounded-full bg-white/70" style={{ width: `${progress * 100}%` }} />
+
+          {/* Progress bar */}
+          <div className="pointer-events-none absolute bottom-6 left-1/2 z-10 hidden h-[2px] w-40 -translate-x-1/2 overflow-hidden rounded-full bg-white/10 md:flex">
+            <motion.div
+              className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-sky-400"
+              style={{ width: `${progress * 100}%` }}
+            />
           </div>
 
-          <div ref={trackRef} className="flex flex-col gap-5 px-4 md:h-full md:w-[300vw] md:flex-row md:gap-0 md:px-0 md:will-change-transform">
+          {/* Panel counter */}
+          <div className="pointer-events-none absolute bottom-6 right-8 z-10 hidden items-center gap-2 md:flex">
+            {panels.map((_, i) => (
+              <div
+                key={i}
+                className="h-[5px] rounded-full transition-all duration-500"
+                style={{
+                  width: progress * panels.length > i + 0.5 ? "20px" : "5px",
+                  background: progress * panels.length > i + 0.5
+                    ? "rgba(52,211,153,0.8)"
+                    : "rgba(255,255,255,0.2)",
+                }}
+              />
+            ))}
+          </div>
+
+          <div
+            ref={trackRef}
+            className="flex flex-col gap-5 px-4 md:h-full md:w-[300vw] md:flex-row md:gap-0 md:px-0 md:will-change-transform"
+          >
             {panels.map((panel, index) => (
               <div key={panel.title} className="flex w-full shrink-0 items-center px-0 md:w-screen md:px-6">
                 <div className="mx-auto grid w-full max-w-6xl gap-6 rounded-[30px] border border-white/10 bg-neutral-950/55 p-4 shadow-[0_30px_90px_rgba(0,0,0,0.5)] backdrop-blur-sm md:grid-cols-[1.1fr,0.9fr] md:gap-10 md:p-8">
                   <div className="order-2 flex flex-col justify-center space-y-4 md:order-1">
                     <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">{panel.eyebrow}</p>
-                    <h2 className="max-w-xl text-2xl font-semibold tracking-tight md:text-4xl">{panel.title}</h2>
-                    <p className="max-w-xl text-sm leading-7 text-neutral-300 md:text-base">
-                      {panel.body}
-                    </p>
-                    {index === 2 ? (
+                    <h2 className="max-w-xl text-2xl font-bold tracking-tight md:text-4xl">{panel.title}</h2>
+                    <p className="max-w-xl text-sm leading-7 text-neutral-300 md:text-base">{panel.body}</p>
+                    {index === 2 && (
                       <div className="pt-2">
                         <Link
                           href="/product"
@@ -380,7 +576,7 @@ function HorizontalStorySection() {
                           Explore frame options
                         </Link>
                       </div>
-                    ) : null}
+                    )}
                   </div>
 
                   <div className="order-1 md:order-2">
@@ -395,12 +591,7 @@ function HorizontalStorySection() {
                           playsInline
                         />
                       ) : (
-                        <Image
-                          src={panel.media}
-                          alt={panel.title}
-                          fill
-                          className="object-cover"
-                        />
+                        <Image src={panel.media} alt={panel.title} fill className="object-cover" />
                       )}
                     </div>
                   </div>
@@ -413,6 +604,8 @@ function HorizontalStorySection() {
     </section>
   );
 }
+
+// ── Clarity ───────────────────────────────────────────────────────────────────
 
 function ClaritySection() {
   const points = [
@@ -433,44 +626,60 @@ function ClaritySection() {
   return (
     <section className="relative px-4 py-20 md:px-8 md:py-28">
       <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[3fr,2fr] md:items-center">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="space-y-4"
-        >
-          <p className="text-xs font-semibold tracking-[0.3em] text-neutral-500">Optical clarity</p>
-          <h2 className="text-2xl font-semibold md:text-3xl">
-            <span className="bg-gradient-to-r from-white via-slate-200 to-emerald-200 bg-clip-text text-transparent">
-              Engineered for sharp, confident visualization.
+        <div className="space-y-4">
+          <motion.p
+            className="text-xs font-semibold tracking-[0.3em] text-neutral-500"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            Optical clarity
+          </motion.p>
+          <motion.h2
+            className="text-2xl font-bold text-white md:text-4xl"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Engineered for sharp, confident{" "}
+            <span className="bg-gradient-to-r from-emerald-300 to-sky-300 bg-clip-text text-transparent">
+              visualization.
             </span>
-          </h2>
-          <p className="max-w-2xl text-sm text-neutral-300 md:text-base">
-            HeliosX optics are designed to give you a clear, stable view of the
-            field, so you can trust what you&apos;re seeing when details are
-            measured in millimeters.
-          </p>
-          <p className="max-w-2xl text-sm text-neutral-300 md:text-base">
-            From skin closure to microsurgical work, our lenses balance
-            magnification, depth of field, and working distance for real
-            surgical workflows, not bench demos.
-          </p>
-        </motion.div>
+          </motion.h2>
+          {[
+            "HeliosX optics are designed to give you a clear, stable view of the field, so you can trust what you're seeing when details are measured in millimeters.",
+            "From skin closure to microsurgical work, our lenses balance magnification, depth of field, and working distance for real surgical workflows, not bench demos.",
+          ].map((text, i) => (
+            <motion.p
+              key={i}
+              className="max-w-2xl text-sm text-neutral-300 md:text-base"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
+            >
+              {text}
+            </motion.p>
+          ))}
+        </div>
 
         <motion.div
+          className="space-y-4"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="space-y-4"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerChildren}
         >
           {points.map((point, index) => (
             <motion.div
               key={point.label}
-              variants={fadeUp}
-              transition={{ duration: 0.45, delay: index * 0.06, ease: "easeOut" }}
+              variants={{
+                hidden: { opacity: 0, y: 28, scale: 0.95 },
+                visible: { opacity: 1, y: 0, scale: 1 },
+              }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="rounded-2xl border border-white/12 bg-black/50 p-5 backdrop-blur-xl"
             >
               <p className="text-xs font-semibold uppercase tracking-[0.25em] text-neutral-500">
@@ -485,6 +694,8 @@ function ClaritySection() {
   );
 }
 
+// ── Fit ───────────────────────────────────────────────────────────────────────
+
 function FitSection() {
   const pillars = [
     "Multiple frame styles: modern, hipster, vintage, classic.",
@@ -495,65 +706,96 @@ function FitSection() {
   return (
     <section className="relative overflow-hidden px-4 py-20 md:px-8 md:py-28">
       <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1fr,1.15fr] md:items-center">
+
+        {/* Parallax image */}
         <motion.div
-          className="relative aspect-[4/5] overflow-hidden rounded-[30px] border border-white/10 bg-neutral-900/60"
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, x: -24 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          variants={fadeUp}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <Image
+          <ParallaxImage
             src="/Galileo/girlinmirror.png"
             alt="Surgeon adjusting HeliosX loupes in mirror"
-            fill
-            className="object-cover"
+            containerClassName="aspect-[4/5] rounded-[30px] border border-white/10 bg-neutral-900/60"
           />
         </motion.div>
 
-        <motion.div
-          className="space-y-5"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={fadeUp}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          <p className="text-xs font-semibold tracking-[0.3em] text-neutral-500">Customization</p>
-          <h2 className="bg-gradient-to-r from-white via-sky-200 to-emerald-200 bg-clip-text text-2xl font-semibold text-transparent md:text-3xl">
+        <div className="space-y-5">
+          <motion.p
+            className="text-xs font-semibold tracking-[0.3em] text-neutral-500"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            Customization
+          </motion.p>
+          <motion.h2
+            className="text-2xl font-bold text-white md:text-4xl"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
             Built for every specialty. Tailored to every surgeon.
-          </h2>
-          <p className="text-sm leading-7 text-neutral-300 md:text-base">
-            No two surgeons operate the same way, and your loupes shouldn&apos;t
-            force you into a template. HeliosX offers multiple frame styles,
-            magnifications, and material options designed to fit your workflow,
-            your anatomy, and your aesthetic.
-          </p>
-          <p className="text-sm leading-7 text-neutral-300 md:text-base">
-            Choose from 2.5x to 6.0x magnification, lightweight plastic or
-            premium metal frames, and designs ranging from modern minimalist to
-            vintage-inspired. We tailor the system to you without charging you
-            two months of rent for it.
-          </p>
+          </motion.h2>
 
-          <div className="space-y-3 pt-2">
+          {[
+            "No two surgeons operate the same way, and your loupes shouldn't force you into a template. HeliosX offers multiple frame styles, magnifications, and material options designed to fit your workflow, your anatomy, and your aesthetic.",
+            "Choose from 2.5x to 6.0x magnification, lightweight plastic or premium metal frames, and designs ranging from modern minimalist to vintage-inspired. We tailor the system to you without charging you two months of rent for it.",
+          ].map((text, i) => (
+            <motion.p
+              key={i}
+              className="text-sm leading-7 text-neutral-300 md:text-base"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
+            >
+              {text}
+            </motion.p>
+          ))}
+
+          <motion.div
+            className="space-y-3 pt-2"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={staggerChildren}
+          >
             {pillars.map((pillar) => (
-              <div
+              <motion.div
                 key={pillar}
+                variants={{
+                  hidden: { opacity: 0, x: -16 },
+                  visible: { opacity: 1, x: 0 },
+                }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                 className="flex items-start gap-3 rounded-2xl border border-white/10 bg-neutral-950/70 p-4"
               >
-                <span className="mt-1 h-2 w-2 rounded-full bg-emerald-300" />
+                <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-emerald-300" />
                 <p className="text-sm leading-6 text-neutral-200">{pillar}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
+// ── Story ─────────────────────────────────────────────────────────────────────
+
 function StorySection() {
+  const paragraphs = [
+    "HeliosX began with a simple realization shared by surgeons at every stage of training: the tools we rely on daily are treated like luxury goods instead of necessities.",
+    "For decades, surgical optics have been locked behind inflated prices, outdated designs, and a business model that assumes surgeons will simply accept it. But we didn't.",
+    "We watched residents delay buying loupes because rent mattered more. We saw medical students borrow gear because their budget had limits. We listened to attendings who had used the same outdated optics for years because upgrading felt irrational.",
+    "The problem was never the craftsmanship. It was the gatekeeping.",
+    "So we built an alternative.",
+  ];
+
   return (
     <section
       id="story"
@@ -564,90 +806,117 @@ function StorySection() {
         <div className="absolute bottom-0 right-10 h-72 w-72 rounded-full bg-sky-500/10 blur-3xl" />
       </div>
 
-      <motion.div
-        className="relative mx-auto max-w-3xl px-4 py-16 md:px-6 md:py-24"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-        variants={fadeUp}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">
+      <div className="relative mx-auto max-w-3xl px-4 py-16 md:px-6 md:py-24">
+        <motion.p
+          className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           Company
-        </p>
-        <h2 className="bg-gradient-to-r from-white via-slate-200 to-emerald-200 bg-clip-text text-2xl font-semibold tracking-tight text-transparent md:text-3xl">
+        </motion.p>
+
+        <motion.h2
+          className="text-2xl font-bold tracking-tight text-white md:text-4xl"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
           How HeliosX began.
-        </h2>
-        <p className="mt-4 text-sm leading-7 text-neutral-400 md:text-base">
-          HeliosX began with a simple realization shared by surgeons at every
-          stage of training: the tools we rely on daily are treated like luxury
-          goods instead of necessities.
-        </p>
-        <p className="mt-4 text-sm leading-7 text-neutral-400 md:text-base">
-          For decades, surgical optics have been locked behind inflated prices,
-          outdated designs, and a business model that assumes surgeons will
-          simply accept it. But we didn&apos;t.
-        </p>
-        <p className="mt-4 text-sm leading-7 text-neutral-400 md:text-base">
-          We watched residents delay buying loupes because rent mattered more.
-          We saw medical students borrow gear because their budget had limits.
-          We listened to attendings who had used the same outdated optics for
-          years because upgrading felt irrational.
-        </p>
-        <p className="mt-4 text-sm leading-7 text-neutral-400 md:text-base">
-          The problem was never the craftsmanship. It was the gatekeeping.
-        </p>
-        <p className="mt-4 text-sm leading-7 text-neutral-400 md:text-base">
-          So we built an alternative.
-        </p>
-        <p className="mt-8 text-sm text-neutral-300">- Founder</p>
-      </motion.div>
+        </motion.h2>
+
+        {/* Sequential paragraph reveals */}
+        {paragraphs.map((text, i) => (
+          <motion.p
+            key={i}
+            className="mt-5 text-sm leading-7 text-neutral-400 md:text-base"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.55, delay: i * 0.08, ease: "easeOut" }}
+          >
+            {text}
+          </motion.p>
+        ))}
+
+        <motion.p
+          className="mt-8 text-sm text-neutral-300"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          — Founder
+        </motion.p>
+      </div>
     </section>
   );
 }
 
+// ── CTA ───────────────────────────────────────────────────────────────────────
+
 function CtaSection() {
   return (
     <section id="cta" className="border-y border-white/10">
-      <motion.div
-        className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-        variants={fadeUp}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
+      <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
         <div className="grid gap-10 md:grid-cols-[1.3fr,0.95fr] md:items-center">
           <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">
+            <motion.p
+              className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               At a glance
-            </p>
-            <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+            </motion.p>
+            <motion.h2
+              className="text-2xl font-bold tracking-tight md:text-4xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
               HeliosX loupes, at a glance.
-            </h2>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-neutral-400 md:text-base">
+            </motion.h2>
+            <motion.p
+              className="mt-4 max-w-2xl text-sm leading-7 text-neutral-400 md:text-base"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
               Everything you need to know in one place: world-class optics,
-              honest pricing, and a fitting process designed around real OR
-              life.
-            </p>
+              honest pricing, and a fitting process designed around real OR life.
+            </motion.p>
 
-            <div className="mt-6 grid gap-4 text-sm text-neutral-200 md:grid-cols-2">
+            <motion.div
+              className="mt-6 grid gap-4 text-sm text-neutral-200 md:grid-cols-2"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerChildren}
+            >
               <BulletItem>Galilean optics with generous depth of field.</BulletItem>
               <BulletItem>Magnification options from 2.5x to 6.0x.</BulletItem>
               <BulletItem>Custom frame styles fitted to your anatomy.</BulletItem>
               <BulletItem>Lightweight builds that respect your posture.</BulletItem>
-            </div>
+            </motion.div>
           </div>
 
           <motion.div
-            variants={fadeUp}
-            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             className="space-y-4 rounded-[28px] border border-white/10 bg-neutral-950/80 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
+            initial={{ opacity: 0, y: 28, scale: 0.96 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-baseline justify-between gap-4">
               <div>
                 <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">Starting at</p>
-                <p className="mt-1 text-3xl font-semibold">$499</p>
+                <p className="mt-1 text-3xl font-bold">$499</p>
               </div>
               <div className="text-right text-xs text-neutral-500">
                 <p>Transparent pricing.</p>
@@ -657,29 +926,38 @@ function CtaSection() {
 
             <Link
               href="/product"
-              className="flex w-full items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-black shadow-lg shadow-white/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-neutral-200"
+              className="flex w-full items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-black shadow-[0_4px_20px_rgba(255,255,255,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-neutral-200"
             >
               Shop HeliosX
             </Link>
 
             <p className="text-xs leading-6 text-neutral-500">
-              In stock. Ships in 3-5 business days with surgeon-informed fitting support.
+              In stock. Ships in 3–5 business days with surgeon-informed fitting support.
             </p>
           </motion.div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
 
 function BulletItem({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-start gap-2 text-xs text-neutral-300">
-      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-neutral-300" />
+    <motion.div
+      className="flex items-start gap-2 text-xs text-neutral-300"
+      variants={{
+        hidden: { opacity: 0, x: -12 },
+        visible: { opacity: 1, x: 0 },
+      }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+    >
+      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
       <span>{children}</span>
-    </div>
+    </motion.div>
   );
 }
+
+// ── Footer ────────────────────────────────────────────────────────────────────
 
 function HeliosXFooter() {
   return (
@@ -699,7 +977,7 @@ function HeliosXFooter() {
           <div className="max-w-md space-y-3">
             <p className="text-sm font-semibold text-neutral-100">HeliosX</p>
             <p className="text-sm text-neutral-300">
-              Surgical loupes designed by surgeons, for surgeons - bringing elite
+              Surgical loupes designed by surgeons, for surgeons — bringing elite
               optical performance to more operators through honest, transparent pricing.
             </p>
             <p className="text-xs text-neutral-400">

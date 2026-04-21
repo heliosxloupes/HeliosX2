@@ -371,7 +371,7 @@ export default function Header() {
 
           <Link
             href="/product"
-            className="hidden rounded-full bg-white px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-black shadow-[0_0_32px_rgba(255,255,255,0.7)] transition hover:bg-neutral-100 md:inline-flex"
+            className="hidden rounded-full bg-white px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-black shadow-[0_4px_20px_rgba(255,255,255,0.18)] transition hover:bg-neutral-100 hover:shadow-[0_4px_28px_rgba(255,255,255,0.28)] md:inline-flex"
           >
             Order now
           </Link>

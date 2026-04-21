@@ -119,7 +119,7 @@ function HeroSection() {
                   className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-neutral-200 backdrop-blur-md"
                   variants={fadeIn}
                 >
-                  Precision optics for the modern OR
+                  In stock · Ships in 3–5 business days
                 </motion.div>
 
                 <motion.h1
@@ -127,9 +127,9 @@ function HeroSection() {
                   variants={fadeUp}
                   transition={{ duration: 0.72, ease: "easeOut" }}
                 >
-                  Premium surgical loupes
+                  Surgical precision,
                   <span className="block bg-gradient-to-r from-white via-sky-200 to-emerald-300 bg-clip-text text-transparent">
-                    without the premium markup.
+                    finally accessible.
                   </span>
                 </motion.h1>
 
@@ -138,8 +138,17 @@ function HeroSection() {
                   variants={fadeUp}
                   transition={{ duration: 0.72, delay: 0.06, ease: "easeOut" }}
                 >
-                  HeliosX pairs sharp optics, ergonomic comfort, and honest pricing
-                  so the experience feels elite before the first case even starts.
+                  Created for those who pursue mastery. Engineered for excellence,
+                  with perfect focus in every detail.
+                </motion.p>
+
+                <motion.p
+                  className="max-w-xl text-sm leading-6 text-neutral-300 md:text-base md:leading-7"
+                  variants={fadeUp}
+                  transition={{ duration: 0.72, delay: 0.09, ease: "easeOut" }}
+                >
+                  No gate keeping. Just fair pricing. Elite quality made truly
+                  affordable.
                 </motion.p>
 
                 <motion.div
@@ -151,13 +160,13 @@ function HeroSection() {
                     href="/product"
                     className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black shadow-[0_20px_40px_rgba(255,255,255,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-neutral-200"
                   >
-                    Shop the collection
+                    Shop HeliosX Loupes
                   </Link>
                   <Link
                     href="/education"
                     className="rounded-full border border-white/20 bg-black/20 px-5 py-3 text-sm font-medium text-neutral-100 backdrop-blur-sm transition-all duration-300 hover:border-white/35 hover:bg-white/10"
                   >
-                    See the optical difference
+                    See the science
                   </Link>
                 </motion.div>
               </motion.div>
@@ -174,7 +183,7 @@ function HeroSection() {
                   <p className="text-xs text-neutral-300">Ships in 3-5 business days</p>
                 </div>
                 <p className="text-lg font-medium leading-7 text-neutral-50">
-                  Built by surgeons who wanted the optics to feel world-class and the pricing to feel sane.
+                  Designed for those who demand precision. Created for those who pursue mastery.
                 </p>
                 <div className="flex gap-6 text-sm text-neutral-300">
                   <div>
@@ -183,7 +192,7 @@ function HeroSection() {
                   </div>
                   <div>
                     <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Fit support</p>
-                    <p className="mt-1 text-sm text-neutral-200">White-glove guidance</p>
+                    <p className="mt-1 text-sm text-neutral-200">Surgeon-informed guidance</p>
                   </div>
                 </div>
               </motion.div>
@@ -209,29 +218,42 @@ function ManifestoSection() {
         >
           <p className="text-xs font-semibold tracking-[0.35em] text-neutral-500">Manifesto</p>
           <h2 className="max-w-2xl text-2xl font-semibold leading-snug md:text-3xl">
-            Surgical optics should feel elite in the field, not inflated at checkout.
+            WE REFUSE to accept that surgical optics must be overpriced,
+            gatekept, or reserved for a select few.
           </h2>
           <p className="max-w-xl text-sm text-neutral-300 md:text-base">
-            HeliosX was built around one idea: surgeons should have access to clear,
-            stable optics without paying for the industry&apos;s gatekeeping.
+            We reject the idea that clarity is a luxury. That precision belongs
+            only to those who can absorb a five-figure price tag. That the tools
+            we rely on for patient care should be engineered for margin first
+            and mastery second.
+          </p>
+          <p className="max-w-xl text-sm text-neutral-300 md:text-base">
+            HeliosX is built around a simple belief:{" "}
+            <span className="font-medium text-neutral-100">skill thrives where access exists.</span>{" "}
+            Elite optical quality, honest pricing, and designs shaped by real
+            surgeons, not by corporate spreadsheets.
+          </p>
+          <p className="max-w-xl text-sm text-neutral-300 md:text-base">
+            No gate keeping. Just fair pricing. Elite quality made truly
+            affordable.
           </p>
           <div className="grid gap-4 pt-2 text-sm text-neutral-200 md:grid-cols-3">
             <div className="rounded-2xl border border-white/10 bg-neutral-950/70 p-4">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Quality</p>
+              <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Access</p>
               <p className="mt-2 text-sm leading-6 text-neutral-200">
-                Sharp optics and all-day wearability designed around real surgical practice.
+                Precision should not depend on who can absorb an inflated price tag.
               </p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-neutral-950/70 p-4">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Pricing</p>
+              <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Mastery</p>
               <p className="mt-2 text-sm leading-6 text-neutral-200">
-                Transparent pricing without the five-figure theater common in the category.
+                Tools should support the craft, not distract from the field.
               </p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-neutral-950/70 p-4">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Fit</p>
+              <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Fair pricing</p>
               <p className="mt-2 text-sm leading-6 text-neutral-200">
-                Frame, magnification, and working distance tuned to the way you actually operate.
+                Elite quality made truly affordable, without gatekeeping.
               </p>
             </div>
           </div>
@@ -256,7 +278,7 @@ function ManifestoSection() {
               HeliosX system
             </p>
             <p className="mt-2 max-w-xs text-sm leading-6 text-neutral-200">
-              A cleaner, lighter experience from first fitting through the final case.
+              Elite optical quality, honest pricing, and designs shaped by real surgeons.
             </p>
           </div>
         </motion.div>
@@ -309,23 +331,23 @@ function HorizontalStorySection() {
 
   const panels = [
     {
-      eyebrow: "Optical confidence",
-      title: "A clearer field changes the whole experience.",
-      body: "The HeliosX view is meant to feel composed and believable, not harsh or overhyped. Bright image, controlled detail, calmer posture.",
+      eyebrow: "Unmatched quality",
+      title: "Unmatched Quality, Finally Affordable.",
+      body: "HeliosX was created for those who pursue mastery: optical clarity, ergonomic comfort, and elite quality without the industry markup.",
       media: "/mainpagevideo2.mp4",
       type: "video" as const,
     },
     {
-      eyebrow: "Built around the surgeon",
-      title: "Fit, balance, and magnification tuned to real cases.",
-      body: "From working distance to frame feel, every choice is there to make the loupe disappear so your focus stays on the field.",
+      eyebrow: "Engineered for excellence",
+      title: "Perfect focus, every detail.",
+      body: "Designed for those who demand precision. HeliosX keeps you locked in on the field that matters most: the operative field.",
       media: "/Newton/NewtonAsian2.png",
       type: "image" as const,
     },
     {
-      eyebrow: "Premium feel",
-      title: "The product should feel elevated before you ever put it on.",
-      body: "A cleaner silhouette, stronger materials, and a more modern visual language make the system feel intentional from the first impression.",
+      eyebrow: "Built around you",
+      title: "Form that follows function.",
+      body: "Frames that fit your face. Working distances tailored to the way you operate. Optics tuned so your posture, not just your vision, feels better by the end of the case.",
       media: "/Apollo/Apollo3xFemale.png",
       type: "image" as const,
     },
@@ -396,15 +418,15 @@ function ClaritySection() {
   const points = [
     {
       label: "Magnification",
-      body: "From broad daily use to fine-detail work, configurations stay grounded in actual operative needs.",
+      body: "Configurable magnification ranges tuned for plastics, hand, microsurgery, and general precision work.",
     },
     {
       label: "Depth and field",
-      body: "A composed view helps you track both instrument and target without constant micro-adjustments.",
+      body: "Balanced depth of field that supports steady visualization without constant micro-adjustments.",
     },
     {
-      label: "Lighting and contrast",
-      body: "Coatings and glass quality help preserve contrast under bright OR lighting and headlights.",
+      label: "Coatings and contrast",
+      body: "Anti-reflective coatings and high-quality glass help maintain contrast under OR lighting and headlights.",
     },
   ];
 
@@ -422,12 +444,18 @@ function ClaritySection() {
           <p className="text-xs font-semibold tracking-[0.3em] text-neutral-500">Optical clarity</p>
           <h2 className="text-2xl font-semibold md:text-3xl">
             <span className="bg-gradient-to-r from-white via-slate-200 to-emerald-200 bg-clip-text text-transparent">
-              Clarity that keeps up with the procedure.
+              Engineered for sharp, confident visualization.
             </span>
           </h2>
           <p className="max-w-2xl text-sm text-neutral-300 md:text-base">
-            HeliosX optics are tuned for stable, believable detail so the view feels calm,
-            bright, and dependable when the field gets tight.
+            HeliosX optics are designed to give you a clear, stable view of the
+            field, so you can trust what you&apos;re seeing when details are
+            measured in millimeters.
+          </p>
+          <p className="max-w-2xl text-sm text-neutral-300 md:text-base">
+            From skin closure to microsurgical work, our lenses balance
+            magnification, depth of field, and working distance for real
+            surgical workflows, not bench demos.
           </p>
         </motion.div>
 
@@ -459,9 +487,9 @@ function ClaritySection() {
 
 function FitSection() {
   const pillars = [
-    "Frame styles that range from minimal to statement-making.",
-    "Material choices from ultra-light polymer to premium alloy metal.",
-    "Magnification options from 2.5x to 6.0x for different operative demands.",
+    "Multiple frame styles: modern, hipster, vintage, classic.",
+    "Material choices: ultra-light polymer or premium alloy metal.",
+    "Magnification options from 2.5x to 6.0x for any procedure type.",
   ];
 
   return (
@@ -493,12 +521,19 @@ function FitSection() {
         >
           <p className="text-xs font-semibold tracking-[0.3em] text-neutral-500">Customization</p>
           <h2 className="bg-gradient-to-r from-white via-sky-200 to-emerald-200 bg-clip-text text-2xl font-semibold text-transparent md:text-3xl">
-            Built around your face, your posture, and your specialty.
+            Built for every specialty. Tailored to every surgeon.
           </h2>
           <p className="text-sm leading-7 text-neutral-300 md:text-base">
-            No two surgeons work the same way. HeliosX gives you control over frame,
-            magnification, and build so the loupe disappears into your workflow instead
-            of forcing you into someone else&apos;s template.
+            No two surgeons operate the same way, and your loupes shouldn&apos;t
+            force you into a template. HeliosX offers multiple frame styles,
+            magnifications, and material options designed to fit your workflow,
+            your anatomy, and your aesthetic.
+          </p>
+          <p className="text-sm leading-7 text-neutral-300 md:text-base">
+            Choose from 2.5x to 6.0x magnification, lightweight plastic or
+            premium metal frames, and designs ranging from modern minimalist to
+            vintage-inspired. We tailor the system to you without charging you
+            two months of rent for it.
           </p>
 
           <div className="space-y-3 pt-2">
@@ -544,16 +579,26 @@ function StorySection() {
           How HeliosX began.
         </h2>
         <p className="mt-4 text-sm leading-7 text-neutral-400 md:text-base">
-          HeliosX started with a simple realization: the tools surgeons rely on every day
-          are too often priced like luxury goods instead of necessities.
+          HeliosX began with a simple realization shared by surgeons at every
+          stage of training: the tools we rely on daily are treated like luxury
+          goods instead of necessities.
         </p>
         <p className="mt-4 text-sm leading-7 text-neutral-400 md:text-base">
-          We wanted the fit, optical quality, and confidence of a premium system without
-          the old gatekeeping model attached to it.
+          For decades, surgical optics have been locked behind inflated prices,
+          outdated designs, and a business model that assumes surgeons will
+          simply accept it. But we didn&apos;t.
         </p>
         <p className="mt-4 text-sm leading-7 text-neutral-400 md:text-base">
-          So HeliosX became the alternative: a loupe brand shaped by real OR expectations,
-          honest pricing, and a cleaner modern aesthetic from the first impression onward.
+          We watched residents delay buying loupes because rent mattered more.
+          We saw medical students borrow gear because their budget had limits.
+          We listened to attendings who had used the same outdated optics for
+          years because upgrading felt irrational.
+        </p>
+        <p className="mt-4 text-sm leading-7 text-neutral-400 md:text-base">
+          The problem was never the craftsmanship. It was the gatekeeping.
+        </p>
+        <p className="mt-4 text-sm leading-7 text-neutral-400 md:text-base">
+          So we built an alternative.
         </p>
         <p className="mt-8 text-sm text-neutral-300">- Founder</p>
       </motion.div>
@@ -578,11 +623,12 @@ function CtaSection() {
               At a glance
             </p>
             <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-              Premium feel. Honest pricing. Ready for the OR.
+              HeliosX loupes, at a glance.
             </h2>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-neutral-400 md:text-base">
-              Everything you need is here: refined optics, surgeon-first fit, and a buying
-              experience that feels as considered as the product.
+              Everything you need to know in one place: world-class optics,
+              honest pricing, and a fitting process designed around real OR
+              life.
             </p>
 
             <div className="mt-6 grid gap-4 text-sm text-neutral-200 md:grid-cols-2">
@@ -617,7 +663,7 @@ function CtaSection() {
             </Link>
 
             <p className="text-xs leading-6 text-neutral-500">
-              In stock. Ships in 3-5 business days with white-glove fitting support.
+              In stock. Ships in 3-5 business days with surgeon-informed fitting support.
             </p>
           </motion.div>
         </div>
@@ -682,7 +728,7 @@ function HeliosXFooter() {
         </div>
 
         <div className="flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-neutral-500 md:flex-row md:items-center md:justify-between">
-          <p>Premium surgical loupes with a modern, surgeon-first point of view.</p>
+          <p>Engineered for excellence. Perfect focus, every detail.</p>
           <p>&copy; {new Date().getFullYear()} HeliosX</p>
         </div>
       </div>

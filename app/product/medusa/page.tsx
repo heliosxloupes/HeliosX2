@@ -16,8 +16,8 @@ const medusaConfig: ProductPageConfig = {
   ],
   heroImages: [
     '/Medusa/MedusaMain.png',
-    '/Medusa/MedusaMain.png',
-    '/Medusa/MedusaMain.png',
+    '/Medusa/MedusaStudioDark.png',
+    '/Medusa/MedusaStudioCloseup.png',
   ],
   magnifications: ['3.0x', '4.0x', '5.0x'],
   priceLabel: 'Pricing coming soon',
@@ -56,8 +56,8 @@ const medusaConfig: ProductPageConfig = {
   ],
   specImages: [
     { src: '/Medusa/MedusaMain.png', alt: 'Medusa surgical loupes product image' },
-    { src: '/Medusa/MedusaMain.png', alt: 'Medusa surgical loupes side placeholder' },
-    { src: '/Medusa/MedusaMain.png', alt: 'Medusa surgical loupes detail placeholder' },
+    { src: '/Medusa/MedusaStudioDark.png', alt: 'Medusa loupes in dark studio setting' },
+    { src: '/Medusa/MedusaStudioCloseup.png', alt: 'Medusa loupes closeup product detail' },
   ],
 }
 

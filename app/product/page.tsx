@@ -335,6 +335,8 @@ function OurLoupesGrid() {
         return '255,157,0'; // Orange
       case 'kepler':
         return '139,92,246'; // Purple
+      case 'medusa':
+        return '234,179,8'; // Amber
       default:
         return '56,189,248';
     }
@@ -389,6 +391,20 @@ function OurLoupesGrid() {
       imageSrc: "/Keppler/KepplerMainProduct(Notext).png",
       imageAlt: "HeliosX Kepler loupes product image",
     },
+    {
+      slug: "medusa",
+      name: "Medusa",
+      magnification: "3.0x - 4.0x - 5.0x",
+      tagline: "Adjustable working distance for seated or standing surgical posture.",
+      bullets: [
+        "300-600 mm working distance",
+        "Tailored fixed IPD",
+        "Enhanced depth perception",
+      ],
+      highlight: "Best for posture-flexible precision work.",
+      imageSrc: "/Medusa/MedusaMain.png",
+      imageAlt: "HeliosX Medusa loupes product image",
+    },
   ];
 
   return (
@@ -406,11 +422,11 @@ function OurLoupesGrid() {
             OUR LOUPES
           </p>
           <h2 className="text-2xl font-semibold md:text-3xl">
-            Four systems. One premium standard.
+            Five systems. One premium standard.
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8">
           {products.map((product, index) => (
             <motion.div
               key={product.slug}

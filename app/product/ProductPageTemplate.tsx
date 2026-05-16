@@ -136,7 +136,9 @@ export type ProductPageConfig = {
   highlights: string[]
   heroImages: string[]
   magnifications: string[]
-  basePrice: number
+  basePrice?: number
+  priceLabel?: string
+  isAvailable?: boolean
   specTitle: string
   specDescription: string
   specColumns: { title: string; items: string[] }[]
@@ -185,7 +187,9 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   )
   const [quantity, setQuantity] = useState(1)
 
-  const basePrice = config.basePrice
+  const basePrice = config.basePrice ?? 0
+  const isAvailable = config.isAvailable ?? config.basePrice !== undefined
+  const priceLabel = config.priceLabel ?? `$${basePrice}.00`
   const subtotal = basePrice * quantity
 
   const currentFrameConfig =
@@ -196,6 +200,8 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
     ) ?? currentFrameConfig.colors[0]
 
   const handleAddToCart = () => {
+    if (!isAvailable) return
+
     addToCart({
       productSlug: config.slug,
       name: `${config.shortName} Surgical Loupes`,
@@ -266,7 +272,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 <div className="pointer-events-auto absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-3 rounded-full bg-black/55 px-3 py-2 backdrop-blur-md">
                   {config.heroImages.map((src, idx) => (
                     <button
-                      key={src}
+                      key={`${src}-${idx}`}
                       onClick={() => setActiveHeroIndex(idx)}
                       className={`relative overflow-hidden rounded-[18px] border transition-all duration-200 ${
                         activeHeroIndex === idx
@@ -297,7 +303,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
               {/* Title + description */}
               <div>
                 <p className="mb-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-neutral-500">
-                  HeliosX · {config.shortName}
+                  HeliosX - {config.shortName}
                 </p>
                 <h1 className="bg-gradient-to-r from-white via-slate-200 to-emerald-200 bg-clip-text text-2xl font-semibold text-transparent sm:text-3xl">
                   {config.name}
@@ -402,7 +408,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 <div className="mb-2 text-[0.7rem] text-neutral-300">
                   <p className="font-semibold text-neutral-100">
                     {currentFrameConfig.label}{' '}
-                    {currentColorConfig.name && `· ${currentColorConfig.name}`}
+                    {currentColorConfig.name && `- ${currentColorConfig.name}`}
                   </p>
                   <p className="mt-1">
                     Choose a base frame, then fine-tune the finish. All frames
@@ -457,19 +463,27 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 className="rounded-3xl border border-white/10 bg-neutral-900/95 p-4 shadow-[0_24px_90px_rgba(0,0,0,0.8)]"
               >
                 <div className="flex items-center justify-between text-sm text-neutral-200">
-                  <span>Subtotal</span>
-                  <span className="font-semibold">${subtotal}.00</span>
+                  <span>{isAvailable ? 'Subtotal' : 'Pricing'}</span>
+                  <span className="font-semibold">
+                    {isAvailable ? `$${subtotal}.00` : priceLabel}
+                  </span>
                 </div>
 
                 <button
                   onClick={handleAddToCart}
-                  className="mt-4 w-full rounded-full bg-white py-2.5 text-sm font-semibold text-black shadow-[0_0_40px_rgba(255,255,255,0.6)] transition hover:bg-neutral-100"
+                  disabled={!isAvailable}
+                  className={`mt-4 w-full rounded-full py-2.5 text-sm font-semibold transition ${
+                    isAvailable
+                      ? 'bg-white text-black shadow-[0_0_40px_rgba(255,255,255,0.6)] hover:bg-neutral-100'
+                      : 'cursor-not-allowed border border-white/15 bg-white/5 text-neutral-400'
+                  }`}
                 >
-                  Add to cart
+                  {isAvailable ? 'Add to cart' : 'Pricing coming soon'}
                 </button>
                 <p className="mt-2 text-[0.65rem] leading-relaxed text-neutral-500">
-                  No hidden service contracts, mandatory bundles, or surprise
-                  fees—just the loupes you actually need.
+                  {isAvailable
+                    ? 'No hidden service contracts, mandatory bundles, or surprise fees-just the loupes you actually need.'
+                    : 'Medusa is live in the catalogue. Add-to-cart will be enabled once final pricing is set.'}
                 </p>
               </motion.div>
             </motion.div>
@@ -535,9 +549,9 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
               viewport={{ once: true, amount: 0.3 }}
               className="grid gap-4 md:grid-cols-3"
             >
-              {config.specImages.map((image) => (
+              {config.specImages.map((image, idx) => (
                 <motion.div
-                  key={image.src}
+                  key={`${image.src}-${idx}`}
                   variants={cardVariants}
                   whileHover={{ y: -4 }}
                   transition={{ type: 'spring', stiffness: 220, damping: 20 }}
@@ -568,7 +582,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
               <p className="text-sm text-neutral-300">
                 HeliosX exists because surgeons shouldn&apos;t have to choose
                 between compromised tools and two months of rent. The work is
-                demanding enough—the access should be too.
+                demanding enough-the access should be too.
               </p>
               <button
                 onClick={() => {

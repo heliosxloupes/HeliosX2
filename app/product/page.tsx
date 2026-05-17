@@ -25,7 +25,9 @@ export default function ProductPage() {
     <>
       <Header />
       <main className="bg-transparent pt-20 text-white min-h-screen md:pt-24">
-        <ParallaxProductHero />
+        <div className="hidden md:block">
+          <ParallaxProductHero />
+        </div>
         <OurLoupesGrid />
         <OrderingInfoSection />
       </main>
@@ -432,7 +434,7 @@ function OurLoupesGrid() {
   const displayedProducts = cmsProducts ?? products;
 
   return (
-    <section className="bg-transparent px-4 md:px-8 pb-16 md:pb-24">
+    <section className="bg-transparent px-4 pb-16 pt-8 md:px-8 md:pb-24 md:pt-0">
       <div className="mx-auto max-w-6xl space-y-8">
         <motion.div
           variants={fadeUp}

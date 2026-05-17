@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   const body = await req.json().catch(() => null)
   const email = String(body?.email ?? '').trim().toLowerCase()
   const password = String(body?.password ?? '')
-  const staticPassword = process.env.ADMIN_STATIC_PASSWORD ?? ''
+  const staticPassword = (process.env.ADMIN_STATIC_PASSWORD ?? '').trim()
 
   if (!staticPassword) {
     return NextResponse.json({ error: 'Static admin login is not configured.' }, { status: 503 })

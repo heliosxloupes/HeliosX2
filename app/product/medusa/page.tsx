@@ -15,9 +15,11 @@ const medusaConfig: ProductPageConfig = {
     'Ergonomic comfort for the neck and spine.',
   ],
   heroImages: [
-    '/Medusa/MedusaMain.png',
-    '/Medusa/MedusaStudioDark.png',
+    '/Medusa/MedusaDoctorBlonde.png',
+    '/Medusa/MedusaDoctorMale.png',
     '/Medusa/MedusaStudioCloseup.png',
+    '/Medusa/MedusaDoctorSeated.png',
+    '/Medusa/MedusaStudioDark.png',
   ],
   magnifications: ['3.0x', '4.0x', '5.0x'],
   priceLabel: 'Pricing coming soon',
@@ -55,9 +57,11 @@ const medusaConfig: ProductPageConfig = {
     },
   ],
   specImages: [
-    { src: '/Medusa/MedusaMain.png', alt: 'Medusa surgical loupes product image' },
-    { src: '/Medusa/MedusaStudioDark.png', alt: 'Medusa loupes in dark studio setting' },
+    { src: '/Medusa/MedusaDoctorBlonde.png', alt: 'Doctor wearing Medusa surgical loupes' },
+    { src: '/Medusa/MedusaDoctorMale.png', alt: 'Clinician wearing Medusa surgical loupes' },
     { src: '/Medusa/MedusaStudioCloseup.png', alt: 'Medusa loupes closeup product detail' },
+    { src: '/Medusa/MedusaDoctorSeated.png', alt: 'Doctor seated with Medusa surgical loupes' },
+    { src: '/Medusa/MedusaStudioDark.png', alt: 'Medusa loupes in dark studio setting' },
   ],
 }
 

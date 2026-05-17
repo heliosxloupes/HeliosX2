@@ -1,15 +1,15 @@
 import { redirect } from 'next/navigation'
 
+import { getAdminSeedEmails } from './admin-emails'
 import { createSupabaseServerClient, getSupabaseServiceClient } from './supabase/server'
+import { getStaticAdminFromCookie } from './static-admin-auth'
 
-export function getAdminSeedEmails() {
-  return (process.env.ADMIN_SEED_EMAILS ?? 'heliosxloupes@gmail.com,kylelieberbaum@gmail.com')
-    .split(',')
-    .map((email) => email.trim().toLowerCase())
-    .filter(Boolean)
-}
+export { getAdminSeedEmails }
 
 export async function getCurrentAdmin() {
+  const staticAdmin = getStaticAdminFromCookie()
+  if (staticAdmin) return staticAdmin
+
   const supabase = createSupabaseServerClient()
   const service = getSupabaseServiceClient()
   if (!supabase || !service) return null

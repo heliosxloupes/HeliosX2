@@ -9,18 +9,43 @@ import { createSupabaseBrowserClient } from '@/lib/supabase/browser'
 export default function AdminLoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
+  const [magicLinkLoading, setMagicLinkLoading] = useState(false)
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault()
     setLoading(true)
     setMessage('')
 
+    const response = await fetch('/api/admin/static-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    })
+
+    const payload = await response.json().catch(() => null)
+
+    setLoading(false)
+
+    if (!response.ok) {
+      setMessage(payload?.error ?? 'Could not sign in.')
+      return
+    }
+
+    router.push('/admin')
+    router.refresh()
+  }
+
+  const sendMagicLink = async () => {
+    setMagicLinkLoading(true)
+    setMessage('')
+
     const supabase = createSupabaseBrowserClient()
     if (!supabase) {
       setMessage('Supabase is not configured yet.')
-      setLoading(false)
+      setMagicLinkLoading(false)
       return
     }
 
@@ -31,7 +56,7 @@ export default function AdminLoginPage() {
       },
     })
 
-    setLoading(false)
+    setMagicLinkLoading(false)
     setMessage(error ? error.message : 'Check your email for the admin login link.')
   }
 
@@ -56,11 +81,27 @@ export default function AdminLoginPage() {
             required
             className="mt-6 w-full rounded-full border border-white/15 bg-black px-4 py-3 text-sm outline-none focus:border-emerald-300"
           />
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="Admin password"
+            required
+            className="mt-3 w-full rounded-full border border-white/15 bg-black px-4 py-3 text-sm outline-none focus:border-emerald-300"
+          />
           <button
             disabled={loading}
             className="mt-4 w-full rounded-full bg-white px-4 py-3 text-sm font-semibold text-black disabled:opacity-50"
           >
-            {loading ? 'Sending link...' : 'Send magic link'}
+            {loading ? 'Signing in...' : 'Sign in'}
+          </button>
+          <button
+            type="button"
+            disabled={magicLinkLoading || !email}
+            onClick={sendMagicLink}
+            className="mt-3 w-full rounded-full border border-white/15 px-4 py-3 text-sm font-semibold text-white transition hover:border-white disabled:opacity-50"
+          >
+            {magicLinkLoading ? 'Sending link...' : 'Send magic link instead'}
           </button>
           {message && <p className="mt-4 text-sm text-neutral-300">{message}</p>}
           <button

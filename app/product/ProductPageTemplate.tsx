@@ -198,6 +198,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   const priceLabel = config.priceLabel ?? `$${basePrice}.00`
   const subtotal = basePrice * quantity
   const riskFreeCopy = 'Risk-free. Fully refundable before measurements are provided.'
+  const isErgonomicModel = ['medusa', 'apollo'].includes(config.slug)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -389,9 +390,20 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
             >
               {/* Title + description */}
               <div>
-                <p className="mb-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-neutral-500">
-                  HeliosX - {config.shortName}
-                </p>
+                <div className="mb-2 flex flex-wrap items-center gap-3">
+                  <p className="text-[0.65rem] font-medium uppercase tracking-[0.2em] text-neutral-500">
+                    HeliosX - {config.shortName}
+                  </p>
+                  {isErgonomicModel && (
+                    <span className="inline-flex items-center gap-2 rounded-full border border-emerald-300/45 bg-[radial-gradient(circle_at_30%_20%,rgba(52,211,153,0.35),rgba(16,185,129,0.12)_45%,rgba(10,10,10,0.7)_100%)] px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-emerald-100 shadow-[0_0_28px_rgba(16,185,129,0.28)]">
+                      <span className="relative inline-flex h-4 w-4 items-center justify-center rounded-full border border-emerald-200/70 bg-black/35">
+                        <span className="absolute h-2.5 w-[2px] rounded-full bg-emerald-200" />
+                        <span className="absolute h-1.5 w-1.5 translate-x-[3px] -translate-y-[3px] rounded-full border border-emerald-200/80" />
+                      </span>
+                      Ergonomic
+                    </span>
+                  )}
+                </div>
                 <h1 className="bg-gradient-to-r from-white via-slate-200 to-emerald-200 bg-clip-text text-2xl font-semibold text-transparent sm:text-3xl">
                   {config.name}
                 </h1>

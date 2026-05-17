@@ -356,6 +356,7 @@ function OurLoupesGrid() {
       highlight: "Best for posture-flexible precision work.",
       imageSrc: "/Medusa/MedusaMain.png",
       imageAlt: "HeliosX Medusa loupes product image",
+      imagePosition: "68% center",
     },
     {
       slug: "apollo",
@@ -477,6 +478,7 @@ function OurLoupesGrid() {
                     alt={product.imageAlt}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    style={{ objectPosition: product.imagePosition ?? "center" }}
                   />
                   <div className="absolute inset-0 pointer-events-none z-10 mix-blend-mode-overlay opacity-100">
                     <Noise

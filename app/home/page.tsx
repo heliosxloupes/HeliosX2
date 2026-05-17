@@ -442,8 +442,8 @@ function ManifestoSection() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <ParallaxImage
-            src="/hardcase1.png"
-            alt="HeliosX loupes in protective hard case"
+            src="/Medusa/MedusaCaseOpen.png"
+            alt="Medusa loupes in protective foam case"
             containerClassName="aspect-[4/5] rounded-[30px] border border-white/10 bg-neutral-900/60"
           >
             <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black via-black/65 to-transparent p-6">

@@ -34,7 +34,7 @@ export default function ProductPage() {
 }
 
 /* --------------------------------------------- */
-/*  PARALLAX HERO – GSAP SCROLLTRIGGER LAYERS    */
+/*  PARALLAX HERO - GSAP SCROLLTRIGGER LAYERS    */
 /* --------------------------------------------- */
 
 function ParallaxProductHero() {
@@ -160,7 +160,7 @@ function ParallaxProductHero() {
           {/* Tronaeast-style fade overlay - blends into background */}
           <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-transparent via-transparent via-60% via-[rgba(0,0,0,0.2)] via-75% via-[rgba(0,0,0,0.5)] via-85% via-[rgba(0,0,0,0.8)] via-92% to-black" />
 
-          {/* Base background layer – basex */}
+          {/* Base background layer - basex */}
           <div
             ref={basexImageRef}
             className="absolute inset-0 overflow-hidden will-change-transform"
@@ -181,7 +181,7 @@ function ParallaxProductHero() {
             />
           </div>
 
-          {/* Layer 4 – basex4.5 */}
+          {/* Layer 4 - basex4.5 */}
           <div
             ref={basex4ImageRef}
             className="absolute inset-0 overflow-hidden will-change-transform"
@@ -202,7 +202,7 @@ function ParallaxProductHero() {
             />
           </div>
 
-          {/* Layer 3 – basex3.5 */}
+          {/* Layer 3 - basex3.5 */}
           <div
             ref={basex3ImageRef}
             className="absolute inset-0 overflow-hidden will-change-transform"
@@ -320,7 +320,7 @@ function ParallaxProductHero() {
 }
 
 /* --------------------------------------------- */
-/*  OUR LOUPES GRID – 4 CARDS HORIZONTAL         */
+/*  OUR LOUPES GRID - 4 CARDS HORIZONTAL         */
 /* --------------------------------------------- */
 
 function OurLoupesGrid() {
@@ -344,6 +344,34 @@ function OurLoupesGrid() {
 
   const products = [
     {
+      slug: "medusa",
+      name: "Medusa",
+      magnification: "3.0x • 4.0x • 5.0x",
+      tagline: "Adjustable working distance for seated or standing surgical posture.",
+      bullets: [
+        "300-600 mm working distance",
+        "Tailored fixed IPD",
+        "Enhanced depth perception",
+      ],
+      highlight: "Best for posture-flexible precision work.",
+      imageSrc: "/Medusa/MedusaMain.png",
+      imageAlt: "HeliosX Medusa loupes product image",
+    },
+    {
+      slug: "apollo",
+      name: "Apollo",
+      magnification: "3.0x • 4.0x • 5.0x • 6.0x",
+      tagline: "High-magnification clarity for detail-obsessed operators.",
+      bullets: [
+        "Next-generation optics",
+        "Increased working precision",
+        "Ergonomic frame options",
+      ],
+      highlight: "Best for fine aesthetic & micro-oriented work.",
+      imageSrc: "/Apollo/ApollomainProduct(Notext).png",
+      imageAlt: "HeliosX Apollo loupes product image",
+    },
+    {
       slug: "galileo",
       name: "Galileo",
       magnification: "2.5x • 3.0x • 3.5x",
@@ -364,20 +392,6 @@ function OurLoupesGrid() {
       imageAlt: "HeliosX Newton loupes product image",
     },
     {
-      slug: "apollo",
-      name: "Apollo",
-      magnification: "3.0x • 4.0x • 5.0x • 6.0x",
-      tagline: "High-magnification clarity for detail-obsessed operators.",
-      bullets: [
-        "Next-generation optics",
-        "Increased working precision",
-        "Ergonomic frame options",
-      ],
-      highlight: "Best for fine aesthetic & micro-oriented work.",
-      imageSrc: "/Apollo/ApollomainProduct(Notext).png",
-      imageAlt: "HeliosX Apollo loupes product image",
-    },
-    {
       slug: "kepler",
       name: "Kepler",
       magnification: "4.0x • 5.0x • 6.0x",
@@ -391,22 +405,7 @@ function OurLoupesGrid() {
       imageSrc: "/Keppler/KepplerMainProduct(Notext).png",
       imageAlt: "HeliosX Kepler loupes product image",
     },
-    {
-      slug: "medusa",
-      name: "Medusa",
-      magnification: "3.0x - 4.0x - 5.0x",
-      tagline: "Adjustable working distance for seated or standing surgical posture.",
-      bullets: [
-        "300-600 mm working distance",
-        "Tailored fixed IPD",
-        "Enhanced depth perception",
-      ],
-      highlight: "Best for posture-flexible precision work.",
-      imageSrc: "/Medusa/MedusaMain.png",
-      imageAlt: "HeliosX Medusa loupes product image",
-    },
   ];
-
   return (
     <section className="bg-transparent px-4 md:px-8 pb-16 md:pb-24">
       <div className="mx-auto max-w-6xl space-y-8">
@@ -541,4 +540,3 @@ function OurLoupesGrid() {
     </section>
   );
 }
-

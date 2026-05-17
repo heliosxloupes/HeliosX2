@@ -570,6 +570,25 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 >
                   {isAvailable ? 'Add to cart' : 'Pricing coming soon'}
                 </button>
+                {emailPromptOpen && !capturedEmail && (
+                  <div className="mt-3 space-y-2">
+                    <input
+                      value={emailInput}
+                      onChange={(event) => setEmailInput(event.target.value)}
+                      type="email"
+                      placeholder="Email for cart and checkout"
+                      className="w-full rounded-full border border-white/15 bg-white px-4 py-3 text-sm text-black outline-none"
+                    />
+                    {emailError && <p className="px-2 text-xs text-red-300">{emailError}</p>}
+                    <button
+                      type="button"
+                      onClick={submitEmailPrompt}
+                      className="w-full rounded-full bg-emerald-300 px-4 py-3 text-sm font-semibold text-black transition hover:bg-emerald-200"
+                    >
+                      Continue
+                    </button>
+                  </div>
+                )}
                 <p className="mt-2 text-[0.65rem] leading-relaxed text-neutral-500">
                   {isAvailable
                     ? `No hidden service contracts, mandatory bundles, or surprise fees. ${riskFreeCopy}`

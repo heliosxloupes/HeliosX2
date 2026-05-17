@@ -1,6 +1,8 @@
+import { requireAdmin } from '@/lib/admin-auth'
 import { getSupabaseServiceClient } from '@/lib/supabase/server'
 
 export default async function AdminCrmPage() {
+  await requireAdmin()
   const supabase = getSupabaseServiceClient()
   const { data } = supabase
     ? await supabase.from('crm_contacts').select('*').order('created_at', { ascending: false })

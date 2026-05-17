@@ -1,10 +1,6 @@
 import Link from 'next/link'
 
-import { requireAdmin } from '@/lib/admin-auth'
-
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  await requireAdmin()
-
   const links = [
     ['Orders', '/admin/orders'],
     ['CRM', '/admin/crm'],

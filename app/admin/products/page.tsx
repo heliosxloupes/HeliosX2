@@ -1,8 +1,10 @@
 import { SeedProductsButton } from '@/components/AdminForms'
 import ProductCmsEditor from '@/components/ProductCmsEditor'
+import { requireAdmin } from '@/lib/admin-auth'
 import { getProducts } from '@/lib/commerce'
 
 export default async function AdminProductsPage() {
+  await requireAdmin()
   const products = await getProducts()
 
   return (

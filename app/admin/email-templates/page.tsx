@@ -1,7 +1,9 @@
 import EmailTemplateEditor from '@/components/EmailTemplateEditor'
+import { requireAdmin } from '@/lib/admin-auth'
 import { getSupabaseServiceClient } from '@/lib/supabase/server'
 
 export default async function AdminEmailTemplatesPage() {
+  await requireAdmin()
   const supabase = getSupabaseServiceClient()
   const { data } = supabase
     ? await supabase.from('email_templates').select('*').order('key', { ascending: true })

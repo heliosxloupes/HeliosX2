@@ -1,7 +1,9 @@
 import { TrackingForm } from '@/components/AdminForms'
+import { requireAdmin } from '@/lib/admin-auth'
 import { getSupabaseServiceClient } from '@/lib/supabase/server'
 
 export default async function AdminOrdersPage() {
+  await requireAdmin()
   const supabase = getSupabaseServiceClient()
   const { data } = supabase
     ? await supabase.from('orders').select('*').order('created_at', { ascending: false })

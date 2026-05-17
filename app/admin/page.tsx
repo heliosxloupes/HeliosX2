@@ -1,6 +1,9 @@
 import Link from 'next/link'
+import { requireAdmin } from '@/lib/admin-auth'
 
-export default function AdminHomePage() {
+export default async function AdminHomePage() {
+  await requireAdmin()
+
   return (
     <main className="mx-auto max-w-7xl px-4 py-10">
       <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">Operations</p>

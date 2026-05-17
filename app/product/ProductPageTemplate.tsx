@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
@@ -145,6 +145,7 @@ export type ProductPageConfig = {
   specImages: { src: string; alt: string }[]
 }
 
+
 /* --- motion variants (same flavor as homepage) --- */
 
 const fadeUp = {
@@ -172,6 +173,11 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
 
   const [activeHeroIndex, setActiveHeroIndex] = useState(0)
   const [selectedMag, setSelectedMag] = useState<string>(config.magnifications[0] ?? '')
+  const [capturedEmail, setCapturedEmail] = useState('')
+  const [emailInput, setEmailInput] = useState('')
+  const [emailPromptOpen, setEmailPromptOpen] = useState(false)
+  const [pendingAction, setPendingAction] = useState<'cart' | 'checkout'>('cart')
+  const [emailError, setEmailError] = useState('')
 
   // Use Newton-specific frames for Newton, default frames for others
   const frameConfigs =
@@ -191,6 +197,14 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   const isAvailable = config.isAvailable ?? config.basePrice !== undefined
   const priceLabel = config.priceLabel ?? `$${basePrice}.00`
   const subtotal = basePrice * quantity
+  const riskFreeCopy = 'Risk-free. Fully refundable before measurements are provided.'
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const savedEmail = window.localStorage.getItem('heliosx_customer_email') ?? ''
+    setCapturedEmail(savedEmail)
+    setEmailInput(savedEmail)
+  }, [])
 
   const currentFrameConfig =
     frameConfigs.find((frame) => frame.id === selectedFrameId) ?? frameConfigs[0]
@@ -199,7 +213,46 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
       (color) => color.value === selectedFrameColor
     ) ?? currentFrameConfig.colors[0]
 
-  const handleAddToCart = () => {
+  const persistEmail = async (source: 'cart') => {
+    const email = emailInput.trim().toLowerCase()
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setEmailError('Enter a valid email to continue.')
+      return null
+    }
+
+    setEmailError('')
+    setCapturedEmail(email)
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('heliosx_customer_email', email)
+    }
+
+    await fetch('/api/crm/capture', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, source }),
+    }).catch(() => null)
+
+    return email
+  }
+
+  const writeCartSession = async (email: string) => {
+    const cartItems = typeof window !== 'undefined'
+      ? JSON.parse(window.localStorage.getItem('heliosx_cart') ?? '[]')
+      : []
+
+    const response = await fetch('/api/cart-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, cartItems, stage: 'cart' }),
+    }).catch(() => null)
+
+    const payload = response ? await response.json().catch(() => null) : null
+    if (payload?.cartSessionId && typeof window !== 'undefined') {
+      window.localStorage.setItem('heliosx_cart_session_id', payload.cartSessionId)
+    }
+  }
+
+  const addConfiguredItem = async (email: string) => {
     if (!isAvailable) return
 
     addToCart({
@@ -214,7 +267,41 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
       selectedFrameName: `${currentFrameConfig.label} ${currentColorConfig.name}`,
       selectedFrameImage: currentColorConfig.image,
     })
+    await writeCartSession(email)
+  }
+
+  const handleAddToCart = async () => {
+    if (!isAvailable) return
+
+    const email = capturedEmail || (await persistEmail('cart'))
+    if (!email) {
+      setPendingAction('cart')
+      setEmailPromptOpen(true)
+      return
+    }
+
+    await addConfiguredItem(email)
     router.push('/cart')
+  }
+
+  const handleStickyAction = async (action: 'cart' | 'checkout') => {
+    setPendingAction(action)
+    const email = capturedEmail || (await persistEmail('cart'))
+    if (!email) {
+      setEmailPromptOpen(true)
+      return
+    }
+
+    await addConfiguredItem(email)
+    router.push(action === 'checkout' ? '/checkout' : '/cart')
+  }
+
+  const submitEmailPrompt = async () => {
+    const email = await persistEmail('cart')
+    if (!email) return
+    setEmailPromptOpen(false)
+    await addConfiguredItem(email)
+    router.push(pendingAction === 'checkout' ? '/checkout' : '/cart')
   }
 
   const scrollToTech = () => {
@@ -310,6 +397,9 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 </h1>
                 <p className="mt-3 text-sm leading-relaxed text-neutral-300">
                   {config.description}
+                </p>
+                <p className="mt-3 rounded-2xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-xs font-medium text-emerald-100">
+                  {riskFreeCopy}
                 </p>
               </div>
 
@@ -482,7 +572,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 </button>
                 <p className="mt-2 text-[0.65rem] leading-relaxed text-neutral-500">
                   {isAvailable
-                    ? 'No hidden service contracts, mandatory bundles, or surprise fees-just the loupes you actually need.'
+                    ? `No hidden service contracts, mandatory bundles, or surprise fees. ${riskFreeCopy}`
                     : 'Medusa is live in the catalogue. Add-to-cart will be enabled once final pricing is set.'}
                 </p>
               </motion.div>
@@ -606,6 +696,45 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
           </div>
         </section>
       </main>
+      {isAvailable && (
+        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-black/90 p-3 backdrop-blur-xl md:hidden">
+          {emailPromptOpen && !capturedEmail && (
+            <div className="mb-3 space-y-2">
+              <input
+                value={emailInput}
+                onChange={(event) => setEmailInput(event.target.value)}
+                type="email"
+                placeholder="Email for cart and checkout"
+                className="w-full rounded-full border border-white/15 bg-white px-4 py-3 text-sm text-black outline-none"
+              />
+              {emailError && <p className="px-2 text-xs text-red-300">{emailError}</p>}
+              <button
+                type="button"
+                onClick={submitEmailPrompt}
+                className="w-full rounded-full bg-emerald-300 px-4 py-3 text-sm font-semibold text-black"
+              >
+                Continue
+              </button>
+            </div>
+          )}
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => handleStickyAction('cart')}
+              className="rounded-full border border-white/25 px-4 py-3 text-sm font-semibold text-white"
+            >
+              Add to Cart
+            </button>
+            <button
+              type="button"
+              onClick={() => handleStickyAction('checkout')}
+              className="rounded-full bg-white px-4 py-3 text-sm font-semibold text-black"
+            >
+              Checkout
+            </button>
+          </div>
+        </div>
+      )}
     </>
   )
 }

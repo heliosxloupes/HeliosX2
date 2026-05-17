@@ -40,12 +40,15 @@ export default function CartPage() {
   const [items, setItems] = useState<CartItem[]>([])
   const [includePrescription, setIncludePrescription] = useState(false)
   const [includeWarranty, setIncludeWarranty] = useState(false)
+  const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState('')
   const router = useRouter()
 
   useEffect(() => {
     try {
       const cart = getCart() as CartItem[] | undefined
       setItems(cart ?? [])
+      setEmail(window.localStorage.getItem('heliosx_customer_email') ?? '')
     } catch (err) {
       console.error('Error reading cart', err)
       setItems([])
@@ -82,8 +85,32 @@ export default function CartPage() {
 
   const subtotal = baseSubtotal + addOnTotal
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!items.length) return
+    const normalizedEmail = email.trim().toLowerCase()
+    if (!/^\S+@\S+\.\S+$/.test(normalizedEmail)) {
+      setEmailError('Enter your email to continue to checkout.')
+      return
+    }
+
+    setEmailError('')
+    window.localStorage.setItem('heliosx_customer_email', normalizedEmail)
+
+    const response = await fetch('/api/cart-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: normalizedEmail,
+        cartItems: items,
+        stage: 'checkout',
+        cartSessionId: window.localStorage.getItem('heliosx_cart_session_id') ?? '',
+      }),
+    }).catch(() => null)
+
+    const payload = response ? await response.json().catch(() => null) : null
+    if (payload?.cartSessionId) {
+      window.localStorage.setItem('heliosx_cart_session_id', payload.cartSessionId)
+    }
 
     // Persist add-on choices so /checkout can pick them up
     if (typeof window !== 'undefined') {
@@ -394,6 +421,23 @@ export default function CartPage() {
               <div className="mb-4 flex items-center justify-between text-sm font-semibold text-neutral-50">
                 <span>Total</span>
                 <span>${subtotal.toFixed(2)}</span>
+              </div>
+
+              <div className="mb-4 space-y-2">
+                <label className="block text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                  Email for checkout
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full rounded-full border border-white/15 bg-black/50 px-4 py-3 text-sm text-white outline-none transition focus:border-emerald-300"
+                />
+                {emailError && <p className="text-xs text-red-300">{emailError}</p>}
+                <p className="text-[0.65rem] text-neutral-500">
+                  Risk-free. Fully refundable before measurements are provided.
+                </p>
               </div>
 
               <button

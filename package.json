@@ -16,6 +16,8 @@
     "@react-three/postprocessing": "^3.0.4",
     "@stripe/react-stripe-js": "^5.4.0",
     "@stripe/stripe-js": "^8.5.3",
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.105.4",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.25",
     "gsap": "^3.13.0",
@@ -28,6 +30,7 @@
     "postprocessing": "^6.38.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "resend": "^6.12.3",
     "stripe": "^20.0.0",
     "tailwind-merge": "^3.4.0",
     "three": "^0.167.1"

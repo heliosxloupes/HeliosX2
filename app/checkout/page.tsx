@@ -37,6 +37,7 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(true)
   const [stripeLoaded, setStripeLoaded] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [customerEmail, setCustomerEmail] = useState('')
 
   useEffect(() => {
     const cart = getCart() as CartItem[] | undefined
@@ -44,6 +45,13 @@ export default function CheckoutPage() {
       router.replace('/cart')
       return
     }
+
+    const savedEmail = window.localStorage.getItem('heliosx_customer_email') ?? ''
+    if (!/^\S+@\S+\.\S+$/.test(savedEmail)) {
+      router.replace('/cart')
+      return
+    }
+    setCustomerEmail(savedEmail)
 
     let mergedItems: CartItem[] = [...cart]
 
@@ -103,7 +111,7 @@ export default function CheckoutPage() {
   )
 
   useEffect(() => {
-    if (!items.length || !stripeLoaded || !checkoutRef.current) {
+    if (!items.length || !stripeLoaded || !checkoutRef.current || !customerEmail) {
       if (!items.length) {
         setLoading(false)
       }
@@ -164,12 +172,35 @@ export default function CheckoutPage() {
         })
 
         const fetchClientSecret = async () => {
+          const cartSessionId = window.localStorage.getItem('heliosx_cart_session_id') ?? ''
+          await fetch('/api/cart-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: customerEmail,
+              cartItems: apiItems,
+              stage: 'checkout',
+              cartSessionId,
+            }),
+          })
+            .then((response) => response.json())
+            .then((payload) => {
+              if (payload?.cartSessionId) {
+                window.localStorage.setItem('heliosx_cart_session_id', payload.cartSessionId)
+              }
+            })
+            .catch(() => null)
+
           const response = await fetch('/api/create-checkout-session', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ items: apiItems }),
+            body: JSON.stringify({
+              items: apiItems,
+              customerEmail,
+              cartSessionId: window.localStorage.getItem('heliosx_cart_session_id') ?? '',
+            }),
           })
 
           if (!response.ok) {
@@ -215,7 +246,7 @@ export default function CheckoutPage() {
         }
       }
     }
-  }, [items, stripeLoaded])
+  }, [items, stripeLoaded, customerEmail])
 
   return (
     <>
@@ -245,6 +276,9 @@ export default function CheckoutPage() {
             </h1>
             <p className="mt-2 max-w-xl text-sm leading-6 text-neutral-300">
               Review your order and complete payment securely with Stripe&apos;s embedded checkout.
+            </p>
+            <p className="mt-3 rounded-2xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-xs font-medium text-emerald-100">
+              Risk-free. Fully refundable before measurements are provided.
             </p>
 
             <div className="mt-6">

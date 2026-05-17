@@ -18,12 +18,21 @@ export async function POST(req: Request) {
     const body = await req.json()
     console.log('API received body:', JSON.stringify(body, null, 2))
     const items = (body.items ?? []) as IncomingItem[]
+    const customerEmail = String(body.customerEmail ?? '').trim().toLowerCase()
+    const cartSessionId = body.cartSessionId ? String(body.cartSessionId) : ''
     console.log('Parsed items:', JSON.stringify(items, null, 2))
 
     if (!items.length) {
       console.error('No items in cart')
       return NextResponse.json(
         { error: 'No items in cart' },
+        { status: 400 }
+      )
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(customerEmail)) {
+      return NextResponse.json(
+        { error: 'Customer email is required before checkout' },
         { status: 400 }
       )
     }
@@ -89,6 +98,11 @@ export async function POST(req: Request) {
       mode: 'payment',
       line_items,
       ui_mode: 'embedded',
+      customer_email: customerEmail,
+      metadata: {
+        customerEmail,
+        cartSessionId,
+      },
       return_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     })
 

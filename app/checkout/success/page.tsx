@@ -1,12 +1,33 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import Header from '@/components/Header'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { Suspense, useEffect, useState } from 'react'
 
 export default function CheckoutSuccessPage() {
+  return (
+    <Suspense fallback={null}>
+      <CheckoutSuccessContent />
+    </Suspense>
+  )
+}
+
+function CheckoutSuccessContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const [order, setOrder] = useState<any>(null)
+
+  useEffect(() => {
+    const sessionId = searchParams.get('session_id')
+    if (!sessionId) return
+    fetch(`/api/orders/lookup?session_id=${sessionId}`)
+      .then((response) => response.json())
+      .then((payload) => setOrder(payload?.order ?? null))
+      .catch(() => setOrder(null))
+  }, [searchParams])
 
   return (
     <>
@@ -63,8 +84,17 @@ export default function CheckoutSuccessPage() {
               </div>
 
               <p className="text-sm leading-6 text-neutral-300">
-                We&apos;ve recorded your order and payment. A confirmation email has been sent with your receipt and configuration summary.
+                We&apos;ve recorded your order and payment. Your order status is pending measurements until your PD and fit details are submitted.
               </p>
+              {order && (
+                <div className="mt-4 rounded-2xl border border-white/10 bg-black/40 p-4 text-xs text-neutral-300 print:border-black print:bg-white print:text-black">
+                  <p className="font-semibold text-neutral-100 print:text-black">Printable receipt</p>
+                  <p className="mt-2">Order: {order.id}</p>
+                  <p>Email: {order.customer_email}</p>
+                  <p>Total: ${((order.total ?? 0) / 100).toFixed(2)} {String(order.currency ?? 'usd').toUpperCase()}</p>
+                  <p>Status: {order.status}</p>
+                </div>
+              )}
             </div>
 
             <div className="space-y-4 rounded-[32px] border border-white/10 bg-gradient-to-b from-neutral-900/80 to-black p-6 shadow-[0_0_40px_rgba(0,0,0,0.8)]">
@@ -78,11 +108,11 @@ export default function CheckoutSuccessPage() {
                 </li>
                 <li className="flex gap-3">
                   <span className="mt-[2px] h-[6px] w-[6px] rounded-full bg-neutral-200" />
-                  <span>If your order includes prescription lenses, we&apos;ll guide you through the Rx and PD step.</span>
+                  <span>Submit your pupillary distance, working distance, and any prescription notes from the secure link in your confirmation email.</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="mt-[2px] h-[6px] w-[6px] rounded-full bg-neutral-200" />
-                  <span>Once your fit details are verified, we&apos;ll begin production and send shipping updates.</span>
+                  <span>Your order is fully refundable until measurements are submitted. Once fit details are verified, we&apos;ll begin production and send shipping updates.</span>
                 </li>
               </ul>
             </div>

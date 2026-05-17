@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useEffect, useRef, useLayoutEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -324,6 +324,28 @@ function ParallaxProductHero() {
 /* --------------------------------------------- */
 
 function OurLoupesGrid() {
+  const [cmsProducts, setCmsProducts] = useState<any[] | null>(null);
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then((response) => response.json())
+      .then((payload) => {
+        if (!Array.isArray(payload?.products)) return;
+        setCmsProducts(payload.products.map((product: any) => ({
+          slug: product.slug,
+          name: product.shortName,
+          magnification: (product.magnifications ?? []).join(' • '),
+          tagline: product.cardTagline,
+          bullets: product.cardBullets ?? [],
+          highlight: product.cardHighlight,
+          imageSrc: product.cardImageSrc,
+          imageAlt: product.cardImageAlt,
+          imagePosition: product.imagePosition,
+        })));
+      })
+      .catch(() => setCmsProducts(null));
+  }, []);
+
   // Helper function to get glow color for each product
   const getGlowColor = (slug: string) => {
     switch (slug) {
@@ -407,6 +429,8 @@ function OurLoupesGrid() {
       imageAlt: "HeliosX Kepler loupes product image",
     },
   ];
+  const displayedProducts = cmsProducts ?? products;
+
   return (
     <section className="bg-transparent px-4 md:px-8 pb-16 md:pb-24">
       <div className="mx-auto max-w-6xl space-y-8">
@@ -427,7 +451,7 @@ function OurLoupesGrid() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8">
-          {products.map((product, index) => (
+          {displayedProducts.map((product, index) => (
             <motion.div
               key={product.slug}
               variants={fadeUp}
@@ -506,7 +530,7 @@ function OurLoupesGrid() {
                   </p>
 
                   <ul className="space-y-1.5 pt-2">
-                    {product.bullets.map((bullet, i) => (
+                    {product.bullets.map((bullet: string, i: number) => (
                       <li
                         key={i}
                         className="text-xs md:text-sm text-neutral-400 flex items-start"

@@ -10,6 +10,7 @@ import CartButton from '../CartButton'
 
 function MobileNav() {
   const [open, setOpen] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
 
@@ -45,12 +46,20 @@ function MobileNav() {
     };
   }, [open]);
 
+  useEffect(() => {
+    fetch('/api/admin/me')
+      .then((response) => response.json())
+      .then((payload) => setIsAdmin(Boolean(payload?.admin)))
+      .catch(() => setIsAdmin(false))
+  }, [])
+
   const navItems = [
     { href: "/home", label: "Home" },
     { href: "/product", label: "Products" },
     { href: "/education", label: "Education" },
     { href: "/home#story", label: "Story" },
     { href: "/faq", label: "FAQ" },
+    ...(isAdmin ? [{ href: "/admin", label: "Admin" }] : []),
   ];
 
   return (
@@ -273,6 +282,7 @@ function MobileNav() {
 
 export default function Header() {
   const headerRef = useRef<HTMLDivElement | null>(null)
+  const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
     const header = headerRef.current
@@ -316,6 +326,13 @@ export default function Header() {
     return () => {
       window.removeEventListener('scroll', onScroll)
     }
+  }, [])
+
+  useEffect(() => {
+    fetch('/api/admin/me')
+      .then((response) => response.json())
+      .then((payload) => setIsAdmin(Boolean(payload?.admin)))
+      .catch(() => setIsAdmin(false))
   }, [])
 
   return (
@@ -363,6 +380,11 @@ export default function Header() {
           <Link href="/faq" className="transition hover:text-white">
             FAQ
           </Link>
+          {isAdmin && (
+            <Link href="/admin" className="transition hover:text-white">
+              Admin
+            </Link>
+          )}
         </nav>
 
         {/* Right: Cart + Order CTA */}

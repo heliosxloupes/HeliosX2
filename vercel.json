@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/cron/process-email-drips?secret=$CRON_SECRET",
+      "path": "/api/cron/process-email-drips",
       "schedule": "0 * * * *"
     }
   ]

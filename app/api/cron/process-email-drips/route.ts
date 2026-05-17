@@ -7,7 +7,9 @@ export const dynamic = 'force-dynamic'
 
 export async function GET(req: Request) {
   const secret = new URL(req.url).searchParams.get('secret')
-  if (process.env.CRON_SECRET && secret !== process.env.CRON_SECRET) {
+  const authHeader = req.headers.get('authorization')
+  const bearer = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null
+  if (process.env.CRON_SECRET && secret !== process.env.CRON_SECRET && bearer !== process.env.CRON_SECRET) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

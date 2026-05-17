@@ -93,7 +93,9 @@ export async function POST(req: Request) {
 
     console.log('Creating Stripe session with line_items:', JSON.stringify(line_items, null, 2))
     
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000')
+      .trim()
+      .replace(/\/+$/, '')
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items,

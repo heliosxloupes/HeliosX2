@@ -515,6 +515,15 @@ function OurLoupesGrid() {
                       patternAlpha={5}
                     />
                   </div>
+                  {['medusa', 'apollo'].includes(product.slug) && (
+                    <div className="absolute right-3 top-3 z-20 inline-flex items-center gap-1.5 rounded-full border border-emerald-300/55 bg-black/70 px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-emerald-100 shadow-[0_0_24px_rgba(16,185,129,0.35)] backdrop-blur-md">
+                      <span className="relative inline-flex h-3.5 w-3.5 items-center justify-center rounded-full border border-emerald-200/70 bg-emerald-400/15">
+                        <span className="absolute h-2 w-[2px] rounded-full bg-emerald-200" />
+                        <span className="absolute h-1.5 w-1.5 translate-x-[3px] -translate-y-[3px] rounded-full border border-emerald-200/80" />
+                      </span>
+                      Ergonomic
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-5 md:p-6 space-y-3">

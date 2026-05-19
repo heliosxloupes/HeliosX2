@@ -2,6 +2,7 @@ import Stripe from 'stripe'
 
 const stripeKey = process.env.STRIPE_SECRET_KEY
 const shouldArchivePlaceholders = process.argv.includes('--archive-placeholders')
+const shouldArchiveOldPrices = process.argv.includes('--archive-old-prices')
 
 if (!stripeKey) {
   console.error('Missing STRIPE_SECRET_KEY.')
@@ -168,6 +169,21 @@ async function upsertPrice(product, slug, variant, usd) {
   return created
 }
 
+async function archiveOldProductPrices(product, item, keptPriceIds) {
+  const expected = new Set(
+    Object.entries(item.prices).map(([variant, usd]) => `${lookupKey(item.slug, variant)}:${Math.round(usd * 100)}`)
+  )
+  const prices = await stripe.prices.list({ product: product.id, active: true, limit: 100 })
+
+  for (const price of prices.data) {
+    const key = `${price.lookup_key ?? ''}:${price.unit_amount ?? 0}`
+    if (keptPriceIds.has(price.id) || expected.has(key)) continue
+
+    await stripe.prices.update(price.id, { active: false })
+    console.log(`old price archived: ${product.name} ${price.unit_amount / 100} ${price.currency.toUpperCase()} (${price.id})`)
+  }
+}
+
 async function archivePlaceholderPrices() {
   const allProducts = await stripe.products.list({ active: true, limit: 100 })
   const placeholderName = /^(medusa|apollo|galileo|newton|kepler)\s*\d/i
@@ -185,6 +201,10 @@ async function archivePlaceholderPrices() {
     if (!isPlaceholderProduct && !zeroPrices.length) continue
 
     for (const price of zeroPrices) {
+      if (product.default_price === price.id) {
+        await stripe.products.update(product.id, { default_price: '' })
+        console.log(`placeholder default price cleared: ${product.name} (${price.id})`)
+      }
       await stripe.prices.update(price.id, { active: false })
       console.log(`placeholder price archived: ${product.name} (${price.id})`)
     }
@@ -198,8 +218,25 @@ async function main() {
 
   for (const item of [...products, ...addOns]) {
     const product = await upsertProduct(item)
+    const keptPriceIds = new Set()
     for (const [variant, usd] of Object.entries(item.prices)) {
-      await upsertPrice(product, item.slug, variant, usd)
+      const price = await upsertPrice(product, item.slug, variant, usd)
+      keptPriceIds.add(price.id)
+    }
+
+    const defaultVariant = Object.keys(item.prices)[0]
+    const defaultPrice = await stripe.prices.list({
+      lookup_keys: [lookupKey(item.slug, defaultVariant)],
+      active: true,
+      limit: 1,
+    })
+    if (defaultPrice.data[0]) {
+      await stripe.products.update(product.id, { default_price: defaultPrice.data[0].id })
+      console.log(`default price set: ${product.name} (${defaultPrice.data[0].id})`)
+    }
+
+    if (shouldArchiveOldPrices) {
+      await archiveOldProductPrices(product, item, keptPriceIds)
     }
   }
 

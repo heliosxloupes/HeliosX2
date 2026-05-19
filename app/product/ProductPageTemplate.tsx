@@ -168,6 +168,11 @@ const cardVariants = {
 }
 
 const magnificationPriceByProduct: Record<string, Record<string, number>> = {
+  galileo: {
+    '2.5x': 270,
+    '3.0x': 285,
+    '3.5x': 300,
+  },
   medusa: {
     '3.0x': 710,
     '4.0x': 765,
@@ -175,6 +180,11 @@ const magnificationPriceByProduct: Record<string, Record<string, number>> = {
     '6.0x': 890,
     '8.0x': 980,
     '8.5x': 1090,
+  },
+  newton: {
+    '2.5x': 270,
+    '3.0x': 285,
+    '3.5x': 300,
   },
 }
 

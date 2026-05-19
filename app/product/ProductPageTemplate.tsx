@@ -168,6 +168,12 @@ const cardVariants = {
 }
 
 const magnificationPriceByProduct: Record<string, Record<string, number>> = {
+  apollo: {
+    '3.0x': 740,
+    '4.0x': 830,
+    '5.0x': 970,
+    '6.0x': 1115,
+  },
   galileo: {
     '2.5x': 270,
     '3.0x': 285,

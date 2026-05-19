@@ -50,7 +50,23 @@ export async function GET(req: Request) {
 
       const subject = renderTemplate(template.subject, { email: cart.email })
       const body = renderTemplate(template.body, { email: cart.email })
-      const result: any = await sendEmail({ to: cart.email, subject, body })
+      const isCheckout = template.key.startsWith('checkout_abandoned')
+      const result: any = await sendEmail({
+        to: cart.email,
+        subject,
+        body,
+        preview: isCheckout
+          ? 'Your HeliosX checkout is still available when you are ready.'
+          : 'Your HeliosX loupe configuration is still waiting for you.',
+        eyebrow: isCheckout ? 'Checkout reminder' : 'Cart reminder',
+        title: isCheckout ? 'Your checkout is still open' : 'Your HeliosX configuration is saved',
+        cta: {
+          label: isCheckout ? 'Return to checkout' : 'Return to cart',
+          url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://heliosxloupes.com'}${
+            isCheckout ? '/checkout' : '/cart'
+          }`,
+        },
+      })
 
       await supabase.from('email_events').insert({
         template_key: template.key,

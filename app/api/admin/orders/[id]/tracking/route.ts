@@ -36,7 +36,20 @@ export async function POST(req: Request, { params }: { params: { id: string } })
       tracking_number: body.trackingNumber,
       tracking_url: body.trackingUrl,
     })
-    const result: any = await sendEmail({ to: order.customer_email, subject, body: emailBody })
+    const result: any = await sendEmail({
+      to: order.customer_email,
+      subject,
+      body: emailBody,
+      preview: 'Your HeliosX order has shipped.',
+      eyebrow: 'Shipping update',
+      title: 'Your HeliosX order has shipped',
+      cta: body.trackingUrl
+        ? {
+            label: 'Track shipment',
+            url: body.trackingUrl,
+          }
+        : undefined,
+    })
     await supabase.from('email_events').insert({
       template_key: 'tracking',
       recipient_email: order.customer_email,

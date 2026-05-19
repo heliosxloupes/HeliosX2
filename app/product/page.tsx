@@ -452,7 +452,7 @@ function OurLoupesGrid() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8">
+        <motion.div className="grid grid-cols-1 items-stretch md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8">
           {displayedProducts.map((product, index) => (
             <motion.div
               key={product.slug}
@@ -461,11 +461,11 @@ function OurLoupesGrid() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-              className="group relative"
+              className="group relative flex h-full"
             >
               <Link
                 href={`/product/${product.slug}`}
-                className="group/card block relative rounded-2xl border border-white/10 bg-neutral-900/70 overflow-hidden transition-all duration-300 ease-out hover:scale-[1.02] hover:border-white/30"
+                className="group/card relative flex h-full w-full flex-col rounded-2xl border border-white/10 bg-neutral-900/70 overflow-hidden transition-all duration-300 ease-out hover:scale-[1.02] hover:border-white/30"
                 style={{
                   boxShadow: '0 0 0 rgba(0,0,0,0)',
                   transition: 'all 0.3s ease-out'
@@ -498,7 +498,7 @@ function OurLoupesGrid() {
                     background: `radial-gradient(circle at center, transparent, rgba(${getGlowColor(product.slug)}, 0.1))`
                   }}
                 />
-                <div className="relative aspect-[4/5] overflow-hidden bg-neutral-950">
+                <div className="relative aspect-[4/5] shrink-0 overflow-hidden bg-neutral-950">
                   <Image
                     src={product.imageSrc}
                     alt={product.imageAlt}
@@ -526,8 +526,9 @@ function OurLoupesGrid() {
                   )}
                 </div>
 
-                <div className="p-5 md:p-6 space-y-3">
-                  <div>
+                <div className="flex flex-1 flex-col p-5 md:p-6">
+                  <div className="space-y-3">
+                    <div>
                     <h3 className="text-xl md:text-2xl font-semibold mb-1">
                       {product.name}
                     </h3>
@@ -536,11 +537,11 @@ function OurLoupesGrid() {
                     </p>
                   </div>
 
-                  <p className="text-sm md:text-base text-neutral-300 leading-relaxed">
-                    {product.tagline}
-                  </p>
+                    <p className="text-sm md:text-base text-neutral-300 leading-relaxed line-clamp-3 min-h-[4.5rem]">
+                      {product.tagline}
+                    </p>
 
-                  <ul className="space-y-1.5 pt-2">
+                    <ul className="min-h-[6.75rem] space-y-1.5 pt-2">
                     {product.bullets.map((bullet: string, i: number) => (
                       <li
                         key={i}
@@ -550,19 +551,20 @@ function OurLoupesGrid() {
                             : 'text-neutral-400'
                         }`}
                       >
-                        <span className="mr-2 text-neutral-500">•</span>
-                        {bullet}
+                        <span className="mr-2 shrink-0 text-neutral-500">•</span>
+                        <span>{bullet}</span>
                       </li>
                     ))}
-                  </ul>
+                    </ul>
+                  </div>
 
-                  <p className="text-xs md:text-sm text-neutral-500 italic pt-2 border-t border-white/5">
-                    {product.highlight}
-                  </p>
-                  
-                  {/* Select Button */}
-                  <div className="pt-3">
+                  <div className="mt-auto space-y-3 pt-3">
+                    <p className="text-xs md:text-sm text-neutral-500 italic border-t border-white/5 pt-3">
+                      {product.highlight}
+                    </p>
+
                     <button
+                      type="button"
                       onClick={(e) => {
                         e.preventDefault();
                         window.location.href = `/product/${product.slug}`;
@@ -576,7 +578,7 @@ function OurLoupesGrid() {
               </Link>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

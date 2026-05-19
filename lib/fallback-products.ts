@@ -25,7 +25,7 @@ export const fallbackProducts: CmsProduct[] = [
     isAvailable: false,
     cardImageSrc: '/Medusa/MedusaMain.png',
     cardImageAlt: 'HeliosX Medusa loupes product image',
-    imagePosition: '50% center',
+    imagePosition: '34% center',
     displayOrder: 1,
     specTitle: 'Medusa product specifications.',
     specDescription:

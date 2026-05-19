@@ -540,17 +540,15 @@ function OurLoupesGrid() {
                     {product.tagline}
                   </p>
 
-                  {product.slug === 'medusa' && (
-                    <div className="rounded-2xl border border-emerald-300/35 bg-emerald-400/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-emerald-100 shadow-[0_0_24px_rgba(16,185,129,0.16)]">
-                      Real-time adjustable working distance
-                    </div>
-                  )}
-
                   <ul className="space-y-1.5 pt-2">
                     {product.bullets.map((bullet: string, i: number) => (
                       <li
                         key={i}
-                        className="text-xs md:text-sm text-neutral-400 flex items-start"
+                        className={`flex items-start text-xs md:text-sm ${
+                          product.slug === 'medusa' && i === 0
+                            ? 'font-semibold text-emerald-200'
+                            : 'text-neutral-400'
+                        }`}
                       >
                         <span className="mr-2 text-neutral-500">•</span>
                         {bullet}

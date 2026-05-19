@@ -10,6 +10,7 @@ export const fallbackProducts: CmsProduct[] = [
     cardTagline: 'Real-time adjustable working distance for seated or standing surgical posture.',
     cardHighlight: 'Best for posture-flexible precision work.',
     cardBullets: [
+      'Real-time adjustable working distance',
       '300-600 mm working distance',
       'Tailored fixed IPD',
       'Enhanced depth perception',

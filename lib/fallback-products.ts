@@ -7,7 +7,7 @@ export const fallbackProducts: CmsProduct[] = [
     shortName: 'Medusa',
     description:
       'Adjustable working-distance loupes built for surgeons who move between sitting and standing positions without sacrificing clarity, depth, or posture.',
-    cardTagline: 'Adjustable working distance for seated or standing surgical posture.',
+    cardTagline: 'Real-time adjustable working distance for seated or standing surgical posture.',
     cardHighlight: 'Best for posture-flexible precision work.',
     cardBullets: [
       '300-600 mm working distance',

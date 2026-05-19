@@ -21,6 +21,8 @@ export type FrameId =
   | 'H1Red'
   | 'H1Silver'
   | 'H2'
+  | 'Apollo1'
+  | 'Apollo2'
 
 export type FrameConfig = {
   id: FrameId
@@ -87,6 +89,32 @@ export const defaultFrameConfigs: FrameConfig[] = [
       { name: 'Grey', value: 'grey', image: '/Frames/JJ24Grey.png' },
       { name: 'Black', value: 'black', image: '/Frames/JJ24Black.png' },
       { name: 'Blue', value: 'blue', image: '/Frames/JJ24Blue.png' },
+    ],
+  },
+]
+
+/** Rectangular semi-rimless Apollo frame — 5 colorways (apollof1.x) */
+export const apolloFrameConfigs: FrameConfig[] = [
+  {
+    id: 'Apollo1',
+    label: 'Apollo 1',
+    baseImage: '/Apollo/apollof1.1.png',
+    colors: [
+      { name: 'Red', value: 'red', image: '/Apollo/apollof1.1.png' },
+      { name: 'Gold', value: 'gold', image: '/Apollo/apollof1.2.png' },
+      { name: 'Rose', value: 'rose', image: '/Apollo/apollof1.3.png' },
+      { name: 'Silver', value: 'silver', image: '/Apollo/apollof1.4.png' },
+      { name: 'Black', value: 'black', image: '/Apollo/apollof1.5.png' },
+    ],
+  },
+  {
+    id: 'Apollo2',
+    label: 'Apollo 2',
+    baseImage: '/Apollo/apollof2.1.png',
+    colors: [
+      { name: 'Gold', value: 'gold', image: '/Apollo/apollof2.1.png' },
+      { name: 'Blue', value: 'blue', image: '/Apollo/Apollof2.2.png' },
+      { name: 'Pink', value: 'pink', image: '/Apollo/Apollof2.3.png' },
     ],
   },
 ]
@@ -211,11 +239,20 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   const [pendingAction, setPendingAction] = useState<'cart' | 'checkout'>('cart')
   const [emailError, setEmailError] = useState('')
 
-  // Use Newton-specific frames for Newton, default frames for others
   const frameConfigs =
-    config.slug === 'newton' ? newtonFrameConfigs : defaultFrameConfigs
-  const defaultFrameId = config.slug === 'newton' ? 'H1Black' : 'JJ23Grey'
-  const defaultColor = config.slug === 'newton' ? 'black' : 'grey'
+    config.slug === 'newton'
+      ? newtonFrameConfigs
+      : config.slug === 'apollo'
+        ? apolloFrameConfigs
+        : defaultFrameConfigs
+  const defaultFrameId =
+    config.slug === 'newton'
+      ? 'H1Black'
+      : config.slug === 'apollo'
+        ? 'Apollo1'
+        : 'JJ23Grey'
+  const defaultColor =
+    config.slug === 'newton' ? 'black' : config.slug === 'apollo' ? 'red' : 'grey'
 
   const [selectedFrameId, setSelectedFrameId] = useState<FrameId>(
     defaultFrameId as FrameId
@@ -299,7 +336,8 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
       image: config.heroImages[0],
       selectedMagnification: selectedMag,
       selectedFrameId,
-      selectedFrameName: `${currentFrameConfig.label} ${currentColorConfig.name}`,
+      selectedFrameColor,
+      selectedFrameName: `${currentFrameConfig.label} — ${currentColorConfig.name}`,
       selectedFrameImage: currentColorConfig.image,
     })
     await writeCartSession(email)
@@ -509,9 +547,14 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                   Frame style
                 </p>
 
-                <div className="mb-3 grid grid-cols-3 gap-2">
+                <motion.div
+                  className={`mb-3 grid gap-2 ${
+                    frameConfigs.length === 2 ? 'grid-cols-2' : 'grid-cols-3'
+                  }`}
+                >
                   {frameConfigs.map((frame) => {
                     const isActive = frame.id === selectedFrameId
+                    const isApolloFrame = config.slug === 'apollo'
                     return (
                       <button
                         key={frame.id}
@@ -519,18 +562,20 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                           setSelectedFrameId(frame.id)
                           setSelectedFrameColor(frame.colors[0].value)
                         }}
-                        className={`relative overflow-hidden rounded-2xl bg-black/40 transition-all duration-300 ${
+                        className={`relative overflow-hidden rounded-2xl transition-all duration-300 ${
+                          isApolloFrame ? 'bg-white' : 'bg-black/40'
+                        } ${
                           isActive
                             ? 'border-2 border-emerald-400 shadow-[0_0_30px_rgba(16,185,129,0.8)] ring-2 ring-emerald-400/30'
                             : 'border border-white/10 hover:border-white/40 hover:scale-105'
                         }`}
                       >
-                        <div className="relative h-16 w-full">
+                        <div className="relative h-20 w-full">
                           <Image
                             src={frame.baseImage}
                             alt={frame.label}
                             fill
-                            className="object-cover"
+                            className={isApolloFrame ? 'object-contain p-1' : 'object-cover'}
                           />
                         </div>
                         <span className="absolute bottom-1 left-2 rounded-full bg-black/75 px-2 py-[2px] text-[0.6rem] font-medium text-neutral-100">
@@ -539,12 +584,12 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                       </button>
                     )
                   })}
-                </div>
+                </motion.div>
 
                 <div className="mb-2 text-[0.7rem] text-neutral-300">
                   <p className="font-semibold text-neutral-100">
                     {currentFrameConfig.label}{' '}
-                    {currentColorConfig.name && `- ${currentColorConfig.name}`}
+                    {currentColorConfig.name && `— ${currentColorConfig.name}`}
                   </p>
                   <p className="mt-1">
                     Choose a base frame, then fine-tune the finish. All frames
@@ -573,23 +618,33 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
 
                 {/* Frame preview */}
                 <div className="mt-4 mx-auto w-full max-w-[400px]">
-                  <div className="relative mx-auto h-[180px] min-w-[200px] max-w-[400px] overflow-hidden rounded-xl border-2 border-emerald-400/35 bg-neutral-800 shadow-[0_4px_18px_rgba(0,0,0,0.45)]">
+                  <motion.div
+                    className={`relative mx-auto h-[200px] min-w-[200px] max-w-[400px] overflow-hidden rounded-xl border-2 border-emerald-400/35 shadow-[0_4px_18px_rgba(0,0,0,0.45)] ${
+                      config.slug === 'apollo' ? 'bg-white' : 'bg-neutral-800'
+                    }`}
+                  >
                     <Image
                       src={currentColorConfig.image}
                       alt={`${currentFrameConfig.label} ${currentColorConfig.name}`}
                       fill
-                      className="object-cover"
+                      className={
+                        config.slug === 'apollo'
+                          ? 'object-contain p-3'
+                          : 'object-cover'
+                      }
                     />
-                    <div className="pointer-events-none absolute inset-0 z-[2] mix-blend-overlay">
-                      <Noise
-                        patternSize={250}
-                        patternScaleX={1}
-                        patternScaleY={1}
-                        patternRefreshInterval={2}
-                        patternAlpha={8}
-                      />
-                    </div>
-                  </div>
+                    {config.slug !== 'apollo' && (
+                      <div className="pointer-events-none absolute inset-0 z-[2] mix-blend-overlay">
+                        <Noise
+                          patternSize={250}
+                          patternScaleX={1}
+                          patternScaleY={1}
+                          patternRefreshInterval={2}
+                          patternAlpha={8}
+                        />
+                      </div>
+                    )}
+                  </motion.div>
                 </div>
               </motion.div>
 

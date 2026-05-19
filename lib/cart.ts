@@ -6,6 +6,7 @@ export type CartItem = {
   quantity: number
   image: string | null
   selectedFrameId?: string | null
+  selectedFrameColor?: string | null
   selectedFrameName?: string | null
   selectedFrameImage?: string | null
   selectedMagnification?: string | null
@@ -55,6 +56,7 @@ export function addToCart(item: CartItem): void {
   const existingIndex = cart.findIndex(cartItem => 
     cartItem.productSlug === item.productSlug &&
     cartItem.selectedFrameId === item.selectedFrameId &&
+    cartItem.selectedFrameColor === item.selectedFrameColor &&
     cartItem.selectedMagnification === item.selectedMagnification
   )
   

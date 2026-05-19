@@ -20,9 +20,10 @@ export const fallbackProducts: CmsProduct[] = [
       'Enhanced depth perception with superior clarity.',
       'Ergonomic comfort for the neck and spine.',
     ],
-    magnifications: ['3.0x', '4.0x', '5.0x'],
-    priceLabel: 'Pricing coming soon',
-    isAvailable: false,
+    magnifications: ['3.0x', '4.0x', '5.0x', '6.0x', '8.0x', '8.5x'],
+    basePrice: 710,
+    priceLabel: '$710-$1,090',
+    isAvailable: true,
     cardImageSrc: '/Medusa/MedusaMain.png',
     cardImageAlt: 'HeliosX Medusa loupes product image',
     imagePosition: '34% center',
@@ -52,7 +53,7 @@ export const fallbackProducts: CmsProduct[] = [
       {
         title: 'Magnification data',
         items: [
-          'Magnification options: 3.0x, 4.0x, 5.0x.',
+          'Magnification options: 3.0x, 4.0x, 5.0x, 6.0x, 8.0x, 8.5x.',
           'Working distance: adjustable 300-600 mm.',
           'Field of view: 80 mm.',
           'Depth of field: 110 mm.',

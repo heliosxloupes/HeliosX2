@@ -167,6 +167,17 @@ const cardVariants = {
   visible: { opacity: 1, y: 0 },
 }
 
+const magnificationPriceByProduct: Record<string, Record<string, number>> = {
+  medusa: {
+    '3.0x': 710,
+    '4.0x': 765,
+    '5.0x': 830,
+    '6.0x': 890,
+    '8.0x': 980,
+    '8.5x': 1090,
+  },
+}
+
 export default function ProductPageTemplate({ config }: { config: ProductPageConfig }) {
   const router = useRouter()
   const techRef = useRef<HTMLDivElement | null>(null)
@@ -193,10 +204,12 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   )
   const [quantity, setQuantity] = useState(1)
 
-  const basePrice = config.basePrice ?? 0
-  const isAvailable = config.isAvailable ?? config.basePrice !== undefined
-  const priceLabel = config.priceLabel ?? `$${basePrice}.00`
-  const subtotal = basePrice * quantity
+  const selectedMagnificationPrice = magnificationPriceByProduct[config.slug]?.[selectedMag]
+  const basePrice = config.basePrice ?? selectedMagnificationPrice ?? 0
+  const currentUnitPrice = selectedMagnificationPrice ?? basePrice
+  const isAvailable = config.isAvailable ?? currentUnitPrice > 0
+  const priceLabel = config.priceLabel ?? `$${currentUnitPrice}.00`
+  const subtotal = currentUnitPrice * quantity
   const riskFreeCopy = 'Risk-free. Fully refundable before measurements are provided.'
   const isErgonomicModel = ['medusa', 'apollo'].includes(config.slug)
 
@@ -260,7 +273,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
       productSlug: config.slug,
       name: `${config.shortName} Surgical Loupes`,
       shortName: config.shortName,
-      price: basePrice,
+      price: currentUnitPrice,
       quantity,
       image: config.heroImages[0],
       selectedMagnification: selectedMag,

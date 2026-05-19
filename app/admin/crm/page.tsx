@@ -10,11 +10,22 @@ export default async function AdminCrmPage() {
   const contacts = data ?? []
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-10">
-      <h1 className="text-3xl font-semibold">CRM</h1>
-      <div className="mt-6 overflow-hidden rounded-[24px] border border-white/10">
+    <main>
+      <div className="flex flex-col justify-between gap-3 border-b border-white/10 pb-6 md:flex-row md:items-end">
+        <div>
+          <p className="text-xs uppercase tracking-[0.3em] text-emerald-300/80">CRM</p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight">Contacts</h1>
+          <p className="mt-2 text-sm text-neutral-400">
+            Deduplicated customer emails from cart capture, checkout, purchase, and measurements.
+          </p>
+        </div>
+        <div className="rounded-full border border-white/10 px-4 py-2 text-sm text-neutral-300">
+          {contacts.length} contacts
+        </div>
+      </div>
+      <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-neutral-950/80">
         <table className="w-full min-w-[760px] text-left text-sm">
-          <thead className="bg-neutral-950 text-xs uppercase tracking-[0.18em] text-neutral-500">
+          <thead className="bg-white/[0.03] text-xs uppercase tracking-[0.18em] text-neutral-500">
             <tr>
               <th className="p-4">Email</th>
               <th className="p-4">Phone</th>
@@ -24,16 +35,25 @@ export default async function AdminCrmPage() {
           </thead>
           <tbody>
             {contacts.map((contact: any) => (
-              <tr key={contact.id} className="border-t border-white/10">
-                <td className="p-4">{contact.email}</td>
+              <tr key={contact.id} className="border-t border-white/10 transition hover:bg-white/[0.025]">
+                <td className="p-4 font-medium text-neutral-100">{contact.email}</td>
                 <td className="p-4 text-neutral-400">{contact.phone ?? '-'}</td>
-                <td className="p-4 text-neutral-400">{(contact.sources ?? []).join(', ')}</td>
+                <td className="p-4">
+                  <div className="flex flex-wrap gap-1">
+                    {(contact.sources ?? []).map((source: string) => (
+                      <span key={source} className="rounded-full border border-white/10 px-2 py-1 text-xs text-neutral-300">
+                        {source}
+                      </span>
+                    ))}
+                  </div>
+                </td>
                 <td className="p-4 text-neutral-500">{new Date(contact.created_at).toLocaleString()}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      {!contacts.length && <p className="mt-6 text-sm text-neutral-500">No contacts captured yet.</p>}
     </main>
   )
 }

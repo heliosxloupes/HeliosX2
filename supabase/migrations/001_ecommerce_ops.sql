@@ -11,6 +11,7 @@ do $$ begin
     'measurements_received',
     'in_production',
     'shipped',
+    'delivered',
     'cancelled',
     'refunded'
   );
@@ -104,13 +105,26 @@ create table if not exists public.orders (
   subtotal integer,
   total integer,
   currency text not null default 'usd',
+  payment_status text not null default 'paid',
+  paid_at timestamptz,
   status public.order_status not null default 'pending_measurements',
   measurement_token text not null unique default encode(gen_random_bytes(24), 'hex'),
   tracking_number text,
   tracking_url text,
   shipped_at timestamptz,
+  delivered_at timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
+);
+
+create table if not exists public.order_status_events (
+  id uuid primary key default gen_random_uuid(),
+  order_id uuid not null references public.orders(id) on delete cascade,
+  status public.order_status,
+  payment_status text,
+  note text,
+  metadata jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now()
 );
 
 create table if not exists public.measurements (
@@ -187,6 +201,7 @@ alter table public.orders enable row level security;
 alter table public.measurements enable row level security;
 alter table public.email_templates enable row level security;
 alter table public.email_events enable row level security;
+alter table public.order_status_events enable row level security;
 
 drop policy if exists "products are publicly readable" on public.products;
 create policy "products are publicly readable" on public.products for select using (true);

@@ -79,6 +79,8 @@ export async function POST(req: Request) {
         subtotal: session.amount_subtotal,
         total: session.amount_total,
         currency: session.currency ?? 'usd',
+        payment_status: session.payment_status ?? 'paid',
+        paid_at: new Date().toISOString(),
         status: 'pending_measurements',
       },
       { onConflict: 'stripe_session_id' }
@@ -87,6 +89,18 @@ export async function POST(req: Request) {
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+
+  await supabase.from('order_status_events').insert({
+    order_id: order.id,
+    status: 'pending_measurements',
+    payment_status: session.payment_status ?? 'paid',
+    note: 'Stripe checkout session completed',
+    metadata: {
+      stripeSessionId: session.id,
+      stripePaymentIntentId:
+        typeof session.payment_intent === 'string' ? session.payment_intent : null,
+    },
+  })
 
   if (session.metadata?.cartSessionId) {
     await supabase

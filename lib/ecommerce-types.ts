@@ -43,5 +43,6 @@ export type AdminOrderStatus =
   | 'measurements_received'
   | 'in_production'
   | 'shipped'
+  | 'delivered'
   | 'cancelled'
   | 'refunded'

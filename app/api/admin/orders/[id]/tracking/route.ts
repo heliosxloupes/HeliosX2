@@ -24,6 +24,16 @@ export async function POST(req: Request, { params }: { params: { id: string } })
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
+  await supabase.from('order_status_events').insert({
+    order_id: order.id,
+    status: 'shipped',
+    note: 'Tracking added by admin',
+    metadata: {
+      trackingNumber: body.trackingNumber,
+      trackingUrl: body.trackingUrl,
+    },
+  })
+
   const { data: template } = await supabase
     .from('email_templates')
     .select('*')

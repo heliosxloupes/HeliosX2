@@ -38,6 +38,17 @@ export async function POST(req: Request) {
     .update({ status: 'measurements_received' })
     .eq('id', order.id)
 
+  await supabase.from('order_status_events').insert({
+    order_id: order.id,
+    status: 'measurements_received',
+    note: 'Customer submitted measurements',
+    metadata: {
+      email,
+      hasWorkingDistance: Boolean(body?.workingDistance),
+      hasPrescriptionNotes: Boolean(body?.prescriptionNotes),
+    },
+  })
+
   await upsertCrmContact({ email, source: 'measurement' })
 
   return NextResponse.json({ ok: true })

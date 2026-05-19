@@ -342,7 +342,7 @@ function OurLoupesGrid() {
           highlight: product.cardHighlight,
           imageSrc: product.cardImageSrc,
           imageAlt: product.cardImageAlt,
-          imagePosition: product.imagePosition,
+          imagePosition: product.slug === 'medusa' ? '50% center' : product.imagePosition,
         })));
       })
       .catch(() => setCmsProducts(null));
@@ -380,7 +380,7 @@ function OurLoupesGrid() {
       highlight: "Best for posture-flexible precision work.",
       imageSrc: "/Medusa/MedusaMain.png",
       imageAlt: "HeliosX Medusa loupes product image",
-      imagePosition: "68% center",
+      imagePosition: "50% center",
     },
     {
       slug: "apollo",

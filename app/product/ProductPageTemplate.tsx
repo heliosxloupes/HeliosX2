@@ -179,6 +179,11 @@ const magnificationPriceByProduct: Record<string, Record<string, number>> = {
     '3.0x': 285,
     '3.5x': 300,
   },
+  kepler: {
+    '4.0x': 460,
+    '5.0x': 490,
+    '6.0x': 520,
+  },
   medusa: {
     '3.0x': 710,
     '4.0x': 765,

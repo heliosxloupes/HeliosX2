@@ -1092,7 +1092,7 @@ export default function Hero() {
           </div>
         </div>
         <p className={styles.stockStatusFixed}>
-          ✓ IN STOCK • SHIPS IN 3-5 BUSINESS DAYS
+          Full customization*  Fast Shipping
         </p>
         <Link href="/product" className={styles.orderNowButtonFixed}>
           ORDER NOW

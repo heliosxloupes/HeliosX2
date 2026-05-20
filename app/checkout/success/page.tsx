@@ -24,11 +24,18 @@ function CheckoutSuccessContent() {
     const sessionId = searchParams.get('session_id')
     if (!sessionId) return
     async function loadOrder() {
-      await fetch('/api/orders/ensure-confirmation', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId }),
-      }).catch(() => null)
+      const confirmationKey = `heliosx_confirmation_ensured_${sessionId}`
+      if (window.sessionStorage.getItem(confirmationKey) !== '1') {
+        await fetch('/api/orders/ensure-confirmation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId }),
+        })
+          .then((response) => {
+            if (response.ok) window.sessionStorage.setItem(confirmationKey, '1')
+          })
+          .catch(() => null)
+      }
 
       fetch(`/api/orders/lookup?session_id=${sessionId}`)
         .then((response) => response.json())

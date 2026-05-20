@@ -52,6 +52,104 @@ function getProductMetadata(item: Stripe.LineItem) {
   return product.metadata ?? {}
 }
 
+function buildOrderSummary({
+  session,
+  lineItems,
+}: {
+  session: Stripe.Checkout.Session
+  lineItems: Stripe.ApiList<Stripe.LineItem>
+}) {
+  const email =
+    session.customer_details?.email ??
+    session.customer_email ??
+    session.metadata?.customerEmail ??
+    ''
+  const customerName = session.customer_details?.name ?? ''
+  const shippingAddress = formatStripeAddress((session as any).shipping_details?.address)
+  const billingAddress = formatStripeAddress(session.customer_details?.address)
+
+  return {
+    customerName,
+    shippingAddress,
+    billingAddress,
+    orderSummary: {
+      orderNumber: session.id,
+      customerName,
+      customerEmail: email.toLowerCase(),
+      customerPhone: session.customer_details?.phone ?? '',
+      shippingAddress,
+      billingAddress,
+      subtotal: session.amount_subtotal,
+      total: session.amount_total,
+      currency: session.currency ?? 'usd',
+      paymentStatus: session.payment_status ?? 'paid',
+      paidAt: new Date().toISOString(),
+      items: lineItems.data.map((item) => {
+        const metadata = getProductMetadata(item)
+        return {
+          name: item.description ?? 'HeliosX item',
+          quantity: item.quantity,
+          amountTotal: item.amount_total,
+          details: compactDetails([
+            metadata?.magnification ? `Magnification: ${metadata.magnification}` : '',
+            metadata?.frameStyle ? `Frame: ${metadata.frameStyle}` : '',
+            metadata?.frameColor ? `Color: ${metadata.frameColor}` : '',
+          ]),
+        }
+      }),
+    } satisfies OrderEmailSummary,
+  }
+}
+
+export async function sendStandaloneCheckoutConfirmation({
+  session,
+  stripe,
+}: {
+  session: Stripe.Checkout.Session
+  stripe: Stripe
+}) {
+  const email =
+    session.customer_details?.email ??
+    session.customer_email ??
+    session.metadata?.customerEmail ??
+    ''
+
+  if (!email) return { emailed: false, reason: 'missing_email' }
+
+  const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
+    expand: ['data.price.product'],
+  })
+  const { customerName, orderSummary } = buildOrderSummary({ session, lineItems })
+  const body = renderTemplate(DEFAULT_POST_PURCHASE_BODY, {
+    measurement_url: `mailto:${HELIOSX_SUPPORT_EMAIL}`,
+    pdcheck_ios_url: PDCHECK_AR_IOS_URL,
+    support_email: HELIOSX_SUPPORT_EMAIL,
+    site_url: process.env.NEXT_PUBLIC_BASE_URL || 'https://heliosxloupes.com',
+  })
+  const internalCopy =
+    email.toLowerCase() === HELIOSX_SUPPORT_EMAIL.toLowerCase() ? undefined : HELIOSX_SUPPORT_EMAIL
+  const result: any = await sendEmail({
+    to: email,
+    bcc: internalCopy,
+    subject: DEFAULT_POST_PURCHASE_SUBJECT,
+    body,
+    preview: `${customerName ? `${customerName}, y` : 'Y'}our HeliosX order is confirmed. Receipt and next steps are inside.`,
+    eyebrow: 'Order confirmed',
+    title: 'Your HeliosX order is confirmed',
+    orderSummary,
+    secondaryCta: {
+      label: 'Download PDCheck AR',
+      url: PDCHECK_AR_IOS_URL,
+    },
+  })
+
+  return {
+    emailed: !result?.error && !result?.skipped,
+    emailStatus: result?.error ? 'error' : result?.skipped ? 'skipped' : 'sent',
+    error: result?.error?.message,
+  }
+}
+
 async function upsertOrderWithFallback({
   supabase,
   orderPayload,
@@ -124,9 +222,10 @@ export async function processCheckoutSessionCompleted({
     productMetadata: getProductMetadata(item),
   }))
 
-  const customerName = session.customer_details?.name ?? ''
-  const shippingAddress = formatStripeAddress((session as any).shipping_details?.address)
-  const billingAddress = formatStripeAddress(session.customer_details?.address)
+  const { customerName, shippingAddress, billingAddress, orderSummary } = buildOrderSummary({
+    session,
+    lineItems,
+  })
   const paidAt = new Date().toISOString()
   const shippingDetails = {
     name: (session as any).shipping_details?.name ?? customerName,
@@ -208,32 +307,6 @@ export async function processCheckoutSessionCompleted({
   }
   const subject = renderTemplate(template?.subject ?? DEFAULT_POST_PURCHASE_SUBJECT, templateValues)
   const body = renderTemplate(template?.body ?? DEFAULT_POST_PURCHASE_BODY, templateValues)
-  const orderSummary: OrderEmailSummary = {
-    orderNumber: session.id,
-    customerName,
-    customerEmail: email.toLowerCase(),
-    customerPhone: session.customer_details?.phone ?? '',
-    shippingAddress,
-    billingAddress,
-    subtotal: session.amount_subtotal,
-    total: session.amount_total,
-    currency: session.currency ?? 'usd',
-    paymentStatus: session.payment_status ?? 'paid',
-    paidAt,
-    items: lineItems.data.map((item) => {
-      const metadata = getProductMetadata(item)
-      return {
-        name: item.description ?? 'HeliosX item',
-        quantity: item.quantity,
-        amountTotal: item.amount_total,
-        details: compactDetails([
-          metadata?.magnification ? `Magnification: ${metadata.magnification}` : '',
-          metadata?.frameStyle ? `Frame: ${metadata.frameStyle}` : '',
-          metadata?.frameColor ? `Color: ${metadata.frameColor}` : '',
-        ]),
-      }
-    }),
-  }
   const internalCopy =
     email.toLowerCase() === HELIOSX_SUPPORT_EMAIL.toLowerCase() ? undefined : HELIOSX_SUPPORT_EMAIL
   const result: any = await sendEmail({

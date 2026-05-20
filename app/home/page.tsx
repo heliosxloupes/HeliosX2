@@ -225,7 +225,7 @@ function HeroSection() {
                   variants={fadeIn}
                   transition={{ duration: 0.5 }}
                 >
-                  In stock · Ships in 3–5 business days
+                  Ultra customizable · Worldwide shipping
                 </motion.div>
 
                 {/* H1 — line-by-line slide-up reveal */}
@@ -310,9 +310,9 @@ function HeroSection() {
                 >
                   <div className="flex items-center justify-between gap-4">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-neutral-400">
-                      In stock
+                      Ultra customizable
                     </p>
-                    <p className="text-xs text-neutral-300">Ships in 3–5 business days</p>
+                    <p className="text-xs text-neutral-300">Worldwide shipping</p>
                   </div>
                   <p className="text-lg font-medium leading-7 text-neutral-50">
                     Designed for those who demand precision. Created for those who pursue mastery.
@@ -932,7 +932,7 @@ function CtaSection() {
             </Link>
 
             <p className="text-xs leading-6 text-neutral-500">
-              In stock. Ships in 3–5 business days with surgeon-informed fitting support.
+              Ultra customizable systems with worldwide shipping and surgeon-informed fitting support.
             </p>
           </motion.div>
         </div>

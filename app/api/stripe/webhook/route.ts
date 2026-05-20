@@ -1,13 +1,7 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-import {
-  HELIOSX_SUPPORT_EMAIL,
-  PDCHECK_AR_IOS_URL,
-  renderTemplate,
-  sendEmail,
-} from '@/lib/email'
-import { upsertCrmContact } from '@/lib/commerce'
+import { processCheckoutSessionCompleted } from '@/lib/order-confirmation'
 import { getSupabaseServiceClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
@@ -39,121 +33,11 @@ export async function POST(req: Request) {
   const supabase = getSupabaseServiceClient()
   if (!supabase) return NextResponse.json({ received: true, stored: false })
 
-  const email =
-    session.customer_details?.email ??
-    session.customer_email ??
-    session.metadata?.customerEmail ??
-    ''
-
-  if (!email) return NextResponse.json({ received: true, stored: false })
-
-  await upsertCrmContact({
-    email,
-    phone: session.customer_details?.phone,
-    source: 'purchase',
-    metadata: { stripeSessionId: session.id },
+  const result = await processCheckoutSessionCompleted({
+    session,
+    stripe,
+    supabase,
   })
 
-  const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
-    expand: ['data.price.product'],
-  })
-
-  const items = lineItems.data.map((item) => ({
-    description: item.description,
-    quantity: item.quantity,
-    amountSubtotal: item.amount_subtotal,
-    amountTotal: item.amount_total,
-  }))
-
-  const { data: order, error } = await supabase
-    .from('orders')
-    .upsert(
-      {
-        stripe_session_id: session.id,
-        stripe_payment_intent_id:
-          typeof session.payment_intent === 'string' ? session.payment_intent : null,
-        abandoned_cart_session_id: session.metadata?.cartSessionId || null,
-        customer_email: email.toLowerCase(),
-        customer_phone: session.customer_details?.phone ?? null,
-        items,
-        subtotal: session.amount_subtotal,
-        total: session.amount_total,
-        currency: session.currency ?? 'usd',
-        payment_status: session.payment_status ?? 'paid',
-        paid_at: new Date().toISOString(),
-        status: 'pending_measurements',
-      },
-      { onConflict: 'stripe_session_id' }
-    )
-    .select('*')
-    .single()
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-
-  await supabase.from('order_status_events').insert({
-    order_id: order.id,
-    status: 'pending_measurements',
-    payment_status: session.payment_status ?? 'paid',
-    note: 'Stripe checkout session completed',
-    metadata: {
-      stripeSessionId: session.id,
-      stripePaymentIntentId:
-        typeof session.payment_intent === 'string' ? session.payment_intent : null,
-    },
-  })
-
-  if (session.metadata?.cartSessionId) {
-    await supabase
-      .from('abandoned_cart_sessions')
-      .update({
-        completed_at: new Date().toISOString(),
-        checkout_session_id: session.id,
-      })
-      .eq('id', session.metadata.cartSessionId)
-  }
-
-  const { data: template } = await supabase
-    .from('email_templates')
-    .select('*')
-    .eq('key', 'post_purchase')
-    .maybeSingle()
-
-  if (template?.is_active) {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const measurementUrl = `${baseUrl}/measurements/${order.measurement_token}`
-    const templateValues = {
-      measurement_url: measurementUrl,
-      pdcheck_ios_url: PDCHECK_AR_IOS_URL,
-      support_email: HELIOSX_SUPPORT_EMAIL,
-      site_url: baseUrl,
-    }
-    const subject = renderTemplate(template.subject, templateValues)
-    const body = renderTemplate(template.body, templateValues)
-    const result: any = await sendEmail({
-      to: email,
-      subject,
-      body,
-      preview: 'Your HeliosX order is confirmed. Send your measurements when you are ready for production.',
-      eyebrow: 'Order confirmed',
-      title: 'Your HeliosX order is confirmed',
-      cta: {
-        label: 'Open measurement page',
-        url: measurementUrl,
-      },
-      secondaryCta: {
-        label: 'Download PDCheck AR',
-        url: PDCHECK_AR_IOS_URL,
-      },
-    })
-
-    await supabase.from('email_events').insert({
-      template_key: 'post_purchase',
-      recipient_email: email.toLowerCase(),
-      related_order_id: order.id,
-      status: result?.error ? 'error' : result?.skipped ? 'skipped' : 'sent',
-      error: result?.error?.message ?? null,
-    })
-  }
-
-  return NextResponse.json({ received: true })
+  return NextResponse.json({ received: true, ...result })
 }

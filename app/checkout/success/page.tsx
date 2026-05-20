@@ -23,10 +23,20 @@ function CheckoutSuccessContent() {
   useEffect(() => {
     const sessionId = searchParams.get('session_id')
     if (!sessionId) return
-    fetch(`/api/orders/lookup?session_id=${sessionId}`)
-      .then((response) => response.json())
-      .then((payload) => setOrder(payload?.order ?? null))
-      .catch(() => setOrder(null))
+    async function loadOrder() {
+      await fetch('/api/orders/ensure-confirmation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId }),
+      }).catch(() => null)
+
+      fetch(`/api/orders/lookup?session_id=${sessionId}`)
+        .then((response) => response.json())
+        .then((payload) => setOrder(payload?.order ?? null))
+        .catch(() => setOrder(null))
+    }
+
+    loadOrder()
   }, [searchParams])
 
   return (

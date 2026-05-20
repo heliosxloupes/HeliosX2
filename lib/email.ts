@@ -6,6 +6,28 @@ const HELIOSX_SITE_URL = 'https://heliosxloupes.com'
 export const PDCHECK_AR_IOS_URL = 'https://apps.apple.com/us/app/pdcheck-ar/id1563806777'
 export const HELIOSX_SUPPORT_EMAIL = 'heliosxloupes@gmail.com'
 
+export type OrderEmailItem = {
+  name: string
+  quantity?: number | null
+  amountTotal?: number | null
+  details?: string[]
+}
+
+export type OrderEmailSummary = {
+  orderNumber?: string
+  customerName?: string
+  customerEmail?: string
+  customerPhone?: string
+  shippingAddress?: string
+  billingAddress?: string
+  subtotal?: number | null
+  total?: number | null
+  currency?: string | null
+  paymentStatus?: string | null
+  paidAt?: string | null
+  items?: OrderEmailItem[]
+}
+
 function getResend() {
   if (!process.env.RESEND_API_KEY) return null
   if (!resend) resend = new Resend(process.env.RESEND_API_KEY)
@@ -25,6 +47,8 @@ export async function sendEmail({
   title,
   cta,
   secondaryCta,
+  orderSummary,
+  bcc,
 }: {
   to: string
   subject: string
@@ -40,6 +64,8 @@ export async function sendEmail({
     label: string
     url: string
   }
+  orderSummary?: OrderEmailSummary
+  bcc?: string | string[]
 }) {
   const client = getResend()
   const from = process.env.RESEND_FROM_EMAIL
@@ -52,9 +78,10 @@ export async function sendEmail({
   return client.emails.send({
     from,
     to,
+    bcc,
     subject,
     replyTo: HELIOSX_SUPPORT_EMAIL,
-    text: body,
+    text: renderTextEmail(body, orderSummary),
     html: renderHeliosEmail({
       preview: preview ?? subject,
       eyebrow,
@@ -62,6 +89,7 @@ export async function sendEmail({
       body,
       cta,
       secondaryCta,
+      orderSummary,
     }),
   })
 }
@@ -89,6 +117,62 @@ function linkify(text: string) {
     /(https?:\/\/[^\s<]+)/g,
     '<a href="$1" style="color:#047857;text-decoration:underline;">$1</a>'
   )
+}
+
+function formatMoney(cents?: number | null, currency = 'usd') {
+  if (typeof cents !== 'number') return ''
+  try {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: (currency || 'usd').toUpperCase(),
+    }).format(cents / 100)
+  } catch {
+    return `$${(cents / 100).toFixed(2)}`
+  }
+}
+
+function formatDate(value?: string | null) {
+  if (!value) return ''
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return value
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  }).format(date)
+}
+
+function renderTextEmail(body: string, orderSummary?: OrderEmailSummary) {
+  if (!orderSummary) return body
+  const currency = orderSummary.currency ?? 'usd'
+  const lines = [
+    body,
+    '',
+    'Order details',
+    orderSummary.orderNumber ? `Order: ${orderSummary.orderNumber}` : '',
+    orderSummary.customerName ? `Customer: ${orderSummary.customerName}` : '',
+    orderSummary.customerEmail ? `Email: ${orderSummary.customerEmail}` : '',
+    orderSummary.customerPhone ? `Phone: ${orderSummary.customerPhone}` : '',
+    orderSummary.paymentStatus ? `Payment: ${orderSummary.paymentStatus}` : '',
+    orderSummary.paidAt ? `Paid: ${formatDate(orderSummary.paidAt)}` : '',
+    '',
+    'Items',
+    ...(orderSummary.items ?? []).map((item) => {
+      const price = formatMoney(item.amountTotal, currency)
+      const details = item.details?.length ? ` (${item.details.join(', ')})` : ''
+      return `- ${item.name}${details} x ${item.quantity ?? 1}${price ? ` - ${price}` : ''}`
+    }),
+    '',
+    orderSummary.subtotal != null ? `Subtotal: ${formatMoney(orderSummary.subtotal, currency)}` : '',
+    orderSummary.total != null ? `Total paid: ${formatMoney(orderSummary.total, currency)}` : '',
+    '',
+    orderSummary.shippingAddress ? `Shipping:\n${orderSummary.shippingAddress}` : '',
+    orderSummary.billingAddress ? `Billing:\n${orderSummary.billingAddress}` : '',
+  ]
+
+  return lines.filter((line) => line !== '').join('\n')
 }
 
 function renderBody(body: string) {
@@ -138,6 +222,98 @@ function renderButton(label: string, url: string, variant: 'primary' | 'secondar
   `
 }
 
+function renderInfoRow(label: string, value?: string | null) {
+  if (!value) return ''
+  return `
+    <tr>
+      <td style="padding:9px 0;color:#64748b;font-size:13px;line-height:1.45;">${escapeHtml(label)}</td>
+      <td align="right" style="padding:9px 0;color:#0f172a;font-size:13px;line-height:1.45;font-weight:650;">${escapeHtml(
+        value
+      ).replaceAll('\n', '<br />')}</td>
+    </tr>
+  `
+}
+
+function renderOrderSummary(summary?: OrderEmailSummary) {
+  if (!summary) return ''
+  const currency = summary.currency ?? 'usd'
+  const itemRows = (summary.items ?? [])
+    .map((item) => {
+      const details = item.details?.filter(Boolean) ?? []
+      return `
+        <tr>
+          <td style="padding:14px 0;border-top:1px solid #e5e7eb;">
+            <div style="color:#0f172a;font-size:14px;font-weight:750;line-height:1.35;">${escapeHtml(
+              item.name
+            )}</div>
+            ${
+              details.length
+                ? `<div style="margin-top:5px;color:#64748b;font-size:12px;line-height:1.5;">${details
+                    .map(escapeHtml)
+                    .join(' &bull; ')}</div>`
+                : ''
+            }
+            <div style="margin-top:5px;color:#94a3b8;font-size:12px;">Qty ${item.quantity ?? 1}</div>
+          </td>
+          <td align="right" style="padding:14px 0;border-top:1px solid #e5e7eb;color:#0f172a;font-size:14px;font-weight:750;white-space:nowrap;">
+            ${escapeHtml(formatMoney(item.amountTotal, currency))}
+          </td>
+        </tr>
+      `
+    })
+    .join('')
+
+  return `
+    <div style="margin:28px 0;border:1px solid #dbe7e2;border-radius:22px;overflow:hidden;background:#fbfdfc;">
+      <div style="background:#0f172a;padding:18px 20px;">
+        <div style="color:#6ee7b7;font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;">Receipt</div>
+        <div style="margin-top:7px;color:#ffffff;font-size:20px;font-weight:750;">Order confirmed</div>
+      </div>
+      <div style="padding:20px;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+          ${renderInfoRow('Order', summary.orderNumber)}
+          ${renderInfoRow('Customer', summary.customerName)}
+          ${renderInfoRow('Email', summary.customerEmail)}
+          ${renderInfoRow('Phone', summary.customerPhone)}
+          ${renderInfoRow('Payment', summary.paymentStatus)}
+          ${renderInfoRow('Paid', formatDate(summary.paidAt))}
+        </table>
+        ${
+          itemRows
+            ? `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-top:14px;">${itemRows}</table>`
+            : ''
+        }
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-top:8px;border-top:2px solid #0f172a;">
+          ${renderInfoRow('Subtotal', formatMoney(summary.subtotal, currency))}
+          ${renderInfoRow('Total paid', formatMoney(summary.total, currency))}
+        </table>
+        <div style="margin-top:18px;display:block;">
+          ${
+            summary.shippingAddress
+              ? `<div style="margin-bottom:12px;border-radius:16px;background:#f1f5f9;padding:16px;">
+                  <div style="color:#64748b;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;">Shipping</div>
+                  <div style="margin-top:8px;color:#0f172a;font-size:14px;line-height:1.55;font-weight:600;">${escapeHtml(
+                    summary.shippingAddress
+                  ).replaceAll('\n', '<br />')}</div>
+                </div>`
+              : ''
+          }
+          ${
+            summary.billingAddress
+              ? `<div style="border-radius:16px;background:#ecfdf5;padding:16px;">
+                  <div style="color:#047857;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;">Billing</div>
+                  <div style="margin-top:8px;color:#0f172a;font-size:14px;line-height:1.55;font-weight:600;">${escapeHtml(
+                    summary.billingAddress
+                  ).replaceAll('\n', '<br />')}</div>
+                </div>`
+              : ''
+          }
+        </div>
+      </div>
+    </div>
+  `
+}
+
 function renderHeliosEmail({
   preview,
   eyebrow,
@@ -145,6 +321,7 @@ function renderHeliosEmail({
   body,
   cta,
   secondaryCta,
+  orderSummary,
 }: {
   preview: string
   eyebrow: string
@@ -152,6 +329,7 @@ function renderHeliosEmail({
   body: string
   cta?: { label: string; url: string }
   secondaryCta?: { label: string; url: string }
+  orderSummary?: OrderEmailSummary
 }) {
   return `<!doctype html>
 <html>
@@ -180,6 +358,7 @@ function renderHeliosEmail({
             <tr>
               <td style="background:#ffffff;padding:30px;border:1px solid #dbe7e2;border-top:0;">
                 ${renderBody(body)}
+                ${renderOrderSummary(orderSummary)}
                 ${
                   cta || secondaryCta
                     ? `<div style="margin-top:26px;margin-bottom:8px;">

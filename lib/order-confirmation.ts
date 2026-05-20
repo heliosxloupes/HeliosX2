@@ -101,6 +101,42 @@ function buildOrderSummary({
   }
 }
 
+async function sendPostPurchaseEmail({
+  to,
+  subject,
+  body,
+  customerName,
+  orderSummary,
+  measurementUrl,
+}: {
+  to: string
+  subject: string
+  body: string
+  customerName: string
+  orderSummary: OrderEmailSummary
+  measurementUrl?: string
+}) {
+  return sendEmail({
+    to,
+    subject,
+    body,
+    preview: `${customerName ? `${customerName}, y` : 'Y'}our HeliosX order is confirmed. Receipt and next steps are inside.`,
+    eyebrow: 'Order confirmed',
+    title: 'Your HeliosX order is confirmed',
+    orderSummary,
+    cta: measurementUrl
+      ? {
+          label: 'Open measurement page',
+          url: measurementUrl,
+        }
+      : undefined,
+    secondaryCta: {
+      label: 'Download PDCheck AR',
+      url: PDCHECK_AR_IOS_URL,
+    },
+  })
+}
+
 export async function sendStandaloneCheckoutConfirmation({
   session,
   stripe,
@@ -126,27 +162,34 @@ export async function sendStandaloneCheckoutConfirmation({
     support_email: HELIOSX_SUPPORT_EMAIL,
     site_url: process.env.NEXT_PUBLIC_BASE_URL || 'https://heliosxloupes.com',
   })
-  const internalCopy =
-    email.toLowerCase() === HELIOSX_SUPPORT_EMAIL.toLowerCase() ? undefined : HELIOSX_SUPPORT_EMAIL
-  const result: any = await sendEmail({
+  const result: any = await sendPostPurchaseEmail({
     to: email,
-    bcc: internalCopy,
     subject: DEFAULT_POST_PURCHASE_SUBJECT,
     body,
-    preview: `${customerName ? `${customerName}, y` : 'Y'}our HeliosX order is confirmed. Receipt and next steps are inside.`,
-    eyebrow: 'Order confirmed',
-    title: 'Your HeliosX order is confirmed',
+    customerName,
     orderSummary,
-    secondaryCta: {
-      label: 'Download PDCheck AR',
-      url: PDCHECK_AR_IOS_URL,
-    },
   })
+  const internalResult: any =
+    email.toLowerCase() === HELIOSX_SUPPORT_EMAIL.toLowerCase()
+      ? result
+      : await sendPostPurchaseEmail({
+          to: HELIOSX_SUPPORT_EMAIL,
+          subject: `[HeliosX order copy] ${DEFAULT_POST_PURCHASE_SUBJECT}`,
+          body,
+          customerName,
+          orderSummary,
+        })
 
   return {
     emailed: !result?.error && !result?.skipped,
     emailStatus: result?.error ? 'error' : result?.skipped ? 'skipped' : 'sent',
     error: result?.error?.message,
+    internalEmailStatus: internalResult?.error
+      ? 'error'
+      : internalResult?.skipped
+        ? 'skipped'
+        : 'sent',
+    internalError: internalResult?.error?.message,
   }
 }
 
@@ -307,25 +350,13 @@ export async function processCheckoutSessionCompleted({
   }
   const subject = renderTemplate(template?.subject ?? DEFAULT_POST_PURCHASE_SUBJECT, templateValues)
   const body = renderTemplate(template?.body ?? DEFAULT_POST_PURCHASE_BODY, templateValues)
-  const internalCopy =
-    email.toLowerCase() === HELIOSX_SUPPORT_EMAIL.toLowerCase() ? undefined : HELIOSX_SUPPORT_EMAIL
-  const result: any = await sendEmail({
+  const result: any = await sendPostPurchaseEmail({
     to: email,
-    bcc: internalCopy,
     subject,
     body,
-    preview: `${customerName ? `${customerName}, y` : 'Y'}our HeliosX order is confirmed. Receipt and next steps are inside.`,
-    eyebrow: 'Order confirmed',
-    title: 'Your HeliosX order is confirmed',
+    customerName,
     orderSummary,
-    cta: {
-      label: 'Open measurement page',
-      url: measurementUrl,
-    },
-    secondaryCta: {
-      label: 'Download PDCheck AR',
-      url: PDCHECK_AR_IOS_URL,
-    },
+    measurementUrl,
   })
 
   const status = result?.error ? 'error' : result?.skipped ? 'skipped' : 'sent'
@@ -337,15 +368,33 @@ export async function processCheckoutSessionCompleted({
     error: result?.error?.message ?? null,
   })
 
-  if (internalCopy) {
+  let internalStatus = status
+  let internalError = result?.error?.message ?? null
+  if (email.toLowerCase() !== HELIOSX_SUPPORT_EMAIL.toLowerCase()) {
+    const internalResult: any = await sendPostPurchaseEmail({
+      to: HELIOSX_SUPPORT_EMAIL,
+      subject: `[HeliosX order copy] ${subject}`,
+      body,
+      customerName,
+      orderSummary,
+      measurementUrl,
+    })
+    internalStatus = internalResult?.error ? 'error' : internalResult?.skipped ? 'skipped' : 'sent'
+    internalError = internalResult?.error?.message ?? null
     await supabase.from('email_events').insert({
       template_key: 'post_purchase',
-      recipient_email: internalCopy,
+      recipient_email: HELIOSX_SUPPORT_EMAIL,
       related_order_id: order.id,
-      status,
-      error: result?.error?.message ?? null,
+      status: internalStatus,
+      error: internalError,
     })
   }
 
-  return { stored: true, emailed: status === 'sent', emailStatus: status, order }
+  return {
+    stored: true,
+    emailed: status === 'sent',
+    emailStatus: status,
+    internalEmailStatus: internalStatus,
+    order,
+  }
 }

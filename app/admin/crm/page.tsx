@@ -23,35 +23,37 @@ export default async function AdminCrmPage() {
           {contacts.length} contacts
         </div>
       </div>
-      <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-neutral-950/80">
-        <table className="w-full min-w-[760px] text-left text-sm">
-          <thead className="bg-white/[0.03] text-xs uppercase tracking-[0.18em] text-neutral-500">
-            <tr>
-              <th className="p-4">Email</th>
-              <th className="p-4">Phone</th>
-              <th className="p-4">Sources</th>
-              <th className="p-4">Added</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contacts.map((contact: any) => (
-              <tr key={contact.id} className="border-t border-white/10 transition hover:bg-white/[0.025]">
-                <td className="p-4 font-medium text-neutral-100">{contact.email}</td>
-                <td className="p-4 text-neutral-400">{contact.phone ?? '-'}</td>
-                <td className="p-4">
-                  <div className="flex flex-wrap gap-1">
-                    {(contact.sources ?? []).map((source: string) => (
-                      <span key={source} className="rounded-full border border-white/10 px-2 py-1 text-xs text-neutral-300">
-                        {source}
-                      </span>
-                    ))}
-                  </div>
-                </td>
-                <td className="p-4 text-neutral-500">{new Date(contact.created_at).toLocaleString()}</td>
+      <div className="mt-6 rounded-2xl border border-white/10 bg-neutral-950/80">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[760px] text-left text-sm">
+            <thead className="bg-white/[0.03] text-xs uppercase tracking-[0.18em] text-neutral-500">
+              <tr>
+                <th className="p-4">Email</th>
+                <th className="p-4">Phone</th>
+                <th className="p-4">Sources</th>
+                <th className="p-4">Added</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {contacts.map((contact: any) => (
+                <tr key={contact.id} className="border-t border-white/10 transition hover:bg-white/[0.025]">
+                  <td className="whitespace-nowrap p-4 font-medium text-neutral-100">{contact.email}</td>
+                  <td className="whitespace-nowrap p-4 text-neutral-400">{contact.phone ?? 'Not provided'}</td>
+                  <td className="p-4">
+                    <div className="flex min-w-[180px] flex-wrap gap-1">
+                      {(contact.sources ?? []).map((source: string) => (
+                        <span key={source} className="rounded-full border border-white/10 px-2 py-1 text-xs text-neutral-300">
+                          {source}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+                  <td className="whitespace-nowrap p-4 text-neutral-500">{new Date(contact.created_at).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       {!contacts.length && <p className="mt-6 text-sm text-neutral-500">No contacts captured yet.</p>}
     </main>

@@ -59,6 +59,7 @@ function MobileNav() {
     { href: "/surgical-loupes", label: "Surgical" },
     { href: "/dental-loupes", label: "Dental" },
     { href: "/education", label: "Education" },
+    { href: "/loupe-comparisons", label: "Compare" },
     { href: "/measurements", label: "Measurements" },
     { href: "/faq", label: "FAQ" },
     ...(isAdmin ? [{ href: "/admin", label: "Admin" }] : []),
@@ -381,6 +382,9 @@ export default function Header() {
           </Link>
           <Link href="/education" className="transition hover:text-white">
             Education
+          </Link>
+          <Link href="/loupe-comparisons" className="transition hover:text-white">
+            Compare
           </Link>
           <Link href="/measurements" className="transition hover:text-white">
             Measurements

@@ -44,6 +44,9 @@ export default function ProductPage() {
             <Link href="/best-loupes" className="transition hover:text-white">
               Best loupes guide
             </Link>
+            <Link href="/loupe-comparisons" className="transition hover:text-white">
+              Compare brands
+            </Link>
           </div>
         </section>
       </main>

@@ -994,6 +994,7 @@ function HeliosXFooter() {
                 <Link href="/dental-loupes" className="block text-neutral-200 transition hover:text-white">Dental loupes</Link>
                 <Link href="/education" className="block text-neutral-200 transition hover:text-white">Education</Link>
                 <Link href="/measurements" className="block text-neutral-200 transition hover:text-white">Measurements</Link>
+                <Link href="/loupe-comparisons" className="block text-neutral-200 transition hover:text-white">Compare brands</Link>
                 <Link href="/faq" className="block text-neutral-200 transition hover:text-white">FAQ</Link>
               </div>
             </div>
@@ -1003,6 +1004,7 @@ function HeliosXFooter() {
                 <a href="#story" className="block text-neutral-200 transition hover:text-white">Our story</a>
                 <Link href="/heliosx-vs-lumadent" className="block text-neutral-200 transition hover:text-white">HeliosX vs LumaDent</Link>
                 <Link href="/heliosx-vs-orascoptic" className="block text-neutral-200 transition hover:text-white">HeliosX vs Orascoptic</Link>
+                <Link href="/heliosx-vs-surgitel" className="block text-neutral-200 transition hover:text-white">HeliosX vs SurgiTel</Link>
                 <Link href="/cart" className="block text-neutral-200 transition hover:text-white">Cart</Link>
                 <Link href="/checkout" className="block text-neutral-200 transition hover:text-white">Checkout</Link>
               </div>

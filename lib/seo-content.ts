@@ -347,7 +347,71 @@ const audiencePages: SeoLandingPage[] = [
 
 allSeoLandingPages.push(...audiencePages)
 
+const comparisonHubSections: ContentSection[] = [
+  {
+    title: 'Compare by buying problem',
+    body:
+      'The best comparison page does not just name two brands. It helps the buyer decide whether they care most about posture, price clarity, student access, dental workflows, magnification, or support.',
+    bullets: [
+      'Use HeliosX vs competitor pages when you already have a brand shortlist.',
+      'Use alternatives pages when you know the incumbent brand but want a different value path.',
+      'Use the education guides when you still need to learn magnification, working distance, or prismatic optics.',
+    ],
+  },
+  {
+    title: 'How HeliosX should show up',
+    body:
+      'HeliosX should be the challenger with a strong value story, clear ergonomic prismatic positioning, and a resource library that explains the buying decision before checkout.',
+    bullets: [
+      'Medusa and Apollo anchor the ergonomic prismatic lane.',
+      'Galileo and Newton anchor the affordable student and daily-use lane.',
+      'Kepler anchors the high-magnification lane.',
+    ],
+  },
+]
+
 const competitorPages: SeoLandingPage[] = [
+  {
+    slug: 'loupe-comparisons',
+    title: 'Loupe Brand Comparisons',
+    metaTitle: 'Loupe Brand Comparisons | HeliosX vs LumaDent, Orascoptic, SurgiTel',
+    description:
+      'Compare HeliosX with LumaDent, Orascoptic, SurgiTel, Q-Optics, ExamVision, and Admetec across ergonomics, pricing, prismatic options, support, and fit guidance.',
+    heroKicker: 'Comparison hub',
+    primaryKeyword: 'loupe comparisons',
+    relatedKeywords: ['surgical loupe comparisons', 'dental loupe comparisons', 'best loupe brands'],
+    audience: 'buyers comparing loupe brands before choosing surgical or dental loupes',
+    intro:
+      'This comparison hub helps buyers evaluate HeliosX against established loupe brands without reducing the decision to name recognition alone.',
+    proofPoints: [
+      'Brand comparisons across dental, surgical, ergonomic, prismatic, and student workflows.',
+      'Alternative pages for price-conscious and posture-conscious buyers.',
+      'Internal links to product, measurements, and education pages.',
+    ],
+    sections: comparisonHubSections,
+    recommendedProducts: ['Medusa', 'Apollo', 'Galileo', 'Newton', 'Kepler'],
+    comparisonRows: [
+      { feature: 'HeliosX', heliosx: 'Affordable premium value, ergonomic prismatic Medusa and Apollo, education-first buying', other: 'Best for buyers who want a modern challenger path' },
+      { feature: 'LumaDent', heliosx: 'HeliosX competes with stronger surgical/resident value language', other: 'Strong dental and hygienist ecommerce positioning' },
+      { feature: 'Orascoptic', heliosx: 'HeliosX competes with clearer fair-pricing and product-path messaging', other: 'Established incumbent with broad category authority' },
+      { feature: 'SurgiTel', heliosx: 'HeliosX competes with ergonomic prismatic product clarity and affordability', other: 'Strong posture and ergonomics narrative' },
+      { feature: 'Q-Optics', heliosx: 'HeliosX competes with education and value transparency', other: 'Strong specs, product documents, and lightweight/prismatic positioning' },
+    ],
+    verdict:
+      'Use this hub when you want to compare loupe brands by clinical use case instead of letting legacy brand awareness make the decision for you.',
+    faqs: [
+      {
+        question: 'What loupe brands should I compare before buying?',
+        answer:
+          'Common comparison points include HeliosX, LumaDent, Orascoptic, SurgiTel, Q-Optics, ExamVision, and Admetec. Compare fit, ergonomics, magnification, support, and total value.',
+      },
+      {
+        question: 'Is HeliosX a challenger loupe brand?',
+        answer:
+          'Yes. HeliosX is positioned as a challenger brand focused on affordable premium loupes, ergonomic prismatic options, and education-first buying support.',
+      },
+    ],
+  },
   {
     slug: 'heliosx-vs-lumadent',
     title: 'HeliosX vs LumaDent',
@@ -553,6 +617,245 @@ const competitorPages: SeoLandingPage[] = [
     ],
   },
 ]
+
+const secondaryCompetitorPages: SeoLandingPage[] = [
+  {
+    slug: 'heliosx-vs-surgitel',
+    title: 'HeliosX vs SurgiTel',
+    metaTitle: 'HeliosX vs SurgiTel | Ergonomic Loupe Comparison',
+    description:
+      'Compare HeliosX and SurgiTel across ergonomic loupes, prismatic posture support, surgical and dental workflows, value, and measurement guidance.',
+    heroKicker: 'Comparison',
+    primaryKeyword: 'HeliosX vs SurgiTel',
+    relatedKeywords: ['SurgiTel alternatives', 'ergonomic loupes comparison', 'dental surgical loupes'],
+    audience: 'buyers comparing HeliosX with SurgiTel for ergonomic surgical or dental loupes',
+    intro:
+      'SurgiTel is known for ergonomic and posture-focused messaging. HeliosX should compete by pairing ergonomic prismatic Medusa and Apollo systems with transparent value and a simpler education-led buying path.',
+    proofPoints: ['Medusa and Apollo define the HeliosX ergonomic prismatic lane.', 'Measurements and working distance education support posture decisions.', 'Affordable premium positioning helps students and residents compare value.'],
+    sections: [
+      {
+        title: 'Where SurgiTel is strong',
+        body:
+          'SurgiTel has built a strong ergonomics narrative around posture, comfort, and clinical longevity.',
+        bullets: ['Posture and ergonomics language.', 'Dental and surgical audience coverage.', 'Support and evaluation-oriented calls to action.'],
+      },
+      {
+        title: 'Where HeliosX should win',
+        body:
+          'HeliosX can win buyers who want ergonomic prismatic options with clearer model roles, measurement education, and a fair-pricing story.',
+        bullets: ['Medusa for adjustable ergonomic prismatic work.', 'Apollo for ergonomic prismatic precision.', 'Education pages for working distance and neck strain.'],
+      },
+      postureSection,
+    ],
+    recommendedProducts: ['Medusa', 'Apollo', 'Newton', 'Galileo'],
+    comparisonRows: [
+      { feature: 'Ergonomics', heliosx: 'Medusa and Apollo are positioned as ergonomic prismatic systems', other: 'Strong posture and ergonomics brand narrative' },
+      { feature: 'Value', heliosx: 'Affordable premium and student/resident accessibility', other: 'Established ergonomic category presence' },
+      { feature: 'Measurement support', heliosx: 'Public measurements, PD, and working-distance guides', other: 'Evaluation and support-oriented buyer path' },
+    ],
+    verdict:
+      'Choose HeliosX if you want ergonomic prismatic positioning with a clearer affordable-premium value path. Compare SurgiTel if posture is your main priority and you want an established ergonomics-first brand.',
+    faqs: [
+      {
+        question: 'Is HeliosX a SurgiTel alternative?',
+        answer:
+          'Yes. HeliosX is a SurgiTel alternative for buyers who want ergonomic prismatic loupes, transparent value, and measurement education.',
+      },
+    ],
+  },
+  {
+    slug: 'heliosx-vs-q-optics',
+    title: 'HeliosX vs Q-Optics',
+    metaTitle: 'HeliosX vs Q-Optics | Prismatic and Lightweight Loupe Comparison',
+    description:
+      'Compare HeliosX and Q-Optics loupes across prismatic options, lightweight systems, specs, support, pricing clarity, and education.',
+    heroKicker: 'Comparison',
+    primaryKeyword: 'HeliosX vs Q-Optics',
+    relatedKeywords: ['Q-Optics alternatives', 'prismatic loupes comparison', 'lightweight dental loupes'],
+    audience: 'buyers comparing HeliosX with Q-Optics for prismatic, lightweight, dental, or surgical loupes',
+    intro:
+      'Q-Optics is strong on product specs, lightweight construction, prismatic positioning, support resources, and documents. HeliosX should compete by making value, measurement, and model selection easier to understand.',
+    proofPoints: ['HeliosX has ergonomic prismatic Medusa and Apollo options.', 'Galileo and Newton create lightweight affordable entry paths.', 'Education pages explain fit variables before purchase.'],
+    sections: [
+      {
+        title: 'Where Q-Optics is strong',
+        body:
+          'Q-Optics has a strong specs-and-support footprint, including lightweight product positioning and product documentation.',
+        bullets: ['Prismatic and Galilean product structure.', 'Support and datasheet resources.', 'Lightweight product messaging.'],
+      },
+      {
+        title: 'Where HeliosX should win',
+        body:
+          'HeliosX can win buyers who want product choice explained in plain language and tied directly to budget, posture, and working distance.',
+        bullets: ['Clear product model map.', 'Public measurement guide.', 'Affordable premium narrative.'],
+      },
+      valueSection,
+    ],
+    recommendedProducts: ['Apollo', 'Medusa', 'Newton', 'Galileo', 'Kepler'],
+    comparisonRows: [
+      { feature: 'Specs', heliosx: 'Specs plus buyer education and model roles', other: 'Strong product specs and support documents' },
+      { feature: 'Prismatic options', heliosx: 'Medusa and Apollo ergonomic prismatic systems', other: 'Prismatic and ErgoAngle product language' },
+      { feature: 'Buyer path', heliosx: 'Education-first, value-forward path', other: 'Mature product documentation and support resources' },
+    ],
+    verdict:
+      'Choose HeliosX if you want a plain-language, value-forward buying path. Compare Q-Optics if specs, established product documents, and lightweight positioning are your top filters.',
+    faqs: [
+      {
+        question: 'Is HeliosX a Q-Optics alternative?',
+        answer:
+          'Yes. HeliosX is a Q-Optics alternative for buyers comparing prismatic, lightweight, surgical, and dental loupes.',
+      },
+    ],
+  },
+  {
+    slug: 'heliosx-vs-examvision',
+    title: 'HeliosX vs ExamVision',
+    metaTitle: 'HeliosX vs ExamVision | Custom Loupe Comparison',
+    description:
+      'Compare HeliosX and ExamVision across custom-fit loupes, ergonomic positioning, premium brand feel, pricing value, and education.',
+    heroKicker: 'Comparison',
+    primaryKeyword: 'HeliosX vs ExamVision',
+    relatedKeywords: ['ExamVision alternatives', 'custom loupes comparison', 'ergonomic dental loupes'],
+    audience: 'buyers comparing HeliosX with ExamVision custom surgical or dental loupes',
+    intro:
+      'ExamVision is associated with premium custom-crafted loupes and profession-specific positioning. HeliosX competes with a modern affordable-premium story and direct ergonomic prismatic model clarity.',
+    proofPoints: ['HeliosX speaks directly to student, resident, surgical, dental, and hygienist audiences.', 'Medusa and Apollo anchor ergonomic prismatic positioning.', 'Measurement and education pages support custom-fit decisions.'],
+    sections: [
+      {
+        title: 'Where ExamVision is strong',
+        body:
+          'ExamVision leans into premium custom fit, profession pages, ergonomics, and a high-end brand experience.',
+        bullets: ['Custom-crafted positioning.', 'Dental, surgical, and student audience paths.', 'Premium brand and warranty/support messaging.'],
+      },
+      {
+        title: 'Where HeliosX should win',
+        body:
+          'HeliosX can win buyers who want premium-feeling product guidance without losing the fair-pricing and access story.',
+        bullets: ['Transparent affordable-premium message.', 'Clear product tiers.', 'Measurement content that makes custom fit understandable.'],
+      },
+      postureSection,
+    ],
+    recommendedProducts: ['Medusa', 'Apollo', 'Galileo', 'Newton'],
+    comparisonRows: [
+      { feature: 'Brand feel', heliosx: 'Modern challenger with access and education at the center', other: 'Premium custom-crafted positioning' },
+      { feature: 'Custom fit', heliosx: 'Measurement guide and post-checkout fit flow', other: 'Custom profession-oriented fitting story' },
+      { feature: 'Value', heliosx: 'Affordable premium and student/resident language', other: 'High-end custom positioning' },
+    ],
+    verdict:
+      'Choose HeliosX if you want custom-fit education and premium value. Compare ExamVision if premium custom craftsmanship and dealer guidance are your top priorities.',
+    faqs: [
+      {
+        question: 'Is HeliosX an ExamVision alternative?',
+        answer:
+          'Yes. HeliosX can be compared as an ExamVision alternative for buyers who want custom-fit guidance, ergonomic options, and a more accessible value story.',
+      },
+    ],
+  },
+  {
+    slug: 'heliosx-vs-admetec',
+    title: 'HeliosX vs Admetec',
+    metaTitle: 'HeliosX vs Admetec | Ergonomic Prismatic Loupe Comparison',
+    description:
+      'Compare HeliosX and Admetec across ergonomic prismatic innovation, adjustable magnification, working distance, value, and education.',
+    heroKicker: 'Comparison',
+    primaryKeyword: 'HeliosX vs Admetec',
+    relatedKeywords: ['Admetec alternatives', 'ergonomic prismatic loupes', 'adjustable loupes'],
+    audience: 'buyers comparing HeliosX with Admetec ergonomic and prismatic loupes',
+    intro:
+      'Admetec is associated with innovation, ergonomic prismatic optics, and adjustable loupe concepts. HeliosX should compete by making ergonomic prismatic choices easier to understand and easier to access.',
+    proofPoints: ['Medusa provides adjustable working distance in the HeliosX lineup.', 'Apollo gives a focused ergonomic prismatic path.', 'Education pages explain working distance, magnification, and posture.'],
+    sections: [
+      {
+        title: 'Where Admetec is strong',
+        body:
+          'Admetec has strong innovation language around ergonomic prismatic systems and adjustable concepts.',
+        bullets: ['Innovation-forward brand story.', 'Ergonomic prismatic positioning.', 'Advanced loupe and magnification language.'],
+      },
+      {
+        title: 'Where HeliosX should win',
+        body:
+          'HeliosX can win buyers who want the ergonomic-prismatic idea explained in practical terms and tied to transparent product paths.',
+        bullets: ['Medusa: adjustable working distance.', 'Apollo: ergonomic prismatic clarity.', 'Educational guides for fit and measurements.'],
+      },
+      postureSection,
+    ],
+    recommendedProducts: ['Medusa', 'Apollo', 'Kepler'],
+    comparisonRows: [
+      { feature: 'Innovation lane', heliosx: 'Practical ergonomic prismatic education and Medusa adjustable working distance', other: 'Innovation-forward ergonomic and adjustable concepts' },
+      { feature: 'Buyer education', heliosx: 'Guides for working distance, PD, prismatic optics, and magnification', other: 'Advanced product positioning and technology narrative' },
+      { feature: 'Value story', heliosx: 'Affordable premium challenger positioning', other: 'Premium ergonomic technology positioning' },
+    ],
+    verdict:
+      'Choose HeliosX if you want ergonomic prismatic technology explained through product clarity and fair pricing. Compare Admetec if innovation-first ergonomic technology is the main filter.',
+    faqs: [
+      {
+        question: 'Is Medusa comparable to ergonomic adjustable loupe systems?',
+        answer:
+          'Medusa should be compared in the ergonomic prismatic category because it combines posture-aware optics with adjustable working distance.',
+      },
+    ],
+  },
+  {
+    slug: 'surgitel-alternatives',
+    title: 'Best SurgiTel Alternatives',
+    metaTitle: 'Best SurgiTel Alternatives | Ergonomic Surgical and Dental Loupes',
+    description:
+      'Looking for SurgiTel alternatives? Compare HeliosX ergonomic prismatic and affordable loupe options for posture-conscious buyers.',
+    heroKicker: 'Alternatives',
+    primaryKeyword: 'SurgiTel alternatives',
+    relatedKeywords: ['ergonomic loupes alternatives', 'SurgiTel competitor', 'surgical loupes alternatives'],
+    audience: 'buyers looking for ergonomic SurgiTel alternatives',
+    intro:
+      'A strong SurgiTel alternative should respect the posture problem while giving buyers a clear value path, measurement support, and model choices that are easy to understand.',
+    proofPoints: ['HeliosX Medusa and Apollo are ergonomic prismatic systems.', 'Medusa adds adjustable working distance.', 'Education pages help buyers measure and compare posture variables.'],
+    sections: [postureSection, valueSection, comparisonHubSections[0]],
+    recommendedProducts: ['Medusa', 'Apollo', 'Newton', 'Galileo'],
+    comparisonRows: [
+      { feature: 'Main alternative reason', heliosx: 'Ergonomic prismatic value with public measurement education', other: 'Posture-focused incumbent narrative' },
+      { feature: 'Best HeliosX fit', heliosx: 'Medusa and Apollo', other: 'Ergonomic loupe shoppers' },
+    ],
+    verdict:
+      'HeliosX is a SurgiTel alternative for buyers who want ergonomic prismatic loupes with a clearer value and education path.',
+    faqs: [
+      {
+        question: 'Which HeliosX loupes should SurgiTel shoppers compare?',
+        answer:
+          'Start with Medusa and Apollo for ergonomic prismatic needs, then compare Newton or Galileo if lightweight affordability matters more.',
+      },
+    ],
+  },
+  {
+    slug: 'q-optics-alternatives',
+    title: 'Best Q-Optics Alternatives',
+    metaTitle: 'Best Q-Optics Alternatives | Prismatic and Lightweight Loupes',
+    description:
+      'Looking for Q-Optics alternatives? Compare HeliosX ergonomic prismatic, lightweight, and affordable surgical and dental loupes.',
+    heroKicker: 'Alternatives',
+    primaryKeyword: 'Q-Optics alternatives',
+    relatedKeywords: ['Q-Optics competitor', 'prismatic loupe alternatives', 'lightweight loupes'],
+    audience: 'buyers looking for Q-Optics alternatives',
+    intro:
+      'A good Q-Optics alternative should compare specs, weight, prismatic options, support, and buying clarity rather than relying on brand familiarity alone.',
+    proofPoints: ['HeliosX offers ergonomic prismatic and lightweight affordable paths.', 'Product pages explain model roles.', 'Education pages support working distance and magnification decisions.'],
+    sections: [valueSection, postureSection, comparisonHubSections[0]],
+    recommendedProducts: ['Apollo', 'Medusa', 'Newton', 'Galileo'],
+    comparisonRows: [
+      { feature: 'Main alternative reason', heliosx: 'Plain-language model clarity and affordable premium value', other: 'Specs-forward incumbent product path' },
+      { feature: 'Best HeliosX fit', heliosx: 'Apollo, Medusa, Newton, Galileo', other: 'Prismatic and lightweight loupe shoppers' },
+    ],
+    verdict:
+      'HeliosX is a Q-Optics alternative for buyers who want prismatic and lightweight options explained through value, fit, and workflow.',
+    faqs: [
+      {
+        question: 'Which HeliosX loupes should Q-Optics shoppers compare?',
+        answer:
+          'Compare Apollo and Medusa for ergonomic prismatic needs, and Newton or Galileo for lightweight daily-use needs.',
+      },
+    ],
+  },
+]
+
+competitorPages.push(...secondaryCompetitorPages)
 
 allSeoLandingPages.push(...competitorPages)
 

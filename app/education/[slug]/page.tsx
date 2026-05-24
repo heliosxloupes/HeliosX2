@@ -8,6 +8,8 @@ import {
   breadcrumbJsonLd,
   buildMetadata,
   faqJsonLd,
+  howToJsonLd,
+  medicalWebPageJsonLd,
 } from '@/lib/seo'
 import { educationGuides, getEducationGuide } from '@/lib/seo-content'
 
@@ -55,6 +57,8 @@ export default function EducationGuidePage({ params }: EducationGuideProps) {
             }
           : null
 
+  const isHowToGuide = guide.slug === 'how-to-measure-pupillary-distance'
+
   return (
     <>
       <JsonLd
@@ -68,12 +72,33 @@ export default function EducationGuidePage({ params }: EducationGuideProps) {
             image: diagram?.src,
             citations: guide.citations,
           }),
+          medicalWebPageJsonLd({
+            title: guide.title,
+            description: guide.description,
+            path: `/education/${guide.slug}`,
+            audienceType: guide.audience,
+          }),
           breadcrumbJsonLd([
             { name: 'Home', path: '/' },
             { name: 'Education', path: '/education' },
             { name: guide.title, path: `/education/${guide.slug}` },
           ]),
           faqJsonLd(guide.faqs),
+          ...(isHowToGuide
+            ? [
+                howToJsonLd({
+                  name: guide.title,
+                  description: guide.description,
+                  path: `/education/${guide.slug}`,
+                  image: diagram?.src,
+                  totalTime: 'PT5M',
+                  steps: guide.sections.map((section) => ({
+                    name: section.title,
+                    text: [section.body, ...section.bullets].join(' '),
+                  })),
+                }),
+              ]
+            : []),
         ]}
       />
       <EducationGuideExperience guide={guide} diagram={diagram} />

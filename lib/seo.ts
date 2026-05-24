@@ -158,6 +158,12 @@ type ArticleAuthor =
   | { name: string; type?: 'Person' | 'Organization'; jobTitle?: string; url?: string }
   | undefined
 
+const defaultMedicalAudience = {
+  '@type': 'MedicalAudience',
+  audienceType:
+    'Surgeons, dentists, residents, dental and medical students, hygienists, and allied clinical professionals',
+}
+
 export function articleJsonLd({
   title,
   description,
@@ -167,6 +173,8 @@ export function articleJsonLd({
   image,
   author,
   citations,
+  inLanguage = 'en-US',
+  audience = defaultMedicalAudience,
 }: {
   title: string
   description: string
@@ -176,6 +184,8 @@ export function articleJsonLd({
   image?: string
   author?: ArticleAuthor
   citations?: { label: string; href: string }[]
+  inLanguage?: string
+  audience?: Record<string, unknown> | null
 }) {
   const resolvedAuthor =
     author && author.name
@@ -196,6 +206,7 @@ export function articleJsonLd({
     datePublished,
     dateModified: dateModified ?? datePublished,
     image: absoluteUrl(image ?? '/Homepage1NEW.jpg'),
+    inLanguage,
     author: resolvedAuthor,
     publisher: {
       '@type': 'Organization',
@@ -205,6 +216,10 @@ export function articleJsonLd({
         url: absoluteUrl('/logominimalnowriting.png'),
       },
     },
+  }
+
+  if (audience) {
+    article.audience = audience
   }
 
   if (citations && citations.length > 0) {
@@ -403,6 +418,69 @@ export function productJsonLd(product: {
   }
 
   return productNode
+}
+
+export function medicalWebPageJsonLd({
+  title,
+  description,
+  path,
+  audienceType,
+}: {
+  title: string
+  description: string
+  path: string
+  audienceType?: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    url: absoluteUrl(path),
+    name: title,
+    description,
+    inLanguage: 'en-US',
+    audience: {
+      '@type': 'MedicalAudience',
+      audienceType: audienceType ?? defaultMedicalAudience.audienceType,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: siteName,
+    },
+  }
+}
+
+export function howToJsonLd({
+  name,
+  description,
+  path,
+  steps,
+  totalTime,
+  image,
+}: {
+  name: string
+  description: string
+  path: string
+  steps: { name: string; text: string; image?: string }[]
+  totalTime?: string
+  image?: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name,
+    description,
+    url: absoluteUrl(path),
+    inLanguage: 'en-US',
+    ...(image ? { image: absoluteUrl(image) } : {}),
+    ...(totalTime ? { totalTime } : {}),
+    step: steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      ...(step.image ? { image: absoluteUrl(step.image) } : {}),
+    })),
+  }
 }
 
 export function itemListJsonLd(items: { name: string; url: string; image?: string; description?: string }[]) {

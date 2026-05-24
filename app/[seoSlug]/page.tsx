@@ -8,6 +8,7 @@ import {
   buildMetadata,
   faqJsonLd,
   itemListJsonLd,
+  medicalWebPageJsonLd,
   organizationJsonLd,
 } from '@/lib/seo'
 import { allSeoLandingPages, getSeoLandingPage, productPositioning } from '@/lib/seo-content'
@@ -62,6 +63,12 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
       <JsonLd
         data={[
           organizationJsonLd(),
+          medicalWebPageJsonLd({
+            title: page.title,
+            description: page.description,
+            path: `/${page.slug}`,
+            audienceType: page.audience,
+          }),
           breadcrumbJsonLd([
             { name: 'Home', path: '/' },
             { name: page.title, path: `/${page.slug}` },

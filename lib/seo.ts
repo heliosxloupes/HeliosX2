@@ -113,15 +113,126 @@ export function organizationJsonLd() {
 }
 
 export function websiteJsonLd() {
+  // SearchAction intentionally omitted until a real on-site search
+  // endpoint exists. Pointing at /faq?search= caused Google to flag a
+  // non-functional sitelinks search box during the audit.
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: siteName,
     url: siteUrl,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${siteUrl}/faq?search={search_term_string}`,
-      'query-input': 'required name=search_term_string',
+    publisher: {
+      '@type': 'Organization',
+      name: siteName,
+    },
+    inLanguage: 'en-US',
+  }
+}
+
+export function imageObjectJsonLd({
+  name,
+  url,
+  caption,
+  width,
+  height,
+}: {
+  name: string
+  url: string
+  caption?: string
+  width?: number
+  height?: number
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ImageObject',
+    name,
+    contentUrl: absoluteUrl(url),
+    url: absoluteUrl(url),
+    creator: {
+      '@type': 'Organization',
+      name: siteName,
+    },
+    creditText: siteName,
+    copyrightNotice: `© ${new Date().getFullYear()} ${siteName}`,
+    license: absoluteUrl('/terms'),
+    acquireLicensePage: absoluteUrl('/terms'),
+    ...(caption ? { caption } : {}),
+    ...(width ? { width } : {}),
+    ...(height ? { height } : {}),
+  }
+}
+
+export function videoObjectJsonLd({
+  name,
+  description,
+  url,
+  thumbnailUrl,
+  contentUrl,
+  uploadDate,
+  duration,
+}: {
+  name: string
+  description: string
+  url: string
+  thumbnailUrl: string
+  contentUrl: string
+  uploadDate: string
+  duration?: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name,
+    description,
+    thumbnailUrl: absoluteUrl(thumbnailUrl),
+    uploadDate,
+    contentUrl: absoluteUrl(contentUrl),
+    embedUrl: absoluteUrl(url),
+    publisher: {
+      '@type': 'Organization',
+      name: siteName,
+      logo: {
+        '@type': 'ImageObject',
+        url: absoluteUrl('/logominimalnowriting.png'),
+      },
+    },
+    ...(duration ? { duration } : {}),
+  }
+}
+
+export function courseJsonLd({
+  name,
+  description,
+  path,
+  audienceType,
+}: {
+  name: string
+  description: string
+  path: string
+  audienceType?: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name,
+    description,
+    url: absoluteUrl(path),
+    provider: {
+      '@type': 'Organization',
+      name: siteName,
+      url: siteUrl,
+    },
+    inLanguage: 'en-US',
+    isAccessibleForFree: true,
+    educationalLevel: 'Professional',
+    audience: {
+      '@type': 'EducationalAudience',
+      educationalRole: audienceType ?? 'Surgeons, dentists, residents, and clinical trainees',
+    },
+    hasCourseInstance: {
+      '@type': 'CourseInstance',
+      courseMode: 'Online',
+      courseWorkload: 'PT30M',
     },
   }
 }

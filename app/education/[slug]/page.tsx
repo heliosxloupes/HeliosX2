@@ -10,8 +10,10 @@ import {
   articleJsonLd,
   breadcrumbJsonLd,
   buildMetadata,
+  courseJsonLd,
   faqJsonLd,
   howToJsonLd,
+  imageObjectJsonLd,
   medicalWebPageJsonLd,
 } from '@/lib/seo'
 import { educationGuides, getEducationGuide } from '@/lib/seo-content'
@@ -145,6 +147,21 @@ export default function EducationGuidePage({ params }: EducationGuideProps) {
                 }),
               ]
             : []),
+          ...(diagram
+            ? [
+                imageObjectJsonLd({
+                  name: `${guide.title} diagram`,
+                  url: diagram.src,
+                  caption: diagram.alt,
+                }),
+              ]
+            : []),
+          courseJsonLd({
+            name: guide.title,
+            description: guide.description,
+            path: `/education/${guide.slug}`,
+            audienceType: guide.audience,
+          }),
         ]}
       />
       <EducationGuideExperience

@@ -54,6 +54,13 @@ function ScrollProgressBar() {
 }
 
 function getGuideImage(slug: string) {
+  if (slug === 'working-distance-for-loupes') {
+    return {
+      src: '/oldguy2.png',
+      alt: 'Clinician in working posture demonstrating loupe working distance',
+    }
+  }
+
   if (slug.includes('pupillary') || slug.includes('working-distance') || slug.includes('prescription')) {
     return {
       src: '/workingdistance.png',

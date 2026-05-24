@@ -4,6 +4,13 @@ export type ContentSection = {
   bullets: string[]
   sourceLabel?: string
   sourceHref?: string
+  image?: {
+    src: string
+    alt: string
+    caption?: string
+    width?: number
+    height?: number
+  }
 }
 
 export type ContentFaq = {
@@ -1544,6 +1551,14 @@ export const educationGuides: EducationGuide[] = [
           'High-tilt prismatic (48°): 17° to 20° — a 22° to 26° reduction toward a near-neutral neck position.',
           'Both prismatic conditions kept surgeons measurably closer to a neutral neck angle across every task.',
         ],
+        image: {
+          src: '/research/loupes-ergonomics/posture-comparison.jpg',
+          alt: 'Side-view photographs of a surgeon working with three different loupe configurations: traditional loupes (A), low-tilt prismatic loupes (B), and high-tilt prismatic loupes (C), showing progressively reduced head flexion.',
+          caption:
+            'Figure 2 from Mengelkamp et al. (2023), Frontiers in Public Health. Posture side-view under traditional (A), low-tilt prismatic (B), and high-tilt prismatic (C) loupes. © 2024 Fan, Yang, Young, Kaner, Kjellman, Forsman. Licensed under CC BY 4.0.',
+          width: 1200,
+          height: 700,
+        },
       },
       {
         title: 'Neck muscle activity follows the same pattern',
@@ -1554,6 +1569,14 @@ export const educationGuides: EducationGuide[] = [
           'High-tilt prismatic loupes: 32% to 42% reduction in EMG vs traditional loupes.',
           'Lower muscle activation across thousands of operative hours is the mechanism by which prismatic geometry may reduce fatigue and chronic neck strain.',
         ],
+        image: {
+          src: '/research/loupes-ergonomics/muscle-activity.jpg',
+          alt: 'Chart comparing cervical erector spinae muscle activity across three loupe conditions: traditional, low-tilt prismatic, and high-tilt prismatic. Muscle activity falls progressively as prism tilt increases.',
+          caption:
+            'Figure 4 from Mengelkamp et al. (2023), Frontiers in Public Health. Cervical erector spinae muscle activity (% MVE) across the three loupe conditions. © 2024 Fan, Yang, Young, Kaner, Kjellman, Forsman. Licensed under CC BY 4.0.',
+          width: 1200,
+          height: 700,
+        },
       },
       {
         title: 'Discomfort drops, accuracy holds, time penalty is modest',

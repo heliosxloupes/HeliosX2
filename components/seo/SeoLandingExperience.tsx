@@ -290,6 +290,24 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
                       </div>
                     ))}
                   </div>
+                  {section.image ? (
+                    <figure className="mt-8 overflow-hidden rounded-2xl border border-white/10 bg-white">
+                      <div className="relative w-full bg-white">
+                        <Image
+                          src={section.image.src}
+                          alt={section.image.alt}
+                          width={section.image.width ?? 1200}
+                          height={section.image.height ?? 700}
+                          className="h-auto w-full object-contain"
+                        />
+                      </div>
+                      {section.image.caption ? (
+                        <figcaption className="border-t border-white/10 bg-[#050b16] px-5 py-4 text-xs leading-6 text-neutral-400">
+                          {section.image.caption}
+                        </figcaption>
+                      ) : null}
+                    </figure>
+                  ) : null}
                 </div>
               </motion.article>
             ))}

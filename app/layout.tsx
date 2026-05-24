@@ -4,6 +4,7 @@ import './globals.css'
 import SmoothScroll from '@/components/SmoothScroll/SmoothScroll'
 import AmbientBackground from '@/components/AmbientBackground'
 import AnalyticsScripts from '@/components/AnalyticsScripts'
+import Footer from '@/components/Footer/Footer'
 import { buildMetadata, siteUrl } from '@/lib/seo'
 
 const syne = Syne({
@@ -55,7 +56,10 @@ export default function RootLayout({
         <div className="site-shell">
           <AmbientBackground />
           <div className="site-content">
-            <SmoothScroll>{children}</SmoothScroll>
+            <SmoothScroll>
+              {children}
+              <Footer />
+            </SmoothScroll>
           </div>
         </div>
       </body>

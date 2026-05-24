@@ -148,8 +148,6 @@ export default function HomePage() {
             <CtaSection />
           </section>
         </main>
-
-        <HeliosXFooter />
       </div>
     </LenisProvider>
   );
@@ -957,69 +955,4 @@ function BulletItem({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ── Footer ────────────────────────────────────────────────────────────────────
-
-function HeliosXFooter() {
-  return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-transparent px-4 py-12 md:px-8">
-      <div className="pointer-events-none absolute inset-0">
-        <Image
-          src="/Walkinghallway2.png"
-          alt="Surgeon walking through hallway"
-          fill
-          className="object-cover opacity-30"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/90" />
-      </div>
-
-      <div className="relative mx-auto max-w-6xl space-y-10">
-        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-          <div className="max-w-md space-y-3">
-            <p className="text-sm font-semibold text-neutral-100">HeliosX</p>
-            <p className="text-sm text-neutral-300">
-              Surgical loupes designed by surgeons, for surgeons - bringing elite
-              optical performance to more operators through honest, transparent pricing.
-            </p>
-            <p className="text-xs text-neutral-400">
-              Need guidance on frames, magnification, or fitting? Our team answers within one business day.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-8 text-sm text-neutral-200">
-            <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">Explore</p>
-              <div className="space-y-2">
-                <Link href="/product" className="block text-neutral-200 transition hover:text-white">Products</Link>
-                <Link href="/surgical-loupes" className="block text-neutral-200 transition hover:text-white">Surgical loupes</Link>
-                <Link href="/dental-loupes" className="block text-neutral-200 transition hover:text-white">Dental loupes</Link>
-                <Link href="/education" className="block text-neutral-200 transition hover:text-white">Education</Link>
-                <Link href="/measurements" className="block text-neutral-200 transition hover:text-white">Measurements</Link>
-                <Link href="/loupe-comparisons" className="block text-neutral-200 transition hover:text-white">Compare brands</Link>
-                <Link href="/best-dental-loupe-brands" className="block text-neutral-200 transition hover:text-white">Best dental brands</Link>
-                <Link href="/best-surgical-loupe-brands" className="block text-neutral-200 transition hover:text-white">Best surgical brands</Link>
-                <Link href="/faq" className="block text-neutral-200 transition hover:text-white">FAQ</Link>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">Company</p>
-              <div className="space-y-2">
-                <a href="#story" className="block text-neutral-200 transition hover:text-white">Our story</a>
-                <Link href="/heliosx-vs-lumadent" className="block text-neutral-200 transition hover:text-white">HeliosX vs LumaDent</Link>
-                <Link href="/heliosx-vs-orascoptic" className="block text-neutral-200 transition hover:text-white">HeliosX vs Orascoptic</Link>
-                <Link href="/heliosx-vs-surgitel" className="block text-neutral-200 transition hover:text-white">HeliosX vs SurgiTel</Link>
-                <Link href="/prismatic-loupe-comparison" className="block text-neutral-200 transition hover:text-white">Prismatic comparison</Link>
-                <Link href="/cart" className="block text-neutral-200 transition hover:text-white">Cart</Link>
-                <Link href="/checkout" className="block text-neutral-200 transition hover:text-white">Checkout</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-neutral-500 md:flex-row md:items-center md:justify-between">
-          <p>Engineered for excellence. Perfect focus, every detail.</p>
-          <p>&copy; {new Date().getFullYear()} HeliosX</p>
-        </div>
-      </div>
-    </footer>
-  );
-}
+// Footer is now mounted globally via the root layout (see components/Footer/Footer.tsx).

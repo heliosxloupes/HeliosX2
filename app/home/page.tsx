@@ -995,6 +995,8 @@ function HeliosXFooter() {
                 <Link href="/education" className="block text-neutral-200 transition hover:text-white">Education</Link>
                 <Link href="/measurements" className="block text-neutral-200 transition hover:text-white">Measurements</Link>
                 <Link href="/loupe-comparisons" className="block text-neutral-200 transition hover:text-white">Compare brands</Link>
+                <Link href="/best-dental-loupe-brands" className="block text-neutral-200 transition hover:text-white">Best dental brands</Link>
+                <Link href="/best-surgical-loupe-brands" className="block text-neutral-200 transition hover:text-white">Best surgical brands</Link>
                 <Link href="/faq" className="block text-neutral-200 transition hover:text-white">FAQ</Link>
               </div>
             </div>
@@ -1005,6 +1007,7 @@ function HeliosXFooter() {
                 <Link href="/heliosx-vs-lumadent" className="block text-neutral-200 transition hover:text-white">HeliosX vs LumaDent</Link>
                 <Link href="/heliosx-vs-orascoptic" className="block text-neutral-200 transition hover:text-white">HeliosX vs Orascoptic</Link>
                 <Link href="/heliosx-vs-surgitel" className="block text-neutral-200 transition hover:text-white">HeliosX vs SurgiTel</Link>
+                <Link href="/prismatic-loupe-comparison" className="block text-neutral-200 transition hover:text-white">Prismatic comparison</Link>
                 <Link href="/cart" className="block text-neutral-200 transition hover:text-white">Cart</Link>
                 <Link href="/checkout" className="block text-neutral-200 transition hover:text-white">Checkout</Link>
               </div>

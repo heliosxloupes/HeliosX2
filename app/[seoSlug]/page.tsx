@@ -52,6 +52,17 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
     { href: '/measurements', label: 'Measurements' },
   ]
 
+  const highIntentLinks = [
+    { href: '/best-dental-loupe-brands', label: 'Best dental loupe brands' },
+    { href: '/best-surgical-loupe-brands', label: 'Best surgical loupe brands' },
+    { href: '/student-loupe-comparison', label: 'Student loupe comparison' },
+    { href: '/ergonomic-loupe-comparison', label: 'Ergonomic loupe comparison' },
+    { href: '/prismatic-loupe-comparison', label: 'Prismatic loupe comparison' },
+    { href: '/heliosx-vs-lumadent', label: 'HeliosX vs LumaDent' },
+    { href: '/heliosx-vs-orascoptic', label: 'HeliosX vs Orascoptic' },
+    { href: '/heliosx-vs-surgitel', label: 'HeliosX vs SurgiTel' },
+  ].filter((link) => link.href !== `/${page.slug}`)
+
   return (
     <>
       <SeoAnalytics pageType="seo_landing" pageName={page.title} />
@@ -226,6 +237,36 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
                   <p className="mt-3 text-sm leading-6 text-neutral-300">
                     {productPositioning[product as keyof typeof productPositioning]}
                   </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-white/10 bg-black px-4 py-14 md:px-8">
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-7 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
+                  Buyer searches
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold text-white">
+                  Continue comparing before you choose.
+                </h2>
+              </div>
+              <Link href="/loupe-comparisons" className="text-sm font-semibold text-emerald-200 hover:text-white">
+                Open comparison hub
+              </Link>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {highIntentLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  data-seo-event={`high_intent_${link.label.toLowerCase().replaceAll(' ', '_')}`}
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 text-sm font-semibold text-neutral-200 transition hover:border-emerald-300/60 hover:text-white"
+                >
+                  {link.label}
                 </Link>
               ))}
             </div>

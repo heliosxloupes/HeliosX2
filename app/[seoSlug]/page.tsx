@@ -31,6 +31,7 @@ export function generateMetadata({ params }: SeoPageProps): Metadata {
     description: page.description,
     path: `/${page.slug}`,
     keywords: [page.primaryKeyword, ...page.relatedKeywords],
+    image: null,
   })
 }
 

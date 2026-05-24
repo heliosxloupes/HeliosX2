@@ -30,6 +30,7 @@ export function generateMetadata({ params }: EducationGuideProps): Metadata {
     description: guide.description,
     path: `/education/${guide.slug}`,
     keywords: [guide.title.toLowerCase(), 'surgical loupes', 'dental loupes', 'ergonomic loupes'],
+    image: null,
   })
 }
 

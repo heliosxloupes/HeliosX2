@@ -13,7 +13,13 @@ type SeoMetadataInput = {
   title: string
   description: string
   path?: string
-  image?: string
+  /**
+   * Explicit OG image URL. Pass `null` to opt into Next.js's
+   * file-based opengraph-image.tsx convention (the dynamic OG route
+   * generates the image instead). Omit / pass undefined to use the
+   * site-wide fallback hero.
+   */
+  image?: string | null
   keywords?: string[]
   noIndex?: boolean
 }
@@ -27,7 +33,34 @@ export function buildMetadata({
   noIndex = false,
 }: SeoMetadataInput): Metadata {
   const url = absoluteUrl(path)
-  const imageUrl = absoluteUrl(image)
+  const imageUrl = image === null ? null : absoluteUrl(image)
+
+  const openGraph: NonNullable<Metadata['openGraph']> = {
+    type: 'website',
+    siteName,
+    title,
+    description,
+    url,
+  }
+  if (imageUrl) {
+    openGraph.images = [
+      {
+        url: imageUrl,
+        width: 1200,
+        height: 630,
+        alt: `${siteName} surgical and dental loupes`,
+      },
+    ]
+  }
+
+  const twitter: NonNullable<Metadata['twitter']> = {
+    card: 'summary_large_image',
+    title,
+    description,
+  }
+  if (imageUrl) {
+    twitter.images = [imageUrl]
+  }
 
   const metadata: Metadata = {
     title,
@@ -52,27 +85,8 @@ export function buildMetadata({
             'max-video-preview': -1,
           },
         },
-    openGraph: {
-      type: 'website',
-      siteName,
-      title,
-      description,
-      url,
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: `${siteName} surgical and dental loupes`,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: [imageUrl],
-    },
+    openGraph,
+    twitter,
   }
 
   if (process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION) {

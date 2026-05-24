@@ -84,6 +84,10 @@ HeliosX Loupes makes surgical and dental loupes with transparent pricing, educat
 
 HeliosX cites peer-reviewed sources where relevant, including PubMed Central resources on pupillary distance measurement and ergonomic loupe research. HeliosX content is educational and does not replace individualized medical, ergonomic, optometric, or occupational health advice.
 
+## Full Content
+
+- Expanded content (all education guides and topic pages): https://heliosxloupes.com/llms-full.txt
+
 ## Contact
 
 - Support email: heliosxloupes@gmail.com

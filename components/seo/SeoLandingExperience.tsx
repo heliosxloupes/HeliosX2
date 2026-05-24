@@ -85,6 +85,13 @@ function MagneticWrapper({ children }: { children: ReactNode }) {
 }
 
 function getHeroImage(slug: string) {
+  if (slug === 'dental-loupes') {
+    return {
+      src: '/mirrorshotdental.png',
+      alt: 'Dental clinician using a mirror retractor during a chairside procedure with HeliosX loupes',
+    }
+  }
+
   if (slug.includes('dental') || slug.includes('hygienist') || slug.includes('lumadent')) {
     return {
       src: '/Galileo/girlinmirror.png',

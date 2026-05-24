@@ -26,17 +26,38 @@ const steps = [
   {
     title: 'Measure pupillary distance',
     body:
-      'Use a professional optician measurement when possible. If using an app or manual ruler method, repeat the measurement several times in good lighting.',
+      'Use a well-reviewed smartphone PD app or a careful manual ruler measurement in good lighting. Repeat the measurement a couple of times and use the average — that gives us the precise PD your loupes are built around.',
+    image: {
+      src: '/pupillary distance.png',
+      alt: 'Pupillary distance measured between the centers of the pupils with a ruler held across the brow',
+      width: 1196,
+      height: 777,
+      label: 'Pupillary distance',
+    },
   },
   {
     title: 'Measure working distance',
     body:
       'Sit or stand in your natural working posture and measure from the corner of your eye to the usual focal point where your hands work.',
+    image: {
+      src: '/workingdistance.png',
+      alt: 'Clinician demonstrating natural working distance posture during a procedure',
+      width: 1500,
+      height: 1000,
+      label: 'Working distance',
+    },
   },
   {
     title: 'Check posture',
     body:
       'Keep your back and neck neutral while measuring. Do not hunch toward the field just to shorten the distance.',
+    image: {
+      src: '/workdistance diagram.png',
+      alt: 'Leg-supported sitting posture reference diagram showing elbow and knee angles',
+      width: 600,
+      height: 732,
+      label: 'Posture reference',
+    },
   },
   {
     title: 'Submit after checkout',

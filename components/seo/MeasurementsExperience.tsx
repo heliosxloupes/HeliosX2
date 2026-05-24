@@ -12,9 +12,18 @@ type Faq = {
   answer: string
 }
 
+type StepImage = {
+  src: string
+  alt: string
+  width: number
+  height: number
+  label?: string
+}
+
 type Step = {
   title: string
   body: string
+  image?: StepImage
 }
 
 type MeasurementsExperienceProps = {
@@ -127,68 +136,16 @@ export default function MeasurementsExperience({ faqs, steps }: MeasurementsExpe
           </motion.div>
         </section>
 
-        <section className="px-5 py-16 md:px-12 md:py-24">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={stagger}
-            viewport={{ once: true, amount: 0.18 }}
-            className="mx-auto max-w-6xl"
-          >
-            <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
-              Visual guide
-            </motion.p>
-            <motion.h2 variants={fadeUp} className="mt-3 max-w-3xl text-3xl font-semibold leading-tight text-white md:text-4xl">
-              The two measurements that drive fit.
-            </motion.h2>
-            <motion.div variants={fadeUp} className="mt-10 overflow-hidden rounded-[28px] border border-white/10 bg-[#050b16] p-4 shadow-[0_30px_90px_rgba(0,0,0,0.45)] md:p-6">
-              <div className="relative overflow-hidden rounded-2xl border border-emerald-300/15 bg-black">
-                <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_top_left,rgba(52,211,153,0.18),transparent_34%),linear-gradient(90deg,rgba(0,0,0,0.28),transparent_22%,transparent_78%,rgba(0,0,0,0.28))]" />
-                <Image
-                  src="/workingdistance.png"
-                  alt="Dark HeliosX diagram showing working distance from the eye to the normal focal point"
-                  width={728}
-                  height={686}
-                  className="mx-auto h-auto max-h-[680px] w-full max-w-5xl object-contain"
-                  priority
-                />
-              </div>
-            </motion.div>
-            <div className="mt-8 grid gap-8 md:grid-cols-2">
-              {[
-                ['/pupillary distance.png', 'Pupillary distance', 'Diagram showing pupillary distance measured between pupil centers', 1196, 777],
-                ['/workdistance diagram.png', 'Posture reference', 'Diagram showing working distance from eye to focal point', 600, 732],
-              ].map(([src, label, alt, width, height]) => (
-                <motion.div key={src} variants={fadeUp} className="overflow-hidden rounded-[24px] border border-white/10 bg-[#050b16] p-4 shadow-[0_24px_70px_rgba(0,0,0,0.38)]">
-                  <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200/80">
-                    {label}
-                  </p>
-                  <div className="relative flex min-h-[320px] items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white p-3">
-                    <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(5,11,22,0.08),transparent_18%,transparent_82%,rgba(5,11,22,0.08))]" />
-                    <Image
-                      src={src as string}
-                      alt={alt as string}
-                      width={width as number}
-                      height={height as number}
-                      className="h-auto max-h-[520px] w-full object-contain"
-                    />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </section>
-
         <section className="border-y border-white/10 bg-neutral-950/70 px-5 py-16 md:px-12 md:py-24">
-          <div className="mx-auto max-w-6xl space-y-12">
+          <div className="mx-auto max-w-6xl space-y-16">
             {steps.map((step, index) => (
               <motion.article
                 key={step.title}
                 initial="hidden"
                 whileInView="visible"
                 variants={fadeUp}
-                viewport={{ once: true, amount: 0.26 }}
-                className="grid gap-8 border-t border-white/10 pt-8 first:border-t-0 first:pt-0 lg:grid-cols-[0.34fr,0.66fr]"
+                viewport={{ once: true, amount: 0.2 }}
+                className="grid gap-8 border-t border-white/10 pt-10 first:border-t-0 first:pt-0 lg:grid-cols-[0.34fr,0.66fr]"
               >
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
@@ -196,7 +153,28 @@ export default function MeasurementsExperience({ faqs, steps }: MeasurementsExpe
                   </p>
                   <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">{step.title}</h2>
                 </div>
-                <p className="text-base leading-8 text-neutral-300">{step.body}</p>
+                <div className="space-y-7">
+                  <p className="text-base leading-8 text-neutral-300">{step.body}</p>
+                  {step.image && (
+                    <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#050b16] p-4 shadow-[0_24px_70px_rgba(0,0,0,0.38)]">
+                      {step.image.label && (
+                        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200/80">
+                          {step.image.label}
+                        </p>
+                      )}
+                      <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white p-3">
+                        <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(5,11,22,0.08),transparent_18%,transparent_82%,rgba(5,11,22,0.08))]" />
+                        <Image
+                          src={step.image.src}
+                          alt={step.image.alt}
+                          width={step.image.width}
+                          height={step.image.height}
+                          className="h-auto max-h-[480px] w-full object-contain"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
               </motion.article>
             ))}
           </div>

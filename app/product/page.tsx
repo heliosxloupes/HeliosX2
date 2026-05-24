@@ -590,29 +590,29 @@ function OurLoupesGrid() {
 
                     {typeof product.basePrice === 'number' ? (
                       <div
-                        className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 px-4 py-3 backdrop-blur-sm transition-all duration-300 group-hover/card:border-white/25"
+                        className="relative overflow-hidden rounded-full border border-white/10 bg-black/40 px-3.5 py-1.5 backdrop-blur-sm transition-colors duration-300 group-hover/card:border-white/25"
                         style={{
-                          boxShadow: `inset 0 0 0 1px rgba(${getGlowColor(product.slug)}, 0.18), 0 0 24px -8px rgba(${getGlowColor(product.slug)}, 0.35)`,
+                          boxShadow: `inset 0 0 0 1px rgba(${getGlowColor(product.slug)}, 0.14), 0 0 18px -10px rgba(${getGlowColor(product.slug)}, 0.45)`,
                         }}
                       >
                         <div
-                          className="pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-500 group-hover/card:opacity-100"
+                          className="pointer-events-none absolute inset-0 opacity-50 transition-opacity duration-500 group-hover/card:opacity-100"
                           style={{
-                            background: `radial-gradient(ellipse at top left, rgba(${getGlowColor(product.slug)}, 0.22), transparent 70%)`,
+                            background: `radial-gradient(ellipse at top left, rgba(${getGlowColor(product.slug)}, 0.18), transparent 75%)`,
                           }}
                         />
-                        <div className="relative flex items-baseline justify-between gap-3">
-                          <p className="text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-neutral-400">
-                            Starting at
-                          </p>
-                          <p
-                            className="text-base md:text-lg font-semibold text-white"
+                        <div className="relative flex items-baseline justify-between gap-2">
+                          <span className="whitespace-nowrap text-[0.55rem] font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                            From
+                          </span>
+                          <span
+                            className="whitespace-nowrap text-sm font-semibold text-white"
                             style={{
-                              textShadow: `0 0 18px rgba(${getGlowColor(product.slug)}, 0.55)`,
+                              textShadow: `0 0 14px rgba(${getGlowColor(product.slug)}, 0.5)`,
                             }}
                           >
                             ${product.basePrice.toLocaleString('en-US')}
-                          </p>
+                          </span>
                         </div>
                       </div>
                     ) : null}

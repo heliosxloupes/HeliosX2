@@ -58,7 +58,7 @@ const faqSections = [
 
             <div style={{ position: 'relative', width: '100%', maxWidth: '600px', margin: '1.5rem auto', borderRadius: '12px', overflow: 'hidden' }}>
               <img
-                src="/working distance.png"
+                src="/workingdistance.png"
                 alt="Dental professional measuring working distance"
                 width={600}
                 height={400}

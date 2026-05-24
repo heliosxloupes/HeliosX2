@@ -44,12 +44,12 @@ export default function EducationGuidePage({ params }: EducationGuideProps) {
         }
       : guide.slug === 'working-distance-for-loupes'
         ? {
-            src: '/diagrams/working-distance.svg',
+            src: '/workingdistance.png',
             alt: 'Diagram showing working distance from clinician eye to focal point',
           }
         : guide.slug === 'how-to-measure-pupillary-distance'
           ? {
-              src: '/diagrams/pupillary-distance.svg',
+              src: '/pupillary distance.png',
               alt: 'Diagram showing pupillary distance measured between pupil centers',
             }
           : null

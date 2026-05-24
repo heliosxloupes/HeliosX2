@@ -56,7 +56,7 @@ function ScrollProgressBar() {
 function getGuideImage(slug: string) {
   if (slug.includes('pupillary') || slug.includes('working-distance') || slug.includes('prescription')) {
     return {
-      src: '/working distance.png',
+      src: '/workingdistance.png',
       alt: 'HeliosX loupe measurement setup',
     }
   }

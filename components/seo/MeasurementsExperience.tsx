@@ -69,7 +69,7 @@ export default function MeasurementsExperience({ faqs, steps }: MeasurementsExpe
             alt="Clinician measuring working distance for loupes"
             fill
             priority
-            className="object-cover"
+            className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(0,0,0,0.92)_10%,rgba(0,0,0,0.68)_48%,rgba(0,0,0,0.26)_76%,rgba(0,0,0,0.84)_100%)]" />
           <div className="absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-black via-black/74 to-transparent" />
@@ -141,13 +141,29 @@ export default function MeasurementsExperience({ faqs, steps }: MeasurementsExpe
             <motion.h2 variants={fadeUp} className="mt-3 max-w-3xl text-3xl font-semibold leading-tight text-white md:text-4xl">
               The two measurements that drive fit.
             </motion.h2>
-            <div className="mt-10 grid gap-8 md:grid-cols-2">
+            <motion.div variants={fadeUp} className="mt-10 overflow-hidden border-y border-white/10 py-6">
+              <Image
+                src="/workingdistance.png"
+                alt="Dark HeliosX diagram showing working distance from the eye to the normal focal point"
+                width={728}
+                height={686}
+                className="mx-auto h-auto max-h-[680px] w-full max-w-5xl object-contain"
+                priority
+              />
+            </motion.div>
+            <div className="mt-8 grid gap-8 md:grid-cols-2">
               {[
-                ['/diagrams/pupillary-distance.svg', 'Diagram showing pupillary distance measured between pupil centers'],
-                ['/diagrams/working-distance.svg', 'Diagram showing working distance from eye to focal point'],
-              ].map(([src, alt]) => (
-                <motion.div key={src} variants={fadeUp} className="overflow-hidden border-y border-white/10 py-6">
-                  <Image src={src} alt={alt} width={1200} height={760} className="h-auto w-full" />
+                ['/pupillary distance.png', 'Diagram showing pupillary distance measured between pupil centers', 1196, 777],
+                ['/workdistance diagram.png', 'Diagram showing working distance from eye to focal point', 600, 732],
+              ].map(([src, alt, width, height]) => (
+                <motion.div key={src} variants={fadeUp} className="flex min-h-[320px] items-center justify-center overflow-hidden border-y border-white/10 py-6">
+                  <Image
+                    src={src as string}
+                    alt={alt as string}
+                    width={width as number}
+                    height={height as number}
+                    className="h-auto max-h-[560px] w-full object-contain"
+                  />
                 </motion.div>
               ))}
             </div>

@@ -79,7 +79,7 @@ const faqSections = [
             <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem', marginBottom: '1rem' }}>
               <li>Place a measuring tape at the corner of your eye</li>
               <li>Extend it to the object or position where your hands normally work</li>
-              <li>Record this distance — this is your working distance</li>
+              <li>Record this distance - this is your working distance</li>
             </ul>
 
             <p><strong>3. Consider Your Professional Needs</strong></p>
@@ -103,9 +103,9 @@ const faqSections = [
           <div>
             <p>Once you have:</p>
             <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem', marginBottom: '1rem' }}>
-              <li>✔ Your prescription (if applicable)</li>
-              <li>✔ Your pupillary distance</li>
-              <li>✔ Your working distance</li>
+              <li>Prescription ready, if applicable</li>
+              <li>Pupillary distance measured</li>
+              <li>Working distance measured</li>
             </ul>
             <p>Complete the customer measurement form included in your confirmation email.</p>
             <p>Submit it back to us, and we'll begin crafting your custom loupes.</p>
@@ -269,7 +269,7 @@ function FAQPage() {
     <main className={styles.main}>
       <Header />
       <section className={styles.hero}>
-        <p className={styles.kicker}>FAQ • About HeliosX</p>
+        <p className={styles.kicker}>FAQ - About HeliosX</p>
         <h1 className={styles.title}>Everything you need to know</h1>
         <p className={styles.subtitle}>
           Answers pulled from the HeliosX FAQ so you can move from configuration to checkout with confidence.

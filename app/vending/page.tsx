@@ -108,7 +108,7 @@ export default function VendingPage() {
               {/* Title + description */}
               <div>
                 <p className="mb-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-neutral-500">
-                  HeliosX · {shortName}
+                  HeliosX - {shortName}
                 </p>
                 <h1 className="bg-gradient-to-r from-white via-slate-200 to-emerald-200 bg-clip-text text-2xl font-semibold text-transparent sm:text-3xl">
                   {productName}
@@ -183,7 +183,7 @@ export default function VendingPage() {
                 </button>
                 <p className="mt-2 text-[0.65rem] leading-relaxed text-neutral-500">
                   No hidden service contracts, mandatory bundles, or surprise
-                  fees—just the product you need.
+                  fees-just the product you need.
                 </p>
               </motion.div>
             </motion.div>
@@ -203,7 +203,7 @@ export default function VendingPage() {
               <p className="text-sm text-neutral-300">
                 HeliosX exists because surgeons shouldn&apos;t have to choose
                 between compromised tools and two months of rent. The work is
-                demanding enough—the access should be too.
+                demanding enough-the access should be too.
               </p>
               <button
                 onClick={() => {

@@ -10,8 +10,8 @@ import { getCart } from '@/lib/cart'
 import type { CartItem } from '@/lib/cart'
 import Noise from '@/components/Noise'
 
-const PRESCRIPTION_ESTIMATE = 200 // USD – for cart display
-const WARRANTY_ESTIMATE = 99 // USD – for cart display
+const PRESCRIPTION_ESTIMATE = 200 // USD - for cart display
+const WARRANTY_ESTIMATE = 99 // USD - for cart display
 
 // If your cart library uses a different key, change this to match
 const CART_STORAGE_KEY = 'heliosx_cart'
@@ -140,7 +140,7 @@ export default function CartPage() {
             <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-sky-500/10 blur-3xl" />
           </div>
 
-          {/* LEFT – hero image */}
+          {/* LEFT - hero image */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -176,7 +176,7 @@ export default function CartPage() {
             </div>
           </motion.div>
 
-          {/* RIGHT – cart summary + add-ons */}
+          {/* RIGHT - cart summary + add-ons */}
           <motion.aside
             variants={fadeUp}
             initial="hidden"
@@ -448,7 +448,7 @@ export default function CartPage() {
                 Proceed to payment
               </button>
               <p className="mt-3 text-[0.65rem] text-neutral-500">
-                Test mode only – payments are processed in Stripe&apos;s sandbox
+                Test mode only - payments are processed in Stripe&apos;s sandbox
                 environment.
               </p>
             </motion.div>

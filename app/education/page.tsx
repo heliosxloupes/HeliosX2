@@ -4,6 +4,7 @@ import Header from '@/components/Header'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { CardBody, CardContainer, CardItem } from '@/components/ui/3d-card'
+import { educationGuides } from '@/lib/seo-content'
 
 type Article = {
   id: string
@@ -78,7 +79,7 @@ const articles: Article[] = [
       'Cadaveric and clinical work describing second- to fourth-dorsal metatarsal artery perforators for distal foot and web-space reconstruction under loupe magnification.',
     bullets: [
       'Dissected 16 cadaveric feet under loupe magnification to map dorsal metatarsal artery perforators.',
-      'Found 2–5 cutaneous perforators per artery with a reliable distal perforator between metatarsal heads.',
+      'Found 2-5 cutaneous perforators per artery with a reliable distal perforator between metatarsal heads.',
       'Presented a clinical perforator-based flap for distal foot resurfacing mirroring hand flap concepts.',
     ],
     pubmedUrl: 'https://pubmed.ncbi.nlm.nih.gov/23722578/',
@@ -155,6 +156,36 @@ export default function EducationPage() {
           </div>
         </section>
 
+        <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
+          <div className="mb-8 max-w-2xl">
+            <p className="mb-2 text-xs uppercase tracking-[0.25em] text-emerald-300/80">
+              Resource Library
+            </p>
+            <h2 className="text-xl font-semibold text-white sm:text-2xl">
+              Practical loupe guides for search, fit, and buying decisions.
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-neutral-400">
+              Start with the buyer question, then go deeper into measurements, magnification,
+              ergonomics, prescription setup, and peer-reviewed evidence.
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {educationGuides.map((guide) => (
+              <Link
+                key={guide.slug}
+                href={`/education/${guide.slug}`}
+                className="rounded-2xl border border-neutral-800 bg-neutral-950/70 p-5 transition hover:border-emerald-300/60"
+              >
+                <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">
+                  {guide.kicker}
+                </p>
+                <h3 className="mt-3 text-base font-semibold text-white">{guide.title}</h3>
+                <p className="mt-3 text-xs leading-6 text-neutral-400">{guide.description}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* FEATURED ARTICLE */}
         <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:py-18">
           <div className="mb-8 flex flex-col gap-3 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
@@ -195,7 +226,7 @@ export default function EducationPage() {
 
               {/* Journal / Authors */}
               <p className="relative mb-4 text-sm uppercase tracking-[0.15em] text-orange-300/80 sm:text-base">
-                Frontiers in Public Health • Randomized Controlled Trial
+                Frontiers in Public Health - Randomized Controlled Trial
               </p>
 
               {/* Summary */}
@@ -253,7 +284,7 @@ export default function EducationPage() {
                 >
                   Read Full Article
                   <span aria-hidden className="translate-y-[0.5px] text-base">
-                    ↗
+                    open
                   </span>
                 </Link>
               </div>
@@ -302,7 +333,7 @@ export default function EducationPage() {
                       translateZ="55"
                       className="mt-1 text-[0.7rem] uppercase tracking-[0.18em] text-neutral-500"
                     >
-                      {article.journal} • {article.topic}
+                      {article.journal} - {article.topic}
                     </CardItem>
 
                     {/* Summary */}
@@ -348,7 +379,7 @@ export default function EducationPage() {
                       >
                         View on PubMed
                         <span aria-hidden className="translate-y-[0.5px] text-[0.9em]">
-                          ↗
+                          open
                         </span>
                       </CardItem>
                     </div>

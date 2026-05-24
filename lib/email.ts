@@ -386,7 +386,7 @@ function renderHeliosEmail({
                 <div style="margin-top:8px;color:#64748b;font-size:13px;line-height:1.6;">
                   Surgical optics built around the way you work.<br />
                   <a href="mailto:${HELIOSX_SUPPORT_EMAIL}" style="color:#047857;text-decoration:none;">${HELIOSX_SUPPORT_EMAIL}</a>
-                  <span style="color:#cbd5e1;"> · </span>
+                  <span style="color:#cbd5e1;"> - </span>
                   <a href="${HELIOSX_SITE_URL}" style="color:#047857;text-decoration:none;">heliosxloupes.com</a>
                 </div>
               </td>

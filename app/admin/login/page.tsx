@@ -106,7 +106,7 @@ export default function AdminLoginPage() {
           {message && <p className="mt-4 text-sm text-neutral-300">{message}</p>}
           <button
             type="button"
-            onClick={() => router.push('/home')}
+            onClick={() => router.push('/')}
             className="mt-4 text-xs text-neutral-500 hover:text-white"
           >
             Back to site

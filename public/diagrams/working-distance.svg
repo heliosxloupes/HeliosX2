@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Working distance measurement diagram</title>
+  <desc id="desc">A side view diagram showing the distance from clinician eyes to the work field.</desc>
+  <rect width="1200" height="760" fill="#020617"/>
+  <rect x="70" y="70" width="1060" height="620" rx="36" fill="#07111f" stroke="#1f2937" stroke-width="2"/>
+  <circle cx="290" cy="278" r="84" fill="#111827" stroke="#334155" stroke-width="4"/>
+  <path d="M285 362 C264 422 254 478 256 548" fill="none" stroke="#475569" stroke-width="38" stroke-linecap="round"/>
+  <path d="M338 286 L456 310" stroke="#94a3b8" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="332" cy="272" r="10" fill="#e2e8f0"/>
+  <rect x="750" y="486" width="240" height="64" rx="12" fill="#1f2937" stroke="#475569" stroke-width="3"/>
+  <line x1="348" y1="278" x2="766" y2="512" stroke="#34d399" stroke-width="8" stroke-linecap="round" stroke-dasharray="16 16"/>
+  <circle cx="348" cy="278" r="12" fill="#34d399"/>
+  <circle cx="766" cy="512" r="12" fill="#34d399"/>
+  <text x="560" y="350" text-anchor="middle" fill="#d1fae5" font-family="Arial, sans-serif" font-size="38" font-weight="700">Working Distance</text>
+  <text x="560" y="404" text-anchor="middle" fill="#94a3b8" font-family="Arial, sans-serif" font-size="24">Eye to normal focal point</text>
+  <text x="118" y="132" fill="#86efac" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="5">NEUTRAL POSTURE</text>
+</svg>

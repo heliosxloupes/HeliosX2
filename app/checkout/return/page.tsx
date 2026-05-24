@@ -85,7 +85,7 @@ function ReturnContent() {
                   Back to checkout
                 </button>
                 <button
-                  onClick={() => router.push('/home')}
+                  onClick={() => router.push('/')}
                   className="rounded-full border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/10"
                 >
                   Return home
@@ -192,7 +192,7 @@ function ReturnContent() {
                   Explore more systems
                 </button>
                 <button
-                  onClick={() => router.push('/home')}
+                  onClick={() => router.push('/')}
                   className="flex w-full items-center justify-center rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-medium text-neutral-100 transition hover:bg-white/10"
                 >
                   Back to home

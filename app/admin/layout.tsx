@@ -1,5 +1,13 @@
 import Link from 'next/link'
 import AdminNav from '@/components/AdminNav'
+import { buildMetadata } from '@/lib/seo'
+
+export const metadata = buildMetadata({
+  title: 'HeliosX Admin',
+  description: 'HeliosX internal operations console.',
+  path: '/admin',
+  noIndex: true,
+})
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,7 +32,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               <AdminNav />
             </div>
             <Link
-              href="/home"
+              href="/"
               className="hidden shrink-0 rounded-full border border-white/10 px-3 py-2 text-xs font-medium text-neutral-300 transition outline-none hover:border-white/25 hover:text-white focus-visible:ring-2 focus-visible:ring-emerald-300/70 sm:inline-flex"
             >
               View storefront
@@ -37,7 +45,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between">
           <p>HeliosX ops console</p>
           <Link
-            href="/home"
+            href="/"
             className="w-fit rounded-full border border-white/10 px-3 py-2 font-medium text-neutral-300 transition outline-none hover:border-white/25 hover:text-white focus-visible:ring-2 focus-visible:ring-emerald-300/70"
           >
             Back to main site

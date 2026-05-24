@@ -28,9 +28,9 @@ export default function Hero() {
   const secondTextRef = useRef<HTMLDivElement>(null)
   const modalVideoRef = useRef<HTMLVideoElement>(null)
 
-  const firstTextLine1 = "Born in the operating room, built to defy industry Greed —"
+  const firstTextLine1 = "Born in the operating room, built to defy industry Greed -"
   const firstTextLine2 = "HeliosX makes surgical precision accessible to all."
-  const secondTextLine1 = "Introducing HeliosX — a new standard in surgical optics"
+  const secondTextLine1 = "Introducing HeliosX - a new standard in surgical optics"
   const secondTextLine2 = "Engineered for performance, priced for reality."
   
   const firstWordsLine1 = firstTextLine1.split(' ')
@@ -489,7 +489,7 @@ export default function Hero() {
             {headlineAnimationComplete && (
               <BlurText 
                 key="subheadline"
-                text="Premium surgical loupes—without the predatory price tag."
+                text="Premium surgical loupes without the predatory price tag."
                 className={styles.imageSubheadline}
                 animateBy="words"
                 direction="top"
@@ -794,7 +794,7 @@ export default function Hero() {
                   </svg>
                 </div>
                 <div className={styles.device2IconTitle}>Premium Optical Performance</div>
-                <div className={styles.device2IconText}>High-definition clarity engineered for surgical precision. No distortion, no compromises—just world-class optics built for professionals.</div>
+                <div className={styles.device2IconText}>High-definition clarity engineered for surgical precision. No distortion, no compromises. Just world-class optics built for professionals.</div>
               </div>
               <div className={styles.device2IconItem}>
                 <div className={styles.device2Icon}>
@@ -922,7 +922,7 @@ export default function Hero() {
           transition: 'transform 0.2s ease-out, opacity 0.2s ease-out'
         }}
       >
-        <p className={styles.largeTextLine}>Designed for those who demand precision—</p>
+        <p className={styles.largeTextLine}>Designed for those who demand precision-</p>
         <p className={styles.largeTextLine}>Created for those who pursue mastery</p>
       </div>
 
@@ -934,7 +934,7 @@ export default function Hero() {
           transition: 'transform 0.2s ease-out, opacity 0.2s ease-out'
         }}
       >
-        <p className={styles.image3MainText}>No gate keeping—</p>
+        <p className={styles.image3MainText}>No gate keeping-</p>
         <p className={styles.image3MainText}>Just fair pricing</p>
         <p className={styles.image3SubText}>Elite quality made truly affordable</p>
       </div>
@@ -998,9 +998,9 @@ export default function Hero() {
         }}
       >
         <div className={styles.bottomNewsletter}>
-          <button className={styles.bottomNewsletterClose}>×</button>
+          <button className={styles.bottomNewsletterClose}>x</button>
           <h3 className={styles.bottomNewsletterTitle}>Newsletter</h3>
-          <p className={styles.bottomNewsletterText}>GET UPDATES • NO SPAM</p>
+          <p className={styles.bottomNewsletterText}>GET UPDATES - NO SPAM</p>
           <div className={styles.bottomNewsletterEmailContainer}>
             <input
               type="email"
@@ -1074,9 +1074,9 @@ export default function Hero() {
       >
         <div className={styles.newsletterWrapper}>
           <div className={styles.bottomNewsletter}>
-            <button className={styles.bottomNewsletterClose}>×</button>
+            <button className={styles.bottomNewsletterClose}>x</button>
             <h3 className={styles.bottomNewsletterTitle}>Newsletter</h3>
-            <p className={styles.bottomNewsletterText}>GET UPDATES • NO SPAM</p>
+            <p className={styles.bottomNewsletterText}>GET UPDATES - NO SPAM</p>
             <div className={styles.bottomNewsletterEmailContainer}>
               <input
                 type="email"

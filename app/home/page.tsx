@@ -216,7 +216,7 @@ function HeroSection() {
           >
             <div className="grid gap-10 md:grid-cols-[minmax(0,1.1fr),minmax(260px,0.52fr)] md:items-end">
 
-              {/* Left — headline block */}
+              {/* Left - headline block */}
               <div className="max-w-2xl space-y-6 md:space-y-7">
 
                 {/* Badge */}
@@ -225,10 +225,10 @@ function HeroSection() {
                   variants={fadeIn}
                   transition={{ duration: 0.5 }}
                 >
-                  Ultra customizable · Worldwide shipping
+                  Ultra customizable - Worldwide shipping
                 </motion.div>
 
-                {/* H1 — line-by-line slide-up reveal */}
+                {/* H1 - line-by-line slide-up reveal */}
                 <h1 className="max-w-4xl text-[clamp(3.1rem,8vw,7rem)] font-bold leading-[0.93] tracking-[-0.03em]">
                   <span style={{ overflow: "hidden", display: "block" }}>
                     <motion.span
@@ -292,7 +292,7 @@ function HeroSection() {
                 </motion.div>
               </div>
 
-              {/* Right — floating info card */}
+              {/* Right - floating info card */}
               <motion.div
                 initial={{ opacity: 0, y: 32 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -381,7 +381,7 @@ function ManifestoSection() {
             gatekept, or reserved for a select few.
           </motion.h2>
 
-          {/* Body paragraphs — sequential reveal */}
+          {/* Body paragraphs - sequential reveal */}
           {[
             <>
               We reject the idea that clarity is a luxury. That precision belongs
@@ -848,7 +848,7 @@ function StorySection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          — Founder
+          - Founder
         </motion.p>
       </div>
     </section>
@@ -977,7 +977,7 @@ function HeliosXFooter() {
           <div className="max-w-md space-y-3">
             <p className="text-sm font-semibold text-neutral-100">HeliosX</p>
             <p className="text-sm text-neutral-300">
-              Surgical loupes designed by surgeons, for surgeons — bringing elite
+              Surgical loupes designed by surgeons, for surgeons - bringing elite
               optical performance to more operators through honest, transparent pricing.
             </p>
             <p className="text-xs text-neutral-400">
@@ -990,7 +990,10 @@ function HeliosXFooter() {
               <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">Explore</p>
               <div className="space-y-2">
                 <Link href="/product" className="block text-neutral-200 transition hover:text-white">Products</Link>
+                <Link href="/surgical-loupes" className="block text-neutral-200 transition hover:text-white">Surgical loupes</Link>
+                <Link href="/dental-loupes" className="block text-neutral-200 transition hover:text-white">Dental loupes</Link>
                 <Link href="/education" className="block text-neutral-200 transition hover:text-white">Education</Link>
+                <Link href="/measurements" className="block text-neutral-200 transition hover:text-white">Measurements</Link>
                 <Link href="/faq" className="block text-neutral-200 transition hover:text-white">FAQ</Link>
               </div>
             </div>
@@ -998,6 +1001,8 @@ function HeliosXFooter() {
               <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">Company</p>
               <div className="space-y-2">
                 <a href="#story" className="block text-neutral-200 transition hover:text-white">Our story</a>
+                <Link href="/heliosx-vs-lumadent" className="block text-neutral-200 transition hover:text-white">HeliosX vs LumaDent</Link>
+                <Link href="/heliosx-vs-orascoptic" className="block text-neutral-200 transition hover:text-white">HeliosX vs Orascoptic</Link>
                 <Link href="/cart" className="block text-neutral-200 transition hover:text-white">Cart</Link>
                 <Link href="/checkout" className="block text-neutral-200 transition hover:text-white">Checkout</Link>
               </div>

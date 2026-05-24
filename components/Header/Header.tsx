@@ -54,10 +54,12 @@ function MobileNav() {
   }, [])
 
   const navItems = [
-    { href: "/home", label: "Home" },
+    { href: "/", label: "Home" },
     { href: "/product", label: "Products" },
+    { href: "/surgical-loupes", label: "Surgical" },
+    { href: "/dental-loupes", label: "Dental" },
     { href: "/education", label: "Education" },
-    { href: "/home#story", label: "Story" },
+    { href: "/measurements", label: "Measurements" },
     { href: "/faq", label: "FAQ" },
     ...(isAdmin ? [{ href: "/admin", label: "Admin" }] : []),
   ];
@@ -70,7 +72,7 @@ function MobileNav() {
           {/* Logo / brand */}
           <button
             type="button"
-            onClick={() => router.push("/home")}
+            onClick={() => router.push("/")}
             className="flex items-center gap-2"
           >
             <Image
@@ -144,7 +146,7 @@ function MobileNav() {
                   type="button"
                   onClick={() => {
                     setOpen(false);
-                    router.push("/home");
+                    router.push("/");
                   }}
                   className="flex items-center gap-2"
                 >
@@ -166,7 +168,7 @@ function MobileNav() {
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-black/70 text-neutral-100 text-xl"
                   aria-label="Close navigation"
                 >
-                  ×
+                  x
                 </button>
               </div>
 
@@ -229,29 +231,29 @@ function MobileNav() {
                   <ul className="space-y-2 text-sm text-neutral-300">
                     <li>
                       <Link
-                        href="/education"
+                        href="/surgical-loupes"
                         onClick={() => setOpen(false)}
                         className="hover:text-white transition"
                       >
-                        Optical evidence
+                        Surgical loupes
                       </Link>
                     </li>
                     <li>
                       <Link
-                        href="/faq"
+                        href="/dental-loupes"
                         onClick={() => setOpen(false)}
                         className="hover:text-white transition"
                       >
-                        FAQ
+                        Dental loupes
                       </Link>
                     </li>
                     <li>
                       <Link
-                        href="/home#story"
+                        href="/prismatic-loupes"
                         onClick={() => setOpen(false)}
                         className="hover:text-white transition"
                       >
-                        How HeliosX began
+                        Prismatic loupes
                       </Link>
                     </li>
                   </ul>
@@ -349,7 +351,7 @@ export default function Header() {
       >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-3 lg:px-10 xl:px-16">
         {/* Left: logo + wordmark */}
-        <Link href="/home" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <Image
             src="/logominimalnowriting.png"
             alt="HeliosX logo"
@@ -364,18 +366,24 @@ export default function Header() {
         </Link>
 
         {/* Center: nav (Product / Education / Story / FAQ) */}
-        <nav className="hidden items-center gap-6 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-neutral-300 md:flex">
-          <Link href="/home" className="transition hover:text-white">
+        <nav className="hidden items-center gap-5 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-neutral-300 md:flex">
+          <Link href="/" className="transition hover:text-white">
             Home
           </Link>
           <Link href="/product" className="transition hover:text-white">
             Product
           </Link>
+          <Link href="/surgical-loupes" className="transition hover:text-white">
+            Surgical
+          </Link>
+          <Link href="/dental-loupes" className="transition hover:text-white">
+            Dental
+          </Link>
           <Link href="/education" className="transition hover:text-white">
             Education
           </Link>
-          <Link href="/home#story" className="transition hover:text-white">
-            Story
+          <Link href="/measurements" className="transition hover:text-white">
+            Measurements
           </Link>
           <Link href="/faq" className="transition hover:text-white">
             FAQ

@@ -30,6 +30,22 @@ export default function ProductPage() {
         </div>
         <OurLoupesGrid />
         <OrderingInfoSection />
+        <section className="px-4 pb-16 md:px-8 md:pb-24">
+          <div className="mx-auto grid max-w-6xl gap-4 border-t border-white/10 pt-8 text-sm text-neutral-300 md:grid-cols-4">
+            <Link href="/prismatic-loupes" className="transition hover:text-white">
+              Prismatic loupes
+            </Link>
+            <Link href="/ergonomic-loupes" className="transition hover:text-white">
+              Ergonomic loupes
+            </Link>
+            <Link href="/affordable-loupes" className="transition hover:text-white">
+              Affordable loupes
+            </Link>
+            <Link href="/best-loupes" className="transition hover:text-white">
+              Best loupes guide
+            </Link>
+          </div>
+        </section>
       </main>
     </>
   );
@@ -336,7 +352,7 @@ function OurLoupesGrid() {
         setCmsProducts(payload.products.map((product: any) => ({
           slug: product.slug,
           name: product.shortName,
-          magnification: (product.magnifications ?? []).join(' • '),
+          magnification: (product.magnifications ?? []).join(' / '),
           tagline: product.cardTagline,
           bullets: product.cardBullets ?? [],
           highlight: product.cardHighlight,
@@ -370,12 +386,12 @@ function OurLoupesGrid() {
     {
       slug: "medusa",
       name: "Medusa",
-      magnification: "3.0x • 4.0x • 5.0x",
-      tagline: "Adjustable working distance for seated or standing surgical posture.",
+      magnification: "3.0x / 4.0x / 5.0x",
+      tagline: "Ergonomic prismatic loupes with adjustable working distance.",
       bullets: [
+        "Ergonomic prismatic optics",
         "300-600 mm working distance",
         "Tailored fixed IPD",
-        "Enhanced depth perception",
       ],
       highlight: "Best for posture-flexible precision work.",
       imageSrc: "/Medusa/MedusaMain.png",
@@ -385,10 +401,10 @@ function OurLoupesGrid() {
     {
       slug: "apollo",
       name: "Apollo",
-      magnification: "3.0x • 4.0x • 5.0x • 6.0x",
-      tagline: "High-magnification clarity for detail-obsessed operators.",
+      magnification: "3.0x / 4.0x / 5.0x / 6.0x",
+      tagline: "Ergonomic prismatic clarity for detail-obsessed operators.",
       bullets: [
-        "Next-generation optics",
+        "Ergonomic prismatic optics",
         "Increased working precision",
         "Ergonomic frame options",
       ],
@@ -399,7 +415,7 @@ function OurLoupesGrid() {
     {
       slug: "galileo",
       name: "Galileo",
-      magnification: "2.5x • 3.0x • 3.5x",
+      magnification: "2.5x / 3.0x / 3.5x",
       tagline: "Versatile field of view for general and reconstructive work.",
       bullets: ["Lightweight", "Modern frame geometry", "Everyday precision"],
       highlight: "Best for broad use and training.",
@@ -409,7 +425,7 @@ function OurLoupesGrid() {
     {
       slug: "newton",
       name: "Newton",
-      magnification: "2.5x • 3.0x • 3.5x",
+      magnification: "2.5x / 3.0x / 3.5x",
       tagline: "Ultra-light performance for long cases and full OR days.",
       bullets: ["Ultra-light chassis", "Comfort-driven design", "Low fatigue"],
       highlight: "Best when comfort is critical.",
@@ -419,7 +435,7 @@ function OurLoupesGrid() {
     {
       slug: "kepler",
       name: "Kepler",
-      magnification: "4.0x • 5.0x • 6.0x",
+      magnification: "4.0x / 5.0x / 6.0x",
       tagline: "Maximal magnification for demanding micro and super-micro.",
       bullets: [
         "Signature optical stack",
@@ -551,7 +567,7 @@ function OurLoupesGrid() {
                             : 'text-neutral-400'
                         }`}
                       >
-                        <span className="mr-2 shrink-0 text-neutral-500">•</span>
+                        <span className="mr-2 shrink-0 text-neutral-500">-</span>
                         <span>{bullet}</span>
                       </li>
                     ))}

@@ -93,7 +93,7 @@ export const defaultFrameConfigs: FrameConfig[] = [
   },
 ]
 
-/** Rectangular semi-rimless Apollo frame — 5 colorways (apollof1.x) */
+/** Rectangular semi-rimless Apollo frame - 5 colorways (apollof1.x) */
 export const apolloFrameConfigs: FrameConfig[] = [
   {
     id: 'Apollo1',
@@ -337,7 +337,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
       selectedMagnification: selectedMag,
       selectedFrameId,
       selectedFrameColor,
-      selectedFrameName: `${currentFrameConfig.label} — ${currentColorConfig.name}`,
+      selectedFrameName: `${currentFrameConfig.label} - ${currentColorConfig.name}`,
       selectedFrameImage: currentColorConfig.image,
     })
     await writeCartSession(email)
@@ -589,7 +589,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 <div className="mb-2 text-[0.7rem] text-neutral-300">
                   <p className="font-semibold text-neutral-100">
                     {currentFrameConfig.label}{' '}
-                    {currentColorConfig.name && `— ${currentColorConfig.name}`}
+                    {currentColorConfig.name && `- ${currentColorConfig.name}`}
                   </p>
                   <p className="mt-1">
                     Choose a base frame, then fine-tune the finish. All frames

@@ -8,7 +8,7 @@
   --z-index-10: 10;
   --z-index-50: 50;
 
-  /* Typography — resolved from next/font variables injected at html level */
+  /* Typography - resolved from next/font variables injected at html level */
   --font-system: var(--font-manrope, system-ui, -apple-system, sans-serif);
   --font-display: var(--font-syne, system-ui, sans-serif);
   --text-scale-screen-min: 0.875rem;

@@ -21,7 +21,7 @@ export default function Newsletter() {
       <Dialog.Trigger asChild>
         <button className={styles.trigger} aria-label="Newsletter">
           <span>Newsletter</span>
-          <span className={styles.subtitle}>Get updates · No spam</span>
+          <span className={styles.subtitle}>Get updates - No spam</span>
         </button>
       </Dialog.Trigger>
       

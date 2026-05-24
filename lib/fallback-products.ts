@@ -6,8 +6,8 @@ export const fallbackProducts: CmsProduct[] = [
     name: 'Medusa Surgical Loupes',
     shortName: 'Medusa',
     description:
-      'Adjustable working-distance loupes built for surgeons who move between sitting and standing positions without sacrificing clarity, depth, or posture.',
-    cardTagline: 'Real-time adjustable working distance for seated or standing surgical posture.',
+      'Ergonomic prismatic loupes with adjustable working distance, built for surgeons and clinicians who move between sitting and standing positions without sacrificing clarity, depth, or posture.',
+    cardTagline: 'Ergonomic prismatic loupes with real-time adjustable working distance.',
     cardHighlight: 'Best for posture-flexible precision work.',
     cardBullets: [
       'Real-time adjustable working distance',
@@ -16,6 +16,7 @@ export const fallbackProducts: CmsProduct[] = [
       'Enhanced depth perception',
     ],
     highlights: [
+      'Ergonomic prismatic optical system.',
       'Adjustable 300-600 mm working distance.',
       'Fixed interpupillary distance tailored to your specifications.',
       'Enhanced depth perception with superior clarity.',
@@ -31,12 +32,13 @@ export const fallbackProducts: CmsProduct[] = [
     displayOrder: 1,
     specTitle: 'Medusa product specifications.',
     specDescription:
-      'Medusa is designed around adjustable working distance and custom fit. It adapts to the surgeon rather than forcing the surgeon into one fixed operating posture.',
+      'Medusa is an ergonomic prismatic loupe system designed around adjustable working distance and custom fit. It adapts to the surgeon rather than forcing the surgeon into one fixed operating posture.',
     specColumns: [
       {
         title: 'Core build',
         items: [
           'Weight with frame: 56g.',
+          'Ergonomic prismatic optics for posture-aware procedures.',
           'Adjustable working distance for seated or standing procedures.',
           'Fixed interpupillary distance tailored to your specifications.',
           'Built for maximum ergonomic comfort through long cases.',
@@ -81,12 +83,12 @@ export const fallbackProducts: CmsProduct[] = [
     name: 'Apollo Surgical Loupes',
     shortName: 'Apollo',
     description:
-      'High-magnification clarity for detail-obsessed operators. Apollo pairs advanced optics with lightweight frames so you can work precisely without losing balance.',
-    cardTagline: 'High-magnification clarity for detail-obsessed operators.',
+      'Ergonomic prismatic loupes for detail-obsessed operators. Apollo pairs posture-aware optics with lightweight frames so you can work precisely without losing balance.',
+    cardTagline: 'Ergonomic prismatic clarity for detail-obsessed operators.',
     cardHighlight: 'Best for fine aesthetic & micro-oriented work.',
     cardBullets: ['Next-generation optics', 'Increased working precision', 'Ergonomic frame options'],
     highlights: [
-      'High-clarity optics tuned for detail work.',
+      'Ergonomic prismatic optics tuned for detail work.',
       'Lightweight frame options that stay balanced.',
       'Extended working distance control.',
       'Prescription capable and light-source ready.',
@@ -100,7 +102,7 @@ export const fallbackProducts: CmsProduct[] = [
     displayOrder: 2,
     specTitle: 'Apollo product specifications.',
     specDescription:
-      'Engineered for operators who need higher magnification without sacrificing ergonomics. Apollo delivers crisp resolution, reliable light compatibility, and a frame that stays comfortable when precision matters most.',
+      'Engineered for operators who want ergonomic prismatic magnification without sacrificing comfort. Apollo delivers crisp resolution, reliable light compatibility, and a frame that stays comfortable when precision matters most.',
     specColumns: [
       {
         title: 'Core build',

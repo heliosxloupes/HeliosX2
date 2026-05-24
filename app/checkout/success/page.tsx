@@ -140,7 +140,7 @@ function CheckoutSuccessContent() {
               </p>
               <div className="flex flex-col gap-3">
                 <button
-                  onClick={() => router.push('/home')}
+                  onClick={() => router.push('/')}
                   className="flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition hover:bg-neutral-100"
                 >
                   Back to home

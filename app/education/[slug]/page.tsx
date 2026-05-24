@@ -62,6 +62,9 @@ export default function EducationGuidePage({ params }: EducationGuideProps) {
             title: guide.title,
             description: guide.description,
             path: `/education/${guide.slug}`,
+            datePublished: guide.datePublished ?? '2026-04-01',
+            dateModified: guide.dateModified ?? guide.datePublished ?? '2026-05-23',
+            image: diagram?.src,
           }),
           breadcrumbJsonLd([
             { name: 'Home', path: '/' },

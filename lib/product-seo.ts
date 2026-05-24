@@ -2,7 +2,12 @@ import type { Metadata } from 'next'
 
 import { getProduct } from '@/lib/commerce'
 import { productPositioning } from '@/lib/seo-content'
-import { buildMetadata, productJsonLd } from '@/lib/seo'
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  organizationJsonLd,
+  productJsonLd,
+} from '@/lib/seo'
 
 const productKeywords: Record<string, string[]> = {
   medusa: [
@@ -15,6 +20,14 @@ const productKeywords: Record<string, string[]> = {
   galileo: ['Galileo loupes', 'affordable surgical loupes', 'dental loupes', 'student loupes'],
   newton: ['Newton loupes', 'lightweight loupes', 'affordable loupes', 'dental loupes'],
   kepler: ['Kepler loupes', 'high magnification loupes', 'microsurgery loupes', 'surgical loupes'],
+}
+
+const productAudience: Record<string, string> = {
+  medusa: 'Surgeons and clinicians',
+  apollo: 'Surgeons, dentists, and detail-oriented clinicians',
+  galileo: 'Dental students, medical students, residents, and hygienists',
+  newton: 'Hygienists, dental students, and daily-use clinicians',
+  kepler: 'Microsurgery and high-magnification surgical specialists',
 }
 
 export async function getProductMetadata(slug: string): Promise<Metadata> {
@@ -37,13 +50,25 @@ export async function getProductJsonLd(slug: string) {
   const product = await getProduct(slug)
   if (!product) return null
 
-  return productJsonLd({
-    name: product.name,
-    description:
-      productPositioning[product.shortName as keyof typeof productPositioning] ?? product.description,
-    slug: product.slug,
-    image: product.cardImageSrc || product.heroImages[0]?.src,
-    price: product.basePrice,
-    priceLabel: product.priceLabel,
-  })
+  const description =
+    productPositioning[product.shortName as keyof typeof productPositioning] ?? product.description
+
+  return [
+    productJsonLd({
+      name: product.name,
+      description,
+      slug: product.slug,
+      image: product.cardImageSrc || product.heroImages[0]?.src,
+      price: product.basePrice,
+      priceLabel: product.priceLabel,
+      magnifications: product.magnifications,
+      audience: productAudience[slug],
+    }),
+    breadcrumbJsonLd([
+      { name: 'Home', path: '/' },
+      { name: 'Loupes', path: '/product' },
+      { name: product.shortName, path: `/product/${slug}` },
+    ]),
+    organizationJsonLd(),
+  ]
 }

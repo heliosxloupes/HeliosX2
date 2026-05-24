@@ -7,6 +7,7 @@ import {
   breadcrumbJsonLd,
   buildMetadata,
   faqJsonLd,
+  itemListJsonLd,
   organizationJsonLd,
 } from '@/lib/seo'
 import { allSeoLandingPages, getSeoLandingPage, productPositioning } from '@/lib/seo-content'
@@ -43,6 +44,18 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
     positioning,
   }))
 
+  const recommendedItems = page.recommendedProducts
+    .map((shortName) => {
+      const positioning = productPositioning[shortName as keyof typeof productPositioning]
+      if (!positioning) return null
+      return {
+        name: `${shortName} Loupes`,
+        url: `/product/${shortName.toLowerCase()}`,
+        description: positioning,
+      }
+    })
+    .filter((item): item is { name: string; url: string; description: string } => item !== null)
+
   return (
     <>
       <JsonLd
@@ -53,6 +66,7 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
             { name: page.title, path: `/${page.slug}` },
           ]),
           faqJsonLd(page.faqs),
+          ...(recommendedItems.length > 0 ? [itemListJsonLd(recommendedItems)] : []),
         ]}
       />
       <SeoLandingExperience page={page} modelRows={modelRows} />

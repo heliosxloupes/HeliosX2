@@ -42,6 +42,8 @@ export type EducationGuide = {
   sections: ContentSection[]
   faqs: ContentFaq[]
   citations?: { label: string; href: string }[]
+  datePublished?: string
+  dateModified?: string
 }
 
 export const productPositioning = {
@@ -1579,6 +1581,29 @@ for (const specialtyGuideSlug of ['research', 'how-to-choose-surgical-loupes', '
         href: '/research/intraoperative-magnification-who-uses-it.pdf',
       },
     ]
+  }
+}
+
+const educationGuidePublicationDates: Record<string, { datePublished: string; dateModified: string }> = {
+  'loupe-magnification-guide': { datePublished: '2026-04-01', dateModified: '2026-05-23' },
+  'galilean-vs-prismatic-loupes': { datePublished: '2026-04-05', dateModified: '2026-05-23' },
+  'ergonomic-loupes-neck-pain': { datePublished: '2026-04-10', dateModified: '2026-05-23' },
+  'working-distance-for-loupes': { datePublished: '2026-04-15', dateModified: '2026-05-23' },
+  'how-to-measure-pupillary-distance': { datePublished: '2026-04-20', dateModified: '2026-05-24' },
+  'best-loupes-for-residents': { datePublished: '2026-04-25', dateModified: '2026-05-23' },
+  'best-loupes-for-dental-students': { datePublished: '2026-04-28', dateModified: '2026-05-23' },
+  'best-loupes-for-plastic-surgery': { datePublished: '2026-05-01', dateModified: '2026-05-23' },
+  'how-to-choose-surgical-loupes': { datePublished: '2026-05-05', dateModified: '2026-05-23' },
+  'prescription-loupes-guide': { datePublished: '2026-05-08', dateModified: '2026-05-23' },
+  research: { datePublished: '2026-05-12', dateModified: '2026-05-23' },
+  'intraoperative-magnification-by-specialty': { datePublished: '2026-05-22', dateModified: '2026-05-23' },
+}
+
+for (const guide of educationGuides) {
+  const dates = educationGuidePublicationDates[guide.slug]
+  if (dates) {
+    guide.datePublished = dates.datePublished
+    guide.dateModified = dates.dateModified
   }
 }
 

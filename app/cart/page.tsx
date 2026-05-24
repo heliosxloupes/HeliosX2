@@ -8,6 +8,7 @@ import { motion } from 'framer-motion'
 import Header from '@/components/Header'
 import { getCart } from '@/lib/cart'
 import type { CartItem } from '@/lib/cart'
+import { cartItemsToGA4Items, trackBeginCheckout, trackViewCart } from '@/lib/analytics'
 import Noise from '@/components/Noise'
 
 const PRESCRIPTION_ESTIMATE = 200 // USD - for cart display
@@ -47,8 +48,14 @@ export default function CartPage() {
   useEffect(() => {
     try {
       const cart = getCart() as CartItem[] | undefined
-      setItems(cart ?? [])
+      const loaded = cart ?? []
+      setItems(loaded)
       setEmail(window.localStorage.getItem('heliosx_customer_email') ?? '')
+
+      if (loaded.length > 0) {
+        const value = loaded.reduce((sum, item) => sum + item.price * item.quantity, 0)
+        trackViewCart(cartItemsToGA4Items(loaded), value)
+      }
     } catch (err) {
       console.error('Error reading cart', err)
       setItems([])
@@ -120,6 +127,8 @@ export default function CartPage() {
       }
       sessionStorage.setItem('heliosx_addons', JSON.stringify(payload))
     }
+
+    trackBeginCheckout(cartItemsToGA4Items(items), subtotal)
 
     router.push('/checkout')
   }

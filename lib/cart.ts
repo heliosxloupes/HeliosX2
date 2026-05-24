@@ -1,3 +1,5 @@
+import { trackAddToCart } from './analytics'
+
 export type CartItem = {
   productSlug: string
   name: string
@@ -67,8 +69,17 @@ export function addToCart(item: CartItem): void {
     // Add new item
     cart.push(item)
   }
-  
+
   saveCart(cart)
+
+  const variant = [item.selectedMagnification, item.selectedFrameName].filter(Boolean).join(' / ')
+  trackAddToCart({
+    itemId: item.productSlug,
+    itemName: item.shortName ?? item.name,
+    price: item.price,
+    quantity: item.quantity,
+    variant: variant || undefined,
+  })
 }
 
 // Update quantity of a cart item

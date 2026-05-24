@@ -7,6 +7,9 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Suspense, useEffect, useState } from 'react'
 
+import { cartItemsToGA4Items, trackPurchase } from '@/lib/analytics'
+import type { CartItem } from '@/lib/cart'
+
 export default function CheckoutSuccessPage() {
   return (
     <Suspense fallback={null}>
@@ -39,7 +42,30 @@ function CheckoutSuccessContent() {
 
       fetch(`/api/orders/lookup?session_id=${sessionId}`)
         .then((response) => response.json())
-        .then((payload) => setOrder(payload?.order ?? null))
+        .then((payload) => {
+          const loadedOrder = payload?.order ?? null
+          setOrder(loadedOrder)
+
+          if (!loadedOrder) return
+          const purchaseKey = `heliosx_purchase_tracked_${sessionId}`
+          if (window.sessionStorage.getItem(purchaseKey) === '1') return
+
+          let items: CartItem[] = []
+          try {
+            items = JSON.parse(window.localStorage.getItem('heliosx_cart') ?? '[]')
+          } catch {
+            items = []
+          }
+
+          trackPurchase({
+            transactionId: String(loadedOrder.id ?? sessionId),
+            value: (loadedOrder.total ?? 0) / 100,
+            currency: String(loadedOrder.currency ?? 'USD').toUpperCase(),
+            items: cartItemsToGA4Items(items),
+          })
+
+          window.sessionStorage.setItem(purchaseKey, '1')
+        })
         .catch(() => setOrder(null))
     }
 

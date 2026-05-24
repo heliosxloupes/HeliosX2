@@ -9,6 +9,7 @@ import Header from '@/components/Header'
 import Noise from '@/components/Noise'
 import ProductReviews from '@/components/ProductReviews'
 import { addToCart } from '@/lib/cart'
+import { trackGenerateLead, trackViewItem } from '@/lib/analytics'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 
 export type FrameId =
@@ -280,6 +281,20 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
     setEmailInput(savedEmail)
   }, [])
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (!isAvailable) return
+    trackViewItem({
+      itemId: config.slug,
+      itemName: `${config.shortName} Surgical Loupes`,
+      price: currentUnitPrice,
+      variant: selectedMag || undefined,
+    })
+    // Fire once per mount; we intentionally don't re-fire on variant
+    // changes because GA4's view_item is page-level, not selection-level.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [config.slug])
+
   const currentFrameConfig =
     frameConfigs.find((frame) => frame.id === selectedFrameId) ?? frameConfigs[0]
   const currentColorConfig =
@@ -305,6 +320,8 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, source }),
     }).catch(() => null)
+
+    trackGenerateLead(`product_${config.slug}_email_capture`)
 
     return email
   }

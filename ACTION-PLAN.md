@@ -18,6 +18,20 @@
 - DONE — P1-5 ItemList helper + emission on SEO landing pages: new `itemListJsonLd` in `lib/seo.ts`, emitted from `app/[seoSlug]/page.tsx` using `recommendedProducts`. Commit `1ae14d5`.
 - CLOSED (false positive) — P0-4 Multiple H1 tags: live curl against every page the audit flagged returns exactly 1 H1 per page. The on-page audit agent was working from WebFetch markdown which strips head and likely misclassified visually-prominent styled spans as additional H1s. The repetitive "X without the guesswork." pattern in those H1s is still real and stays in the P2 batch as documented.
 
+**2026-05-24 — third execution pass (score 74 → 82):**
+
+- DONE — P2 robots: explicit allow-list for GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot, anthropic-ai, Claude-Web, PerplexityBot, Perplexity-User, Google-Extended, Applebot-Extended, CCBot, Bytespider, cohere-ai; resolved the `/measurements/*` wildcard inconsistency. Commit `c3226f8`.
+- DONE — P2 `/heliosx.llm` renamed to `/heliosx.md` so AI ingestors parse it as text/markdown. Commit `c3226f8`.
+- DONE — P2 HowTo schema on `/education/how-to-measure-pupillary-distance`; MedicalWebPage emitted on every `/education/*` and `/<seoSlug>`; Article schema carries default MedicalAudience and inLanguage. Commit `fb3f1e6`.
+- DONE — P2 catalogue prices visible on `/product` cards (priceLabel rendered per product). Commit `11f4ccf`.
+- DONE — P2 internal linking on education pages: new Related guides + Shop by specialty section adds ~12 outbound links per guide. Commit `035fb59`.
+- DONE — P3 schema cleanup: removed broken WebSite.SearchAction, added ImageObject (per diagram), VideoObject (hero video), Course (per guide). Commit `dfecd61`.
+- DONE — P2 H1 dedup: `heroTail` per-page replaces the hardcoded "without the guesswork." second line across 31 SEO landings. Largest remaining on-page drag closed. Commit `43a5a43`.
+- DONE — P2 FAQ depth: universal pool of 7 buying-stage FAQs auto-appended to any landing with fewer than 6 FAQs. Commit `ff8dab1`.
+- DONE — P3 new specialty pages: 5 new SEO landings (`cardiac-surgery-loupes`, `pediatric-surgery-loupes`, `maxillofacial-surgery-loupes`, `ent-otolaryngology-loupes`, `ophthalmic-surgery-loupes`) with full content + FAQs + heroTails, sitemap + llms.txt updated. Commit `cfb3b7f`.
+- CLOSED — P2 logo SVG: deferred until owner supplies a clean vector file.
+- CLOSED — P2 Organization.sameAs social URLs: deferred until owner supplies real social handles.
+
 **2026-05-24 — second execution pass (score 66 → 74):**
 
 - DONE — P0-1 Hero video: compressed both MP4s with ffmpeg (32 MB → 2.75 MB, 91% reduction), extracted poster JPGs, added `preload="metadata"` + `width`/`height` to all `<video>` tags, year-long immutable cache headers on /*.mp4/*.jpg/etc. in vercel.json, plus modern security headers (X-Content-Type-Options, Referrer-Policy, Permissions-Policy) and X-Robots-Tag noindex on cart/checkout/admin. Script lives at `scripts/compress-public-videos.mjs`. Commit `960610f`.

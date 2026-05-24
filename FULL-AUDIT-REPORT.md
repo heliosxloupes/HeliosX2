@@ -7,21 +7,21 @@
 
 > Companion document: [`ACTION-PLAN.md`](./ACTION-PLAN.md) — prioritized P0/P1/P2/P3 task list with effort estimates and file references. See the execution log at the top of that file for completed work.
 
-## Status update (2026-05-24, second pass)
+## Status update (2026-05-24, third pass)
 
-After two execution passes the score moved from **56 → 66 → 74 / 100**. Category-by-category deltas:
+After three execution passes the score moved from **56 → 66 → 74 → 82 / 100**. Category-by-category deltas:
 
-| Category | Initial | After pass 1 | After pass 2 | Reason for pass-2 delta |
-|---|---|---|---|---|
-| Technical SEO | 7 | 8 | 8 | Stable — pass-1 work plus pass-2 security headers and immutable cache on static assets |
-| Content / E-E-A-T | 5 | 5 | 6 | Scotland survey now cited inline (Jarrett 2004) across ~10 pages; Article schema carries `citation` array from per-guide sources |
-| On-Page SEO | 6 | 7 | 8 | Bare-slug 301 redirects fix legacy 404s; dynamic OG images now unique per SEO landing / education guide / measurements page |
-| Schema / Structured Data | 4 | 7 | 8 | `aggregateRating` + `Review` schema now live on every PDP; Article `citation` schema; full Merchant Listing eligibility |
-| Performance / CWV | 5 | 7 | 8 | Hero MP4s compressed 32 MB → 2.75 MB (91%), poster images extracted, preload="metadata", year-long immutable cache on /*.mp4 |
-| AI Search Readiness | 5 | 5 | 7 | Inline citation on cluster pages; citation schema; named-entity reinforcement via reviews |
-| Images | 6 | 8 | 8 | Stable — image-compression pass landed in pass 1 |
+| Category | Initial | Pass 1 | Pass 2 | Pass 3 | Reason for pass-3 delta |
+|---|---|---|---|---|---|
+| Technical SEO | 7 | 8 | 8 | 8 | Stable |
+| Content / E-E-A-T | 5 | 5 | 6 | 7 | FAQ depth raised to 6 per page; 5 new specialty pages add ~120 KB of unique clinical content |
+| On-Page SEO | 6 | 7 | 8 | 9 | H1 cluster fixed — every landing now has a unique heroTail instead of the shared "without the guesswork." line |
+| Schema / Structured Data | 4 | 7 | 8 | 9 | ImageObject, VideoObject, Course, HowTo, MedicalWebPage helpers all emit on relevant routes; broken SearchAction removed |
+| Performance / CWV | 5 | 7 | 8 | 8 | Stable |
+| AI Search Readiness | 5 | 5 | 7 | 9 | Explicit AI-bot allow-list in robots.ts; `/heliosx.md` now served as text; HowTo + Course + MedicalWebPage schema; expanded FAQ depth |
+| Images | 6 | 8 | 8 | 8 | Stable |
 
-Major remaining drag on the score: the H1 cluster pattern ("X without the guesswork." repeats across 7+ SEO landings) and several P2-tier items in the action plan. The 20 MB hero video and the unsourced Scotland stat — the two biggest individual drags from the original audit — are both resolved.
+Items still in the backlog: logo SVG (waiting on owner-supplied vector file), Organization.sameAs (waiting on owner social handles), `/heliosx-vs-*` competitor spec tables (needs verified competitor specs), backlink profile analysis (informational, not implementation).
 
 ---
 

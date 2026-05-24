@@ -65,6 +65,7 @@ export default function EducationGuidePage({ params }: EducationGuideProps) {
             datePublished: guide.datePublished ?? '2026-04-01',
             dateModified: guide.dateModified ?? guide.datePublished ?? '2026-05-23',
             image: diagram?.src,
+            citations: guide.citations,
           }),
           breadcrumbJsonLd([
             { name: 'Home', path: '/' },

@@ -152,6 +152,7 @@ export function articleJsonLd({
   dateModified,
   image,
   author,
+  citations,
 }: {
   title: string
   description: string
@@ -160,6 +161,7 @@ export function articleJsonLd({
   dateModified?: string
   image?: string
   author?: ArticleAuthor
+  citations?: { label: string; href: string }[]
 }) {
   const resolvedAuthor =
     author && author.name
@@ -171,7 +173,7 @@ export function articleJsonLd({
         }
       : { '@type': 'Organization', name: siteName }
 
-  return {
+  const article: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: title,
@@ -190,6 +192,16 @@ export function articleJsonLd({
       },
     },
   }
+
+  if (citations && citations.length > 0) {
+    article.citation = citations.map((citation) => ({
+      '@type': 'CreativeWork',
+      name: citation.label,
+      url: citation.href.startsWith('http') ? citation.href : absoluteUrl(citation.href),
+    }))
+  }
+
+  return article
 }
 
 function parsePriceLabelRange(priceLabel?: string): { low?: number; high?: number } {

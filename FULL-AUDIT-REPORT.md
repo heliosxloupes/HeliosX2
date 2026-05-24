@@ -7,21 +7,21 @@
 
 > Companion document: [`ACTION-PLAN.md`](./ACTION-PLAN.md) — prioritized P0/P1/P2/P3 task list with effort estimates and file references. See the execution log at the top of that file for completed work.
 
-## Status update (2026-05-24)
+## Status update (2026-05-24, second pass)
 
-After the first execution pass, the score moved from **56 → 66 / 100**. Category-by-category deltas:
+After two execution passes the score moved from **56 → 66 → 74 / 100**. Category-by-category deltas:
 
-| Category | Before | After | Reason |
-|---|---|---|---|
-| Technical SEO | 7 | 8 | 404 conflicting robots fixed; canonical inheritance gaps plugged across 6 utility / tokenized routes |
-| Content / E-E-A-T | 5 | 5 | Unchanged — needs named reviewer + reviews |
-| On-Page SEO | 6 | 7 | Metadata coverage now complete across all routes |
-| Schema / Structured Data | 4 | 7 | Product Merchant fields added (AggregateOffer, sku, priceValidUntil, shipping, returns, MedicalAudience); Article date hardcoding fixed; BreadcrumbList + Organization on product pages; ItemList on SEO landings |
-| Performance / CWV | 5 | 7 | 108 PNGs recompressed, public/ down 70% (466 → 141 MB); hero video still pending |
-| AI Search Readiness | 5 | 5 | Unchanged — needs author bylines, inline citations, expanded FAQs |
-| Images | 6 | 8 | Same image-compression pass |
+| Category | Initial | After pass 1 | After pass 2 | Reason for pass-2 delta |
+|---|---|---|---|---|
+| Technical SEO | 7 | 8 | 8 | Stable — pass-1 work plus pass-2 security headers and immutable cache on static assets |
+| Content / E-E-A-T | 5 | 5 | 6 | Scotland survey now cited inline (Jarrett 2004) across ~10 pages; Article schema carries `citation` array from per-guide sources |
+| On-Page SEO | 6 | 7 | 8 | Bare-slug 301 redirects fix legacy 404s; dynamic OG images now unique per SEO landing / education guide / measurements page |
+| Schema / Structured Data | 4 | 7 | 8 | `aggregateRating` + `Review` schema now live on every PDP; Article `citation` schema; full Merchant Listing eligibility |
+| Performance / CWV | 5 | 7 | 8 | Hero MP4s compressed 32 MB → 2.75 MB (91%), poster images extracted, preload="metadata", year-long immutable cache on /*.mp4 |
+| AI Search Readiness | 5 | 5 | 7 | Inline citation on cluster pages; citation schema; named-entity reinforcement via reviews |
+| Images | 6 | 8 | 8 | Stable — image-compression pass landed in pass 1 |
 
-Major remaining drag on the score: content/E-E-A-T (author signals) and the 20 MB hero video — both currently blocked on owner decisions documented in `ACTION-PLAN.md`.
+Major remaining drag on the score: the H1 cluster pattern ("X without the guesswork." repeats across 7+ SEO landings) and several P2-tier items in the action plan. The 20 MB hero video and the unsourced Scotland stat — the two biggest individual drags from the original audit — are both resolved.
 
 ---
 

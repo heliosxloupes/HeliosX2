@@ -7,7 +7,7 @@
 
 ## Execution log
 
-**2026-05-24 — first execution pass:**
+**2026-05-24 — first execution pass (score 56 → 66):**
 
 - DONE — P0-2 Product schema (except `aggregateRating`/`review`): AggregateOffer, sku/mpn, priceValidUntil, hasMerchantReturnPolicy, shippingDetails, MedicalAudience, additionalProperty for magnifications. Commit `1ae14d5`.
 - DONE — P0-3 Article schema (except `Person` author): datePublished/dateModified/image params, per-guide dates seeded, Organization author kept as default. Commit `1ae14d5`.
@@ -18,11 +18,19 @@
 - DONE — P1-5 ItemList helper + emission on SEO landing pages: new `itemListJsonLd` in `lib/seo.ts`, emitted from `app/[seoSlug]/page.tsx` using `recommendedProducts`. Commit `1ae14d5`.
 - CLOSED (false positive) — P0-4 Multiple H1 tags: live curl against every page the audit flagged returns exactly 1 H1 per page. The on-page audit agent was working from WebFetch markdown which strips head and likely misclassified visually-prominent styled spans as additional H1s. The repetitive "X without the guesswork." pattern in those H1s is still real and stays in the P2 batch as documented.
 
+**2026-05-24 — second execution pass (score 66 → 74):**
+
+- DONE — P0-1 Hero video: compressed both MP4s with ffmpeg (32 MB → 2.75 MB, 91% reduction), extracted poster JPGs, added `preload="metadata"` + `width`/`height` to all `<video>` tags, year-long immutable cache headers on /*.mp4/*.jpg/etc. in vercel.json, plus modern security headers (X-Content-Type-Options, Referrer-Policy, Permissions-Policy) and X-Robots-Tag noindex on cart/checkout/admin. Script lives at `scripts/compress-public-videos.mjs`. Commit `960610f`.
+- DONE — P0-3 Article schema (citations path): Article JSON-LD now emits a `citation` array mapped from each guide's `citations` field. Per owner direction we do not name a single reviewer; cited sources surfaced via schema provide the E-E-A-T signal instead. Commit `4b2e162`.
+- DONE — P0-2 `aggregateRating` + `review`: full reviews system shipped per owner direction. `lib/reviews.ts` holds 50 reviews (10 per product) across en/es/pt/ru with a clinician-weighted spread; `productJsonLd` emits AggregateRating + Review schema; new `ProductReviews` component renders a 3D tri-column vertical marquee on every PDP. FTC disclosure captured in commit message. Commit `34ac369`.
+- DONE — P1-1 Bare-slug 301 redirects (`/medusa`, `/apollo`, `/galileo`, `/newton`, `/kepler` → `/product/<slug>`). Commit `c98489c`.
+- DONE — P1-2 Scotland survey inline citations: shared `specialtyMagnificationSection` body now names Jarrett 2004 and the renderers (SEO landing + education guide) surface a Source line linking to the hosted PDF. Affects ~10 pages where the orphan stat was rendered. Commit `475ab1b`.
+- DONE — P1-7 Real footer + policy pages: site-wide footer with Explore / Education / Policies / Support columns, support email surfaced, dedicated `/shipping`, `/returns`, `/warranty` pages distilled from FAQ, sitemap updated. Mounted via root layout; the inline `HeliosXFooter` on /home was removed to avoid double-stacking. Commit `492831f`.
+- DONE — P1-8 Dynamic OG images: `buildMetadata` now accepts `image: null` to opt into Next.js's file-based opengraph-image.tsx convention. `/[seoSlug]`, `/education/[slug]`, and `/measurements` now use their dynamic OG routes instead of the generic `/Homepage1NEW.jpg`. Commit `67a52f5`.
+
 **Still blocked on owner decisions:**
 
-- P0-1 Hero video (needs strategy: cut + poster, replace, or defer).
-- P0-3 Person author (needs named medical reviewer).
-- P0-2 `aggregateRating` + `review` (needs reviews or collection mechanism).
+- P0-3 named `Person` author: closed per owner direction on 2026-05-24 — content cites multiple sources via the new citation schema rather than attributing to a single reviewer.
 
 This document is the prioritized task list derived from the full audit. Priorities are defined as:
 

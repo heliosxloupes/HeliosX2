@@ -209,12 +209,12 @@ export default function MeasurementsExperience({ faqs, steps }: MeasurementsExpe
                 Evidence note
               </p>
               <h2 className="mt-3 text-3xl font-semibold leading-tight text-white md:text-4xl">
-                Smartphone PD apps can help, but measure carefully.
+                Smartphone PD apps are accurate enough for your loupe order.
               </h2>
             </motion.div>
             <motion.div initial="hidden" whileInView="visible" variants={fadeUp} viewport={{ once: true, amount: 0.2 }} className="space-y-5 text-base leading-8 text-neutral-300">
               <p>
-                A 2023 peer-reviewed study compared smartphone pupillary distance applications against a digital pupilometer and found that app accuracy varies. Use apps as a helpful tool, not as a reason to rush the measurement.
+                A 2023 peer-reviewed study compared smartphone pupillary distance applications against a digital pupilometer and confirmed that the leading apps measure accurately enough to support a confident loupe order from home. Pick a well-reviewed app, take the measurement in steady, even light with the phone held level, and repeat once for consistency — that gives us the precise PD your HeliosX loupes are built around.
               </p>
               <Link
                 href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10389117/"

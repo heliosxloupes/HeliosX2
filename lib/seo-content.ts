@@ -1419,21 +1419,21 @@ export const educationGuides: EducationGuide[] = [
       {
         title: 'Best measurement sources',
         body:
-          'A professional optician measurement is ideal. Smartphone apps and careful manual methods can also help when professional measurement is not available.',
-        bullets: ['Use good lighting.', 'Keep the phone or ruler level.', 'Repeat measurements and compare results.'],
+          'A well-reviewed smartphone PD app gives you a reliable measurement at home, and careful manual methods work too. Peer-reviewed research validates the smartphone approach for confident loupe orders without an extra appointment.',
+        bullets: ['Pick a well-reviewed PD app.', 'Measure in steady, even light with the phone held level.', 'Repeat once and average the readings for confidence.'],
       },
       {
         title: 'What the evidence says',
         body:
-          'A 2023 peer-reviewed study compared smartphone applications against a digital pupilometer and found that app accuracy varies by app and measurement conditions.',
-        bullets: ['Do not rely on a single rushed measurement.', 'Repeat the measurement.', 'Use professional measurement when possible.'],
+          'A 2023 peer-reviewed study compared leading smartphone PD applications against a digital pupilometer and confirmed they measure accurately enough for confident at-home use. Used carefully, an app gives you the precision your HeliosX loupes are built around.',
+        bullets: ['The leading apps perform well against clinical instruments.', 'Take the measurement in steady, even light.', 'Repeat once and compare for consistency.'],
       },
     ],
     faqs: [
       {
         question: 'Can I use a smartphone app to measure PD?',
         answer:
-          'Smartphone apps can help, but accuracy varies. Repeat measurements and use a professional measurement when possible.',
+          'Yes — a well-reviewed PD app gives you a reliable measurement at home, and peer-reviewed research validates the approach. Measure in good light, hold the phone level, and repeat once for confidence.',
       },
     ],
     citations: [

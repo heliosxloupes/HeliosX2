@@ -1,4 +1,13 @@
+import type { Metadata } from 'next'
+
 import Header from '@/components/Header'
+import { buildMetadata } from '@/lib/seo'
+
+export const metadata: Metadata = buildMetadata({
+  title: 'Privacy Policy | HeliosX Loupes',
+  description: 'How HeliosX collects, stores, and uses information about customers, orders, and measurements.',
+  path: '/privacy',
+})
 
 export default function PrivacyPage() {
   return (

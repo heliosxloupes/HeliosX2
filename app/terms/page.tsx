@@ -1,4 +1,13 @@
+import type { Metadata } from 'next'
+
 import Header from '@/components/Header'
+import { buildMetadata } from '@/lib/seo'
+
+export const metadata: Metadata = buildMetadata({
+  title: 'Terms of Service | HeliosX Loupes',
+  description: 'HeliosX terms covering custom-fit loupe orders, measurements, refunds, shipping, and support.',
+  path: '/terms',
+})
 
 export default function TermsPage() {
   return (

@@ -5,6 +5,15 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60 * 60 * 24 * 30,
   },
+  async redirects() {
+    return [
+      { source: '/medusa', destination: '/product/medusa', permanent: true },
+      { source: '/apollo', destination: '/product/apollo', permanent: true },
+      { source: '/galileo', destination: '/product/galileo', permanent: true },
+      { source: '/newton', destination: '/product/newton', permanent: true },
+      { source: '/kepler', destination: '/product/kepler', permanent: true },
+    ]
+  },
   webpack: (config, { isServer }) => {
     // Handle Three.js and React Three Fiber
     if (!isServer) {

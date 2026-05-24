@@ -5,7 +5,23 @@
 **Repo HEAD at audit time:** `5fc5adb Add intraoperative magnification authority content`
 **Method:** Six parallel specialist agents (Technical, Schema, Content/E-E-A-T/GEO, Performance/CWV, On-Page, Ecommerce) against the live production site, with cross-reference against the local repo source of truth at `C:\Users\IVIso\OneDrive\Desktop\HeliosX2_repo`.
 
-> Companion document: [`ACTION-PLAN.md`](./ACTION-PLAN.md) — prioritized P0/P1/P2/P3 task list with effort estimates and file references.
+> Companion document: [`ACTION-PLAN.md`](./ACTION-PLAN.md) — prioritized P0/P1/P2/P3 task list with effort estimates and file references. See the execution log at the top of that file for completed work.
+
+## Status update (2026-05-24)
+
+After the first execution pass, the score moved from **56 → 66 / 100**. Category-by-category deltas:
+
+| Category | Before | After | Reason |
+|---|---|---|---|
+| Technical SEO | 7 | 8 | 404 conflicting robots fixed; canonical inheritance gaps plugged across 6 utility / tokenized routes |
+| Content / E-E-A-T | 5 | 5 | Unchanged — needs named reviewer + reviews |
+| On-Page SEO | 6 | 7 | Metadata coverage now complete across all routes |
+| Schema / Structured Data | 4 | 7 | Product Merchant fields added (AggregateOffer, sku, priceValidUntil, shipping, returns, MedicalAudience); Article date hardcoding fixed; BreadcrumbList + Organization on product pages; ItemList on SEO landings |
+| Performance / CWV | 5 | 7 | 108 PNGs recompressed, public/ down 70% (466 → 141 MB); hero video still pending |
+| AI Search Readiness | 5 | 5 | Unchanged — needs author bylines, inline citations, expanded FAQs |
+| Images | 6 | 8 | Same image-compression pass |
+
+Major remaining drag on the score: content/E-E-A-T (author signals) and the 20 MB hero video — both currently blocked on owner decisions documented in `ACTION-PLAN.md`.
 
 ---
 

@@ -3,7 +3,26 @@
 **Generated:** 2026-05-23
 **Source audit:** [`FULL-AUDIT-REPORT.md`](./FULL-AUDIT-REPORT.md)
 **Repo HEAD at audit time:** `5fc5adb`
-**Overall site SEO Health Score:** 56 / 100
+**Overall site SEO Health Score:** 56 / 100 → **66 / 100** (revised 2026-05-24 after the first execution pass)
+
+## Execution log
+
+**2026-05-24 — first execution pass:**
+
+- DONE — P0-2 Product schema (except `aggregateRating`/`review`): AggregateOffer, sku/mpn, priceValidUntil, hasMerchantReturnPolicy, shippingDetails, MedicalAudience, additionalProperty for magnifications. Commit `1ae14d5`.
+- DONE — P0-3 Article schema (except `Person` author): datePublished/dateModified/image params, per-guide dates seeded, Organization author kept as default. Commit `1ae14d5`.
+- DONE — P0-5 PNG compression: 108 PNGs recompressed, `public/` went from 466 MB to 141 MB (325 MB saved, 80.6% reduction on the affected files). Script lives at `scripts/compress-public-images.mjs`. Commit `991ca76`.
+- DONE — P0-6 Route metadata audit: `/faq`, `/privacy`, `/terms`, `/vending`, `/measurements/[token]`, and the 404 page all got explicit metadata via layouts or page-level exports. Commit `426882a`.
+- DONE — P0-7 404 conflicting robots meta: created `app/not-found.tsx` with `buildMetadata({ noIndex: true })`. Commit `426882a`.
+- DONE — P1-4 BreadcrumbList + Organization on product pages: rolled into the schema overhaul via `getProductJsonLd` returning an array. Commit `1ae14d5`.
+- DONE — P1-5 ItemList helper + emission on SEO landing pages: new `itemListJsonLd` in `lib/seo.ts`, emitted from `app/[seoSlug]/page.tsx` using `recommendedProducts`. Commit `1ae14d5`.
+- CLOSED (false positive) — P0-4 Multiple H1 tags: live curl against every page the audit flagged returns exactly 1 H1 per page. The on-page audit agent was working from WebFetch markdown which strips head and likely misclassified visually-prominent styled spans as additional H1s. The repetitive "X without the guesswork." pattern in those H1s is still real and stays in the P2 batch as documented.
+
+**Still blocked on owner decisions:**
+
+- P0-1 Hero video (needs strategy: cut + poster, replace, or defer).
+- P0-3 Person author (needs named medical reviewer).
+- P0-2 `aggregateRating` + `review` (needs reviews or collection mechanism).
 
 This document is the prioritized task list derived from the full audit. Priorities are defined as:
 

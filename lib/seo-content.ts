@@ -2,6 +2,8 @@ export type ContentSection = {
   title: string
   body: string
   bullets: string[]
+  sourceLabel?: string
+  sourceHref?: string
 }
 
 export type ContentFaq = {
@@ -81,12 +83,15 @@ const valueSection: ContentSection = {
 const specialtyMagnificationSection: ContentSection = {
   title: 'Magnification changes by specialty',
   body:
-    'A survey of surgeons in the west of Scotland found clear specialty patterns in intraoperative magnification use. Plastic, maxillofacial, ophthalmic, and otolaryngology surgeons reported frequent use of magnification, cardiothoracic and pediatric surgeons leaned heavily on loupes, and neurosurgery was more microscope-centered.',
+    'A 2004 peer-reviewed survey of 148 specialists and senior trainees in the west of Scotland (Jarrett, Microsurgery 2004) found clear specialty patterns in intraoperative magnification use. Plastic, maxillofacial, ophthalmic, and otolaryngology surgeons reported frequent use of magnification, cardiothoracic and pediatric surgeons leaned heavily on loupes, and neurosurgery was more microscope-centered.',
   bullets: [
     'Loupes are a practical choice when the work benefits from magnification without microscope setup.',
     'Microscopes remain important for very high magnification and the smallest operative structures.',
     'The useful question is specialty plus procedure: what detail, posture, setup time, and field size does the case require?',
   ],
+  sourceLabel:
+    'Jarrett PM. Intraoperative magnification: who uses it? Microsurgery. 2004;24:420–422.',
+  sourceHref: '/research/intraoperative-magnification-who-uses-it.pdf',
 }
 
 export const allSeoLandingPages: SeoLandingPage[] = [

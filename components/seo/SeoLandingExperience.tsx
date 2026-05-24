@@ -268,6 +268,21 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
                 </div>
                 <div className="space-y-6">
                   <p className="text-base leading-8 text-neutral-300">{section.body}</p>
+                  {section.sourceHref && section.sourceLabel ? (
+                    <p className="text-xs leading-6 text-neutral-400">
+                      <span className="font-semibold uppercase tracking-[0.18em] text-emerald-200/80">
+                        Source:{' '}
+                      </span>
+                      <Link
+                        href={section.sourceHref}
+                        target={section.sourceHref.startsWith('http') ? '_blank' : undefined}
+                        rel={section.sourceHref.startsWith('http') ? 'noreferrer' : undefined}
+                        className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white"
+                      >
+                        {section.sourceLabel}
+                      </Link>
+                    </p>
+                  ) : null}
                   <div className="grid gap-3 sm:grid-cols-3">
                     {section.bullets.map((bullet) => (
                       <div key={bullet} className="border-t border-white/10 pt-4 text-sm leading-6 text-neutral-300">

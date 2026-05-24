@@ -118,14 +118,14 @@ function StepCard({ step, index }: { step: OrderingStep; index: number }) {
         }}
       />
 
-      {/* Watermark step number — sized to read as a subtle backdrop, not a billboard */}
+      {/* Watermark step number */}
       <motion.span
         aria-hidden="true"
-        initial={{ opacity: 0, scale: 0.96 }}
+        initial={{ opacity: 0, scale: 0.92 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, amount: 0.4 }}
         transition={{ duration: 1, delay: 0.15 * index, ease: [0.16, 1, 0.3, 1] }}
-        className={`pointer-events-none absolute right-5 top-5 select-none text-[3.25rem] font-bold leading-none tracking-tight ${step.accent.text} opacity-[0.09] md:right-6 md:top-6 md:text-[3.75rem]`}
+        className={`pointer-events-none absolute -right-2 -top-4 select-none text-[4rem] font-bold leading-none tracking-tight ${step.accent.text} opacity-[0.08] md:text-[5rem]`}
       >
         {step.number}
       </motion.span>

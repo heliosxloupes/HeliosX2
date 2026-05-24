@@ -412,6 +412,13 @@ export type ProductReviewInput = {
   language?: string
 }
 
+export type ProductSpecInput = {
+  name: string
+  value: string
+  unitCode?: string
+  unitText?: string
+}
+
 export function productJsonLd(product: {
   name: string
   description: string
@@ -423,6 +430,7 @@ export function productJsonLd(product: {
   audience?: string
   aggregateRating?: { ratingValue: number; reviewCount: number }
   reviews?: ProductReviewInput[]
+  additionalSpecs?: ProductSpecInput[]
 }) {
   const productUrl = absoluteUrl(`/product/${product.slug}`)
   const sku = `heliosx-${product.slug}`
@@ -490,12 +498,32 @@ export function productJsonLd(product: {
     }
   }
 
+  const additionalProperty: Record<string, unknown>[] = []
+
   if (product.magnifications && product.magnifications.length > 0) {
-    productNode.additionalProperty = product.magnifications.map((mag) => ({
-      '@type': 'PropertyValue',
-      name: 'Magnification',
-      value: mag,
-    }))
+    for (const mag of product.magnifications) {
+      additionalProperty.push({
+        '@type': 'PropertyValue',
+        name: 'Magnification',
+        value: mag,
+      })
+    }
+  }
+
+  if (product.additionalSpecs && product.additionalSpecs.length > 0) {
+    for (const spec of product.additionalSpecs) {
+      additionalProperty.push({
+        '@type': 'PropertyValue',
+        name: spec.name,
+        value: spec.value,
+        ...(spec.unitCode ? { unitCode: spec.unitCode } : {}),
+        ...(spec.unitText ? { unitText: spec.unitText } : {}),
+      })
+    }
+  }
+
+  if (additionalProperty.length > 0) {
+    productNode.additionalProperty = additionalProperty
   }
 
   if (product.aggregateRating && product.aggregateRating.reviewCount > 0) {

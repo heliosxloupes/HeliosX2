@@ -199,7 +199,7 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
                       animate={{ y: '0%' }}
                       transition={{ duration: 0.78, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
                     >
-                      without the guesswork.
+                      {page.heroTail ?? 'built around real clinical work.'}
                     </motion.span>
                   </span>
                 </h1>

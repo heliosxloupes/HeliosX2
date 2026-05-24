@@ -31,6 +31,7 @@ export type SeoLandingPage = {
     other: string
   }[]
   verdict?: string
+  heroTail?: string
 }
 
 export type EducationGuide = {
@@ -1586,6 +1587,55 @@ for (const specialtyGuideSlug of ['research', 'how-to-choose-surgical-loupes', '
         href: '/research/intraoperative-magnification-who-uses-it.pdf',
       },
     ]
+  }
+}
+
+// Per-page hero tails replace the audit-flagged 'without the guesswork.'
+// suffix that was hardcoded as the second H1 line across 30+ pages.
+// Each tail is 3-6 words, intent-specific, and on brand voice.
+const seoLandingHeroTails: Record<string, string> = {
+  // Category landings
+  'surgical-loupes': 'built around posture.',
+  'dental-loupes': 'for daily clinical work.',
+  'prismatic-loupes': 'posture-forward optics.',
+  'ergonomic-loupes': 'designed around how you work.',
+  'affordable-loupes': 'honestly priced.',
+  'cheap-loupes': 'without feeling disposable.',
+  'best-loupes': 'shortlist by use case.',
+
+  // Audience landings
+  'loupes-for-residents': 'on a trainee budget.',
+  'loupes-for-medical-students': 'for the long road of training.',
+  'loupes-for-dental-students': 'from preclinic forward.',
+  'loupes-for-hygienists': 'light enough for a full shift.',
+  'loupes-for-plastic-surgery': 'for aesthetic and reconstructive work.',
+  'loupes-for-microsurgery': 'high magnification you can wear.',
+
+  // Comparison and alternatives
+  'loupe-comparisons': 'every comparison, one place.',
+  'heliosx-vs-lumadent': 'compared head to head.',
+  'heliosx-vs-orascoptic': 'the honest comparison.',
+  'heliosx-vs-surgitel': 'side by side.',
+  'heliosx-vs-q-optics': 'every spec that matters.',
+  'heliosx-vs-examvision': 'point by point.',
+  'heliosx-vs-admetec': 'the practical comparison.',
+  'orascoptic-alternatives': 'ranked by clinical fit.',
+  'lumadent-alternatives': 'with honest pricing.',
+  'surgitel-alternatives': 'vetted for clinicians.',
+  'q-optics-alternatives': 'without the markup.',
+  'examvision-alternatives': 'for working surgeons.',
+  'admetec-alternatives': 'with custom fit.',
+  'best-dental-loupe-brands': 'worth knowing this year.',
+  'best-surgical-loupe-brands': 'that actually deliver.',
+  'student-loupe-comparison': 'compared without the upsell.',
+  'ergonomic-loupe-comparison': 'head to head.',
+  'prismatic-loupe-comparison': 'on the specs that matter.',
+}
+
+for (const page of allSeoLandingPages) {
+  const tail = seoLandingHeroTails[page.slug]
+  if (tail) {
+    page.heroTail = tail
   }
 }
 

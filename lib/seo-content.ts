@@ -68,7 +68,7 @@ const postureSection: ContentSection = {
 const valueSection: ContentSection = {
   title: 'Affordable without feeling cheap',
   body:
-    'HeliosX should rank for price-conscious searches while teaching buyers to avoid disposable low-quality loupes. The message is affordable premium: fair pricing, clear specs, and real support.',
+    'A lower price should not force clinicians into vague specs, weak fit support, or disposable optics. HeliosX is built around affordable premium value: clear model roles, fair pricing, and guidance before production begins.',
   bullets: [
     'Transparent product roles and price ranges.',
     'Measurement guidance for pupillary distance and working distance.',
@@ -172,7 +172,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'Are Medusa and Apollo prismatic loupes?',
         answer:
-          'Yes. Medusa and Apollo should be positioned as ergonomic prismatic HeliosX loupe systems. Medusa also adds adjustable working distance.',
+          'Yes. Medusa and Apollo are ergonomic prismatic HeliosX loupe systems. Medusa also adds adjustable working distance.',
       },
       {
         question: 'Who should choose prismatic loupes?',
@@ -349,19 +349,19 @@ allSeoLandingPages.push(...audiencePages)
 
 const comparisonHubSections: ContentSection[] = [
   {
-    title: 'Compare by buying problem',
+    title: 'Start with the clinical decision',
     body:
-      'The best comparison page does not just name two brands. It helps the buyer decide whether they care most about posture, price clarity, student access, dental workflows, magnification, or support.',
+      'The right loupe comparison starts with how you work. Before choosing a brand, decide whether your priority is posture, magnification, price clarity, student access, dental repetition, surgical precision, or long-term support.',
     bullets: [
-      'Use HeliosX vs competitor pages when you already have a brand shortlist.',
-      'Use alternatives pages when you know the incumbent brand but want a different value path.',
-      'Use the education guides when you still need to learn magnification, working distance, or prismatic optics.',
+      'If you already have a shortlist, compare the brands by fit, optics, warranty, and total value.',
+      'If you know an incumbent brand, compare alternatives by the exact problem you are trying to solve.',
+      'If you are still learning, start with magnification, working distance, and prismatic optics before comparing models.',
     ],
   },
   {
-    title: 'How HeliosX should show up',
+    title: 'A clearer HeliosX path',
     body:
-      'HeliosX should be the challenger with a strong value story, clear ergonomic prismatic positioning, and a resource library that explains the buying decision before checkout.',
+      'HeliosX gives buyers a simple way through the loupe decision: ergonomic prismatic systems for posture, accessible systems for students and daily clinical work, and high-magnification options for advanced detail.',
     bullets: [
       'Medusa and Apollo anchor the ergonomic prismatic lane.',
       'Galileo and Newton anchor the affordable student and daily-use lane.',
@@ -437,9 +437,9 @@ const competitorPages: SeoLandingPage[] = [
         bullets: ['Clear dental audience language.', 'Recognizable loupes and light ecosystem.', 'Frequent product and support content.'],
       },
       {
-        title: 'Where HeliosX should win',
+        title: 'Where HeliosX is different',
         body:
-          'HeliosX should win buyers who want a more transparent, resident-friendly, surgery-aware path with ergonomic prismatic options and practical measurement education.',
+          'HeliosX is built for buyers who want a more transparent, resident-friendly, surgery-aware path with ergonomic prismatic options and practical measurement education.',
         bullets: ['Medusa: ergonomic prismatic with adjustable working distance.', 'Apollo: ergonomic prismatic clarity.', 'Education pages explain the buying decision before checkout.'],
       },
       valueSection,
@@ -491,9 +491,9 @@ const competitorPages: SeoLandingPage[] = [
         bullets: ['Strong authority footprint.', 'Deep product-family awareness.', 'Familiarity among schools and clinicians.'],
       },
       {
-        title: 'Where HeliosX should win',
+        title: 'Where HeliosX is different',
         body:
-          'HeliosX should win buyers who feel legacy loupe pricing and buying flows are too opaque. The site should make every major decision visible: model, posture, measurement, and value.',
+          'HeliosX makes the major buying variables visible before checkout: model role, posture, working distance, measurement support, and total value.',
         bullets: ['Clear affordable premium positioning.', 'Direct Medusa/Apollo ergonomic prismatic positioning.', 'Modern resource library and AI-readable structure.'],
       },
       postureSection,
@@ -503,7 +503,7 @@ const competitorPages: SeoLandingPage[] = [
       { feature: 'Brand profile', heliosx: 'Challenger brand focused on access and fair pricing', other: 'Established incumbent with broad authority' },
       { feature: 'Audience focus', heliosx: 'Surgeons, dentists, residents, students, hygienists', other: 'Surgical, dental, hygiene, students, distributors' },
       { feature: 'Product clarity', heliosx: 'Five model paths with clear use cases', other: 'Large product family with mature support ecosystem' },
-      { feature: 'Education strategy', heliosx: 'SEO resource library, measurements, and research pages', other: 'Brand, support, product documents, and blog resources' },
+      { feature: 'Education', heliosx: 'Measurement, optics, comparison, and research resources built into the buying path', other: 'Brand, support, product documents, and blog resources' },
     ],
     verdict:
       'Choose HeliosX if transparent value, resident-friendly access, and ergonomic prismatic options matter most. Compare Orascoptic if you prefer an older incumbent with a large product and support footprint.',
@@ -559,7 +559,7 @@ const competitorPages: SeoLandingPage[] = [
       { feature: 'Posture path', heliosx: 'Medusa and Apollo ergonomic prismatic systems', other: 'Established ergonomic and magnification options' },
     ],
     verdict:
-      'HeliosX is a compelling Orascoptic alternative for buyers who want a clearer price-to-performance story and a modern SEO-rich resource library before they buy.',
+      'HeliosX is a compelling Orascoptic alternative for buyers who want a clearer price-to-performance story and a modern resource library before they buy.',
     faqs: [
       {
         question: 'What is a good Orascoptic alternative for residents?',
@@ -630,7 +630,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
     relatedKeywords: ['SurgiTel alternatives', 'ergonomic loupes comparison', 'dental surgical loupes'],
     audience: 'buyers comparing HeliosX with SurgiTel for ergonomic surgical or dental loupes',
     intro:
-      'SurgiTel is known for ergonomic and posture-focused messaging. HeliosX should compete by pairing ergonomic prismatic Medusa and Apollo systems with transparent value and a simpler education-led buying path.',
+      'SurgiTel is known for ergonomic and posture-focused messaging. HeliosX enters that conversation with ergonomic prismatic Medusa and Apollo systems, transparent value, and a simpler education-led buying path.',
     proofPoints: ['Medusa and Apollo define the HeliosX ergonomic prismatic lane.', 'Measurements and working distance education support posture decisions.', 'Affordable premium positioning helps students and residents compare value.'],
     sections: [
       {
@@ -640,7 +640,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
         bullets: ['Posture and ergonomics language.', 'Dental and surgical audience coverage.', 'Support and evaluation-oriented calls to action.'],
       },
       {
-        title: 'Where HeliosX should win',
+        title: 'Where HeliosX is different',
         body:
           'HeliosX can win buyers who want ergonomic prismatic options with clearer model roles, measurement education, and a fair-pricing story.',
         bullets: ['Medusa for adjustable ergonomic prismatic work.', 'Apollo for ergonomic prismatic precision.', 'Education pages for working distance and neck strain.'],
@@ -674,7 +674,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
     relatedKeywords: ['Q-Optics alternatives', 'prismatic loupes comparison', 'lightweight dental loupes'],
     audience: 'buyers comparing HeliosX with Q-Optics for prismatic, lightweight, dental, or surgical loupes',
     intro:
-      'Q-Optics is strong on product specs, lightweight construction, prismatic positioning, support resources, and documents. HeliosX should compete by making value, measurement, and model selection easier to understand.',
+      'Q-Optics is strong on product specs, lightweight construction, prismatic positioning, support resources, and documents. HeliosX makes value, measurement, and model selection easier to understand in plain language.',
     proofPoints: ['HeliosX has ergonomic prismatic Medusa and Apollo options.', 'Galileo and Newton create lightweight affordable entry paths.', 'Education pages explain fit variables before purchase.'],
     sections: [
       {
@@ -684,7 +684,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
         bullets: ['Prismatic and Galilean product structure.', 'Support and datasheet resources.', 'Lightweight product messaging.'],
       },
       {
-        title: 'Where HeliosX should win',
+        title: 'Where HeliosX is different',
         body:
           'HeliosX can win buyers who want product choice explained in plain language and tied directly to budget, posture, and working distance.',
         bullets: ['Clear product model map.', 'Public measurement guide.', 'Affordable premium narrative.'],
@@ -728,7 +728,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
         bullets: ['Custom-crafted positioning.', 'Dental, surgical, and student audience paths.', 'Premium brand and warranty/support messaging.'],
       },
       {
-        title: 'Where HeliosX should win',
+        title: 'Where HeliosX is different',
         body:
           'HeliosX can win buyers who want premium-feeling product guidance without losing the fair-pricing and access story.',
         bullets: ['Transparent affordable-premium message.', 'Clear product tiers.', 'Measurement content that makes custom fit understandable.'],
@@ -762,7 +762,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
     relatedKeywords: ['Admetec alternatives', 'ergonomic prismatic loupes', 'adjustable loupes'],
     audience: 'buyers comparing HeliosX with Admetec ergonomic and prismatic loupes',
     intro:
-      'Admetec is associated with innovation, ergonomic prismatic optics, and adjustable loupe concepts. HeliosX should compete by making ergonomic prismatic choices easier to understand and easier to access.',
+      'Admetec is associated with innovation, ergonomic prismatic optics, and adjustable loupe concepts. HeliosX makes ergonomic prismatic choices easier to understand and easier to access.',
     proofPoints: ['Medusa provides adjustable working distance in the HeliosX lineup.', 'Apollo gives a focused ergonomic prismatic path.', 'Education pages explain working distance, magnification, and posture.'],
     sections: [
       {
@@ -772,7 +772,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
         bullets: ['Innovation-forward brand story.', 'Ergonomic prismatic positioning.', 'Advanced loupe and magnification language.'],
       },
       {
-        title: 'Where HeliosX should win',
+        title: 'Where HeliosX is different',
         body:
           'HeliosX can win buyers who want the ergonomic-prismatic idea explained in practical terms and tied to transparent product paths.',
         bullets: ['Medusa: adjustable working distance.', 'Apollo: ergonomic prismatic clarity.', 'Educational guides for fit and measurements.'],
@@ -885,13 +885,13 @@ const authorityComparisonPages: SeoLandingPage[] = [
         ],
       },
       {
-        title: 'How the major brands show up',
+        title: 'How the major brands differ',
         body:
-          'LumaDent is visible in dental ecommerce and hygienist searches. Orascoptic has broad category authority. Q-Optics is specs-forward and lightweight. SurgiTel owns a posture narrative. HeliosX should combine those buying concerns into a clearer affordable-premium path.',
+          'LumaDent is visible in dental ecommerce and hygienist searches. Orascoptic has broad category authority. Q-Optics is specs-forward and lightweight. SurgiTel is known for posture language. HeliosX brings those buying concerns into a clearer affordable-premium path.',
         bullets: [
-          'Use HeliosX Medusa or Apollo when ergonomic prismatic posture is the priority.',
-          'Use Galileo or Newton when affordability and daily comfort are the priority.',
-          'Use the measurement guide before committing to a working distance.',
+          'Choose Medusa or Apollo when ergonomic prismatic posture is the priority.',
+          'Choose Galileo or Newton when affordability and daily comfort are the priority.',
+          'Review the measurement guide before committing to a working distance.',
         ],
       },
       valueSection,
@@ -949,7 +949,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         title: 'Where HeliosX fits',
         body:
-          'HeliosX should compete as the modern surgical challenger: clear model roles, fair pricing, ergonomic prismatic Medusa and Apollo systems, and Kepler for high-magnification surgical use cases.',
+          'HeliosX gives surgical buyers a modern comparison point: clear model roles, fair pricing, ergonomic prismatic Medusa and Apollo systems, and Kepler for high-magnification surgical use cases.',
         bullets: [
           'Medusa: ergonomic prismatic with adjustable working distance.',
           'Apollo: ergonomic prismatic surgical and dental clarity.',
@@ -966,7 +966,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       { feature: 'Education', heliosx: 'Measurement and optics guides are built into the site architecture', other: 'Support resources may be distributed across docs, reps, and blogs' },
     ],
     verdict:
-      'HeliosX should rank in best surgical loupe brand searches by making the surgical buying decision clearer: model, posture, measurements, magnification, and value.',
+      'HeliosX belongs in best surgical loupe brand comparisons because it makes the buying decision clearer: model, posture, measurements, magnification, and value.',
     faqs: [
       {
         question: 'Which surgical loupe brands should residents compare?',
@@ -1027,7 +1027,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       { feature: 'Measurement support', heliosx: 'Public PD and working-distance education', other: 'Support may depend on rep, dealer, or office visit' },
     ],
     verdict:
-      'HeliosX should compete hard for student loupe searches by pairing affordability with a serious education layer and a credible prismatic upgrade path.',
+      'HeliosX is built for student buyers who need affordability now and a credible prismatic upgrade path as their clinical workload becomes more demanding.',
     faqs: [
       {
         question: 'What magnification should students start with?',
@@ -1088,7 +1088,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       { feature: 'Responsible claims', heliosx: 'Education-first posture support without cure claims', other: 'Brand claims should be reviewed carefully' },
     ],
     verdict:
-      'HeliosX should own ergonomic loupe comparison by making posture measurable: working distance, prismatic category, fit variables, and clear product roles.',
+      'HeliosX makes ergonomic loupe comparison practical by tying posture to measurable fit variables: working distance, prismatic category, model role, and daily workflow.',
     faqs: [
       {
         question: 'Which HeliosX loupes are ergonomic prismatic?',
@@ -1148,7 +1148,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       { feature: 'Education path', heliosx: 'Galilean vs prismatic, magnification, and measurement guides', other: 'Education depth varies by site' },
     ],
     verdict:
-      'HeliosX should rank for prismatic loupe comparison by owning the simple message: Medusa and Apollo are ergonomic prismatic, Medusa is adjustable, and fit measurements decide comfort.',
+      'HeliosX keeps the prismatic loupe decision simple: Medusa and Apollo are ergonomic prismatic systems, Medusa adds adjustable working distance, and accurate fit measurements drive comfort.',
     faqs: [
       {
         question: 'Are Medusa and Apollo prismatic loupes?',
@@ -1339,9 +1339,9 @@ export const educationGuides: EducationGuide[] = [
     sections: [
       postureSection,
       {
-        title: 'No miracle claims',
+        title: 'Responsible posture guidance',
         body:
-          'HeliosX should talk about posture responsibly. A product can support better positioning, but symptoms belong with qualified health professionals.',
+          'Ergonomic loupes can support better positioning, but they are not medical treatment. Persistent neck, shoulder, or back symptoms belong with qualified health professionals.',
         bullets: ['Avoid cure claims.', 'Explain fit variables.', 'Connect users to measurement guidance.'],
       },
     ],

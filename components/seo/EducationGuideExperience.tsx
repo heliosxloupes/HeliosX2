@@ -1,0 +1,234 @@
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { motion, useScroll, useSpring } from 'framer-motion'
+
+import Header from '@/components/Header'
+import { LenisProvider } from '@/components/lenis-provider'
+import type { EducationGuide } from '@/lib/seo-content'
+
+type Diagram = {
+  src: string
+  alt: string
+} | null
+
+type EducationGuideExperienceProps = {
+  guide: EducationGuide
+  diagram: Diagram
+}
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+}
+
+const stagger = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
+    },
+  },
+}
+
+function ScrollProgressBar() {
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  })
+
+  return (
+    <motion.div
+      className="fixed left-0 right-0 top-0 z-[200] h-[1.5px] origin-left pointer-events-none"
+      style={{
+        scaleX,
+        background:
+          'linear-gradient(90deg, rgba(52,211,153,0.92), rgba(125,211,252,0.92), rgba(52,211,153,0.72))',
+      }}
+    />
+  )
+}
+
+function getGuideImage(slug: string) {
+  if (slug.includes('pupillary') || slug.includes('working-distance') || slug.includes('prescription')) {
+    return {
+      src: '/working distance.png',
+      alt: 'HeliosX loupe measurement setup',
+    }
+  }
+
+  if (slug.includes('prismatic') || slug.includes('ergonomic')) {
+    return {
+      src: '/Medusa/MedusaStudioCloseup.png',
+      alt: 'Close view of HeliosX ergonomic prismatic loupes',
+    }
+  }
+
+  if (slug.includes('student') || slug.includes('resident')) {
+    return {
+      src: '/Galileo/Homepage1.png',
+      alt: 'HeliosX loupes for clinical training',
+    }
+  }
+
+  return {
+    src: '/Apollo/Apollo3xFemale2.png',
+    alt: 'Clinician wearing HeliosX loupes',
+  }
+}
+
+export default function EducationGuideExperience({ guide, diagram }: EducationGuideExperienceProps) {
+  const hero = getGuideImage(guide.slug)
+
+  return (
+    <LenisProvider>
+      <ScrollProgressBar />
+      <Header />
+      <main className="min-h-screen bg-black text-neutral-100">
+        <section className="relative min-h-[86svh] overflow-hidden">
+          <Image src={hero.src} alt={hero.alt} fill priority className="object-cover" />
+          <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(0,0,0,0.92)_10%,rgba(0,0,0,0.66)_46%,rgba(0,0,0,0.22)_76%,rgba(0,0,0,0.82)_100%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black via-black/72 to-transparent" />
+
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={stagger}
+            className="relative z-10 flex min-h-[86svh] flex-col justify-end px-5 pb-10 pt-28 md:px-12 md:pb-14"
+          >
+            <div className="max-w-4xl space-y-6">
+              <motion.div variants={fadeUp}>
+                <Link href="/education" className="text-sm font-semibold text-emerald-200 hover:text-white">
+                  Back to education
+                </Link>
+              </motion.div>
+              <motion.p variants={fadeUp} className="inline-flex rounded-full border border-white/15 bg-white/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-neutral-200 backdrop-blur-md">
+                {guide.kicker}
+              </motion.p>
+              <h1 className="text-[clamp(3rem,7vw,6.5rem)] font-bold leading-[0.95] text-white">
+                <span className="block overflow-hidden">
+                  <motion.span
+                    className="block"
+                    initial={{ y: '108%' }}
+                    animate={{ y: '0%' }}
+                    transition={{ duration: 0.78, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {guide.title}
+                  </motion.span>
+                </span>
+              </h1>
+              <motion.p variants={fadeUp} className="max-w-2xl text-sm leading-7 text-neutral-200 md:text-base md:leading-8">
+                {guide.intro}
+              </motion.p>
+              <motion.p variants={fadeUp} className="max-w-xl border-l border-emerald-300/60 pl-4 text-sm leading-6 text-neutral-300">
+                Built for {guide.audience}.
+              </motion.p>
+            </div>
+          </motion.div>
+        </section>
+
+        {diagram ? (
+          <section className="px-5 py-16 md:px-12 md:py-24">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={fadeUp}
+              viewport={{ once: true, amount: 0.22 }}
+              className="mx-auto max-w-6xl overflow-hidden border-y border-white/10 py-8"
+            >
+              <Image
+                src={diagram.src}
+                alt={diagram.alt}
+                width={1200}
+                height={760}
+                className="h-auto w-full"
+                priority
+              />
+            </motion.div>
+          </section>
+        ) : null}
+
+        <section className="px-5 py-16 md:px-12 md:py-24">
+          <div className="mx-auto max-w-6xl space-y-12">
+            {guide.sections.map((section, index) => (
+              <motion.section
+                key={section.title}
+                initial="hidden"
+                whileInView="visible"
+                variants={fadeUp}
+                viewport={{ once: true, amount: 0.26 }}
+                transition={{ duration: 0.58, ease: [0.16, 1, 0.3, 1] }}
+                className="grid gap-8 border-t border-white/10 pt-8 lg:grid-cols-[0.34fr,0.66fr]"
+              >
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
+                    {String(index + 1).padStart(2, '0')}
+                  </p>
+                  <h2 className="mt-3 text-3xl font-semibold leading-tight text-white md:text-4xl">
+                    {section.title}
+                  </h2>
+                </div>
+                <div className="space-y-6">
+                  <p className="text-base leading-8 text-neutral-300">{section.body}</p>
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    {section.bullets.map((bullet) => (
+                      <div key={bullet} className="border-t border-white/10 pt-4 text-sm leading-6 text-neutral-300">
+                        {bullet}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.section>
+            ))}
+          </div>
+        </section>
+
+        {guide.citations?.length ? (
+          <section className="border-y border-white/10 bg-neutral-950/70 px-5 py-14 md:px-12">
+            <div className="mx-auto max-w-6xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
+                References
+              </p>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                {guide.citations.map((citation) => (
+                  <Link
+                    key={citation.href}
+                    href={citation.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="border-t border-white/10 py-4 text-sm font-semibold text-emerald-200 transition hover:text-white"
+                  >
+                    {citation.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        <section className="px-5 py-16 md:px-12 md:py-24">
+          <div className="mx-auto max-w-4xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
+              Questions
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">Quick answers</h2>
+            <div className="mt-7 divide-y divide-white/10 border-y border-white/10">
+              {guide.faqs.map((faq) => (
+                <details key={faq.question} className="group py-5">
+                  <summary className="cursor-pointer list-none text-base font-semibold text-white transition group-open:text-emerald-200">
+                    {faq.question}
+                  </summary>
+                  <p className="mt-3 text-sm leading-7 text-neutral-300">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+    </LenisProvider>
+  )
+}

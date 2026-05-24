@@ -2,7 +2,9 @@
 
 import Header from '@/components/Header'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import Image from 'next/image'
+import { motion, useScroll, useSpring } from 'framer-motion'
+import { LenisProvider } from '@/components/lenis-provider'
 import { CardBody, CardContainer, CardItem } from '@/components/ui/3d-card'
 import { educationGuides } from '@/lib/seo-content'
 
@@ -120,40 +122,72 @@ const articles: Article[] = [
   },
 ]
 
+function ScrollProgressBar() {
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  })
+
+  return (
+    <motion.div
+      className="fixed left-0 right-0 top-0 z-[200] h-[1.5px] origin-left pointer-events-none"
+      style={{
+        scaleX,
+        background:
+          'linear-gradient(90deg, rgba(52,211,153,0.92), rgba(125,211,252,0.92), rgba(52,211,153,0.72))',
+      }}
+    />
+  )
+}
+
 export default function EducationPage() {
   return (
-    <>
+    <LenisProvider>
+      <ScrollProgressBar />
       <Header />
-      <main className="pt-24 min-h-screen bg-black text-neutral-100">
+      <main className="min-h-screen bg-black text-neutral-100">
         {/* HERO / INTRO */}
-        <section className="relative overflow-hidden border-b border-neutral-800">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(56,189,248,0.18),_transparent_60%)] opacity-60" />
+        <section className="relative min-h-[82svh] overflow-hidden">
+          <Image
+            src="/Apollo/Apollo3xFemale2.png"
+            alt="Clinician wearing HeliosX loupes"
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(0,0,0,0.92)_10%,rgba(0,0,0,0.66)_46%,rgba(0,0,0,0.22)_76%,rgba(0,0,0,0.82)_100%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black via-black/72 to-transparent" />
 
-          <div className="relative mx-auto flex max-w-6xl flex-col gap-6 px-4 py-16 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:py-20">
-            <div className="max-w-2xl space-y-4">
-              <p className="text-xs uppercase tracking-[0.25em] text-sky-300/80">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-10 mx-auto flex min-h-[82svh] max-w-6xl flex-col justify-end gap-6 px-5 pb-10 pt-28 md:px-12 md:pb-14 lg:flex-row lg:items-end lg:justify-between"
+          >
+            <div className="max-w-3xl space-y-5">
+              <p className="inline-flex rounded-full border border-white/15 bg-white/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-neutral-200 backdrop-blur-md">
                 Education
               </p>
-              <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
-                Evidence for better vision in the OR.
+              <h1 className="text-[clamp(3rem,7vw,6.5rem)] font-bold leading-[0.95] text-white">
+                Evidence for better clinical vision.
               </h1>
-              <p className="text-sm text-neutral-300 sm:text-base">
+              <p className="max-w-2xl text-sm leading-7 text-neutral-200 md:text-base md:leading-8">
                 HeliosX isn&apos;t just hardware. It&apos;s part of a long story of surgeons using
                 magnification to cut cleaner, see earlier, and operate safer. This page collects
                 peer-reviewed work that shaped how we think about loupes and surgical vision.
               </p>
             </div>
 
-            <div className="mt-4 flex flex-col items-start gap-3 text-xs text-neutral-300 sm:flex-row sm:text-sm">
-              <div className="rounded-full border border-neutral-700/80 bg-neutral-900/60 px-4 py-2 backdrop-blur">
+            <div className="border-l border-white/15 pl-5 text-sm text-neutral-300 backdrop-blur-sm">
                 Curated for{' '}
                 <span className="font-medium text-sky-300">
                   students, residents, and practicing surgeons
                 </span>
                 .
-              </div>
             </div>
-          </div>
+          </motion.div>
         </section>
 
         <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
@@ -414,7 +448,7 @@ export default function EducationPage() {
           </div>
         </section>
       </main>
-    </>
+    </LenisProvider>
   )
 }
 

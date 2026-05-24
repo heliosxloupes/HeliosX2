@@ -56,14 +56,17 @@ const faqSections = [
           <div>
             <p>Your working distance is the space between your eyes and the area or patient you typically focus on during procedures or detailed tasks. Selecting the correct working distance is essential for posture, clarity, and comfort.</p>
 
-            <div style={{ position: 'relative', width: '100%', maxWidth: '600px', margin: '1.5rem auto', borderRadius: '12px', overflow: 'hidden' }}>
-              <img
-                src="/workingdistance.png"
-                alt="Dental professional measuring working distance"
-                width={600}
-                height={400}
-                style={{ width: '100%', height: 'auto', objectFit: 'cover', display: 'block' }}
-              />
+            <div style={{ position: 'relative', width: '100%', maxWidth: '640px', margin: '1.5rem auto', borderRadius: '24px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', background: '#050b16', padding: '12px', boxShadow: '0 24px 70px rgba(0,0,0,0.35)' }}>
+              <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '16px', border: '1px solid rgba(110,231,183,0.16)', background: '#000' }}>
+                <img
+                  src="/workingdistance.png"
+                  alt="Dental professional measuring working distance"
+                  width={600}
+                  height={400}
+                  style={{ width: '100%', height: 'auto', objectFit: 'contain', display: 'block' }}
+                />
+                <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'linear-gradient(90deg, rgba(0,0,0,0.22), transparent 22%, transparent 78%, rgba(0,0,0,0.22))' }} />
+              </div>
             </div>
 
             <p style={{ marginTop: '1.5rem' }}><strong>How to Determine Your Working Distance</strong></p>

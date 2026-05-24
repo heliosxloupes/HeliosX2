@@ -141,29 +141,38 @@ export default function MeasurementsExperience({ faqs, steps }: MeasurementsExpe
             <motion.h2 variants={fadeUp} className="mt-3 max-w-3xl text-3xl font-semibold leading-tight text-white md:text-4xl">
               The two measurements that drive fit.
             </motion.h2>
-            <motion.div variants={fadeUp} className="mt-10 overflow-hidden border-y border-white/10 py-6">
-              <Image
-                src="/workingdistance.png"
-                alt="Dark HeliosX diagram showing working distance from the eye to the normal focal point"
-                width={728}
-                height={686}
-                className="mx-auto h-auto max-h-[680px] w-full max-w-5xl object-contain"
-                priority
-              />
+            <motion.div variants={fadeUp} className="mt-10 overflow-hidden rounded-[28px] border border-white/10 bg-[#050b16] p-4 shadow-[0_30px_90px_rgba(0,0,0,0.45)] md:p-6">
+              <div className="relative overflow-hidden rounded-2xl border border-emerald-300/15 bg-black">
+                <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_top_left,rgba(52,211,153,0.18),transparent_34%),linear-gradient(90deg,rgba(0,0,0,0.28),transparent_22%,transparent_78%,rgba(0,0,0,0.28))]" />
+                <Image
+                  src="/workingdistance.png"
+                  alt="Dark HeliosX diagram showing working distance from the eye to the normal focal point"
+                  width={728}
+                  height={686}
+                  className="mx-auto h-auto max-h-[680px] w-full max-w-5xl object-contain"
+                  priority
+                />
+              </div>
             </motion.div>
             <div className="mt-8 grid gap-8 md:grid-cols-2">
               {[
-                ['/pupillary distance.png', 'Diagram showing pupillary distance measured between pupil centers', 1196, 777],
-                ['/workdistance diagram.png', 'Diagram showing working distance from eye to focal point', 600, 732],
-              ].map(([src, alt, width, height]) => (
-                <motion.div key={src} variants={fadeUp} className="flex min-h-[320px] items-center justify-center overflow-hidden border-y border-white/10 py-6">
-                  <Image
-                    src={src as string}
-                    alt={alt as string}
-                    width={width as number}
-                    height={height as number}
-                    className="h-auto max-h-[560px] w-full object-contain"
-                  />
+                ['/pupillary distance.png', 'Pupillary distance', 'Diagram showing pupillary distance measured between pupil centers', 1196, 777],
+                ['/workdistance diagram.png', 'Posture reference', 'Diagram showing working distance from eye to focal point', 600, 732],
+              ].map(([src, label, alt, width, height]) => (
+                <motion.div key={src} variants={fadeUp} className="overflow-hidden rounded-[24px] border border-white/10 bg-[#050b16] p-4 shadow-[0_24px_70px_rgba(0,0,0,0.38)]">
+                  <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200/80">
+                    {label}
+                  </p>
+                  <div className="relative flex min-h-[320px] items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white p-3">
+                    <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(5,11,22,0.08),transparent_18%,transparent_82%,rgba(5,11,22,0.08))]" />
+                    <Image
+                      src={src as string}
+                      alt={alt as string}
+                      width={width as number}
+                      height={height as number}
+                      className="h-auto max-h-[520px] w-full object-contain"
+                    />
+                  </div>
                 </motion.div>
               ))}
             </div>

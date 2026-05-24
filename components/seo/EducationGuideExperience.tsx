@@ -83,6 +83,8 @@ function getGuideImage(slug: string) {
 
 export default function EducationGuideExperience({ guide, diagram }: EducationGuideExperienceProps) {
   const hero = getGuideImage(guide.slug)
+  const diagramHasLightBackground =
+    diagram?.src.includes('pupillary distance') || diagram?.src.includes('workdistance diagram')
 
   return (
     <LenisProvider>
@@ -138,16 +140,23 @@ export default function EducationGuideExperience({ guide, diagram }: EducationGu
               whileInView="visible"
               variants={fadeUp}
               viewport={{ once: true, amount: 0.22 }}
-              className="mx-auto max-w-6xl overflow-hidden border-y border-white/10 py-8"
+              className="mx-auto max-w-6xl overflow-hidden rounded-[28px] border border-white/10 bg-[#050b16] p-4 shadow-[0_30px_90px_rgba(0,0,0,0.45)] md:p-6"
             >
-              <Image
-                src={diagram.src}
-                alt={diagram.alt}
-                width={1200}
-                height={760}
-                className="h-auto w-full"
-                priority
-              />
+              <div
+                className={`relative overflow-hidden rounded-2xl border border-white/10 ${
+                  diagramHasLightBackground ? 'bg-white p-3' : 'bg-black'
+                }`}
+              >
+                <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_top_left,rgba(52,211,153,0.16),transparent_34%),linear-gradient(90deg,rgba(5,11,22,0.12),transparent_18%,transparent_82%,rgba(5,11,22,0.12))]" />
+                <Image
+                  src={diagram.src}
+                  alt={diagram.alt}
+                  width={1200}
+                  height={760}
+                  className="mx-auto h-auto max-h-[680px] w-full object-contain"
+                  priority
+                />
+              </div>
             </motion.div>
           </section>
         ) : null}

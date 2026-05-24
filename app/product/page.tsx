@@ -356,6 +356,7 @@ function OurLoupesGrid() {
           slug: product.slug,
           name: product.shortName,
           magnification: (product.magnifications ?? []).join(' / '),
+          priceLabel: product.priceLabel,
           tagline: product.cardTagline,
           bullets: product.cardBullets ?? [],
           highlight: product.cardHighlight,
@@ -390,6 +391,7 @@ function OurLoupesGrid() {
       slug: "medusa",
       name: "Medusa",
       magnification: "3.0x / 4.0x / 5.0x",
+      priceLabel: "$710-$1,090",
       tagline: "Ergonomic prismatic loupes with adjustable working distance.",
       bullets: [
         "Ergonomic prismatic optics",
@@ -405,6 +407,7 @@ function OurLoupesGrid() {
       slug: "apollo",
       name: "Apollo",
       magnification: "3.0x / 4.0x / 5.0x / 6.0x",
+      priceLabel: "$740-$1,115",
       tagline: "Ergonomic prismatic clarity for detail-obsessed operators.",
       bullets: [
         "Ergonomic prismatic optics",
@@ -419,6 +422,7 @@ function OurLoupesGrid() {
       slug: "galileo",
       name: "Galileo",
       magnification: "2.5x / 3.0x / 3.5x",
+      priceLabel: "$270-$300",
       tagline: "Versatile field of view for general and reconstructive work.",
       bullets: ["Lightweight", "Modern frame geometry", "Everyday precision"],
       highlight: "Best for broad use and training.",
@@ -429,6 +433,7 @@ function OurLoupesGrid() {
       slug: "newton",
       name: "Newton",
       magnification: "2.5x / 3.0x / 3.5x",
+      priceLabel: "$270-$300",
       tagline: "Ultra-light performance for long cases and full OR days.",
       bullets: ["Ultra-light chassis", "Comfort-driven design", "Low fatigue"],
       highlight: "Best when comfort is critical.",
@@ -439,6 +444,7 @@ function OurLoupesGrid() {
       slug: "kepler",
       name: "Kepler",
       magnification: "4.0x / 5.0x / 6.0x",
+      priceLabel: "$460-$520",
       tagline: "Maximal magnification for demanding micro and super-micro.",
       bullets: [
         "Signature optical stack",
@@ -548,9 +554,16 @@ function OurLoupesGrid() {
                 <div className="flex flex-1 flex-col p-5 md:p-6">
                   <div className="space-y-3">
                     <div>
-                    <h3 className="text-xl md:text-2xl font-semibold mb-1">
-                      {product.name}
-                    </h3>
+                    <div className="flex items-baseline justify-between gap-3">
+                      <h3 className="text-xl md:text-2xl font-semibold mb-1">
+                        {product.name}
+                      </h3>
+                      {product.priceLabel ? (
+                        <p className="shrink-0 text-sm md:text-base font-semibold text-white">
+                          {product.priceLabel}
+                        </p>
+                      ) : null}
+                    </div>
                     <p className="text-xs md:text-sm text-neutral-400 font-medium">
                       {product.magnification}
                     </p>

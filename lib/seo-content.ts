@@ -1590,10 +1590,370 @@ for (const specialtyGuideSlug of ['research', 'how-to-choose-surgical-loupes', '
   }
 }
 
+// Specialty surgical-loupes pages. Codex flagged these as the high-value
+// content additions: each maps a surgical specialty pattern from the
+// Jarrett 2004 intraoperative-magnification survey to a HeliosX product
+// recommendation, captures the specialty-specific search terms, and
+// becomes a high-intent landing for clinicians in that field.
+const specialtyPages: SeoLandingPage[] = [
+  {
+    slug: 'cardiac-surgery-loupes',
+    title: 'Cardiac Surgery Loupes',
+    metaTitle: 'Cardiac Surgery Loupes | HeliosX Cardiothoracic Loupes',
+    description:
+      'Loupes for cardiothoracic surgery, coronary anastomoses, and valve work. HeliosX ergonomic prismatic and high-magnification systems for cardiac surgeons.',
+    heroKicker: 'Cardiac & cardiothoracic',
+    primaryKeyword: 'cardiac surgery loupes',
+    relatedKeywords: [
+      'cardiothoracic loupes',
+      'CABG loupes',
+      'coronary anastomosis loupes',
+      'cardiac surgeon loupes',
+      'thoracic surgery loupes',
+    ],
+    audience: 'cardiothoracic surgeons, cardiac surgery fellows, and senior trainees',
+    intro:
+      'Cardiothoracic surgeons relied on loupes more than microscopes in the Jarrett 2004 survey of intraoperative magnification. Coronary anastomoses, valve repair, and bypass workflows benefit from prismatic magnification without the setup time of an operating microscope.',
+    proofPoints: [
+      'Ergonomic prismatic optics that hold up during long open and bypass cases.',
+      'Magnification options from 4.0x through 6.0x for vessel-level detail.',
+      'Custom IPD measurement and frame fit for a stable visual axis across hours of work.',
+    ],
+    sections: [
+      {
+        title: 'Where loupes win in cardiac work',
+        body:
+          'Cardiothoracic teams use loupes routinely for vessel anastomoses, valve suturing, and exposure of small structures. The portability and quick switch-in beats microscope setup for the majority of CABG and valve cases.',
+        bullets: [
+          'Vessel anastomoses where 4.0x to 5.0x covers the working field.',
+          'Valve repair and reconstruction where ergonomic posture matters across long cases.',
+          'Bypass workflows where setup time and visual axis stability are at a premium.',
+        ],
+      },
+      {
+        title: 'Which HeliosX model fits cardiac workflows',
+        body:
+          'Apollo and Medusa cover most cardiac and cardiothoracic work with ergonomic prismatic optics. Kepler steps in when the case needs higher magnification on small vessels or fine reconstructive detail.',
+        bullets: [
+          'Apollo: ergonomic prismatic at 3.0x to 6.0x for general cardiac work.',
+          'Medusa: same prismatic optics with adjustable working distance for posture-flexible cases.',
+          'Kepler: 4.0x to 6.0x when small vessels or fine reconstructive detail drive the choice.',
+        ],
+      },
+      {
+        title: 'Fit, magnification, and ordering',
+        body:
+          'A cardiac surgeon picks magnification around the most common procedure, not the rare one. HeliosX measures pupillary and working distance after checkout and builds the loupe around your posture and frame preference.',
+        bullets: [
+          'Pick the magnification that matches your most-used case mix, not the outlier.',
+          'Submit pupillary and working distance after checkout; production is custom.',
+          'Frame and prescription options come in the same flow.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Medusa', 'Apollo', 'Kepler'],
+    faqs: [
+      {
+        question: 'What magnification do cardiothoracic surgeons use most?',
+        answer:
+          'Cardiothoracic surgeons commonly use 4.0x to 5.0x loupes for routine anastomoses and valve work, stepping up to 5.0x or 6.0x when the case is dominated by small-vessel detail.',
+      },
+      {
+        question: 'Are loupes enough for coronary anastomoses or do I need a microscope?',
+        answer:
+          'For routine CABG cases, loupes at 4.0x to 5.0x are widely sufficient. Microscopes remain valuable when the anatomy or revision case demands higher magnification beyond the loupe range.',
+      },
+    ],
+  },
+  {
+    slug: 'pediatric-surgery-loupes',
+    title: 'Pediatric Surgery Loupes',
+    metaTitle: 'Pediatric Surgery Loupes | HeliosX Loupes for Pediatric Specialties',
+    description:
+      'Loupes for pediatric and neonatal surgery, pediatric urology, and pediatric cardiac specialties. HeliosX ergonomic prismatic systems built for small-structure work.',
+    heroKicker: 'Pediatric specialties',
+    primaryKeyword: 'pediatric surgery loupes',
+    relatedKeywords: [
+      'pediatric surgeon loupes',
+      'neonatal surgery loupes',
+      'pediatric urology loupes',
+      'pediatric cardiac surgery loupes',
+      'pediatric microsurgery loupes',
+    ],
+    audience: 'pediatric surgeons, neonatal specialists, and pediatric subspecialty fellows',
+    intro:
+      'Pediatric surgeons leaned heavily on loupes in the surveyed magnification patterns. Small patients mean small anatomic structures, and ergonomic prismatic loupes deliver the resolution and depth of field needed without the setup of an operating microscope.',
+    proofPoints: [
+      'Magnification across 3.0x to 6.0x for neonatal, urology, and pediatric cardiac work.',
+      'Lightweight builds reduce fatigue across long cases on small patients.',
+      'Tailored IPD and working-distance setup for stable visual axis at close range.',
+    ],
+    sections: [
+      {
+        title: 'Where loupes fit pediatric work',
+        body:
+          'Pediatric surgery spans a wide procedure mix. Routine pediatric general surgery uses moderate magnification; subspecialty work in pediatric urology, cardiac, and reconstructive cases benefits from higher magnification with depth of field control.',
+        bullets: [
+          'Neonatal procedures where structures sit close to the visual axis.',
+          'Pediatric urology and reconstructive cases that reward 4.0x to 5.0x detail.',
+          'Pediatric cardiac surgery where anastomoses and small-vessel detail dominate.',
+        ],
+      },
+      {
+        title: 'Which HeliosX model fits pediatric workflows',
+        body:
+          'Apollo and Medusa cover the majority of pediatric workflows with ergonomic prismatic clarity at lower neck load. Kepler is the right choice when small-structure detail is the dominant constraint.',
+        bullets: [
+          'Apollo: ergonomic prismatic at 3.0x to 6.0x for general pediatric work.',
+          'Medusa: adjustable working distance for surgeons moving between seated and standing positions.',
+          'Kepler: 4.0x to 6.0x for pediatric microsurgery and reconstructive detail.',
+        ],
+      },
+      {
+        title: 'Fit choices for pediatric specialists',
+        body:
+          'Pediatric surgeons often work closer to the patient than adult surgeons. Match working distance to your typical operating posture and pick the magnification that fits the most common pediatric case, not the rare microsurgery one.',
+        bullets: [
+          'Measure working distance in the posture you actually use over a long case.',
+          'Match magnification to the most common procedure type, not the rare one.',
+          'Add Kepler later if subspecialty work shifts toward microsurgery.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Medusa', 'Apollo', 'Kepler', 'Galileo'],
+    faqs: [
+      {
+        question: 'What magnification do pediatric surgeons typically use?',
+        answer:
+          'Pediatric surgeons commonly use 3.0x to 5.0x for general pediatric work, with subspecialty cases in pediatric cardiac or reconstructive surgery pushing to 5.0x or 6.0x as needed.',
+      },
+      {
+        question: 'Are HeliosX loupes light enough for long pediatric cases?',
+        answer:
+          'Yes. Apollo and Medusa are designed to balance the chassis weight across the frame, and the Galileo line is the lightest option for clinicians who want the smallest possible neck load.',
+      },
+    ],
+  },
+  {
+    slug: 'maxillofacial-surgery-loupes',
+    title: 'Maxillofacial Surgery Loupes',
+    metaTitle: 'Maxillofacial Surgery Loupes | HeliosX OMFS Loupes',
+    description:
+      'Loupes for oral and maxillofacial surgery, orthognathic procedures, and reconstructive OMFS work. HeliosX ergonomic prismatic loupes for OMFS surgeons.',
+    heroKicker: 'Maxillofacial & oral surgery',
+    primaryKeyword: 'maxillofacial surgery loupes',
+    relatedKeywords: [
+      'OMFS loupes',
+      'oral surgery loupes',
+      'orthognathic surgery loupes',
+      'cleft lip and palate loupes',
+      'mandibular reconstruction loupes',
+    ],
+    audience: 'oral and maxillofacial surgeons, OMFS residents, and orthognathic specialists',
+    intro:
+      'Maxillofacial surgeons reported some of the highest intraoperative magnification use in the Jarrett survey. OMFS work routinely sits at the intersection of ergonomic strain and fine detail, which is exactly the brief HeliosX ergonomic prismatic loupes were built for.',
+    proofPoints: [
+      'Ergonomic prismatic optics tuned for orthognathic and reconstructive procedures.',
+      'Magnification range from 3.0x to 6.0x covers the typical OMFS case mix.',
+      'Frame and IPD options that hold up against masks, headlamps, and long cases.',
+    ],
+    sections: [
+      {
+        title: 'Where loupes fit OMFS work',
+        body:
+          'Orthognathic, reconstructive, cleft, and trauma cases all benefit from loupe magnification. The choice of magnification ties to procedure mix and how close you sit to the field.',
+        bullets: [
+          'Orthognathic and TMJ work where 3.5x to 4.5x clears the operative field.',
+          'Reconstructive and cleft cases that reward 4.0x to 5.0x for fine tissue handling.',
+          'Trauma work where setup time and a stable visual axis matter most.',
+        ],
+      },
+      {
+        title: 'Which HeliosX model fits OMFS workflows',
+        body:
+          'Apollo is the default ergonomic prismatic build for most OMFS workflows. Medusa adds adjustable working distance for surgeons who alternate between seated and standing procedures. Kepler reaches into the higher-magnification end for microsurgical reconstructive work.',
+        bullets: [
+          'Apollo: ergonomic prismatic at 3.0x to 6.0x for the OMFS case mix.',
+          'Medusa: adjustable working distance for posture-flexible procedures.',
+          'Kepler: 4.0x to 6.0x for microsurgical reconstructive detail.',
+        ],
+      },
+      {
+        title: 'Fit notes for OMFS specialists',
+        body:
+          'OMFS surgeons often wear loupes through long, posture-demanding cases. The right choice prioritizes ergonomic balance and field stability over peak magnification, with higher magnification reserved for the cases that actually need it.',
+        bullets: [
+          'Prioritize ergonomic balance and stable IPD alignment for long cases.',
+          'Match magnification to the most common procedure, not the rare microsurgical one.',
+          'Confirm working distance in your real operating posture, not a generic preset.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Apollo', 'Medusa', 'Kepler'],
+    faqs: [
+      {
+        question: 'What magnification do OMFS surgeons most often use?',
+        answer:
+          'OMFS surgeons commonly use 3.5x to 5.0x for orthognathic and reconstructive work, with higher magnification reserved for microsurgical reconstructive cases.',
+      },
+      {
+        question: 'Do HeliosX loupes work for orthognathic surgery?',
+        answer:
+          'Yes. Apollo and Medusa both deliver ergonomic prismatic optics that hold up across long orthognathic cases without straining the neck, and HeliosX builds each pair around your custom IPD and working distance.',
+      },
+    ],
+  },
+  {
+    slug: 'ent-otolaryngology-loupes',
+    title: 'ENT and Otolaryngology Loupes',
+    metaTitle: 'ENT Loupes | HeliosX Otolaryngology Surgical Loupes',
+    description:
+      'Loupes for ENT and otolaryngology surgeons, sinus surgery, otologic work, and thyroid procedures. HeliosX ergonomic prismatic systems built for head-and-neck workflows.',
+    heroKicker: 'ENT & otolaryngology',
+    primaryKeyword: 'ENT loupes',
+    relatedKeywords: [
+      'otolaryngology loupes',
+      'sinus surgery loupes',
+      'thyroid surgery loupes',
+      'otologic surgery loupes',
+      'head and neck surgery loupes',
+    ],
+    audience: 'ENT surgeons, otolaryngology residents, and head-and-neck specialists',
+    intro:
+      'Otolaryngology surgeons reported frequent intraoperative magnification use in the Jarrett survey, with patterns that varied between sinus, otologic, and head-and-neck workflows. Ergonomic prismatic loupes cover the bulk of ENT practice without the setup overhead of a microscope.',
+    proofPoints: [
+      'Ergonomic prismatic optics for sinus, thyroid, and head-and-neck work.',
+      'Magnification options from 3.0x to 6.0x across the ENT case mix.',
+      'Frame compatibility with surgical headlamps and prescription lenses.',
+    ],
+    sections: [
+      {
+        title: 'Where loupes fit ENT work',
+        body:
+          'ENT case mix ranges from sinus and tonsillar work to thyroid, otologic, and head-and-neck reconstruction. Loupes cover most of it; microscopes remain useful for very high magnification ear cases.',
+        bullets: [
+          'Sinus, tonsil, and adenoid work where 3.0x to 4.0x covers the field.',
+          'Thyroid and parathyroid surgery that rewards 4.0x to 5.0x detail.',
+          'Otologic procedures where higher magnification or the microscope may still be needed.',
+        ],
+      },
+      {
+        title: 'Which HeliosX model fits ENT workflows',
+        body:
+          'Apollo is the most common pick for the ENT case mix because ergonomic posture matters across long thyroid and head-and-neck cases. Medusa adds adjustable working distance, and Kepler steps in for higher-magnification otologic detail.',
+        bullets: [
+          'Apollo: ergonomic prismatic at 3.0x to 6.0x for general ENT work.',
+          'Medusa: adjustable working distance for surgeons moving between postures.',
+          'Kepler: 4.0x to 6.0x for higher-magnification otologic detail.',
+        ],
+      },
+      {
+        title: 'Fit notes for ENT specialists',
+        body:
+          'ENT loupes need to coexist with headlamps and, often, prescription lenses. HeliosX measurement flow accommodates both, and the frame options support standard light-source mounts.',
+        bullets: [
+          'Confirm headlamp compatibility before finalizing the frame.',
+          'Submit prescription details after checkout if you need rx lenses.',
+          'Match magnification to the most common procedure, not the outlier.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Apollo', 'Medusa', 'Kepler'],
+    faqs: [
+      {
+        question: 'What magnification do ENT surgeons typically use?',
+        answer:
+          'ENT surgeons commonly use 3.0x to 5.0x for the general case mix, with otologic and reconstructive work pushing toward 5.0x or 6.0x and microscope use reserved for the highest-magnification ear cases.',
+      },
+      {
+        question: 'Do HeliosX loupes work with a surgical headlamp?',
+        answer:
+          'Yes. HeliosX frames support standard light-source mounts. Confirm the specific headlamp model with our team if you have an unusual mount before ordering.',
+      },
+    ],
+  },
+  {
+    slug: 'ophthalmic-surgery-loupes',
+    title: 'Ophthalmic Surgical Loupes',
+    metaTitle: 'Ophthalmic Surgical Loupes | HeliosX Oculoplastic Loupes',
+    description:
+      'Loupes for ophthalmic surgery, oculoplastic procedures, lacrimal and lid work. HeliosX high-magnification systems for ophthalmic surgeons who use loupes alongside the microscope.',
+    heroKicker: 'Ophthalmic surgery',
+    primaryKeyword: 'ophthalmic surgical loupes',
+    relatedKeywords: [
+      'ophthalmic loupes',
+      'oculoplastic surgery loupes',
+      'lacrimal surgery loupes',
+      'eyelid surgery loupes',
+      'ophthalmology loupes',
+    ],
+    audience: 'ophthalmic surgeons, oculoplastic specialists, and ophthalmology fellows',
+    intro:
+      'Ophthalmic surgeons reported frequent intraoperative magnification use in the surveyed patterns, with workflows that mix loupes and the operating microscope. HeliosX higher-magnification ergonomic prismatic loupes cover the loupe portion of that practice.',
+    proofPoints: [
+      'High-magnification loupes for oculoplastic, lacrimal, and lid procedures.',
+      'Ergonomic prismatic optics that pair with microscope-based intraocular cases.',
+      'Custom IPD and working distance for stable visual axis at close range.',
+    ],
+    sections: [
+      {
+        title: 'Where loupes fit ophthalmic work',
+        body:
+          'Intraocular surgery sits firmly under the microscope. Loupes cover oculoplastic, lacrimal, lid, orbit, and external eye procedures where loupe magnification is sufficient and microscope setup would be overkill.',
+        bullets: [
+          'Oculoplastic and lid work where 4.0x to 6.0x covers the field.',
+          'Lacrimal and orbit procedures that benefit from ergonomic prismatic posture support.',
+          'External eye, plastic, and reconstructive work where the loupe replaces the microscope.',
+        ],
+      },
+      {
+        title: 'Which HeliosX model fits ophthalmic workflows',
+        body:
+          'Kepler is the right choice for the higher-magnification end of ophthalmic loupe work. Apollo and Medusa cover the cases that sit at 4.0x to 5.0x with ergonomic posture support.',
+        bullets: [
+          'Kepler: 4.0x to 6.0x for oculoplastic, lid, and microsurgery-adjacent work.',
+          'Apollo: ergonomic prismatic at 3.0x to 6.0x for the broader case mix.',
+          'Medusa: adjustable working distance for surgeons alternating between procedure types.',
+        ],
+      },
+      {
+        title: 'Fit notes for ophthalmic specialists',
+        body:
+          'Ophthalmic surgeons often work very close to the patient. Measure working distance in your real operating posture and pick magnification around the most common loupe-based procedure in your case mix.',
+        bullets: [
+          'Measure working distance in your real operating posture, not a generic preset.',
+          'Pick magnification around the most common loupe-based procedure.',
+          'Confirm prescription needs after checkout via the measurement flow.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Kepler', 'Apollo', 'Medusa'],
+    faqs: [
+      {
+        question: 'What magnification do oculoplastic surgeons typically use?',
+        answer:
+          'Oculoplastic surgeons commonly use 4.0x to 6.0x for lid, lacrimal, and orbit work. Intraocular cases are performed under the operating microscope rather than with loupes.',
+      },
+      {
+        question: 'Are HeliosX loupes a substitute for the operating microscope?',
+        answer:
+          'For intraocular cases, no — loupes do not replace the microscope. For oculoplastic, lacrimal, lid, and external eye work, ergonomic prismatic loupes are the standard tool and HeliosX builds across the magnification range that practice needs.',
+      },
+    ],
+  },
+]
+
+allSeoLandingPages.push(...specialtyPages)
+
 // Per-page hero tails replace the audit-flagged 'without the guesswork.'
 // suffix that was hardcoded as the second H1 line across 30+ pages.
 // Each tail is 3-6 words, intent-specific, and on brand voice.
 const seoLandingHeroTails: Record<string, string> = {
+  'cardiac-surgery-loupes': 'for anastomoses and beyond.',
+  'pediatric-surgery-loupes': 'for small structures and big margins.',
+  'maxillofacial-surgery-loupes': 'for orthognathic and reconstructive work.',
+  'ent-otolaryngology-loupes': 'for sinus, thyroid, and otologic cases.',
+  'ophthalmic-surgery-loupes': 'for oculoplastic and lid work.',
   // Category landings
   'surgical-loupes': 'built around posture.',
   'dental-loupes': 'for daily clinical work.',

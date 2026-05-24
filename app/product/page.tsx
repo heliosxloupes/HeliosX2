@@ -356,7 +356,7 @@ function OurLoupesGrid() {
           slug: product.slug,
           name: product.shortName,
           magnification: (product.magnifications ?? []).join(' / '),
-          priceLabel: product.priceLabel,
+          basePrice: product.basePrice,
           tagline: product.cardTagline,
           bullets: product.cardBullets ?? [],
           highlight: product.cardHighlight,
@@ -391,7 +391,7 @@ function OurLoupesGrid() {
       slug: "medusa",
       name: "Medusa",
       magnification: "3.0x / 4.0x / 5.0x",
-      priceLabel: "$710-$1,090",
+      basePrice: 710,
       tagline: "Ergonomic prismatic loupes with adjustable working distance.",
       bullets: [
         "Ergonomic prismatic optics",
@@ -407,7 +407,7 @@ function OurLoupesGrid() {
       slug: "apollo",
       name: "Apollo",
       magnification: "3.0x / 4.0x / 5.0x / 6.0x",
-      priceLabel: "$740-$1,115",
+      basePrice: 740,
       tagline: "Ergonomic prismatic clarity for detail-obsessed operators.",
       bullets: [
         "Ergonomic prismatic optics",
@@ -422,7 +422,7 @@ function OurLoupesGrid() {
       slug: "galileo",
       name: "Galileo",
       magnification: "2.5x / 3.0x / 3.5x",
-      priceLabel: "$270-$300",
+      basePrice: 270,
       tagline: "Versatile field of view for general and reconstructive work.",
       bullets: ["Lightweight", "Modern frame geometry", "Everyday precision"],
       highlight: "Best for broad use and training.",
@@ -433,7 +433,7 @@ function OurLoupesGrid() {
       slug: "newton",
       name: "Newton",
       magnification: "2.5x / 3.0x / 3.5x",
-      priceLabel: "$270-$300",
+      basePrice: 270,
       tagline: "Ultra-light performance for long cases and full OR days.",
       bullets: ["Ultra-light chassis", "Comfort-driven design", "Low fatigue"],
       highlight: "Best when comfort is critical.",
@@ -444,7 +444,7 @@ function OurLoupesGrid() {
       slug: "kepler",
       name: "Kepler",
       magnification: "4.0x / 5.0x / 6.0x",
-      priceLabel: "$460-$520",
+      basePrice: 460,
       tagline: "Maximal magnification for demanding micro and super-micro.",
       bullets: [
         "Signature optical stack",
@@ -588,7 +588,7 @@ function OurLoupesGrid() {
                       {product.highlight}
                     </p>
 
-                    {product.priceLabel ? (
+                    {typeof product.basePrice === 'number' ? (
                       <div
                         className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 px-4 py-3 backdrop-blur-sm transition-all duration-300 group-hover/card:border-white/25"
                         style={{
@@ -603,7 +603,7 @@ function OurLoupesGrid() {
                         />
                         <div className="relative flex items-baseline justify-between gap-3">
                           <p className="text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-neutral-400">
-                            From
+                            Starting at
                           </p>
                           <p
                             className="text-base md:text-lg font-semibold text-white"
@@ -611,7 +611,7 @@ function OurLoupesGrid() {
                               textShadow: `0 0 18px rgba(${getGlowColor(product.slug)}, 0.55)`,
                             }}
                           >
-                            {product.priceLabel}
+                            ${product.basePrice.toLocaleString('en-US')}
                           </p>
                         </div>
                       </div>

@@ -530,6 +530,10 @@ export default function Hero() {
           <video
             className={styles.videoPlayer}
             src="/mainpagevideo.mp4"
+            poster="/mainpagevideo-poster.jpg"
+            preload="metadata"
+            width={1280}
+            height={720}
             loop
             muted
             playsInline
@@ -579,6 +583,10 @@ export default function Hero() {
               ref={modalVideoRef}
               className={styles.videoModalPlayer}
               src="/mainpagevideo.mp4"
+              poster="/mainpagevideo-poster.jpg"
+              preload="metadata"
+              width={1280}
+              height={720}
               loop
               muted
               playsInline
@@ -755,10 +763,14 @@ export default function Hero() {
           <div className={styles.device2Screen}>
             <video
               src="/mainpagevideo2.mp4"
+              poster="/mainpagevideo2-poster.jpg"
               autoPlay
               loop
               muted
               playsInline
+              preload="metadata"
+              width={1280}
+              height={720}
               className={styles.device2Video}
               style={{
                 width: '100%',

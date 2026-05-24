@@ -13,9 +13,24 @@ type Diagram = {
   alt: string
 } | null
 
+export type RelatedGuide = {
+  slug: string
+  title: string
+  description: string
+  kicker?: string
+}
+
+export type ShopByLink = {
+  label: string
+  href: string
+  description: string
+}
+
 type EducationGuideExperienceProps = {
   guide: EducationGuide
   diagram: Diagram
+  relatedGuides?: RelatedGuide[]
+  shopByLinks?: ShopByLink[]
 }
 
 const fadeUp = {
@@ -88,7 +103,12 @@ function getGuideImage(slug: string) {
   }
 }
 
-export default function EducationGuideExperience({ guide, diagram }: EducationGuideExperienceProps) {
+export default function EducationGuideExperience({
+  guide,
+  diagram,
+  relatedGuides = [],
+  shopByLinks = [],
+}: EducationGuideExperienceProps) {
   const hero = getGuideImage(guide.slug)
   const diagramHasLightBackground =
     diagram?.src.includes('pupillary distance') || diagram?.src.includes('workdistance diagram')
@@ -259,6 +279,77 @@ export default function EducationGuideExperience({ guide, diagram }: EducationGu
             </div>
           </div>
         </section>
+
+        {relatedGuides.length > 0 || shopByLinks.length > 0 ? (
+          <section className="border-t border-white/10 bg-neutral-950/60 px-5 py-16 md:px-12 md:py-24">
+            <div className="mx-auto max-w-6xl space-y-12">
+              {relatedGuides.length > 0 ? (
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-200/80">
+                    Related guides
+                  </p>
+                  <h2 className="mt-3 text-2xl font-semibold leading-tight text-white md:text-3xl">
+                    Keep reading the education library.
+                  </h2>
+                  <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                    {relatedGuides.map((related) => (
+                      <Link
+                        key={related.slug}
+                        href={`/education/${related.slug}`}
+                        className="group flex h-full flex-col rounded-2xl border border-white/10 bg-[#050b16]/85 p-5 transition hover:border-emerald-200/40 hover:bg-[#070d1a]"
+                      >
+                        {related.kicker ? (
+                          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-200/80">
+                            {related.kicker}
+                          </p>
+                        ) : null}
+                        <h3 className="mt-2 text-lg font-semibold leading-snug text-white group-hover:text-emerald-100">
+                          {related.title}
+                        </h3>
+                        <p className="mt-3 line-clamp-3 text-sm leading-6 text-neutral-300">
+                          {related.description}
+                        </p>
+                        <span className="mt-auto pt-4 text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200/80 transition group-hover:text-white">
+                          Read guide →
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {shopByLinks.length > 0 ? (
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-200/80">
+                    Shop by specialty
+                  </p>
+                  <h2 className="mt-3 text-2xl font-semibold leading-tight text-white md:text-3xl">
+                    Match the right loupe to your work.
+                  </h2>
+                  <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {shopByLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="group flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-[#050b16]/85 p-5 transition hover:border-emerald-200/40 hover:bg-[#070d1a]"
+                      >
+                        <div>
+                          <h3 className="text-base font-semibold text-white group-hover:text-emerald-100">
+                            {link.label}
+                          </h3>
+                          <p className="mt-2 text-sm leading-6 text-neutral-300">{link.description}</p>
+                        </div>
+                        <span className="mt-4 text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200/80 transition group-hover:text-white">
+                          Explore →
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </section>
+        ) : null}
       </main>
     </LenisProvider>
   )

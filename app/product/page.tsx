@@ -554,20 +554,13 @@ function OurLoupesGrid() {
                 <div className="flex flex-1 flex-col p-5 md:p-6">
                   <div className="space-y-3">
                     <div>
-                    <div className="flex items-baseline justify-between gap-3">
                       <h3 className="text-xl md:text-2xl font-semibold mb-1">
                         {product.name}
                       </h3>
-                      {product.priceLabel ? (
-                        <p className="shrink-0 text-sm md:text-base font-semibold text-white">
-                          {product.priceLabel}
-                        </p>
-                      ) : null}
+                      <p className="text-xs md:text-sm text-neutral-400 font-medium">
+                        {product.magnification}
+                      </p>
                     </div>
-                    <p className="text-xs md:text-sm text-neutral-400 font-medium">
-                      {product.magnification}
-                    </p>
-                  </div>
 
                     <p className="text-sm md:text-base text-neutral-300 leading-relaxed line-clamp-3 min-h-[4.5rem]">
                       {product.tagline}
@@ -594,6 +587,35 @@ function OurLoupesGrid() {
                     <p className="text-xs md:text-sm text-neutral-500 italic border-t border-white/5 pt-3">
                       {product.highlight}
                     </p>
+
+                    {product.priceLabel ? (
+                      <div
+                        className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 px-4 py-3 backdrop-blur-sm transition-all duration-300 group-hover/card:border-white/25"
+                        style={{
+                          boxShadow: `inset 0 0 0 1px rgba(${getGlowColor(product.slug)}, 0.18), 0 0 24px -8px rgba(${getGlowColor(product.slug)}, 0.35)`,
+                        }}
+                      >
+                        <div
+                          className="pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-500 group-hover/card:opacity-100"
+                          style={{
+                            background: `radial-gradient(ellipse at top left, rgba(${getGlowColor(product.slug)}, 0.22), transparent 70%)`,
+                          }}
+                        />
+                        <div className="relative flex items-baseline justify-between gap-3">
+                          <p className="text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-neutral-400">
+                            From
+                          </p>
+                          <p
+                            className="text-base md:text-lg font-semibold text-white"
+                            style={{
+                              textShadow: `0 0 18px rgba(${getGlowColor(product.slug)}, 0.55)`,
+                            }}
+                          >
+                            {product.priceLabel}
+                          </p>
+                        </div>
+                      </div>
+                    ) : null}
 
                     <button
                       type="button"

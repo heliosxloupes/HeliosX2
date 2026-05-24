@@ -1639,6 +1639,59 @@ for (const page of allSeoLandingPages) {
   }
 }
 
+// Universal buying/brand FAQs appended to any landing page with fewer
+// than 6 existing FAQs. Pages already over the threshold are left as-is.
+// AI Overviews and Google FAQ rich results both reward FAQ depth, so
+// padding thin pages closes the audit's biggest GEO weakness.
+const universalLoupesFaqs: ContentFaq[] = [
+  {
+    question: 'What measurements do I need to submit for HeliosX loupes?',
+    answer:
+      'Pupillary distance and working distance. The customer measurement flow is emailed after checkout and includes step-by-step instructions, smartphone-app recommendations, and manual measurement guidance. Prescription customers also submit a current eyeglass prescription.',
+  },
+  {
+    question: 'How long does it take to receive HeliosX loupes after ordering?',
+    answer:
+      'Custom production begins after you submit your measurements. Standard turnaround is roughly 3-5 weeks from measurement submission to delivery for US and Canadian orders. Express options are offered at checkout when available.',
+  },
+  {
+    question: 'Can I return HeliosX loupes if they do not fit?',
+    answer:
+      'Yes. Orders are fully refundable before measurements are submitted because each pair is custom-built. After delivery, HeliosX offers a 30-day return window on orders in original condition with all packaging and accessories.',
+  },
+  {
+    question: 'Are HeliosX loupes covered by a warranty?',
+    answer:
+      'Yes. Every HeliosX loupe ships with a warranty covering manufacturing defects and optical performance. Repairs and lens updates are also supported. See /warranty for the full policy.',
+  },
+  {
+    question: 'How does HeliosX pricing compare to Orascoptic, SurgiTel, and LumaDent?',
+    answer:
+      'HeliosX models start at $270 for lightweight Galilean systems and $710 for ergonomic prismatic builds. That is roughly 50 to 70 percent less than equivalent loupes from legacy brands, with comparable optics, custom IPD fitting, and a measurement-first ordering process.',
+  },
+  {
+    question: 'Does HeliosX ship internationally?',
+    answer:
+      'HeliosX ships to the United States and Canada as standard. International shipping is available on request to most countries served by major couriers. Email heliosxloupes@gmail.com to coordinate before placing the order.',
+  },
+  {
+    question: 'Can I get prescription lenses with HeliosX loupes?',
+    answer:
+      'Yes. Prescription lenses are available across the HeliosX product line. Submit a current eyeglass prescription after checkout via the measurement flow and HeliosX coordinates the lens build.',
+  },
+]
+
+for (const page of allSeoLandingPages) {
+  if (page.faqs.length >= 6) continue
+  for (const candidate of universalLoupesFaqs) {
+    if (page.faqs.length >= 6) break
+    const alreadyAsked = page.faqs.some((existing) => existing.question === candidate.question)
+    if (!alreadyAsked) {
+      page.faqs.push(candidate)
+    }
+  }
+}
+
 const educationGuidePublicationDates: Record<string, { datePublished: string; dateModified: string }> = {
   'loupe-magnification-guide': { datePublished: '2026-04-01', dateModified: '2026-05-23' },
   'galilean-vs-prismatic-loupes': { datePublished: '2026-04-05', dateModified: '2026-05-23' },

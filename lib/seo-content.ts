@@ -76,6 +76,17 @@ const valueSection: ContentSection = {
   ],
 }
 
+const specialtyMagnificationSection: ContentSection = {
+  title: 'Magnification changes by specialty',
+  body:
+    'A survey of surgeons in the west of Scotland found clear specialty patterns in intraoperative magnification use. Plastic, maxillofacial, ophthalmic, and otolaryngology surgeons reported frequent use of magnification, cardiothoracic and pediatric surgeons leaned heavily on loupes, and neurosurgery was more microscope-centered.',
+  bullets: [
+    'Loupes are a practical choice when the work benefits from magnification without microscope setup.',
+    'Microscopes remain important for very high magnification and the smallest operative structures.',
+    'The useful question is specialty plus procedure: what detail, posture, setup time, and field size does the case require?',
+  ],
+}
+
 export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'surgical-loupes',
@@ -85,7 +96,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       'Shop HeliosX surgical loupes for residents, surgeons, and medical students: ergonomic prismatic options, adjustable working distance, and fair pricing.',
     heroKicker: 'Surgical loupes',
     primaryKeyword: 'surgical loupes',
-    relatedKeywords: ['prismatic surgical loupes', 'best surgical loupes', 'affordable surgical loupes'],
+    relatedKeywords: ['prismatic surgical loupes', 'best surgical loupes', 'affordable surgical loupes', 'intraoperative magnification'],
     audience: 'surgeons, residents, medical students, and procedure-focused clinicians',
     intro:
       'HeliosX surgical loupes combine ergonomic posture support, crisp optics, custom fit guidance, and honest pricing for clinicians who need precision without legacy markups.',
@@ -96,6 +107,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     ],
     sections: [
       postureSection,
+      specialtyMagnificationSection,
       {
         title: 'A clearer model map',
         body:
@@ -273,12 +285,13 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       'Find the best loupes for surgical, dental, resident, student, ergonomic, and high-magnification workflows with HeliosX product recommendations.',
     heroKicker: 'Best loupes guide',
     primaryKeyword: 'best loupes',
-    relatedKeywords: ['best surgical loupes', 'best dental loupes', 'best loupes for residents'],
+    relatedKeywords: ['best surgical loupes', 'best dental loupes', 'best loupes for residents', 'intraoperative magnification'],
     audience: 'buyers comparing loupe types before purchase',
     intro:
       'The best loupes are not one model for everyone. The right choice depends on procedure mix, posture needs, magnification, budget, and measurement accuracy.',
     proofPoints: ['Use-case based recommendations.', 'Clear distinction between ergonomic prismatic and lightweight systems.', 'Internal links to products and education guides.'],
     sections: [
+      specialtyMagnificationSection,
       {
         title: 'Best for ergonomics',
         body:
@@ -344,6 +357,14 @@ const audiencePages: SeoLandingPage[] = [
     },
   ],
 }))
+
+for (const specialtySlug of ['loupes-for-residents', 'loupes-for-medical-students', 'loupes-for-plastic-surgery', 'loupes-for-microsurgery']) {
+  const page = audiencePages.find((item) => item.slug === specialtySlug)
+  if (page) {
+    page.sections.splice(1, 0, specialtyMagnificationSection)
+    page.relatedKeywords.push('intraoperative magnification', 'surgical magnification')
+  }
+}
 
 allSeoLandingPages.push(...audiencePages)
 
@@ -1424,6 +1445,73 @@ export const educationGuides: EducationGuide[] = [
   },
 ]
 
+educationGuides.push({
+  slug: 'intraoperative-magnification-by-specialty',
+  title: 'Intraoperative Magnification by Specialty',
+  metaTitle: 'Intraoperative Magnification by Specialty | HeliosX Education',
+  description:
+    'Learn how surgeons across specialties use loupes and microscopes, and how intraoperative magnification choices change by procedure, setup, and anatomy.',
+  kicker: 'Surgical evidence',
+  audience: 'surgeons, residents, proceduralists, and operating room teams',
+  intro:
+    'Intraoperative magnification is not used the same way in every specialty. A published survey of surgeons and senior trainees found distinct patterns: some specialties rely heavily on loupes, some combine loupes and microscopes, and others reserve magnification for narrower indications.',
+  sections: [
+    {
+      title: 'What the survey found',
+      body:
+        'The publication surveyed 148 specialists and senior surgical trainees in the west of Scotland. Use patterns were similar within specialties but varied sharply between specialties, which is exactly why loupe selection should start with the procedure rather than a generic magnification number.',
+      bullets: [
+        'Plastic, maxillofacial, ophthalmic, and otolaryngology surgeons reported frequent magnification use.',
+        'Cardiothoracic and pediatric surgeons tended to use loupes more than microscopes.',
+        'Neurosurgeons were more microscope-centered, while general surgery, urology, orthopedics, and gynecology were more infrequent users.',
+      ],
+    },
+    {
+      title: 'Loupes and microscopes solve different problems',
+      body:
+        'The paper describes loupes as easier to use, more portable, and less expensive than operating microscopes, while microscopes are needed for much higher magnification. For structures under roughly one to two millimeters, microscope-level visualization may be required.',
+      bullets: [
+        'Loupes can support surgical visibility without the setup burden of an operating microscope.',
+        'Microscopes remain essential when the anatomy or procedure demands very high magnification.',
+        'Many clinicians benefit from a practical loupe system even when the most complex cases still require a microscope.',
+      ],
+    },
+    {
+      title: 'How to apply this when choosing loupes',
+      body:
+        'Specialty patterns are a starting point, not a prescription. The right loupe depends on how often you use magnification, the size of the structures you work around, whether you need ergonomic posture support, and how much field of view you can afford to give up.',
+      bullets: [
+        'Plastic, maxillofacial, pediatric, and cardiothoracic workflows often justify a serious loupe comparison.',
+        'Residents should choose a system that fits their expected specialty path and current budget.',
+        'HeliosX maps broad clinical access, ergonomic prismatic support, and high-magnification needs into separate model paths.',
+      ],
+    },
+  ],
+  faqs: [
+    {
+      question: 'Which specialties use intraoperative magnification most often?',
+      answer:
+        'The surveyed specialties with frequent magnification use included plastic surgery, maxillofacial surgery, ophthalmology, otolaryngology, cardiothoracic surgery, pediatric surgery, and neurosurgery, though the balance between loupes and microscopes differed by specialty.',
+    },
+    {
+      question: 'Are loupes a replacement for an operating microscope?',
+      answer:
+        'No. Loupes and microscopes solve different problems. Loupes are portable and practical for many magnified procedures, while microscopes are still needed for very high magnification and very small structures.',
+    },
+    {
+      question: 'What does this mean for residents choosing loupes?',
+      answer:
+        'Residents should choose around likely specialty exposure, working distance, posture, and budget. A broad, affordable system may fit early training, while ergonomic prismatic or higher-magnification systems make more sense as procedural needs become clearer.',
+    },
+  ],
+  citations: [
+    {
+      label: 'Jarrett PM. Intraoperative magnification: who uses it? Microsurgery. 2004;24:420-422.',
+      href: '/research/intraoperative-magnification-who-uses-it.pdf',
+    },
+  ],
+})
+
 const compactGuideData: [string, string, string][] = [
   ['best-loupes-for-residents', 'Best Loupes for Residents', 'Compare loupe choices for residents by specialty, budget, ergonomics, and magnification needs.'],
   ['best-loupes-for-dental-students', 'Best Loupes for Dental Students', 'Dental student guide to magnification, working distance, ergonomics, and affordable loupe choices.'],
@@ -1479,6 +1567,20 @@ educationGuides.push(
         : undefined,
   }))
 )
+
+for (const specialtyGuideSlug of ['research', 'how-to-choose-surgical-loupes', 'best-loupes-for-residents', 'best-loupes-for-plastic-surgery']) {
+  const guide = educationGuides.find((item) => item.slug === specialtyGuideSlug)
+  if (guide) {
+    guide.sections.splice(1, 0, specialtyMagnificationSection)
+    guide.citations = [
+      ...(guide.citations ?? []),
+      {
+        label: 'Jarrett PM. Intraoperative magnification: who uses it? Microsurgery. 2004;24:420-422.',
+        href: '/research/intraoperative-magnification-who-uses-it.pdf',
+      },
+    ]
+  }
+}
 
 export function getSeoLandingPage(slug: string) {
   return allSeoLandingPages.find((page) => page.slug === slug) ?? null

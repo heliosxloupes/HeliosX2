@@ -16,6 +16,7 @@ const staticPaths = [
   '/faq',
   '/privacy',
   '/terms',
+  '/research/intraoperative-magnification-who-uses-it.pdf',
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {

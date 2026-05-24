@@ -137,6 +137,7 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
 
   const relatedGuides = [
     { href: '/education/loupe-magnification-guide', label: 'Magnification guide' },
+    { href: '/education/intraoperative-magnification-by-specialty', label: 'Magnification by specialty' },
     { href: '/education/galilean-vs-prismatic-loupes', label: 'Galilean vs prismatic' },
     { href: '/education/working-distance-for-loupes', label: 'Working distance' },
     { href: '/measurements', label: 'Measurements' },

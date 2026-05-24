@@ -1663,8 +1663,132 @@ educationGuides.push({
   ],
 })
 
+educationGuides.push({
+  slug: 'best-loupes-for-residents',
+  title: 'Best Loupes for Residents',
+  metaTitle: 'Best Loupes for Residents | Magnification, Specialty, Budget',
+  description:
+    'How residents should pick their first pair of surgical or dental loupes — magnification by stage, specialty-by-specialty recommendations, and the HeliosX models that fit each.',
+  kicker: 'Resident buying guide',
+  audience: 'surgical residents, dental residents, fellows, and medical students preparing to buy their first pair of loupes',
+  intro:
+    'A resident-focused buying guide for your first pair of surgical or dental loupes. The right pair depends on your specialty mix, how detail-heavy your typical case is, and what fits your training-year budget. For most surgical and dental residents, the sweet spot for a first pair sits between 2.5x and 3.5x.',
+  sections: [
+    {
+      title: 'What residents should buy first',
+      body:
+        'For most residents, the strongest first pair is between 2.5x and 3.5x magnification. This range delivers meaningful clarity over the operative field while preserving enough field of view and depth of field to stay forgiving while you build loupe habits. 3.0x is the most common single answer for a first pair across surgical residents.',
+      bullets: [
+        '2.5x — easiest learning curve, widest field of view, broadest case coverage.',
+        '3.0x — the best all-around first loupe for most surgical residents.',
+        '3.5x — the right starting magnification for plastics, ENT, OMFS, and hand surgery residents.',
+      ],
+    },
+    {
+      title: 'Magnification by training stage',
+      body:
+        'A resident pair has to handle a wide procedure mix that changes from PGY-1 to PGY-5. Match the pair to where you are now rather than where you expect to be at attending level. You can add a higher-magnification specialty pair later when your case mix justifies it.',
+      bullets: [
+        'Early residency (PGY-1 to PGY-2): 2.5x to 3.0x covers most rotations and exposure.',
+        'Mid-residency (PGY-3 to PGY-4): 3.0x to 3.5x covers most procedural detail without locking you into a narrow field.',
+        'Senior residents and fellows in detail-heavy fields: 3.5x to 5.0x once your case mix has settled and you have established loupe habits.',
+      ],
+    },
+    {
+      title: 'Specialty recommendations for resident first pairs',
+      body:
+        'Specialty determines both the typical structure size you operate on and how much you move during a case. Use these ranges as a defensible starting point, not a prescription. Specialty patterns are documented in the Jarrett 2004 west-of-Scotland survey of intraoperative magnification and align with how modern training programs recommend loupes.',
+      bullets: [
+        'Plastic surgery residents: 3.0x to 3.5x for general work; consider 3.5x to 5.0x for hand and peripheral nerve focus.',
+        'General surgery residents: 2.5x to 3.0x for broad open work; 3.0x to 3.5x if vascular or endocrine cases dominate.',
+        'Cardiothoracic surgery residents: 2.5x to 3.5x for the general case mix; 3.5x to 4.0x for coronary and small-vessel detail.',
+        'Pediatric surgery residents: 2.5x to 3.5x for general work; 3.5x to 4.0x for smaller neonatal procedures.',
+        'ENT and otolaryngology residents: 3.0x to 3.5x as a default; otology and facial plastics push toward 4.0x to 6.0x.',
+        'Oral and maxillofacial surgery residents: 2.5x to 3.5x general OMFS; 3.5x to 5.0x for nerve-heavy reconstruction.',
+        'Dental residents (endodontics or periodontics): 3.5x to 6.0x because the case mix is detail-dominated.',
+        'Orthopedic surgery residents: 2.5x to 3.0x if loupes are needed; hand-surgery focus pushes to 3.5x to 5.0x.',
+      ],
+      sourceLabel:
+        'Jarrett PM. Intraoperative magnification: who uses it? Microsurgery. 2004;24:420–422.',
+      sourceHref: '/research/intraoperative-magnification-who-uses-it.pdf',
+    },
+    {
+      title: 'HeliosX model map for residents',
+      body:
+        'Map the magnification you need against the budget and ergonomics that fit your training stage. HeliosX models are tiered so you can start affordably and move into ergonomic prismatic or high-magnification systems later as your case mix settles.',
+      bullets: [
+        'Galileo: lightweight Galilean loupes at 2.5x to 3.5x — the most affordable entry pair for students and junior residents.',
+        'Newton: ultra-light Galilean at 2.5x to 3.5x — the comfort pick for long clinic days and full OR rotations.',
+        'Apollo: ergonomic prismatic at 3.0x to 6.0x — the right step up when posture and detail both matter.',
+        'Medusa: ergonomic prismatic with adjustable working distance at 3.0x to 8.5x — for residents who alternate between seated and standing procedures.',
+        'Kepler: high-magnification system at 4.0x to 6.0x — the second pair for microsurgery-adjacent senior residents and fellows.',
+      ],
+    },
+    {
+      title: 'Budget and risk for a resident pair',
+      body:
+        'Residency budgets are real. The most expensive loupe is rarely the right loupe — the right loupe is the one that matches the case mix and ergonomics you actually have. HeliosX prices are deliberately fair so you can buy the magnification you need without two months of rent going to a single pair.',
+      bullets: [
+        'Galileo and Newton start around $270 — competitive with disposable-quality knockoffs but built around real custom IPD and working-distance measurement.',
+        'Apollo and Medusa start around $710 to $740 — typically 50 to 70 percent less than equivalent ergonomic prismatic loupes from legacy brands.',
+        'Kepler starts around $460 — the most accessible entry into high-magnification loupe territory.',
+        'Risk-free before measurements: HeliosX builds each pair after you submit your PD and working distance, so the order is fully refundable up to that point.',
+      ],
+    },
+    {
+      title: 'Next steps for residents',
+      body:
+        'If you are still deciding magnification, the deep dive in the loupe magnification guide breaks down every level from 2.5x through 6.0x. If you already know your magnification and just need to size the rest of the order, jump to the measurements guide.',
+      bullets: [
+        'Magnification deep dive: per-level breakdown plus the quick decision tool.',
+        'Measurements guide: pupillary distance and working distance, step by step.',
+        'Working distance for loupes: how to pick the right WD for your real operating posture.',
+        'Ergonomic loupes and neck pain: when to step up to prismatic for posture-heavy cases.',
+      ],
+    },
+  ],
+  faqs: [
+    {
+      question: 'What magnification should I buy as a surgical resident?',
+      answer:
+        '3.0x is the most common single answer for a first pair across surgical residents. 2.5x is a strong choice if you want the widest field and the easiest adaptation; 3.5x is the right starting magnification if you are in plastics, ENT, OMFS, hand surgery, or another detail-heavy specialty.',
+    },
+    {
+      question: 'Should I buy ergonomic prismatic loupes as a resident?',
+      answer:
+        'It depends on how much posture stress your specialty puts on your neck and back. For long clinic days and posture-demanding cases, an ergonomic prismatic system like HeliosX Apollo or Medusa is worth the price premium. For broad early-rotation work, a lighter Galilean pair like Galileo or Newton is a defensible starting point.',
+    },
+    {
+      question: 'How much should a resident spend on their first loupes?',
+      answer:
+        'HeliosX models for residents start around $270 for Galileo and Newton, $710 to $740 for the ergonomic prismatic Apollo and Medusa, and $460 for Kepler high-magnification. There is no good reason for a first pair to cost $3,000 to $5,000 — the same magnification and custom-fit measurement process is available at a fraction of the legacy-brand price.',
+    },
+    {
+      question: 'Is 6.0x magnification too much for a resident?',
+      answer:
+        'For most residents, yes. 6.0x has a narrow field of view, a shallow depth of field, and demands excellent posture, working distance, and lighting. Most residents are better served by a 3.0x to 3.5x first pair and a 5.0x to 6.0x specialty pair added later.',
+    },
+    {
+      question: 'How do I match magnification to my specialty as a trainee?',
+      answer:
+        'Plastic surgery, ENT, OMFS, and hand surgery residents tend toward 3.0x to 3.5x as a default; cardiothoracic and pediatric residents sit slightly lower at 2.5x to 3.5x; microsurgery-adjacent residents step up to 4.0x to 6.0x. Match the magnification to your actual case volume, not the rare microsurgery case.',
+    },
+    {
+      question: 'Can I order HeliosX loupes before I know my PD and working distance?',
+      answer:
+        'Yes. You pick the system and magnification at checkout, then submit your pupillary distance and working distance via the measurement flow afterward. The build only starts once your measurements are confirmed, so the order stays fully refundable up to that point.',
+    },
+  ],
+  citations: [
+    {
+      label:
+        'Jarrett PM. Intraoperative magnification: who uses it? Microsurgery. 2004;24:420–422.',
+      href: '/research/intraoperative-magnification-who-uses-it.pdf',
+    },
+  ],
+})
+
 const compactGuideData: [string, string, string][] = [
-  ['best-loupes-for-residents', 'Best Loupes for Residents', 'Compare loupe choices for residents by specialty, budget, ergonomics, and magnification needs.'],
   ['best-loupes-for-dental-students', 'Best Loupes for Dental Students', 'Dental student guide to magnification, working distance, ergonomics, and affordable loupe choices.'],
   ['best-loupes-for-plastic-surgery', 'Best Loupes for Plastic Surgery', 'Plastic surgery loupe guide for aesthetics, reconstruction, hand, and microsurgery-oriented workflows.'],
   ['how-to-choose-surgical-loupes', 'How to Choose Surgical Loupes', 'A practical buying guide covering magnification, prismatic optics, working distance, fit, budget, and specialty.'],

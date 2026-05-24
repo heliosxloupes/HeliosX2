@@ -72,7 +72,7 @@ export default function MeasurementsExperience({ faqs, steps }: MeasurementsExpe
             className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(0,0,0,0.92)_10%,rgba(0,0,0,0.68)_48%,rgba(0,0,0,0.26)_76%,rgba(0,0,0,0.84)_100%)]" />
-          <div className="absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-black via-black/74 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/90 via-black/42 to-transparent" />
 
           <motion.div
             initial="hidden"

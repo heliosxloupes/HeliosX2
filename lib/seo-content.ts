@@ -39,6 +39,8 @@ export type SeoLandingPage = {
   }[]
   verdict?: string
   heroTail?: string
+  datePublished?: string
+  dateModified?: string
 }
 
 export type EducationGuide = {

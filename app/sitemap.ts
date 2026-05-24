@@ -75,7 +75,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const path = `/${page.slug}`
     entries.push({
       url: `${siteUrl}${path}`,
-      lastModified: toDate(SITE_CONTENT_LAST_MODIFIED),
+      lastModified: toDate(page.dateModified ?? page.datePublished ?? SITE_CONTENT_LAST_MODIFIED),
       changeFrequency: changeFrequencyFor(path),
       priority: priorityFor(path),
     })

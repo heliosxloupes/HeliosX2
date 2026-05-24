@@ -54,10 +54,10 @@ function ScrollProgressBar() {
 }
 
 function getGuideImage(slug: string) {
-  if (slug === 'working-distance-for-loupes') {
+  if (slug === 'working-distance-for-loupes' || slug === 'how-to-measure-pupillary-distance') {
     return {
       src: '/oldguy2.png',
-      alt: 'Clinician in working posture demonstrating loupe working distance',
+      alt: 'Clinician at the operating field demonstrating loupe working posture',
     }
   }
 

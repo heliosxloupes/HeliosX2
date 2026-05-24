@@ -263,6 +263,15 @@ const defaultShippingDetails = {
   },
 }
 
+export type ProductReviewInput = {
+  authorName: string
+  rating: number
+  title: string
+  body: string
+  datePublished: string
+  language?: string
+}
+
 export function productJsonLd(product: {
   name: string
   description: string
@@ -272,6 +281,8 @@ export function productJsonLd(product: {
   priceLabel?: string
   magnifications?: string[]
   audience?: string
+  aggregateRating?: { ratingValue: number; reviewCount: number }
+  reviews?: ProductReviewInput[]
 }) {
   const productUrl = absoluteUrl(`/product/${product.slug}`)
   const sku = `heliosx-${product.slug}`
@@ -344,6 +355,36 @@ export function productJsonLd(product: {
       '@type': 'PropertyValue',
       name: 'Magnification',
       value: mag,
+    }))
+  }
+
+  if (product.aggregateRating && product.aggregateRating.reviewCount > 0) {
+    productNode.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: product.aggregateRating.ratingValue,
+      reviewCount: product.aggregateRating.reviewCount,
+      bestRating: 5,
+      worstRating: 1,
+    }
+  }
+
+  if (product.reviews && product.reviews.length > 0) {
+    productNode.review = product.reviews.map((review) => ({
+      '@type': 'Review',
+      name: review.title,
+      reviewBody: review.body,
+      datePublished: review.datePublished,
+      ...(review.language ? { inLanguage: review.language } : {}),
+      author: {
+        '@type': 'Person',
+        name: review.authorName,
+      },
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: review.rating,
+        bestRating: 5,
+        worstRating: 1,
+      },
     }))
   }
 

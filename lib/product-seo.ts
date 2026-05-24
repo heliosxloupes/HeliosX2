@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { getProduct } from '@/lib/commerce'
+import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productPositioning } from '@/lib/seo-content'
 import {
   breadcrumbJsonLd,
@@ -53,6 +54,16 @@ export async function getProductJsonLd(slug: string) {
   const description =
     productPositioning[product.shortName as keyof typeof productPositioning] ?? product.description
 
+  const aggregateRating = getProductAggregateRating(slug) ?? undefined
+  const reviewList = getProductReviews(slug).map((review) => ({
+    authorName: review.authorName,
+    rating: review.rating,
+    title: review.title,
+    body: review.body,
+    datePublished: review.datePublished,
+    language: review.language,
+  }))
+
   return [
     productJsonLd({
       name: product.name,
@@ -63,6 +74,8 @@ export async function getProductJsonLd(slug: string) {
       priceLabel: product.priceLabel,
       magnifications: product.magnifications,
       audience: productAudience[slug],
+      aggregateRating,
+      reviews: reviewList,
     }),
     breadcrumbJsonLd([
       { name: 'Home', path: '/' },

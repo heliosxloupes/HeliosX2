@@ -7,7 +7,9 @@ import { motion } from 'framer-motion'
 
 import Header from '@/components/Header'
 import Noise from '@/components/Noise'
+import ProductReviews from '@/components/ProductReviews'
 import { addToCart } from '@/lib/cart'
+import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 
 export type FrameId =
   | 'JJ04B'
@@ -778,6 +780,13 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
             </motion.div>
           </div>
         </section>
+
+        {/* CLINICIAN REVIEWS */}
+        <ProductReviews
+          productName={config.shortName}
+          reviews={getProductReviews(config.slug)}
+          aggregate={getProductAggregateRating(config.slug)}
+        />
 
         {/* FOOTER BANNER */}
         <section className="relative overflow-hidden border-t border-white/10">

@@ -333,7 +333,7 @@ export default function CartPage() {
                       : 'border-white/10 bg-black/40 hover:border-white/30'
                   }`}
                 >
-                  <div className="flex items-start gap-4 sm:gap-5">
+                  <div className="flex min-w-0 flex-1 items-start gap-4 sm:gap-5">
                     <div className="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/5 p-3 text-white shadow-[0_0_16px_rgba(255,255,255,0.05)] sm:h-14 sm:w-14">
                       <Image
                         src="/prescription.png"
@@ -343,7 +343,7 @@ export default function CartPage() {
                         className="h-6 w-6 object-contain brightness-0 invert drop-shadow-[0_0_6px_rgba(255,255,255,0.35)] sm:h-7 sm:w-7"
                       />
                     </div>
-                    <div className="space-y-1">
+                    <div className="min-w-0 space-y-1">
                       <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
                         Prescription lenses
                       </p>
@@ -356,11 +356,11 @@ export default function CartPage() {
                       </p>
                     </div>
                   </div>
-                  <div className="ml-2 flex flex-col items-end gap-2 sm:ml-4">
+                  <div className="ml-2 flex shrink-0 flex-col items-end gap-2 sm:ml-4">
                     <span className="whitespace-nowrap text-sm font-semibold text-neutral-50">
                       +${PRESCRIPTION_ESTIMATE}
                     </span>
-                    <span className={`rounded-full px-2 py-1 text-[0.62rem] uppercase tracking-[0.2em] ${includePrescription ? 'bg-white text-black' : 'border border-white/15 text-neutral-400'}`}>
+                    <span className={`whitespace-nowrap rounded-full px-2 py-1 text-[0.62rem] uppercase tracking-[0.2em] ${includePrescription ? 'bg-white text-black' : 'border border-white/15 text-neutral-400'}`}>
                       {includePrescription ? 'Added' : 'Optional'}
                     </span>
                   </div>
@@ -378,7 +378,7 @@ export default function CartPage() {
                       : 'border-white/10 bg-black/40 hover:border-white/30'
                   }`}
                 >
-                  <div className="flex items-start gap-4 sm:gap-5">
+                  <div className="flex min-w-0 flex-1 items-start gap-4 sm:gap-5">
                     <div className="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/5 p-3 text-white shadow-[0_0_16px_rgba(255,255,255,0.05)] sm:h-14 sm:w-14">
                       <Image
                         src="/warranty.png"
@@ -388,7 +388,7 @@ export default function CartPage() {
                         className="h-6 w-6 object-contain brightness-0 invert drop-shadow-[0_0_6px_rgba(255,255,255,0.35)] sm:h-7 sm:w-7"
                       />
                     </div>
-                    <div className="space-y-1">
+                    <div className="min-w-0 space-y-1">
                       <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
                         Extended warranty
                       </p>
@@ -402,11 +402,11 @@ export default function CartPage() {
                       </p>
                     </div>
                   </div>
-                  <div className="ml-2 flex flex-col items-end gap-2 sm:ml-4">
+                  <div className="ml-2 flex shrink-0 flex-col items-end gap-2 sm:ml-4">
                     <span className="whitespace-nowrap text-sm font-semibold text-neutral-50">
                       +${WARRANTY_ESTIMATE}
                     </span>
-                    <span className={`rounded-full px-2 py-1 text-[0.62rem] uppercase tracking-[0.2em] ${includeWarranty ? 'bg-white text-black' : 'border border-white/15 text-neutral-400'}`}>
+                    <span className={`whitespace-nowrap rounded-full px-2 py-1 text-[0.62rem] uppercase tracking-[0.2em] ${includeWarranty ? 'bg-white text-black' : 'border border-white/15 text-neutral-400'}`}>
                       {includeWarranty ? 'Added' : 'Optional'}
                     </span>
                   </div>

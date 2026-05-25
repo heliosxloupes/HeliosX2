@@ -6,7 +6,11 @@ import { useRouter } from 'next/navigation'
 
 import { getCart } from '@/lib/cart'
 
-export default function CartButton() {
+type CartButtonProps = {
+  variant?: 'desktop' | 'mobile'
+}
+
+export default function CartButton({ variant = 'desktop' }: CartButtonProps) {
   const [count, setCount] = useState(0)
 
   const router = useRouter()
@@ -44,10 +48,15 @@ export default function CartButton() {
     }
   }, [])
 
+  const showOrderNow = variant === 'mobile' && count === 0
+  const label = showOrderNow ? 'Order now' : 'Cart'
+  const destination = showOrderNow ? '/product' : '/cart'
+
   return (
     <button
       type="button"
-      onClick={() => router.push('/cart')}
+      onClick={() => router.push(destination)}
+      aria-label={showOrderNow ? 'Order now — start configuring' : `Cart, ${count} item${count === 1 ? '' : 's'}`}
       className="relative inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[0.7rem] font-medium text-neutral-100 backdrop-blur-md transition hover:bg-white/15"
     >
       {/* Shopping bag icon */}
@@ -66,7 +75,7 @@ export default function CartButton() {
         <path d="M3 6h18" />
         <path d="M16 10a4 4 0 0 1-8 0" />
       </svg>
-      <span>Cart</span>
+      <span>{label}</span>
       {/* Cart count badge - top right corner */}
       {count > 0 && (
         <span className="absolute -right-1 -top-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#FF9D00] text-[0.65rem] font-bold text-black shadow-[0_0_8px_rgba(255,157,0,0.5)]">
@@ -76,4 +85,3 @@ export default function CartButton() {
     </button>
   )
 }
-

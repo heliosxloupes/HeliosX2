@@ -54,8 +54,7 @@ function MobileNav() {
   }, [])
 
   const navItems = [
-    { href: "/", label: "Home" },
-    { href: "/product", label: "Products" },
+    { href: "/product", label: "Shop now" },
     { href: "/surgical-loupes", label: "Surgical" },
     { href: "/dental-loupes", label: "Dental" },
     { href: "/education", label: "Education" },
@@ -90,7 +89,7 @@ function MobileNav() {
 
           <div className="flex items-center gap-3">
             {/* Cart button */}
-            <CartButton />
+            <CartButton variant="mobile" />
 
             {/* Hamburger */}
             <button
@@ -117,7 +116,7 @@ function MobileNav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="fixed inset-0 z-40 bg-black/78 backdrop-blur-xl overscroll-none"
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl overscroll-none"
             onClick={toggle}
             onWheel={(e) => e.preventDefault()}
             onTouchMove={(e) => e.preventDefault()}
@@ -368,9 +367,6 @@ export default function Header() {
 
         {/* Center: nav (Product / Education / Story / FAQ) */}
         <nav className="hidden items-center gap-5 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-neutral-300 md:flex">
-          <Link href="/" className="transition hover:text-white">
-            Home
-          </Link>
           <Link href="/product" className="transition hover:text-white">
             Product
           </Link>
@@ -388,9 +384,6 @@ export default function Header() {
           </Link>
           <Link href="/measurements" className="transition hover:text-white">
             Measurements
-          </Link>
-          <Link href="/faq" className="transition hover:text-white">
-            FAQ
           </Link>
           {isAdmin && (
             <Link href="/admin" className="transition hover:text-white">

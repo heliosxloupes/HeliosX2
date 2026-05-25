@@ -171,11 +171,11 @@ function HeroSection() {
     <section id="top" className="relative overflow-hidden bg-transparent">
       <div
         ref={heroWrapperRef}
-        className="relative flex min-h-[100svh] items-end justify-center"
+        className="relative flex min-h-[86svh] md:min-h-[100svh] items-end justify-center"
       >
         <motion.div
           style={{ scale: heroScale, opacity: heroOpacity }}
-          className="relative min-h-[100svh] w-full overflow-hidden"
+          className="relative min-h-[86svh] md:min-h-[100svh] w-full overflow-hidden"
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             setCursorPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
@@ -207,7 +207,7 @@ function HeroSection() {
 
           {/* Content */}
           <motion.div
-            className="relative z-10 flex min-h-[100svh] flex-col justify-end px-5 pb-8 pt-28 md:px-12 md:pb-12 md:pt-32"
+            className="relative z-10 flex min-h-[86svh] md:min-h-[100svh] flex-col justify-end px-5 pb-6 pt-20 md:px-12 md:pb-12 md:pt-32"
             initial="hidden"
             animate="visible"
             variants={staggerChildren}
@@ -223,7 +223,7 @@ function HeroSection() {
                   variants={fadeIn}
                   transition={{ duration: 0.5 }}
                 >
-                  Ultra customizable - Worldwide shipping
+                  Surgical &amp; dental loupes
                 </motion.div>
 
                 {/* H1 - line-by-line slide-up reveal */}
@@ -257,8 +257,8 @@ function HeroSection() {
                   variants={fadeUp}
                   transition={{ duration: 0.6, delay: 0.55 }}
                 >
-                  Created for those who pursue mastery. Engineered for excellence,
-                  with perfect focus in every detail.
+                  Premium ergonomic prismatic loupes for surgeons, dentists, residents, and students.
+                  Created for those who pursue mastery. Engineered for excellence, with perfect focus in every detail.
                 </motion.p>
 
                 <motion.p
@@ -313,7 +313,7 @@ function HeroSection() {
                     <p className="text-xs text-neutral-300">Worldwide shipping</p>
                   </div>
                   <p className="text-lg font-medium leading-7 text-neutral-50">
-                    Designed for those who demand precision. Created for those who pursue mastery.
+                    Ergonomic prismatic loupes engineered for surgeons, dentists, and trainees.
                   </p>
                   <div className="flex gap-6 text-sm text-neutral-300">
                     <div>
@@ -446,7 +446,7 @@ function ManifestoSection() {
           >
             <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black via-black/65 to-transparent p-6">
               <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-400">
-                HeliosX system
+                HeliosX loupes
               </p>
               <p className="mt-2 max-w-xs text-sm leading-6 text-neutral-200">
                 Elite optical quality, honest pricing, and designs shaped by real surgeons.
@@ -504,15 +504,15 @@ function HorizontalStorySection() {
   const panels = [
     {
       eyebrow: "Unmatched quality",
-      title: "Unmatched Quality, Finally Affordable.",
-      body: "HeliosX was created for those who pursue mastery: optical clarity, ergonomic comfort, and elite quality without the industry markup.",
+      title: "Optical clarity. Honest price.",
+      body: "HeliosX was created for those who pursue mastery: optical clarity, ergonomic comfort, and elite quality at a fair price.",
       media: "/mainpagevideo2.mp4",
       type: "video" as const,
     },
     {
       eyebrow: "Engineered for excellence",
       title: "Perfect focus, every detail.",
-      body: "Designed for those who demand precision. HeliosX keeps you locked in on the field that matters most: the operative field.",
+      body: "Built for surgeons who measure work in millimeters. HeliosX keeps you locked in on the field that matters most: the operative field.",
       media: "/Newton/NewtonAsian2.png",
       type: "image" as const,
     },
@@ -846,7 +846,7 @@ function StorySection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          - Founder
+          — Founder
         </motion.p>
       </div>
     </section>
@@ -897,7 +897,7 @@ function CtaSection() {
               viewport={{ once: true }}
               variants={staggerChildren}
             >
-              <BulletItem>Galilean optics with generous depth of field.</BulletItem>
+              <BulletItem>Prismatic and Galilean systems across the magnification range.</BulletItem>
               <BulletItem>Magnification options from 2.5x to 6.0x.</BulletItem>
               <BulletItem>Custom frame styles fitted to your anatomy.</BulletItem>
               <BulletItem>Lightweight builds that respect your posture.</BulletItem>
@@ -930,7 +930,7 @@ function CtaSection() {
             </Link>
 
             <p className="text-xs leading-6 text-neutral-500">
-              Ultra customizable systems with worldwide shipping and surgeon-informed fitting support.
+              Ultra customizable loupes with worldwide shipping and surgeon-informed fitting support.
             </p>
           </motion.div>
         </div>

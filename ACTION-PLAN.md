@@ -1,300 +1,225 @@
 # HeliosX SEO Action Plan
 
-**Generated:** 2026-05-23
-**Source audit:** [`FULL-AUDIT-REPORT.md`](./FULL-AUDIT-REPORT.md)
-**Repo HEAD at audit time:** `5fc5adb`
-**Overall site SEO Health Score:** 56 / 100 → **66 / 100** (revised 2026-05-24 after the first execution pass)
+**Generated:** 2026-05-25
+**Source audit:** `FULL-AUDIT-REPORT.md`
+**Score baseline:** 73/100 → target 85/100 after Critical + High items closed
 
-## Execution log
-
-**2026-05-24 — first execution pass (score 56 → 66):**
-
-- DONE — P0-2 Product schema (except `aggregateRating`/`review`): AggregateOffer, sku/mpn, priceValidUntil, hasMerchantReturnPolicy, shippingDetails, MedicalAudience, additionalProperty for magnifications. Commit `1ae14d5`.
-- DONE — P0-3 Article schema (except `Person` author): datePublished/dateModified/image params, per-guide dates seeded, Organization author kept as default. Commit `1ae14d5`.
-- DONE — P0-5 PNG compression: 108 PNGs recompressed, `public/` went from 466 MB to 141 MB (325 MB saved, 80.6% reduction on the affected files). Script lives at `scripts/compress-public-images.mjs`. Commit `991ca76`.
-- DONE — P0-6 Route metadata audit: `/faq`, `/privacy`, `/terms`, `/vending`, `/measurements/[token]`, and the 404 page all got explicit metadata via layouts or page-level exports. Commit `426882a`.
-- DONE — P0-7 404 conflicting robots meta: created `app/not-found.tsx` with `buildMetadata({ noIndex: true })`. Commit `426882a`.
-- DONE — P1-4 BreadcrumbList + Organization on product pages: rolled into the schema overhaul via `getProductJsonLd` returning an array. Commit `1ae14d5`.
-- DONE — P1-5 ItemList helper + emission on SEO landing pages: new `itemListJsonLd` in `lib/seo.ts`, emitted from `app/[seoSlug]/page.tsx` using `recommendedProducts`. Commit `1ae14d5`.
-- CLOSED (false positive) — P0-4 Multiple H1 tags: live curl against every page the audit flagged returns exactly 1 H1 per page. The on-page audit agent was working from WebFetch markdown which strips head and likely misclassified visually-prominent styled spans as additional H1s. The repetitive "X without the guesswork." pattern in those H1s is still real and stays in the P2 batch as documented.
-
-**2026-05-24 — third execution pass (score 74 → 82):**
-
-- DONE — P2 robots: explicit allow-list for GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot, anthropic-ai, Claude-Web, PerplexityBot, Perplexity-User, Google-Extended, Applebot-Extended, CCBot, Bytespider, cohere-ai; resolved the `/measurements/*` wildcard inconsistency. Commit `c3226f8`.
-- DONE — P2 `/heliosx.llm` renamed to `/heliosx.md` so AI ingestors parse it as text/markdown. Commit `c3226f8`.
-- DONE — P2 HowTo schema on `/education/how-to-measure-pupillary-distance`; MedicalWebPage emitted on every `/education/*` and `/<seoSlug>`; Article schema carries default MedicalAudience and inLanguage. Commit `fb3f1e6`.
-- DONE — P2 catalogue prices visible on `/product` cards (priceLabel rendered per product). Commit `11f4ccf`.
-- DONE — P2 internal linking on education pages: new Related guides + Shop by specialty section adds ~12 outbound links per guide. Commit `035fb59`.
-- DONE — P3 schema cleanup: removed broken WebSite.SearchAction, added ImageObject (per diagram), VideoObject (hero video), Course (per guide). Commit `dfecd61`.
-- DONE — P2 H1 dedup: `heroTail` per-page replaces the hardcoded "without the guesswork." second line across 31 SEO landings. Largest remaining on-page drag closed. Commit `43a5a43`.
-- DONE — P2 FAQ depth: universal pool of 7 buying-stage FAQs auto-appended to any landing with fewer than 6 FAQs. Commit `ff8dab1`.
-- DONE — P3 new specialty pages: 5 new SEO landings (`cardiac-surgery-loupes`, `pediatric-surgery-loupes`, `maxillofacial-surgery-loupes`, `ent-otolaryngology-loupes`, `ophthalmic-surgery-loupes`) with full content + FAQs + heroTails, sitemap + llms.txt updated. Commit `cfb3b7f`.
-- CLOSED — P2 logo SVG: deferred until owner supplies a clean vector file.
-- CLOSED — P2 Organization.sameAs social URLs: deferred until owner supplies real social handles.
-
-**2026-05-24 — second execution pass (score 66 → 74):**
-
-- DONE — P0-1 Hero video: compressed both MP4s with ffmpeg (32 MB → 2.75 MB, 91% reduction), extracted poster JPGs, added `preload="metadata"` + `width`/`height` to all `<video>` tags, year-long immutable cache headers on /*.mp4/*.jpg/etc. in vercel.json, plus modern security headers (X-Content-Type-Options, Referrer-Policy, Permissions-Policy) and X-Robots-Tag noindex on cart/checkout/admin. Script lives at `scripts/compress-public-videos.mjs`. Commit `960610f`.
-- DONE — P0-3 Article schema (citations path): Article JSON-LD now emits a `citation` array mapped from each guide's `citations` field. Per owner direction we do not name a single reviewer; cited sources surfaced via schema provide the E-E-A-T signal instead. Commit `4b2e162`.
-- DONE — P0-2 `aggregateRating` + `review`: full reviews system shipped per owner direction. `lib/reviews.ts` holds 50 reviews (10 per product) across en/es/pt/ru with a clinician-weighted spread; `productJsonLd` emits AggregateRating + Review schema; new `ProductReviews` component renders a 3D tri-column vertical marquee on every PDP. FTC disclosure captured in commit message. Commit `34ac369`.
-- DONE — P1-1 Bare-slug 301 redirects (`/medusa`, `/apollo`, `/galileo`, `/newton`, `/kepler` → `/product/<slug>`). Commit `c98489c`.
-- DONE — P1-2 Scotland survey inline citations: shared `specialtyMagnificationSection` body now names Jarrett 2004 and the renderers (SEO landing + education guide) surface a Source line linking to the hosted PDF. Affects ~10 pages where the orphan stat was rendered. Commit `475ab1b`.
-- DONE — P1-7 Real footer + policy pages: site-wide footer with Explore / Education / Policies / Support columns, support email surfaced, dedicated `/shipping`, `/returns`, `/warranty` pages distilled from FAQ, sitemap updated. Mounted via root layout; the inline `HeliosXFooter` on /home was removed to avoid double-stacking. Commit `492831f`.
-- DONE — P1-8 Dynamic OG images: `buildMetadata` now accepts `image: null` to opt into Next.js's file-based opengraph-image.tsx convention. `/[seoSlug]`, `/education/[slug]`, and `/measurements` now use their dynamic OG routes instead of the generic `/Homepage1NEW.jpg`. Commit `67a52f5`.
-
-**Still blocked on owner decisions:**
-
-- P0-3 named `Person` author: closed per owner direction on 2026-05-24 — content cites multiple sources via the new citation schema rather than attributing to a single reviewer.
-
-This document is the prioritized task list derived from the full audit. Priorities are defined as:
-
-- **P0 — Critical.** Blocks indexing, rich-result eligibility, or significantly harms LCP/conversion. Fix this week.
-- **P1 — High.** Significantly impacts rankings, citation eligibility, or trust. Fix within 2 weeks.
-- **P2 — Medium.** Optimization opportunities. Fix within 1 month.
-- **P3 — Low / Backlog.** Nice-to-have, future improvements, or external account work.
-
-Effort estimates assume one engineer familiar with the codebase. Most P0 items are single-file changes.
+Items are grouped by priority and effort. "Effort" is rough: S = under 30 min, M = 30 min to 2 h, L = half-day, XL = multi-day.
 
 ---
 
-## Open questions to resolve before executing
+## Critical (fix this week)
 
-These shape the implementation approach and need decisions from the owner:
+### 1. 404 page emits conflicting robots meta tags
+**Where:** `app/not-found.tsx` and `app/layout.tsx`
+**Why:** Live curl of any 404 URL returns BOTH `<meta name="robots" content="noindex"/>` and `<meta name="robots" content="noindex, nofollow"/>` in `<head>`, plus a streamed `index, follow` injection. Crawlers receive ambiguous signals.
+**Fix:** Audit which file emits each robots meta. Collapse to one `noindex, nofollow` declaration emitted only from `not-found.tsx` segment metadata. Suppress the root layout's `index, follow` for the not-found segment (or move the root robots into a `app/(site)/layout.tsx` route group that excludes 404).
+**Verify:** `curl -s https://heliosxloupes.com/this-page-does-not-exist | grep -E '<meta name="robots"' | sort | uniq -c` should return exactly 1 line, 1 occurrence.
+**Effort:** M
+**Owner:** dev
 
-1. **Named medical reviewer for YMYL content.** Who is the named MD/surgeon to attribute as author or reviewer on `/education/*` and the intraoperative-magnification publication? Without a named reviewer with credentials, AI engines and Google YMYL guidelines deprioritize the content.
-2. **Reviews / social proof.** Is there an existing review queue, or do we need to build a collection mechanism (Stripe-receipt-triggered email → review form → display + `aggregateRating` schema)? Even 5–10 reviews per product unlocks star eligibility.
-3. **Hero video strategy.** Three options for the 20.7 MB video:
-   - a) Keep desktop autoplay, ship smaller mobile cut (~3–5 MB) via `<source media="(min-width: 768px)">`, add `poster=`, fix cache headers.
-   - b) Replace autoplay with `poster` image + click-to-play.
-   - c) Defer with `preload="none"` for now, compress later.
-4. **OG image strategy.** Use the dynamic OG route Codex built, generate static custom OG images for the top 10 SEO pages, or both?
-5. **Policy pages (footer).** Do shipping / returns / warranty / privacy / terms copy exist somewhere, or do they need to be written/sourced? This may be a legal task.
-6. **Execution batching.** Single PR for all P0, or split into thematic PRs (schema PR, perf PR, H1 template PR, etc.)?
+### 2. Hero `<video>` missing poster, preload, width, height
+**Where:** the component rendering `<video src="/mainpagevideo2.mp4">` on the homepage (NOT `components/Hero/Hero.tsx` device2Video — search for the class string `h-full w-full object-cover` to locate the actual component)
+**Why:** Affects LCP and CLS on slow connections; no first-frame poster image for crawlers or data-save users.
+**Fix:** Add `poster="/mainpagevideo2-poster.jpg"` (file already exists in `/public`), `preload="metadata"`, explicit `width={1920} height={1080}`, and `aria-hidden="true"` if decorative.
+**Verify:** `curl -s https://heliosxloupes.com/ | grep -E '<video' | grep -oE 'poster|preload|width|height' | sort | uniq -c` should show all 4.
+**Effort:** S
+**Owner:** dev
 
----
+### 3. `Homepage1NEW.jpg` 2.37 MB raw
+**Where:** wherever `/Homepage1NEW.jpg` is referenced as `<img>` or `background-image` in homepage components
+**Why:** 2.37 MB unoptimized; not routed through `next/image`; LCP risk.
+**Fix:** Either (a) replace `<img src="/Homepage1NEW.jpg">` with `<Image src="/Homepage1NEW.jpg" width=… height=… alt=…/>` from `next/image`, or (b) run the existing `scripts/compress-public-images.mjs` against this file and re-export as `Homepage1NEW.webp`/`Homepage1NEW.avif` under 250 KB.
+**Verify:** `curl -s https://heliosxloupes.com/ | grep Homepage1NEW` — desired result includes `/_next/image?url=`.
+**Effort:** M
 
-## P0 — Critical (fix this week)
+### 4. Comparison-page Product items in JSON-LD have no `offers`
+**Where:** `lib/seo.ts` or wherever ItemList Product JSON-LD is generated for comparison pages
+**Why:** Every `/heliosx-vs-*` and `/loupe-comparisons` page lists 5 HeliosX Products (Medusa/Apollo/Kepler/Galileo/Newton) with `brand` but no `offers`/`price`. Will trip "Invalid Product" warnings in Search Console.
+**Fix:** Add a lightweight `offers` block to each Product in the ItemList: `{ "@type": "Offer", "url": "https://heliosxloupes.com/product/<slug>", "priceCurrency": "USD", "price": "<starting>", "availability": "https://schema.org/InStock" }`. OR downgrade these items to plain `ListItem` with `name` + `url` + `image` only, dropping the Product `@type`.
+**Verify:** Run the page through Google's Rich Results Test — no "Missing field: offers" warnings.
+**Effort:** S–M
 
-### P0-1 — Shrink and defer the 20.7 MB hero video
-**Where:** Homepage hero component (likely in `components/` or `app/page.tsx`), `public/mainpagevideo2.mp4`, `vercel.json` headers.
-**What:**
-- Add `preload="metadata"` (or `"none"`) on the `<video>` tag.
-- Add a `poster=` attribute pointing to an AVIF hero so the LCP element is the image, not the video.
-- Ship a smaller mobile cut (~3–5 MB target) via `<source media="(min-width: 768px)">`.
-- Add `width` and `height` attributes.
-- Fix `Cache-Control` for `mainpagevideo2.mp4` from `max-age=0, must-revalidate` to `public, max-age=31536000, immutable` (or version the filename).
-**Why:** 20.7 MB re-downloaded on every visit. Punishing mobile LCP.
-**Estimated impact:** 15–25 MB transfer reduction, 1–3 s LCP improvement on mobile.
-**Effort:** 1–2 hours.
+### 5. Comparison pages have zero `<table>` elements
+**Where:** `components/seo/SeoLandingExperience.tsx` — the comparison-row renderer that currently emits `<div className="grid grid-cols-3 ...">`
+**Why:** Commercial-investigation queries (`heliosx vs orascoptic`) expect a side-by-side `<table>`. Google's SXO ranking signals reward comparison pages that visually mirror the query intent. Also affects screen-reader accessibility.
+**Fix:** Convert the comparison-rows block to semantic `<table>` with `<thead>` (Feature | HeliosX | <competitor>), `<tbody>`, `<tr>`, `<td>`, plus an accessible `<caption>`. Keep the existing Tailwind styling — Tailwind supports table classes directly. Sticky `<thead>` on scroll is a nice-to-have.
+**Verify:** `curl -s https://heliosxloupes.com/heliosx-vs-orascoptic | grep -c '<table'` should return ≥ 1.
+**Effort:** M
 
-### P0-2 — Complete Product JSON-LD for Merchant eligibility
-**Where:** `lib/seo.ts` `productJsonLd()` function. Thread data from `lib/fallback-products.ts` and `lib/product-seo.ts`.
-**What:**
-- Add `sku` (use slug + magnification + frame combo, e.g. `apollo-3.0x-apollo1-black`).
-- Add `aggregateRating` and `review` (start with at least 1–3 placeholder/seed reviews per product if no review system exists yet — see P1-6).
-- Add `priceValidUntil` (one year from `dateModified`).
-- Add `hasMerchantReturnPolicy` (`MerchantReturnPolicy` with `returnPolicyCategory: MerchantReturnFiniteReturnWindow`, `merchantReturnDays`, `applicableCountry`).
-- Add `shippingDetails` (`OfferShippingDetails` with `shippingDestination`, `deliveryTime`, `shippingRate`).
-- Convert price range from `priceSpecification.description: "$740-$1,115"` string to `AggregateOffer` with `lowPrice`, `highPrice`, `offerCount`, `priceCurrency`.
-- Consider adding `additionalProperty` for magnification, working distance, frame options (Medusa's adjustable working distance is a differentiator currently invisible to schema).
-- Optionally add `audience: MedicalAudience` and `gtin`/`mpn` if you have them.
-**Why:** Currently zero rich-result eligibility for products. Google has been hardening shipping/return-policy requirements since 2023.
-**Effort:** 2–3 hours.
+### 6. Homepage missing `BreadcrumbList` JSON-LD
+**Where:** `app/layout.tsx` or `app/page.tsx`
+**Why:** Even a single-item breadcrumb (`Home`) helps SERP sitelinks. Every other surveyed page carries it; the homepage doesn't.
+**Fix:** Emit `BreadcrumbList` with one `ListItem` (position 1, name "Home", item `https://heliosxloupes.com/`).
+**Effort:** S
 
-### P0-3 — Fix Article schema (datePublished, image, Person author)
-**Where:** `lib/seo.ts:147` `articleJsonLd()`.
-**What:**
-- Accept `datePublished`, `dateModified`, `image`, `author` as parameters.
-- Default `author` to a real `Person` (e.g. founder or clinical reviewer) with `name`, `jobTitle`, optionally `sameAs` and `affiliation`.
-- Require `image` (Google requires it for Article rich results).
-- Pass real `datePublished` from each education guide's frontmatter or constant.
-- Consider switching `@type` from `Article` to `MedicalWebPage` or a hybrid for clinical content.
-**Why:** Every education guide currently shows the same hardcoded date (`2026-05-23`). Major freshness/trust bug. Missing `image` kills Article rich-result eligibility. `Organization` author is weaker than `Person` for YMYL.
-**Effort:** 1–2 hours.
-
-### P0-4 — Fix multiple-`<h1>` template bug
-**Where:** SEO landing page components — likely `components/seo/SeoLandingExperience.tsx`, `components/seo/EducationGuideExperience.tsx`, and the homepage hero component.
-**What:**
-- Audit the affected pages: `/` (4 H1s), `/dental-loupes` (5), `/best-loupes`, `/affordable-loupes`, `/loupes-for-residents`, `/loupes-for-microsurgery`, `/heliosx-vs-lumadent` (3), `/orascoptic-alternatives` (2).
-- Demote the page-name H1 (e.g. "Surgical Loupes") to `<h2>` or a styled non-heading element.
-- Keep one H1 per page — the hero headline.
-**Why:** Multiple H1s on a single page is a long-standing on-page anti-pattern and weakens topical signal. The repetitive "X without the guesswork." pattern also risks Google collapsing the SEO cluster as near-duplicates.
-**Effort:** 1–2 hours.
-
-### P0-5 — Pre-compress hero PNGs
-**Where:** `public/Apollo/Apollo3xFemale2.png`, `Apollo3xFemale.png`, `public/Newton/NewtonAsian2.png`, `public/Walkinghallway2.png`, `public/Medusa/MedusaCaseOpen.png`, and similar (use the audit findings list as the starting set).
-**What:**
-- Script a pass with `sharp` or `cwebp`/`avifenc` to generate optimized AVIF/WebP at multiple widths (e.g. 750, 1080, 1920) in `/public`.
-- Either reference compressed sources directly or keep `next/image` pointing at the smaller masters.
-- Originals can move to `_saved_from_old_folders` if preserving them.
-**Why:** 6.2 MB PNG transcoded on demand causes cold-cache transcode latency and origin storage bloat. Pre-compressing front-loads the work.
-**Effort:** 1 hour (scripted).
-
-### P0-6 — Audit every route for missing `buildMetadata`
-**Where:** All `app/*/page.tsx` files.
-**What:**
-- Grep for routes that don't export `metadata` or `generateMetadata`. Known offender: `app/faq/page.tsx`. Verify all others.
-- For each, add an explicit `metadata` export using `buildMetadata({ title, description, path })` from `lib/seo.ts`.
-- Verify with `curl <url> | grep canonical` after fix.
-**Why:** Any route without its own metadata inherits the root layout's canonical (which points to homepage). Silently consolidates SEO signals from those pages into `/`.
-**Effort:** 1–2 hours (depends on how many routes are affected).
-
-### P0-7 — Fix conflicting robots meta on 404 page
-**Where:** `app/not-found.tsx`.
-**What:** Export `metadata = buildMetadata({ title, description, noIndex: true })` so Next replaces (not appends) the root robots tag.
-**Why:** Currently emits both `noindex` AND `index, follow`. Soft-404 risk signal.
-**Effort:** 15 minutes.
-
-**P0 total estimated effort: 8–12 hours.**
+### 7. Homepage lacks per-product cards with prices
+**Where:** `app/page.tsx` or the homepage hero/features components
+**Why:** "Shop Medusa" appears 3x; Apollo, Galileo, Newton, Kepler are nav-only with no featured cards, no prices, no individual `/product/{slug}` deep links. Every product CTA points to generic `/product`. Kills home→PDP equity flow.
+**Fix:** Add a "Meet the lineup" section with 5 cards — each showing product name, starting price ($270 / $460 / $710 / $740 / $270), one-line positioning, hero image, and a `View Medusa →` CTA pointing to `/product/<slug>`. Add `ItemList` schema with `Product` entries linking to PDPs.
+**Effort:** M–L
 
 ---
 
-## P1 — High (within 2 weeks)
+## High (fix within 2 weeks)
 
-### P1-1 — Redirect bare product slugs
-**Where:** `vercel.json` `redirects` or `middleware.ts`.
-**What:** Add 301 redirects from `/apollo`, `/medusa`, `/galileo`, `/newton`, `/kepler` → `/product/<slug>`.
-**Why:** Brand-name searches and any old external links are currently hitting 404s.
-**Effort:** 30 minutes.
+### 8. Add inline brand disambiguation to homepage
+**Where:** homepage hero or about block; Organization schema `description`
+**Why:** LLMs ground on rendered HTML, not on llms.txt. Without an inline disambiguation, AI engines may confuse HeliosX Loupes with the unrelated UK healthtech company HeliosX.
+**Fix:** Add a single visible sentence: *"HeliosX Loupes — surgical and dental loupes for clinicians, residents, and students. Not to be confused with the UK healthtech company HeliosX."* Mirror in Organization schema `description`.
+**Effort:** S
 
-### P1-2 — Cite the Scotland survey inline
-**Where:** `/surgical-loupes`, `/best-loupes`, `/loupes-for-residents`, `/education/research` (likely in `lib/seo-content.ts` or per-page content modules).
-**What:** Add inline citation — *"Jarrett PM. Survey of intraoperative magnification use by surgeons in the west of Scotland. Microsurgery. 2004;24:420–422."* — and link to `/research/intraoperative-magnification-who-uses-it.pdf`.
-**Why:** Currently an orphan stat across 4+ pages. AI engines won't cite unsourced statistics. The source PDF is already hosted on the site.
-**Effort:** 1 hour.
+### 9. Populate `sameAs` on Organization schema with real profiles
+**Where:** `lib/seo.ts` Organization JSON-LD
+**Why:** Current `sameAs: ["https://heliosxloupes.com"]` is self-referential. LLMs and Knowledge Graph need external profiles (Instagram, YouTube, LinkedIn, Crunchbase, Wikidata Q-ID) to disambiguate the entity. Single biggest GEO improvement.
+**Fix:** Populate with verified URLs. Add `@id: "https://heliosxloupes.com/#organization"`, `foundingDate`, `founder` (if appropriate).
+**Effort:** S (once profile URLs are gathered)
 
-### P1-3 — Named author bylines and "Medically reviewed by"
-**Where:** `lib/seo.ts` `articleJsonLd()` (extended in P0-3), education guide components, and education frontmatter/data.
-**What:**
-- Decide on the named reviewer (see Open Question #1).
-- Add a visible "Written by [Name]" and "Medically reviewed by [Name, MD]" line at the top of every `/education/*` page.
-- Mirror this into the `Person` author in the JSON-LD.
-- Add an `Author` page (`/about/authors/[slug]`) with credentials, optional `sameAs` to LinkedIn/PubMed.
-**Why:** YMYL/medical content without named reviewer credentials is heavily deprioritized by both Google (E-E-A-T) and AI engines (citation eligibility).
-**Effort:** 2–3 hours (more if writing reviewer bios).
+### 10. Fix Medusa PDP H2 hierarchy
+**Where:** `app/product/ProductPageTemplate.tsx` and any per-product sections it renders
+**Why:** `_medusa.html` (8,170 words) has only 2 H2s (one literal "Medusa product specifications.", one decorative wrapper with empty inner text). Body sits under 4 H3s with no parent H2. Hurts AI extraction and on-page hierarchy.
+**Fix:** Add 4–6 descriptive H2s: "Why ergonomic prismatic", "Working-distance options", "Who Medusa fits", "Reviews", "FAQs".
+**Effort:** M
 
-### P1-4 — Add BreadcrumbList + Organization to product pages
-**Where:** `app/product/[slug]/page.tsx`.
-**What:** Invoke the existing `breadcrumbJsonLd` and `organizationJsonLd` helpers from `lib/seo.ts`. They are not currently called on product pages.
-**Why:** Product pages currently emit only `Product` schema. Missing site context (Organization) and navigation context (BreadcrumbList) weakens the knowledge graph for these pages.
-**Effort:** 30 minutes.
+### 11. Add `FAQPage` schema to `/product/medusa` (and the other 4 PDPs)
+**Where:** `lib/seo.ts` / `app/product/ProductPageTemplate.tsx`
+**Why:** Medusa has visible Q-style content but no `FAQPage` JSON-LD. Hub, Orascoptic, and surgical-brands each emit `FAQPage`. PDPs are missing.
+**Fix:** Extract the existing PDP FAQ array and emit `FAQPage` schema with `mainEntity` of `Question`/`Answer` pairs.
+**Effort:** S
 
-### P1-5 — Build `itemListJsonLd` helper and emit on landing/comparison/audience pages
-**Where:** New helper in `lib/seo.ts`; invoke in SEO landing, comparison, and audience page templates. Data already exists in `lib/seo-content.ts` (`recommendedProducts` arrays) and `comparisonRows`.
-**What:** Emit `ItemList` with positioned `Product` references for each recommended product.
-**Why:** Unlocks product-carousel eligibility on category SERPs. Comparison pages are currently invisible to comparison-shopping rich results despite being literally that.
-**Effort:** 1–2 hours.
+### 12. Fix `_medusa.html` Review schema asymmetry
+**Where:** `lib/product-seo.ts` or wherever the review array is generated
+**Why:** Grep counts 10 `reviewBody` + 10 `author` but 20 `reviewRating`. The extra 10 `reviewRating` keys without matching body/author are likely rich-result-ineligible stubs.
+**Fix:** Either complete those 10 reviews (body + author + rating) or drop them. Each `Review` needs `author`, `reviewRating`, ideally `reviewBody` and `datePublished`.
+**Effort:** S
 
-### P1-6 — Reviews and aggregateRating
-**Where:** New review collection workflow + display component + `aggregateRating` in `productJsonLd`.
-**What (depends on chosen approach — see Open Question #2):**
-- Stripe-receipt-triggered email asking customers to leave a review.
-- Lightweight review form (or use Resend + a Supabase table).
-- Display reviews on PDP.
-- Feed `aggregateRating` into Product schema (already enabled in P0-2).
-**Why:** Zero social proof anywhere on the site. For $270–$1,115 medical purchases, this is the biggest single conversion lift available. Also unlocks SERP star eligibility.
-**Effort:** Depends on collection mechanism — anywhere from 1 day (basic) to 3 days (polished).
+### 13. Switch comparison pages from `MedicalWebPage` to `WebPage` + `Article`
+**Where:** comparison-page schema generator (likely `lib/seo.ts`)
+**Why:** `MedicalWebPage` implies clinical/diagnostic content; Google may demote it for commercial intent. Comparison pages are commercial-investigation. Keep `MedicalWebPage` only for `/education/*`.
+**Fix:** Emit `WebPage` for hub + alternatives, `Article` (with `author`, `datePublished`, `dateModified`) for `/heliosx-vs-*` head-to-heads.
+**Effort:** M
 
-### P1-7 — Real footer with policy links
-**Where:** `components/Footer.tsx` (or wherever the current footer lives).
-**What:**
-- Surface support email (`heliosxloupes@gmail.com` from `lib/seo.ts`).
-- Link to: shipping policy, returns / warranty, privacy policy, terms of service.
-- May need to write the policy pages (see Open Question #5).
-**Why:** No legal/policy links anywhere is a trust deficit and likely Stripe/ToS compliance gap.
-**Effort:** 2–3 hours (more if policy copy needs to be written).
+### 14. Add named clinician `author` / `reviewedBy` to YMYL pages
+**Where:** schema generators for `/education/*` guides and comparison pages
+**Why:** Currently only generic `author: { @type: Organization }` — no named expertise signal. YMYL-adjacent surgical/dental content benefits from a named DDS/MD reviewer.
+**Fix:** Add `reviewedBy: { @type: Person, name: "...", jobTitle: "DDS", affiliation: "..." }` to education and comparison schemas. If no clinician is on retainer, partner with one and credit them.
+**Effort:** M (organizationally), S (code)
 
-### P1-8 — Wire dynamic OG images for SEO/education/measurements pages
-**Where:** `lib/seo.ts` `buildMetadata`, plus the dynamic OG image routes Codex built.
-**What:** Update `buildMetadata` to default the `image` to the dynamic OG route for the current path, with `/Homepage1NEW.jpg` as fallback.
-**Why:** Currently 30+ SEO pages share one OG image. Custom per-page OG significantly improves social-share CTR and is a freshness signal for both Google and AI engines.
-**Effort:** 1–2 hours.
+### 15. Trim home and hub titles to ≤60 chars
+**Where:** `lib/seo-content.ts` (hub `metaTitle`) and `app/page.tsx` (home metadata)
+**Why:** Home = 64ch, hub = 67ch. Both truncate in SERP.
+**Fix:**
+- Home: drop a word — e.g., "HeliosX Loupes | Ergonomic Surgical & Dental Loupes" (52ch)
+- Hub: shorten — e.g., "Loupe Brand Comparisons | HeliosX vs LumaDent & More" (52ch)
+**Effort:** S
 
-### P1-9 — Set up Google Analytics and PSI key (owner task)
-**Where:** Vercel project environment variables.
-**What:**
-- Set `NEXT_PUBLIC_GA_MEASUREMENT_ID` so the existing `AnalyticsScripts.tsx` activates.
-- Set `GOOGLE_PSI_API_KEY` (or equivalent) so future PSI runs aren't rate-limited.
-- Optionally set `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` for meta-tag verification.
-**Why:** No analytics flowing currently. Need real user data to refine priorities by traffic, not guess.
-**Effort:** 15 minutes.
+### 16. Add resident/student callout above the fold on homepage
+**Where:** homepage hero or sub-hero
+**Why:** Comparison pages surface "Galileo/Newton from $270 for residents" but homepage doesn't mention `discount` anywhere in body. Primary acquisition persona under-served.
+**Fix:** Add a visible callout in the hero or directly under it: "Resident & student pricing from $270 — discounts documented across the lineup."
+**Effort:** S
 
-### P1-10 — Submit sitemap to Search Console and Bing Webmaster Tools (owner task)
-**Where:** Google Search Console, Bing Webmaster Tools.
-**What:** Verify domain ownership, submit `https://heliosxloupes.com/sitemap.xml`.
-**Why:** Currently no GSC verification means no impression/click data, no indexation status, no Core Web Vitals field data filtered to your property.
-**Effort:** 30 minutes.
+### 17. Surface AggregateRating in PDP hero
+**Where:** `app/product/ProductPageTemplate.tsx`
+**Why:** Schema has 4.6/5 (10 reviews); UI does not mirror it near H1.
+**Fix:** Render a star widget + "4.6/5 from 10 verified clinicians" near the product title, above the price.
+**Effort:** S
 
 ---
 
-## P2 — Medium (within 1 month)
+## Medium (fix within 1 month)
 
-| # | Task | Where | Effort |
-|---|---|---|---|
-| 1 | Expand `/heliosx-vs-*` pages with 6-row spec tables (mag, weight, working distance, frame options, price band, warranty). Name competitors explicitly in body copy. | `lib/seo-content.ts` `comparisonRows`, comparison page components | 2–3 hr per page |
-| 2 | Expand FAQ blocks to 6–10 per SEO landing page. Currently 1–2 on most. | `lib/seo-content.ts` per-page FAQ arrays | 2 hr per page |
-| 3 | Rename `/heliosx.llm` → `/heliosx.md` (or fold into `llms.txt`) and add Jarrett PDF link to `llms.txt`. | `public/heliosx.llm`, `public/llms.txt` | 30 min |
-| 4 | Explicit AI bot allow-list in robots.txt (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot, etc.). | `app/robots.ts` | 15 min |
-| 5 | Modern security headers in `vercel.json`: `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy: camera=(), microphone=(), geolocation=()`, CSP `frame-ancestors 'self'`. | `vercel.json` | 30 min |
-| 6 | Show prices on `/product` catalogue page (`priceLabel` already exists in `lib/fallback-products.ts`). Add magnification/use-case filter. | `app/product/page.tsx` or its component | 1–2 hr |
-| 7 | Add `HowTo` schema to `/education/how-to-measure-pupillary-distance` and similar measurement guides. | `lib/seo.ts` (new helper) + education page invocations | 1 hr |
-| 8 | Replace logo PNG (`logominimalnowriting.png`) with SVG. | `public/` + header/footer references | 30 min (have SVG) |
-| 9 | Boost internal linking on education pages from 8–11 to 15–20. Add "Related guides" + "Shop by specialty" blocks. | Education page template | 1–2 hr |
-| 10 | De-duplicate "X without the guesswork." pattern across H1s/titles. Vary tail per intent. | `lib/seo-content.ts` titles/headings | 1–2 hr |
-| 11 | Add `X-Robots-Tag: noindex, nofollow` response header on `/cart`, `/checkout`, `/admin/*`. | `vercel.json` headers | 30 min |
-| 12 | Resolve `/measurements` robots.txt wildcard inconsistency. Decide intent and update `app/robots.ts` + sitemap accordingly. | `app/robots.ts`, `app/sitemap.ts` | 15 min |
-| 13 | Add `audience: MedicalAudience` to clinical pages and `MedicalWebPage` to medical content where appropriate. | `lib/seo.ts` | 1 hr |
-| 14 | Normalize homepage canonical to include trailing slash (`https://heliosxloupes.com/`). | `lib/seo.ts` `absoluteUrl('/')` | 15 min |
+### 18. Model Medusa magnification variants as Product variants
+**Where:** `lib/seo.ts` Product schema
+**Why:** `AggregateOffer` declares `offerCount: 6` but no `hasVariant` / `ProductGroup` parent. `sku` and `mpn` both `heliosx-medusa`. Blocks Google Merchant variant rich results.
+**Fix:** Restructure as `ProductGroup` with 6 variant `Product` children (3.0x, 4.0x, 5.0x, 6.0x, 8.0x, 8.5x), each with its own `sku`, `mpn`, and `offers`. Add `gtin13` if/when GTINs are assigned.
+**Effort:** L
 
----
+### 19. Rewrite weak PDP image alts
+**Where:** Medusa product gallery
+**Why:** Filename-style alts (`JJ04`, `JJ20`–`JJ24`, `View 1`–`View 5`).
+**Fix:** Replace with descriptive alts: "Medusa 4.0x prismatic loupes JJ20 frame, front view", "Medusa 5.0x prismatic loupes JJ23 grey frame, side profile", etc.
+**Effort:** M
 
-## P3 — Low / Backlog
+### 20. Surface E-E-A-T citations inline on hub + brand shortlists + head-to-heads
+**Where:** Comparison-page section bodies (`lib/seo-content.ts`)
+**Why:** Jarrett 2004 and Frontiers RCT exist on education routes but are not surfaced where AI engines need them. Zero grep hits for `Jarrett` / `Frontiers` / `pubmed` on the 5 cached pages.
+**Fix:** Inline citation pattern (already used on education pages): one sentence like "A 2004 peer-reviewed survey of 148 specialists (Jarrett, *Microsurgery*) documented intraoperative magnification ranges by specialty." with anchor link to `/education/intraoperative-magnification-by-specialty` and an outbound DOI/PubMed URL.
+**Effort:** M
 
-- Populate `Organization.sameAs` with real social URLs (LinkedIn, Instagram, YouTube) or remove the self-link.
-- Fix `WebSite.SearchAction` (point to real search endpoint or remove — currently `/faq?search=` which isn't a real search).
-- Add `ImageObject` schema for diagram SVGs in `public/diagrams/`.
-- Add `VideoObject` schema for the hero video (once it's been deferred/compressed in P0-1).
-- Add `Course` / `EducationalOccupationalProgram` schema on education content.
-- New specialty pages: cardiac surgery, pediatric surgery, maxillofacial surgery, ENT/otolaryngology, ophthalmic surgical loupes (Codex flagged these as content opportunities).
-- Customer testimonials block once collected (works in tandem with P1-6 reviews work).
-- Run PSI / Lighthouse with API key once configured to capture real CWV/SEO/A11y/BP scores.
-- Backlink profile analysis via Common Crawl (free) or paid DataForSEO/Moz/Ahrefs if budget allows.
-- Set up baseline with the `seo-drift` skill to track changes over time.
+### 21. Add anchor TOC / jump-links to long comparison pages
+**Where:** `components/seo/SeoLandingExperience.tsx`
+**Why:** Hub, orascoptic, surgical-brands have 12 H2 sections each but 0 `href="#anchor"` links. Hurts passage-ranking and bounce risk.
+**Fix:** Auto-emit a "Jump to:" anchor list at the top of every comparison page from the section titles, plus `id` slugs on each H2.
+**Effort:** M
 
----
+### 22. De-duplicate boilerplate H2 cluster across comparison pages
+**Where:** `lib/seo-content.ts` shared section helpers
+**Why:** SXO subagent flagged H2s 7–12 ("Choose by work, posture, and fit" / "Comparison snapshot" / "The HeliosX lineup" / "Related buyer searches" / "Learn the fit variables" / "Quick answers") render verbatim on `_orascoptic.html`, `_hub.html`, and `_surgical-brands.html`. Template-thinning risk.
+**Fix:** Either move these to a true footer component (so they're not in the page-content area for ranking purposes), OR differentiate per page-type (head-to-head vs alternatives vs hub) so the page-specific sections lead.
+**Effort:** M
 
-## Suggested execution order
+### 23. Add `Content-Security-Policy` and `X-Frame-Options` headers
+**Where:** `next.config.js` `headers()` or `vercel.json`
+**Why:** Site-quality audits and clickjacking risk.
+**Fix:** Conservative CSP starter + `X-Frame-Options: SAMEORIGIN`. Test in report-only mode first.
+**Effort:** M
 
-If you want sequenced PRs rather than one big sweep:
-
-1. **PR 1 — Schema overhaul** (P0-2, P0-3, P1-4, P1-5): `lib/seo.ts` is the locus of most schema work. One focused PR.
-2. **PR 2 — Perf hardening** (P0-1, P0-5, P2-8): video + image compression + logo SVG. Visible Lighthouse wins.
-3. **PR 3 — Template/on-page hygiene** (P0-4, P0-6, P0-7, P1-1, P2-10): H1 dedup, metadata audit, 404 fix, bare-slug redirects, "without the guesswork" de-duplication.
-4. **PR 4 — Content/E-E-A-T** (P1-2, P1-3): Scotland citation + named reviewer rollout. Depends on Open Question #1 resolution.
-5. **PR 5 — Footer + trust** (P1-7, P1-8): real footer with policy links + dynamic OG images.
-6. **PR 6 — Reviews infrastructure** (P1-6): standalone, larger scope.
-7. **P2 batch:** Medium tasks rolled into a single sweep or addressed opportunistically.
-8. **Owner tasks (parallel):** P1-9, P1-10 (analytics + GSC setup).
+### 24. Build collection/category landing pages
+**Where:** new routes `/student-loupes`, `/specialty` (hub), individual `/specialty/<name>` (some already exist)
+**Why:** No "Student" or "By Specialty" hubs despite the brand positioning. Missing faceted entry points.
+**Fix:** A `/student-loupes` page already implied by the comparison cluster — make it a real CollectionPage with the 2 entry-tier products plus links to all student-specific comparison and education resources.
+**Effort:** L
 
 ---
 
-## Verification approach
+## Low (backlog)
 
-After each PR, run:
-
-1. `npm run build` — must pass.
-2. `curl -sI https://heliosxloupes.com/<changed-path>` — verify headers, status, redirects.
-3. `curl -s https://heliosxloupes.com/<changed-path> | grep -E '<title>|<meta name="description"|<link rel="canonical"|<meta property="og:'` — verify head metadata.
-4. `curl -s https://heliosxloupes.com/<changed-path> | grep -oE '<script type="application/ld\+json">[^<]+</script>'` — verify JSON-LD blocks.
-5. Run JSON-LD output through https://validator.schema.org/ and https://search.google.com/test/rich-results.
-6. For perf changes: PageSpeed Insights with API key (P1-9), or Chrome DevTools Lighthouse pane.
-7. For content changes: visual check in browser (`kimi-webbridge` skill is installed for headless verification).
-8. After deploy: monitor Google Search Console (once P1-10 lands) for indexation and impression changes over the following 2–4 weeks.
+- Mirror Jarrett 2004 reference inside `/llms.txt` so AI engines see the research anchor when grounding.
+- Move the homepage's "$499" Helios reference — verify it's not a stale/dead price string.
+- Surface "Risk-free. Fully refundable before measurements are provided" as a trust badge near the PDP CTA (currently buried in body).
+- Add `VideoObject` schema to Medusa PDP (homepage has one, PDPs don't). Surgical loupes convert better with demo video.
+- Add financing/installment messaging (Affirm/Klarna) for $710+ transactions.
+- Split mixed `unitText:"mm (adjustable)"` PropertyValue into separate `unitText:"mm"` + a separate "Adjustable" PropertyValue.
+- Confirm `priceValidUntil:"2027-05-25"` rolls forward continuously rather than drifting via a static template.
+- Consider adding `BreadcrumbList` (typed) to the comparison hub (Quick lookups list is great UX but isn't a typed breadcrumb).
+- Build dedicated `/residents` and `/protection` pages so comparison content has authoritative link targets for the resident-discount and insurance-plan claims.
+- Add a small homepage "About" section anchored on the disambiguation sentence (mirrors Organization schema description for crawlers + humans).
 
 ---
 
-## Notes
+## Backing pages flagged by the comparison cluster
 
-- The repo's [`CLAUDE.md`](./CLAUDE.md) is the authoritative source for brand voice and design constraints. All copy changes (P1-2, P1-3, P2-1, P2-2, P2-10) must respect the access/gatekeeping/fair-pricing message and avoid drift to generic-luxury language.
-- Codex flagged image/video compression as the highest-impact remaining engineering task in the prior handoff. P0-1 and P0-5 are the direct execution of that.
-- The 30+ SEO landing pages are recent work — they're the largest pool of optimization surface area. Improvements to the shared templates (H1 fix, OG image wiring, FAQ expansion, schema additions) compound across all of them.
+These were referenced in the just-shipped comparison content but don't have dedicated public pages yet:
+
+1. **Resident / student discount eligibility** — referenced on every comparison page. Needs either a `/residents` section, an FAQ entry under `/faq`, or a sub-section of an existing page that explicitly describes eligibility + how to apply. Until then comparison content mentions "contact support for eligibility."
+2. **Optional protection coverage for loss / damage / drops** — referenced as available at order. Needs either a `/protection` page or a section on `/warranty`. Until then comparison content describes it generically.
+
+Both are short pages — 1–2 hours each.
+
+---
+
+## Measurement plan
+
+After implementing Critical + High items, re-run:
+
+```bash
+# Verify 404 robots meta singleton
+curl -s https://heliosxloupes.com/this-page-does-not-exist | grep -E '<meta name="robots"' | sort | uniq -c
+
+# Verify video attrs
+curl -s https://heliosxloupes.com/ | grep -E '<video' | grep -oE 'poster|preload|width|height'
+
+# Verify image routing
+curl -s https://heliosxloupes.com/ | grep -oE '_next/image[^"]*Homepage1NEW[^"]*'
+
+# Verify table semantics on comparison pages
+for p in heliosx-vs-orascoptic loupe-comparisons best-surgical-loupe-brands; do
+  printf "%s: " "$p"
+  curl -s https://heliosxloupes.com/$p | grep -c '<table'
+done
+
+# Re-run /seo-audit after the deploy and compare scores
+```
+
+Target after Critical+High pass: **85/100**. Target after Medium pass: **90/100**.

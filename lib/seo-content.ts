@@ -41,6 +41,13 @@ export type SeoLandingPage = {
   heroTail?: string
   datePublished?: string
   dateModified?: string
+  /**
+   * Display name of the brand being compared on head-to-head / alternatives
+   * pages. Used to label the right-hand column of the comparison snapshot
+   * table (replaces a hardcoded "Other brand" string for type-comparison and
+   * hub pages where no single competitor applies).
+   */
+  competitorName?: string
 }
 
 export type EducationGuide = {
@@ -2416,6 +2423,32 @@ for (const page of allSeoLandingPages) {
   const tail = seoLandingHeroTails[page.slug]
   if (tail) {
     page.heroTail = tail
+  }
+}
+
+// Display name for the right-hand comparison-table column on head-to-head
+// and alternatives pages. Without this the renderer falls back to a generic
+// label, which is what we want on type comparisons and the hub page where no
+// single competitor applies.
+const comparisonCompetitorNames: Record<string, string> = {
+  'heliosx-vs-lumadent': 'LumaDent',
+  'heliosx-vs-orascoptic': 'Orascoptic',
+  'heliosx-vs-surgitel': 'SurgiTel',
+  'heliosx-vs-q-optics': 'Q-Optics',
+  'heliosx-vs-examvision': 'ExamVision',
+  'heliosx-vs-admetec': 'Admetec',
+  'lumadent-alternatives': 'LumaDent',
+  'orascoptic-alternatives': 'Orascoptic',
+  'surgitel-alternatives': 'SurgiTel',
+  'q-optics-alternatives': 'Q-Optics',
+  'examvision-alternatives': 'ExamVision',
+  'admetec-alternatives': 'Admetec',
+}
+
+for (const page of allSeoLandingPages) {
+  const competitor = comparisonCompetitorNames[page.slug]
+  if (competitor) {
+    page.competitorName = competitor
   }
 }
 

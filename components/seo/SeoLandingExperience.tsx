@@ -376,7 +376,7 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
                   <div className="grid grid-cols-[0.78fr,1fr,1fr] text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
                     <div className="py-4 pr-4">Feature</div>
                     <div className="p-4">HeliosX</div>
-                    <div className="p-4">Other brand</div>
+                    <div className="p-4">{page.competitorName ?? 'Other brands'}</div>
                   </div>
                   {page.comparisonRows.map((row) => (
                     <div

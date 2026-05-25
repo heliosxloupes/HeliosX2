@@ -694,46 +694,117 @@ const competitorPages: SeoLandingPage[] = [
     title: 'Best Orascoptic Alternatives',
     metaTitle: 'Best Orascoptic Alternatives | Affordable Surgical and Dental Loupes',
     description:
-      'Looking for Orascoptic alternatives? Compare HeliosX ergonomic prismatic, affordable, lightweight, and high-magnification loupes.',
+      'Looking for Orascoptic alternatives? HeliosX offers ergonomic prismatic loupes (Medusa, Apollo), high magnification (Kepler), affordable Galilean (Galileo, Newton), resident discounts, and direct-to-clinician pricing.',
     heroKicker: 'Alternatives',
     primaryKeyword: 'Orascoptic alternatives',
-    relatedKeywords: ['best Orascoptic alternatives', 'affordable surgical loupes', 'dental loupes alternatives'],
-    audience: 'buyers researching Orascoptic alternatives before purchasing loupes',
+    relatedKeywords: ['best Orascoptic alternatives', 'affordable surgical loupes', 'dental loupes alternatives', 'ergonomic prismatic loupes'],
+    audience: 'residents, students, dentists, and surgeons researching Orascoptic alternatives before purchasing loupes',
     intro:
-      'The best Orascoptic alternative is not simply the cheapest loupe. It should answer the same clinical needs with clearer value, strong fitting education, and product paths that match the way you work.',
+      'The best Orascoptic alternative is not simply the cheapest loupe. It should answer the same clinical needs with clearer value, real ergonomic prismatic options, premium build quality, and a buying flow that explains the fit before you order. HeliosX competes directly on every one of those axes at a price tier structurally below the incumbent.',
     proofPoints: [
-      'HeliosX gives ergonomic prismatic, lightweight, and high-magnification paths.',
-      'The education library explains the buying variables.',
-      'Transparent value is central to the brand promise.',
+      'HeliosX prices start at $270 (Galileo, Newton) and ergonomic prismatic at $710 (Medusa) / $740 (Apollo) — typically 50–70% below legacy premium loupe pricing.',
+      'Medusa and Apollo cover the widest ergonomic prismatic range in the price tier (3.0x–8.5x), with Kepler for 4x–6x microsurgery.',
+      'Resident- and student-friendly pricing with discounts, direct-to-clinician shipping, one-business-day support, replacement and lens-update warranty paths.',
     ],
     sections: [
       {
-        title: 'What to look for in an alternative',
+        title: 'Why people search for Orascoptic alternatives',
         body:
-          'Do not compare only brand names. Compare working distance, magnification, fit support, posture strategy, warranty/support expectations, and total cost.',
-        bullets: ['Check ergonomic needs.', 'Check measurement support.', 'Check whether the product path is clear before checkout.'],
+          'The most common reasons buyers shop the Orascoptic alternative SERP: dealer-routed pricing feels opaque, the premium-incumbent tier is hard to justify on a resident budget, the buyer wants ergonomic prismatic optics that scale up to higher magnification, or they’ve had a fitting friction point and want a direct-to-clinician option.',
+        bullets: [
+          'Dealer-routed pricing feels opaque or marked up.',
+          'Premium-incumbent tier is hard to justify on a trainee or new-attending budget.',
+          'Buyer wants ergonomic prismatic optics with a wider magnification range.',
+          'Buyer prefers direct-to-clinician fitting and support over dealer process.',
+        ],
       },
       {
         title: 'Why HeliosX belongs on the shortlist',
         body:
-          'HeliosX gives buyers a modern alternative with ergonomic prismatic Medusa and Apollo systems, accessible Galileo and Newton systems, and high-magnification Kepler.',
-        bullets: ['Medusa for adjustable ergonomic prismatic work.', 'Apollo for ergonomic prismatic precision.', 'Galileo and Newton for affordable access.'],
+          'HeliosX delivers a modern alternative with ergonomic prismatic Medusa and Apollo systems (the widest prismatic range in the price tier), accessible Galileo and Newton systems for daily use, and Kepler for high-magnification surgical work. The build uses premium optical glass with multi-layer coatings and rigid metal barrels, the frame catalogue spans multiple families with multiple colorways per product, and pricing is transparent at every tier.',
+        bullets: [
+          'Medusa for adjustable working distance ergonomic prismatic (3.0x–8.5x).',
+          'Apollo for fixed-distance ergonomic prismatic precision (3.0x–6.0x).',
+          'Galileo and Newton for affordable access starting at $270.',
+          'Kepler for 4x–6x high-magnification surgical and microsurgery work.',
+        ],
+      },
+      {
+        title: 'How HeliosX maps to each Orascoptic use case',
+        body:
+          'The Orascoptic catalogue covers dental hygiene through high-magnification surgical work. HeliosX maps a clear answer to each segment without forcing dealer routing or premium-incumbent pricing.',
+        bullets: [
+          'Hygiene and dental student: Galileo and Newton at 2.5x–3.5x.',
+          'Dental general practice: Galileo, Newton, or Apollo depending on posture priorities.',
+          'Dental specialty (endo, perio): Apollo at 3.5x–6.0x, Kepler at 4x–6x for microscope-adjacent work.',
+          'Surgical residents and attendings: Medusa or Apollo ergonomic prismatic, Kepler for microsurgery-adjacent specialties.',
+        ],
+      },
+      {
+        title: 'What changes when you switch from Orascoptic to HeliosX',
+        body:
+          'The fitting process stays custom — every HeliosX pair is built around your PD and working distance — but the pathway changes. Instead of dealer routing, fittings happen via measurement guidance from the support team after checkout. Pricing is transparent, resident and student tiers are explicit, and the warranty covers replacement and lens-update paths directly.',
+        bullets: [
+          'Fittings: dealer rep → measurement guidance from HeliosX support after checkout.',
+          'Pricing: tier varies by channel → posted on every product page.',
+          'Resident access: school program → documented resident and student discounts.',
+          'Warranty: dealer-routed → direct replacement and lens-update paths.',
+        ],
+      },
+      {
+        title: 'Other alternatives worth knowing',
+        body:
+          'If you’re shopping the Orascoptic alternative SERP it’s worth knowing the rest of the field. Each of the major loupe brands has a different positioning, audience, and price tier.',
+        bullets: [
+          'LumaDent: dental-first ecommerce brand with bundled light system.',
+          'SurgiTel: ergonomics-incumbent with strong declination-angle thought leadership.',
+          'Q-Optics: spec-and-datasheet-forward with lightweight prismatic positioning.',
+          'ExamVision: premium European custom craftsmanship with dealer fitting.',
+          'Admetec: innovation-forward with adjustable ergonomic prismatic concepts.',
+        ],
       },
       valueSection,
     ],
-    recommendedProducts: ['Medusa', 'Apollo', 'Galileo', 'Newton', 'Kepler'],
+    recommendedProducts: ['Medusa', 'Apollo', 'Kepler', 'Galileo', 'Newton'],
     comparisonRows: [
-      { feature: 'Alternative priority', heliosx: 'Transparent value and education-first buying', other: 'Legacy brand familiarity and broad product footprint' },
-      { feature: 'Budget path', heliosx: 'Galileo and Newton provide accessible entries', other: 'Pricing and configuration may vary by channel' },
-      { feature: 'Posture path', heliosx: 'Medusa and Apollo ergonomic prismatic systems', other: 'Established ergonomic and magnification options' },
+      { feature: 'Brand positioning', heliosx: 'Modern challenger with access mission and direct-to-clinician fulfillment', other: 'Premium incumbent with dealer-routed fitting in many regions' },
+      { feature: 'Pricing philosophy', heliosx: 'Transparent tiers from $270 up through ergonomic prismatic, typically 50–70% below legacy premium loupe pricing', other: 'Premium incumbent pricing with dealer markup' },
+      { feature: 'Ergonomic prismatic options', heliosx: 'Medusa (3.0x–8.5x) and Apollo (3.0x–6.0x) — widest prismatic range in the price tier', other: 'Selected prismatic lines inside a broad catalogue' },
+      { feature: 'Frame and color options', heliosx: 'Apollo 1 and 2 in 5 colorways each, JJ-series for Medusa and Galileo, H1 and H2 for Newton', other: 'Catalogue of fitted frames through dealer process' },
+      { feature: 'Build quality', heliosx: 'Premium optical glass, multi-layer coatings, rigid metal barrels', other: 'Established premium loupe construction with dealer fitting' },
+      { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Dealer-routed fulfillment in many regions' },
+      { feature: 'Customer support', heliosx: 'Surgeon-informed support team, one-business-day response before production', other: 'Dealer rep plus central brand support' },
+      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths, optional protection coverage at order', other: 'Standard premium-loupe warranty terms routed through dealer' },
+      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and student pricing through dealer programs' },
+      { feature: 'Education resources', heliosx: 'Measurement, magnification, ergonomics, research, and per-specialty guides built into the buying flow', other: 'Product documents, blog posts, and dealer training resources' },
     ],
     verdict:
-      'HeliosX is a compelling Orascoptic alternative for buyers who want a clearer price-to-performance story and a modern resource library before they buy.',
+      'HeliosX is a compelling Orascoptic alternative for buyers who want a clearer price-to-performance story, the widest prismatic range in the price tier, direct-to-clinician access, and documented resident pricing — without giving up custom-fit principles.',
     faqs: [
       {
         question: 'What is a good Orascoptic alternative for residents?',
         answer:
-          'Residents should compare Galileo, Newton, Medusa, and Apollo depending on budget, posture needs, and procedure mix.',
+          'For residents, Medusa or Apollo cover ergonomic prismatic needs; Galileo and Newton cover affordable daily-use entries from $270. All four are eligible for HeliosX resident and student pricing — email heliosxloupes@gmail.com with training program details to confirm eligibility.',
+      },
+      {
+        question: 'Why does HeliosX cost less than Orascoptic without cutting quality?',
+        answer:
+          'HeliosX uses premium optical glass and rigid metal barrel construction, but ships direct-to-clinician with no dealer markup and runs an access-mission pricing structure. The optical and build standard stays high; the distribution overhead comes out.',
+      },
+      {
+        question: 'Does HeliosX offer the same custom-fit process as Orascoptic?',
+        answer:
+          'Yes. Every HeliosX pair is custom-built around your pupillary distance and working distance, submitted via the measurement flow after checkout. The principle is the same — the routing changes from dealer fitting to direct measurement guidance.',
+      },
+      {
+        question: 'What happens if my HeliosX loupes are damaged or need lens updates?',
+        answer:
+          'Every order is covered by a warranty that includes replacement and lens-update paths directly through HeliosX support. Optional protection coverage for loss, damage, and accidental drops is available at order. See /warranty for the full policy.',
+      },
+      {
+        question: 'Can I switch from Orascoptic to HeliosX mid-residency?',
+        answer:
+          'Yes. Many buyers swap mid-residency once their case mix becomes clearer. HeliosX recommends measuring your real working distance and PD in your operating posture, then choosing Medusa, Apollo, Kepler, Galileo, or Newton based on the procedures you actually do most often.',
       },
     ],
   },
@@ -742,46 +813,117 @@ const competitorPages: SeoLandingPage[] = [
     title: 'Best LumaDent Alternatives',
     metaTitle: 'Best LumaDent Alternatives | Dental and Surgical Loupes',
     description:
-      'Looking for LumaDent alternatives? Compare HeliosX ergonomic prismatic, affordable, student-friendly, dental, and surgical loupes.',
+      'Looking for LumaDent alternatives? HeliosX offers ergonomic prismatic (Medusa, Apollo), high magnification (Kepler), affordable Galilean (Galileo, Newton), resident discounts, and surgical credibility.',
     heroKicker: 'Alternatives',
     primaryKeyword: 'LumaDent alternatives',
-    relatedKeywords: ['best LumaDent alternatives', 'dental loupes alternatives', 'affordable dental loupes'],
-    audience: 'dentists, hygienists, students, and surgeons comparing alternatives to LumaDent',
+    relatedKeywords: ['best LumaDent alternatives', 'dental loupes alternatives', 'affordable dental loupes', 'surgical loupes alternatives'],
+    audience: 'dentists, hygienists, dental students, and surgeons comparing alternatives to LumaDent',
     intro:
-      'A good LumaDent alternative should preserve what buyers like about modern ecommerce loupe shopping while adding clear value, surgical credibility, and measurement education.',
+      'A good LumaDent alternative should preserve modern direct-to-clinician shopping while adding ergonomic prismatic depth, surgical credibility, premium build quality, and structurally lower pricing across the lineup. HeliosX competes on every one of those axes — with the widest prismatic range in the price tier and resident-friendly access.',
     proofPoints: [
-      'HeliosX speaks to both dental and surgical buyers.',
-      'Medusa and Apollo are ergonomic prismatic systems.',
-      'Galileo and Newton create affordable paths for students and daily clinical use.',
+      'HeliosX prices start at $270 (Galileo, Newton) and ergonomic prismatic at $710 (Medusa) / $740 (Apollo) with documented resident and student discounts.',
+      'Medusa (3.0x–8.5x) and Apollo (3.0x–6.0x) cover the widest ergonomic prismatic range in the price tier; Kepler adds 4x–6x microsurgery.',
+      'Surgical, dental, hygienist, resident, and student audiences each have a tailored buying path with measurement guidance after checkout.',
     ],
     sections: [
       {
-        title: 'What dental buyers should compare',
+        title: 'Why people search for LumaDent alternatives',
         body:
-          'Dental buyers should compare posture, magnification, hygiene workflow, working distance, and support rather than only comparing product names.',
-        bullets: ['Look for seated working distance support.', 'Compare ergonomic prismatic options.', 'Check price clarity and measurement instructions.'],
+          'The most common reasons buyers shop the LumaDent alternative SERP: they want ergonomic prismatic optics LumaDent doesn’t emphasize, their case mix has shifted toward surgical or higher magnification, they want a wider frame and color catalogue, or they’re looking for documented resident and student pricing.',
+        bullets: [
+          'Buyer wants ergonomic prismatic optics beyond Galilean-only.',
+          'Case mix shifted toward surgical or higher magnification.',
+          'Buyer wants more frame and color variety.',
+          'Buyer needs documented resident and student access pricing.',
+        ],
       },
       {
-        title: 'Why HeliosX is a strong alternative',
+        title: 'Why HeliosX belongs on the shortlist',
         body:
-          'HeliosX pairs dental-loupe search coverage with a surgical founder story, stronger resident/student value language, and a resource library built to answer buyer questions.',
-        bullets: ['Dental loupes and hygienist pages.', 'Prismatic and ergonomic landing pages.', 'Measurements and research pages.'],
+          'HeliosX pairs dental-loupe coverage with surgical credibility, two ergonomic prismatic systems with the widest prismatic range in the price tier, premium optical glass and rigid metal barrels, multiple frame families with multiple colorways per product, and a measurement-first buying flow that works for both dental and surgical audiences.',
+        bullets: [
+          'Two ergonomic prismatic systems (Medusa, Apollo) covering 3.0x–8.5x.',
+          'Premium optical glass, multi-layer coatings, rigid metal barrels.',
+          'Apollo 1 and 2 in five colorways each, JJ-series across Medusa and Galileo, H1 and H2 for Newton.',
+          'Dental, hygienist, surgical, student, and resident audience pages.',
+        ],
+      },
+      {
+        title: 'How HeliosX maps to each LumaDent use case',
+        body:
+          'LumaDent’s catalogue centers on Galilean dental loupes bundled with their light kit. HeliosX maps a clear answer to each segment plus the surgical territory LumaDent doesn’t emphasize.',
+        bullets: [
+          'Hygiene: Newton or Galileo at 2.5x–3.5x — light, comfortable, daily clinical fit.',
+          'Dental student: Galileo or Newton at 2.5x–3.0x with documented student pricing.',
+          'General dentistry: Galileo or Apollo depending on ergonomic prismatic preference.',
+          'Endodontics and periodontics: Apollo at 3.5x–6.0x or Kepler at 4x–6x.',
+          'Surgical case mix: Medusa or Apollo ergonomic prismatic, Kepler for microsurgery.',
+        ],
+      },
+      {
+        title: 'What changes when you switch from LumaDent to HeliosX',
+        body:
+          'The direct-to-clinician shipping model stays. What changes: the optical category opens up to ergonomic prismatic, frame and color variety widens, the price tiers are explicit at every product page, and the buying flow includes documented surgical, dental, and student audience paths.',
+        bullets: [
+          'Optics: Galilean only → Galilean plus two ergonomic prismatic systems.',
+          'Frames: dental-frame catalogue → multiple families per product with multiple colorways.',
+          'Audiences: dental-first → dental, surgical, hygienist, student, resident, specialty.',
+          'Education: support resources → magnification, ergonomics, measurement, and research guides.',
+        ],
+      },
+      {
+        title: 'Other alternatives worth knowing',
+        body:
+          'If you’re shopping the LumaDent alternative SERP it’s worth knowing the rest of the field. Each major loupe brand sits in a different positioning and price tier.',
+        bullets: [
+          'Orascoptic: premium incumbent with dealer-routed fitting and broad audience coverage.',
+          'SurgiTel: ergonomics-incumbent with strong posture and declination-angle thought leadership.',
+          'Q-Optics: spec-and-datasheet-forward with lightweight prismatic positioning.',
+          'ExamVision: premium European custom craftsmanship with dealer fitting.',
+        ],
       },
       postureSection,
     ],
-    recommendedProducts: ['Medusa', 'Apollo', 'Galileo', 'Newton'],
+    recommendedProducts: ['Medusa', 'Apollo', 'Galileo', 'Newton', 'Kepler'],
     comparisonRows: [
-      { feature: 'Dental workflows', heliosx: 'Dedicated dental, hygienist, and student pages', other: 'Established dentist and hygienist positioning' },
-      { feature: 'Surgical credibility', heliosx: 'Surgical and resident positioning built into site architecture', other: 'Broad custom loupe messaging' },
-      { feature: 'Value path', heliosx: 'Affordable premium and cheap-loupes education pages', other: 'Modern ecommerce loupe ecosystem' },
+      { feature: 'Brand positioning', heliosx: 'Affordable premium loupes for surgical, dental, student, resident, and hygienist audiences', other: 'Dental-first loupe and light ecosystem' },
+      { feature: 'Pricing philosophy', heliosx: 'Transparent tiers from $270 (Galileo, Newton) up through ergonomic prismatic and high magnification', other: 'Established dental-loupe pricing tier' },
+      { feature: 'Ergonomic prismatic options', heliosx: 'Medusa (3.0x–8.5x) and Apollo (3.0x–6.0x) — widest prismatic range in the price tier', other: 'Primarily Galilean dental loupes' },
+      { feature: 'High magnification', heliosx: 'Kepler at 4x–6x covers microsurgery-adjacent work', other: 'Limited high-magnification offering' },
+      { feature: 'Frame and color options', heliosx: 'Apollo 1 and 2 in 5 colorways each, JJ-series, H1 and H2 for Newton', other: 'Dental-focused frame catalogue' },
+      { feature: 'Build quality', heliosx: 'Premium optical glass, multi-layer coatings, rigid metal barrels', other: 'Established dental-brand build with light-system integration' },
+      { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Direct-to-clinician shipping' },
+      { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Dental-audience support with light-system focus' },
+      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths, optional protection coverage at order', other: 'Standard loupe-brand warranty terms' },
+      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'Dental-student audience pricing' },
     ],
     verdict:
-      'HeliosX is a strong LumaDent alternative for buyers who want dental usability, surgical credibility, ergonomic prismatic options, and a more explicit affordable-premium value story.',
+      'HeliosX is a strong LumaDent alternative for buyers who want dental usability with surgical credibility, ergonomic prismatic options, a wider frame catalogue, and documented resident pricing.',
     faqs: [
       {
         question: 'What is a good LumaDent alternative for dental students?',
         answer:
-          'Dental students should compare Galileo and Newton for accessible daily use, then Medusa or Apollo if ergonomic prismatic posture support is the priority.',
+          'Galileo and Newton for accessible daily clinical use starting at $270, then Medusa or Apollo if ergonomic prismatic posture support is the priority. All four are eligible for HeliosX student pricing — email heliosxloupes@gmail.com with your school details to confirm eligibility.',
+      },
+      {
+        question: 'Why does HeliosX cost less than LumaDent across many configurations?',
+        answer:
+          'HeliosX uses premium optical glass and rigid metal barrel construction but operates an access-mission pricing structure that sits structurally below most established dental-loupe pricing tiers. The savings reach the buyer instead of distribution overhead.',
+      },
+      {
+        question: 'Can HeliosX replace LumaDent for hygienists?',
+        answer:
+          'Yes. Newton at 2.5x–3.5x is the natural hygiene fit — light chassis, premium glass, comfortable across full clinical days, with the same direct-to-clinician shipping model.',
+      },
+      {
+        question: 'Does HeliosX offer the same direct-to-clinician shopping LumaDent does?',
+        answer:
+          'Yes. HeliosX skips dealer routing entirely. You order from the site, submit your PD and working distance, and the build starts after measurement confirmation.',
+      },
+      {
+        question: 'What happens if my HeliosX loupes are damaged or lost?',
+        answer:
+          'Every order is covered by a warranty that includes replacement and lens-update paths. Optional protection coverage for loss, damage, and accidental drops is available at order. See /warranty for the full policy.',
       },
     ],
   },
@@ -1261,27 +1403,119 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
     title: 'Best SurgiTel Alternatives',
     metaTitle: 'Best SurgiTel Alternatives | Ergonomic Surgical and Dental Loupes',
     description:
-      'Looking for SurgiTel alternatives? Compare HeliosX ergonomic prismatic and affordable loupe options for posture-conscious buyers.',
+      'Looking for SurgiTel alternatives? HeliosX offers ergonomic prismatic loupes (Medusa, Apollo) with adjustable working distance, transparent pricing, resident discounts, and the widest prismatic range in the price tier.',
     heroKicker: 'Alternatives',
     primaryKeyword: 'SurgiTel alternatives',
-    relatedKeywords: ['ergonomic loupes alternatives', 'SurgiTel competitor', 'surgical loupes alternatives'],
-    audience: 'buyers looking for ergonomic SurgiTel alternatives',
+    relatedKeywords: ['ergonomic loupes alternatives', 'SurgiTel competitor', 'surgical loupes alternatives', 'posture-focused loupes'],
+    audience: 'surgeons, dentists, residents, and hygienists looking for ergonomic SurgiTel alternatives',
     intro:
-      'A strong SurgiTel alternative should respect the posture problem while giving buyers a clear value path, measurement support, and model choices that are easy to understand.',
-    proofPoints: ['HeliosX Medusa and Apollo are ergonomic prismatic systems.', 'Medusa adds adjustable working distance.', 'Education pages help buyers measure and compare posture variables.'],
-    sections: [postureSection, valueSection, comparisonHubSections[0]],
-    recommendedProducts: ['Medusa', 'Apollo', 'Newton', 'Galileo'],
+      'A strong SurgiTel alternative respects the posture problem while giving buyers a clearer value path, real ergonomic prismatic depth, premium build, measurement education, and resident access. HeliosX competes on every one of those axes at a price tier below the ergonomics incumbent.',
+    proofPoints: [
+      'HeliosX Medusa and Apollo are positioned directly as ergonomic prismatic systems with documented working distance ranges.',
+      'Medusa adds real-time adjustable working distance across 3.0x to 8.5x — the broadest prismatic range in the price tier.',
+      'Pricing starts at $270 (Galileo, Newton) with documented resident and student discounts, direct-to-clinician shipping, and one-business-day support.',
+    ],
+    sections: [
+      {
+        title: 'Why people search for SurgiTel alternatives',
+        body:
+          'Buyers shop the SurgiTel alternative SERP because the ergonomics incumbent sits at a premium price tier, the fitting experience can be slow, or the buyer wants the same posture-aware optics with broader magnification range and direct access pricing.',
+        bullets: [
+          'Premium ergonomics-incumbent pricing feels high for a resident or new attending.',
+          'Buyer wants the broadest prismatic magnification range in the tier.',
+          'Buyer prefers direct-to-clinician shipping and one-business-day support.',
+          'Buyer wants explicit resident and student access pricing.',
+        ],
+      },
+      {
+        title: 'Why HeliosX belongs on the shortlist',
+        body:
+          'HeliosX delivers ergonomic prismatic optics with the widest prismatic range in the price tier (Medusa 3.0x–8.5x, Apollo 3.0x–6.0x), premium optical glass with multi-layer coatings and rigid metal barrels, multiple frame families and colorways, and documented measurement education for working distance and posture decisions.',
+        bullets: [
+          'Two ergonomic prismatic systems explicitly positioned as posture-aware optics.',
+          'Premium optical glass, multi-layer coatings, rigid metal barrels.',
+          'Apollo 1 and 2 in five colorways each, JJ-series for Medusa, H1 and H2 for Newton.',
+          'Working distance, magnification, and ergonomics guides built into the site (with cited 2023 Frontiers RCT).',
+        ],
+      },
+      {
+        title: 'How HeliosX maps to each SurgiTel use case',
+        body:
+          'SurgiTel’s catalogue centers on ergonomic loupes for surgical and dental audiences. HeliosX maps a clear answer to each posture-priority case.',
+        bullets: [
+          'Posture-flexible surgical work: Medusa with adjustable working distance.',
+          'Fixed-posture surgical or dental: Apollo at 3.0x–6.0x.',
+          'Lightweight daily dental: Newton at 2.5x–3.5x.',
+          'Affordable student or resident entry: Galileo at 2.5x–3.5x.',
+          'High-magnification surgical: Kepler at 4x–6x for microsurgery-adjacent specialties.',
+        ],
+      },
+      {
+        title: 'What changes when you switch from SurgiTel to HeliosX',
+        body:
+          'The ergonomic-posture principle stays. What changes: the buying path shifts from the ergonomics-incumbent fitting model to a direct-to-clinician flow with measurement guidance, the price tier drops, and the magnification range opens up (Medusa carries 8.0x and 8.5x).',
+        bullets: [
+          'Fittings: ergonomics-incumbent evaluation process → measurement guidance from HeliosX support after checkout.',
+          'Pricing: ergonomics-incumbent tier → access-mission pricing tiers documented per product.',
+          'Magnification: catalogue capped at typical tiers → Medusa carries 8.0x and 8.5x options.',
+          'Education: posture content → magnification + working distance + ergonomics + research guides built into the buying flow.',
+        ],
+      },
+      {
+        title: 'Other alternatives worth knowing',
+        body:
+          'If you’re shopping the SurgiTel alternative SERP, the rest of the field includes brands with different positioning angles. Knowing them sharpens the choice.',
+        bullets: [
+          'Orascoptic: premium incumbent with dealer-routed fitting and broad catalogue.',
+          'LumaDent: dental-first ecommerce brand with bundled light system.',
+          'Q-Optics: lightweight prismatic with strong spec documentation.',
+          'ExamVision: premium European custom craftsmanship with dealer fitting.',
+          'Admetec: innovation-forward ergonomic prismatic with adjustable concepts.',
+        ],
+      },
+      postureSection,
+      valueSection,
+    ],
+    recommendedProducts: ['Medusa', 'Apollo', 'Newton', 'Galileo', 'Kepler'],
     comparisonRows: [
-      { feature: 'Main alternative reason', heliosx: 'Ergonomic prismatic value with public measurement education', other: 'Posture-focused incumbent narrative' },
-      { feature: 'Best HeliosX fit', heliosx: 'Medusa and Apollo', other: 'Ergonomic loupe shoppers' },
+      { feature: 'Brand positioning', heliosx: 'Affordable premium ergonomic prismatic challenger with broad clinical coverage', other: 'Ergonomics-first incumbent with long category authority' },
+      { feature: 'Pricing philosophy', heliosx: 'Transparent tiers from $270 up through ergonomic prismatic, below the ergonomics-incumbent tier', other: 'Established ergonomic-loupe premium pricing' },
+      { feature: 'Ergonomic prismatic options', heliosx: 'Medusa (3.0x–8.5x) and Apollo (3.0x–6.0x) — widest prismatic range in the tier', other: 'Ergonomic-first family with selected prismatic lines' },
+      { feature: 'Adjustable working distance', heliosx: 'Real-time adjustable 300-600 mm WD on Medusa across all magnifications', other: 'Posture and declination angle as core methodology' },
+      { feature: 'Frame and color options', heliosx: 'Apollo 1 and 2 in 5 colorways each, JJ-series for Medusa and Galileo, H1 and H2 for Newton', other: 'Ergonomic frame catalogue' },
+      { feature: 'Build quality', heliosx: 'Premium optical glass, multi-layer coatings, rigid metal barrels', other: 'Established ergonomic-loupe construction' },
+      { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Mixed direct and dealer fulfillment by region' },
+      { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Ergonomic evaluation support through brand or rep' },
+      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths, optional protection coverage at order', other: 'Standard ergonomic-loupe warranty terms' },
+      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and student pricing through brand programs' },
     ],
     verdict:
-      'HeliosX is a SurgiTel alternative for buyers who want ergonomic prismatic loupes with a clearer value and education path.',
+      'HeliosX is a SurgiTel alternative for buyers who want ergonomic prismatic posture support at a price tier below the ergonomics incumbent, the widest prismatic range in the tier, and direct-to-clinician access with documented resident pricing.',
     faqs: [
       {
         question: 'Which HeliosX loupes should SurgiTel shoppers compare?',
         answer:
-          'Start with Medusa and Apollo for ergonomic prismatic needs, then compare Newton or Galileo if lightweight affordability matters more.',
+          'Start with Medusa and Apollo for ergonomic prismatic posture support; Medusa adds real-time adjustable working distance. Newton or Galileo are the lightweight affordable entries; Kepler covers high-magnification cases.',
+      },
+      {
+        question: 'Does HeliosX address the posture problem as seriously as SurgiTel?',
+        answer:
+          'Yes. Medusa and Apollo are explicitly built as ergonomic prismatic systems, and the /education/ergonomic-loupes-neck-pain guide cites a 2023 Frontiers in Public Health randomized crossover trial showing prismatic loupes reduced head flexion by 22–26° and cervical erector spinae activity by 32–42% versus traditional loupes.',
+      },
+      {
+        question: 'Why does HeliosX cost less than SurgiTel without cutting ergonomics?',
+        answer:
+          'HeliosX uses premium optical glass and rigid metal barrels and builds each pair custom to PD and working distance, but ships direct-to-clinician with no dealer markup and runs an access-mission pricing structure.',
+      },
+      {
+        question: 'Does HeliosX offer resident or student discounts?',
+        answer:
+          'Yes. Resident- and student-friendly pricing is documented across the lineup with explicit discounts. Email heliosxloupes@gmail.com with your training program details to confirm eligibility.',
+      },
+      {
+        question: 'What happens if my HeliosX loupes are damaged or lost?',
+        answer:
+          'Every order is covered by a warranty that includes replacement and lens-update paths. Optional protection coverage for loss, damage, and accidental drops is available at order. See /warranty for the full policy.',
       },
     ],
   },
@@ -1290,27 +1524,118 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
     title: 'Best Q-Optics Alternatives',
     metaTitle: 'Best Q-Optics Alternatives | Prismatic and Lightweight Loupes',
     description:
-      'Looking for Q-Optics alternatives? Compare HeliosX ergonomic prismatic, lightweight, and affordable surgical and dental loupes.',
+      'Looking for Q-Optics alternatives? HeliosX offers ergonomic prismatic (Medusa, Apollo) with the widest prismatic range in the tier, lightweight affordable Galileo and Newton, resident discounts, and direct-to-clinician pricing.',
     heroKicker: 'Alternatives',
     primaryKeyword: 'Q-Optics alternatives',
-    relatedKeywords: ['Q-Optics competitor', 'prismatic loupe alternatives', 'lightweight loupes'],
-    audience: 'buyers looking for Q-Optics alternatives',
+    relatedKeywords: ['Q-Optics competitor', 'prismatic loupe alternatives', 'lightweight loupes', 'ergonomic prismatic loupes'],
+    audience: 'buyers comparing prismatic and lightweight Q-Optics alternatives',
     intro:
-      'A good Q-Optics alternative should compare specs, weight, prismatic options, support, and buying clarity rather than relying on brand familiarity alone.',
-    proofPoints: ['HeliosX offers ergonomic prismatic and lightweight affordable paths.', 'Product pages explain model roles.', 'Education pages support working distance and magnification decisions.'],
-    sections: [valueSection, postureSection, comparisonHubSections[0]],
-    recommendedProducts: ['Apollo', 'Medusa', 'Newton', 'Galileo'],
+      'A good Q-Optics alternative should compare prismatic depth, weight, build quality, support, and buying clarity rather than relying on brand familiarity. HeliosX competes with the widest prismatic range in the price tier (3.0x–8.5x), premium optical glass, structurally lower pricing, and resident-friendly access.',
+    proofPoints: [
+      'HeliosX Medusa (3.0x–8.5x) and Apollo (3.0x–6.0x) cover the broadest ergonomic prismatic range in the price tier, including 8.0x and 8.5x options.',
+      'Pricing from $270 (Galileo, Newton) up through ergonomic prismatic and high magnification — structurally below the prismatic-incumbent tier.',
+      'Resident- and student-friendly pricing with documented discounts, direct-to-clinician shipping, premium optical glass and rigid metal barrels.',
+    ],
+    sections: [
+      {
+        title: 'Why people search for Q-Optics alternatives',
+        body:
+          'Buyers shop the Q-Optics alternative SERP because they want a wider prismatic range, a price tier below the prismatic-incumbent, or a plain-language buying flow over a spec-spreadsheet-led process.',
+        bullets: [
+          'Buyer wants ergonomic prismatic at 8.0x or 8.5x (Q-Optics caps below that).',
+          'Buyer wants a price tier below established prismatic-incumbent pricing.',
+          'Buyer prefers plain-language fit education over spec-sheet-led buying.',
+          'Buyer wants direct-to-clinician shipping and explicit resident pricing.',
+        ],
+      },
+      {
+        title: 'Why HeliosX belongs on the shortlist',
+        body:
+          'HeliosX delivers two ergonomic prismatic systems with the widest prismatic range in the price tier (Medusa 3.0x–8.5x, Apollo 3.0x–6.0x), premium optical glass with multi-layer coatings and rigid metal barrels, multiple frame families with multiple colorways per product, and a plain-language buying flow with measurement education built in.',
+        bullets: [
+          'Medusa 3.0x–8.5x ergonomic prismatic with real-time adjustable working distance.',
+          'Apollo 3.0x–6.0x ergonomic prismatic with selectable working distance at order.',
+          'Premium optical glass, multi-layer coatings, rigid metal barrels.',
+          'Apollo 1 and 2 in five colorways each, JJ-series for Medusa and Galileo, H1 and H2 for Newton.',
+        ],
+      },
+      {
+        title: 'How HeliosX maps to each Q-Optics use case',
+        body:
+          'Q-Optics positions across prismatic and lightweight Galilean. HeliosX answers each segment with a clear model mapping.',
+        bullets: [
+          'Lightweight Galilean daily use: Galileo or Newton at 2.5x–3.5x from $270.',
+          'Ergonomic prismatic at conventional magnification: Apollo at 3.0x–6.0x.',
+          'Ergonomic prismatic at higher magnification: Medusa at 5.0x–8.5x.',
+          'High-magnification microsurgery: Kepler at 4x–6x.',
+        ],
+      },
+      {
+        title: 'What changes when you switch from Q-Optics to HeliosX',
+        body:
+          'The prismatic-and-lightweight category split stays. What changes: the prismatic ceiling lifts to 8.5x with Medusa, the price tier drops, frame and color variety widens, and the buying flow includes plain-language measurement, magnification, and ergonomics guides.',
+        bullets: [
+          'Prismatic ceiling: conventional → 8.5x with Medusa.',
+          'Pricing: incumbent tier → access-mission tiers documented per product.',
+          'Frames: spec-led catalogue → Apollo 1 and 2 plus JJ-series and H-series variety.',
+          'Education: datasheets → plain-language fit and ergonomics guides.',
+        ],
+      },
+      {
+        title: 'Other alternatives worth knowing',
+        body:
+          'Beyond Q-Optics, the prismatic and ergonomic loupe field includes a handful of brands with distinct positioning.',
+        bullets: [
+          'Orascoptic: premium incumbent with dealer-routed fitting and broad catalogue.',
+          'LumaDent: dental-first ecommerce brand with bundled light system.',
+          'SurgiTel: ergonomics-incumbent with declination-angle methodology.',
+          'ExamVision: premium European custom craftsmanship with dealer fitting.',
+          'Admetec: innovation-forward ergonomic prismatic with adjustable concepts.',
+        ],
+      },
+      valueSection,
+      postureSection,
+    ],
+    recommendedProducts: ['Apollo', 'Medusa', 'Newton', 'Galileo', 'Kepler'],
     comparisonRows: [
-      { feature: 'Main alternative reason', heliosx: 'Plain-language model clarity and affordable premium value', other: 'Specs-forward incumbent product path' },
-      { feature: 'Best HeliosX fit', heliosx: 'Apollo, Medusa, Newton, Galileo', other: 'Prismatic and lightweight loupe shoppers' },
+      { feature: 'Brand positioning', heliosx: 'Ergonomic prismatic challenger with the widest prismatic range in the price tier', other: 'Lightweight prismatic incumbent with strong spec documentation' },
+      { feature: 'Pricing philosophy', heliosx: 'Transparent tiers from $270 up through ergonomic prismatic, below the prismatic-incumbent tier', other: 'Established prismatic loupe premium pricing' },
+      { feature: 'Ergonomic prismatic options', heliosx: 'Medusa (3.0x–8.5x) and Apollo (3.0x–6.0x) including 8.0x and 8.5x', other: 'Prismatic and lightweight prismatic product lines' },
+      { feature: 'Frame and color options', heliosx: 'Apollo 1 and 2 in 5 colorways each, JJ-series for Medusa and Galileo, H1 and H2 for Newton', other: 'Lightweight prismatic frame catalogue' },
+      { feature: 'Build quality', heliosx: 'Premium optical glass with multi-layer coatings and rigid metal barrels', other: 'Established lightweight prismatic construction' },
+      { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Mixed direct and dealer fulfillment' },
+      { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Brand support plus dealer relationships' },
+      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths, optional protection coverage at order', other: 'Standard loupe-brand warranty terms' },
+      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and student pricing through brand or dealer programs' },
+      { feature: 'Education resources', heliosx: 'Plain-language measurement, magnification, ergonomics, and research guides built into the site', other: 'Spec sheets, datasheets, and support documents' },
     ],
     verdict:
-      'HeliosX is a Q-Optics alternative for buyers who want prismatic and lightweight options explained through value, fit, and workflow.',
+      'HeliosX is a Q-Optics alternative for buyers who want a wider prismatic range (including 8.0x and 8.5x), a price tier below the prismatic-incumbent, plain-language fit education, and direct-to-clinician access with documented resident pricing.',
     faqs: [
       {
         question: 'Which HeliosX loupes should Q-Optics shoppers compare?',
         answer:
-          'Compare Apollo and Medusa for ergonomic prismatic needs, and Newton or Galileo for lightweight daily-use needs.',
+          'Apollo and Medusa cover the ergonomic prismatic space; Medusa specifically extends to 8.0x and 8.5x. Newton or Galileo are the lightweight affordable entries. Kepler covers 4x–6x microsurgery.',
+      },
+      {
+        question: 'Does HeliosX carry prismatic loupes above 6.0x like Q-Optics?',
+        answer:
+          'Yes. Medusa carries 8.0x and 8.5x ergonomic prismatic configurations with adjustable working distance — the widest prismatic range in the price tier.',
+      },
+      {
+        question: 'Why does HeliosX cost less than Q-Optics without cutting quality?',
+        answer:
+          'HeliosX uses premium optical glass and rigid metal barrels, but ships direct-to-clinician without dealer markup, and runs an access-mission pricing structure.',
+      },
+      {
+        question: 'Does HeliosX offer resident or student discounts?',
+        answer:
+          'Yes. Resident- and student-friendly pricing is documented across the lineup, with explicit discounts available. Email heliosxloupes@gmail.com with your training program details to confirm eligibility.',
+      },
+      {
+        question: 'What happens if my HeliosX loupes are damaged or lost?',
+        answer:
+          'Every order is covered by a warranty that includes replacement and lens-update paths. Optional protection coverage for loss, damage, and accidental drops is available at order. See /warranty for the full policy.',
       },
     ],
   },
@@ -1627,45 +1952,118 @@ const authorityComparisonPages: SeoLandingPage[] = [
     title: 'Best ExamVision Alternatives',
     metaTitle: 'Best ExamVision Alternatives | Custom Fit Loupe Comparison',
     description:
-      'Looking for ExamVision alternatives? Compare HeliosX custom-fit education, ergonomic prismatic loupes, student value, and dental or surgical workflows.',
+      'Looking for ExamVision alternatives? HeliosX delivers custom-fit ergonomic prismatic loupes (Medusa, Apollo), premium build, resident discounts, direct-to-clinician access, and structurally lower pricing.',
     heroKicker: 'Alternatives',
     primaryKeyword: 'ExamVision alternatives',
-    relatedKeywords: ['best ExamVision alternatives', 'custom loupe alternatives', 'ergonomic dental loupes'],
+    relatedKeywords: ['best ExamVision alternatives', 'custom loupe alternatives', 'ergonomic dental loupes', 'premium loupes alternative'],
     audience: 'buyers comparing premium custom-fit loupe brands with modern affordable-premium alternatives',
     intro:
-      'A strong ExamVision alternative should preserve the importance of custom fit while giving buyers a clearer path through measurements, price, posture, and model selection.',
+      'A strong ExamVision alternative should preserve the importance of custom fit while giving buyers a clearer path through measurements, price, posture, and model selection. HeliosX delivers custom-built loupes (every pair built around your PD and working distance) at a price tier well below premium incumbents, with the widest prismatic range in the price tier and resident-friendly access.',
     proofPoints: [
-      'HeliosX makes measurement education public before purchase.',
-      'Medusa and Apollo provide ergonomic prismatic options.',
-      'Galileo and Newton keep the student and daily-use path accessible.',
+      'Every HeliosX pair is custom-built around your PD and working distance — the same fitting principle as premium incumbents.',
+      'Medusa (3.0x–8.5x) and Apollo (3.0x–6.0x) cover the widest ergonomic prismatic range in the price tier.',
+      'Pricing $270 to $1,115 across the lineup with resident and student discounts, direct-to-clinician shipping, replacement and lens-update warranty paths.',
     ],
     sections: [
       {
-        title: 'What to keep from the premium custom-fit mindset',
+        title: 'Why people search for ExamVision alternatives',
         body:
-          'Custom fit matters. The alternative question is whether a buyer can get serious measurement guidance and ergonomic options without losing value transparency.',
+          'Buyers shop the ExamVision alternative SERP because the premium-incumbent tier sits beyond a resident or new-attending budget, dealer-routed fitting feels slow, or the buyer wants the same custom-fit principle at a structurally lower price with broader frame and color variety.',
         bullets: [
-          'Compare PD, working distance, prescription, and posture support.',
-          'Compare whether the brand explains model fit clearly.',
-          'Compare value for students, residents, and practice teams.',
+          'Premium-incumbent pricing is hard to justify on a trainee or fellowship budget.',
+          'Dealer-routed fitting feels slow or geographically inconvenient.',
+          'Buyer wants the same custom-fit principle at a lower price tier.',
+          'Buyer wants wider frame and color variety per product line.',
+        ],
+      },
+      {
+        title: 'Why HeliosX belongs on the shortlist',
+        body:
+          'HeliosX delivers the same custom-fit principle (every pair built around your PD and working distance per order) but at structurally lower pricing, with direct-to-clinician shipping, premium optical glass and rigid metal barrels, two ergonomic prismatic systems covering the widest prismatic range in the tier, and multiple frame families with multiple colorways per product.',
+        bullets: [
+          'Custom-built per order using your PD and working distance.',
+          'Premium optical glass, multi-layer coatings, rigid metal barrels.',
+          'Apollo 1 and 2 in five colorways each, JJ-series for Medusa and Galileo, H1 and H2 for Newton.',
+          'Surgeon-informed support, one-business-day response, no dealer routing.',
+        ],
+      },
+      {
+        title: 'How HeliosX maps to each ExamVision use case',
+        body:
+          'ExamVision’s catalogue covers profession-specific lines for dental and surgical audiences. HeliosX maps a clear answer to each segment with the same custom-fit principle.',
+        bullets: [
+          'Dental specialty: Apollo at 3.5x–6.0x or Kepler at 4x–6x.',
+          'General dentistry: Galileo, Newton, or Apollo depending on posture priorities.',
+          'Surgical work: Medusa or Apollo ergonomic prismatic, Kepler for microsurgery.',
+          'Student or resident entry: Galileo or Newton at 2.5x–3.5x with documented access pricing.',
+        ],
+      },
+      {
+        title: 'What changes when you switch from ExamVision to HeliosX',
+        body:
+          'The custom-fit principle stays. What changes: the buying path shifts from dealer fitting to direct-to-clinician measurement guidance, the price tier drops well below premium-incumbent levels, and the warranty + replacement experience is direct.',
+        bullets: [
+          'Fittings: dealer rep → measurement guidance from HeliosX support after checkout.',
+          'Pricing: premium European craftsmanship tier → access-mission pricing documented per product.',
+          'Warranty: dealer-routed → direct replacement and lens-update paths.',
+          'Resident access: school program → documented resident and student discounts.',
+        ],
+      },
+      {
+        title: 'Other alternatives worth knowing',
+        body:
+          'Beyond ExamVision, the custom-fit and premium loupe field includes several brands with different positioning angles.',
+        bullets: [
+          'Orascoptic: premium incumbent with dealer-routed fitting and broad catalogue.',
+          'SurgiTel: ergonomics-incumbent with declination-angle methodology.',
+          'LumaDent: dental-first ecommerce brand with bundled light system.',
+          'Q-Optics: spec-and-datasheet-forward with lightweight prismatic positioning.',
+          'Admetec: innovation-forward ergonomic prismatic with adjustable concepts.',
         ],
       },
       valueSection,
       postureSection,
     ],
-    recommendedProducts: ['Medusa', 'Apollo', 'Galileo', 'Newton'],
+    recommendedProducts: ['Medusa', 'Apollo', 'Galileo', 'Newton', 'Kepler'],
     comparisonRows: [
-      { feature: 'Custom fit', heliosx: 'Public measurement guide and post-checkout fitting workflow', other: 'Premium custom-crafted brand positioning' },
-      { feature: 'Ergonomic path', heliosx: 'Medusa and Apollo ergonomic prismatic systems', other: 'Ergonomic options through premium fitting process' },
-      { feature: 'Value', heliosx: 'Affordable premium challenger path', other: 'High-end custom positioning' },
+      { feature: 'Brand positioning', heliosx: 'Modern challenger with access mission, custom fit, and broad clinical audience coverage', other: 'Premium European custom-crafted positioning' },
+      { feature: 'Pricing philosophy', heliosx: 'Transparent tiers from $270 up through ergonomic prismatic, structurally below premium incumbents', other: 'Premium custom-crafted pricing tier' },
+      { feature: 'Custom fit', heliosx: 'PD and working distance measured per order; build starts after measurement confirmation', other: 'Custom profession-oriented fitting through dealer process' },
+      { feature: 'Ergonomic prismatic options', heliosx: 'Medusa (3.0x–8.5x) and Apollo (3.0x–6.0x) — widest prismatic range in the price tier', other: 'Selected prismatic lines inside the custom-crafted catalogue' },
+      { feature: 'Frame and color options', heliosx: 'Apollo 1 and 2 in 5 colorways each, JJ-series, H1 and H2 for Newton', other: 'Premium custom-frame catalogue' },
+      { feature: 'Build quality', heliosx: 'Premium optical glass, multi-layer coatings, rigid metal barrels', other: 'Premium European custom-crafted construction' },
+      { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Dealer-routed fulfillment in many regions' },
+      { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Dealer rep plus central brand support' },
+      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths, optional protection coverage at order', other: 'Premium loupe-brand warranty routed through dealer' },
+      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'Premium custom pricing without explicit access tier' },
     ],
     verdict:
-      'HeliosX is an ExamVision alternative for buyers who want custom-fit education, ergonomic prismatic choices, and a more accessible value story.',
+      'HeliosX is an ExamVision alternative for buyers who want the same custom-fit principle at a price tier well below premium-incumbent positioning, ergonomic prismatic depth, direct-to-clinician access, and documented resident pricing.',
     faqs: [
       {
         question: 'What should I compare before choosing an ExamVision alternative?',
         answer:
-          'Compare custom fit, measurement support, ergonomic options, warranty expectations, price clarity, and how well the brand explains working distance.',
+          'Compare the custom-fit process, ergonomic options, frame and color variety, support model, warranty, price clarity, and how well the brand explains working distance. HeliosX matches the custom-fit principle and the build standard while sitting at a structurally lower price tier.',
+      },
+      {
+        question: 'Does HeliosX offer the same custom-fit process as ExamVision?',
+        answer:
+          'Yes. Every HeliosX pair is custom-built around your PD and working distance, submitted via the measurement flow after checkout. The principle is the same — the routing changes from dealer fitting to direct measurement guidance.',
+      },
+      {
+        question: 'Why does HeliosX cost less than ExamVision without cutting quality?',
+        answer:
+          'HeliosX uses premium optical glass and rigid metal barrels and builds each pair custom to your measurements, but ships direct-to-clinician with no dealer markup and runs an access-mission pricing structure.',
+      },
+      {
+        question: 'Does HeliosX offer resident or student discounts?',
+        answer:
+          'Yes. Resident- and student-friendly pricing is documented across the lineup with explicit discounts. Email heliosxloupes@gmail.com with your training program details to confirm eligibility.',
+      },
+      {
+        question: 'What happens if my HeliosX loupes are damaged or lost?',
+        answer:
+          'Every order is covered by a warranty that includes replacement and lens-update paths. Optional protection coverage for loss, damage, and accidental drops is available at order. See /warranty for the full policy.',
       },
     ],
   },
@@ -1680,39 +2078,107 @@ const authorityComparisonPages: SeoLandingPage[] = [
     relatedKeywords: ['best Admetec alternatives', 'ergonomic prismatic loupes', 'adjustable working distance loupes'],
     audience: 'buyers comparing ergonomic prismatic and adjustable loupe systems',
     intro:
-      'A strong Admetec alternative should explain ergonomic prismatic technology in practical terms: how it affects posture, working distance, magnification, and total value.',
+      'A strong Admetec alternative should explain ergonomic prismatic technology in practical terms: how it affects posture, working distance, magnification, and total value. HeliosX runs two ergonomic prismatic systems — Medusa from 3.0x to 8.5x with adjustable working distance and Apollo from 3.0x to 6.0x — published transparent pricing from $270 across the lineup, and direct-to-clinician fulfillment without the dealer wait.',
     proofPoints: [
-      'Medusa is HeliosX ergonomic prismatic with adjustable working distance.',
-      'Apollo is HeliosX ergonomic prismatic for posture-aware clarity.',
-      'The education library explains prismatic optics and working distance.',
+      'Medusa and Apollo: two ergonomic prismatic platforms covering 3.0x–8.5x.',
+      'Pricing published openly: Galileo and Newton from $270, Medusa from $710.',
+      'Direct-to-clinician shipping with one-business-day support and a measurement step before production.',
     ],
     sections: [
       {
-        title: 'What innovation buyers should compare',
+        title: 'Why people search for Admetec alternatives',
         body:
-          'Innovation is useful only when the buyer understands how it changes daily work. Compare adjustability, posture support, magnification needs, and whether the brand helps you measure correctly.',
+          'Admetec is known for innovation-forward ergonomic prismatic concepts and adjustable platforms. Buyers shopping alternatives are usually doing one of three things: comparing a second ergonomic prismatic option before committing, looking for a brand with published pricing they can evaluate without a sales meeting, or wanting clearer plain-language guidance on which model fits their work. HeliosX speaks directly to all three.',
         bullets: [
-          'Medusa fits adjustable working distance searches.',
-          'Apollo fits ergonomic prismatic searches.',
-          'Kepler fits high-magnification surgical searches.',
+          'You want to compare a second ergonomic prismatic system before you spend at this tier.',
+          'You want pricing posted publicly so the budget conversation happens before the demo.',
+          'You want education that explains prismatic optics, working distance, and posture in plain language — not marketing language.',
         ],
       },
-      postureSection,
+      {
+        title: 'Why HeliosX belongs on the shortlist',
+        body:
+          'HeliosX is built around the same priorities Admetec shoppers care about — ergonomic prismatic optics, adjustability, posture-aware design — with a different access model. We publish pricing, ship direct, and pair every order with a measurement step so the loupes arrive set up for the user, not the dealer.',
+        bullets: [
+          'Two ergonomic prismatic platforms covering 3.0x–8.5x — the widest prismatic range at our price tier.',
+          'Adjustable working distance available on Medusa, posture-fixed clarity on Apollo.',
+          'Premium optical glass with multi-layer coatings and rigid metal barrels with reinforced mounts.',
+        ],
+      },
+      {
+        title: 'How HeliosX maps to each Admetec use case',
+        body:
+          'Admetec buyers tend to fall into specific groups based on what attracted them to the brand. Here is how the HeliosX lineup maps to those use cases without overpromising on either side.',
+        bullets: [
+          'If you want adjustable working distance and ergonomic prismatic optics: start with Medusa from $710.',
+          'If you want fixed ergonomic prismatic clarity at higher magnifications: Apollo from $740 in 3.0x to 6.0x.',
+          'If you want a high-magnification surgical platform: Kepler from $460 in 4.0x to 6.0x.',
+          'If a resident or student is buying alongside an attending pair: Galileo or Newton from $270 with discount eligibility.',
+        ],
+      },
+      {
+        title: 'What changes when you switch from Admetec to HeliosX',
+        body:
+          'The fitting process, the price conversation, and the support relationship all look different. Most of the change is in your favor: less time spent coordinating a demo, more transparency on what each model costs, and a direct line to support that is staffed by people who actually understand the work.',
+        bullets: [
+          'Pricing is published on every product page — no quote request required.',
+          'Measurements are submitted online after order; we confirm before production starts so nothing ships misfit.',
+          'Resident and student discounts are documented and available across the lineup.',
+          'Optional protection coverage for loss, damage, and accidental drops is offered at order, on top of the standard warranty.',
+        ],
+      },
+      {
+        title: 'Other alternatives worth knowing',
+        body:
+          'If you are evaluating Admetec, you are probably also looking at the broader premium ergonomic and prismatic field. Three other brands worth knowing as you build your shortlist:',
+        bullets: [
+          'Orascoptic — long-established North American brand with a wide dealer network and a strong dental footprint.',
+          'SurgiTel — the brand most associated with declination-angle ergonomic positioning across both Galilean and prismatic systems.',
+          'ExamVision — Danish brand known for high-end frame design and bespoke ergonomic-prismatic builds.',
+        ],
+      },
       valueSection,
     ],
     recommendedProducts: ['Medusa', 'Apollo', 'Kepler'],
     comparisonRows: [
-      { feature: 'Adjustability', heliosx: 'Medusa has adjustable working distance', other: 'Adjustable concepts and innovation-forward positioning' },
-      { feature: 'Prismatic category', heliosx: 'Medusa and Apollo are ergonomic prismatic systems', other: 'Ergonomic prismatic product family varies by brand' },
-      { feature: 'Buyer clarity', heliosx: 'Plain-language education and transparent model roles', other: 'Technology-forward comparison path' },
+      { feature: 'Brand position', heliosx: 'Direct-to-clinician ergonomic prismatic specialist with published pricing', other: 'Innovation-forward ergonomic prismatic and adjustable concepts' },
+      { feature: 'Pricing philosophy', heliosx: 'Posted price bands from $270; pricing visible before any sales conversation', other: 'Quote-based pricing at the premium tier' },
+      { feature: 'Ergonomic prismatic options', heliosx: 'Medusa (3.0x–8.5x, adjustable) and Apollo (3.0x–6.0x)', other: 'Ergonomic prismatic family varies by region and configuration' },
+      { feature: 'Adjustability', heliosx: 'Medusa offers adjustable working distance', other: 'Adjustable concepts central to the brand identity' },
+      { feature: 'Frame and color options', heliosx: 'Apollo 1 + Apollo 2 with five colorways each; six JJ-series frames; H1/H2 Newton frames', other: 'Frame catalog varies by configuration' },
+      { feature: 'Build quality', heliosx: 'Premium optical glass with multi-layer coatings, rigid metal barrels, reinforced mounts', other: 'Premium-tier construction expected' },
+      { feature: 'Shipping model', heliosx: 'Direct-to-clinician with measurement-first production', other: 'Dealer-network or regional distributor routing' },
+      { feature: 'Customer support', heliosx: 'One-business-day response SLA from a small, clinician-aware team', other: 'Dealer or distributor support layer' },
+      { feature: 'Replacement and warranty', heliosx: 'Warranty with replacement and lens-update paths; 30-day return window', other: 'Warranty terms vary' },
+      { feature: 'Resident and student access', heliosx: 'Documented resident and student discount eligibility across the lineup', other: 'Educational pricing varies by partner' },
     ],
     verdict:
-      'HeliosX is an Admetec alternative for buyers who want ergonomic prismatic and adjustable-working-distance ideas explained through practical buying guidance.',
+      'HeliosX is an Admetec alternative for buyers who want ergonomic prismatic optics, adjustable working distance, and posture-aware design explained through plain-language buying guidance — at posted pricing, with direct support, and a measurement step before anything ships.',
     faqs: [
       {
         question: 'Which HeliosX model should Admetec shoppers compare first?',
         answer:
-          'Start with Medusa because it is the HeliosX ergonomic prismatic model with adjustable working distance. Also compare Apollo for ergonomic prismatic clarity.',
+          'Start with Medusa because it is the HeliosX ergonomic prismatic model with adjustable working distance and the widest prismatic range at this price tier (3.0x–8.5x). Also compare Apollo from $740 for ergonomic prismatic clarity at fixed working distances in the 3.0x–6.0x range.',
+      },
+      {
+        question: 'Does HeliosX offer adjustable ergonomic prismatic options like Admetec?',
+        answer:
+          'Yes. Medusa is the HeliosX ergonomic prismatic platform with adjustable working distance, designed for clinicians who change posture or position across cases. Apollo is the fixed-working-distance ergonomic prismatic option for buyers who prefer a posture-locked setup.',
+      },
+      {
+        question: 'Why does HeliosX cost less than Admetec without cutting quality?',
+        answer:
+          'We ship direct to clinicians instead of routing through dealer networks, publish pricing openly, and keep the build to what actually affects clinical performance: premium optical glass with multi-layer coatings, rigid metal barrels, and reinforced mounts. The savings come from the access model, not from the optics.',
+      },
+      {
+        question: 'Are there discounts for residents and students?',
+        answer:
+          'Yes. Resident- and student-friendly pricing is documented across the lineup with explicit discount eligibility. Email heliosxloupes@gmail.com with your training program details to confirm.',
+      },
+      {
+        question: 'What happens if my HeliosX loupes are damaged or lost?',
+        answer:
+          'Every order is covered by a warranty that includes replacement and lens-update paths. Optional protection coverage for loss, damage, and accidental drops is available at order. See /warranty for the full policy.',
       },
     ],
   },

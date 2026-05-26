@@ -75,6 +75,17 @@ export const productPositioning = {
   Newton: 'Ultra-light affordable loupes built for long days, comfort, and daily precision.',
 }
 
+// Published starting price (USD) per product line. Used to emit
+// `offers` on every Product node in ItemList JSON-LD so Search Console
+// stops flagging "Invalid Product" warnings on the comparison pages.
+export const productStartingPrices: Record<keyof typeof productPositioning, number> = {
+  Medusa: 710,
+  Apollo: 740,
+  Kepler: 460,
+  Galileo: 270,
+  Newton: 270,
+}
+
 const postureSection: ContentSection = {
   title: 'Posture is part of the product',
   body:
@@ -396,7 +407,7 @@ const competitorPages: SeoLandingPage[] = [
   {
     slug: 'loupe-comparisons',
     title: 'Loupe Brand Comparisons',
-    metaTitle: 'Loupe Brand Comparisons | HeliosX vs LumaDent, Orascoptic, SurgiTel',
+    metaTitle: 'Loupe Brand Comparisons | HeliosX vs LumaDent & More',
     description:
       'Compare HeliosX with LumaDent, Orascoptic, SurgiTel, Q-Optics, ExamVision, and Admetec across ergonomics, pricing, prismatic options, support, and fit guidance.',
     heroKicker: 'Comparison hub',

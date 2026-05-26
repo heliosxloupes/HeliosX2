@@ -372,23 +372,35 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
               </p>
               <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">Comparison snapshot</h2>
               <div className="mt-8 overflow-x-auto border-y border-white/10">
-                <div className="min-w-[760px]">
-                  <div className="grid grid-cols-[0.78fr,1fr,1fr] text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
-                    <div className="py-4 pr-4">Feature</div>
-                    <div className="p-4">HeliosX</div>
-                    <div className="p-4">{page.competitorName ?? 'Other brands'}</div>
-                  </div>
-                  {page.comparisonRows.map((row) => (
-                    <div
-                      key={row.feature}
-                      className="grid grid-cols-[0.78fr,1fr,1fr] border-t border-white/10 text-sm text-neutral-300"
-                    >
-                      <div className="py-5 pr-4 font-semibold text-white">{row.feature}</div>
-                      <div className="p-5 leading-6">{row.heliosx}</div>
-                      <div className="p-5 leading-6">{row.other}</div>
-                    </div>
-                  ))}
-                </div>
+                <table className="w-full min-w-[760px] border-collapse text-left">
+                  <caption className="sr-only">
+                    Side-by-side comparison of HeliosX and {page.competitorName ?? 'other brands'}
+                    {' '}across {page.comparisonRows.length} positioning factors.
+                  </caption>
+                  <thead>
+                    <tr className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
+                      <th scope="col" className="py-4 pr-4 font-semibold">Feature</th>
+                      <th scope="col" className="p-4 font-semibold">HeliosX</th>
+                      <th scope="col" className="p-4 font-semibold">
+                        {page.competitorName ?? 'Other brands'}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {page.comparisonRows.map((row) => (
+                      <tr
+                        key={row.feature}
+                        className="border-t border-white/10 text-sm text-neutral-300 align-top"
+                      >
+                        <th scope="row" className="py-5 pr-4 font-semibold text-white">
+                          {row.feature}
+                        </th>
+                        <td className="p-5 leading-6">{row.heliosx}</td>
+                        <td className="p-5 leading-6">{row.other}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
               {page.verdict ? (
                 <p className="mt-7 max-w-4xl border-l border-emerald-300/60 pl-5 text-base leading-8 text-emerald-50">

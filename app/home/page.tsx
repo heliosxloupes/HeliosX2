@@ -582,6 +582,11 @@ function HorizontalStorySection() {
                       {panel.type === "video" ? (
                         <video
                           src={panel.media}
+                          poster="/mainpagevideo2-poster.jpg"
+                          preload="metadata"
+                          width={1920}
+                          height={1080}
+                          aria-label={panel.title}
                           className="h-full w-full object-cover"
                           autoPlay
                           muted

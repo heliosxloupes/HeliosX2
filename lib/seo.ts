@@ -73,6 +73,11 @@ export function buildMetadata({
       ? {
           index: false,
           follow: false,
+          googleBot: {
+            index: false,
+            follow: false,
+            noimageindex: true,
+          },
         }
       : {
           index: true,
@@ -98,17 +103,53 @@ export function buildMetadata({
   return metadata
 }
 
+// External profiles for Knowledge-Graph + LLM entity resolution.
+// Add real social/profile URLs as they're claimed — empty entries
+// are filtered out before serialization so the schema stays clean.
+const organizationSameAs: string[] = [
+  // 'https://www.instagram.com/heliosxloupes',
+  // 'https://www.youtube.com/@heliosxloupes',
+  // 'https://www.linkedin.com/company/heliosxloupes',
+  // 'https://www.crunchbase.com/organization/heliosx-loupes',
+  // 'https://www.wikidata.org/wiki/Q__________',
+].filter(Boolean) as string[]
+
 export function organizationJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
     name: siteName,
+    legalName: 'HeliosX Loupes',
+    alternateName: ['HeliosX', 'HeliosX Loupes'],
     url: siteUrl,
-    logo: absoluteUrl('/logominimalnowriting.png'),
+    logo: {
+      '@type': 'ImageObject',
+      url: absoluteUrl('/logominimalnowriting.png'),
+      width: 512,
+      height: 512,
+    },
+    image: absoluteUrl('/Homepage1NEW.jpg'),
     email: supportEmail,
-    sameAs: [siteUrl],
+    sameAs: organizationSameAs,
     description:
-      'HeliosX Loupes makes affordable premium ergonomic prismatic surgical and dental loupes for surgeons, dentists, residents, hygienists, and medical students.',
+      'HeliosX Loupes makes affordable premium ergonomic prismatic surgical and dental loupes for surgeons, dentists, residents, hygienists, and medical students. HeliosX Loupes is a direct-to-clinician medical-device brand and is unrelated to the UK healthtech company also called HeliosX.',
+    knowsAbout: [
+      'Surgical loupes',
+      'Dental loupes',
+      'Prismatic loupes',
+      'Ergonomic loupes',
+      'Pupillary distance measurement',
+      'Working distance for loupes',
+      'Loupe magnification by specialty',
+    ],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      email: supportEmail,
+      availableLanguage: ['English'],
+      areaServed: ['US', 'CA', 'GB', 'AU', 'IE', 'NZ'],
+    },
   }
 }
 
@@ -119,14 +160,51 @@ export function websiteJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
     name: siteName,
     url: siteUrl,
-    publisher: {
-      '@type': 'Organization',
-      name: siteName,
-    },
+    publisher: { '@id': `${siteUrl}/#organization` },
     inLanguage: 'en-US',
   }
+}
+
+export function webPageJsonLd({
+  title,
+  description,
+  path,
+  datePublished,
+  dateModified,
+  isPartOfWebSite = true,
+  breadcrumb,
+}: {
+  title: string
+  description: string
+  path: string
+  datePublished?: string
+  dateModified?: string
+  isPartOfWebSite?: boolean
+  breadcrumb?: { name: string; path: string }[]
+}) {
+  const url = absoluteUrl(path)
+  const node: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    name: title,
+    description,
+    url,
+    inLanguage: 'en-US',
+    publisher: { '@id': `${siteUrl}/#organization` },
+  }
+  if (isPartOfWebSite) {
+    node.isPartOf = { '@id': `${siteUrl}/#website` }
+  }
+  if (datePublished) node.datePublished = datePublished
+  if (dateModified) node.dateModified = dateModified
+  if (breadcrumb && breadcrumb.length > 0) {
+    node.breadcrumb = breadcrumbJsonLd(breadcrumb)
+  }
+  return node
 }
 
 export function imageObjectJsonLd({
@@ -622,25 +700,52 @@ export function howToJsonLd({
   }
 }
 
-export function itemListJsonLd(items: { name: string; url: string; image?: string; description?: string }[]) {
+export function itemListJsonLd(
+  items: {
+    name: string
+    url: string
+    image?: string
+    description?: string
+    price?: number
+    priceCurrency?: string
+    sku?: string
+  }[],
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      url: absoluteUrl(item.url),
-      item: {
+    itemListElement: items.map((item, index) => {
+      const itemUrl = absoluteUrl(item.url)
+      const product: Record<string, unknown> = {
         '@type': 'Product',
         name: item.name,
-        url: absoluteUrl(item.url),
+        url: itemUrl,
         ...(item.image ? { image: absoluteUrl(item.image) } : {}),
         ...(item.description ? { description: item.description } : {}),
+        ...(item.sku ? { sku: item.sku, mpn: item.sku } : {}),
         brand: {
           '@type': 'Brand',
           name: siteName,
         },
-      },
-    })),
+      }
+
+      if (typeof item.price === 'number' && Number.isFinite(item.price)) {
+        product.offers = {
+          '@type': 'Offer',
+          url: itemUrl,
+          priceCurrency: item.priceCurrency ?? 'USD',
+          price: item.price,
+          availability: 'https://schema.org/InStock',
+          priceValidUntil: oneYearFromTodayISO(),
+        }
+      }
+
+      return {
+        '@type': 'ListItem',
+        position: index + 1,
+        url: itemUrl,
+        item: product,
+      }
+    }),
   }
 }

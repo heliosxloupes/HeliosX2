@@ -2,15 +2,17 @@ import type { Metadata } from 'next'
 
 import JsonLd from '@/components/JsonLd'
 import {
+  breadcrumbJsonLd,
   buildMetadata,
   organizationJsonLd,
   videoObjectJsonLd,
+  webPageJsonLd,
   websiteJsonLd,
 } from '@/lib/seo'
 import HomePage from './home/page'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'HeliosX Loupes | Affordable Ergonomic Surgical and Dental Loupes',
+  title: 'HeliosX Loupes | Ergonomic Surgical & Dental Loupes',
   description:
     'Premium ergonomic prismatic surgical and dental loupes at fair prices. Shop Medusa, Apollo, Galileo, Newton, and Kepler loupes with measurement support.',
   path: '/',
@@ -32,6 +34,15 @@ export default function RootPage() {
         data={[
           organizationJsonLd(),
           websiteJsonLd(),
+          webPageJsonLd({
+            title: 'HeliosX Loupes | Ergonomic Surgical & Dental Loupes',
+            description:
+              'Premium ergonomic prismatic surgical and dental loupes at fair prices. HeliosX Loupes is a direct-to-clinician medical-device brand — not to be confused with the UK healthtech company also called HeliosX.',
+            path: '/',
+            datePublished: '2026-05-24',
+            dateModified: '2026-05-25',
+          }),
+          breadcrumbJsonLd([{ name: 'Home', path: '/' }]),
           videoObjectJsonLd({
             name: 'HeliosX Loupes brand film',
             description:

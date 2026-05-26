@@ -4,11 +4,15 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import { buildMetadata } from '@/lib/seo'
 
+// Next.js automatically emits `<meta name="robots" content="noindex">` for
+// app/not-found.tsx (this is built-in behavior; not-found pages cannot be
+// indexed by design). Passing noIndex: true here would emit a SECOND,
+// conflicting robots tag, which is exactly the regression the prior audit
+// flagged. Let the framework do its job — we only emit title/description.
 export const metadata: Metadata = buildMetadata({
   title: 'Page not found | HeliosX Loupes',
   description: 'The page you are looking for was not found. Return to HeliosX surgical and dental loupes.',
   path: '/',
-  noIndex: true,
 })
 
 export default function NotFound() {

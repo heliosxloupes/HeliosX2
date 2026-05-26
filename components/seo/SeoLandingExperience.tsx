@@ -22,6 +22,14 @@ type SeoLandingExperienceProps = {
   modelRows: ModelRow[]
 }
 
+function slugifySectionTitle(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 64)
+}
+
 const fadeUp = {
   hidden: { opacity: 0, y: 26 },
   visible: { opacity: 1, y: 0 },
@@ -253,17 +261,46 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
           </motion.div>
         </section>
 
+        {page.sections.length > 3 ? (
+          <section className="px-5 pt-10 md:px-12">
+            <nav
+              aria-label="On this page"
+              className="mx-auto max-w-6xl rounded-2xl border border-white/10 bg-neutral-950/60 px-5 py-4"
+            >
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-200/80">
+                On this page
+              </p>
+              <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-neutral-300">
+                {page.sections.map((section, index) => (
+                  <li key={`toc-${section.title}`}>
+                    <a
+                      href={`#${slugifySectionTitle(section.title)}`}
+                      className="underline decoration-white/20 underline-offset-4 transition hover:text-white hover:decoration-emerald-200"
+                    >
+                      <span className="mr-1 text-neutral-500">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      {section.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </section>
+        ) : null}
+
         <section className="px-5 py-16 md:px-12 md:py-24">
           <div className="mx-auto max-w-6xl space-y-12">
             {page.sections.map((section, index) => (
               <motion.article
                 key={section.title}
+                id={slugifySectionTitle(section.title)}
                 initial="hidden"
                 whileInView="visible"
                 variants={fadeUp}
                 viewport={{ once: true, amount: 0.26 }}
                 transition={{ duration: 0.58, ease: [0.16, 1, 0.3, 1] }}
-                className="grid gap-8 border-t border-white/10 pt-8 lg:grid-cols-[0.34fr,0.66fr]"
+                className="grid gap-8 border-t border-white/10 pt-8 lg:grid-cols-[0.34fr,0.66fr] scroll-mt-24"
               >
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">

@@ -89,23 +89,29 @@ export const productStartingPrices: Record<keyof typeof productPositioning, numb
 const postureSection: ContentSection = {
   title: 'Posture is part of the product',
   body:
-    'The best loupe choice protects how you work, not just what you see. HeliosX combines magnification, working distance, frame balance, and measurement support so the fit decision is practical.',
+    'The best loupe choice protects how you work, not just what you see. HeliosX combines magnification, working distance, frame balance, and measurement support so the fit decision is practical. A 2023 peer-reviewed randomized controlled trial of dental practitioners (Frontiers in Dental Medicine) found that loupes with proper ergonomic design measurably reduced sustained neck flexion and self-reported musculoskeletal strain across the workday.',
   bullets: [
     'Medusa and Apollo are the ergonomic prismatic HeliosX systems.',
     'Medusa adds adjustable working distance for users with multiple working postures.',
     'Galileo and Newton keep the access path lightweight and affordable.',
   ],
+  sourceLabel:
+    'See the underlying research: HeliosX ergonomic loupes and neck pain (Frontiers in Dental Medicine, 2023).',
+  sourceHref: '/education/ergonomic-loupes-neck-pain',
 }
 
 const valueSection: ContentSection = {
   title: 'Affordable without feeling cheap',
   body:
-    'A lower price should not force clinicians into vague specs, weak fit support, or disposable optics. HeliosX is built around affordable premium value: clear model roles, fair pricing, and guidance before production begins.',
+    'A lower price should not force clinicians into vague specs, weak fit support, or disposable optics. HeliosX is built around affordable premium value: clear model roles, fair pricing, and guidance before production begins. A 2004 peer-reviewed survey of 148 specialists and senior trainees (Jarrett PM, Microsurgery 2004;24:420–422) documented the intraoperative magnification ranges that real surgeons actually use — useful context when comparing brand claims against case-mix reality.',
   bullets: [
     'Transparent product roles and price ranges.',
     'Measurement guidance for pupillary distance and working distance.',
     'Education-first buying support for students, residents, dentists, and surgeons.',
   ],
+  sourceLabel:
+    'Jarrett PM. Intraoperative magnification: who uses it? Microsurgery. 2004;24:420–422.',
+  sourceHref: '/research/intraoperative-magnification-who-uses-it.pdf',
 }
 
 const specialtyMagnificationSection: ContentSection = {

@@ -6,6 +6,7 @@ import { motion, useScroll, useSpring } from 'framer-motion'
 
 import Header from '@/components/Header'
 import { LenisProvider } from '@/components/lenis-provider'
+import { linkifyText } from '@/components/seo/linkify'
 import type { EducationGuide } from '@/lib/seo-content'
 
 type Diagram = {
@@ -151,7 +152,7 @@ export default function EducationGuideExperience({
                 </span>
               </h1>
               <motion.p variants={fadeUp} className="max-w-2xl text-sm leading-7 text-neutral-200 md:text-base md:leading-8">
-                {guide.intro}
+                {linkifyText(guide.intro)}
               </motion.p>
               <motion.p variants={fadeUp} className="max-w-xl border-l border-emerald-300/60 pl-4 text-sm leading-6 text-neutral-300">
                 Built for {guide.audience}.
@@ -209,7 +210,7 @@ export default function EducationGuideExperience({
                   </h2>
                 </div>
                 <div className="space-y-6">
-                  <p className="text-base leading-8 text-neutral-300">{section.body}</p>
+                  <p className="text-base leading-8 text-neutral-300">{linkifyText(section.body)}</p>
                   {section.sourceHref && section.sourceLabel ? (
                     <p className="text-xs leading-6 text-neutral-400">
                       <span className="font-semibold uppercase tracking-[0.18em] text-emerald-200/80">
@@ -228,7 +229,7 @@ export default function EducationGuideExperience({
                   <div className="grid gap-3 sm:grid-cols-3">
                     {section.bullets.map((bullet) => (
                       <div key={bullet} className="border-t border-white/10 pt-4 text-sm leading-6 text-neutral-300">
-                        {bullet}
+                        {linkifyText(bullet)}
                       </div>
                     ))}
                   </div>
@@ -291,7 +292,7 @@ export default function EducationGuideExperience({
                   <summary className="cursor-pointer list-none text-base font-semibold text-white transition group-open:text-emerald-200">
                     {faq.question}
                   </summary>
-                  <p className="mt-3 text-sm leading-7 text-neutral-300">{faq.answer}</p>
+                  <p className="mt-3 text-sm leading-7 text-neutral-300">{linkifyText(faq.answer)}</p>
                 </details>
               ))}
             </div>

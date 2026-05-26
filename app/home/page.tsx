@@ -223,8 +223,7 @@ function LineupSection() {
             </h2>
           </div>
           <p className="max-w-md text-sm leading-6 text-neutral-400">
-            Starting at $270 — published pricing, direct-to-clinician shipping,
-            and a measurement step before production. No quote needed.
+            From $270. Honest pricing, shipped direct, measured to fit.
           </p>
         </div>
 

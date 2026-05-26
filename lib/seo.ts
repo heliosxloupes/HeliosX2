@@ -28,7 +28,7 @@ export function buildMetadata({
   title,
   description,
   path = '/',
-  image = '/Homepage1NEW.jpg',
+  image = '/HeliosX-og.jpg',
   keywords = [],
   noIndex = false,
 }: SeoMetadataInput): Metadata {
@@ -129,7 +129,7 @@ export function organizationJsonLd() {
       width: 512,
       height: 512,
     },
-    image: absoluteUrl('/Homepage1NEW.jpg'),
+    image: absoluteUrl('/HeliosX-og.jpg'),
     email: supportEmail,
     sameAs: organizationSameAs,
     description:
@@ -394,7 +394,7 @@ export function articleJsonLd({
     url: absoluteUrl(path),
     datePublished,
     dateModified: dateModified ?? datePublished,
-    image: absoluteUrl(image ?? '/Homepage1NEW.jpg'),
+    image: absoluteUrl(image ?? '/HeliosX-og.jpg'),
     inLanguage,
     author: resolvedAuthor,
     publisher: {

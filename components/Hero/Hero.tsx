@@ -442,9 +442,10 @@ export default function Hero() {
             }}
           >
             <Image
-              src="/Homepage1NEW.jpg"
-              alt="Woman surgeon"
+              src="/HeliosX-hero.jpg"
+              alt="Surgeon wearing HeliosX ergonomic prismatic loupes in a clinical setting"
               fill
+              sizes="100vw"
               style={{ objectFit: 'cover' }}
               priority
             />

@@ -4,15 +4,24 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import { buildMetadata } from '@/lib/seo'
 
-// Next.js automatically emits `<meta name="robots" content="noindex">` for
-// app/not-found.tsx (this is built-in behavior; not-found pages cannot be
-// indexed by design). Passing noIndex: true here would emit a SECOND,
-// conflicting robots tag, which is exactly the regression the prior audit
-// flagged. Let the framework do its job — we only emit title/description.
+// Two layers of robots metadata both fire on this segment:
+// (1) Next.js auto-emits <meta name="robots" content="noindex"> for any
+//     app/not-found.tsx — this is built-in framework behavior.
+// (2) The root layout sets robots = { index: true, follow: true } via
+//     buildMetadata. Without an explicit override here, that inherited
+//     `index, follow` ALSO renders alongside Next's auto noindex —
+//     producing a real semantic conflict ("index, follow" + "noindex").
+//
+// Setting noIndex: true here forces buildMetadata to emit
+// `noindex, nofollow` which REPLACES the parent's `index, follow`. The
+// remaining duplication is two consistent noindex directives, which
+// crawlers de-conflict by taking the most restrictive (noindex). Better
+// than the index/noindex conflict that ships without this flag.
 export const metadata: Metadata = buildMetadata({
   title: 'Page not found | HeliosX Loupes',
   description: 'The page you are looking for was not found. Return to HeliosX surgical and dental loupes.',
   path: '/',
+  noIndex: true,
 })
 
 export default function NotFound() {

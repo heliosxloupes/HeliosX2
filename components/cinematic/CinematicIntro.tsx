@@ -258,7 +258,7 @@ export default function CinematicIntro({ onComplete }: Props) {
         {muted ? '♪̷' : '♪'}
       </button>
 
-      <div className={styles.scroller} ref={scrollerRef}>
+      <div className={styles.scroller} ref={scrollerRef} data-lenis-prevent>
         <div className={styles.runway} ref={runwayRef} style={{ height: `${CINEMATIC.runwayVh}vh` }}>
           <div className={styles.stage} ref={stageRef}>
             <canvas className={styles.canvas} ref={canvasRef} />

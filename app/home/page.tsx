@@ -520,6 +520,17 @@ function ManifestoSection() {
               surgeons, not by corporate spreadsheets.
             </>,
             <>No gate keeping. Just fair pricing. Elite quality made truly affordable.</>,
+            <>
+              <span className="text-neutral-400">
+                A note on the name:{" "}
+                <span className="font-medium text-neutral-200">
+                  HeliosX Loupes is a direct-to-clinician medical-device brand for
+                  surgical and dental loupes
+                </span>
+                . We are not affiliated with the UK healthtech company also called
+                HeliosX — different industry, different product, no overlap.
+              </span>
+            </>,
           ].map((para, i) => (
             <motion.p
               key={i}

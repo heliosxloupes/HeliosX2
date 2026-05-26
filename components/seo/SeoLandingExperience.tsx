@@ -30,6 +30,48 @@ function slugifySectionTitle(title: string): string {
     .slice(0, 64)
 }
 
+// Detect internal-path tokens like /cardiac-surgery-loupes or
+// /education/loupe-magnification-guide inside body copy and convert
+// them to real Next.js <Link>s. This is the cheapest possible internal-
+// linking lift across the comparison cluster — every bullet that says
+// "Cardiac surgery: /cardiac-surgery-loupes" becomes a clickable,
+// crawler-followable link without touching the underlying content data.
+//
+// Matches: a leading slash, followed by at least one segment of
+// lowercase letters/digits/hyphens, optionally followed by additional
+// `/segment` parts. Stops at whitespace, comma, period (when not part
+// of a path), or end-of-string.
+const INTERNAL_PATH_REGEX = /\/[a-z0-9][a-z0-9-/]*[a-z0-9]/g
+
+function linkifyText(text: string): ReactNode {
+  const matches = [...text.matchAll(INTERNAL_PATH_REGEX)]
+  if (matches.length === 0) return text
+
+  const nodes: ReactNode[] = []
+  let cursor = 0
+  matches.forEach((match, idx) => {
+    const start = match.index ?? 0
+    const path = match[0]
+    if (start > cursor) {
+      nodes.push(text.slice(cursor, start))
+    }
+    nodes.push(
+      <Link
+        key={`${path}-${idx}`}
+        href={path}
+        className="text-emerald-200 underline decoration-emerald-200/30 underline-offset-4 transition hover:text-white hover:decoration-emerald-200"
+      >
+        {path}
+      </Link>,
+    )
+    cursor = start + path.length
+  })
+  if (cursor < text.length) {
+    nodes.push(text.slice(cursor))
+  }
+  return nodes
+}
+
 const fadeUp = {
   hidden: { opacity: 0, y: 26 },
   visible: { opacity: 1, y: 0 },
@@ -219,7 +261,7 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
                   </span>
                 </h1>
                 <motion.p variants={fadeUp} className="max-w-2xl text-sm leading-7 text-neutral-200 md:text-base md:leading-8">
-                  {page.intro}
+                  {linkifyText(page.intro)}
                 </motion.p>
                 <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
                   <MagneticWrapper>
@@ -311,7 +353,7 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
                   </h2>
                 </div>
                 <div className="space-y-6">
-                  <p className="text-base leading-8 text-neutral-300">{section.body}</p>
+                  <p className="text-base leading-8 text-neutral-300">{linkifyText(section.body)}</p>
                   {section.sourceHref && section.sourceLabel ? (
                     <p className="text-xs leading-6 text-neutral-400">
                       <span className="font-semibold uppercase tracking-[0.18em] text-emerald-200/80">
@@ -330,7 +372,7 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
                   <div className="grid gap-3 sm:grid-cols-3">
                     {section.bullets.map((bullet) => (
                       <div key={bullet} className="border-t border-white/10 pt-4 text-sm leading-6 text-neutral-300">
-                        {bullet}
+                        {linkifyText(bullet)}
                       </div>
                     ))}
                   </div>
@@ -441,7 +483,7 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
               </div>
               {page.verdict ? (
                 <p className="mt-7 max-w-4xl border-l border-emerald-300/60 pl-5 text-base leading-8 text-emerald-50">
-                  {page.verdict}
+                  {linkifyText(page.verdict)}
                 </p>
               ) : null}
             </motion.div>

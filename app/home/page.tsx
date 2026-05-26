@@ -132,6 +132,7 @@ export default function HomePage() {
 
         <main className="space-y-20 pb-16 md:space-y-28 md:pb-24">
           <HeroSection />
+          <LineupSection />
           <ManifestoSection />
           <HorizontalStorySection />
 
@@ -151,6 +152,120 @@ export default function HomePage() {
       </div>
     </LenisProvider>
   );
+}
+
+// ── Lineup ────────────────────────────────────────────────────────────────────
+// 5-card grid surfacing each product line directly from the homepage so every
+// PDP has a clear deep-link with its starting price visible. Replaces the
+// previous "every CTA points at /product" anti-pattern flagged in the audit.
+
+const lineupCards = [
+  {
+    slug: 'medusa',
+    name: 'Medusa',
+    image: '/Medusa/MedusaCaseOpen.png',
+    positioning: 'Ergonomic prismatic with adjustable working distance — 3.0x to 8.5x.',
+    priceFrom: 710,
+    badge: 'Widest prismatic range',
+  },
+  {
+    slug: 'apollo',
+    name: 'Apollo',
+    image: '/Apollo/Apollo3xFemale2.png',
+    positioning: 'Ergonomic prismatic, fixed working distance — 3.0x to 6.0x.',
+    priceFrom: 740,
+    badge: 'Posture-locked clarity',
+  },
+  {
+    slug: 'kepler',
+    name: 'Kepler',
+    image: '/Galileo/girlinmirror.png',
+    positioning: 'High-magnification surgical and microsurgery — 4.0x to 6.0x.',
+    priceFrom: 460,
+    badge: 'Microsurgery-ready',
+  },
+  {
+    slug: 'galileo',
+    name: 'Galileo',
+    image: '/Newton/NewtonAsian2.png',
+    positioning: 'Lightweight affordable daily-use Galilean — 2.5x to 3.5x.',
+    priceFrom: 270,
+    badge: 'Student-ready',
+  },
+  {
+    slug: 'newton',
+    name: 'Newton',
+    image: '/Apollo/Apollo3xFemale.png',
+    positioning: 'Ultra-light long-day comfort — 2.5x to 3.5x.',
+    priceFrom: 270,
+    badge: 'Ultra-light build',
+  },
+] as const
+
+function LineupSection() {
+  return (
+    <section
+      id="lineup"
+      aria-labelledby="lineup-heading"
+      className="relative px-4 py-14 md:px-8 md:py-20"
+    >
+      <div className="mx-auto max-w-6xl">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-emerald-200/80">
+              The HeliosX lineup
+            </p>
+            <h2
+              id="lineup-heading"
+              className="mt-3 max-w-2xl text-2xl font-semibold leading-tight text-white md:text-4xl"
+            >
+              Five product lines. One fitting standard.
+            </h2>
+          </div>
+          <p className="max-w-md text-sm leading-6 text-neutral-400">
+            Starting at $270 — published pricing, direct-to-clinician shipping,
+            and a measurement step before production. No quote needed.
+          </p>
+        </div>
+
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {lineupCards.map((card) => (
+            <li key={card.slug}>
+              <Link
+                href={`/product/${card.slug}`}
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-neutral-950/70 transition hover:border-emerald-300/40 hover:bg-neutral-900"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={card.image}
+                    alt={`${card.name} loupes — ${card.positioning}`}
+                    fill
+                    sizes="(min-width: 1024px) 18vw, (min-width: 640px) 45vw, 90vw"
+                    className="object-cover transition group-hover:scale-105"
+                  />
+                  <span className="absolute left-3 top-3 rounded-full border border-emerald-300/30 bg-black/55 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-200 backdrop-blur">
+                    {card.badge}
+                  </span>
+                </div>
+                <div className="flex flex-1 flex-col gap-3 p-4">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <h3 className="text-base font-semibold text-white">{card.name}</h3>
+                    <span className="text-sm font-semibold text-emerald-200">
+                      ${card.priceFrom}+
+                    </span>
+                  </div>
+                  <p className="text-xs leading-5 text-neutral-300">{card.positioning}</p>
+                  <span className="mt-auto text-xs font-semibold text-emerald-200 group-hover:text-white">
+                    View {card.name} →
+                  </span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
 }
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
@@ -288,6 +403,17 @@ function HeroSection() {
                     See the science
                   </Link>
                 </motion.div>
+
+                {/* Resident & student callout — visible E-E-A-T + persona signal */}
+                <motion.p
+                  className="max-w-xl text-xs leading-6 text-emerald-200/90"
+                  variants={fadeUp}
+                  transition={{ duration: 0.6, delay: 0.85 }}
+                >
+                  <span className="font-semibold text-emerald-200">Resident & student pricing from $270.</span>{' '}
+                  Discount eligibility documented across the lineup — email heliosxloupes@gmail.com
+                  with your training program to apply.
+                </motion.p>
               </div>
 
               {/* Right - floating info card */}

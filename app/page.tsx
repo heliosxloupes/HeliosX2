@@ -4,12 +4,24 @@ import JsonLd from '@/components/JsonLd'
 import {
   breadcrumbJsonLd,
   buildMetadata,
+  itemListJsonLd,
   organizationJsonLd,
   videoObjectJsonLd,
   webPageJsonLd,
   websiteJsonLd,
 } from '@/lib/seo'
+import { productPositioning, productStartingPrices } from '@/lib/seo-content'
 import HomePage from './home/page'
+
+const homepageLineup = (Object.keys(productPositioning) as Array<keyof typeof productPositioning>).map(
+  (shortName) => ({
+    name: `${shortName} Loupes`,
+    url: `/product/${shortName.toLowerCase()}`,
+    description: productPositioning[shortName],
+    sku: `heliosx-${shortName.toLowerCase()}`,
+    price: productStartingPrices[shortName],
+  }),
+)
 
 export const metadata: Metadata = buildMetadata({
   title: 'HeliosX Loupes | Ergonomic Surgical & Dental Loupes',
@@ -43,6 +55,7 @@ export default function RootPage() {
             dateModified: '2026-05-25',
           }),
           breadcrumbJsonLd([{ name: 'Home', path: '/' }]),
+          itemListJsonLd(homepageLineup),
           videoObjectJsonLd({
             name: 'HeliosX Loupes brand film',
             description:

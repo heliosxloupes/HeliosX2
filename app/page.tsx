@@ -11,6 +11,7 @@ import {
   websiteJsonLd,
 } from '@/lib/seo'
 import { productPositioning, productStartingPrices } from '@/lib/seo-content'
+import CinematicIntro from '@/components/cinematic/CinematicIntro'
 import HomePage from './home/page'
 
 const homepageLineup = (Object.keys(productPositioning) as Array<keyof typeof productPositioning>).map(
@@ -68,6 +69,7 @@ export default function RootPage() {
         ]}
       />
       <HomePage />
+      <CinematicIntro />
     </>
   )
 }

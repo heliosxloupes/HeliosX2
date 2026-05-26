@@ -431,12 +431,15 @@ const competitorPages: SeoLandingPage[] = [
       {
         title: 'How to compare loupes',
         body:
-          'Most loupe comparison shopping fails because buyers compare brands before they compare what the loupe actually has to do. Use this three-step decision framework: work first, posture second, brand third. It is the only order that produces a loupe you will actually want to wear.',
+          'Most loupe comparison shopping fails because buyers compare brands before they compare what the loupe actually has to do. Use this three-step decision framework: work first, posture second, brand third. A 2004 peer-reviewed survey of 148 specialists and senior trainees (Jarrett PM, Microsurgery 2004;24:420–422) documented the intraoperative magnification ranges that real surgeons actually use — useful context when comparing brand claims against your own case-mix reality.',
         bullets: [
           'Step 1 — Work first: define your magnification range, working distance, and case mix. See /education/loupe-magnification-guide and /education/working-distance-for-loupes.',
           'Step 2 — Posture second: decide whether you need ergonomic prismatic (head-up geometry) or whether a Galilean system fits. See /education/galilean-vs-prismatic-loupes.',
           'Step 3 — Brand third: only after Steps 1 and 2 should brand reputation, pricing, and support model enter the conversation.',
         ],
+        sourceLabel:
+          'Jarrett PM. Intraoperative magnification: who uses it? Microsurgery. 2004;24:420–422.',
+        sourceHref: '/research/intraoperative-magnification-who-uses-it.pdf',
       },
       {
         title: 'Brands worth knowing',

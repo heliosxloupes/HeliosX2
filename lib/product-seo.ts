@@ -3,9 +3,11 @@ import type { Metadata } from 'next'
 import { getProduct } from '@/lib/commerce'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productPositioning } from '@/lib/seo-content'
+import { productFaqs } from '@/lib/product-faqs'
 import {
   breadcrumbJsonLd,
   buildMetadata,
+  faqJsonLd,
   organizationJsonLd,
   productJsonLd,
   type ProductSpecInput,
@@ -101,6 +103,8 @@ export async function getProductJsonLd(slug: string) {
     language: review.language,
   }))
 
+  const faqs = productFaqs[slug] ?? []
+
   return [
     productJsonLd({
       name: product.name,
@@ -120,6 +124,7 @@ export async function getProductJsonLd(slug: string) {
       { name: 'Loupes', path: '/product' },
       { name: product.shortName, path: `/product/${slug}` },
     ]),
+    ...(faqs.length > 0 ? [faqJsonLd(faqs)] : []),
     organizationJsonLd(),
   ]
 }

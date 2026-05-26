@@ -11,6 +11,7 @@ import ProductReviews from '@/components/ProductReviews'
 import { addToCart } from '@/lib/cart'
 import { trackGenerateLead, trackViewItem } from '@/lib/analytics'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
+import { productFaqs } from '@/lib/product-faqs'
 
 export type FrameId =
   | 'JJ04B'
@@ -273,6 +274,8 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   const subtotal = currentUnitPrice * quantity
   const riskFreeCopy = 'Risk-free. Fully refundable before measurements are provided.'
   const isErgonomicModel = ['medusa', 'apollo'].includes(config.slug)
+  const heroAggregateRating = getProductAggregateRating(config.slug)
+  const productFaqList = productFaqs[config.slug] ?? []
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -498,6 +501,32 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 <h1 className="bg-gradient-to-r from-white via-slate-200 to-emerald-200 bg-clip-text text-2xl font-semibold text-transparent sm:text-3xl">
                   {config.name}
                 </h1>
+                {heroAggregateRating && heroAggregateRating.reviewCount > 0 && (
+                  <div className="mt-2 flex items-center gap-2 text-xs text-neutral-300">
+                    <span aria-hidden="true" className="flex items-center gap-[2px]">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <svg
+                          key={i}
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill={i < Math.round(heroAggregateRating.ratingValue) ? '#FFC857' : 'none'}
+                          stroke="#FFC857"
+                          strokeWidth="2"
+                        >
+                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26" />
+                        </svg>
+                      ))}
+                    </span>
+                    <span className="font-semibold text-white">
+                      {heroAggregateRating.ratingValue.toFixed(1)} / 5
+                    </span>
+                    <span className="text-neutral-400">
+                      ({heroAggregateRating.reviewCount} verified review
+                      {heroAggregateRating.reviewCount === 1 ? '' : 's'})
+                    </span>
+                  </div>
+                )}
                 <p className="mt-3 text-sm leading-relaxed text-neutral-300">
                   {config.description}
                 </p>
@@ -511,9 +540,9 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 variants={cardVariants}
                 className="rounded-3xl border border-white/10 bg-neutral-900/70 p-4 text-xs text-neutral-200 shadow-[0_24px_80px_rgba(0,0,0,0.7)]"
               >
-                <p className="mb-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-neutral-500">
+                <h2 className="mb-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-neutral-500">
                   Highlights
-                </p>
+                </h2>
                 <div className="grid grid-cols-2 gap-3 text-[0.75rem]">
                   {config.highlights.map((item) => (
                     <div key={item} className="flex items-start gap-2">
@@ -532,9 +561,9 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 className="rounded-3xl border-2 border-emerald-400/30 bg-gradient-to-br from-emerald-950/40 via-neutral-900/90 to-neutral-950/90 p-5 shadow-[0_0_40px_rgba(16,185,129,0.2)] backdrop-blur-sm"
               >
                 <div className="mb-4 flex items-center gap-2">
-                  <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-300">
+                  <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-300">
                     Magnification
-                  </p>
+                  </h2>
                   <span className="h-1 w-1 rounded-full bg-emerald-400" />
                 </div>
                 <p className="mb-4 text-xs leading-relaxed text-neutral-300">
@@ -562,9 +591,9 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 variants={cardVariants}
                 className="rounded-3xl border border-white/10 bg-neutral-900/80 p-4 text-xs text-neutral-200 shadow-[0_24px_80px_rgba(0,0,0,0.8)]"
               >
-                <p className="mb-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-neutral-500">
+                <h2 className="mb-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-neutral-500">
                   Frame style
-                </p>
+                </h2>
 
                 <motion.div
                   className={`mb-3 grid gap-2 ${
@@ -797,6 +826,38 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
             </motion.div>
           </div>
         </section>
+
+        {productFaqList.length > 0 && (
+          <section className="relative border-t border-white/10 bg-neutral-950/80 px-5 py-20 md:px-12 md:py-24">
+            <div className="mx-auto max-w-5xl">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-emerald-200/80">
+                Common questions
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
+                Frequently asked questions about {config.shortName}
+              </h2>
+              <div className="mt-10 space-y-4">
+                {productFaqList.map((faq) => (
+                  <details
+                    key={faq.question}
+                    className="group rounded-2xl border border-white/10 bg-neutral-900/70 px-5 py-4 open:border-emerald-400/40"
+                  >
+                    <summary className="flex cursor-pointer items-center justify-between gap-4 text-sm font-semibold text-white">
+                      <span>{faq.question}</span>
+                      <span
+                        aria-hidden="true"
+                        className="text-xl text-emerald-300 transition-transform group-open:rotate-45"
+                      >
+                        +
+                      </span>
+                    </summary>
+                    <p className="mt-3 text-sm leading-7 text-neutral-300">{faq.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* CLINICIAN REVIEWS */}
         <ProductReviews

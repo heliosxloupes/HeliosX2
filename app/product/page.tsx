@@ -1,23 +1,22 @@
 "use client";
 
-import React, { useEffect, useRef, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Microscope, Ruler, Tag } from "lucide-react";
 import Noise from "@/components/Noise";
 import Header from "@/components/Header";
 import OrderingInfoSection from "@/components/OrderingInfoSection";
 
-// Register GSAP plugins
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0 },
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
 };
 
 export default function ProductPage() {
@@ -25,9 +24,7 @@ export default function ProductPage() {
     <>
       <Header />
       <main className="bg-transparent pt-20 text-white min-h-screen md:pt-24">
-        <div className="hidden md:block">
-          <ParallaxProductHero />
-        </div>
+        <ProductLineupHeader />
         <OurLoupesGrid />
         <OrderingInfoSection />
         <section className="px-4 pb-16 md:px-8 md:pb-24">
@@ -55,293 +52,82 @@ export default function ProductPage() {
 }
 
 /* --------------------------------------------- */
-/*  PARALLAX HERO - GSAP SCROLLTRIGGER LAYERS    */
+/*  PAGE HEADER - replaces the old parallax hero */
 /* --------------------------------------------- */
 
-function ParallaxProductHero() {
-  const heroRef = useRef<HTMLDivElement | null>(null);
-  const layeredImageSectionRef = useRef<HTMLDivElement | null>(null);
-  const basexImageRef = useRef<HTMLDivElement | null>(null);
-  const basex1ImageRef = useRef<HTMLDivElement | null>(null);
-  const basex2ImageRef = useRef<HTMLDivElement | null>(null);
-  const basex3ImageRef = useRef<HTMLDivElement | null>(null);
-  const basex4ImageRef = useRef<HTMLDivElement | null>(null);
-  const logoContainerRef = useRef<HTMLDivElement | null>(null);
-  const textContainerRef = useRef<HTMLDivElement | null>(null);
-
-  useLayoutEffect(() => {
-    const mm = gsap.matchMedia();
-
-    mm.add("(min-width: 768px)", () => {
-      if (
-        layeredImageSectionRef.current &&
-        basexImageRef.current &&
-        basex1ImageRef.current &&
-        basex2ImageRef.current &&
-        basex3ImageRef.current &&
-        basex4ImageRef.current
-      ) {
-        gsap.to(basexImageRef.current, {
-          y: -12,
-          ease: "none",
-          scrollTrigger: {
-            trigger: layeredImageSectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 2.0,
-          },
-        });
-
-        gsap.to(basex4ImageRef.current, {
-          y: -35,
-          ease: "none",
-          scrollTrigger: {
-            trigger: layeredImageSectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1.8,
-          },
-        });
-
-        gsap.to(basex3ImageRef.current, {
-          y: -59,
-          ease: "none",
-          scrollTrigger: {
-            trigger: layeredImageSectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1.5,
-          },
-        });
-
-        gsap.to(basex2ImageRef.current, {
-          y: -83,
-          ease: "none",
-          scrollTrigger: {
-            trigger: layeredImageSectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        });
-
-        gsap.to(basex1ImageRef.current, {
-          y: -106,
-          ease: "none",
-          scrollTrigger: {
-            trigger: layeredImageSectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1.0,
-          },
-        });
-
-        if (logoContainerRef.current) {
-          gsap.to(logoContainerRef.current, {
-            y: -200,
-            ease: "none",
-            scrollTrigger: {
-              trigger: layeredImageSectionRef.current,
-              start: "top top",
-              end: "bottom top",
-              scrub: 1.2,
-            },
-          });
-        }
-
-        if (textContainerRef.current) {
-          gsap.to(textContainerRef.current, {
-            y: -150,
-            ease: "none",
-            scrollTrigger: {
-              trigger: layeredImageSectionRef.current,
-              start: "top top",
-              end: "bottom top",
-              scrub: 1.0,
-            },
-          });
-        }
-      }
-    });
-
-    return () => {
-      mm.revert();
-    };
-  }, []);
-
+function ProductLineupHeader() {
+  const chips = [
+    { icon: Tag, label: "Published pricing from $270" },
+    { icon: Microscope, label: "3.0x–8.5x prismatic range" },
+    { icon: Ruler, label: "Measured before production" },
+  ];
 
   return (
-    <section
-      ref={heroRef}
-      className="relative w-full overflow-hidden bg-transparent pb-20 pt-24 md:pb-32 md:pt-28"
-    >
-      {/* Parallax layers spanning full viewport width */}
-      <div ref={layeredImageSectionRef} className="pointer-events-none absolute inset-0 w-full">
-        <div className="relative h-[300px] w-full md:h-[460px] lg:h-[520px]">
-          {/* Tronaeast-style fade overlay - blends into background */}
-          <div className="absolute inset-0 z-[11] pointer-events-none bg-gradient-to-b from-transparent via-transparent via-60% via-[rgba(0,0,0,0.2)] via-75% via-[rgba(0,0,0,0.5)] via-85% via-[rgba(0,0,0,0.8)] via-92% to-black" />
-
-          {/* Base background layer - basex */}
-          <div
-            ref={basexImageRef}
-            className="absolute inset-0 overflow-hidden will-change-transform"
-            style={{ zIndex: 0 }}
-          >
-            <Image
-              src="/basex.png"
-              alt="HeliosX base optical layout"
-              fill
-              className="object-cover"
-              style={{
-                maskImage:
-                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
-              }}
-              priority
-            />
-          </div>
-
-          {/* Layer 4 - basex4.5 */}
-          <div
-            ref={basex4ImageRef}
-            className="absolute inset-0 overflow-hidden will-change-transform"
-            style={{ zIndex: 1 }}
-          >
-            <Image
-              src="/basex4.5.png"
-              alt="HeliosX 4.5x optical layout"
-              fill
-              className="object-cover"
-              style={{
-                maskImage:
-                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
-              }}
-              priority
-            />
-          </div>
-
-          {/* Layer 3 - basex3.5 */}
-          <div
-            ref={basex3ImageRef}
-            className="absolute inset-0 overflow-hidden will-change-transform"
-            style={{ zIndex: 2 }}
-          >
-            <Image
-              src="/base3.5x.png"
-              alt="HeliosX 3.5x optical layout"
-              fill
-              className="object-cover"
-              style={{
-                maskImage:
-                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
-              }}
-              priority
-            />
-          </div>
-
-          {/* HeliosX Logo Container - positioned at the very top layer (above all overlays) */}
-          <div
-            ref={logoContainerRef}
-            className="absolute top-[15%] left-[2rem] pointer-events-none will-change-transform"
-            style={{ zIndex: 12 }}
-          >
-            <div className="flex flex-col items-start gap-0">
-              <Image
-                src="/upscaledlogo.png"
-                alt="HeliosX Logo"
-                width={300}
-                height={300}
-                className="drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
-                quality={100}
-                style={{
-                  width: "auto",
-                  height: "200px",
-                  objectFit: "contain",
-                  filter: "brightness(0) invert(1)",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* basex2 - Middle-top parallax layer */}
-          <div
-            ref={basex2ImageRef}
-            className="absolute inset-0 overflow-hidden will-change-transform"
-            style={{ zIndex: 3 }}
-          >
-            <Image
-              src="/basex2.png"
-              alt="HeliosX 2x optical layout"
-              fill
-              className="object-cover"
-              style={{
-                maskImage:
-                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
-              }}
-              priority
-            />
-          </div>
-
-          {/* basex1 - Top parallax layer (highest, most bottom of image visually) */}
-          <div
-            ref={basex1ImageRef}
-            className="absolute inset-0 overflow-hidden will-change-transform"
-            style={{ zIndex: 4 }}
-          >
-            <Image
-              src="/basex1.png"
-              alt="HeliosX primary optical configuration"
-              fill
-              className="object-cover"
-              style={{
-                maskImage:
-                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, black 0%, black 60%, rgba(0, 0, 0, 0.95) 75%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0.6) 92%, rgba(0, 0, 0, 0.3) 97%, transparent 100%)",
-              }}
-              priority
-            />
-            <div className="absolute inset-0 pointer-events-none z-10 mix-blend-mode-overlay opacity-100">
-              <Noise
-                patternSize={250}
-                patternScaleX={1}
-                patternScaleY={1}
-                patternRefreshInterval={2}
-                patternAlpha={5}
-              />
-            </div>
-          </div>
-        </div>
+    <section className="relative overflow-hidden px-4 pb-12 pt-10 md:px-8 md:pb-16 md:pt-16">
+      {/* ambient accent glows — premium depth without heavy imagery */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <span className="absolute -top-28 left-1/2 h-[440px] w-[440px] -translate-x-1/2 rounded-full bg-emerald-500/12 blur-[130px]" />
+        <span className="absolute right-[-120px] top-1/4 h-[360px] w-[360px] rounded-full bg-sky-500/10 blur-[130px]" />
+        <span className="absolute bottom-[-100px] left-[-100px] h-[320px] w-[320px] rounded-full bg-amber-400/10 blur-[130px]" />
       </div>
 
-      {/* Text content over the parallax layers */}
-      <div className="relative z-10 px-4 md:px-8">
-        <div className="mx-auto flex h-[300px] max-w-6xl items-center md:h-[460px] lg:h-[520px]">
-          <div
-            ref={textContainerRef}
-            className="ml-1 will-change-transform md:-ml-12 lg:-ml-20"
-          >
-            <h1 className="text-3xl font-semibold leading-tight text-white md:text-4xl lg:text-5xl">
-              Choose the HeliosX system
-              <br />
-              that matches your work.
-            </h1>
-          </div>
-        </div>
-      </div>
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={stagger}
+        className="relative mx-auto max-w-4xl text-center"
+      >
+        <motion.p
+          variants={fadeUp}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-xs font-semibold uppercase tracking-[0.32em] text-emerald-200/80"
+        >
+          The HeliosX lineup
+        </motion.p>
+
+        <motion.h1
+          variants={fadeUp}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-4 text-3xl font-semibold leading-[1.05] tracking-tight text-white md:text-5xl"
+        >
+          Choose the system that
+          <br className="hidden md:block" /> matches your{" "}
+          <span className="bg-gradient-to-r from-white via-sky-200 to-emerald-300 bg-clip-text text-transparent">
+            work.
+          </span>
+        </motion.h1>
+
+        <motion.p
+          variants={fadeUp}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="mx-auto mt-5 max-w-xl text-sm leading-7 text-neutral-300 md:text-base"
+        >
+          Five ergonomic and lightweight loupe systems — every pair built around your own
+          measurements. Published pricing, direct to clinician, no gatekeeping.
+        </motion.p>
+
+        <motion.div
+          variants={fadeUp}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="mt-7 flex flex-wrap items-center justify-center gap-2.5"
+        >
+          {chips.map(({ icon: Icon, label }) => (
+            <span
+              key={label}
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-neutral-300 backdrop-blur-sm"
+            >
+              <Icon className="h-3.5 w-3.5 shrink-0 text-emerald-300" strokeWidth={1.75} aria-hidden="true" />
+              {label}
+            </span>
+          ))}
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
 
 /* --------------------------------------------- */
-/*  OUR LOUPES GRID - 4 CARDS HORIZONTAL         */
+/*  OUR LOUPES GRID - 5 CARDS                    */
 /* --------------------------------------------- */
 
 function OurLoupesGrid() {
@@ -459,41 +245,29 @@ function OurLoupesGrid() {
   const displayedProducts = cmsProducts ?? products;
 
   return (
-    <section className="bg-transparent px-4 pb-16 pt-8 md:px-8 md:pb-24 md:pt-0">
-      <div className="mx-auto max-w-6xl space-y-8">
+    <section className="bg-transparent px-4 pb-16 pt-2 md:px-8 md:pb-24 md:pt-2">
+      <div className="mx-auto max-w-7xl">
         <motion.div
-          variants={fadeUp}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center space-y-3"
+          viewport={{ once: true, amount: 0.15 }}
+          className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 md:gap-6"
         >
-          <p className="text-xs font-semibold tracking-[0.3em] text-neutral-500">
-            OUR LOUPES
-          </p>
-          <h2 className="text-2xl font-semibold md:text-3xl">
-            Five systems. One premium standard.
-          </h2>
-        </motion.div>
-
-        <motion.div className="grid grid-cols-1 items-stretch md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8">
-          {displayedProducts.map((product, index) => (
+          {displayedProducts.map((product) => (
             <motion.div
               key={product.slug}
               variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -6 }}
               className="group relative flex h-full"
             >
               <Link
                 href={`/product/${product.slug}`}
-                className="group/card relative flex h-full w-full flex-col rounded-2xl border border-white/10 bg-neutral-900/70 overflow-hidden transition-all duration-300 ease-out hover:scale-[1.02] hover:border-white/30"
+                className="group/card relative flex h-full w-full flex-col rounded-2xl border border-white/10 bg-neutral-900/70 overflow-hidden transition-colors duration-300 ease-out hover:border-white/30"
                 style={{
                   boxShadow: '0 0 0 rgba(0,0,0,0)',
-                  transition: 'all 0.3s ease-out'
+                  transition: 'box-shadow 0.3s ease-out, border-color 0.3s ease-out'
                 } as React.CSSProperties}
                 onMouseEnter={(e) => {
                   const glowColor = getGlowColor(product.slug);
@@ -504,20 +278,20 @@ function OurLoupesGrid() {
                 }}
               >
                 {/* Enhanced glow effect on hover - variant colors per product */}
-                <div 
+                <div
                   className="pointer-events-none absolute inset-0 transition-opacity duration-300 group-hover/card:opacity-100"
                   style={{
                     background: `radial-gradient(circle at top right, rgba(${getGlowColor(product.slug)}, 0.12), transparent 60%)`,
                     opacity: 0.5
                   }}
                 />
-                <div 
+                <div
                   className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100"
                   style={{
                     background: `radial-gradient(circle at top right, rgba(${getGlowColor(product.slug)}, 0.3), transparent 50%)`
                   }}
                 />
-                <div 
+                <div
                   className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100"
                   style={{
                     background: `radial-gradient(circle at center, transparent, rgba(${getGlowColor(product.slug)}, 0.1))`

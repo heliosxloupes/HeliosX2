@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ShieldCheck, Wrench, Glasses, AlertTriangle } from 'lucide-react'
 
 import Header from '@/components/Header'
 import { buildMetadata } from '@/lib/seo'
@@ -21,14 +22,20 @@ export default function WarrantyPage() {
           <h1 className="text-3xl font-semibold md:text-4xl">Warranty</h1>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-white">What is covered</h2>
+            <h2 className="flex items-center gap-2.5 text-lg font-semibold text-white">
+              <ShieldCheck className="h-5 w-5 shrink-0 text-emerald-300" strokeWidth={1.75} aria-hidden="true" />
+              What is covered
+            </h2>
             <p className="text-neutral-300">
               All HeliosX loupes come with a warranty covering manufacturing defects and optical performance. If something is wrong with the build, the optics, or the fit out of the box, reach out and we will make it right.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-white">Repairs and service</h2>
+            <h2 className="flex items-center gap-2.5 text-lg font-semibold text-white">
+              <Wrench className="h-5 w-5 shrink-0 text-emerald-300" strokeWidth={1.75} aria-hidden="true" />
+              Repairs and service
+            </h2>
             <p className="text-neutral-300">
               We support repairs across the HeliosX product line. Many repairs are completed quickly. When a repair is not the right option, we offer replacement paths. Email us at{' '}
               <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
@@ -39,14 +46,20 @@ export default function WarrantyPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-white">Prescription updates</h2>
+            <h2 className="flex items-center gap-2.5 text-lg font-semibold text-white">
+              <Glasses className="h-5 w-5 shrink-0 text-emerald-300" strokeWidth={1.75} aria-hidden="true" />
+              Prescription updates
+            </h2>
             <p className="text-neutral-300">
               If your prescription changes after delivery, we can help update your lenses. Contact our support team to discuss lens-replacement options for your existing frame.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-white">Outside of warranty</h2>
+            <h2 className="flex items-center gap-2.5 text-lg font-semibold text-white">
+              <AlertTriangle className="h-5 w-5 shrink-0 text-amber-300/90" strokeWidth={1.75} aria-hidden="true" />
+              Outside of warranty
+            </h2>
             <p className="text-neutral-300">
               Wear, accidental damage, and modifications fall outside the standard warranty. We still try to help. Email{' '}
               <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">

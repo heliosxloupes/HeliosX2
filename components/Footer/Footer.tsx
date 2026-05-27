@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Mail } from 'lucide-react'
 
 import { supportEmail } from '@/lib/seo'
 
@@ -77,8 +78,8 @@ export default function Footer() {
               Surgical precision, finally accessible. Ergonomic prismatic and lightweight loupes designed for surgeons, dentists, residents, hygienists, and students who want honest pricing without compromise.
             </p>
             <div className="space-y-2 text-sm text-neutral-300">
-              <p>
-                <span className="text-neutral-500">Support:</span>{' '}
+              <p className="flex items-center gap-2">
+                <Mail className="h-4 w-4 shrink-0 text-emerald-300/80" strokeWidth={1.75} aria-hidden="true" />
                 <a
                   href={`mailto:${supportEmail}`}
                   className="text-emerald-200 underline decoration-emerald-200/30 underline-offset-4 transition hover:text-white"

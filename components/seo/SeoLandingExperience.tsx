@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
 import { useRef } from 'react'
 import type { ReactNode } from 'react'
 
@@ -548,8 +549,13 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
             <div className="mt-7 divide-y divide-white/10 border-y border-white/10">
               {page.faqs.map((faq) => (
                 <details key={faq.question} className="group py-5">
-                  <summary className="cursor-pointer list-none text-base font-semibold text-white transition group-open:text-emerald-200">
-                    {faq.question}
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-white transition group-open:text-emerald-200">
+                    <span>{faq.question}</span>
+                    <ChevronDown
+                      aria-hidden="true"
+                      className="h-5 w-5 shrink-0 text-emerald-300 transition-transform group-open:rotate-180"
+                      strokeWidth={2}
+                    />
                   </summary>
                   <p className="mt-3 text-sm leading-7 text-neutral-300">{linkifyText(faq.answer)}</p>
                 </details>

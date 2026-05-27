@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 
+import { Check, ChevronDown, ShoppingCart } from 'lucide-react'
+
 import Header from '@/components/Header'
 import Noise from '@/components/Noise'
 import ProductReviews from '@/components/ProductReviews'
@@ -546,9 +548,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 <div className="grid grid-cols-2 gap-3 text-[0.75rem]">
                   {config.highlights.map((item) => (
                     <div key={item} className="flex items-start gap-2">
-                      <span className="mt-[3px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
-                        <span className="h-2 w-2 rounded-full bg-black" />
-                      </span>
+                      <Check className="mt-[2px] h-3.5 w-3.5 shrink-0 text-emerald-400" strokeWidth={3} aria-hidden="true" />
                       <span>{item}</span>
                     </div>
                   ))}
@@ -711,12 +711,13 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 <button
                   onClick={handleAddToCart}
                   disabled={!isAvailable}
-                  className={`mt-4 w-full rounded-full py-2.5 text-sm font-semibold transition ${
+                  className={`mt-4 flex w-full items-center justify-center gap-2 rounded-full py-2.5 text-sm font-semibold transition ${
                     isAvailable
                       ? 'bg-white text-black shadow-[0_0_40px_rgba(255,255,255,0.6)] hover:bg-neutral-100'
                       : 'cursor-not-allowed border border-white/15 bg-white/5 text-neutral-400'
                   }`}
                 >
+                  {isAvailable && <ShoppingCart className="h-4 w-4" strokeWidth={2} aria-hidden="true" />}
                   {isAvailable ? 'Add to cart' : 'Pricing coming soon'}
                 </button>
                 {emailPromptOpen && !capturedEmail && (
@@ -844,12 +845,11 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                   >
                     <summary className="flex cursor-pointer items-center justify-between gap-4 text-sm font-semibold text-white">
                       <span>{faq.question}</span>
-                      <span
+                      <ChevronDown
                         aria-hidden="true"
-                        className="text-xl text-emerald-300 transition-transform group-open:rotate-45"
-                      >
-                        +
-                      </span>
+                        className="h-5 w-5 shrink-0 text-emerald-300 transition-transform group-open:rotate-180"
+                        strokeWidth={2}
+                      />
                     </summary>
                     <p className="mt-3 text-sm leading-7 text-neutral-300">{faq.answer}</p>
                   </details>

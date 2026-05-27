@@ -9,7 +9,10 @@ export const CINEMATIC = {
   audioVolume: 0.32,
   // localStorage key — once set, returning visitors skip straight to the homepage.
   seenKey: 'heliosx_intro_seen_v1',
-  // Runway height in vh — taller = longer scrub. Tuned down so the intro
-  // moves quickly under the user's scroll.
-  runwayVh: 400,
+  // Runway height in vh. Faster than the original 700 but with enough room at
+  // the end for the caption to finish before the 2nd section rises. The 2nd
+  // section overlaps the last 100vh (sticky-release window), so it starts
+  // rising at (1 - 100/runwayVh) ≈ 83% here — the caption must complete before
+  // that with dwell. ~25px of scroll per frame keeps the scrub smooth.
+  runwayVh: 600,
 } as const

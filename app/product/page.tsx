@@ -277,12 +277,12 @@ function OurLoupesGrid() {
                     background: `radial-gradient(circle at center, transparent, rgba(${getGlowColor(product.slug)}, 0.1))`
                   }}
                 />
-                <div className="relative aspect-[4/5] shrink-0 overflow-hidden bg-gradient-to-b from-neutral-100 to-neutral-300">
+                <div className="relative aspect-[4/5] shrink-0 overflow-hidden bg-neutral-900">
                   <Image
                     src={product.imageSrc}
                     alt={product.imageAlt}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="origin-bottom object-cover transition-transform duration-500 group-hover:scale-105"
                     style={{ objectPosition: product.imagePosition ?? "center" }}
                   />
                   <div className="absolute inset-0 pointer-events-none z-10 mix-blend-mode-overlay opacity-100">
@@ -294,8 +294,10 @@ function OurLoupesGrid() {
                       patternAlpha={5}
                     />
                   </div>
-                  {/* fade the image into the card body so it isn't a hard seam */}
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-20 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" />
+                  {/* fade the image into the card body so it isn't a hard seam.
+                      Opaque at the bottom + extra height so the hover-zoom never
+                      pushes a bright edge into the seam. */}
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-neutral-900 via-neutral-900/55 to-transparent" />
                   {/* tinted wash in the product's accent color on hover */}
                   <div
                     className="pointer-events-none absolute inset-0 z-[9] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"

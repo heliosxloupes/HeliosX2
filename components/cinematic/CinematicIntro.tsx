@@ -194,7 +194,7 @@ export default function CinematicIntro({ onComplete }: Props) {
 
         // Caption — premium word reveal, finishes by 76% (dwell before Start)
         const capTL = gsap.timeline({
-          scrollTrigger: { scroller, trigger: runwayRef.current!, start: '56% top', end: '72% top', scrub: 0.6 },
+          scrollTrigger: { scroller, trigger: runwayRef.current!, start: '52% top', end: '68% top', scrub: 0.6 },
         })
         capTL
           .fromTo(`.${styles.captionLabel}`, { opacity: 0, y: 14 }, { opacity: 1, y: 0, ease: 'power2.out', duration: 0.3 })

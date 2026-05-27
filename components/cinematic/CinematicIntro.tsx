@@ -46,7 +46,8 @@ export default function CinematicIntro({ onComplete }: Props) {
 
   const imagesRef = useRef<HTMLImageElement[]>([])
   const currentFrameRef = useRef(0)
-  const [muted, setMuted] = useState(false)
+  // Sound starts OFF — never autoplays. The user toggles it on via the button.
+  const [muted, setMuted] = useState(true)
 
   const finish = useCallback(() => {
     const overlay = overlayRef.current
@@ -145,21 +146,10 @@ export default function CinematicIntro({ onComplete }: Props) {
         }
       })
 
-    // Audio: quieter, starts on first user gesture (autoplay-with-sound is blocked)
+    // Audio: preloaded + quieter, but does NOT autoplay. It only plays when the
+    // user turns it on with the sound toggle.
     const audio = audioRef.current
-    if (audio) {
-      audio.volume = CINEMATIC.audioVolume
-      const startAudio = () => {
-        if (!muted) audio.play().catch(() => {})
-      }
-      audio.play().catch(() => {
-        const opts = { once: true as const, passive: true as const }
-        scrollerRef.current?.addEventListener('scroll', startAudio, opts)
-        window.addEventListener('pointerdown', startAudio, { once: true })
-        window.addEventListener('wheel', startAudio, opts)
-        window.addEventListener('touchstart', startAudio, opts)
-      })
-    }
+    if (audio) audio.volume = CINEMATIC.audioVolume
 
     let gctx: gsap.Context | undefined
     let killResize: (() => void) | undefined
@@ -251,6 +241,13 @@ export default function CinematicIntro({ onComplete }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase])
 
+  // Mark the intro seen before navigating away (so returning to / won't replay).
+  const markSeen = () => {
+    try {
+      localStorage.setItem(CINEMATIC.seenKey, '1')
+    } catch {}
+  }
+
   const toggleMute = () => {
     const audio = audioRef.current
     if (!audio) return
@@ -269,6 +266,9 @@ export default function CinematicIntro({ onComplete }: Props) {
       <button className={styles.sound} onClick={toggleMute} aria-label={muted ? 'Unmute' : 'Mute'} type="button">
         {muted ? '♪̷' : '♪'}
       </button>
+
+      {/* persistent glass CTA — lets a visitor jump straight to the shop */}
+      <a className={styles.shopNow} href="/product" onClick={markSeen}>Shop Now</a>
 
       <div className={styles.scroller} ref={scrollerRef} data-lenis-prevent>
         <div className={styles.runway} ref={runwayRef} style={{ height: `${CINEMATIC.runwayVh}vh` }}>
@@ -314,10 +314,10 @@ export default function CinematicIntro({ onComplete }: Props) {
                 Premium ergonomic prismatic loupes for surgeons, dentists, residents, and students.
                 Published pricing. Direct-to-clinician. No gatekeeping.
               </p>
+              <p className={styles.resident}>Resident &amp; student pricing from $270</p>
               <div className={styles.heroCtas}>
                 <button className={styles.startBtn} onClick={finish} type="button">Start</button>
               </div>
-              <p className={styles.resident}>Resident &amp; student pricing from $270</p>
             </header>
 
             <div className={styles.lineupHead}>
@@ -326,19 +326,21 @@ export default function CinematicIntro({ onComplete }: Props) {
 
             <ul className={styles.lineupGrid}>
               {LINEUP.map((p) => (
-                <li className={styles.card} key={p.slug}>
-                  <div className={styles.cardImg}>
-                    <img src={p.image} alt={`${p.name} loupes`} loading="lazy" />
-                    <span className={styles.badge}>{p.badge}</span>
-                  </div>
-                  <div className={styles.cardBody}>
-                    <div className={styles.cardRow}>
-                      <h3>{p.name}</h3>
-                      <span className={styles.price}>{p.price}</span>
+                <li key={p.slug}>
+                  <a className={styles.card} href={`/product/${p.slug}`} onClick={markSeen}>
+                    <div className={styles.cardImg}>
+                      <img src={p.image} alt={`${p.name} loupes`} loading="lazy" />
+                      <span className={styles.badge}>{p.badge}</span>
                     </div>
-                    <p>{p.copy}</p>
-                    <span className={styles.cardLink}>View {p.name} →</span>
-                  </div>
+                    <div className={styles.cardBody}>
+                      <div className={styles.cardRow}>
+                        <h3>{p.name}</h3>
+                        <span className={styles.price}>{p.price}</span>
+                      </div>
+                      <p>{p.copy}</p>
+                      <span className={styles.cardLink}>View {p.name} →</span>
+                    </div>
+                  </a>
                 </li>
               ))}
             </ul>

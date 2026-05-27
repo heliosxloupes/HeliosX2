@@ -203,11 +203,11 @@
   70%, 100% { box-shadow: 0 0 0 22px rgba(245, 238, 234, 0); }
 }
 
-/* sound toggle */
+/* sound toggle — top-left */
 .sound {
   position: fixed;
   top: 18px;
-  right: 18px;
+  left: 18px;
   z-index: 51;
   width: 40px;
   height: 40px;
@@ -224,22 +224,58 @@
 }
 .sound:hover { border-color: rgba(255, 255, 255, 0.5); }
 
-/* skip link */
+/* persistent glass "Shop Now" CTA — top-right */
+.shopNow {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 51;
+  display: inline-flex;
+  align-items: center;
+  padding: 13px 28px;
+  border-radius: 999px;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #f4eeea;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 6px 34px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.shopNow:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.55);
+  transform: translateY(-1px);
+}
+
+/* skip link — bigger + glass, more visible */
 .skip {
   position: fixed;
-  bottom: 20px;
+  bottom: 22px;
   right: 22px;
   z-index: 51;
-  font-size: 11px;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
-  background: none;
-  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 12px 24px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
-.skip:hover { color: #fff; }
+.skip:hover { color: #000; background: #f4eeea; border-color: #f4eeea; }
 
 /* ---------- 2nd section — rises over the cinematic ---------- */
 .site {
@@ -303,6 +339,7 @@
 .card {
   display: flex; flex-direction: column; overflow: hidden; border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(8, 12, 20, 0.7);
+  text-decoration: none; color: inherit; cursor: pointer;
   transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 .card:hover { transform: translateY(-4px); border-color: rgba(23, 176, 143, 0.4); background: rgba(12, 18, 28, 0.9); }

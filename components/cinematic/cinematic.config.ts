@@ -9,6 +9,7 @@ export const CINEMATIC = {
   audioVolume: 0.32,
   // localStorage key — once set, returning visitors skip straight to the homepage.
   seenKey: 'heliosx_intro_seen_v1',
-  // Runway height in vh — taller = longer, more luxurious scrub.
-  runwayVh: 700,
+  // Runway height in vh — taller = longer scrub. Tuned down so the intro
+  // moves quickly under the user's scroll.
+  runwayVh: 400,
 } as const

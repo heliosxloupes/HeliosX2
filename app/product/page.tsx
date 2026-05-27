@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Microscope, Ruler, Tag } from "lucide-react";
+import { Check, Microscope } from "lucide-react";
 import Noise from "@/components/Noise";
 import Header from "@/components/Header";
 import OrderingInfoSection from "@/components/OrderingInfoSection";
@@ -56,12 +56,6 @@ export default function ProductPage() {
 /* --------------------------------------------- */
 
 function ProductLineupHeader() {
-  const chips = [
-    { icon: Tag, label: "Published pricing from $270" },
-    { icon: Microscope, label: "3.0x–8.5x prismatic range" },
-    { icon: Ruler, label: "Measured before production" },
-  ];
-
   return (
     <section className="relative overflow-hidden px-4 pb-12 pt-10 md:px-8 md:pb-16 md:pt-16">
       {/* ambient accent glows — premium depth without heavy imagery */}
@@ -105,22 +99,6 @@ function ProductLineupHeader() {
           Five ergonomic and lightweight loupe systems — every pair built around your own
           measurements. Published pricing, direct to clinician, no gatekeeping.
         </motion.p>
-
-        <motion.div
-          variants={fadeUp}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mt-7 flex flex-wrap items-center justify-center gap-2.5"
-        >
-          {chips.map(({ icon: Icon, label }) => (
-            <span
-              key={label}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-neutral-300 backdrop-blur-sm"
-            >
-              <Icon className="h-3.5 w-3.5 shrink-0 text-emerald-300" strokeWidth={1.75} aria-hidden="true" />
-              {label}
-            </span>
-          ))}
-        </motion.div>
       </motion.div>
     </section>
   );
@@ -254,7 +232,9 @@ function OurLoupesGrid() {
           viewport={{ once: true, amount: 0.15 }}
           className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 md:gap-6"
         >
-          {displayedProducts.map((product) => (
+          {displayedProducts.map((product) => {
+            const glow = getGlowColor(product.slug);
+            return (
             <motion.div
               key={product.slug}
               variants={fadeUp}
@@ -297,7 +277,7 @@ function OurLoupesGrid() {
                     background: `radial-gradient(circle at center, transparent, rgba(${getGlowColor(product.slug)}, 0.1))`
                   }}
                 />
-                <div className="relative aspect-[4/5] shrink-0 overflow-hidden bg-neutral-950">
+                <div className="relative aspect-[4/5] shrink-0 overflow-hidden bg-gradient-to-b from-neutral-100 to-neutral-300">
                   <Image
                     src={product.imageSrc}
                     alt={product.imageAlt}
@@ -314,6 +294,13 @@ function OurLoupesGrid() {
                       patternAlpha={5}
                     />
                   </div>
+                  {/* fade the image into the card body so it isn't a hard seam */}
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-20 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" />
+                  {/* tinted wash in the product's accent color on hover */}
+                  <div
+                    className="pointer-events-none absolute inset-0 z-[9] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+                    style={{ background: `linear-gradient(to top, rgba(${glow},0.22), transparent 55%)` }}
+                  />
                   {['medusa', 'apollo'].includes(product.slug) && (
                     <div className="absolute right-3 top-3 z-20 inline-flex items-center gap-1.5 rounded-full border border-emerald-300/55 bg-black/70 px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-emerald-100 shadow-[0_0_24px_rgba(16,185,129,0.35)] backdrop-blur-md">
                       <span className="relative inline-flex h-3.5 w-3.5 items-center justify-center rounded-full border border-emerald-200/70 bg-emerald-400/15">
@@ -326,41 +313,58 @@ function OurLoupesGrid() {
                 </div>
 
                 <div className="flex flex-1 flex-col p-5 md:p-6">
-                  <div className="space-y-3">
-                    <div>
-                      <h3 className="text-xl md:text-2xl font-semibold mb-1">
-                        {product.name}
-                      </h3>
-                      <p className="text-xs md:text-sm text-neutral-400 font-medium">
-                        {product.magnification}
-                      </p>
-                    </div>
+                  <h3 className="text-xl md:text-2xl font-semibold">{product.name}</h3>
+                  <div className="mt-2 flex items-center gap-2">
+                    <Microscope
+                      className="h-3.5 w-3.5 shrink-0"
+                      strokeWidth={2}
+                      style={{ color: `rgb(${glow})` }}
+                      aria-hidden="true"
+                    />
+                    <span className="text-xs md:text-sm font-medium text-neutral-400">
+                      {product.magnification}
+                    </span>
+                  </div>
+                  {/* accent divider in the product's color */}
+                  <div
+                    className="mt-3 h-px w-full"
+                    style={{ background: `linear-gradient(to right, rgba(${glow},0.55), transparent)` }}
+                  />
 
-                    <p className="text-sm md:text-base text-neutral-300 leading-relaxed line-clamp-3 min-h-[4.5rem]">
-                      {product.tagline}
-                    </p>
+                  <p className="mt-4 min-h-[3.5rem] text-sm md:text-base text-neutral-200 leading-relaxed">
+                    {product.tagline}
+                  </p>
 
-                    <ul className="min-h-[6.75rem] space-y-1.5 pt-2">
+                  <ul className="mt-4 space-y-2">
                     {product.bullets.map((bullet: string, i: number) => (
-                      <li
-                        key={i}
-                        className={`flex items-start text-xs md:text-sm ${
-                          product.slug === 'medusa' && i === 0
-                            ? 'font-semibold text-emerald-200'
-                            : 'text-neutral-400'
-                        }`}
-                      >
-                        <span className="mr-2 shrink-0 text-neutral-500">-</span>
-                        <span>{bullet}</span>
+                      <li key={i} className="flex items-start gap-2 text-xs md:text-sm">
+                        <Check
+                          className="mt-[2px] h-3.5 w-3.5 shrink-0"
+                          strokeWidth={3}
+                          style={{ color: `rgb(${glow})` }}
+                          aria-hidden="true"
+                        />
+                        <span
+                          className={
+                            product.slug === 'medusa' && i === 0
+                              ? 'font-semibold text-emerald-200'
+                              : 'text-neutral-300'
+                          }
+                        >
+                          {bullet}
+                        </span>
                       </li>
                     ))}
-                    </ul>
-                  </div>
+                  </ul>
 
-                  <div className="mt-auto space-y-3 pt-3">
-                    <p className="text-xs md:text-sm text-neutral-500 italic border-t border-white/5 pt-3">
+                  <div className="mt-auto space-y-3 pt-5">
+                    {/* highlight as an accent callout */}
+                    <div
+                      className="rounded-r-md border-l-2 bg-white/[0.03] py-1.5 pl-3 pr-2 text-xs md:text-sm text-neutral-300"
+                      style={{ borderColor: `rgb(${glow})` }}
+                    >
                       {product.highlight}
-                    </p>
+                    </div>
 
                     {typeof product.basePrice === 'number' ? (
                       <div
@@ -405,7 +409,8 @@ function OurLoupesGrid() {
                 </div>
               </Link>
             </motion.div>
-          ))}
+            );
+          })}
         </motion.div>
       </div>
     </section>

@@ -12,6 +12,15 @@ type Props = {
   onComplete?: () => void
 }
 
+// 2nd-section lineup — mirrors the homepage LineupSection (real product imagery).
+const LINEUP = [
+  { slug: 'medusa', name: 'Medusa', image: '/Medusa/MedusaCaseOpen.png', price: '$710+', badge: 'Prismatic Ergonomics', copy: 'Ergonomic prismatic with adjustable working distance — 3.0x to 8.5x.' },
+  { slug: 'apollo', name: 'Apollo', image: '/Apollo/Apollo3xFemale2.png', price: '$740+', badge: 'Prismatic Ergonomics', copy: 'Ergonomic prismatic, fixed working distance — 3.0x to 6.0x.' },
+  { slug: 'galileo', name: 'Galileo', image: '/Galileo/BlackguyGalileo.png', price: '$270+', badge: 'Universal', copy: 'Lightweight affordable daily-use Galilean — 2.5x to 3.5x.' },
+  { slug: 'kepler', name: 'Kepler', image: '/Keppler/KepplerMain.png', price: '$460+', badge: 'Microsurgery', copy: 'High-magnification surgical and microsurgery — 4.0x to 6.0x.' },
+  { slug: 'newton', name: 'Newton', image: '/Newton/NewtonAsian2.png', price: '$270+', badge: 'Everyday', copy: 'Ultra-light long-day comfort — 2.5x to 3.5x.' },
+] as const
+
 /**
  * Homepage scroll-cinematic intro. Renders as a fixed full-viewport overlay on
  * top of the (server-rendered) homepage. Scroll scrubs a pre-rendered frame
@@ -32,7 +41,6 @@ export default function CinematicIntro({ onComplete }: Props) {
   const stageRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const progressRef = useRef<HTMLDivElement>(null)
-  const startWrapRef = useRef<HTMLDivElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
 
@@ -202,23 +210,27 @@ export default function CinematicIntro({ onComplete }: Props) {
           .fromTo(`.${styles.captionLabel}`, { opacity: 0, y: 14 }, { opacity: 1, y: 0, ease: 'power2.out', duration: 0.3 })
           .to(`.${styles.word} > span`, { y: '0%', filter: 'blur(0px)', opacity: 1, ease: 'power3.out', duration: 0.5, stagger: 0.13 }, '-=0.1')
 
-        // Start button fades in over the final product frames
+        // The 2nd section rises over the cinematic (CSS gradient/overlap handles
+        // the dissolve). Reveal its hero + lineup as they scroll into view —
+        // the Start button lives in this section.
+        gsap.from(`.${styles.hero} > *`, {
+          opacity: 0,
+          y: 24,
+          ease: 'power2.out',
+          duration: 0.7,
+          stagger: 0.08,
+          scrollTrigger: { scroller, trigger: `.${styles.hero}`, start: 'top 80%' },
+        })
         gsap.fromTo(
-          startWrapRef.current!,
-          { opacity: 0, y: 18 },
+          `.${styles.card}`,
+          { opacity: 0, y: 30 },
           {
             opacity: 1,
             y: 0,
             ease: 'power2.out',
-            scrollTrigger: {
-              scroller,
-              trigger: runwayRef.current!,
-              start: '82% top',
-              end: '90% top',
-              scrub: true,
-              onEnter: () => startWrapRef.current?.classList.add(styles.visible),
-              onLeaveBack: () => startWrapRef.current?.classList.remove(styles.visible),
-            },
+            duration: 0.7,
+            stagger: 0.1,
+            scrollTrigger: { scroller, trigger: `.${styles.lineupGrid}`, start: 'top 82%' },
           },
         )
 
@@ -282,10 +294,56 @@ export default function CinematicIntro({ onComplete }: Props) {
             </div>
           </div>
         </div>
-      </div>
 
-      <div className={styles.startWrap} ref={startWrapRef}>
-        <button className={styles.startBtn} onClick={finish} type="button">Start</button>
+        {/* 2nd section — rises over the cinematic; holds the Start button */}
+        <section className={styles.site}>
+          <div className={styles.ambient} aria-hidden="true">
+            <span className={`${styles.glow} ${styles.glowEmerald}`} />
+            <span className={`${styles.glow} ${styles.glowSky}`} />
+            <span className={`${styles.glow} ${styles.glowAmber}`} />
+          </div>
+
+          <div className={styles.siteInner}>
+            <header className={styles.hero}>
+              <p className={styles.eyebrow}>HeliosX Loupes</p>
+              <h2 className={styles.heroTitle}>
+                Surgical precision,<br />
+                <span className={styles.grad}>finally accessible.</span>
+              </h2>
+              <p className={styles.heroSub}>
+                Premium ergonomic prismatic loupes for surgeons, dentists, residents, and students.
+                Published pricing. Direct-to-clinician. No gatekeeping.
+              </p>
+              <div className={styles.heroCtas}>
+                <button className={styles.startBtn} onClick={finish} type="button">Start</button>
+              </div>
+              <p className={styles.resident}>Resident &amp; student pricing from $270</p>
+            </header>
+
+            <div className={styles.lineupHead}>
+              <h2 className={styles.lineupTitle}>Five product lines. One fitting standard.</h2>
+            </div>
+
+            <ul className={styles.lineupGrid}>
+              {LINEUP.map((p) => (
+                <li className={styles.card} key={p.slug}>
+                  <div className={styles.cardImg}>
+                    <img src={p.image} alt={`${p.name} loupes`} loading="lazy" />
+                    <span className={styles.badge}>{p.badge}</span>
+                  </div>
+                  <div className={styles.cardBody}>
+                    <div className={styles.cardRow}>
+                      <h3>{p.name}</h3>
+                      <span className={styles.price}>{p.price}</span>
+                    </div>
+                    <p>{p.copy}</p>
+                    <span className={styles.cardLink}>View {p.name} →</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
       </div>
 
       <button className={styles.skip} onClick={finish} type="button">Skip intro</button>

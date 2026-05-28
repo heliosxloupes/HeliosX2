@@ -384,18 +384,6 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
     router.push('/cart')
   }
 
-  const handleStickyAction = async (action: 'cart' | 'checkout') => {
-    setPendingAction(action)
-    const email = capturedEmail || (await persistEmail('cart'))
-    if (!email) {
-      setEmailPromptOpen(true)
-      return
-    }
-
-    await addConfiguredItem(email)
-    router.push(action === 'checkout' ? '/checkout' : '/cart')
-  }
-
   const submitEmailPrompt = async () => {
     const email = await persistEmail('cart')
     if (!email) return
@@ -944,45 +932,6 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
           </div>
         </section>
       </main>
-      {isAvailable && (
-        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-black/90 p-3 backdrop-blur-xl md:hidden">
-          {emailPromptOpen && !capturedEmail && (
-            <div className="mb-3 space-y-2">
-              <input
-                value={emailInput}
-                onChange={(event) => setEmailInput(event.target.value)}
-                type="email"
-                placeholder="Email for cart and checkout"
-                className="w-full rounded-full border border-white/15 bg-white px-4 py-3 text-sm text-black outline-none"
-              />
-              {emailError && <p className="px-2 text-xs text-red-300">{emailError}</p>}
-              <button
-                type="button"
-                onClick={submitEmailPrompt}
-                className="w-full rounded-full bg-emerald-300 px-4 py-3 text-sm font-semibold text-black"
-              >
-                Continue
-              </button>
-            </div>
-          )}
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              onClick={() => handleStickyAction('cart')}
-              className="rounded-full border border-white/25 px-4 py-3 text-sm font-semibold text-white"
-            >
-              Add to Cart
-            </button>
-            <button
-              type="button"
-              onClick={() => handleStickyAction('checkout')}
-              className="rounded-full bg-white px-4 py-3 text-sm font-semibold text-black"
-            >
-              Checkout
-            </button>
-          </div>
-        </div>
-      )}
     </>
   )
 }

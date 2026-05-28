@@ -67,9 +67,9 @@ export const fallbackProducts: CmsProduct[] = [
       },
     ],
     heroImages: [
+      { src: '/Medusa/MedusaStudioCloseup.png', alt: 'Medusa loupes closeup product detail' },
       { src: '/Medusa/MedusaDoctorBlonde.png', alt: 'Doctor wearing Medusa surgical loupes' },
       { src: '/Medusa/MedusaDoctorMale.png', alt: 'Clinician wearing Medusa surgical loupes' },
-      { src: '/Medusa/MedusaStudioCloseup.png', alt: 'Medusa loupes closeup product detail' },
       { src: '/Medusa/MedusaDoctorSeated.png', alt: 'Doctor seated with Medusa surgical loupes' },
       { src: '/Medusa/MedusaStudioDark.png', alt: 'Medusa loupes in dark studio setting' },
     ],

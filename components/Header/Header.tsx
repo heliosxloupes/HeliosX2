@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
+import { X } from 'lucide-react'
 import CartButton from '../CartButton'
 
 function MobileNav() {
@@ -165,10 +166,10 @@ function MobileNav() {
                 <button
                   type="button"
                   onClick={toggle}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-black/70 text-neutral-100 text-xl"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-black/70 text-neutral-100 transition hover:border-white/40 hover:bg-white/10"
                   aria-label="Close navigation"
                 >
-                  x
+                  <X className="h-4 w-4" strokeWidth={1.75} />
                 </button>
               </div>
 
@@ -249,11 +250,11 @@ function MobileNav() {
                     </li>
                     <li>
                       <Link
-                        href="/prismatic-loupes"
+                        href="/faq"
                         onClick={() => setOpen(false)}
                         className="hover:text-white transition"
                       >
-                        Prismatic loupes
+                        FAQ
                       </Link>
                     </li>
                   </ul>
@@ -282,9 +283,20 @@ function MobileNav() {
   );
 }
 
+const desktopNavItems = [
+  { href: '/product', label: 'Product' },
+  { href: '/surgical-loupes', label: 'Surgical' },
+  { href: '/dental-loupes', label: 'Dental' },
+  { href: '/education', label: 'Education' },
+  { href: '/loupe-comparisons', label: 'Compare' },
+  { href: '/measurements', label: 'Measurements' },
+  { href: '/faq', label: 'FAQ' },
+]
+
 export default function Header() {
   const headerRef = useRef<HTMLDivElement | null>(null)
   const [isAdmin, setIsAdmin] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const header = headerRef.current
@@ -365,28 +377,26 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* Center: nav (Product / Education / Story / FAQ) */}
-        <nav className="hidden items-center gap-5 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-neutral-300 md:flex">
-          <Link href="/product" className="transition hover:text-white">
-            Product
-          </Link>
-          <Link href="/surgical-loupes" className="transition hover:text-white">
-            Surgical
-          </Link>
-          <Link href="/dental-loupes" className="transition hover:text-white">
-            Dental
-          </Link>
-          <Link href="/education" className="transition hover:text-white">
-            Education
-          </Link>
-          <Link href="/loupe-comparisons" className="transition hover:text-white">
-            Compare
-          </Link>
-          <Link href="/measurements" className="transition hover:text-white">
-            Measurements
-          </Link>
+        {/* Center: nav */}
+        <nav className="hidden items-center gap-5 text-[0.7rem] font-medium uppercase tracking-[0.18em] md:flex">
+          {desktopNavItems.map(({ href, label }) => {
+            const active = pathname === href || pathname.startsWith(href + '/')
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={`relative transition-colors duration-200 ${
+                  active
+                    ? 'text-white after:absolute after:-bottom-[2px] after:left-0 after:h-[1.5px] after:w-full after:rounded-full after:bg-emerald-400'
+                    : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                {label}
+              </Link>
+            )
+          })}
           {isAdmin && (
-            <Link href="/admin" className="transition hover:text-white">
+            <Link href="/admin" className="text-neutral-400 transition-colors hover:text-white">
               Admin
             </Link>
           )}

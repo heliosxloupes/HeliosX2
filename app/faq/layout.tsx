@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 
-import { buildMetadata } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { buildMetadata, faqJsonLd } from '@/lib/seo'
+import { faqSchemaItems } from '@/lib/faq-data'
 
 export const metadata: Metadata = buildMetadata({
   title: 'HeliosX FAQ | Loupe Measurements, Shipping, Prescription, and Support',
@@ -11,5 +13,10 @@ export const metadata: Metadata = buildMetadata({
 })
 
 export default function FaqLayout({ children }: { children: React.ReactNode }) {
-  return children
+  return (
+    <>
+      <JsonLd data={faqJsonLd(faqSchemaItems)} />
+      {children}
+    </>
+  )
 }

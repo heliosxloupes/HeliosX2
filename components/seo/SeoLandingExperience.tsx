@@ -209,6 +209,7 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
                       {page.title}
                     </motion.span>
                   </span>
+                  {' '}
                   <span className="block overflow-hidden">
                     <motion.span
                       className="block bg-gradient-to-r from-white via-sky-200 to-emerald-300 bg-clip-text text-transparent"

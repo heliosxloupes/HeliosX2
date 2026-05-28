@@ -5,6 +5,33 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60 * 60 * 24 * 30,
   },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data: blob: https:",
+              "font-src 'self'",
+              "connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://analytics.google.com https://vitals.vercel-analytics.com https://*.supabase.co",
+              "frame-src https://js.stripe.com https://hooks.stripe.com",
+              "media-src 'self'",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'none'",
+            ].join('; '),
+          },
+          { key: 'X-Frame-Options', value: 'DENY' },
+        ],
+      },
+    ]
+  },
   async redirects() {
     return [
       { source: '/home', destination: '/', permanent: true },

@@ -70,9 +70,9 @@ export const productPositioning = {
     'Ergonomic prismatic loupes with adjustable working distance for clinicians who change posture between seated and standing work.',
   Apollo:
     'Ergonomic prismatic loupes for clinicians who want posture-aware clarity and high-magnification options.',
-  Kepler: 'High-magnification surgical and microsurgery loupes for advanced detail work.',
+  Kepler: 'High-magnification prismatic loupes for microsurgery, plastic surgery, and detail-intensive surgical specialties. Available 4.0x to 6.0x with configurable working distance from $460.',
   Galileo: 'Lightweight affordable surgical and dental loupes for students, residents, and everyday clinical use.',
-  Newton: 'Ultra-light affordable loupes built for long days, comfort, and daily precision.',
+  Newton: 'Ultra-light ergonomic loupes built for dental hygienists, dental students, and daily clinical use — starting at $270 with Galilean optics and all-day comfort.',
 }
 
 // Published starting price (USD) per product line. Used to emit

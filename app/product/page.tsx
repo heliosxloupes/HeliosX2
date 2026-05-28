@@ -95,7 +95,7 @@ function ProductLineupHeader() {
         <motion.p
           variants={fadeUp}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mx-auto mt-5 max-w-xl text-sm leading-7 text-neutral-300 md:text-base"
+          className="mx-auto mt-5 hidden max-w-xl text-sm leading-7 text-neutral-300 md:block md:text-base"
         >
           Five ergonomic and lightweight loupe systems — every pair built around your own
           measurements. Published pricing, direct to clinician, no gatekeeping.
@@ -281,7 +281,7 @@ function OurLoupesGrid() {
                     background: `radial-gradient(circle at center, transparent, rgba(${getGlowColor(product.slug)}, 0.1))`
                   }}
                 />
-                <div className="relative aspect-[4/5] shrink-0 overflow-hidden bg-neutral-900">
+                <div className="relative aspect-[4/3] shrink-0 overflow-hidden bg-neutral-900 sm:aspect-[5/4] md:aspect-[4/5]">
                   <Image
                     src={product.imageSrc}
                     alt={product.imageAlt}
@@ -318,7 +318,7 @@ function OurLoupesGrid() {
                   )}
                 </div>
 
-                <div className="flex flex-1 flex-col p-5 md:p-6">
+                <div className="flex flex-1 flex-col p-4 md:p-6">
                   <h3 className="text-xl md:text-2xl font-semibold">{product.name}</h3>
                   <div className="mt-2 flex items-center gap-2">
                     <Microscope
@@ -337,11 +337,11 @@ function OurLoupesGrid() {
                     style={{ background: `linear-gradient(to right, rgba(${glow},0.55), transparent)` }}
                   />
 
-                  <p className="mt-4 min-h-[3.5rem] text-sm md:text-base text-neutral-200 leading-relaxed">
+                  <p className="mt-3 text-sm leading-relaxed text-neutral-200 md:mt-4 md:min-h-[3.5rem] md:text-base">
                     {product.tagline}
                   </p>
 
-                  <ul className="mt-4 space-y-2">
+                  <ul className="mt-3 space-y-1.5 md:mt-4 md:space-y-2">
                     {product.bullets.map((bullet: string, i: number) => (
                       <li key={i} className="flex items-start gap-2 text-xs md:text-sm">
                         <Check
@@ -363,7 +363,7 @@ function OurLoupesGrid() {
                     ))}
                   </ul>
 
-                  <div className="mt-auto space-y-3 pt-5">
+                  <div className="mt-auto space-y-2.5 pt-4 md:space-y-3 md:pt-5">
                     {/* highlight as an accent callout */}
                     <div
                       className="rounded-r-md border-l-2 bg-white/[0.03] py-1.5 pl-3 pr-2 text-xs md:text-sm text-neutral-300"

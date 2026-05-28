@@ -117,10 +117,8 @@ function MobileNav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl overscroll-none"
+            className="fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-black/95 backdrop-blur-xl"
             onClick={toggle}
-            onWheel={(e) => e.preventDefault()}
-            onTouchMove={(e) => e.preventDefault()}
           >
             {/* gradient background (static, not animated) */}
             <div className="pointer-events-none absolute inset-0">
@@ -138,8 +136,8 @@ function MobileNav() {
                 duration: 0.26,
                 ease: [0.22, 0.61, 0.36, 1],
               }}
-              className="relative mx-auto flex h-full max-w-6xl flex-col px-4 pt-4 pb-8"
-              onClick={(e) => e.stopPropagation()}
+            className="relative mx-auto flex min-h-full max-w-6xl flex-col px-4 pt-4 pb-[calc(env(safe-area-inset-bottom)+2rem)]"
+            onClick={(e) => e.stopPropagation()}
             >
               {/* Top row inside menu */}
               <div className="mb-8 flex items-center justify-between">
@@ -214,15 +212,6 @@ function MobileNav() {
                       </li>
                     ))}
                   </ul>
-                </div>
-
-                <div className="rounded-[28px] border border-white/10 bg-white/6 p-4 backdrop-blur-xl">
-                  <p className="text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-neutral-400">
-                    HeliosX
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-neutral-200">
-                    Premium surgical loupes with a cleaner fit, stronger optics, and a calmer buying experience.
-                  </p>
                 </div>
 
                 <div>

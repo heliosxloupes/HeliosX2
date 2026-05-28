@@ -329,10 +329,11 @@ Do not use tools just to use them. Use them when they materially improve the res
 
 For meaningful visual work:
 
-1. Inspect the relevant page/component/CSS.
-2. Inspect existing assets in `public/`.
-3. State the intended visual direction briefly.
-4. Implement the design.
+1. **Verify first with Kimi WebBridge** — before making any claims about the live site or current visual state, start the daemon (`~/.kimi-webbridge/bin/kimi-webbridge start`), navigate to the live URL, and take a screenshot. Visual decisions must be grounded in what actually renders, not code alone.
+2. Inspect the relevant page/component/CSS.
+3. Inspect existing assets in `public/`.
+4. State the intended visual direction briefly.
+5. Implement the design.
 5. Run a build or lint check when practical.
 6. Start the dev server when needed.
 7. Verify in browser at desktop and mobile sizes.

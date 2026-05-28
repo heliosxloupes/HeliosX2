@@ -14,6 +14,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
+import { GraduationCap } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -403,16 +404,19 @@ function HeroSection() {
                   </Link>
                 </motion.div>
 
-                {/* Resident & student callout — visible E-E-A-T + persona signal */}
-                <motion.p
-                  className="max-w-xl text-xs leading-6 text-emerald-200/90"
+                {/* Resident & student emblem */}
+                <motion.div
                   variants={fadeUp}
                   transition={{ duration: 0.6, delay: 0.85 }}
                 >
-                  <span className="font-semibold text-emerald-200">Resident & student pricing from $270.</span>{' '}
-                  Discount eligibility documented across the lineup — email heliosxloupes@gmail.com
-                  with your training program to apply.
-                </motion.p>
+                  <Link
+                    href="/product"
+                    className="inline-flex items-center gap-2 rounded-full border border-emerald-300/30 bg-emerald-500/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-200 backdrop-blur-sm transition hover:border-emerald-300/50 hover:bg-emerald-500/16"
+                  >
+                    <GraduationCap className="h-3.5 w-3.5 shrink-0" />
+                    Resident &amp; Student Discounts
+                  </Link>
+                </motion.div>
               </div>
 
               {/* Right - floating info card */}

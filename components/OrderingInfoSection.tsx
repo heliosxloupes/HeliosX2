@@ -2,6 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { useCarouselDots } from '@/components/useCarouselDots'
 
 type OrderingStep = {
   number: string
@@ -108,7 +109,7 @@ function StepCard({ step, index }: { step: OrderingStep; index: number }) {
       variants={fadeUp}
       transition={{ duration: 0.78, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -6 }}
-      className={`group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[#050b16]/85 p-7 backdrop-blur-sm transition-colors duration-500 hover:border-white/25 md:p-8 ${step.accent.glow}`}
+      className={`group relative flex h-full shrink-0 basis-[85%] snap-center flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[#050b16]/85 p-7 backdrop-blur-sm transition-colors duration-500 hover:border-white/25 sm:basis-[62%] md:basis-auto md:shrink md:p-8 ${step.accent.glow}`}
     >
       {/* Ambient gradient wash, tinted to step accent */}
       <div
@@ -199,6 +200,8 @@ function StepCard({ step, index }: { step: OrderingStep; index: number }) {
 function OrderingInfoSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const headerInView = useInView(sectionRef, { once: true, amount: 0.2 })
+  const { scrollerRef, activeIndex, scrollToIndex } =
+    useCarouselDots<HTMLDivElement>(steps.length)
 
   return (
     <section
@@ -250,15 +253,31 @@ function OrderingInfoSection() {
 
         {/* Steps */}
         <motion.div
+          ref={scrollerRef}
           initial="hidden"
           animate={headerInView ? 'visible' : 'hidden'}
           variants={stepsContainer}
-          className="grid gap-6 md:grid-cols-3 md:gap-7"
+          className="-mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-3 md:gap-7 md:overflow-visible md:px-0 md:pb-0"
         >
           {steps.map((step, index) => (
             <StepCard key={step.number} step={step} index={index} />
           ))}
         </motion.div>
+
+        {/* Mobile pagination dots */}
+        <div className="mt-5 flex justify-center gap-2 md:hidden">
+          {steps.map((step, i) => (
+            <button
+              key={step.number}
+              type="button"
+              aria-label={`Go to step ${step.number}: ${step.kicker}`}
+              onClick={() => scrollToIndex(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === activeIndex ? 'w-5 bg-white' : 'w-1.5 bg-white/30'
+              }`}
+            />
+          ))}
+        </div>
 
         {/* PD and Rx callout */}
         <motion.div

@@ -8,6 +8,7 @@ import { Check, Microscope } from "lucide-react";
 import Noise from "@/components/Noise";
 import Header from "@/components/Header";
 import OrderingInfoSection from "@/components/OrderingInfoSection";
+import { useCarouselDots } from "@/components/useCarouselDots";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -221,16 +222,19 @@ function OurLoupesGrid() {
     },
   ];
   const displayedProducts = cmsProducts ?? products;
+  const { scrollerRef, activeIndex, scrollToIndex } =
+    useCarouselDots<HTMLDivElement>(displayedProducts.length);
 
   return (
     <section className="bg-transparent px-4 pb-16 pt-2 md:px-8 md:pb-24 md:pt-2">
       <div className="mx-auto max-w-7xl">
         <motion.div
+          ref={scrollerRef}
           variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
-          className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 md:gap-6"
+          className="-mx-4 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3 xl:grid-cols-5"
         >
           {displayedProducts.map((product) => {
             const glow = getGlowColor(product.slug);
@@ -240,7 +244,7 @@ function OurLoupesGrid() {
               variants={fadeUp}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
               whileHover={{ y: -6 }}
-              className="group relative flex h-full"
+              className="group relative flex h-full shrink-0 basis-[82%] snap-center sm:basis-[60%] md:basis-auto md:shrink"
             >
               <Link
                 href={`/product/${product.slug}`}
@@ -414,6 +418,22 @@ function OurLoupesGrid() {
             );
           })}
         </motion.div>
+
+        {displayedProducts.length > 1 && (
+          <div className="mt-5 flex justify-center gap-2 md:hidden">
+            {displayedProducts.map((product, i) => (
+              <button
+                key={product.slug}
+                type="button"
+                aria-label={`View ${product.name}`}
+                onClick={() => scrollToIndex(i)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === activeIndex ? "w-5 bg-white" : "w-1.5 bg-white/30"
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

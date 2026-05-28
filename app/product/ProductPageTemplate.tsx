@@ -236,6 +236,9 @@ const magnificationPriceByProduct: Record<string, Record<string, number>> = {
 export default function ProductPageTemplate({ config }: { config: ProductPageConfig }) {
   const router = useRouter()
   const techRef = useRef<HTMLDivElement | null>(null)
+  const galleryRef = useRef<HTMLDivElement | null>(null)
+  const thumbScrollingRef = useRef(false)
+  const thumbScrollTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const [activeHeroIndex, setActiveHeroIndex] = useState(0)
   const [selectedMag, setSelectedMag] = useState<string>(config.magnifications[0] ?? '')
@@ -406,6 +409,30 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
     techRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
+  // Tapping a thumbnail scrolls the swipeable hero strip to that image; the
+  // short lock prevents the strip's own scroll handler from fighting it.
+  const selectHeroImage = (idx: number) => {
+    setActiveHeroIndex(idx)
+    const el = galleryRef.current
+    const slide = el?.children[idx] as HTMLElement | undefined
+    if (!el || !slide) return
+    thumbScrollingRef.current = true
+    if (thumbScrollTimer.current) clearTimeout(thumbScrollTimer.current)
+    el.scrollTo({ left: slide.offsetLeft, behavior: 'smooth' })
+    thumbScrollTimer.current = setTimeout(() => {
+      thumbScrollingRef.current = false
+    }, 500)
+  }
+
+  // Swiping the strip updates the active index (and thumbnail highlight).
+  const handleGalleryScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if (thumbScrollingRef.current) return
+    const el = e.currentTarget
+    if (!el.clientWidth) return
+    const idx = Math.round(el.scrollLeft / el.clientWidth)
+    setActiveHeroIndex((prev) => (prev !== idx ? idx : prev))
+  }
+
   return (
     <>
       <Header />
@@ -427,13 +454,27 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 className="relative w-full max-w-[900px] overflow-hidden rounded-[32px] border border-white/10 bg-black/80 shadow-[0_30px_120px_rgba(0,0,0,0.85)]"
               >
                 <div className="relative aspect-[4/5] w-full md:aspect-[3/4] lg:aspect-[16/9]">
-                  <Image
-                    src={config.heroImages[activeHeroIndex]}
-                    alt={`${config.shortName} surgical loupes hero`}
-                    fill
-                    className="object-cover"
-                    priority
-                  />
+                  {/* Swipeable hero strip — drag/scroll to change image; synced with thumbnails */}
+                  <div
+                    ref={galleryRef}
+                    onScroll={handleGalleryScroll}
+                    className="flex h-full w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  >
+                    {config.heroImages.map((src, idx) => (
+                      <div
+                        key={`${src}-${idx}`}
+                        className="relative h-full w-full shrink-0 snap-center"
+                      >
+                        <Image
+                          src={src}
+                          alt={`${config.shortName} surgical loupes view ${idx + 1}`}
+                          fill
+                          className="object-cover"
+                          priority={idx === 0}
+                        />
+                      </div>
+                    ))}
+                  </div>
                   {/* slight grain overlay */}
                   <div className="pointer-events-none absolute inset-0 opacity-40 mix-blend-overlay">
                     <Noise
@@ -457,7 +498,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                   {config.heroImages.map((src, idx) => (
                     <button
                       key={`${src}-${idx}`}
-                      onClick={() => setActiveHeroIndex(idx)}
+                      onClick={() => selectHeroImage(idx)}
                       className={`relative overflow-hidden rounded-[18px] border transition-all duration-200 ${
                         activeHeroIndex === idx
                           ? 'scale-[1.08] border-emerald-400 shadow-[0_0_24px_rgba(16,185,129,0.7)]'

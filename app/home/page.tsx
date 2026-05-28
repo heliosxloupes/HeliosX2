@@ -368,7 +368,7 @@ function HeroSection() {
 
                 {/* Subtext */}
                 <motion.p
-                  className="max-w-xl text-sm leading-6 text-neutral-200 md:text-base md:leading-7"
+                  className="hidden max-w-xl text-sm leading-6 text-neutral-200 md:block md:text-base md:leading-7"
                   variants={fadeUp}
                   transition={{ duration: 0.6, delay: 0.55 }}
                 >

@@ -228,7 +228,7 @@ function LineupSection() {
           </p>
         </div>
 
-        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {lineupCards.map((card) => (
             <li key={card.slug}>
               <Link
@@ -419,7 +419,8 @@ function HeroSection() {
                 </motion.div>
               </div>
 
-              {/* Right - floating info card */}
+              {/* Right - floating info card (desktop only) */}
+              <div className="hidden md:block">
               <motion.div
                 initial={{ opacity: 0, y: 32 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -456,6 +457,7 @@ function HeroSection() {
                   </div>
                 </motion.div>
               </motion.div>
+              </div>
             </div>
           </motion.div>
         </motion.div>
@@ -667,7 +669,7 @@ function HorizontalStorySection() {
 
   return (
     <section ref={sectionRef} className="relative bg-transparent" aria-label="HeliosX story panels">
-      <div className="block md:h-[175vh]">
+      <div className="block">
         <div className="relative overflow-hidden md:sticky md:top-16 md:h-[calc(100vh-4rem)]">
 
           {/* Progress bar */}

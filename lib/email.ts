@@ -2,7 +2,7 @@ import { Resend } from 'resend'
 
 let resend: Resend | null = null
 
-const HELIOSX_SITE_URL = 'https://heliosxloupes.com'
+const HELIOSX_SITE_URL = 'https://heliosxvision.com'
 export const PDCHECK_AR_IOS_URL = 'https://apps.apple.com/us/app/pdcheck-ar/id1563806777'
 export const HELIOSX_SUPPORT_EMAIL = 'heliosxloupes@gmail.com'
 

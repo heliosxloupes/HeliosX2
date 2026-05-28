@@ -40,7 +40,7 @@ export default function Image({ params }: { params: { seoSlug: string } }) {
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ fontSize: 28, fontWeight: 700 }}>HeliosX Loupes</div>
-          <div style={{ fontSize: 22, color: '#a7f3d0' }}>heliosxloupes.com</div>
+          <div style={{ fontSize: 22, color: '#a7f3d0' }}>heliosxvision.com</div>
         </div>
       </div>
     ),

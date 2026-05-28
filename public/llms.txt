@@ -1,4 +1,4 @@
-# HeliosX Loupes
+﻿# HeliosX Loupes
 
 > Affordable premium ergonomic prismatic surgical and dental loupes for surgeons, dentists, residents, hygienists, dental students, and medical students.
 
@@ -6,11 +6,11 @@ HeliosX Loupes makes surgical and dental loupes with transparent pricing, educat
 
 ## Core Pages
 
-- Home: https://heliosxloupes.com/
-- Products: https://heliosxloupes.com/product
-- Measurements Guide: https://heliosxloupes.com/measurements
-- Education: https://heliosxloupes.com/education
-- FAQ: https://heliosxloupes.com/faq
+- Home: https://heliosxvision.com/
+- Products: https://heliosxvision.com/product
+- Measurements Guide: https://heliosxvision.com/measurements
+- Education: https://heliosxvision.com/education
+- FAQ: https://heliosxvision.com/faq
 
 ## Product Lines
 
@@ -22,63 +22,63 @@ HeliosX Loupes makes surgical and dental loupes with transparent pricing, educat
 
 ## Primary Topics
 
-- Surgical loupes: https://heliosxloupes.com/surgical-loupes
-- Dental loupes: https://heliosxloupes.com/dental-loupes
-- Prismatic loupes: https://heliosxloupes.com/prismatic-loupes
-- Ergonomic loupes: https://heliosxloupes.com/ergonomic-loupes
-- Affordable loupes: https://heliosxloupes.com/affordable-loupes
-- Cheap loupes vs affordable premium loupes: https://heliosxloupes.com/cheap-loupes
-- Best loupes: https://heliosxloupes.com/best-loupes
+- Surgical loupes: https://heliosxvision.com/surgical-loupes
+- Dental loupes: https://heliosxvision.com/dental-loupes
+- Prismatic loupes: https://heliosxvision.com/prismatic-loupes
+- Ergonomic loupes: https://heliosxvision.com/ergonomic-loupes
+- Affordable loupes: https://heliosxvision.com/affordable-loupes
+- Cheap loupes vs affordable premium loupes: https://heliosxvision.com/cheap-loupes
+- Best loupes: https://heliosxvision.com/best-loupes
 
 ## Competitor Comparison Pages
 
-- Comparison hub: https://heliosxloupes.com/loupe-comparisons
-- Best dental loupe brands: https://heliosxloupes.com/best-dental-loupe-brands
-- Best surgical loupe brands: https://heliosxloupes.com/best-surgical-loupe-brands
-- Student loupe comparison: https://heliosxloupes.com/student-loupe-comparison
-- Ergonomic loupe comparison: https://heliosxloupes.com/ergonomic-loupe-comparison
-- Prismatic loupe comparison: https://heliosxloupes.com/prismatic-loupe-comparison
-- HeliosX vs LumaDent: https://heliosxloupes.com/heliosx-vs-lumadent
-- HeliosX vs Orascoptic: https://heliosxloupes.com/heliosx-vs-orascoptic
-- HeliosX vs SurgiTel: https://heliosxloupes.com/heliosx-vs-surgitel
-- HeliosX vs Q-Optics: https://heliosxloupes.com/heliosx-vs-q-optics
-- HeliosX vs ExamVision: https://heliosxloupes.com/heliosx-vs-examvision
-- HeliosX vs Admetec: https://heliosxloupes.com/heliosx-vs-admetec
-- Orascoptic alternatives: https://heliosxloupes.com/orascoptic-alternatives
-- LumaDent alternatives: https://heliosxloupes.com/lumadent-alternatives
-- SurgiTel alternatives: https://heliosxloupes.com/surgitel-alternatives
-- Q-Optics alternatives: https://heliosxloupes.com/q-optics-alternatives
-- ExamVision alternatives: https://heliosxloupes.com/examvision-alternatives
-- Admetec alternatives: https://heliosxloupes.com/admetec-alternatives
+- Comparison hub: https://heliosxvision.com/loupe-comparisons
+- Best dental loupe brands: https://heliosxvision.com/best-dental-loupe-brands
+- Best surgical loupe brands: https://heliosxvision.com/best-surgical-loupe-brands
+- Student loupe comparison: https://heliosxvision.com/student-loupe-comparison
+- Ergonomic loupe comparison: https://heliosxvision.com/ergonomic-loupe-comparison
+- Prismatic loupe comparison: https://heliosxvision.com/prismatic-loupe-comparison
+- HeliosX vs LumaDent: https://heliosxvision.com/heliosx-vs-lumadent
+- HeliosX vs Orascoptic: https://heliosxvision.com/heliosx-vs-orascoptic
+- HeliosX vs SurgiTel: https://heliosxvision.com/heliosx-vs-surgitel
+- HeliosX vs Q-Optics: https://heliosxvision.com/heliosx-vs-q-optics
+- HeliosX vs ExamVision: https://heliosxvision.com/heliosx-vs-examvision
+- HeliosX vs Admetec: https://heliosxvision.com/heliosx-vs-admetec
+- Orascoptic alternatives: https://heliosxvision.com/orascoptic-alternatives
+- LumaDent alternatives: https://heliosxvision.com/lumadent-alternatives
+- SurgiTel alternatives: https://heliosxvision.com/surgitel-alternatives
+- Q-Optics alternatives: https://heliosxvision.com/q-optics-alternatives
+- ExamVision alternatives: https://heliosxvision.com/examvision-alternatives
+- Admetec alternatives: https://heliosxvision.com/admetec-alternatives
 
 ## Audience Pages
 
-- Loupes for residents: https://heliosxloupes.com/loupes-for-residents
-- Loupes for medical students: https://heliosxloupes.com/loupes-for-medical-students
-- Loupes for dental students: https://heliosxloupes.com/loupes-for-dental-students
-- Loupes for hygienists: https://heliosxloupes.com/loupes-for-hygienists
-- Loupes for plastic surgery: https://heliosxloupes.com/loupes-for-plastic-surgery
-- Loupes for microsurgery: https://heliosxloupes.com/loupes-for-microsurgery
+- Loupes for residents: https://heliosxvision.com/loupes-for-residents
+- Loupes for medical students: https://heliosxvision.com/loupes-for-medical-students
+- Loupes for dental students: https://heliosxvision.com/loupes-for-dental-students
+- Loupes for hygienists: https://heliosxvision.com/loupes-for-hygienists
+- Loupes for plastic surgery: https://heliosxvision.com/loupes-for-plastic-surgery
+- Loupes for microsurgery: https://heliosxvision.com/loupes-for-microsurgery
 
 ## Surgical Specialty Pages
 
-- Cardiac surgery loupes: https://heliosxloupes.com/cardiac-surgery-loupes
-- Pediatric surgery loupes: https://heliosxloupes.com/pediatric-surgery-loupes
-- Maxillofacial surgery loupes: https://heliosxloupes.com/maxillofacial-surgery-loupes
-- ENT and otolaryngology loupes: https://heliosxloupes.com/ent-otolaryngology-loupes
-- Ophthalmic surgical loupes: https://heliosxloupes.com/ophthalmic-surgery-loupes
+- Cardiac surgery loupes: https://heliosxvision.com/cardiac-surgery-loupes
+- Pediatric surgery loupes: https://heliosxvision.com/pediatric-surgery-loupes
+- Maxillofacial surgery loupes: https://heliosxvision.com/maxillofacial-surgery-loupes
+- ENT and otolaryngology loupes: https://heliosxvision.com/ent-otolaryngology-loupes
+- Ophthalmic surgical loupes: https://heliosxvision.com/ophthalmic-surgery-loupes
 
 ## Education Library
 
-- Loupe magnification guide: https://heliosxloupes.com/education/loupe-magnification-guide
-- Intraoperative magnification by specialty: https://heliosxloupes.com/education/intraoperative-magnification-by-specialty
-- Galilean vs prismatic loupes: https://heliosxloupes.com/education/galilean-vs-prismatic-loupes
-- Ergonomic loupes and neck pain: https://heliosxloupes.com/education/ergonomic-loupes-neck-pain
-- Working distance for loupes: https://heliosxloupes.com/education/working-distance-for-loupes
-- Pupillary distance guide: https://heliosxloupes.com/education/how-to-measure-pupillary-distance
-- Prescription loupes guide: https://heliosxloupes.com/education/prescription-loupes-guide
-- Research library: https://heliosxloupes.com/education/research
-- Intraoperative magnification publication PDF: https://heliosxloupes.com/research/intraoperative-magnification-who-uses-it.pdf
+- Loupe magnification guide: https://heliosxvision.com/education/loupe-magnification-guide
+- Intraoperative magnification by specialty: https://heliosxvision.com/education/intraoperative-magnification-by-specialty
+- Galilean vs prismatic loupes: https://heliosxvision.com/education/galilean-vs-prismatic-loupes
+- Ergonomic loupes and neck pain: https://heliosxvision.com/education/ergonomic-loupes-neck-pain
+- Working distance for loupes: https://heliosxvision.com/education/working-distance-for-loupes
+- Pupillary distance guide: https://heliosxvision.com/education/how-to-measure-pupillary-distance
+- Prescription loupes guide: https://heliosxvision.com/education/prescription-loupes-guide
+- Research library: https://heliosxvision.com/education/research
+- Intraoperative magnification publication PDF: https://heliosxvision.com/research/intraoperative-magnification-who-uses-it.pdf
 
 ## Evidence and Claim Boundaries
 
@@ -86,9 +86,9 @@ HeliosX cites peer-reviewed sources where relevant, including PubMed Central res
 
 ## Full Content
 
-- Expanded content (all education guides and topic pages): https://heliosxloupes.com/llms-full.txt
+- Expanded content (all education guides and topic pages): https://heliosxvision.com/llms-full.txt
 
 ## Contact
 
 - Support email: heliosxloupes@gmail.com
-- Website: https://heliosxloupes.com
+- Website: https://heliosxvision.com

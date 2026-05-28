@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-export const siteUrl = 'https://heliosxloupes.com'
+export const siteUrl = 'https://heliosxvision.com'
 export const siteName = 'HeliosX Loupes'
 export const supportEmail = 'heliosxloupes@gmail.com'
 

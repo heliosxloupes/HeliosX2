@@ -44,6 +44,6 @@ Primary search topics:
 - HeliosX vs ExamVision
 - HeliosX vs Admetec
 
-Canonical site: https://heliosxloupes.com/
+Canonical site: https://heliosxvision.com/
 Preferred brand name: HeliosX Loupes
 Not related to: heliosx.com healthtech company

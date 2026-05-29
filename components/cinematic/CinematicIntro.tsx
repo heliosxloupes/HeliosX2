@@ -14,11 +14,11 @@ type Props = {
 
 // 2nd-section lineup — mirrors the homepage LineupSection (real product imagery).
 const LINEUP = [
-  { slug: 'medusa', name: 'Medusa', image: '/Medusa/MedusaCaseOpen.png', price: '$710+', badge: 'Prismatic Ergonomics', copy: 'Ergonomic prismatic with adjustable working distance — 3.0x to 8.5x.' },
-  { slug: 'apollo', name: 'Apollo', image: '/Apollo/Apollo3xFemale2.png', price: '$740+', badge: 'Prismatic Ergonomics', copy: 'Ergonomic prismatic, fixed working distance — 3.0x to 6.0x.' },
-  { slug: 'galileo', name: 'Galileo', image: '/Galileo/BlackguyGalileo.png', price: '$270+', badge: 'Universal', copy: 'Lightweight affordable daily-use Galilean — 2.5x to 3.5x.' },
-  { slug: 'kepler', name: 'Kepler', image: '/Keppler/KepplerMain.png', price: '$460+', badge: 'Microsurgery', copy: 'High-magnification surgical and microsurgery — 4.0x to 6.0x.' },
-  { slug: 'newton', name: 'Newton', image: '/Newton/NewtonAsian2.png', price: '$270+', badge: 'Everyday', copy: 'Ultra-light long-day comfort — 2.5x to 3.5x.' },
+  { slug: 'medusa', name: 'Medusa', image: '/Medusa/MedusaCaseOpen.png', price: '$1,695+', badge: 'Prismatic Ergonomics', copy: 'Ergonomic prismatic with adjustable working distance — 3.0x to 8.5x.' },
+  { slug: 'apollo', name: 'Apollo', image: '/Apollo/Apollo3xFemale2.png', price: '$1,695+', badge: 'Prismatic Ergonomics', copy: 'Ergonomic prismatic, fixed working distance — 3.0x to 6.0x.' },
+  { slug: 'galileo', name: 'Galileo', image: '/Galileo/BlackguyGalileo.png', price: '$795+', badge: 'Universal', copy: 'Lightweight affordable daily-use Galilean — 2.5x to 3.5x.' },
+  { slug: 'kepler', name: 'Kepler', image: '/Keppler/KepplerMain.png', price: '$1,195+', badge: 'Microsurgery', copy: 'High-magnification surgical and microsurgery — 4.0x to 6.0x.' },
+  { slug: 'newton', name: 'Newton', image: '/Newton/NewtonAsian2.png', price: '$695+', badge: 'Everyday', copy: 'Ultra-light long-day comfort — 2.5x to 3.5x.' },
 ] as const
 
 /**
@@ -314,7 +314,7 @@ export default function CinematicIntro({ onComplete }: Props) {
                 Premium ergonomic prismatic loupes for surgeons, dentists, residents, and students.
                 Published pricing. Direct-to-clinician. No gatekeeping.
               </p>
-              <p className={styles.resident}>Resident &amp; student pricing from $270</p>
+              <p className={styles.resident}>Resident &amp; student pricing from $695</p>
               <div className={styles.heroCtas}>
                 <button className={styles.startBtn} onClick={finish} type="button">Start</button>
               </div>

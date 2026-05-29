@@ -166,7 +166,7 @@ const lineupCards = [
     name: 'Medusa',
     image: '/Medusa/MedusaCaseOpen.png',
     positioning: 'Ergonomic prismatic with adjustable working distance — 3.0x to 8.5x.',
-    priceFrom: 710,
+    priceFrom: 1695,
     badge: 'Prismatic Ergonomics',
   },
   {
@@ -174,7 +174,7 @@ const lineupCards = [
     name: 'Apollo',
     image: '/Apollo/Apollo3xFemale2.png',
     positioning: 'Ergonomic prismatic, fixed working distance — 3.0x to 6.0x.',
-    priceFrom: 740,
+    priceFrom: 1695,
     badge: 'Prismatic Ergonomics',
   },
   {
@@ -182,7 +182,7 @@ const lineupCards = [
     name: 'Galileo',
     image: '/Galileo/BlackguyGalileo.png',
     positioning: 'Lightweight affordable daily-use Galilean — 2.5x to 3.5x.',
-    priceFrom: 270,
+    priceFrom: 795,
     badge: 'Universal',
   },
   {
@@ -190,7 +190,7 @@ const lineupCards = [
     name: 'Kepler',
     image: '/Keppler/KepplerMain.png',
     positioning: 'High-magnification surgical and microsurgery — 4.0x to 6.0x.',
-    priceFrom: 460,
+    priceFrom: 1195,
     badge: 'Microsurgery',
   },
   {
@@ -198,7 +198,7 @@ const lineupCards = [
     name: 'Newton',
     image: '/Newton/NewtonAsian2.png',
     positioning: 'Ultra-light long-day comfort — 2.5x to 3.5x.',
-    priceFrom: 270,
+    priceFrom: 695,
     badge: 'Everyday',
   },
 ] as const
@@ -224,7 +224,7 @@ function LineupSection() {
             </h2>
           </div>
           <p className="max-w-md text-sm leading-6 text-neutral-400">
-            From $270. Honest pricing, shipped direct, measured to fit.
+            From $695. Honest pricing, shipped direct, measured to fit.
           </p>
         </div>
 
@@ -448,7 +448,7 @@ function HeroSection() {
                   <div className="flex gap-6 text-sm text-neutral-300">
                     <div>
                       <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Starting at</p>
-                      <p className="mt-1 text-xl font-semibold text-white">$499</p>
+                      <p className="mt-1 text-xl font-semibold text-white">$695</p>
                     </div>
                     <div>
                       <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Fit support</p>
@@ -1061,7 +1061,7 @@ function CtaSection() {
             <div className="flex items-baseline justify-between gap-4">
               <div>
                 <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">Starting at</p>
-                <p className="mt-1 text-3xl font-bold">$499</p>
+                <p className="mt-1 text-3xl font-bold">$695</p>
               </div>
               <div className="text-right text-xs text-neutral-500">
                 <p>Transparent pricing.</p>

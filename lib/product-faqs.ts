@@ -80,7 +80,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'What magnification options does Galileo support?',
       answer:
-        'Galileo is offered in 2.5x, 3.0x, and 3.5x — the forgiving range for first-time loupe wearers. Starting price from $270 makes it the most accessible HeliosX entry point.',
+        'Galileo is offered in 2.5x, 3.0x, and 3.5x — the forgiving range for first-time loupe wearers. Starting price from $795 makes it the most accessible HeliosX entry point.',
     },
     {
       question: 'Is Galileo good for dental students?',
@@ -102,7 +102,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'What magnification options does Newton support?',
       answer:
-        'Newton is offered in 2.5x, 3.0x, and 3.5x — built for long days at light weight. Starting price from $270, with H1 and H2 frame options.',
+        'Newton is offered in 2.5x, 3.0x, and 3.5x — built for long days at light weight. Starting price from $695, with H1 and H2 frame options.',
     },
     {
       question: 'How much does Newton weigh?',
@@ -112,7 +112,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'What is the difference between Newton and Galileo?',
       answer:
-        'Both are HeliosX entry-tier Galilean systems at $270. Newton is the ultra-light option (40–50 g) with H1 and H2 frames; Galileo (35–37 g) ships with six JJ-series frames. Pick by frame fit and feel.',
+        'Both are HeliosX entry-tier Galilean systems — Newton from $695, Galileo from $795. Newton is the ultra-light option (40–50 g) with H1 and H2 frames; Galileo (35–37 g) ships with six JJ-series frames. Pick by frame fit and feel.',
     },
     {
       question: 'Are there discounts for residents and students?',

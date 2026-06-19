@@ -19,6 +19,14 @@ const buyingGuideLinks: { label: string; href: string }[] = [
   { label: 'Student & resident discount', href: '/student-loupes-discount' },
 ]
 
+const dentalSpecialtyLinks: { label: string; href: string }[] = [
+  { label: 'Endodontics', href: '/loupes-for-endodontics' },
+  { label: 'Periodontics', href: '/loupes-for-periodontics' },
+  { label: 'Orthodontics', href: '/loupes-for-orthodontics' },
+  { label: 'Dental implants', href: '/loupes-for-dental-implants' },
+  { label: 'Dental hygiene', href: '/loupes-for-dental-hygiene' },
+]
+
 const educationLinks: { label: string; href: string }[] = [
   { label: 'Measurements guide', href: '/measurements' },
   { label: 'Magnification guide', href: '/education/loupe-magnification-guide' },
@@ -100,9 +108,10 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 md:col-span-8 md:grid-cols-5">
+          <div className="grid grid-cols-2 gap-8 md:col-span-8 md:grid-cols-3">
             <FooterColumn title="Explore" links={exploreLinks} />
             <FooterColumn title="Buying guide" links={buyingGuideLinks} />
+            <FooterColumn title="Dental specialty" links={dentalSpecialtyLinks} />
             <FooterColumn title="Education" links={educationLinks} />
             <FooterColumn title="Policies" links={policyLinks} />
             <FooterColumn title="Support" links={supportLinks} />

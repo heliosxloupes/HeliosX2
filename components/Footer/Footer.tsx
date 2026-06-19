@@ -12,6 +12,13 @@ const exploreLinks: { label: string; href: string }[] = [
   { label: 'Loupe comparisons', href: '/loupe-comparisons' },
 ]
 
+const buyingGuideLinks: { label: string; href: string }[] = [
+  { label: 'How much do loupes cost?', href: '/how-much-do-surgical-loupes-cost' },
+  { label: 'Are loupes worth it?', href: '/are-surgical-loupes-worth-it' },
+  { label: 'HeliosX loupes review', href: '/heliosx-loupes-review' },
+  { label: 'Student & resident discount', href: '/student-loupes-discount' },
+]
+
 const educationLinks: { label: string; href: string }[] = [
   { label: 'Measurements guide', href: '/measurements' },
   { label: 'Magnification guide', href: '/education/loupe-magnification-guide' },
@@ -93,8 +100,9 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 md:col-span-8 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-8 md:col-span-8 md:grid-cols-5">
             <FooterColumn title="Explore" links={exploreLinks} />
+            <FooterColumn title="Buying guide" links={buyingGuideLinks} />
             <FooterColumn title="Education" links={educationLinks} />
             <FooterColumn title="Policies" links={policyLinks} />
             <FooterColumn title="Support" links={supportLinks} />

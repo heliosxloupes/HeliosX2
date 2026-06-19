@@ -27,6 +27,16 @@ const dentalSpecialtyLinks: { label: string; href: string }[] = [
   { label: 'Dental hygiene', href: '/loupes-for-dental-hygiene' },
 ]
 
+const surgicalSpecialtyLinks: { label: string; href: string }[] = [
+  { label: 'Vascular surgery', href: '/vascular-surgery-loupes' },
+  { label: 'Orthopedic surgery', href: '/orthopedic-surgery-loupes' },
+  { label: 'Hand surgery', href: '/hand-surgery-loupes' },
+  { label: 'General surgery', href: '/general-surgery-loupes' },
+  { label: 'Spine surgery', href: '/spine-surgery-loupes' },
+  { label: 'Urology', href: '/urology-loupes' },
+  { label: 'Gynecology', href: '/gynecology-loupes' },
+]
+
 const educationLinks: { label: string; href: string }[] = [
   { label: 'Measurements guide', href: '/measurements' },
   { label: 'Magnification guide', href: '/education/loupe-magnification-guide' },
@@ -108,9 +118,10 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 md:col-span-8 md:grid-cols-3">
+          <div className="grid grid-cols-2 gap-8 md:col-span-8 md:grid-cols-4">
             <FooterColumn title="Explore" links={exploreLinks} />
             <FooterColumn title="Buying guide" links={buyingGuideLinks} />
+            <FooterColumn title="Surgical specialty" links={surgicalSpecialtyLinks} />
             <FooterColumn title="Dental specialty" links={dentalSpecialtyLinks} />
             <FooterColumn title="Education" links={educationLinks} />
             <FooterColumn title="Policies" links={policyLinks} />

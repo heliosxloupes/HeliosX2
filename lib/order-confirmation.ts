@@ -137,6 +137,55 @@ async function sendPostPurchaseEmail({
   })
 }
 
+function formatTotalLabel(summary: OrderEmailSummary) {
+  if (typeof summary.total !== 'number') return ''
+  try {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: (summary.currency || 'usd').toUpperCase(),
+    }).format(summary.total / 100)
+  } catch {
+    return `$${(summary.total / 100).toFixed(2)}`
+  }
+}
+
+// Internal "new order" notification sent to the HeliosX team. This is distinct
+// from the customer receipt — it's framed as an ops alert with the action the
+// team needs to take (collect fit measurements before production).
+async function sendInternalOrderNotification({
+  customerName,
+  orderSummary,
+  measurementUrl,
+}: {
+  customerName: string
+  orderSummary: OrderEmailSummary
+  measurementUrl?: string
+}) {
+  const totalLabel = formatTotalLabel(orderSummary)
+  const who = customerName || orderSummary.customerEmail || 'a customer'
+  const body = [
+    `New order from ${who}${totalLabel ? ` — ${totalLabel}` : ''}.`,
+    '',
+    'Action needed: this customer still needs to submit their fit measurements before we move into production. Their order is marked pending measurements — full order details are below.',
+  ].join('\n')
+
+  return sendEmail({
+    to: HELIOSX_SUPPORT_EMAIL,
+    subject: `New order — ${who}${totalLabel ? ` (${totalLabel})` : ''}`,
+    preview: `New HeliosX order from ${who}${totalLabel ? ` for ${totalLabel}` : ''}.`,
+    eyebrow: 'Internal · New order',
+    title: 'New order received',
+    body,
+    orderSummary,
+    cta: measurementUrl
+      ? {
+          label: 'Open measurement page',
+          url: measurementUrl,
+        }
+      : undefined,
+  })
+}
+
 export async function sendStandaloneCheckoutConfirmation({
   session,
   stripe,
@@ -169,16 +218,10 @@ export async function sendStandaloneCheckoutConfirmation({
     customerName,
     orderSummary,
   })
-  const internalResult: any =
-    email.toLowerCase() === HELIOSX_SUPPORT_EMAIL.toLowerCase()
-      ? result
-      : await sendPostPurchaseEmail({
-          to: HELIOSX_SUPPORT_EMAIL,
-          subject: `[HeliosX order copy] ${DEFAULT_POST_PURCHASE_SUBJECT}`,
-          body,
-          customerName,
-          orderSummary,
-        })
+  const internalResult: any = await sendInternalOrderNotification({
+    customerName,
+    orderSummary,
+  })
 
   return {
     emailed: !result?.error && !result?.skipped,
@@ -368,27 +411,26 @@ export async function processCheckoutSessionCompleted({
     error: result?.error?.message ?? null,
   })
 
-  let internalStatus = status
-  let internalError = result?.error?.message ?? null
-  if (email.toLowerCase() !== HELIOSX_SUPPORT_EMAIL.toLowerCase()) {
-    const internalResult: any = await sendPostPurchaseEmail({
-      to: HELIOSX_SUPPORT_EMAIL,
-      subject: `[HeliosX order copy] ${subject}`,
-      body,
-      customerName,
-      orderSummary,
-      measurementUrl,
-    })
-    internalStatus = internalResult?.error ? 'error' : internalResult?.skipped ? 'skipped' : 'sent'
-    internalError = internalResult?.error?.message ?? null
-    await supabase.from('email_events').insert({
-      template_key: 'post_purchase',
-      recipient_email: HELIOSX_SUPPORT_EMAIL,
-      related_order_id: order.id,
-      status: internalStatus,
-      error: internalError,
-    })
-  }
+  // Always send the team an internal order notification (distinct from the
+  // customer receipt) so fulfillment knows a new order needs measurements.
+  const internalResult: any = await sendInternalOrderNotification({
+    customerName,
+    orderSummary,
+    measurementUrl,
+  })
+  const internalStatus = internalResult?.error
+    ? 'error'
+    : internalResult?.skipped
+      ? 'skipped'
+      : 'sent'
+  const internalError = internalResult?.error?.message ?? null
+  await supabase.from('email_events').insert({
+    template_key: 'order_notification',
+    recipient_email: HELIOSX_SUPPORT_EMAIL,
+    related_order_id: order.id,
+    status: internalStatus,
+    error: internalError,
+  })
 
   return {
     stored: true,

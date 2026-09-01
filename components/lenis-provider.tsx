@@ -1,56 +1,29 @@
 'use client'
 
-import { useEffect, useRef, ReactNode } from 'react'
-import Lenis from 'lenis'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { ReactNode } from 'react'
 
 interface LenisProviderProps {
   children: ReactNode
 }
 
+/**
+ * Intentionally inert. Renders children and nothing else.
+ *
+ * This used to create its own Lenis instance. Because app/layout.tsx already
+ * wraps the entire site in <SmoothScroll>, every page that also used this
+ * provider ended up running TWO Lenis instances at once — both hijacking the
+ * same wheel events and writing scroll position on different clocks (one on
+ * requestAnimationFrame, this one on gsap.ticker). They fought each other every
+ * frame, which is what made scrolling feel choppy and heavy.
+ *
+ * That was fixed once before and reverted (see commit c2c3d63, then 1b28748),
+ * which brought the stutter back. Please don't "restore" this — if you need the
+ * Lenis instance or the GSAP ScrollTrigger bridge, they live in
+ * components/SmoothScroll/SmoothScroll.tsx.
+ *
+ * Kept as a pass-through so the ~30 existing call sites (homepage, education,
+ * and the shared SEO experience components) keep working untouched.
+ */
 export function LenisProvider({ children }: LenisProviderProps) {
-  const lenisRef = useRef<Lenis | null>(null)
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const isTouchViewport = window.matchMedia('(max-width: 767px)').matches
-
-    const lenis = new Lenis({
-      duration: prefersReducedMotion ? 0.8 : isTouchViewport ? 0.95 : 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: !prefersReducedMotion,
-      wheelMultiplier: 1,
-      touchMultiplier: isTouchViewport ? 1.05 : 1.2,
-      infinite: false,
-    })
-
-    lenisRef.current = lenis
-
-    // Bridge Lenis to GSAP ScrollTrigger so scroll-pinned sections work correctly
-    const onScroll = () => ScrollTrigger.update()
-    lenis.on('scroll', onScroll)
-    const tickerCallback = (time: number) => lenis.raf(time * 1000)
-    gsap.ticker.add(tickerCallback)
-    gsap.ticker.lagSmoothing(0)
-
-    return () => {
-      gsap.ticker.remove(tickerCallback)
-      lenis.off('scroll', onScroll)
-      try {
-        lenis.destroy()
-      } catch (error) {
-        console.error('Lenis destroy error:', error)
-      }
-      lenisRef.current = null
-    }
-  }, [])
-
   return <>{children}</>
 }

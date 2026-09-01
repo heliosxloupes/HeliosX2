@@ -49,8 +49,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Lenis adds its own `lenis` / `lenis-smooth` classes at runtime — don't
+  // hardcode them, or the smooth-scroll CSS stays applied even when Lenis
+  // isn't running. See components/SmoothScroll/SmoothScroll.tsx.
   return (
-    <html lang="en" className={`lenis lenis-smooth ${syne.variable} ${manrope.variable}`}>
+    <html lang="en" className={`${syne.variable} ${manrope.variable}`}>
       <body>
         <noscript>
           <iframe

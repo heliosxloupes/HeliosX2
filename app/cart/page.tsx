@@ -10,9 +10,11 @@ import { getCart } from '@/lib/cart'
 import type { CartItem } from '@/lib/cart'
 import { cartItemsToGA4Items, trackBeginCheckout, trackViewCart } from '@/lib/analytics'
 import Noise from '@/components/Noise'
+import { PRESCRIPTION_PRICE, WARRANTY_PRICE } from '@/lib/pricing'
 
-const PRESCRIPTION_ESTIMATE = 200 // USD - for cart display
-const WARRANTY_ESTIMATE = 99 // USD - for cart display
+// Displayed here, charged from the same source in the checkout API.
+const PRESCRIPTION_ESTIMATE = PRESCRIPTION_PRICE
+const WARRANTY_ESTIMATE = WARRANTY_PRICE
 
 // If your cart library uses a different key, change this to match
 const CART_STORAGE_KEY = 'heliosx_cart'

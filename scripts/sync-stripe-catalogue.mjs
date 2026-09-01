@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+
 import Stripe from 'stripe'
 
 const stripeKey = process.env.STRIPE_SECRET_KEY
@@ -13,77 +15,35 @@ const stripe = new Stripe(stripeKey, {
   apiVersion: '2024-06-20',
 })
 
-const products = [
-  {
-    slug: 'medusa',
-    name: 'Medusa',
-    description: 'Real-time adjustable working distance surgical loupes.',
-    prices: {
-      '3.0x': 710,
-      '4.0x': 765,
-      '5.0x': 830,
-      '6.0x': 890,
-      '8.0x': 980,
-      '8.5x': 1090,
-    },
-  },
-  {
-    slug: 'apollo',
-    name: 'Apollo',
-    description: 'High-magnification ergonomic surgical loupes.',
-    prices: {
-      '3.0x': 740,
-      '4.0x': 830,
-      '5.0x': 970,
-      '6.0x': 1115,
-    },
-  },
-  {
-    slug: 'galileo',
-    name: 'Galileo',
-    description: 'General-purpose surgical loupes.',
-    prices: {
-      '2.5x': 270,
-      '3.0x': 285,
-      '3.5x': 300,
-    },
-  },
-  {
-    slug: 'newton',
-    name: 'Newton',
-    description: 'Lightweight surgical loupes.',
-    prices: {
-      '2.5x': 270,
-      '3.0x': 285,
-      '3.5x': 300,
-    },
-  },
-  {
-    slug: 'kepler',
-    name: 'Kepler',
-    description: 'High-magnification surgical loupes.',
-    prices: {
-      '4.0x': 460,
-      '5.0x': 490,
-      '6.0x': 520,
-    },
-  },
-]
+const pricing = JSON.parse(
+  readFileSync(new URL('../lib/pricing.json', import.meta.url), 'utf8')
+)
 
-const addOns = [
-  {
-    slug: 'prescription_lenses',
-    name: 'Prescription Lenses',
-    description: 'Prescription lens add-on for HeliosX loupes.',
-    prices: { standard: 129 },
-  },
-  {
-    slug: 'extended_warranty',
-    name: 'Extended Warranty',
-    description: 'Extended warranty add-on for HeliosX loupes.',
-    prices: { standard: 79 },
-  },
-]
+// Descriptions are catalogue copy; every AMOUNT comes from lib/pricing.json.
+// (These tables previously drifted ~58% below the live site's real prices.)
+const descriptions = {
+  medusa: 'Real-time adjustable working distance surgical loupes.',
+  apollo: 'High-magnification ergonomic surgical loupes.',
+  galileo: 'General-purpose surgical loupes.',
+  newton: 'Lightweight surgical loupes.',
+  kepler: 'High-magnification surgical loupes.',
+  'prescription-lenses': 'Prescription lens add-on for HeliosX loupes.',
+  'extended-warranty': 'Extended warranty add-on for HeliosX loupes.',
+}
+
+const products = Object.entries(pricing.products).map(([slug, entry]) => ({
+  slug,
+  name: entry.name.replace(/ Surgical Loupes$/, ''),
+  description: descriptions[slug] ?? entry.name,
+  prices: entry.prices,
+}))
+
+const addOns = Object.entries(pricing.addOns).map(([slug, entry]) => ({
+  slug: slug.replaceAll('-', '_'),
+  name: entry.name,
+  description: descriptions[slug] ?? entry.name,
+  prices: { standard: entry.price },
+}))
 
 function lookupKey(slug, variant) {
   return `heliosx_${slug}_${variant.replaceAll('.', '_').toLowerCase()}`

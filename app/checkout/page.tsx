@@ -6,6 +6,7 @@ import Script from 'next/script'
 import Image from 'next/image'
 import Header from '@/components/Header'
 import { getCart } from '@/lib/cart'
+import { PRESCRIPTION_PRICE, WARRANTY_PRICE } from '@/lib/pricing'
 
 type CartItem = {
   productSlug: string
@@ -20,7 +21,6 @@ type CartItem = {
   selectedFrameName?: string
   selectedMagnification?: string
   isAddon?: boolean
-  stripePriceId?: string
 }
 
 declare global {
@@ -55,7 +55,8 @@ export default function CheckoutPage() {
 
     let mergedItems: CartItem[] = [...cart]
 
-    // Read add-ons from sessionStorage (set in /cart)
+    // Read add-ons from sessionStorage (set in /cart).
+    // Only the slug travels; the checkout API prices these from lib/pricing.json.
     if (typeof window !== 'undefined') {
       const raw = sessionStorage.getItem('heliosx_addons')
       if (raw) {
@@ -66,35 +67,23 @@ export default function CheckoutPage() {
           }
 
           if (flags.prescription) {
-            const prescriptionPriceId = process.env.NEXT_PUBLIC_STRIPE_PRICE_PRESCRIPTION
-            if (prescriptionPriceId && prescriptionPriceId !== 'price_xxx_prescription') {
-              mergedItems.push({
-                productSlug: 'prescription-lenses',
-                name: 'Prescription Lenses',
-                price: 0,
-                quantity: 1,
-                isAddon: true,
-                stripePriceId: prescriptionPriceId,
-              })
-            } else {
-              console.warn('Prescription price ID not configured, skipping add-on')
-            }
+            mergedItems.push({
+              productSlug: 'prescription-lenses',
+              name: 'Prescription Lenses',
+              price: PRESCRIPTION_PRICE,
+              quantity: 1,
+              isAddon: true,
+            })
           }
 
           if (flags.warranty) {
-            const warrantyPriceId = process.env.NEXT_PUBLIC_STRIPE_PRICE_WARRANTY
-            if (warrantyPriceId && warrantyPriceId !== 'price_xxx_warranty') {
-              mergedItems.push({
-                productSlug: 'extended-warranty',
-                name: 'Extended Warranty',
-                price: 0,
-                quantity: 1,
-                isAddon: true,
-                stripePriceId: warrantyPriceId,
-              })
-            } else {
-              console.warn('Warranty price ID not configured, skipping add-on')
-            }
+            mergedItems.push({
+              productSlug: 'extended-warranty',
+              name: 'Extended Warranty',
+              price: WARRANTY_PRICE,
+              quantity: 1,
+              isAddon: true,
+            })
           }
         } catch (e) {
           console.error('Failed to parse add-on flags', e)
@@ -106,7 +95,7 @@ export default function CheckoutPage() {
   }, [router])
 
   const subtotal = items.reduce(
-    (sum, item) => sum + item.price * (item.isAddon ? 0 : item.quantity),
+    (sum, item) => sum + item.price * item.quantity,
     0
   )
 
@@ -167,7 +156,6 @@ export default function CheckoutPage() {
             frameColor: frameColor || item.frameColor,
             magnification: item.magnification || item.selectedMagnification || undefined,
             isAddon: item.isAddon || false,
-            stripePriceId: item.stripePriceId || undefined,
           }
         })
 

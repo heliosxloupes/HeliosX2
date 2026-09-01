@@ -14,6 +14,7 @@ import { addToCart } from '@/lib/cart'
 import { trackGenerateLead, trackViewItem } from '@/lib/analytics'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productFaqs } from '@/lib/product-faqs'
+import { magnificationPriceByProduct } from '@/lib/pricing'
 
 export type FrameId =
   | 'JJ04B'
@@ -199,38 +200,6 @@ const gridVariants = {
 const cardVariants = {
   hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0 },
-}
-
-const magnificationPriceByProduct: Record<string, Record<string, number>> = {
-  apollo: {
-    '3.0x': 1695,
-    '4.0x': 1785,
-    '5.0x': 1925,
-    '6.0x': 2070,
-  },
-  galileo: {
-    '2.5x': 795,
-    '3.0x': 810,
-    '3.5x': 825,
-  },
-  kepler: {
-    '4.0x': 1195,
-    '5.0x': 1225,
-    '6.0x': 1255,
-  },
-  medusa: {
-    '3.0x': 1695,
-    '4.0x': 1750,
-    '5.0x': 1815,
-    '6.0x': 1875,
-    '8.0x': 1965,
-    '8.5x': 2075,
-  },
-  newton: {
-    '2.5x': 695,
-    '3.0x': 710,
-    '3.5x': 725,
-  },
 }
 
 export default function ProductPageTemplate({ config }: { config: ProductPageConfig }) {

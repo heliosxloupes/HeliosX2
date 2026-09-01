@@ -1,33 +1,42 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
+import {
+  MAX_LINE_ITEMS,
+  MAX_QUANTITY_PER_LINE,
+  productNameBySlug,
+  resolveAddOn,
+  resolveProductPrice,
+} from '@/lib/pricing'
+
 type IncomingItem = {
-  productSlug: string
-  name: string
-  price: number
-  quantity: number
+  productSlug?: string
+  name?: string
+  price?: number
+  quantity?: number
   frameStyle?: string
   frameColor?: string
   magnification?: string
   isAddon?: boolean
-  stripePriceId?: string
 }
 
+/**
+ * The client tells us WHAT was ordered. It never tells us what it costs —
+ * every amount below is looked up server-side from lib/pricing.json.
+ */
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    console.log('API received body:', JSON.stringify(body, null, 2))
     const items = (body.items ?? []) as IncomingItem[]
     const customerEmail = String(body.customerEmail ?? '').trim().toLowerCase()
     const cartSessionId = body.cartSessionId ? String(body.cartSessionId) : ''
-    console.log('Parsed items:', JSON.stringify(items, null, 2))
 
     if (!items.length) {
-      console.error('No items in cart')
-      return NextResponse.json(
-        { error: 'No items in cart' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'No items in cart' }, { status: 400 })
+    }
+
+    if (items.length > MAX_LINE_ITEMS) {
+      return NextResponse.json({ error: 'Too many items in cart' }, { status: 400 })
     }
 
     if (!/^\S+@\S+\.\S+$/.test(customerEmail)) {
@@ -37,124 +46,118 @@ export async function POST(req: Request) {
       )
     }
 
-    // Validate required fields
-    for (const item of items) {
-      if (!item.name || item.price === undefined || !item.quantity) {
-        console.error('Invalid item:', item)
-        return NextResponse.json(
-          { error: `Invalid item: missing required fields (name, price, quantity)` },
-          { status: 400 }
-        )
-      }
-    }
-
     const secretKey = process.env.STRIPE_SECRET_KEY
     if (!secretKey) {
       console.error('STRIPE_SECRET_KEY not found in environment')
-      return NextResponse.json(
-        { error: 'Server configuration error' },
-        { status: 500 }
-      )
+      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
     }
 
-    const stripe = new Stripe(secretKey, {
-      apiVersion: '2024-06-20' as any,
-    })
+    const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = []
 
-    const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] =
-      items.map((item) => {
-        if (item.isAddon && item.stripePriceId) {
-          // Use a preconfigured Stripe Price for add-ons
-          return {
-            quantity: item.quantity || 1,
-            price: item.stripePriceId,
-            // optional metadata
-          }
+    for (const item of items) {
+      const slug = String(item.productSlug ?? '').trim()
+      if (!slug) {
+        return NextResponse.json({ error: 'Invalid item: missing product' }, { status: 400 })
+      }
+
+      const quantity = Number(item.quantity ?? 0)
+      if (!Number.isInteger(quantity) || quantity < 1 || quantity > MAX_QUANTITY_PER_LINE) {
+        return NextResponse.json(
+          { error: `Invalid quantity for ${slug}` },
+          { status: 400 }
+        )
+      }
+
+      if (item.isAddon) {
+        const addOn = resolveAddOn(slug)
+        if (!addOn) {
+          return NextResponse.json({ error: `Unknown add-on: ${slug}` }, { status: 400 })
         }
 
-        // Base loupes: dynamic price_data
-        return {
-          quantity: item.quantity || 1,
+        line_items.push({
+          quantity,
           price_data: {
             currency: 'usd',
-            unit_amount: Math.round(item.price * 100),
+            unit_amount: addOn.price * 100,
             product_data: {
-              name: item.name,
-              metadata: {
-                productSlug: item.productSlug,
-                frameStyle: item.frameStyle ?? '',
-                frameColor: item.frameColor ?? '',
-                magnification: item.magnification ?? '',
-              },
+              name: addOn.name,
+              metadata: { productSlug: slug, isAddon: 'true' },
             },
           },
-        }
-      })
+        })
+        continue
+      }
 
-    console.log('Creating Stripe session with line_items:', JSON.stringify(line_items, null, 2))
-    
-    const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000')
+      const magnification = String(item.magnification ?? '').trim()
+      const unitPrice = resolveProductPrice(slug, magnification)
+
+      if (unitPrice === null) {
+        console.error('Rejected unpriceable line item', { slug, magnification })
+        return NextResponse.json(
+          { error: `We could not price ${slug} at ${magnification || 'the selected magnification'}.` },
+          { status: 400 }
+        )
+      }
+
+      line_items.push({
+        quantity,
+        price_data: {
+          currency: 'usd',
+          unit_amount: unitPrice * 100,
+          product_data: {
+            name: productNameBySlug[slug] ?? slug,
+            metadata: {
+              productSlug: slug,
+              frameStyle: item.frameStyle ?? '',
+              frameColor: item.frameColor ?? '',
+              magnification,
+            },
+          },
+        },
+      })
+    }
+
+    const stripe = new Stripe(secretKey, { apiVersion: '2024-06-20' as any })
+
+    const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || 'https://heliosxvision.com')
       .trim()
       .replace(/\/+$/, '')
+
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items,
       ui_mode: 'embedded',
       customer_email: customerEmail,
       billing_address_collection: 'required',
-      phone_number_collection: {
-        enabled: true,
-      },
-      shipping_address_collection: {
-        allowed_countries: ['US', 'CA'],
-      },
+      phone_number_collection: { enabled: true },
+      shipping_address_collection: { allowed_countries: ['US', 'CA'] },
       shipping_options: [
         {
           shipping_rate_data: {
             type: 'fixed_amount',
-            fixed_amount: {
-              amount: 0,
-              currency: 'usd',
-            },
+            fixed_amount: { amount: 0, currency: 'usd' },
             display_name: 'Standard shipping',
             delivery_estimate: {
-              minimum: {
-                unit: 'business_day',
-                value: 3,
-              },
-              maximum: {
-                unit: 'business_day',
-                value: 7,
-              },
+              minimum: { unit: 'business_day', value: 3 },
+              maximum: { unit: 'business_day', value: 7 },
             },
           },
         },
       ],
-      metadata: {
-        customerEmail,
-        cartSessionId,
-      },
+      metadata: { customerEmail, cartSessionId },
       return_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     })
 
-    console.log('Stripe session created:', session.id)
-    console.log('Client secret:', session.client_secret ? 'Present' : 'Missing')
-
-    // Return client_secret for embedded checkout
     return NextResponse.json({ client_secret: session.client_secret })
   } catch (err: any) {
-    console.error('Stripe checkout session error:', err)
-    console.error('Error details:', {
-      message: err.message,
-      type: err.type,
-      code: err.code,
-      statusCode: err.statusCode
+    console.error('Stripe checkout session error:', {
+      message: err?.message,
+      type: err?.type,
+      code: err?.code,
+      statusCode: err?.statusCode,
     })
     return NextResponse.json(
-      { 
-        error: 'Unable to create checkout session',
-        details: err.message || 'Unknown error'
-      },
+      { error: 'Unable to create checkout session' },
       { status: 500 }
     )
   }

@@ -1,0 +1,30 @@
+{
+  "_comment": "SINGLE SOURCE OF TRUTH for money. Consumed by the product page (display), the cart (add-on display), the checkout API (server-authoritative charge amount), and scripts/sync-stripe-catalogue.mjs (Stripe catalogue). Change a price HERE and nowhere else. All values are USD whole dollars.",
+  "products": {
+    "medusa": {
+      "name": "Medusa Surgical Loupes",
+      "prices": { "3.0x": 1695, "4.0x": 1750, "5.0x": 1815, "6.0x": 1875, "8.0x": 1965, "8.5x": 2075 }
+    },
+    "apollo": {
+      "name": "Apollo Surgical Loupes",
+      "prices": { "3.0x": 1695, "4.0x": 1785, "5.0x": 1925, "6.0x": 2070 }
+    },
+    "galileo": {
+      "name": "Galileo Surgical Loupes",
+      "prices": { "2.5x": 795, "3.0x": 810, "3.5x": 825 }
+    },
+    "newton": {
+      "name": "Newton Surgical Loupes",
+      "prices": { "2.5x": 695, "3.0x": 710, "3.5x": 725 }
+    },
+    "kepler": {
+      "name": "Kepler Surgical Loupes",
+      "prices": { "4.0x": 1195, "5.0x": 1225, "6.0x": 1255 }
+    }
+  },
+  "addOns": {
+    "prescription-lenses": { "name": "Prescription Lenses", "price": 200 },
+    "extended-warranty": { "name": "Extended Warranty", "price": 99 }
+  },
+  "limits": { "maxQuantityPerLine": 10, "maxLineItems": 20 }
+}

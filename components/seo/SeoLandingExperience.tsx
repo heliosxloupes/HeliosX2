@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
+import { Check, ChevronDown } from 'lucide-react'
 import { useRef } from 'react'
 import type { ReactNode } from 'react'
 
@@ -252,11 +252,22 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
                   Built for
                 </p>
                 <p className="mt-3 text-xl font-semibold leading-7 text-white">{page.audience}</p>
+                {/* Proof points sit above the fold and are the first thing a
+                    reader weighs. Checkmarks and figure emphasis make them read
+                    as claims rather than as more running text. */}
                 <div className="mt-6 space-y-3">
                   {page.proofPoints.map((point) => (
-                    <p key={point} className="border-t border-white/10 pt-3 leading-6 text-neutral-300">
-                      {point}
-                    </p>
+                    <div
+                      key={point}
+                      className="flex gap-3 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 leading-6 text-neutral-200"
+                    >
+                      <Check
+                        aria-hidden="true"
+                        className="mt-1 h-4 w-4 shrink-0 text-emerald-300"
+                        strokeWidth={2.5}
+                      />
+                      <span>{linkifyText(point)}</span>
+                    </div>
                   ))}
                 </div>
               </motion.aside>
@@ -314,7 +325,9 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
                   </h2>
                 </div>
                 <div className="space-y-6">
-                  <p className="text-base leading-8 text-neutral-300">{linkifyText(section.body)}</p>
+                  <p className="text-lg leading-9 text-neutral-200 md:text-[1.15rem]">
+                    {linkifyText(section.body)}
+                  </p>
                   {section.sourceHref && section.sourceLabel ? (
                     <p className="text-xs leading-6 text-neutral-400">
                       <span className="font-semibold uppercase tracking-[0.18em] text-emerald-200/80">
@@ -330,10 +343,25 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
                       </Link>
                     </p>
                   ) : null}
-                  <div className="grid gap-3 sm:grid-cols-3">
+                  {/* Bullets carry the scannable substance of every page, so they
+                      read as cards with their own surface rather than as loose
+                      text under a hairline. Long lists (brand profiles, specialty
+                      routing) drop to two columns so lines stay readable. */}
+                  <div
+                    className={`grid gap-3 ${
+                      section.bullets.length > 4 ? 'sm:grid-cols-2' : 'sm:grid-cols-3'
+                    }`}
+                  >
                     {section.bullets.map((bullet) => (
-                      <div key={bullet} className="border-t border-white/10 pt-4 text-sm leading-6 text-neutral-300">
-                        {linkifyText(bullet)}
+                      <div
+                        key={bullet}
+                        className="group relative rounded-xl border border-white/10 bg-white/[0.04] p-4 text-sm leading-6 text-neutral-300 transition duration-300 hover:border-emerald-300/40 hover:bg-white/[0.07]"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="absolute left-0 top-4 h-5 w-[2px] rounded-full bg-emerald-300/50 transition group-hover:bg-emerald-300"
+                        />
+                        <span className="block pl-3">{linkifyText(bullet)}</span>
                       </div>
                     ))}
                   </div>
@@ -420,7 +448,15 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
                   <thead>
                     <tr className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
                       <th scope="col" className="py-4 pr-4 font-semibold">Feature</th>
-                      <th scope="col" className="p-4 font-semibold">HeliosX</th>
+                      {/* The HeliosX column is the one readers are scanning for.
+                          Tinting it and topping it with the accent rule makes the
+                          table answer its own question at a glance. */}
+                      <th
+                        scope="col"
+                        className="border-t-2 border-emerald-300/70 bg-emerald-300/[0.07] p-4 font-semibold text-emerald-200"
+                      >
+                        HeliosX
+                      </th>
                       <th scope="col" className="p-4 font-semibold">
                         {page.competitorName ?? 'Other brands'}
                       </th>
@@ -435,17 +471,24 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
                         <th scope="row" className="py-5 pr-4 font-semibold text-white">
                           {row.feature}
                         </th>
-                        <td className="p-5 leading-6">{row.heliosx}</td>
-                        <td className="p-5 leading-6">{row.other}</td>
+                        <td className="bg-emerald-300/[0.07] p-5 leading-6 text-white">
+                          {row.heliosx}
+                        </td>
+                        <td className="p-5 leading-6 text-neutral-400">{row.other}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
               {page.verdict ? (
-                <p className="mt-7 max-w-4xl border-l border-emerald-300/60 pl-5 text-base leading-8 text-emerald-50">
-                  {linkifyText(page.verdict)}
-                </p>
+                <div className="mt-9 max-w-4xl overflow-hidden rounded-2xl border border-emerald-300/25 bg-gradient-to-br from-emerald-300/[0.10] to-transparent p-6 md:p-8">
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-200/90">
+                    The honest answer
+                  </p>
+                  <p className="mt-4 text-lg leading-9 text-emerald-50 md:text-xl md:leading-10">
+                    {linkifyText(page.verdict)}
+                  </p>
+                </div>
               ) : null}
             </motion.div>
           </section>

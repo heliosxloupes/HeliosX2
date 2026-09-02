@@ -321,41 +321,138 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'best-loupes',
     title: 'Best Loupes',
-    metaTitle: 'Best Loupes for Surgical and Dental Work | HeliosX',
+    metaTitle: 'Best Loupes 2026: Brands, Prices and How to Choose | HeliosX',
     description:
-      'Find the best loupes for surgical, dental, resident, student, ergonomic, and high-magnification workflows with HeliosX product recommendations.',
-    heroKicker: 'Best loupes guide',
+      'An honest guide to choosing surgical and dental loupes: Galilean vs prismatic, what each brand is actually good at, real prices, and how to match magnification to your work.',
+    heroKicker: 'Buying guide',
     primaryKeyword: 'best loupes',
-    relatedKeywords: ['best surgical loupes', 'best dental loupes', 'best loupes for residents', 'intraoperative magnification'],
-    audience: 'buyers comparing loupe types before purchase',
+    relatedKeywords: ['best surgical loupes', 'best dental loupes', 'surgical loupes brands', 'loupes comparison', 'best loupes for residents'],
+    audience: 'surgeons, dentists, hygienists, residents and students choosing their first or next pair of loupes',
     intro:
-      'The best loupes are not one model for everyone. The right choice depends on procedure mix, posture needs, magnification, budget, and measurement accuracy.',
-    proofPoints: ['Use-case based recommendations.', 'Clear distinction between ergonomic prismatic and lightweight systems.', 'Internal links to products and education guides.'],
+      'There is no single best loupe, and any guide that names one is selling something. The right pair depends on the procedures you actually perform, how long you wear them, the working distance your posture needs, and what you can realistically spend. This guide covers the decision honestly — including the brands we compete with, what each is genuinely good at, and where they beat us.',
+    proofPoints: [
+      'Galilean vs prismatic explained — the single decision that matters most.',
+      'Brand-by-brand profiles, including where competitors are the better pick.',
+      'Real published prices from $695, not quote-gated ranges.',
+    ],
     sections: [
       specialtyMagnificationSection,
       {
-        title: 'Best for ergonomics',
+        title: 'The decision that matters most: Galilean or prismatic',
         body:
-          'Medusa and Apollo are the HeliosX ergonomic prismatic systems. Choose Medusa when adjustable working distance matters.',
-        bullets: ['Medusa: ergonomic prismatic and adjustable.', 'Apollo: ergonomic prismatic precision.', 'Use the measurements guide before final fit.'],
+          'Almost every other choice follows from this one. Galilean loupes use a simpler two-lens design — lighter, cheaper, and perfectly adequate up to about 3.5x. Prismatic loupes fold the light path through a prism, which buys you higher magnification, a wider field at depth, and a more upright posture, at the cost of weight and money. If you work above 3.5x, or you are in loupes for six hours a day and your neck is telling you about it, prismatic is not a luxury.',
+        bullets: [
+          'Choose Galilean at 2.5x–3.5x: lighter, cheaper, ideal for hygiene, general dentistry, students and residents.',
+          'Choose prismatic at 4.0x and above: higher magnification with a usable field and better posture geometry.',
+          'Weight matters more than buyers expect — an extra 20 grams is felt by hour four, not minute one.',
+        ],
       },
       {
-        title: 'Best for access and training',
+        title: 'Brand by brand, and who each one actually suits',
         body:
-          'Galileo and Newton are the approachable systems for students, residents, and daily users who need reliable optics without a major price barrier.',
-        bullets: ['Galileo for broad field and training.', 'Newton for ultra-light daily comfort.', 'Kepler for high-magnification advanced work.'],
+          'Qualitative positioning for the brands clinicians usually compare. This is orientation, not a ranking — the right brand depends on your specialty, your posture and your budget. We have included ourselves in the same format, and we have been honest about where others are the stronger choice.',
+        bullets: [
+          'Orascoptic — established North American brand with broad surgical and dental authority and a wide dealer network. Strong choice if you want in-person fitting through a rep.',
+          'Designs for Vision — long-established premium brand with deep surgical and dental footprint and a serious custom-build reputation.',
+          'SurgiTel — the brand most associated with declination-angle ergonomic positioning; popular in OMFS and posture-sensitive specialties. If your priority is neck angle above all else, start here.',
+          'ExamVision — Danish brand known for high-end frame design and bespoke ergonomic-prismatic builds. The pick when frame aesthetics and custom fit matter most.',
+          'Lumadent — known for value pricing and a strong headlight ecosystem. Often the direct value comparison for buyers cross-shopping us.',
+          'Q-Optics — specs-forward catalog brand with a broad surgical dealer network.',
+          'Admetec — innovation-forward ergonomic prismatic and adjustable concepts.',
+          'HeliosX — prismatic-forward affordable-premium specialist. Medusa and Apollo cover 3.0x–8.5x from $1,695, Kepler high-magnification from $1,195, Galileo and Newton from $695. Published pricing, direct shipping, no dealer layer.',
+        ],
+      },
+      {
+        title: 'Where the other brands beat us',
+        body:
+          'Worth saying plainly, because a guide that pretends otherwise is not useful to you. If you want a rep to visit your practice, measure you in person and handle the paperwork, the legacy brands do that and we do not. If you need a decades-long institutional relationship for a hospital purchasing contract, that is their territory. If frame design is your deciding factor, ExamVision builds beautiful ones. We compete on optics per dollar and on publishing our prices — not on having the biggest sales organisation.',
+        bullets: [
+          'In-person rep fitting: legacy brands win. We measure remotely with a guided process.',
+          'Hospital and institutional purchasing contracts: established brands have the longer track record.',
+          'Frame design as the priority: ExamVision and Designs for Vision have deeper custom catalogues.',
+          'Where we win: published prices, prismatic range to 8.5x, and no dealer markup.',
+        ],
+      },
+      {
+        title: 'What loupes actually cost',
+        body:
+          'Loupe pricing is unusually opaque. Most established brands route you through a quote or a dealer rep, which makes comparison shopping deliberately hard and adds a markup layer that has nothing to do with the optics. Here is the honest shape of the market, so you can judge any quote you receive against it.',
+        bullets: [
+          'Entry Galilean: roughly $800–$2,000 from legacy brands. Newton starts at $695, Galileo at $795.',
+          'Mid-tier and entry prismatic: roughly $2,000–$3,500 elsewhere. Kepler starts at $1,195.',
+          'Ergonomic prismatic and high magnification: roughly $3,500–$5,500+ elsewhere. Medusa and Apollo start at $1,695.',
+          'Ask any brand for a written price before a fitting appointment. If they will not give one, that tells you something.',
+        ],
+      },
+      {
+        title: 'Best loupes by who you are',
+        body:
+          'Magnification needs, posture demands and budget all shift by role and specialty. These pages go deeper on each — read the one that matches your work before you commit to a brand.',
+        bullets: [
+          'Dental students and hygienists: 2.5x–3.5x Galilean is usually right. See /best-loupes-for-dental-students and /dental-loupes.',
+          'Residents and medical students: prioritise durability and price. See /best-loupes-for-residents and /student-loupes-discount.',
+          'Cardiac surgery: see /cardiac-surgery-loupes for magnification and posture guidance.',
+          'ENT and otolaryngology: see /ent-otolaryngology-loupes.',
+          'Pediatric surgery: see /pediatric-surgery-loupes.',
+          'Endodontics and microsurgery: 4.0x–6.0x prismatic. See /loupes-for-endodontics.',
+          'Neck or back pain already present: read /ergonomic-loupes-neck-pain before choosing magnification.',
+        ],
+      },
+      {
+        title: 'Five mistakes that waste money',
+        body:
+          'These come up again and again with clinicians replacing a first pair they regret. Every one is avoidable before you order.',
+        bullets: [
+          'Buying more magnification than your work needs — field of view shrinks fast, and 5.0x is unusable for broad procedures.',
+          'Guessing working distance instead of measuring it in real clinical posture. See /how-to-measure-pupillary-distance.',
+          'Ignoring weight because the showroom try-on lasted two minutes.',
+          'Paying a dealer markup for optics you could buy direct.',
+          'Choosing before checking whether prescription lenses can be integrated.',
+        ],
       },
     ],
-    recommendedProducts: ['Medusa', 'Apollo', 'Galileo', 'Newton', 'Kepler'],
+    comparisonRows: [
+      { feature: 'Entry Galilean loupes', heliosx: 'Newton from $695, Galileo from $795', other: '$800–$2,000+ from legacy brands' },
+      { feature: 'Entry prismatic / high magnification', heliosx: 'Kepler from $1,195 (4.0x–6.0x)', other: '$2,000–$3,500' },
+      { feature: 'Ergonomic prismatic', heliosx: 'Apollo and Medusa $1,695 (3.0x–8.5x)', other: '$3,500–$5,500+' },
+      { feature: 'Pricing transparency', heliosx: 'Every starting price published', other: 'Quote-based or dealer-gated pricing common' },
+      { feature: 'Distribution', heliosx: 'Direct to clinician, no dealer layer', other: 'Dealer and rep distribution with 30–50% markup' },
+      { feature: 'In-person fitting', heliosx: 'Guided remote measurement', other: 'Rep visits available — a genuine advantage' },
+    ],
+    competitorName: 'Legacy premium brands',
+    verdict:
+      'If you want a sales rep in your operatory and a decades-old institutional relationship, buy from a legacy brand — they are good at that, and we are not pretending otherwise. If you want the same optical glass, custom IPD and a real warranty without paying a dealer markup for it, that is exactly what HeliosX is for, from $695.',
+    recommendedProducts: ['Medusa', 'Apollo', 'Kepler', 'Galileo', 'Newton'],
     faqs: [
       {
-        question: 'What are the best loupes for posture?',
-        answer: 'Ergonomic prismatic loupes such as Medusa and Apollo are the HeliosX posture-forward options.',
+        question: 'What are the best loupes overall?',
+        answer:
+          'There is no single answer, and any guide claiming one is selling to you. Match magnification to your procedures (2.5x–3.5x for broad work, 4.0x–6.0x for detail), choose prismatic if you need above 3.5x or wear loupes for long sessions, and measure working distance in real clinical posture before ordering.',
       },
       {
-        question: 'What are the best loupes for medical students?',
+        question: 'What is the difference between Galilean and prismatic loupes?',
         answer:
-          'Medical students usually need affordable, versatile loupes with good fit support. Galileo and Newton are natural starting points.',
+          'Galilean loupes use a simpler two-lens design — lighter and cheaper, practical up to about 3.5x. Prismatic loupes fold the light path through a prism, giving higher magnification, a wider field at depth and better posture geometry, at the cost of weight and price.',
+      },
+      {
+        question: 'How much should loupes cost?',
+        answer:
+          'Entry Galilean runs roughly $800–$2,000 from legacy brands and $695–$795 from HeliosX. Ergonomic prismatic runs roughly $3,500–$5,500+ elsewhere and $1,695 here. Much of that gap is dealer markup rather than optics.',
+      },
+      {
+        question: 'Which magnification should I choose?',
+        answer:
+          'Most clinicians need less than they think. 2.5x–3.5x suits hygiene, general dentistry and broad surgical work. 4.0x–5.0x suits endodontics and detail surgery. Above 5.0x is microsurgery territory, where field of view becomes genuinely restrictive.',
+      },
+      {
+        question: 'Are cheaper loupes worth it?',
+        answer:
+          'It depends entirely on what makes them cheap. Thinner optical glass and poor coatings are a false economy. A lower price because a brand ships direct instead of through a dealer network is not — that markup never reached the optics in the first place.',
+      },
+      {
+        question: 'Are HeliosX loupes better than Orascoptic or Lumadent?',
+        answer:
+          'Better is specific to your priorities. Orascoptic has a wider dealer network and in-person fitting. Lumadent has a strong headlight ecosystem. HeliosX offers prismatic magnification to 8.5x with published pricing from $695 and no dealer markup. Compare on the factors that decide your purchase, not on brand age.',
       },
     ],
   },

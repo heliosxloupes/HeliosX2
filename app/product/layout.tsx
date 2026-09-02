@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'HeliosX Products | Surgical, Dental, Prismatic, and Ergonomic Loupes',
+  title: 'HeliosX Loupes | Surgical, Dental & Prismatic',
   description:
     'Compare HeliosX Medusa, Apollo, Galileo, Newton, and Kepler loupes for surgical, dental, ergonomic, affordable, and high-magnification workflows.',
   path: '/product',

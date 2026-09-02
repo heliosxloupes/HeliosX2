@@ -5,7 +5,7 @@ import { buildMetadata, faqJsonLd } from '@/lib/seo'
 import { faqSchemaItems } from '@/lib/faq-data'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'HeliosX FAQ | Loupe Measurements, Shipping, Prescription, and Support',
+  title: 'HeliosX FAQ | Measurements, Shipping & Support',
   description:
     'Answers about HeliosX surgical and dental loupes: measurements, prescriptions, magnification, frames, shipping, returns, warranty, and support.',
   path: '/faq',

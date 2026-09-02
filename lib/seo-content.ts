@@ -70,7 +70,7 @@ export const productPositioning = {
     'Ergonomic prismatic loupes with adjustable working distance for clinicians who change posture between seated and standing work.',
   Apollo:
     'Ergonomic prismatic loupes for clinicians who want posture-aware clarity and high-magnification options.',
-  Kepler: 'High-magnification prismatic loupes for microsurgery, plastic surgery, and detail-intensive surgical specialties. Available 4.0x to 6.0x with configurable working distance from $1,195.',
+  Kepler: 'High-magnification prismatic loupes for microsurgery and detail work. 4.0x to 6.0x with configurable working distance, from $1,195.',
   Galileo: 'Lightweight affordable surgical and dental loupes for students, residents, and everyday clinical use.',
   Newton: 'Ultra-light ergonomic loupes built for dental hygienists, dental students, and daily clinical use — starting at $695 with Galilean optics and all-day comfort.',
 }
@@ -175,7 +175,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     title: 'Dental Loupes',
     metaTitle: 'Dental Loupes | Affordable Ergonomic Loupes by HeliosX',
     description:
-      'Compare HeliosX dental loupes for dentists, hygienists, and dental students with ergonomic prismatic options, lightweight systems, and custom measurement support.',
+      'Compare HeliosX dental loupes for dentists, hygienists and students: ergonomic prismatic, lightweight systems and custom fitting.',
     heroKicker: 'Dental loupes',
     primaryKeyword: 'dental loupes',
     relatedKeywords: ['best dental loupes', 'dental student loupes', 'ergonomic dental loupes'],
@@ -323,7 +323,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     title: 'Best Loupes',
     metaTitle: 'Best Loupes 2026: Brands, Prices and How to Choose | HeliosX',
     description:
-      'An honest guide to choosing surgical and dental loupes: Galilean vs prismatic, what each brand is actually good at, real prices, and how to match magnification to your work.',
+      'An honest guide to choosing loupes: Galilean vs prismatic, what each brand is good at, real prices, and matching magnification to your work.',
     heroKicker: 'Buying guide',
     primaryKeyword: 'best loupes',
     relatedKeywords: ['best surgical loupes', 'best dental loupes', 'surgical loupes brands', 'loupes comparison', 'best loupes for residents'],
@@ -459,9 +459,9 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'how-much-do-surgical-loupes-cost',
     title: 'How Much Do Surgical Loupes Cost?',
-    metaTitle: 'How Much Do Surgical Loupes Cost? | 2026 Pricing Guide by HeliosX',
+    metaTitle: 'How Much Do Surgical Loupes Cost? | 2026 Pricing',
     description:
-      'Surgical loupes typically cost $800 to $5,500+ depending on optics, magnification, and brand. See the real price ranges, what drives the cost, and HeliosX transparent pricing from $695.',
+      'Surgical loupes cost $800 to $5,500+ depending on optics and brand. See real price ranges, what drives cost, and HeliosX from $695.',
     heroKicker: 'Pricing guide',
     primaryKeyword: 'surgical loupes cost',
     relatedKeywords: [
@@ -598,7 +598,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     title: 'HeliosX Loupes Review',
     metaTitle: 'HeliosX Loupes Review | Honest 2026 Buyer Assessment',
     description:
-      'A working review of HeliosX surgical and dental loupes — Medusa, Apollo, Galileo, Newton, Kepler. Optics, ergonomics, fit process, real tradeoffs, and who should buy.',
+      'A working review of HeliosX loupes: Medusa, Apollo, Galileo, Newton and Kepler. Optics, ergonomics, fit, tradeoffs and who should buy.',
     heroKicker: 'Review',
     primaryKeyword: 'HeliosX loupes review',
     relatedKeywords: [
@@ -730,9 +730,9 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'are-surgical-loupes-worth-it',
     title: 'Are Surgical Loupes Worth It?',
-    metaTitle: 'Are Surgical Loupes Worth It? | Decision Guide for Residents and Surgeons',
+    metaTitle: 'Are Surgical Loupes Worth It? | Decision Guide',
     description:
-      'A practical guide to whether surgical loupes are worth the money. Who needs them, who can wait, the real ergonomic and visualization gains, and how to decide without the marketing.',
+      'Are surgical loupes worth the money? Who needs them, who can wait, the real ergonomic gains, and how to decide without the marketing.',
     heroKicker: 'Decision guide',
     primaryKeyword: 'are surgical loupes worth it',
     relatedKeywords: [
@@ -856,9 +856,9 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'student-loupes-discount',
     title: 'Student and Resident Loupes Discount',
-    metaTitle: 'Student and Resident Loupes Discount | HeliosX Access Pricing',
+    metaTitle: 'Student & Resident Loupe Discount | HeliosX',
     description:
-      'HeliosX runs documented student and resident pricing across the lineup. See who qualifies, what the discounts cover, and how to confirm eligibility before ordering surgical or dental loupes.',
+      'Documented student and resident pricing across the HeliosX lineup. See who qualifies and how to confirm eligibility before ordering.',
     heroKicker: 'Access pricing',
     primaryKeyword: 'student loupes discount',
     relatedKeywords: [
@@ -991,7 +991,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     title: 'Loupes for Endodontics',
     metaTitle: 'Loupes for Endodontics | Magnification for Root Canal Work',
     description:
-      'The right loupes for endodontics: 4.5x to 6.0x magnification, longer working distance, integrated lighting. See HeliosX prismatic options built for canal anatomy.',
+      'The right loupes for endodontics: 4.5x to 6.0x, longer working distance and integrated lighting, built for canal anatomy.',
     heroKicker: 'Endodontic loupes',
     primaryKeyword: 'loupes for endodontics',
     relatedKeywords: [
@@ -1114,9 +1114,9 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'loupes-for-periodontics',
     title: 'Loupes for Periodontics',
-    metaTitle: 'Loupes for Periodontics | Magnification for Perio and Gum Surgery',
+    metaTitle: 'Loupes for Periodontics | Perio & Gum Surgery',
     description:
-      'Loupes for periodontics: 3.0x–5.0x for scaling and gum surgery, ergonomic prismatic for long perio days, higher magnification for microsurgical grafting. HeliosX pricing from $1,195.',
+      'Loupes for periodontics: 3.0x–5.0x for scaling and gum surgery, ergonomic prismatic for long days. HeliosX from $1,195.',
     heroKicker: 'Periodontal loupes',
     primaryKeyword: 'loupes for periodontics',
     relatedKeywords: [
@@ -1237,9 +1237,9 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'loupes-for-orthodontics',
     title: 'Loupes for Orthodontics',
-    metaTitle: 'Loupes for Orthodontics | Magnification for Bracket and Lab Work',
+    metaTitle: 'Loupes for Orthodontics | Bracket & Lab Work',
     description:
-      'Loupes for orthodontists: 2.5x–3.5x for direct bonding and wire bending, lab work configuration, and ergonomic options for high-volume practice. HeliosX from $695.',
+      'Loupes for orthodontists: 2.5x–3.5x for direct bonding and wire bending, plus ergonomic options for high volume. From $695.',
     heroKicker: 'Orthodontic loupes',
     primaryKeyword: 'loupes for orthodontics',
     relatedKeywords: [
@@ -1356,7 +1356,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'loupes-for-dental-implants',
     title: 'Loupes for Dental Implants',
-    metaTitle: 'Loupes for Dental Implants | Implant Surgery and Restoration Magnification',
+    metaTitle: 'Loupes for Dental Implants | Surgery & Restoration',
     description:
       'Loupes for dental implant surgery and restoration: 3.5x–5.0x magnification, surgical-grade build, ergonomic prismatic for long cases. HeliosX from $1,195.',
     heroKicker: 'Implant loupes',
@@ -1481,7 +1481,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     title: 'Loupes for Dental Hygiene',
     metaTitle: 'Loupes for Dental Hygiene | Ergonomic Loupes for Hygienists',
     description:
-      'Loupes for dental hygiene workflow: 2.5x–3.0x for scaling and prophy, ultra-light builds for all-day wear, ergonomic prismatic for posture protection. HeliosX from $695.',
+      'Loupes for dental hygiene: 2.5x–3.0x for scaling and prophy, ultra-light builds for all-day wear. HeliosX from $695.',
     heroKicker: 'Dental hygiene loupes',
     primaryKeyword: 'dental hygiene loupes',
     relatedKeywords: [
@@ -1603,9 +1603,9 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'vascular-surgery-loupes',
     title: 'Vascular Surgery Loupes',
-    metaTitle: 'Vascular Surgery Loupes | Magnification for Anastomosis and Access Work',
+    metaTitle: 'Vascular Surgery Loupes | Anastomosis & Access',
     description:
-      'Loupes for vascular surgery: 3.0x–5.0x for anastomosis and bypass work, 4.0x–6.0x for microvascular access, ergonomic prismatic for deep cavity exposure. HeliosX from $795.',
+      'Loupes for vascular surgery: 3.0x–5.0x for anastomosis and bypass, 4.0x–6.0x for microvascular access. HeliosX from $795.',
     heroKicker: 'Vascular surgery',
     primaryKeyword: 'vascular surgery loupes',
     relatedKeywords: [
@@ -1728,7 +1728,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'orthopedic-surgery-loupes',
     title: 'Orthopedic Surgery Loupes',
-    metaTitle: 'Orthopedic Surgery Loupes | Magnification for Joint, Hand, and Spine Work',
+    metaTitle: 'Orthopedic Surgery Loupes | Joint, Hand & Spine',
     description:
       'Loupes for orthopedic surgery: 2.5x–3.5x for joint replacement, 3.5x–5.0x for hand and foot specialists. Ergonomic prismatic for long cases. HeliosX from $795.',
     heroKicker: 'Orthopedic surgery',
@@ -1854,7 +1854,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'hand-surgery-loupes',
     title: 'Hand Surgery Loupes',
-    metaTitle: 'Hand Surgery Loupes | Magnification for Tendon, Nerve, and Microvascular Work',
+    metaTitle: 'Hand Surgery Loupes | Tendon, Nerve & Microvascular',
     description:
       'Loupes for hand surgery: 4.0x–5.0x for tendon and nerve repair, 5.0x–6.0x for microvascular and digital replantation. HeliosX ergonomic prismatic from $1,195.',
     heroKicker: 'Hand surgery',
@@ -1978,9 +1978,9 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'general-surgery-loupes',
     title: 'General Surgery Loupes',
-    metaTitle: 'General Surgery Loupes | Magnification for Open Abdominal and Soft Tissue Work',
+    metaTitle: 'General Surgery Loupes | Open Abdominal & Soft Tissue',
     description:
-      'Loupes for general surgery: 2.5x–3.5x for open abdominal, hernia, and soft tissue work. Ergonomic prismatic for long cases and laparoscopic crossover. HeliosX from $795.',
+      'Loupes for general surgery: 2.5x–3.5x for open abdominal, hernia and soft tissue work. Ergonomic prismatic for long cases. From $795.',
     heroKicker: 'General surgery',
     primaryKeyword: 'general surgery loupes',
     relatedKeywords: [
@@ -2102,9 +2102,9 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'spine-surgery-loupes',
     title: 'Spine Surgery Loupes',
-    metaTitle: 'Spine Surgery Loupes | Magnification for Deep Cavity Spinal Work',
+    metaTitle: 'Spine Surgery Loupes | Deep Cavity Spinal Work',
     description:
-      'Loupes for spine surgery: 3.0x–4.5x for routine spinal exposure, ergonomic prismatic for prolonged prone-position cases, lighting essentials for deep field work. HeliosX from $1,195.',
+      'Loupes for spine surgery: 3.0x–4.5x for spinal exposure, ergonomic prismatic for prolonged prone cases. HeliosX from $1,195.',
     heroKicker: 'Spine surgery',
     primaryKeyword: 'spine surgery loupes',
     relatedKeywords: [
@@ -2227,7 +2227,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'urology-loupes',
     title: 'Urology Loupes',
-    metaTitle: 'Urology Loupes | Magnification for Open, Microsurgical, and Pediatric Cases',
+    metaTitle: 'Urology Loupes | Open, Microsurgical & Pediatric',
     description:
       'Loupes for urology: 2.5x–4.0x for open and pediatric urology, 5.0x–6.0x for microsurgical vasovasostomy and varicocele repair. HeliosX from $795.',
     heroKicker: 'Urology',
@@ -2351,9 +2351,9 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'gynecology-loupes',
     title: 'Gynecology Loupes',
-    metaTitle: 'Gynecology Loupes | Magnification for Open, Vaginal, and Microsurgical Cases',
+    metaTitle: 'Gynecology Loupes | Open, Vaginal & Microsurgical',
     description:
-      'Loupes for gynecology: 2.5x–3.5x for open and vaginal surgery, 4.0x–6.0x for microsurgical tubal anastomosis, ergonomic prismatic for gyn-onc cases. HeliosX from $795.',
+      'Loupes for gynecology: 2.5x–3.5x for open and vaginal surgery, 4.0x–6.0x for microsurgical anastomosis. HeliosX from $795.',
     heroKicker: 'Gynecology',
     primaryKeyword: 'gynecology loupes',
     relatedKeywords: [
@@ -2485,7 +2485,10 @@ const audiencePages: SeoLandingPage[] = [
 ].map(([slug, title, audience, products]) => ({
   slug: slug as string,
   title: title as string,
-  metaTitle: `${title} | HeliosX Surgical and Dental Loupes`,
+  // Suffix kept short so every generated title stays inside Google's ~60
+  // character display limit. The longest entry here is "Loupes for Medical
+  // Students" (27 chars), which lands at 58 with this suffix.
+  metaTitle: `${title} | Magnification & Pricing Guide`,
   description: `${title} from HeliosX: compare affordable, ergonomic prismatic, lightweight, and high-magnification loupe options with measurement support.`,
   heroKicker: title as string,
   primaryKeyword: (title as string).toLowerCase(),
@@ -2665,7 +2668,7 @@ const competitorPages: SeoLandingPage[] = [
     title: 'HeliosX vs LumaDent',
     metaTitle: 'HeliosX vs LumaDent | Surgical and Dental Loupe Comparison',
     description:
-      'HeliosX vs LumaDent for surgical and dental loupes. Compare ergonomic prismatic options, pricing, frame variety, customer support, resident discounts, warranty, and measurement support.',
+      'HeliosX vs LumaDent for surgical and dental loupes. Compare ergonomic prismatic options, pricing, support, warranty and discounts.',
     heroKicker: 'Comparison',
     primaryKeyword: 'HeliosX vs LumaDent',
     relatedKeywords: ['LumaDent alternatives', 'dental loupes comparison', 'ergonomic loupes', 'affordable dental loupes'],
@@ -2895,9 +2898,9 @@ const competitorPages: SeoLandingPage[] = [
   {
     slug: 'orascoptic-alternatives',
     title: 'Best Orascoptic Alternatives',
-    metaTitle: 'Best Orascoptic Alternatives | Affordable Surgical and Dental Loupes',
+    metaTitle: 'Best Orascoptic Alternatives | Affordable Loupes',
     description:
-      'Looking for Orascoptic alternatives? HeliosX offers ergonomic prismatic loupes (Medusa, Apollo), high magnification (Kepler), affordable Galilean (Galileo, Newton), resident discounts, and direct-to-clinician pricing.',
+      'Orascoptic alternatives compared. HeliosX ergonomic prismatic, high-magnification Kepler and affordable Galilean loupes from $695.',
     heroKicker: 'Alternatives',
     primaryKeyword: 'Orascoptic alternatives',
     relatedKeywords: ['best Orascoptic alternatives', 'affordable surgical loupes', 'dental loupes alternatives', 'ergonomic prismatic loupes'],
@@ -3016,7 +3019,7 @@ const competitorPages: SeoLandingPage[] = [
     title: 'Best LumaDent Alternatives',
     metaTitle: 'Best LumaDent Alternatives | Dental and Surgical Loupes',
     description:
-      'Looking for LumaDent alternatives? HeliosX offers ergonomic prismatic (Medusa, Apollo), high magnification (Kepler), affordable Galilean (Galileo, Newton), resident discounts, and surgical credibility.',
+      'LumaDent alternatives compared. HeliosX ergonomic prismatic, high-magnification Kepler and affordable Galilean loupes from $695.',
     heroKicker: 'Alternatives',
     primaryKeyword: 'LumaDent alternatives',
     relatedKeywords: ['best LumaDent alternatives', 'dental loupes alternatives', 'affordable dental loupes', 'surgical loupes alternatives'],
@@ -3253,7 +3256,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
   {
     slug: 'heliosx-vs-q-optics',
     title: 'HeliosX vs Q-Optics',
-    metaTitle: 'HeliosX vs Q-Optics | Prismatic and Lightweight Loupe Comparison',
+    metaTitle: 'HeliosX vs Q-Optics | Loupe Comparison',
     description:
       'HeliosX vs Q-Optics. Compare prismatic options, lightweight systems, pricing, frame variety, resident access, customer support, and warranty terms.',
     heroKicker: 'Comparison',
@@ -3604,9 +3607,9 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
   {
     slug: 'surgitel-alternatives',
     title: 'Best SurgiTel Alternatives',
-    metaTitle: 'Best SurgiTel Alternatives | Ergonomic Surgical and Dental Loupes',
+    metaTitle: 'Best SurgiTel Alternatives | Ergonomic Loupes',
     description:
-      'Looking for SurgiTel alternatives? HeliosX offers ergonomic prismatic loupes (Medusa, Apollo) with adjustable working distance, transparent pricing, resident discounts, and the widest prismatic range in the price tier.',
+      'SurgiTel alternatives compared. HeliosX ergonomic prismatic with adjustable working distance, published pricing and resident discounts.',
     heroKicker: 'Alternatives',
     primaryKeyword: 'SurgiTel alternatives',
     relatedKeywords: ['ergonomic loupes alternatives', 'SurgiTel competitor', 'surgical loupes alternatives', 'posture-focused loupes'],
@@ -3725,9 +3728,9 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
   {
     slug: 'q-optics-alternatives',
     title: 'Best Q-Optics Alternatives',
-    metaTitle: 'Best Q-Optics Alternatives | Prismatic and Lightweight Loupes',
+    metaTitle: 'Best Q-Optics Alternatives | Prismatic Loupes',
     description:
-      'Looking for Q-Optics alternatives? HeliosX offers ergonomic prismatic (Medusa, Apollo) with the widest prismatic range in the tier, lightweight affordable Galileo and Newton, resident discounts, and direct-to-clinician pricing.',
+      'Q-Optics alternatives compared. HeliosX ergonomic prismatic from $1,695, lightweight Galilean from $695, resident discounts and published pricing.',
     heroKicker: 'Alternatives',
     primaryKeyword: 'Q-Optics alternatives',
     relatedKeywords: ['Q-Optics competitor', 'prismatic loupe alternatives', 'lightweight loupes', 'ergonomic prismatic loupes'],
@@ -3848,7 +3851,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
   {
     slug: 'best-dental-loupe-brands',
     title: 'Best Dental Loupe Brands',
-    metaTitle: 'Best Dental Loupe Brands | HeliosX, LumaDent, Orascoptic, Q-Optics',
+    metaTitle: 'Best Dental Loupe Brands Compared | 2026 Guide',
     description:
       'Compare the best dental loupe brands by ergonomics, student value, hygienist workflows, prismatic options, measurements, and support.',
     heroKicker: 'Dental buyer guide',
@@ -4465,7 +4468,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
     title: 'Best ExamVision Alternatives',
     metaTitle: 'Best ExamVision Alternatives | Custom Fit Loupe Comparison',
     description:
-      'Looking for ExamVision alternatives? HeliosX delivers custom-fit ergonomic prismatic loupes (Medusa, Apollo), premium build, resident discounts, direct-to-clinician access, and structurally lower pricing.',
+      'ExamVision alternatives compared. HeliosX custom-fit ergonomic prismatic loupes, premium build and structurally lower pricing.',
     heroKicker: 'Alternatives',
     primaryKeyword: 'ExamVision alternatives',
     relatedKeywords: ['best ExamVision alternatives', 'custom loupe alternatives', 'ergonomic dental loupes', 'premium loupes alternative'],
@@ -4583,7 +4586,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
   {
     slug: 'admetec-alternatives',
     title: 'Best Admetec Alternatives',
-    metaTitle: 'Best Admetec Alternatives | Ergonomic Prismatic Loupe Comparison',
+    metaTitle: 'Best Admetec Alternatives | Ergonomic Prismatic',
     description:
       'Looking for Admetec alternatives? Compare HeliosX ergonomic prismatic loupes, adjustable working distance, measurements, and value.',
     heroKicker: 'Alternatives',
@@ -4705,9 +4708,9 @@ export const educationGuides: EducationGuide[] = [
   {
     slug: 'loupe-magnification-guide',
     title: 'Loupe Magnification Guide',
-    metaTitle: 'Loupe Magnification Guide for Surgeons and Residents | HeliosX',
+    metaTitle: 'Loupe Magnification Guide | Surgeons & Residents',
     description:
-      'A practical resident-focused guide to choosing loupe magnification: 2.5x through 6.0x explained, specialty ranges, and a quick decision tool for first-time buyers.',
+      'A resident-focused guide to loupe magnification: 2.5x through 6.0x explained, specialty ranges, and a decision tool for first buyers.',
     kicker: 'Magnification guide',
     audience: 'surgical residents, dental residents, medical students, dentists, hygienists, fellows, and attending surgeons',
     intro:
@@ -4912,9 +4915,9 @@ export const educationGuides: EducationGuide[] = [
   {
     slug: 'ergonomic-loupes-neck-pain',
     title: 'Ergonomic Loupes and Neck Pain',
-    metaTitle: 'Ergonomic Loupes and Neck Pain | Evidence-Based Posture Guide',
+    metaTitle: 'Ergonomic Loupes & Neck Pain | Evidence Guide',
     description:
-      'A peer-reviewed evidence guide to ergonomic loupes and neck strain. How prismatic optics, working distance, frame balance, and fit measurements interact with cervical load — and which HeliosX system fits which posture problem.',
+      'An evidence-based guide to loupes and neck strain: how prismatic optics, working distance and frame balance affect cervical load.',
     kicker: 'Ergonomics',
     audience: 'surgeons, dental clinicians, residents, and hygienists concerned about neck, shoulder, and back strain',
     intro:
@@ -5154,7 +5157,7 @@ export const educationGuides: EducationGuide[] = [
 educationGuides.push({
   slug: 'intraoperative-magnification-by-specialty',
   title: 'Intraoperative Magnification by Specialty',
-  metaTitle: 'Intraoperative Magnification by Specialty | HeliosX Education',
+  metaTitle: 'Intraoperative Magnification by Specialty',
   description:
     'Learn how surgeons across specialties use loupes and microscopes, and how intraoperative magnification choices change by procedure, setup, and anatomy.',
   kicker: 'Surgical evidence',
@@ -5223,7 +5226,7 @@ educationGuides.push({
   title: 'Best Loupes for Residents',
   metaTitle: 'Best Loupes for Residents | Magnification, Specialty, Budget',
   description:
-    'How residents should pick their first pair of surgical or dental loupes — magnification by stage, specialty-by-specialty recommendations, and the HeliosX models that fit each.',
+    'How residents should pick a first pair of loupes: magnification by training stage, specialty recommendations, and models that fit each.',
   kicker: 'Resident buying guide',
   audience: 'surgical residents, dental residents, fellows, and medical students preparing to buy their first pair of loupes',
   intro:
@@ -5490,9 +5493,9 @@ const specialtyPages: SeoLandingPage[] = [
   {
     slug: 'pediatric-surgery-loupes',
     title: 'Pediatric Surgery Loupes',
-    metaTitle: 'Pediatric Surgery Loupes | HeliosX Loupes for Pediatric Specialties',
+    metaTitle: 'Pediatric Surgery Loupes | Magnification Guide',
     description:
-      'Loupes for pediatric and neonatal surgery, pediatric urology, and pediatric cardiac specialties. HeliosX ergonomic prismatic systems built for small-structure work.',
+      'Loupes for pediatric and neonatal surgery, urology and cardiac work. HeliosX ergonomic prismatic built for small-structure detail.',
     heroKicker: 'Pediatric specialties',
     primaryKeyword: 'pediatric surgery loupes',
     relatedKeywords: [
@@ -5630,7 +5633,7 @@ const specialtyPages: SeoLandingPage[] = [
     title: 'ENT and Otolaryngology Loupes',
     metaTitle: 'ENT Loupes | HeliosX Otolaryngology Surgical Loupes',
     description:
-      'Loupes for ENT and otolaryngology surgeons, sinus surgery, otologic work, and thyroid procedures. HeliosX ergonomic prismatic systems built for head-and-neck workflows.',
+      'Loupes for ENT and otolaryngology: sinus, otologic and thyroid work. HeliosX ergonomic prismatic built for head-and-neck workflows.',
     heroKicker: 'ENT & otolaryngology',
     primaryKeyword: 'ENT loupes',
     relatedKeywords: [
@@ -5699,7 +5702,7 @@ const specialtyPages: SeoLandingPage[] = [
     title: 'Ophthalmic Surgical Loupes',
     metaTitle: 'Ophthalmic Surgical Loupes | HeliosX Oculoplastic Loupes',
     description:
-      'Loupes for ophthalmic surgery, oculoplastic procedures, lacrimal and lid work. HeliosX high-magnification systems for ophthalmic surgeons who use loupes alongside the microscope.',
+      'Loupes for ophthalmic surgery, oculoplastic, lacrimal and lid work. HeliosX high-magnification systems for use alongside the microscope.',
     heroKicker: 'Ophthalmic surgery',
     primaryKeyword: 'ophthalmic surgical loupes',
     relatedKeywords: [

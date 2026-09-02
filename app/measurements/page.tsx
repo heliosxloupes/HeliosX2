@@ -67,7 +67,7 @@ const steps = [
 ]
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Loupe Measurements Guide | Pupillary Distance and Working Distance',
+  title: 'Loupe Measurements | Pupillary & Working Distance',
   description:
     'Learn how to measure pupillary distance and working distance for HeliosX surgical and dental loupes, including app, manual, and posture-based measurement tips.',
   path: '/measurements',

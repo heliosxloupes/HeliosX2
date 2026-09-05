@@ -3,7 +3,7 @@ import { Syne, Manrope } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from '@/components/SmoothScroll/SmoothScroll'
 import AmbientBackground from '@/components/AmbientBackground'
-import AnalyticsScripts, { GTM_ID } from '@/components/AnalyticsScripts'
+import AnalyticsScripts from '@/components/AnalyticsScripts'
 import Footer from '@/components/Footer/Footer'
 import { buildMetadata, siteUrl } from '@/lib/seo'
 
@@ -55,14 +55,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${syne.variable} ${manrope.variable}`}>
       <body>
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-          />
-        </noscript>
         <AnalyticsScripts />
         <div className="site-shell">
           <AmbientBackground />

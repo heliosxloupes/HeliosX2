@@ -8,7 +8,7 @@ import { Suspense, useEffect, useRef, useState } from 'react'
 const CONSENT_KEY = 'heliosx_analytics_consent'
 const CONSENT_EVENT = 'heliosx:open-privacy-choices'
 const configuredGaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
-const configuredMetaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1062398469881055'
+const configuredMetaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1802043734283628'
 const gaId = configuredGaId && /^G-[A-Z0-9]+$/i.test(configuredGaId) ? configuredGaId : null
 const metaPixelId = /^\d+$/.test(configuredMetaPixelId) ? configuredMetaPixelId : null
 

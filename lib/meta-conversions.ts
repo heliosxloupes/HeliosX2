@@ -36,7 +36,7 @@ function splitName(value: string | null | undefined) {
 }
 
 export async function sendMetaPurchase({ session, orderId, items }: MetaPurchaseInput) {
-  const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1062398469881055'
+  const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1802043734283628'
   const accessToken = process.env.META_CONVERSIONS_API_TOKEN
 
   if (!accessToken) return { sent: false, reason: 'meta_token_not_configured' }

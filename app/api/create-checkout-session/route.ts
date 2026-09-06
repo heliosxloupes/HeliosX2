@@ -42,6 +42,7 @@ export async function POST(req: Request) {
     const items = (body.items ?? []) as IncomingItem[]
     const customerEmail = String(body.customerEmail ?? '').trim().toLowerCase()
     const cartSessionId = body.cartSessionId ? String(body.cartSessionId) : ''
+    const analyticsConsent = body.analyticsConsent === 'granted' ? 'granted' : 'denied'
 
     if (!items.length) {
       return NextResponse.json({ error: 'No items in cart' }, { status: 400 })
@@ -135,6 +136,19 @@ export async function POST(req: Request) {
       .trim()
       .replace(/\/+$/, '')
 
+    const cookies = Object.fromEntries(
+      String(req.headers.get('cookie') ?? '')
+        .split(';')
+        .map((part) => part.trim().split('='))
+        .filter(([name]) => Boolean(name))
+        .map(([name, ...value]) => [name, decodeURIComponent(value.join('='))])
+    )
+    const clientIp = String(req.headers.get('x-forwarded-for') ?? '')
+      .split(',')[0]
+      .trim()
+      .slice(0, 64)
+    const clientUserAgent = String(req.headers.get('user-agent') ?? '').slice(0, 450)
+
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items,
@@ -152,7 +166,15 @@ export async function POST(req: Request) {
           },
         },
       ],
-      metadata: { customerEmail, cartSessionId },
+      metadata: {
+        customerEmail,
+        cartSessionId,
+        analyticsConsent,
+        clientIp,
+        clientUserAgent,
+        fbp: String(cookies._fbp ?? '').slice(0, 200),
+        fbc: String(cookies._fbc ?? '').slice(0, 200),
+      },
       return_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     })
 

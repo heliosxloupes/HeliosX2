@@ -188,6 +188,7 @@ export default function CheckoutPage() {
               items: apiItems,
               customerEmail,
               cartSessionId: window.localStorage.getItem('heliosx_cart_session_id') ?? '',
+              analyticsConsent: window.localStorage.getItem('heliosx_analytics_consent'),
             }),
           })
 

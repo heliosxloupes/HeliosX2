@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
 import { processCheckoutSessionCompleted } from '@/lib/order-confirmation'
+import { sendMetaPurchase } from '@/lib/meta-conversions'
 import { getSupabaseServiceClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
@@ -39,5 +40,13 @@ export async function POST(req: Request) {
     supabase,
   })
 
-  return NextResponse.json({ received: true, ...result })
+  const meta = result.order
+    ? await sendMetaPurchase({
+        session,
+        orderId: String(result.order.id),
+        items: Array.isArray(result.order.items) ? result.order.items : [],
+      })
+    : { sent: false, reason: 'order_not_available' }
+
+  return NextResponse.json({ received: true, ...result, meta })
 }

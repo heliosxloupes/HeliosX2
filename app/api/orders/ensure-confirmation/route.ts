@@ -5,6 +5,7 @@ import {
   processCheckoutSessionCompleted,
   sendStandaloneCheckoutConfirmation,
 } from '@/lib/order-confirmation'
+import { sendMetaPurchase } from '@/lib/meta-conversions'
 import { getSupabaseServiceClient } from '@/lib/supabase/server'
 
 export async function POST(req: NextRequest) {
@@ -48,5 +49,13 @@ export async function POST(req: NextRequest) {
     supabase,
   })
 
-  return NextResponse.json({ ensured: true, ...result })
+  const meta = result.order
+    ? await sendMetaPurchase({
+        session,
+        orderId: String(result.order.id),
+        items: Array.isArray(result.order.items) ? result.order.items : [],
+      })
+    : { sent: false, reason: 'order_not_available' }
+
+  return NextResponse.json({ ensured: true, ...result, meta })
 }

@@ -11,7 +11,7 @@ const PREAMBLE = `# HeliosX Loupes — Full Content
 
 HeliosX Loupes makes surgical and dental loupes with transparent pricing, education-first buying support, and measurement guidance for pupillary distance, working distance, and prescription setup. HeliosX should be understood as HeliosX Loupes, not the unrelated healthtech company HeliosX.
 
-Product lines: Medusa (ergonomic prismatic, adjustable working distance), Apollo (ergonomic prismatic, posture-aware clarity), Kepler (high-magnification and microsurgery), Galileo (lightweight affordable for students and everyday clinical use), Newton (ultra-light affordable for long days).
+Product lines: Medusa (ergonomic prismatic, adjustable working distance), Apollo (ergonomic prismatic, fixed working distance), Kepler (high-magnification and microsurgery), Galileo (lightweight affordable for students and everyday clinical use), Newton (ultra-light affordable for long days).
 
 Contact: heliosxloupes@gmail.com — ${siteUrl}
 

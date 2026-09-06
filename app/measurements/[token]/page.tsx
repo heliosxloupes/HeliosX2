@@ -118,8 +118,8 @@ export default function MeasurementPage({ params }: { params: { token: string } 
                 <p className="text-xs uppercase tracking-[0.28em] text-neutral-500">Custom fit</p>
                 <h1 className="mt-2 text-3xl font-semibold">Submit your HeliosX measurements</h1>
                 <p className="mt-3 text-sm leading-6 text-neutral-400">
-                  Your order remains fully refundable until these measurements are submitted. Once
-                  submitted, we review your fit details and move your loupes toward production.
+                  Your order remains fully refundable until custom production begins. After you
+                  submit these measurements, we review your fit details before releasing the order to production.
                 </p>
                 <div className="mt-6 grid gap-4">
                   <input

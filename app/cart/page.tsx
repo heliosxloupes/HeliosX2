@@ -447,7 +447,7 @@ export default function CartPage() {
                 />
                 {emailError && <p className="text-xs text-red-300">{emailError}</p>}
                 <p className="text-[0.65rem] text-neutral-500">
-                  Risk-free. Fully refundable before measurements are provided.
+                  Risk-free. Fully refundable before custom production begins.
                 </p>
               </div>
 

@@ -93,7 +93,7 @@ export const fallbackProducts: CmsProduct[] = [
     highlights: [
       'Ergonomic prismatic optics tuned for detail work.',
       'Lightweight frame options that stay balanced.',
-      'Extended working distance control.',
+      'Fixed working distance configured to your measurements.',
       'Prescription capable and light-source ready.',
     ],
     magnifications: ['3.0x', '4.0x', '5.0x', '6.0x'],
@@ -128,8 +128,8 @@ export const fallbackProducts: CmsProduct[] = [
       {
         title: 'Magnification specifications',
         items: [
-          'Magnification options: 3.0x, 4.0x, 5.0x, 6.0x.',
-          'Working distance: select 420 mm, 450 mm, 500 mm, or 550 mm at order.',
+          'Standard online magnification options: 3.0x, 4.0x, 5.0x, and 6.0x. Custom magnifications, including 4.5x, may be available by request.',
+          'Fixed working distance: select 420 mm, 450 mm, 500 mm, or 550 mm at order.',
           'Field of view: 50 – 105 mm (varies with magnification and working distance).',
           'Net weight with frame: 55 – 58.2 g.',
           'Optimized for LED light packs and fixed mounts.',

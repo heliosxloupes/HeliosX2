@@ -246,7 +246,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   const isAvailable = config.isAvailable ?? currentUnitPrice > 0
   const priceLabel = config.priceLabel ?? `$${currentUnitPrice}.00`
   const subtotal = currentUnitPrice * quantity
-  const riskFreeCopy = 'Risk-free. Fully refundable before measurements are provided.'
+  const riskFreeCopy = 'Risk-free. Fully refundable before custom production begins.'
   const isErgonomicModel = ['medusa', 'apollo'].includes(config.slug)
   const heroAggregateRating = getProductAggregateRating(config.slug)
   const productFaqList = productFaqs[config.slug] ?? []
@@ -739,7 +739,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 )}
                 <p className="mt-2 text-[0.65rem] leading-relaxed text-neutral-500">
                   {isAvailable
-                    ? `No hidden service contracts, mandatory bundles, or surprise fees. ${riskFreeCopy}`
+                    ? `Custom measurement review included. Typical production time is 1–2 weeks. Two-year limited warranty. ${riskFreeCopy}`
                     : 'Medusa is live in the catalogue. Add-to-cart will be enabled once final pricing is set.'}
                 </p>
               </motion.div>

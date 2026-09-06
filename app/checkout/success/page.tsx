@@ -155,7 +155,7 @@ function CheckoutSuccessContent() {
                 </li>
                 <li className="flex gap-3">
                   <span className="mt-[2px] h-[6px] w-[6px] rounded-full bg-neutral-200" />
-                  <span>Your order is fully refundable until measurements are submitted. Once fit details are verified, we&apos;ll begin production and send shipping updates.</span>
+                  <span>Your order is fully refundable until custom production begins. Once your fit details are verified and production starts, we&apos;ll send order and shipping updates.</span>
                 </li>
               </ul>
             </div>

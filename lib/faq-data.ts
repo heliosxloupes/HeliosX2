@@ -7,12 +7,12 @@ export const faqSchemaItems: { question: string; answer: string }[] = [
   {
     question: 'What is your return policy?',
     answer:
-      'HeliosX offers a 30-day money-back guarantee. If you are not satisfied with your purchase, you can return your loupes within 30 days of delivery for a full refund. The product must be in original condition with all packaging and accessories.',
+      'Orders may be cancelled for a full refund at any time before custom production begins. Once production begins, the custom order is no longer refundable. After delivery, authorized returns are available for fit or configuration modifications.',
   },
   {
     question: 'Where do you ship?',
     answer:
-      'HeliosX ships to the United States and Canada. International shipping may be available upon request — contact the support team for more information.',
+      'HeliosX ships worldwide to destinations supported by its payment provider and international carriers. Enter your address during checkout to confirm availability.',
   },
   {
     question: 'Can I get prescription lenses?',
@@ -30,14 +30,14 @@ export const faqSchemaItems: { question: string; answer: string }[] = [
       'Sit or stand in your normal working posture with your back and neck straight. Place a measuring tape at the corner of your eye and extend it to where your hands normally work. Record this distance — this is your working distance for loupe configuration.',
   },
   {
-    question: 'How much is shipping?',
+    question: 'How long do production and shipping take?',
     answer:
-      'Standard shipping is free within the United States and Canada. Standard delivery within the US typically takes 3–10 business days. Express options are available at checkout.',
+      'Custom production typically takes 1–2 weeks after measurements and prescription information, when applicable, are approved. Standard worldwide shipping is included in the listed product price; transit time varies by destination, carrier service, and customs processing.',
   },
   {
     question: 'What is the warranty on HeliosX loupes?',
     answer:
-      'All HeliosX surgical loupes come with a comprehensive warranty covering manufacturing defects and optical performance. Contact the support team at heliosxloupes@gmail.com for specific warranty details for your product model.',
+      'All HeliosX loupes include a two-year limited warranty covering manufacturer-related defects in materials and workmanship from the delivery date. Normal wear, accidental damage, misuse, prescription changes, and unauthorized modifications are not covered.',
   },
   {
     question: 'Are the lenses multi-layer coated?',

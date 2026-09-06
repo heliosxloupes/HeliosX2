@@ -266,7 +266,7 @@ export default function CheckoutPage() {
               Review your order and complete payment securely with Stripe&apos;s embedded checkout.
             </p>
             <p className="mt-3 rounded-2xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-xs font-medium text-emerald-100">
-              Risk-free. Fully refundable before measurements are provided.
+              Risk-free. Fully refundable before custom production begins.
             </p>
 
             <div className="mt-6">

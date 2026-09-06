@@ -662,13 +662,13 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         title: 'The fit and buying process',
         body:
-          'The order flow is short on purpose. You select a model and magnification on the product page, pay, and receive a measurement email within the day. The measurement step walks you through pupillary distance, working distance, prescription details, and posture preferences. Production begins after measurements are confirmed; orders are fully refundable up to that point. Standard turnaround from measurement submission to delivery is roughly three to five weeks in the US and Canada.',
+          'The order flow is short on purpose. You select a model and magnification on the product page, pay, and receive a measurement email within the day. The measurement step walks you through pupillary distance, working distance, prescription details, and posture preferences. Orders remain fully refundable until custom production begins. Production typically takes 1–2 weeks after measurements and prescription information, when applicable, are approved; shipping time then varies by destination.',
         bullets: [
           'Step 1: choose model and magnification; pay; receive measurement email.',
           'Step 2: submit PD, working distance, prescription, posture notes via the linked form.',
           'Step 3: HeliosX confirms the fit detail; production begins.',
-          'Step 4: shipping in roughly 3 to 5 weeks for US and Canada orders.',
-          'Refund window: full refund any time before measurements are submitted. 30-day return after delivery for orders in original condition.',
+          'Step 4: production typically takes 1–2 weeks, followed by destination-dependent shipping.',
+          'Refund and modification policy: full refund any time before custom production begins; authorized fit or configuration modifications are available after delivery.',
         ],
       },
       valueSection,
@@ -682,7 +682,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       { feature: 'Ergonomic prismatic price', heliosx: '$1,695 (Medusa, Apollo)', other: 'Commonly $3,500–$5,500+' },
       { feature: 'Headlight integration', heliosx: 'Sold separately; no proprietary bundle', other: 'Often bundled with proprietary headlight systems' },
       { feature: 'Resident / student access pricing', heliosx: 'Documented discounts available on request', other: 'Dental-school programs common; surgical-resident access varies' },
-      { feature: 'Refund window', heliosx: 'Full refund before measurements submitted; 30-day return after delivery', other: 'Varies; restocking fees common' },
+      { feature: 'Refund and modification policy', heliosx: 'Full refund before custom production begins; authorized modifications after delivery', other: 'Varies; restocking fees common' },
     ],
     competitorName: 'Typical legacy loupe brand',
     verdict:
@@ -706,7 +706,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer a warranty?',
         answer:
-          'Yes. Every order ships with a warranty that covers manufacturing defects and optical performance, plus replacement and lens-update paths for prescription changes. See /warranty for the full policy and how claims are handled.',
+          'Yes. Every order includes a two-year limited warranty covering manufacturer-related defects in materials and workmanship from the delivery date. See /warranty for the full policy and how claims are handled.',
       },
       {
         question: 'Why are HeliosX loupes so much cheaper than legacy brands?',
@@ -716,7 +716,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'What if my loupes do not fit when they arrive?',
         answer:
-          'Orders are fully refundable before measurements are submitted. After measurement-and-production, the 30-day return window applies to orders in original condition. Fit adjustments and lens updates are handled under the warranty for issues that emerge after delivery.',
+          'Orders are fully refundable until custom production begins. Once production begins, the custom order is no longer refundable. After delivery, authorized returns are available for fit or configuration modifications, while manufacturer-related defects are covered by the two-year limited warranty.',
       },
       {
         question: 'Where are HeliosX loupes manufactured?',
@@ -2744,7 +2744,7 @@ const competitorPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass with multi-layer coatings and rigid metal barrels', other: 'Established dental-brand build with light-system integration' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Direct-to-clinician shipping' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support team, one-business-day response before production begins', other: 'Dental-audience support with light-system focus' },
-      { feature: 'Replacement and warranty', heliosx: '30-day return window plus replacement and lens-update paths under the warranty', other: 'Standard loupe-brand warranty terms' },
+      { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard loupe-brand warranty terms' },
       { feature: 'Resident / student access', heliosx: 'Resident-budget-aware pricing across the lineup with discounts for residents and students', other: 'Dental-student audience pricing' },
       { feature: 'Education resources', heliosx: 'Measurement, magnification, ergonomics, and research guides built into the buying flow', other: 'Product and dental-workflow content' },
     ],
@@ -2861,7 +2861,7 @@ const competitorPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass with multi-layer coatings and rigid metal barrels', other: 'Established premium loupe construction with dealer fitting' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Dealer-routed fulfillment in many regions' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support team, one-business-day response before production begins', other: 'Dealer rep + central brand support' },
-      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths under the warranty, optional protection coverage at order', other: 'Standard loupe-brand warranty terms routed through dealer' },
+      { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard loupe-brand warranty terms routed through dealer' },
       { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and student pricing through dealer programs' },
       { feature: 'Education resources', heliosx: 'Measurement, magnification, ergonomics, research, and per-specialty guides built into the buying flow', other: 'Product documents, blog posts, and dealer training resources' },
     ],
@@ -2980,7 +2980,7 @@ const competitorPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass, multi-layer coatings, rigid metal barrels', other: 'Established premium loupe construction with dealer fitting' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Dealer-routed fulfillment in many regions' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support team, one-business-day response before production', other: 'Dealer rep plus central brand support' },
-      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths, optional protection coverage at order', other: 'Standard premium-loupe warranty terms routed through dealer' },
+      { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard premium-loupe warranty terms routed through dealer' },
       { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and student pricing through dealer programs' },
       { feature: 'Education resources', heliosx: 'Measurement, magnification, ergonomics, research, and per-specialty guides built into the buying flow', other: 'Product documents, blog posts, and dealer training resources' },
     ],
@@ -3100,7 +3100,7 @@ const competitorPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass, multi-layer coatings, rigid metal barrels', other: 'Established dental-brand build with light-system integration' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Direct-to-clinician shipping' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Dental-audience support with light-system focus' },
-      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths, optional protection coverage at order', other: 'Standard loupe-brand warranty terms' },
+      { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard loupe-brand warranty terms' },
       { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'Dental-student audience pricing' },
     ],
     verdict:
@@ -3219,7 +3219,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass, multi-layer coatings, rigid metal barrels', other: 'Established ergonomic-loupe construction' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Mixed direct and dealer fulfillment by region' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production begins', other: 'Ergonomic evaluation and support through brand or rep' },
-      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths under the warranty, optional protection coverage at order', other: 'Standard ergonomic-loupe warranty terms' },
+      { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard ergonomic-loupe warranty terms' },
       { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and dental-student pricing through the brand’s programs' },
       { feature: 'Education resources', heliosx: 'Working distance, magnification, ergonomics (with cited 2023 Frontiers RCT), and per-specialty guides built into the site', other: 'Posture and ergonomics evaluation content' },
     ],
@@ -3336,7 +3336,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass with multi-layer coatings and rigid metal barrels', other: 'Established lightweight prismatic construction' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Mixed direct and dealer fulfillment' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production begins', other: 'Brand support plus dealer relationships' },
-      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths under the warranty, optional protection coverage at order', other: 'Standard loupe-brand warranty terms' },
+      { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard loupe-brand warranty terms' },
       { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and student pricing through brand or dealer programs' },
       { feature: 'Education resources', heliosx: 'Plain-language measurement, magnification, ergonomics, and research guides built into the site', other: 'Spec sheets, datasheets, and support documents' },
     ],
@@ -3454,7 +3454,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass, multi-layer coatings, rigid metal barrels', other: 'Premium European custom-crafted construction' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Dealer-routed fulfillment in many regions' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Dealer rep + central brand support' },
-      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths, optional protection coverage at order', other: 'Premium loupe-brand warranty routed through dealer' },
+      { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Premium loupe-brand warranty routed through dealer' },
       { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'Premium custom pricing without explicit access tier' },
     ],
     verdict:
@@ -3571,7 +3571,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass, multi-layer coatings, rigid metal barrels', other: 'Premium ergonomic-technology construction' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Specialty channel and dealer fulfillment' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Dealer rep and brand support' },
-      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths, optional protection coverage at order', other: 'Premium loupe-brand warranty terms' },
+      { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Premium loupe-brand warranty terms' },
       { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'Premium pricing without explicit access tier' },
     ],
     verdict:
@@ -3692,7 +3692,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass, multi-layer coatings, rigid metal barrels', other: 'Established ergonomic-loupe construction' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Mixed direct and dealer fulfillment by region' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Ergonomic evaluation support through brand or rep' },
-      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths, optional protection coverage at order', other: 'Standard ergonomic-loupe warranty terms' },
+      { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard ergonomic-loupe warranty terms' },
       { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and student pricing through brand programs' },
     ],
     verdict:
@@ -3811,7 +3811,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass with multi-layer coatings and rigid metal barrels', other: 'Established lightweight prismatic construction' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Mixed direct and dealer fulfillment' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Brand support plus dealer relationships' },
-      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths, optional protection coverage at order', other: 'Standard loupe-brand warranty terms' },
+      { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard loupe-brand warranty terms' },
       { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and student pricing through brand or dealer programs' },
       { feature: 'Education resources', heliosx: 'Plain-language measurement, magnification, ergonomics, and research guides built into the site', other: 'Spec sheets, datasheets, and support documents' },
     ],
@@ -4313,7 +4313,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass with multi-layer coatings, rigid metal barrels, reinforced mounts', other: 'Premium-tier construction expected' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician with measurement-first production', other: 'Dealer-network or distributor routing typical' },
       { feature: 'Customer support', heliosx: 'One-business-day response SLA from a clinician-aware team', other: 'Dealer or distributor support layer' },
-      { feature: 'Replacement and warranty', heliosx: 'Warranty with replacement and lens-update paths; 30-day return window', other: 'Warranty terms vary' },
+      { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support; two-year limited manufacturer-defect warranty', other: 'Warranty terms vary' },
       { feature: 'Education depth', heliosx: 'Public guides on posture, working distance, prismatic vs Galilean optics', other: 'Education depth varies by site' },
     ],
     verdict:
@@ -4550,7 +4550,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass, multi-layer coatings, rigid metal barrels', other: 'Premium European custom-crafted construction' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Dealer-routed fulfillment in many regions' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Dealer rep plus central brand support' },
-      { feature: 'Replacement and warranty', heliosx: '30-day return plus replacement and lens-update paths, optional protection coverage at order', other: 'Premium loupe-brand warranty routed through dealer' },
+      { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Premium loupe-brand warranty routed through dealer' },
       { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'Premium custom pricing without explicit access tier' },
     ],
     verdict:
@@ -4665,7 +4665,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass with multi-layer coatings, rigid metal barrels, reinforced mounts', other: 'Premium-tier construction expected' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician with measurement-first production', other: 'Dealer-network or regional distributor routing' },
       { feature: 'Customer support', heliosx: 'One-business-day response SLA from a small, clinician-aware team', other: 'Dealer or distributor support layer' },
-      { feature: 'Replacement and warranty', heliosx: 'Warranty with replacement and lens-update paths; 30-day return window', other: 'Warranty terms vary' },
+      { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support; two-year limited manufacturer-defect warranty', other: 'Warranty terms vary' },
       { feature: 'Resident and student access', heliosx: 'Documented resident and student discount eligibility across the lineup', other: 'Educational pricing varies by partner' },
     ],
     verdict:
@@ -5290,7 +5290,7 @@ educationGuides.push({
         'Galileo and Newton start around $695 — competitive with disposable-quality knockoffs but built around real custom IPD and working-distance measurement.',
         'Apollo and Medusa start around $1,695 — typically 50 to 70 percent less than equivalent ergonomic prismatic loupes from legacy brands.',
         'Kepler starts around $1,195 — the most accessible entry into high-magnification loupe territory.',
-        'Risk-free before measurements: HeliosX builds each pair after you submit your PD and working distance, so the order is fully refundable up to that point.',
+        'Risk-free before production: each order remains fully refundable until the custom build enters production.',
       ],
     },
     {
@@ -5868,12 +5868,12 @@ const universalLoupesFaqs: ContentFaq[] = [
   {
     question: 'Can I return HeliosX loupes if they do not fit?',
     answer:
-      'Yes. Orders are fully refundable before measurements are submitted because each pair is custom-built. After delivery, HeliosX offers a 30-day return window on orders in original condition with all packaging and accessories.',
+      'Yes. Orders are fully refundable until custom production begins. Once production begins, the custom order is no longer refundable. After delivery, authorized returns are available for fit or configuration modifications.',
   },
   {
     question: 'Are HeliosX loupes covered by a warranty?',
     answer:
-      'Yes. Every HeliosX loupe ships with a warranty covering manufacturing defects and optical performance. Repairs and lens updates are also supported. See /warranty for the full policy.',
+      'Yes. Every HeliosX loupe includes a two-year limited warranty covering manufacturer-related defects in materials and workmanship from the delivery date. See /warranty for the full policy.',
   },
   {
     question: 'How does HeliosX pricing compare to Orascoptic, SurgiTel, and LumaDent?',
@@ -5883,7 +5883,7 @@ const universalLoupesFaqs: ContentFaq[] = [
   {
     question: 'Does HeliosX ship internationally?',
     answer:
-      'HeliosX ships to the United States and Canada as standard. International shipping is available on request to most countries served by major couriers. Email heliosxloupes@gmail.com to coordinate before placing the order.',
+      'HeliosX ships worldwide to destinations supported by its payment provider and international carriers. Custom production typically takes 1–2 weeks after measurements are approved, followed by destination-dependent transit time.',
   },
   {
     question: 'Can I get prescription lenses with HeliosX loupes?',

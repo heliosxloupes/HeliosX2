@@ -6,7 +6,7 @@ import { buildMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Warranty | HeliosX Loupes',
-  description: 'HeliosX warranty covering manufacturing defects, optical performance, and ongoing support for surgical and dental loupes.',
+  description: 'Two-year HeliosX limited warranty covering manufacturer-related defects in surgical and dental loupes.',
   path: '/warranty',
 })
 
@@ -19,7 +19,7 @@ export default function WarrantyPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.26em] text-emerald-200/80">
             Support
           </p>
-          <h1 className="text-3xl font-semibold md:text-4xl">Warranty</h1>
+          <h1 className="text-3xl font-semibold md:text-4xl">Two-year limited warranty</h1>
 
           <section className="space-y-3">
             <h2 className="flex items-center gap-2.5 text-lg font-semibold text-white">
@@ -27,7 +27,7 @@ export default function WarrantyPage() {
               What is covered
             </h2>
             <p className="text-neutral-300">
-              All HeliosX loupes come with a warranty covering manufacturing defects and optical performance. If something is wrong with the build, the optics, or the fit out of the box, reach out and we will make it right.
+              All HeliosX loupes include a two-year limited warranty covering manufacturer-related defects in materials and workmanship. Coverage begins on the delivery date. If you believe your loupes have a covered issue, contact us with your order information and photos when relevant.
             </p>
           </section>
 
@@ -37,7 +37,7 @@ export default function WarrantyPage() {
               Repairs and service
             </h2>
             <p className="text-neutral-300">
-              We support repairs across the HeliosX product line. Many repairs are completed quickly. When a repair is not the right option, we offer replacement paths. Email us at{' '}
+              We assess covered claims and provide the appropriate repair or replacement path. Email us at{' '}
               <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
                 heliosxloupes@gmail.com
               </a>{' '}
@@ -61,7 +61,7 @@ export default function WarrantyPage() {
               Outside of warranty
             </h2>
             <p className="text-neutral-300">
-              Wear, accidental damage, and modifications fall outside the standard warranty. We still try to help. Email{' '}
+              Normal wear, accidental damage, misuse, prescription changes, and unauthorized modifications fall outside the two-year limited warranty. We still try to help. Email{' '}
               <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
                 heliosxloupes@gmail.com
               </a>{' '}

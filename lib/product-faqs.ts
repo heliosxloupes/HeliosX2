@@ -36,7 +36,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'What magnification options does Apollo support?',
       answer:
-        'Apollo is offered in 3.0x, 4.0x, 5.0x, and 6.0x. It is the HeliosX ergonomic prismatic system with fixed working distance — best for clinicians who want a posture-locked setup tuned for clarity at one consistent working distance.',
+        'Apollo standard online configurations are 3.0x, 4.0x, 5.0x, and 6.0x. Custom magnifications, including 4.5x, may be available by request. Apollo is the HeliosX ergonomic prismatic system with a fixed working distance configured to the clinician’s measurements.',
     },
     {
       question: 'What is the difference between Apollo and Medusa?',
@@ -46,7 +46,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'How much does Apollo weigh?',
       answer:
-        'Apollo with frame is 55–58.2 g depending on configuration. Apollo 1 and Apollo 2 frames each ship in five colorways.',
+        'Apollo weighs 55–58.2 g including the frame, depending on configuration. Apollo 1 and Apollo 2 frames each ship in five colorways.',
     },
     {
       question: 'Are there discounts for residents and students?',

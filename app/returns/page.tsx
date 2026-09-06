@@ -6,7 +6,7 @@ import { buildMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Returns &amp; Refunds | HeliosX Loupes',
-  description: 'HeliosX return policy: risk-free refund window before measurements are submitted, and 30-day return rules after delivery.',
+  description: 'HeliosX refund and modification policy for custom surgical and dental loupes before production and after delivery.',
   path: '/returns',
 })
 
@@ -24,34 +24,34 @@ export default function ReturnsPage() {
           <section className="space-y-3">
             <h2 className="flex items-center gap-2.5 text-lg font-semibold text-white">
               <ShieldCheck className="h-5 w-5 shrink-0 text-emerald-300" strokeWidth={1.75} aria-hidden="true" />
-              Risk-free before measurements
+              Fully refundable before production
             </h2>
             <p className="text-neutral-300">
-              Orders are fully refundable before measurements are submitted. Because each pair of HeliosX loupes is built around your individual pupillary distance, working distance, and frame selection, the risk-free window covers the period between checkout and the moment we begin custom production.
+              You may cancel your order for a full refund at any time before custom production begins. After checkout, we collect and review your pupillary distance, working distance, frame selection, and prescription information before releasing the order to production.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="flex items-center gap-2.5 text-lg font-semibold text-white">
               <RotateCcw className="h-5 w-5 shrink-0 text-emerald-300" strokeWidth={1.75} aria-hidden="true" />
-              30-day return after delivery
+              Modifications after delivery
             </h2>
             <p className="text-neutral-300">
-              We offer a 30-day money-back guarantee on delivered orders. If you are not satisfied with your loupes within 30 days of delivery, you can return them for a full refund. The product must be in original condition with all packaging and accessories included.
+              After your loupes have shipped or arrived, they may be returned for an authorized fit or configuration modification. Contact us before sending the product so we can review the issue and provide the correct return instructions.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="flex items-center gap-2.5 text-lg font-semibold text-white">
               <ClipboardCheck className="h-5 w-5 shrink-0 text-emerald-300" strokeWidth={1.75} aria-hidden="true" />
-              After production review
+              Once production begins
             </h2>
             <p className="text-neutral-300">
-              Once measurements are submitted and production review begins, refunds may be limited by the custom production status. Reach out to{' '}
+              Because every pair is made to the buyer’s measurements and selected configuration, orders are no longer refundable once custom production begins. Manufacturing-related issues remain covered by the two-year limited warranty. Reach out to{' '}
               <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
                 heliosxloupes@gmail.com
               </a>{' '}
-              and we will work with you on the best path forward.
+              and we will help determine whether a modification, repair, or warranty service is appropriate.
             </p>
           </section>
 
@@ -65,7 +65,7 @@ export default function ReturnsPage() {
               <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
                 heliosxloupes@gmail.com
               </a>{' '}
-              with your order number and a brief description of the issue. We respond within one business day with the next step and a return shipping label when applicable.
+              with your order number, a brief description of the issue, and photos when relevant. We respond within one business day with authorization and the next steps when a return is appropriate.
             </p>
           </section>
         </article>

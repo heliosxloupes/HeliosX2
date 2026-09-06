@@ -6,7 +6,7 @@ import { buildMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Shipping | HeliosX Loupes',
-  description: 'Shipping destinations, transit times, and order tracking for HeliosX surgical and dental loupes.',
+  description: 'Worldwide shipping, production times, transit estimates, and order tracking for HeliosX surgical and dental loupes.',
   path: '/shipping',
 })
 
@@ -27,21 +27,17 @@ export default function ShippingPage() {
               Where we ship
             </h2>
             <p className="text-neutral-300">
-              HeliosX ships to the United States and Canada as standard destinations. International shipping is available on request to most countries served by major couriers; reach out at{' '}
-              <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
-                heliosxloupes@gmail.com
-              </a>{' '}
-              if your delivery address is outside the US or Canada.
+              HeliosX ships worldwide to destinations supported by our payment provider and international carriers. Enter your delivery address during checkout to confirm availability for your location.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="flex items-center gap-2.5 text-lg font-semibold text-white">
               <Clock className="h-5 w-5 shrink-0 text-emerald-300" strokeWidth={1.75} aria-hidden="true" />
-              Transit time
+              Production and transit time
             </h2>
             <p className="text-neutral-300">
-              Standard shipping within the US typically takes 3–5 business days after production is complete. Express options are offered at checkout when available. Custom-fit production starts after measurements are received, which adds a separate production window before shipment.
+              Custom production typically takes 1–2 weeks after your measurements and prescription information, when applicable, are received and approved. Shipping time begins after production and varies by destination, carrier service, and customs processing.
             </p>
           </section>
 
@@ -62,10 +58,10 @@ export default function ShippingPage() {
           <section className="space-y-3">
             <h2 className="flex items-center gap-2.5 text-lg font-semibold text-white">
               <Wallet className="h-5 w-5 shrink-0 text-emerald-300" strokeWidth={1.75} aria-hidden="true" />
-              Shipping cost
+              Shipping included
             </h2>
             <p className="text-neutral-300">
-              Standard shipping inside the US and Canada is included on most orders. Final shipping cost is calculated at checkout based on destination and the option you select.
+              Standard worldwide shipping is included in the listed product price. Transit time varies by destination, carrier service, and customs processing.
             </p>
           </section>
         </article>

@@ -20,7 +20,7 @@ export default function TermsPage() {
             HeliosX surgical loupes are custom-fit products. After checkout, customers must submit required measurements before production begins.
           </p>
           <p className="text-neutral-300">
-            Orders are risk-free and fully refundable before measurements are submitted. Once measurements are submitted and production review begins, refunds may be limited by custom production status.
+            Orders may be cancelled for a full refund at any time before custom production begins. Once custom production begins, the order is no longer refundable. After delivery, authorized returns are available for fit or configuration modifications, and manufacturer-related defects are covered by the two-year limited warranty.
           </p>
           <p className="text-neutral-300">
             Shipping updates are provided by email when tracking is available. Contact heliosxloupes@gmail.com for order, refund, or support questions.

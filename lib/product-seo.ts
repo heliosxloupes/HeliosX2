@@ -46,7 +46,7 @@ const productAdditionalSpecs: Record<string, ProductSpecInput[]> = {
     { name: 'Weight with frame', value: '56-65', unitCode: 'GRM', unitText: 'g' },
   ],
   apollo: [
-    { name: 'Working distance', value: '420, 450, 500, 550', unitCode: 'MMT', unitText: 'mm (selectable)' },
+    { name: 'Working distance', value: '420, 450, 500, 550', unitCode: 'MMT', unitText: 'mm (fixed, selected at order)' },
     { name: 'Field of view', value: '50-105', unitCode: 'MMT', unitText: 'mm' },
     { name: 'Net weight with frame', value: '55-58.2', unitCode: 'GRM', unitText: 'g' },
   ],

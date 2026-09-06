@@ -138,7 +138,7 @@ const faqSections = [
     items: [
       {
         q: 'What magnification options are available?',
-        a: 'HeliosX offers various magnification levels across our product line: Galileo and Newton (2.5x, 3.0x, 3.5x), Apollo (3.0x, 4.0x, 5.0x, 6.0x), and Kepler (4.0x, 5.0x, 6.0x). Each model is designed for specific surgical and dental applications.',
+        a: 'HeliosX offers various magnification levels across the product line: Galileo and Newton (2.5x, 3.0x, 3.5x), Apollo (standard online configurations of 3.0x, 4.0x, 5.0x, and 6.0x), Medusa (3.0x–8.5x), and Kepler (4.0x, 5.0x, 6.0x). Custom configurations may be available by request.',
       },
       {
         q: 'What frame options do you have?',
@@ -146,11 +146,11 @@ const faqSections = [
       },
       {
         q: 'What are the weight specifications?',
-        a: 'HeliosX loupes are designed to be lightweight for extended use. Galileo weighs approximately 35-37g depending on magnification. Newton, Apollo, and Kepler have similar lightweight designs optimized for comfort during long procedures.',
+        a: 'Weight varies by model and configuration. Apollo weighs 55–58.2 g including the frame. See each product page for model-specific weight information.',
       },
       {
         q: 'What is the working distance?',
-        a: 'Working distance varies by magnification and model. Our loupes are designed for optimal working distances typical in surgical and dental procedures. Specific measurements are available in each product\'s technical specifications.',
+        a: 'Working distance varies by model and is configured from your measurements. Apollo uses a fixed working distance; Medusa is the only HeliosX model with adjustable working distance. See each product page for the available configurations.',
       },
       {
         q: 'Are the lenses multi-layer coated?',
@@ -171,19 +171,19 @@ const faqSections = [
     items: [
       {
         q: 'What is the warranty on HeliosX loupes?',
-        a: 'All HeliosX surgical loupes come with a comprehensive warranty covering manufacturing defects and optical performance. Please contact our support team for specific warranty details based on your product model.',
+        a: 'All HeliosX loupes include a two-year limited warranty covering manufacturer-related defects in materials and workmanship from the delivery date. Normal wear, accidental damage, misuse, prescription changes, and unauthorized modifications are not covered.',
       },
       {
         q: 'What is your return policy?',
-        a: "We offer a 30-day money-back guarantee. If you're not satisfied with your purchase, you can return your loupes within 30 days of delivery for a full refund. The product must be in original condition with all packaging and accessories.",
+        a: 'Orders may be cancelled for a full refund at any time before custom production begins. Once production begins, the custom order is no longer refundable. After delivery, authorized returns are available for fit or configuration modifications.',
       },
       {
         q: 'Where do you ship?',
-        a: 'We currently ship to the United States and Canada. International shipping options may be available upon request. Please contact our support team for more information.',
+        a: 'HeliosX ships worldwide to destinations supported by our payment provider and international carriers. Enter your address during checkout to confirm availability.',
       },
       {
-        q: 'How much is shipping?',
-        a: 'Shipping costs vary based on your location and selected shipping method. Standard shipping within the US typically takes 3-5 business days. Express shipping options are available at checkout.',
+        q: 'How long do production and shipping take?',
+        a: 'Custom production typically takes 1–2 weeks after your measurements and prescription information, when applicable, are approved. Standard worldwide shipping is included in the listed product price; transit time varies by destination, carrier service, and customs processing.',
       },
       {
         q: 'Can I pay in installments?',
@@ -212,7 +212,7 @@ const faqSections = [
       },
       {
         q: 'What other products do you offer?',
-        a: 'Currently, we offer four main product lines: Galileo, Newton, Apollo, and Kepler surgical loupes. Each is designed for specific applications and preferences. We\'re continuously working on expanding our product range based on community feedback.',
+        a: 'Currently, we offer five main product lines: Galileo, Newton, Apollo, Medusa, and Kepler surgical loupes. Each is designed for specific applications and preferences. We\'re continuously working on expanding our product range based on community feedback.',
       },
     ],
   },

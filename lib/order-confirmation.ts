@@ -25,7 +25,7 @@ For PD, we recommend using PDCheck AR by EyeQue on iPhone. Download the app here
 
 After measuring, reply directly to this email with a screenshot of your PDCheck AR result, or submit your details through your secure measurement page: {{measurement_url}}
 
-Your order remains fully refundable until measurements are submitted.`
+Your order remains fully refundable until custom production begins.`
 
 function compactDetails(details: Array<string | null | undefined>) {
   return details

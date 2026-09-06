@@ -25,6 +25,9 @@ export default function PrivacyPage() {
           <p className="text-neutral-300">
             We use Supabase for operational data and Resend for transactional and abandoned-cart email. You can contact us at heliosxloupes@gmail.com for privacy questions or data requests.
           </p>
+          <p className="text-neutral-300">
+            With your permission, we use Google Analytics and Meta Pixel to understand website activity, measure advertising performance, and improve our campaigns. These tools may use cookies or similar browser storage. You can accept or decline analytics and advertising tracking when prompted, and you can reopen Privacy choices from the footer at any time.
+          </p>
         </article>
       </main>
     </>

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Mail } from 'lucide-react'
 
 import { supportEmail } from '@/lib/seo'
+import CookiePreferencesButton from '@/components/CookiePreferencesButton'
 
 const exploreLinks: { label: string; href: string }[] = [
   { label: 'All loupes', href: '/product' },
@@ -133,7 +134,10 @@ export default function Footer() {
           <p>
             &copy; {new Date().getFullYear()} HeliosX Loupes. Engineered for excellence. Perfect focus, every detail.
           </p>
-          <p>No gate keeping. Just fair pricing.</p>
+          <div className="flex items-center gap-4">
+            <CookiePreferencesButton />
+            <p>No gate keeping. Just fair pricing.</p>
+          </div>
         </div>
       </div>
     </footer>

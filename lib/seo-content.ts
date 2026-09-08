@@ -5933,3 +5933,304 @@ export function getSeoLandingPage(slug: string) {
 export function getEducationGuide(slug: string) {
   return educationGuides.find((guide) => guide.slug === slug) ?? null
 }
+
+/**
+ * Curated contextual cross-links, keyed by page slug.
+ *
+ * The 8 Sep 2026 audit found 19 pages with zero in-content inbound links --
+ * nine of them subspecialty pages, which convert at 4-21% CTR against
+ * 0.03-0.26% on broad commercial pages. Nav and footer links do not close
+ * that gap; Google discounts sitewide boilerplate. This map drives a
+ * "Related guides" block rendered at the foot of every landing and
+ * education page, so the highest-authority hubs deliberately feed the tail.
+ *
+ * Keys are slugs (no leading slash). Targets are full paths, because
+ * education guides live under /education/ and landing pages do not.
+ */
+export type RelatedPage = {
+  href: string
+  label: string
+  blurb: string
+}
+
+const SURGICAL_SUBSPECIALTIES: RelatedPage[] = [
+  {
+    href: '/general-surgery-loupes',
+    label: 'General surgery loupes',
+    blurb: 'Magnification for open abdominal and soft-tissue work.',
+  },
+  {
+    href: '/vascular-surgery-loupes',
+    label: 'Vascular surgery loupes',
+    blurb: 'Anastomosis and access work, where depth of field matters most.',
+  },
+  {
+    href: '/orthopedic-surgery-loupes',
+    label: 'Orthopedic surgery loupes',
+    blurb: 'Joint, hand and spine procedures with longer working distances.',
+  },
+  {
+    href: '/hand-surgery-loupes',
+    label: 'Hand surgery loupes',
+    blurb: 'Tendon, nerve and microvascular repair at higher magnification.',
+  },
+  {
+    href: '/urology-loupes',
+    label: 'Urology loupes',
+    blurb: 'Open, microsurgical and pediatric urological cases.',
+  },
+  {
+    href: '/gynecology-loupes',
+    label: 'Gynecology loupes',
+    blurb: 'Open, vaginal and microsurgical gynecological work.',
+  },
+  {
+    href: '/spine-surgery-loupes',
+    label: 'Spine surgery loupes',
+    blurb: 'Long cases where posture and declination decide comfort.',
+  },
+]
+
+const DENTAL_SUBSPECIALTIES: RelatedPage[] = [
+  {
+    href: '/loupes-for-periodontics',
+    label: 'Loupes for periodontics',
+    blurb: 'Subgingival detail and root surface work.',
+  },
+  {
+    href: '/loupes-for-endodontics',
+    label: 'Loupes for endodontics',
+    blurb: 'Canal location and access at higher magnification.',
+  },
+  {
+    href: '/loupes-for-orthodontics',
+    label: 'Loupes for orthodontics',
+    blurb: 'Bracket placement and bonding accuracy.',
+  },
+  {
+    href: '/loupes-for-dental-implants',
+    label: 'Loupes for dental implants',
+    blurb: 'Implant surgery and restorative precision.',
+  },
+  {
+    href: '/loupes-for-dental-hygiene',
+    label: 'Loupes for dental hygiene',
+    blurb: 'Full-day scaling, where weight and posture matter most.',
+  },
+]
+
+const BUYING_DECISION_PAGES: RelatedPage[] = [
+  {
+    href: '/how-much-do-surgical-loupes-cost',
+    label: 'What loupes actually cost',
+    blurb: 'Real pricing across the category, and where the money goes.',
+  },
+  {
+    href: '/are-surgical-loupes-worth-it',
+    label: 'Are loupes worth it?',
+    blurb: 'A decision guide for residents and students buying their first pair.',
+  },
+  {
+    href: '/heliosx-loupes-review',
+    label: 'HeliosX loupes review',
+    blurb: 'What the lineup does well, and where it does not.',
+  },
+  {
+    href: '/cheap-loupes',
+    label: 'Cheap loupes, honestly assessed',
+    blurb: 'What you give up at the bottom of the market, and what you do not.',
+  },
+]
+
+const MEASUREMENT_PAGES: RelatedPage[] = [
+  {
+    href: '/measurements',
+    label: 'Measurement guide',
+    blurb: 'Pupillary distance, working distance and declination, measured at home.',
+  },
+  {
+    href: '/education/working-distance-for-loupes',
+    label: 'Working distance explained',
+    blurb: 'Why this number is chosen before magnification.',
+  },
+  {
+    href: '/education/how-to-measure-pupillary-distance',
+    label: 'How to measure pupillary distance',
+    blurb: 'The measurement every custom-fit pair depends on.',
+  },
+]
+
+export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
+  // --- Education hubs: the highest-authority pages on the site (64 inbound
+  // links each). These are the primary distribution points into the tail.
+  'intraoperative-magnification-by-specialty': SURGICAL_SUBSPECIALTIES,
+  'loupe-magnification-guide': DENTAL_SUBSPECIALTIES,
+  'galilean-vs-prismatic-loupes': [
+    ...MEASUREMENT_PAGES.slice(0, 2),
+    {
+      href: '/prismatic-loupes',
+      label: 'Prismatic loupes',
+      blurb: 'Where prismatic optics earn their price over Galilean.',
+    },
+    {
+      href: '/ergonomic-loupes',
+      label: 'Ergonomic loupes',
+      blurb: 'Optics that refract the view down so your neck stays neutral.',
+    },
+  ],
+  'working-distance-for-loupes': [
+    ...MEASUREMENT_PAGES.slice(0, 1),
+    ...SURGICAL_SUBSPECIALTIES.slice(0, 3),
+  ],
+  'how-to-measure-pupillary-distance': [
+    ...MEASUREMENT_PAGES.slice(0, 1),
+    ...DENTAL_SUBSPECIALTIES.slice(0, 2),
+  ],
+  'ergonomic-loupes-neck-pain': [
+    {
+      href: '/loupes-for-dental-hygiene',
+      label: 'Loupes for dental hygiene',
+      blurb: 'The group most affected by posture load over a career.',
+    },
+    {
+      href: '/ergonomic-loupes',
+      label: 'Ergonomic loupes',
+      blurb: 'How declination and refracted optics change neck flexion.',
+    },
+    {
+      href: '/spine-surgery-loupes',
+      label: 'Spine surgery loupes',
+      blurb: 'Long cases where the same ergonomics apply to the operator.',
+    },
+  ],
+  'best-loupes-for-residents': [
+    ...BUYING_DECISION_PAGES.slice(0, 3),
+    {
+      href: '/student-loupes-discount',
+      label: 'Student pricing',
+      blurb: 'What the discount covers and who qualifies.',
+    },
+  ],
+
+  // --- Broad commercial pages feed the decision cluster and the tail.
+  'best-loupes': BUYING_DECISION_PAGES,
+  'surgical-loupes': SURGICAL_SUBSPECIALTIES.slice(0, 5),
+  'dental-loupes': DENTAL_SUBSPECIALTIES,
+  'best-dental-loupe-brands': DENTAL_SUBSPECIALTIES.slice(0, 4),
+  'best-surgical-loupe-brands': SURGICAL_SUBSPECIALTIES.slice(0, 4),
+  'affordable-loupes': BUYING_DECISION_PAGES.slice(1),
+  'how-much-do-surgical-loupes-cost': [
+    ...BUYING_DECISION_PAGES.slice(1, 4),
+    {
+      href: '/student-loupes-discount',
+      label: 'Student pricing',
+      blurb: 'What the discount covers and who qualifies.',
+    },
+  ],
+  'student-loupes-discount': BUYING_DECISION_PAGES.slice(0, 3),
+  'ergonomic-loupes': [
+    {
+      href: '/education/ergonomic-loupes-neck-pain',
+      label: 'Loupes and neck pain',
+      blurb: 'What the posture research actually shows.',
+    },
+    ...DENTAL_SUBSPECIALTIES.slice(4, 5),
+    ...SURGICAL_SUBSPECIALTIES.slice(6, 7),
+  ],
+  'prismatic-loupes': [
+    {
+      href: '/education/galilean-vs-prismatic-loupes',
+      label: 'Galilean vs prismatic',
+      blurb: 'The two optical designs, and which one your work needs.',
+    },
+    ...SURGICAL_SUBSPECIALTIES.slice(1, 4),
+  ],
+  'cheap-loupes': BUYING_DECISION_PAGES.slice(0, 3),
+  'are-surgical-loupes-worth-it': [
+    ...BUYING_DECISION_PAGES.slice(0, 1),
+    ...BUYING_DECISION_PAGES.slice(2, 4),
+  ],
+  'heliosx-loupes-review': [
+    ...BUYING_DECISION_PAGES.slice(0, 2),
+    {
+      href: '/loupe-comparisons',
+      label: 'Brand comparisons',
+      blurb: 'HeliosX measured against the established names.',
+    },
+  ],
+  'loupe-comparisons': BUYING_DECISION_PAGES.slice(0, 3),
+
+  // --- Subspecialty pages cross-link to their neighbours, so the cluster
+  // holds together instead of being nine isolated leaves.
+  'general-surgery-loupes': SURGICAL_SUBSPECIALTIES.slice(1, 5),
+  'vascular-surgery-loupes': [
+    SURGICAL_SUBSPECIALTIES[0],
+    ...SURGICAL_SUBSPECIALTIES.slice(3, 5),
+  ],
+  'orthopedic-surgery-loupes': [
+    SURGICAL_SUBSPECIALTIES[0],
+    SURGICAL_SUBSPECIALTIES[3],
+    SURGICAL_SUBSPECIALTIES[6],
+  ],
+  'hand-surgery-loupes': [
+    SURGICAL_SUBSPECIALTIES[1],
+    SURGICAL_SUBSPECIALTIES[2],
+    SURGICAL_SUBSPECIALTIES[0],
+  ],
+  'urology-loupes': [
+    SURGICAL_SUBSPECIALTIES[0],
+    SURGICAL_SUBSPECIALTIES[5],
+    SURGICAL_SUBSPECIALTIES[1],
+  ],
+  'gynecology-loupes': [
+    SURGICAL_SUBSPECIALTIES[0],
+    SURGICAL_SUBSPECIALTIES[4],
+    SURGICAL_SUBSPECIALTIES[1],
+  ],
+  'spine-surgery-loupes': [
+    SURGICAL_SUBSPECIALTIES[2],
+    {
+      href: '/education/ergonomic-loupes-neck-pain',
+      label: 'Loupes and neck pain',
+      blurb: 'Posture load over a long operating career.',
+    },
+    SURGICAL_SUBSPECIALTIES[0],
+  ],
+  'loupes-for-periodontics': [
+    DENTAL_SUBSPECIALTIES[1],
+    DENTAL_SUBSPECIALTIES[3],
+    DENTAL_SUBSPECIALTIES[4],
+  ],
+  'loupes-for-endodontics': [
+    DENTAL_SUBSPECIALTIES[0],
+    DENTAL_SUBSPECIALTIES[3],
+    {
+      href: '/education/loupe-magnification-guide',
+      label: 'Choosing magnification',
+      blurb: 'Why endodontics sits at the high end of the range.',
+    },
+  ],
+  'loupes-for-orthodontics': [
+    DENTAL_SUBSPECIALTIES[3],
+    DENTAL_SUBSPECIALTIES[4],
+    DENTAL_SUBSPECIALTIES[0],
+  ],
+  'loupes-for-dental-implants': [
+    DENTAL_SUBSPECIALTIES[0],
+    DENTAL_SUBSPECIALTIES[1],
+    DENTAL_SUBSPECIALTIES[2],
+  ],
+  'loupes-for-dental-hygiene': [
+    {
+      href: '/education/ergonomic-loupes-neck-pain',
+      label: 'Loupes and neck pain',
+      blurb: 'Why hygienists carry the highest posture load in dentistry.',
+    },
+    DENTAL_SUBSPECIALTIES[0],
+    DENTAL_SUBSPECIALTIES[2],
+  ],
+}
+
+export function getRelatedPages(slug: string): RelatedPage[] {
+  return relatedPagesBySlug[slug] ?? []
+}

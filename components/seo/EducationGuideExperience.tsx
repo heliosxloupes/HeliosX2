@@ -8,6 +8,7 @@ import { ChevronDown } from 'lucide-react'
 import Header from '@/components/Header'
 import { LenisProvider } from '@/components/lenis-provider'
 import { linkifyText } from '@/components/seo/linkify'
+import { getRelatedPages } from '@/lib/seo-content'
 import type { EducationGuide } from '@/lib/seo-content'
 
 type Diagram = {
@@ -111,6 +112,10 @@ export default function EducationGuideExperience({
   relatedGuides = [],
   shopByLinks = [],
 }: EducationGuideExperienceProps) {
+  // The education hubs carry the most internal authority on the site (64
+  // inbound links each) and previously linked only sideways to each other.
+  // These curated links push that authority down into the subspecialty tail.
+  const curatedRelated = getRelatedPages(guide.slug)
   const hero = getGuideImage(guide.slug)
   const diagramHasLightBackground =
     diagram?.src.includes('pupillary distance') || diagram?.src.includes('workdistance diagram')
@@ -372,6 +377,35 @@ export default function EducationGuideExperience({
                   </div>
                 </div>
               ) : null}
+            </div>
+          </section>
+        ) : null}
+
+        {curatedRelated.length > 0 ? (
+          <section className="border-t border-white/10 px-5 py-16 md:px-12 md:py-24">
+            <div className="mx-auto max-w-4xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
+                Continue reading
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
+                Magnification by specialty
+              </h2>
+              <div className="mt-8 grid gap-px overflow-hidden rounded-lg bg-white/10 sm:grid-cols-2">
+                {curatedRelated.map((related) => (
+                  <Link
+                    key={related.href}
+                    href={related.href}
+                    className="group block bg-[#050b16] p-6 transition hover:bg-[#070d1a]"
+                  >
+                    <span className="block text-base font-semibold text-white transition group-hover:text-emerald-100">
+                      {related.label}
+                    </span>
+                    <span className="mt-2 block text-sm leading-6 text-neutral-400">
+                      {related.blurb}
+                    </span>
+                  </Link>
+                ))}
+              </div>
             </div>
           </section>
         ) : null}

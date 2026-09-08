@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 
@@ -15,6 +16,129 @@ import { trackGenerateLead, trackViewItem } from '@/lib/analytics'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productFaqs } from '@/lib/product-faqs'
 import { magnificationPriceByProduct } from '@/lib/pricing'
+
+// Contextual outbound links per model.
+//
+// The 8 Sep 2026 audit found all five product pages were contextual dead
+// ends -- zero in-content links out, so a visitor who landed on one had no
+// path onward except the nav, and no link equity flowed from them into the
+// subspecialty pages that convert best. Each model points at the education
+// and specialty content its own buyers actually need.
+const PRODUCT_RELATED_LINKS: Record<
+  string,
+  { href: string; label: string; blurb: string }[]
+> = {
+  medusa: [
+    {
+      href: '/measurements',
+      label: 'Measure your working distance',
+      blurb: 'Medusa adjusts 300-600 mm, but the starting number is still yours.',
+    },
+    {
+      href: '/education/working-distance-for-loupes',
+      label: 'Working distance explained',
+      blurb: 'Why this is chosen before magnification.',
+    },
+    {
+      href: '/ergonomic-loupes',
+      label: 'Ergonomic loupes',
+      blurb: 'How refracted optics keep the neck neutral.',
+    },
+    {
+      href: '/spine-surgery-loupes',
+      label: 'Spine surgery loupes',
+      blurb: 'Long cases where posture decides comfort.',
+    },
+  ],
+  apollo: [
+    {
+      href: '/education/ergonomic-loupes-neck-pain',
+      label: 'Loupes and neck pain',
+      blurb: 'What the posture research shows about declination.',
+    },
+    {
+      href: '/measurements',
+      label: 'Measurement guide',
+      blurb: 'Pupillary distance and working distance, measured at home.',
+    },
+    {
+      href: '/loupes-for-dental-hygiene',
+      label: 'Loupes for dental hygiene',
+      blurb: 'Full-day scaling, where posture load is highest.',
+    },
+    {
+      href: '/hand-surgery-loupes',
+      label: 'Hand surgery loupes',
+      blurb: 'Tendon, nerve and microvascular repair.',
+    },
+  ],
+  kepler: [
+    {
+      href: '/education/loupe-magnification-guide',
+      label: 'Choosing magnification',
+      blurb: 'Where 4.0-6.0x is genuinely required, and where it is not.',
+    },
+    {
+      href: '/vascular-surgery-loupes',
+      label: 'Vascular surgery loupes',
+      blurb: 'Anastomosis work at the top of the magnification range.',
+    },
+    {
+      href: '/loupes-for-endodontics',
+      label: 'Loupes for endodontics',
+      blurb: 'Canal location, the dental case for high magnification.',
+    },
+    {
+      href: '/measurements',
+      label: 'Measurement guide',
+      blurb: 'Higher magnification narrows tolerance on the fit.',
+    },
+  ],
+  galileo: [
+    {
+      href: '/education/galilean-vs-prismatic-loupes',
+      label: 'Galilean vs prismatic',
+      blurb: 'The two optical designs, and which your work needs.',
+    },
+    {
+      href: '/general-surgery-loupes',
+      label: 'General surgery loupes',
+      blurb: 'Open abdominal and soft-tissue work at 2.5-3.5x.',
+    },
+    {
+      href: '/education/best-loupes-for-residents',
+      label: 'Loupes for residents',
+      blurb: 'What to buy for your first pair, and what to skip.',
+    },
+    {
+      href: '/measurements',
+      label: 'Measurement guide',
+      blurb: 'Custom fitting, measured online rather than in person.',
+    },
+  ],
+  newton: [
+    {
+      href: '/loupes-for-dental-hygiene',
+      label: 'Loupes for dental hygiene',
+      blurb: 'Where 33 g over a full day is the whole argument.',
+    },
+    {
+      href: '/student-loupes-discount',
+      label: 'Student pricing',
+      blurb: 'What the discount covers and who qualifies.',
+    },
+    {
+      href: '/education/best-loupes-for-residents',
+      label: 'Loupes for residents',
+      blurb: 'Buying your first pair on a training budget.',
+    },
+    {
+      href: '/measurements',
+      label: 'Measurement guide',
+      blurb: 'Pupillary distance and working distance, measured at home.',
+    },
+  ],
+}
 
 export type FrameId =
   | 'JJ04B'
@@ -900,6 +1024,35 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
             </div>
           </div>
         </section>
+
+        {(PRODUCT_RELATED_LINKS[config.slug] ?? []).length > 0 && (
+          <section className="border-t border-white/10 px-5 py-16 md:px-12 md:py-24">
+            <div className="mx-auto max-w-4xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
+                Before you decide
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
+                Get the fit right
+              </h2>
+              <div className="mt-8 grid gap-px overflow-hidden rounded-lg bg-white/10 sm:grid-cols-2">
+                {(PRODUCT_RELATED_LINKS[config.slug] ?? []).map((related) => (
+                  <Link
+                    key={related.href}
+                    href={related.href}
+                    className="group block bg-neutral-950 p-6 transition hover:bg-neutral-900"
+                  >
+                    <span className="block text-base font-semibold text-white transition group-hover:text-emerald-200">
+                      {related.label}
+                    </span>
+                    <span className="mt-2 block text-sm leading-6 text-neutral-400">
+                      {related.blurb}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </main>
     </>
   )

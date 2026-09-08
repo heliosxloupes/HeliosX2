@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import { GraduationCap } from "lucide-react";
+import LazyVideo from "@/components/LazyVideo";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -722,18 +723,13 @@ function HorizontalStorySection() {
                   <div className="order-1 md:order-2">
                     <div className="relative aspect-[4/5] overflow-hidden rounded-[26px] border border-white/10 bg-neutral-900/80 md:h-[70vh] md:aspect-auto">
                       {panel.type === "video" ? (
-                        <video
+                        <LazyVideo
                           src={panel.media}
                           poster="/mainpagevideo2-poster.jpg"
-                          preload="metadata"
                           width={1920}
                           height={1080}
                           aria-label={panel.title}
                           className="h-full w-full object-cover"
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
                         />
                       ) : (
                         <Image src={panel.media} alt={panel.title} fill className="object-cover" />

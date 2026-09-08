@@ -1,15 +1,65 @@
 import type { Metadata } from 'next'
 
-import { buildMetadata } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  itemListJsonLd,
+  organizationJsonLd,
+  webPageJsonLd,
+} from '@/lib/seo'
+import { productPositioning, productStartingPrices } from '@/lib/seo-content'
+
+const pageTitle = 'HeliosX Loupes | Surgical, Dental & Prismatic'
+const pageDescription =
+  'Compare HeliosX Medusa, Apollo, Galileo, Newton, and Kepler loupes for surgical, dental, ergonomic, affordable, and high-magnification workflows.'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'HeliosX Loupes | Surgical, Dental & Prismatic',
-  description:
-    'Compare HeliosX Medusa, Apollo, Galileo, Newton, and Kepler loupes for surgical, dental, ergonomic, affordable, and high-magnification workflows.',
+  title: pageTitle,
+  description: pageDescription,
   path: '/product',
   keywords: ['surgical loupes', 'dental loupes', 'prismatic loupes', 'ergonomic loupes'],
 })
 
+// This hub carried no structured data at all before the 8 Sep 2026 audit,
+// despite being the category page for the entire lineup. CollectionPage plus
+// an ItemList of the five models tells Google what the page collects.
+const breadcrumbItems = [
+  { name: 'Home', path: '/' },
+  { name: 'Loupes', path: '/product' },
+]
+
+const modelItems = Object.entries(productPositioning).map(([name, positioning]) => {
+  const price = productStartingPrices[name as keyof typeof productStartingPrices]
+  return {
+    name: `${name} Surgical Loupes`,
+    url: `/product/${name.toLowerCase()}`,
+    description: positioning,
+    sku: `heliosx-${name.toLowerCase()}`,
+    ...(typeof price === 'number' ? { price } : {}),
+  }
+})
+
 export default function ProductLayout({ children }: { children: React.ReactNode }) {
-  return children
+  return (
+    <>
+      <JsonLd
+        data={[
+          organizationJsonLd(),
+          {
+            ...webPageJsonLd({
+              title: pageTitle,
+              description: pageDescription,
+              path: '/product',
+              breadcrumb: breadcrumbItems,
+            }),
+            '@type': 'CollectionPage',
+          },
+          breadcrumbJsonLd(breadcrumbItems),
+          itemListJsonLd(modelItems),
+        ]}
+      />
+      {children}
+    </>
+  )
 }

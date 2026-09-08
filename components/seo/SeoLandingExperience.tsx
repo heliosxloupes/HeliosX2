@@ -11,6 +11,7 @@ import Header from '@/components/Header'
 import { LenisProvider } from '@/components/lenis-provider'
 import SeoAnalytics from '@/components/SeoAnalytics'
 import { linkifyText } from '@/components/seo/linkify'
+import { getRelatedPages } from '@/lib/seo-content'
 import type { SeoLandingPage } from '@/lib/seo-content'
 
 type ModelRow = {
@@ -152,13 +153,22 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
   const hero = getHeroImage(page.slug)
   const heroMotion = useParallax()
 
-  const relatedGuides = [
-    { href: '/education/loupe-magnification-guide', label: 'Magnification guide' },
-    { href: '/education/intraoperative-magnification-by-specialty', label: 'Magnification by specialty' },
-    { href: '/education/galilean-vs-prismatic-loupes', label: 'Galilean vs prismatic' },
-    { href: '/education/working-distance-for-loupes', label: 'Working distance' },
-    { href: '/measurements', label: 'Measurements' },
-  ]
+  // Curated contextual links for this specific page. Where a page has them,
+  // they replace the generic hub list below -- every SEO landing page linking
+  // to the same five hubs is what left 19 pages with no in-content inbound
+  // links at all (8 Sep 2026 audit). See relatedPagesBySlug in lib/seo-content.
+  const curatedRelated = getRelatedPages(page.slug)
+
+  const relatedGuides =
+    curatedRelated.length > 0
+      ? curatedRelated.map(({ href, label }) => ({ href, label }))
+      : [
+          { href: '/education/loupe-magnification-guide', label: 'Magnification guide' },
+          { href: '/education/intraoperative-magnification-by-specialty', label: 'Magnification by specialty' },
+          { href: '/education/galilean-vs-prismatic-loupes', label: 'Galilean vs prismatic' },
+          { href: '/education/working-distance-for-loupes', label: 'Working distance' },
+          { href: '/measurements', label: 'Measurements' },
+        ]
 
   const highIntentLinks = [
     { href: '/best-dental-loupe-brands', label: 'Best dental loupe brands' },
@@ -607,6 +617,36 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
             </div>
           </div>
         </section>
+
+        {curatedRelated.length > 0 ? (
+          <section className="border-t border-white/10 px-5 py-16 md:px-12 md:py-24">
+            <div className="mx-auto max-w-4xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
+                Continue reading
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
+                Related guides
+              </h2>
+              <div className="mt-8 grid gap-px overflow-hidden rounded-lg bg-white/10 sm:grid-cols-2">
+                {curatedRelated.map((related) => (
+                  <Link
+                    key={related.href}
+                    href={related.href}
+                    data-seo-event={`related_page_${related.href.replaceAll('/', '_')}`}
+                    className="group block bg-neutral-950 p-6 transition hover:bg-neutral-900"
+                  >
+                    <span className="block text-base font-semibold text-white transition group-hover:text-emerald-200">
+                      {related.label}
+                    </span>
+                    <span className="mt-2 block text-sm leading-6 text-neutral-400">
+                      {related.blurb}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
       </main>
     </LenisProvider>
   )

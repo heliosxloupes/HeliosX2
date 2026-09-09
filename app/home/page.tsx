@@ -888,7 +888,7 @@ function FitSection() {
           ].map((text, i) => (
             <motion.p
               key={i}
-              className="text-sm leading-7 text-neutral-300 md:text-base"
+              className="text-sm leading-6 text-neutral-300 md:text-base md:leading-7"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -898,28 +898,31 @@ function FitSection() {
             </motion.p>
           ))}
 
-          <motion.div
-            className="space-y-3 pt-2"
+          {/* One grouped spec list rather than a card per line. Three separate
+              bordered boxes for three short strings read as floating objects and
+              cost roughly a third of a mobile viewport in padding alone. */}
+          <motion.ul
+            className="divide-y divide-white/10 overflow-hidden rounded-2xl border border-white/10 bg-neutral-950/70"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             variants={staggerChildren}
           >
             {pillars.map((pillar) => (
-              <motion.div
+              <motion.li
                 key={pillar}
                 variants={{
                   hidden: { opacity: 0, x: -16 },
                   visible: { opacity: 1, x: 0 },
                 }}
                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="flex items-start gap-3 rounded-2xl border border-white/10 bg-neutral-950/70 p-4"
+                className="flex items-start gap-3 px-4 py-3"
               >
-                <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-emerald-300" />
+                <span className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-300" />
                 <p className="text-sm leading-6 text-neutral-200">{pillar}</p>
-              </motion.div>
+              </motion.li>
             ))}
-          </motion.div>
+          </motion.ul>
         </div>
       </div>
     </section>

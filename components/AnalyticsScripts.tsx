@@ -137,30 +137,43 @@ export default function AnalyticsScripts() {
         <section
           role="dialog"
           aria-label="Privacy choices"
-          className="fixed inset-x-4 bottom-4 z-[100] mx-auto max-w-3xl rounded-2xl border border-white/15 bg-neutral-950/95 p-5 text-white shadow-2xl backdrop-blur-xl md:flex md:items-center md:gap-6"
+          className="fixed inset-x-3 bottom-3 z-[100] mx-auto max-w-3xl rounded-2xl border border-white/15 bg-neutral-950/95 px-4 py-3 text-white shadow-2xl backdrop-blur-xl [padding-bottom:calc(0.75rem+env(safe-area-inset-bottom))] md:inset-x-4 md:bottom-4 md:flex md:items-center md:gap-6 md:p-5"
         >
           <div className="flex-1">
             <p className="text-sm font-semibold">Help us measure what works</p>
-            <p className="mt-1 text-xs leading-5 text-neutral-300">
-              With your permission, HeliosX uses Google Analytics and Meta Pixel to understand site use and measure advertising. Essential site functions always remain available. Read our{' '}
-              <Link href="/privacy" className="text-emerald-200 underline underline-offset-4">
-                privacy policy
-              </Link>
-              .
+            {/* The full disclosure runs long enough to fill ~40% of a 390px
+                viewport, which buried the primary CTA on the homepage and the
+                price on every product page. Mobile gets the short form and the
+                policy link; desktop keeps the complete wording. */}
+            <p className="mt-1 text-xs leading-snug text-neutral-300 md:leading-5">
+              <span className="md:hidden">
+                Analytics and advertising cookies.{' '}
+                <Link href="/privacy" className="text-emerald-200 underline underline-offset-4">
+                  Privacy policy
+                </Link>
+                .
+              </span>
+              <span className="hidden md:inline">
+                With your permission, HeliosX uses Google Analytics and Meta Pixel to understand site use and measure advertising. Essential site functions always remain available. Read our{' '}
+                <Link href="/privacy" className="text-emerald-200 underline underline-offset-4">
+                  privacy policy
+                </Link>
+                .
+              </span>
             </p>
           </div>
-          <div className="mt-4 flex shrink-0 flex-wrap gap-2 md:mt-0">
+          <div className="mt-3 flex shrink-0 gap-2 md:mt-0">
             <button
               type="button"
               onClick={() => chooseConsent('denied')}
-              className="rounded-full border border-white/20 px-4 py-2 text-xs font-semibold text-neutral-200 transition hover:border-white/40 hover:text-white"
+              className="flex-1 rounded-full border border-white/20 px-4 py-2 text-xs font-semibold text-neutral-200 transition hover:border-white/40 hover:text-white md:flex-none"
             >
               Essential only
             </button>
             <button
               type="button"
               onClick={() => chooseConsent('granted')}
-              className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-black transition hover:bg-neutral-200"
+              className="flex-1 rounded-full bg-white px-4 py-2 text-xs font-semibold text-black transition hover:bg-neutral-200 md:flex-none"
             >
               Accept analytics
             </button>

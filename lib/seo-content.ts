@@ -397,13 +397,13 @@ export const allSeoLandingPages: SeoLandingPage[] = [
         body:
           'Magnification needs, posture demands and budget all shift by role and specialty. These pages go deeper on each — read the one that matches your work before you commit to a brand.',
         bullets: [
-          'Dental students and hygienists: 2.5x–3.5x Galilean is usually right. See /best-loupes-for-dental-students and /dental-loupes.',
-          'Residents and medical students: prioritise durability and price. See /best-loupes-for-residents and /student-loupes-discount.',
+          'Dental students and hygienists: 2.5x–3.5x Galilean is usually right. See /education/best-loupes-for-dental-students and /dental-loupes.',
+          'Residents and medical students: prioritise durability and price. See /education/best-loupes-for-residents and /student-loupes-discount.',
           'Cardiac surgery: see /cardiac-surgery-loupes for magnification and posture guidance.',
           'ENT and otolaryngology: see /ent-otolaryngology-loupes.',
           'Pediatric surgery: see /pediatric-surgery-loupes.',
           'Endodontics and microsurgery: 4.0x–6.0x prismatic. See /loupes-for-endodontics.',
-          'Neck or back pain already present: read /ergonomic-loupes-neck-pain before choosing magnification.',
+          'Neck or back pain already present: read /education/ergonomic-loupes-neck-pain before choosing magnification.',
         ],
       },
       {
@@ -412,7 +412,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
           'These come up again and again with clinicians replacing a first pair they regret. Every one is avoidable before you order.',
         bullets: [
           'Buying more magnification than your work needs — field of view shrinks fast, and 5.0x is unusable for broad procedures.',
-          'Guessing working distance instead of measuring it in real clinical posture. See /how-to-measure-pupillary-distance.',
+          'Guessing working distance instead of measuring it in real clinical posture. See /education/how-to-measure-pupillary-distance.',
           'Ignoring weight because the showroom try-on lasted two minutes.',
           'Paying a dealer markup for optics you could buy direct.',
           'Choosing before checking whether prescription lenses can be integrated.',
@@ -2728,7 +2728,7 @@ const competitorPages: SeoLandingPage[] = [
         bullets: [
           'Galilean dental loupes with bundled light options.',
           'Dental hygiene and general dentistry as the primary use cases.',
-          'Less surgical/microsurgery emphasis than HeliosX’s Kepler and Medusa lines.',
+          'Less surgical and microsurgery emphasis than HeliosX’s Kepler and Medusa lines.',
         ],
       },
       {
@@ -4423,7 +4423,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
           'Three HeliosX platforms touch the prismatic lane, but they answer different questions. Use this short decision tree before you commit.',
         bullets: [
           'Want adjustable working distance and the widest prismatic range? Medusa, 3.0x–8.5x.',
-          'Want fixed ergonomic prismatic clarity for the most common surgical/dental range? Apollo, 3.0x–6.0x.',
+          'Want fixed ergonomic prismatic clarity for the most common surgical and dental range? Apollo, 3.0x–6.0x.',
           'Want a high-magnification surgical platform without the ergonomic prismatic weight? Kepler, 4.0x–6.0x.',
         ],
       },

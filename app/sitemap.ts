@@ -22,10 +22,10 @@ const staticPathLastModified: Record<string, string> = {
   '/measurements': '2026-05-20',
   '/faq': '2026-05-23',
   '/shipping': '2026-04-01',
-  '/returns': '2026-04-01',
-  '/warranty': '2026-04-01',
+  '/returns': '2026-09-09',
+  '/warranty': '2026-09-09',
   '/privacy': '2026-04-01',
-  '/terms': '2026-04-01',
+  '/terms': '2026-09-09',
   '/research/intraoperative-magnification-who-uses-it.pdf': '2026-05-22',
 }
 

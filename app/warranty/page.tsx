@@ -37,7 +37,7 @@ export default function WarrantyPage() {
               Repairs and service
             </h2>
             <p className="text-neutral-300">
-              We assess covered claims and provide the appropriate repair or replacement path. Email us at{' '}
+              We assess covered claims and provide the appropriate authorized return, repair, replacement, or exchange path. Email us at{' '}
               <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
                 heliosxloupes@gmail.com
               </a>{' '}

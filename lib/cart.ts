@@ -59,7 +59,8 @@ export function addToCart(item: CartItem): void {
     cartItem.productSlug === item.productSlug &&
     cartItem.selectedFrameId === item.selectedFrameId &&
     cartItem.selectedFrameColor === item.selectedFrameColor &&
-    cartItem.selectedMagnification === item.selectedMagnification
+    cartItem.selectedMagnification === item.selectedMagnification &&
+    Boolean(cartItem.hasPrescriptionLenses) === Boolean(item.hasPrescriptionLenses)
   )
   
   if (existingIndex >= 0) {

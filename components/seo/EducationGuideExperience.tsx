@@ -124,7 +124,7 @@ export default function EducationGuideExperience({
     <LenisProvider>
       <ScrollProgressBar />
       <Header />
-      <main className="min-h-screen bg-black text-neutral-100">
+      <main className="hx-mobile-editorial min-h-screen bg-black text-neutral-100">
         <section className="relative min-h-[86svh] overflow-hidden">
           <Image src={hero.src} alt={hero.alt} fill priority className="object-cover" />
           <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(0,0,0,0.92)_10%,rgba(0,0,0,0.66)_46%,rgba(0,0,0,0.22)_76%,rgba(0,0,0,0.82)_100%)]" />

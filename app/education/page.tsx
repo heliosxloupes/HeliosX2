@@ -147,7 +147,7 @@ export default function EducationPage() {
     <LenisProvider>
       <ScrollProgressBar />
       <Header />
-      <main className="min-h-screen bg-black text-neutral-100">
+      <main className="hx-mobile-editorial min-h-screen bg-black text-neutral-100">
         {/* HERO / INTRO */}
         <section className="relative min-h-[82svh] overflow-hidden">
           <Image

@@ -11,6 +11,7 @@ import { Check, ChevronDown, ShoppingCart } from 'lucide-react'
 import Header from '@/components/Header'
 import Noise from '@/components/Noise'
 import ProductReviews from '@/components/ProductReviews'
+import MobileProductExperience from '@/components/mobile/MobileProductExperience'
 import { addToCart } from '@/lib/cart'
 import { trackGenerateLead, trackViewItem } from '@/lib/analytics'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
@@ -517,7 +518,10 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-black pt-16 text-neutral-100">
+      <div className="md:hidden">
+        <MobileProductExperience config={config} frames={frameConfigs} />
+      </div>
+      <main className="hidden min-h-screen bg-black pt-16 text-neutral-100 md:block">
         {/* HERO + CONFIG */}
         <section className="w-full pt-4 pb-20 lg:pb-28">
           <motion.div

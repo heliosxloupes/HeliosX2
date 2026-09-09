@@ -9,6 +9,7 @@ import Noise from "@/components/Noise";
 import Header from "@/components/Header";
 import OrderingInfoSection from "@/components/OrderingInfoSection";
 import { useCarouselDots } from "@/components/useCarouselDots";
+import MobileCatalogueExperience from "@/components/mobile/MobileCatalogueExperience";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -24,7 +25,10 @@ export default function ProductPage() {
   return (
     <>
       <Header />
-      <main className="bg-transparent pt-20 text-white min-h-screen md:pt-24">
+      <div className="md:hidden">
+        <MobileCatalogueExperience />
+      </div>
+      <main className="hidden bg-transparent pt-20 text-white min-h-screen md:block md:pt-24">
         <ProductLineupHeader />
         <OurLoupesGrid />
         <OrderingInfoSection />

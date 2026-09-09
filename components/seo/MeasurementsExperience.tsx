@@ -71,7 +71,7 @@ export default function MeasurementsExperience({ faqs, steps }: MeasurementsExpe
     <LenisProvider>
       <ScrollProgressBar />
       <Header />
-      <main className="min-h-screen bg-black text-neutral-100">
+      <main className="hx-mobile-editorial min-h-screen bg-black text-neutral-100">
         <section className="relative min-h-[92svh] overflow-hidden">
           <Image
             src="/working distance.png"

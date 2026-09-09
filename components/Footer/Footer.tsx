@@ -90,8 +90,53 @@ function FooterColumn({
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-white/10 bg-black px-5 py-16 text-neutral-300 md:px-12">
-      <div className="mx-auto max-w-[1400px]">
+    <footer className="relative border-t border-white/10 bg-[#030609] text-neutral-300">
+      <div className="px-5 py-10 md:hidden">
+        <Link href="/" className="font-display text-xl font-semibold uppercase tracking-[0.16em] text-white">
+          HeliosX
+        </Link>
+        <p className="mt-3 max-w-sm text-sm leading-6 text-neutral-400">
+          Surgical precision, finally accessible.
+        </p>
+
+        <div className="mt-7 border-t border-white/10">
+          {[
+            ['Explore', exploreLinks],
+            ['Buying guide', buyingGuideLinks],
+            ['Surgical specialties', surgicalSpecialtyLinks],
+            ['Dental specialties', dentalSpecialtyLinks],
+            ['Education', educationLinks],
+            ['Policies & support', [...policyLinks, ...supportLinks]],
+          ].map(([title, links]) => (
+            <details key={title as string} className="group border-b border-white/10">
+              <summary className="flex min-h-[58px] cursor-pointer list-none items-center justify-between py-4 text-sm font-medium text-white [&::-webkit-details-marker]:hidden">
+                {title as string}
+                <span className="text-xl font-light text-emerald-200 transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <ul className="grid grid-cols-2 gap-x-5 gap-y-3 pb-5 text-[13px] leading-5">
+                {(links as { label: string; href: string }[]).map((link) => (
+                  <li key={`${title}-${link.href}`}>
+                    <Link href={link.href} className="flex min-h-11 items-center text-neutral-400">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          ))}
+        </div>
+
+        <div className="mt-7 space-y-3 text-xs leading-5 text-neutral-500">
+          <a href={`mailto:${supportEmail}`} className="block min-h-11 text-emerald-200">
+            {supportEmail}
+          </a>
+          <CookiePreferencesButton />
+          <p>&copy; {new Date().getFullYear()} HeliosX Loupes.</p>
+          <p>No gatekeeping. Just fair pricing.</p>
+        </div>
+      </div>
+
+      <div className="mx-auto hidden max-w-[1400px] px-12 py-16 md:block">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="space-y-5 md:col-span-4">
             <Link href="/" className="inline-flex items-center gap-3">

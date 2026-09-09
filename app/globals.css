@@ -55,6 +55,168 @@ body {
   touch-action: pan-y; /* Optimize touch scrolling */
 }
 
+/* Astra-inspired mobile editorial system. Desktop selectors are deliberately
+   untouched: these rules only refine the shared content templates below the
+   768px breakpoint. */
+@media (max-width: 767px) {
+  .hx-mobile-editorial,
+  .hx-mobile-checkout,
+  .hx-mobile-policy,
+  .hx-mobile-form,
+  .hx-mobile-confirmation {
+    background: #06090b !important;
+  }
+
+  .hx-mobile-editorial > section:first-of-type {
+    min-height: 74svh !important;
+  }
+
+  .hx-mobile-editorial > section:first-of-type h1 {
+    max-width: 22rem;
+    font-size: clamp(2.65rem, 13vw, 3.7rem) !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.06em;
+    line-height: 0.96 !important;
+  }
+
+  .hx-mobile-editorial > section:first-of-type [class*="justify-end"] {
+    min-height: 74svh !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .hx-mobile-editorial [class*="rounded-["],
+  .hx-mobile-checkout [class*="rounded-["] {
+    border-radius: 0.35rem !important;
+  }
+
+  .hx-mobile-editorial details {
+    border-radius: 0 !important;
+  }
+
+  .hx-mobile-editorial details summary {
+    min-height: 44px;
+  }
+
+  .hx-mobile-checkout {
+    padding-top: 3.5rem !important;
+  }
+
+  .hx-mobile-checkout > section {
+    gap: 0 !important;
+    padding: 0 0 4rem !important;
+  }
+
+  .hx-mobile-checkout > section > div:first-child,
+  .hx-mobile-checkout > section > aside {
+    max-width: none !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-radius: 0 !important;
+    background: #0b100d !important;
+    padding: 1.5rem 1.25rem !important;
+    box-shadow: none !important;
+  }
+
+  .hx-mobile-checkout > section > aside {
+    border-top: 1px solid rgba(255,255,255,.12) !important;
+  }
+
+  .hx-mobile-checkout h1 {
+    font-size: 2.65rem !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.055em;
+  }
+
+  .hx-mobile-policy {
+    padding: 6.5rem 1.25rem 0 !important;
+  }
+
+  .hx-mobile-policy article {
+    padding-bottom: 4rem !important;
+  }
+
+  .hx-mobile-policy article > h1 {
+    margin: .75rem 0 2rem;
+    max-width: 20rem;
+    font-size: 3.1rem !important;
+    font-weight: 500 !important;
+    letter-spacing: -.06em;
+    line-height: .96;
+  }
+
+  .hx-mobile-policy article > section {
+    border-top: 1px solid rgba(255,255,255,.12);
+    padding: 1.5rem 0 .5rem;
+  }
+
+  .hx-mobile-policy p {
+    font-size: .9rem;
+    line-height: 1.75;
+  }
+
+  .hx-mobile-form {
+    padding: 6.5rem 1.25rem 4rem !important;
+  }
+
+  .hx-mobile-form form,
+  .hx-mobile-form > div > div {
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .hx-mobile-form h1 {
+    margin-top: .75rem !important;
+    font-size: 2.8rem !important;
+    font-weight: 500 !important;
+    letter-spacing: -.055em;
+    line-height: .98;
+  }
+
+  .hx-mobile-form input,
+  .hx-mobile-form textarea {
+    min-height: 52px;
+    border-radius: .35rem !important;
+    font-size: 1rem !important;
+  }
+
+  .hx-mobile-form button {
+    min-height: 52px;
+    width: 100%;
+    border-radius: .35rem !important;
+  }
+
+  .hx-mobile-confirmation {
+    padding-top: 3.5rem !important;
+  }
+
+  .hx-mobile-confirmation > section {
+    min-height: auto !important;
+    gap: 0 !important;
+    padding: 0 0 4rem !important;
+  }
+
+  .hx-mobile-confirmation > section > div:first-child {
+    min-height: 58svh !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .hx-mobile-confirmation > section > aside {
+    max-width: none !important;
+    padding: 1.25rem;
+  }
+
+  .hx-mobile-confirmation > section > aside > div {
+    border-radius: .35rem !important;
+    box-shadow: none !important;
+  }
+}
+
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }

@@ -21,6 +21,7 @@ type CartItem = {
   selectedFrameName?: string
   selectedMagnification?: string
   isAddon?: boolean
+  hasPrescriptionLenses?: boolean
 }
 
 declare global {
@@ -63,17 +64,29 @@ export default function CheckoutPage() {
         try {
           const flags = JSON.parse(raw) as {
             prescription?: boolean
+            prescriptionQuantity?: number
             warranty?: boolean
           }
 
-          if (flags.prescription) {
-            mergedItems.push({
-              productSlug: 'prescription-lenses',
-              name: 'Prescription Lenses',
-              price: PRESCRIPTION_PRICE,
-              quantity: 1,
-              isAddon: true,
-            })
+          const prescriptionQuantity = Number.isFinite(flags.prescriptionQuantity)
+            ? Math.max(0, Math.floor(flags.prescriptionQuantity ?? 0))
+            : flags.prescription
+              ? cart.reduce((sum, item) => sum + (item.hasPrescriptionLenses ? item.quantity : 0), 0) || 1
+              : 0
+
+          if (prescriptionQuantity > 0) {
+            let remaining = prescriptionQuantity
+            while (remaining > 0) {
+              const quantity = Math.min(remaining, 10)
+              mergedItems.push({
+                productSlug: 'prescription-lenses',
+                name: 'Prescription Lenses',
+                price: PRESCRIPTION_PRICE,
+                quantity,
+                isAddon: true,
+              })
+              remaining -= quantity
+            }
           }
 
           if (flags.warranty) {
@@ -137,11 +150,10 @@ export default function CheckoutPage() {
           let frameColor = item.frameColor
           
           if (!frameStyle && item.selectedFrameName) {
-            // Try to parse "FrameName Color" format
-            const parts = item.selectedFrameName.split(' ')
+            const parts = item.selectedFrameName.split(' - ')
             if (parts.length >= 2) {
               frameStyle = parts[0]
-              frameColor = parts.slice(1).join(' ')
+              frameColor = parts.slice(1).join(' - ')
             } else {
               frameStyle = item.selectedFrameName
             }
@@ -253,7 +265,7 @@ export default function CheckoutPage() {
         }}
       />
       <Header />
-      <main className="pt-24 min-h-screen bg-transparent text-neutral-100">
+      <main className="hx-mobile-checkout pt-24 min-h-screen bg-transparent text-neutral-100">
         <section className="mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-16 pt-10 lg:flex-row lg:px-8">
           {/* Left Column - Stripe Embedded Checkout */}
           <div className="flex-1 rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(24,24,27,0.96),rgba(10,10,12,0.98))] p-6 shadow-[0_30px_100px_rgba(0,0,0,0.55)] md:p-8">
@@ -329,8 +341,8 @@ export default function CheckoutPage() {
                       {!item.isAddon && (
                         <>
                           <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-[0.7rem] text-neutral-300">
-                            {item.magnification && (
-                              <span>Mag: {item.magnification}</span>
+                            {(item.magnification || item.selectedMagnification) && (
+                              <span>Mag: {item.magnification || item.selectedMagnification}</span>
                             )}
                             {item.frameStyle && (
                               <span>Frame: {item.frameStyle}</span>

@@ -75,7 +75,7 @@ function CheckoutSuccessContent() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-transparent pt-24 text-neutral-100">
+      <main className="hx-mobile-confirmation min-h-screen bg-transparent pt-24 text-neutral-100">
         <section className="relative mx-auto flex min-h-[calc(100vh-96px)] max-w-6xl flex-col gap-10 px-4 pb-16 lg:flex-row lg:items-center lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 18, scale: 0.98 }}

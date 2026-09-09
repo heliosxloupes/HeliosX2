@@ -13,7 +13,7 @@ export default function PrivacyPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-black px-4 pt-28 text-white">
+      <main className="hx-mobile-policy min-h-screen bg-black px-4 pt-28 text-white">
         <article className="mx-auto max-w-3xl space-y-6 pb-20">
           <h1 className="text-3xl font-semibold">Privacy Policy</h1>
           <p className="text-neutral-300">

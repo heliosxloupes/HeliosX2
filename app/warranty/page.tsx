@@ -14,7 +14,7 @@ export default function WarrantyPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-black px-4 pt-28 text-white">
+      <main className="hx-mobile-policy min-h-screen bg-black px-4 pt-28 text-white">
         <article className="mx-auto max-w-3xl space-y-6 pb-20">
           <p className="text-xs font-semibold uppercase tracking-[0.26em] text-emerald-200/80">
             Support

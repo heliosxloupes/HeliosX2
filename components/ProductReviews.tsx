@@ -116,7 +116,30 @@ export default function ProductReviews({ productName, reviews, aggregate }: Prod
   const column3 = reviews.slice(third * 2)
 
   return (
-    <section className="relative overflow-hidden border-t border-white/10 bg-black px-5 py-20 md:px-12 md:py-28">
+    <>
+    <section className="border-t border-white/10 bg-[#06090b] px-5 py-12 md:hidden">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-200/70">
+        Clinician reviews
+      </p>
+      <div className="mt-3 flex items-end justify-between gap-5">
+        <h2 className="max-w-[245px] font-display text-[2.2rem] font-medium leading-[1.02] tracking-[-0.05em] text-white">
+          In their own words.
+        </h2>
+        <div className="pb-1 text-right">
+          <strong className="block text-2xl font-medium text-white">{aggregate.ratingValue.toFixed(1)}</strong>
+          <small className="text-[10px] text-neutral-500">{aggregate.reviewCount} verified</small>
+        </div>
+      </div>
+      <div className="-mx-5 mt-7 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {reviews.map((review) => (
+          <div key={review.id} className="snap-center [&>article]:w-[84vw] [&>article]:max-w-[340px] [&>article]:rounded-md [&>article]:bg-[#0c1310] [&>article]:shadow-none">
+            <ReviewCard review={review} />
+          </div>
+        ))}
+      </div>
+      <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-neutral-600">Swipe to read</p>
+    </section>
+    <section className="relative hidden overflow-hidden border-t border-white/10 bg-black px-5 py-20 md:block md:px-12 md:py-28">
       <div className="mx-auto max-w-[1400px]">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
@@ -175,5 +198,6 @@ export default function ProductReviews({ productName, reviews, aggregate }: Prod
         </div>
       </div>
     </section>
+    </>
   )
 }

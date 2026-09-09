@@ -13,6 +13,7 @@ import SeoAnalytics from '@/components/SeoAnalytics'
 import { linkifyText } from '@/components/seo/linkify'
 import { getRelatedPages } from '@/lib/seo-content'
 import type { SeoLandingPage } from '@/lib/seo-content'
+import MobileComparisonExperience from '@/components/mobile/MobileComparisonExperience'
 
 type ModelRow = {
   name: string
@@ -186,7 +187,13 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
       <SeoAnalytics pageType="seo_landing" pageName={page.title} />
       <ScrollProgressBar />
       <Header />
-      <main className="min-h-screen bg-black text-neutral-100">
+      <main className="hx-mobile-editorial min-h-screen bg-black text-neutral-100">
+        {page.slug === 'loupe-comparisons' ? (
+          <div className="md:hidden">
+            <MobileComparisonExperience />
+          </div>
+        ) : null}
+        <div className={page.slug === 'loupe-comparisons' ? 'hidden md:block' : undefined}>
         <section ref={heroMotion.ref} className="relative min-h-[94svh] overflow-hidden">
           <motion.div style={{ scale: heroMotion.scale, opacity: heroMotion.opacity }} className="absolute inset-0">
             <Image src={hero.src} alt={hero.alt} fill priority className="object-cover" />
@@ -647,6 +654,7 @@ export default function SeoLandingExperience({ page, modelRows }: SeoLandingExpe
             </div>
           </section>
         ) : null}
+        </div>
       </main>
     </LenisProvider>
   )

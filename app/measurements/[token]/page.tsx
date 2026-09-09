@@ -50,7 +50,7 @@ export default function MeasurementPage({ params }: { params: { token: string } 
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-black px-4 pt-28 text-white">
+      <main className="hx-mobile-form min-h-screen bg-black px-4 pt-28 text-white">
         <div className="mx-auto max-w-2xl">
           <AnimatePresence mode="wait">
             {status === 'success' ? (
@@ -125,6 +125,7 @@ export default function MeasurementPage({ params }: { params: { token: string } 
                   <input
                     required
                     type="email"
+                    aria-label="Order email"
                     value={email}
                     disabled={loading}
                     onChange={(event) => setEmail(event.target.value)}
@@ -133,6 +134,7 @@ export default function MeasurementPage({ params }: { params: { token: string } 
                   />
                   <input
                     required
+                    aria-label="Pupillary distance"
                     value={pupillaryDistance}
                     disabled={loading}
                     onChange={(event) => setPupillaryDistance(event.target.value)}
@@ -140,6 +142,7 @@ export default function MeasurementPage({ params }: { params: { token: string } 
                     className="rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm outline-none transition focus:border-white/30 disabled:opacity-50"
                   />
                   <input
+                    aria-label="Working distance"
                     value={workingDistance}
                     disabled={loading}
                     onChange={(event) => setWorkingDistance(event.target.value)}
@@ -147,6 +150,7 @@ export default function MeasurementPage({ params }: { params: { token: string } 
                     className="rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm outline-none transition focus:border-white/30 disabled:opacity-50"
                   />
                   <textarea
+                    aria-label="Prescription notes"
                     value={prescriptionNotes}
                     disabled={loading}
                     onChange={(event) => setPrescriptionNotes(event.target.value)}
@@ -155,6 +159,7 @@ export default function MeasurementPage({ params }: { params: { token: string } 
                     className="rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm outline-none transition focus:border-white/30 disabled:opacity-50"
                   />
                   <textarea
+                    aria-label="Additional notes"
                     value={additionalNotes}
                     disabled={loading}
                     onChange={(event) => setAdditionalNotes(event.target.value)}

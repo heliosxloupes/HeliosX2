@@ -329,7 +329,7 @@ export default function MobileHomeExperience() {
         </Link>
       </section>
 
-      <section className="mt-14 border-t border-white/10 bg-[#0a1210]">
+      <section id="mission" className="mt-14 scroll-mt-20 border-t border-white/10 bg-[#0a1210]">
         <motion.div {...rise} className="px-5 py-14">
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-200/70">Why we exist / 02</p>
           <h2 className="mt-4 font-display text-[2.15rem] font-semibold leading-[1.06]">

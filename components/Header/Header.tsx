@@ -8,6 +8,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import CartButton from '../CartButton'
+import MobileStorefrontHeader from '@/components/mobile/MobileStorefrontHeader'
 
 function MobileNav() {
   const [open, setOpen] = useState(false)
@@ -342,7 +343,7 @@ export default function Header() {
     <>
       {/* Mobile nav */}
       <div className="block md:hidden">
-        <MobileNav />
+        <MobileStorefrontHeader />
       </div>
 
       {/* Desktop nav */}

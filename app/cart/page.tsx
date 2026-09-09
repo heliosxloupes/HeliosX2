@@ -11,6 +11,7 @@ import type { CartItem } from '@/lib/cart'
 import { cartItemsToGA4Items, trackBeginCheckout, trackViewCart } from '@/lib/analytics'
 import Noise from '@/components/Noise'
 import { PRESCRIPTION_PRICE, WARRANTY_PRICE } from '@/lib/pricing'
+import MobileCartExperience from '@/components/mobile/MobileCartExperience'
 
 // Displayed here, charged from the same source in the checkout API.
 const PRESCRIPTION_ESTIMATE = PRESCRIPTION_PRICE
@@ -41,7 +42,6 @@ const cardVariants = {
 
 export default function CartPage() {
   const [items, setItems] = useState<CartItem[]>([])
-  const [includePrescription, setIncludePrescription] = useState(false)
   const [includeWarranty, setIncludeWarranty] = useState(false)
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState('')
@@ -83,13 +83,48 @@ export default function CartPage() {
     })
   }
 
+  const handleQuantity = (index: number, quantity: number) => {
+    if (quantity <= 0) {
+      handleRemoveItem(index)
+      return
+    }
+    setItems((prev) => {
+      const next = prev.map((item, itemIndex) => itemIndex === index ? { ...item, quantity: Math.min(quantity, 10) } : item)
+      saveCart(next)
+      return next
+    })
+  }
+
+  const handlePrescription = (index: number, value: boolean) => {
+    setItems((prev) => {
+      const next = prev.map((item, itemIndex) => itemIndex === index ? { ...item, hasPrescriptionLenses: value } : item)
+      saveCart(next)
+      return next
+    })
+  }
+
+  const prescriptionPairCount = items.reduce(
+    (sum, item) => sum + (item.hasPrescriptionLenses ? item.quantity : 0),
+    0
+  )
+  const includePrescription = items.length > 0 && items.every((item) => item.hasPrescriptionLenses)
+
+  const togglePrescriptionForAll = () => {
+    const nextValue = !includePrescription
+    setItems((prev) => {
+      const next = prev.map((item) => ({ ...item, hasPrescriptionLenses: nextValue }))
+      saveCart(next)
+      return next
+    })
+  }
+
   const baseSubtotal = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   )
 
   const addOnTotal =
-    (includePrescription ? PRESCRIPTION_ESTIMATE : 0) +
+    (prescriptionPairCount * PRESCRIPTION_ESTIMATE) +
     (includeWarranty ? WARRANTY_ESTIMATE : 0)
 
   const subtotal = baseSubtotal + addOnTotal
@@ -124,7 +159,8 @@ export default function CartPage() {
     // Persist add-on choices so /checkout can pick them up
     if (typeof window !== 'undefined') {
       const payload = {
-        prescription: includePrescription,
+        prescription: prescriptionPairCount > 0,
+        prescriptionQuantity: prescriptionPairCount,
         warranty: includeWarranty,
       }
       sessionStorage.setItem('heliosx_addons', JSON.stringify(payload))
@@ -143,7 +179,21 @@ export default function CartPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-transparent pt-16 text-neutral-100">
+      <div className="md:hidden">
+        <MobileCartExperience
+          items={items}
+          email={email}
+          emailError={emailError}
+          warranty={includeWarranty}
+          onEmailChange={setEmail}
+          onWarrantyChange={setIncludeWarranty}
+          onRemove={handleRemoveItem}
+          onQuantity={handleQuantity}
+          onPrescription={handlePrescription}
+          onCheckout={handleCheckout}
+        />
+      </div>
+      <main className="hidden min-h-screen bg-transparent pt-16 text-neutral-100 md:block">
         <section className="relative mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 pb-8 pt-8 lg:grid-cols-[3fr,2.2fr] lg:items-stretch lg:gap-10 lg:px-8 lg:pb-8 lg:pt-6">
           {/* subtle background glow */}
           <div className="pointer-events-none absolute inset-0 -z-10">
@@ -324,9 +374,7 @@ export default function CartPage() {
                 {/* Prescription lenses */}
                 <motion.button
                   type="button"
-                  onClick={() =>
-                    setIncludePrescription((prev) => !prev)
-                  }
+                  onClick={togglePrescriptionForAll}
                   whileHover={{ y: -2 }}
                   transition={{ type: 'spring', stiffness: 220, damping: 20 }}
                   className={`flex w-full items-start justify-between gap-4 rounded-2xl border px-4 py-3 text-left transition sm:items-center sm:gap-6 sm:px-5 sm:py-4 ${
@@ -360,7 +408,7 @@ export default function CartPage() {
                   </div>
                   <div className="ml-2 flex shrink-0 flex-col items-end gap-2 sm:ml-4">
                     <span className="whitespace-nowrap text-sm font-semibold text-neutral-50">
-                      +${PRESCRIPTION_ESTIMATE}
+                      +${PRESCRIPTION_ESTIMATE} / pair
                     </span>
                     <span className={`whitespace-nowrap rounded-full px-2 py-1 text-[0.62rem] uppercase tracking-[0.2em] ${includePrescription ? 'bg-white text-black' : 'border border-white/15 text-neutral-400'}`}>
                       {includePrescription ? 'Added' : 'Optional'}

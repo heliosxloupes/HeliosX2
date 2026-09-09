@@ -1,11 +1,12 @@
 'use client'
 
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ArrowLeft, Check, ChevronDown, Plus, Ruler, ShoppingBag } from 'lucide-react'
+import { ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight, Plus, Ruler, ShoppingBag } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
+import type { PointerEvent as ReactPointerEvent } from 'react'
 
 import ProductReviews from '@/components/ProductReviews'
 import { addToCart } from '@/lib/cart'
@@ -75,6 +76,7 @@ export default function MobileProductExperience({
   const [prescription, setPrescription] = useState(false)
   const [galleryMode, setGalleryMode] = useState<'product' | 'frame'>('product')
   const [heroIndex, setHeroIndex] = useState(0)
+  const galleryPointerStart = useRef<{ x: number; y: number } | null>(null)
 
   const chosenFrame = frames.find((frame) => frame.id === frameId) ?? frames[0]
   const chosenColor = chosenFrame?.colors.find((entry) => entry.value === color) ?? chosenFrame?.colors[0]
@@ -85,6 +87,7 @@ export default function MobileProductExperience({
   const faqs = productFaqs[config.slug] ?? []
 
   const displayedImage = galleryMode === 'frame' ? chosenColor?.image : config.heroImages[heroIndex]
+  const hasMultipleProductImages = config.heroImages.length > 1
   const workingCopy =
     config.slug === 'medusa'
       ? 'Medusa is the only HeliosX model with adjustable working distance. Its adjustment range is configured for the selected magnification.'
@@ -101,6 +104,45 @@ export default function MobileProductExperience({
           },
     [reduceMotion],
   )
+
+  const moveHero = (direction: -1 | 1) => {
+    if (!hasMultipleProductImages) return
+    setHeroIndex((current) => (current + direction + config.heroImages.length) % config.heroImages.length)
+  }
+
+  const handleGalleryPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (galleryMode !== 'product' || !hasMultipleProductImages || (event.pointerType === 'mouse' && event.button !== 0)) return
+    galleryPointerStart.current = { x: event.clientX, y: event.clientY }
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
+
+  const handleGalleryPointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const start = galleryPointerStart.current
+    galleryPointerStart.current = null
+    if (!start || galleryMode !== 'product' || !hasMultipleProductImages) return
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId)
+    }
+
+    const deltaX = event.clientX - start.x
+    const deltaY = event.clientY - start.y
+    const horizontalSwipe = Math.abs(deltaX) >= 36 && Math.abs(deltaX) > Math.abs(deltaY)
+
+    if (horizontalSwipe) {
+      moveHero(deltaX < 0 ? 1 : -1)
+      return
+    }
+
+    if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) {
+      const bounds = event.currentTarget.getBoundingClientRect()
+      moveHero(event.clientX - bounds.left < bounds.width / 2 ? -1 : 1)
+    }
+  }
+
+  const resetGalleryPointer = () => {
+    galleryPointerStart.current = null
+  }
 
   const addConfiguredPair = () => {
     if (!available || !chosenFrame || !chosenColor) return
@@ -130,7 +172,14 @@ export default function MobileProductExperience({
       </div>
 
       <motion.section {...rise}>
-        <div className="relative aspect-[5/4] overflow-hidden border-y border-white/10 bg-[#e9eee9]">
+        <div
+          className={`relative aspect-[5/4] overflow-hidden border-y border-white/10 bg-[#e9eee9] ${galleryMode === 'product' && hasMultipleProductImages ? 'cursor-pointer touch-pan-y select-none' : ''}`}
+          onPointerDown={handleGalleryPointerDown}
+          onPointerUp={handleGalleryPointerUp}
+          onPointerCancel={resetGalleryPointer}
+          onLostPointerCapture={resetGalleryPointer}
+          aria-label={galleryMode === 'product' ? `Product image ${heroIndex + 1} of ${config.heroImages.length}. Swipe or tap either side to change image.` : undefined}
+        >
           <AnimatePresence mode="wait" initial={false}>
             {displayedImage ? (
               <motion.div
@@ -147,13 +196,24 @@ export default function MobileProductExperience({
                   fill
                   priority
                   sizes="100vw"
+                  draggable={false}
                   className={galleryMode === 'frame' ? 'object-contain p-3' : 'object-cover'}
                 />
               </motion.div>
             ) : null}
           </AnimatePresence>
+          {galleryMode === 'product' && hasMultipleProductImages ? (
+            <>
+              <span aria-hidden="true" className="pointer-events-none absolute left-3 top-1/2 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/25 text-white/80 backdrop-blur-sm">
+                <ChevronLeft size={18} />
+              </span>
+              <span aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/25 text-white/80 backdrop-blur-sm">
+                <ChevronRight size={18} />
+              </span>
+            </>
+          ) : null}
           <p className="absolute inset-x-0 bottom-0 bg-[#eef2ee]/90 px-4 py-2 text-center text-[11px] text-[#4d5f54] backdrop-blur-sm">
-            {galleryMode === 'frame' ? `Selected frame / ${chosenColor?.name}` : 'Product photography / select a view below'}
+            {galleryMode === 'frame' ? `Selected frame / ${chosenColor?.name}` : hasMultipleProductImages ? 'Swipe or tap to view more' : 'Product photography'}
           </p>
         </div>
 
@@ -166,7 +226,7 @@ export default function MobileProductExperience({
               Your frame
             </button>
           </div>
-          {galleryMode === 'product' && config.heroImages.length > 1 ? (
+          {galleryMode === 'product' && hasMultipleProductImages ? (
             <div className="flex gap-1.5" aria-label="Product images">
               {config.heroImages.map((image, index) => (
                 <button key={image} type="button" onClick={() => setHeroIndex(index)} aria-label={`View image ${index + 1}`} aria-pressed={heroIndex === index} className={`h-11 w-5 after:block after:h-1 after:rounded-full ${heroIndex === index ? 'after:bg-emerald-200' : 'after:bg-white/20'}`} />

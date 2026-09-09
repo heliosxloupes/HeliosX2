@@ -593,7 +593,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                       <div className="relative h-10 w-10 xs:h-11 xs:w-11 sm:h-12 sm:w-12 lg:h-11 lg:w-11">
                         <Image
                           src={src}
-                          alt={`View ${idx + 1}`}
+                          alt={`${config.shortName} surgical loupes thumbnail ${idx + 1}`}
                           fill
                           className="object-cover"
                         />

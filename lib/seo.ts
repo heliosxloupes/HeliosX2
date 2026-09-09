@@ -441,10 +441,8 @@ function oneYearFromTodayISO(): string {
 const defaultMerchantReturnPolicy = {
   '@type': 'MerchantReturnPolicy',
   applicableCountry: ['US', 'CA', 'GB', 'AU', 'IE', 'NZ'],
-  returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-  merchantReturnDays: 30,
-  returnMethod: 'https://schema.org/ReturnByMail',
-  returnFees: 'https://schema.org/FreeReturn',
+  returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+  merchantReturnLink: absoluteUrl('/returns'),
 }
 
 const defaultShippingDetails = {
@@ -454,22 +452,16 @@ const defaultShippingDetails = {
     value: '0',
     currency: 'USD',
   },
-  shippingDestination: [
-    {
-      '@type': 'DefinedRegion',
-      addressCountry: 'US',
-    },
-    {
-      '@type': 'DefinedRegion',
-      addressCountry: 'CA',
-    },
-  ],
+  shippingDestination: ['US', 'CA', 'GB', 'AU', 'IE', 'NZ'].map((addressCountry) => ({
+    '@type': 'DefinedRegion',
+    addressCountry,
+  })),
   deliveryTime: {
     '@type': 'ShippingDeliveryTime',
     handlingTime: {
       '@type': 'QuantitativeValue',
-      minValue: 1,
-      maxValue: 3,
+      minValue: 7,
+      maxValue: 14,
       unitCode: 'DAY',
     },
     transitTime: {
@@ -502,6 +494,7 @@ export function productJsonLd(product: {
   description: string
   slug: string
   image?: string
+  images?: string[]
   price?: number
   priceLabel?: string
   magnifications?: string[]
@@ -536,6 +529,7 @@ export function productJsonLd(product: {
       availability: 'https://schema.org/InStock',
       url: productUrl,
       priceValidUntil,
+      validFrom: '2026-05-24T00:00:00Z',
       hasMerchantReturnPolicy: defaultMerchantReturnPolicy,
       shippingDetails: defaultShippingDetails,
     }
@@ -546,15 +540,21 @@ export function productJsonLd(product: {
       availability: 'https://schema.org/InStock',
       url: productUrl,
       priceValidUntil,
+      validFrom: '2026-05-24T00:00:00Z',
       hasMerchantReturnPolicy: defaultMerchantReturnPolicy,
       shippingDetails: defaultShippingDetails,
     }
     if (typeof lowPrice === 'number') offers.price = lowPrice
   }
 
+  const imageUrls = Array.from(
+    new Set((product.images?.length ? product.images : [product.image ?? '/HeliosXNew.png']).map(absoluteUrl)),
+  )
+
   const productNode: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
+    '@id': `${productUrl}#product`,
     name: product.name,
     sku,
     mpn: sku,
@@ -563,8 +563,9 @@ export function productJsonLd(product: {
       name: siteName,
     },
     description: product.description,
-    image: absoluteUrl(product.image ?? '/HeliosXNew.png'),
+    image: imageUrls,
     url: productUrl,
+    mainEntityOfPage: { '@id': `${productUrl}#webpage` },
     category: 'Surgical and dental loupes',
     offers,
   }
@@ -648,10 +649,12 @@ export function medicalWebPageJsonLd({
   path: string
   audienceType?: string
 }) {
+  const url = absoluteUrl(path)
   return {
     '@context': 'https://schema.org',
     '@type': 'MedicalWebPage',
-    url: absoluteUrl(path),
+    '@id': `${url}#webpage`,
+    url,
     name: title,
     description,
     inLanguage: 'en-US',
@@ -659,10 +662,8 @@ export function medicalWebPageJsonLd({
       '@type': 'MedicalAudience',
       audienceType: audienceType ?? defaultMedicalAudience.audienceType,
     },
-    publisher: {
-      '@type': 'Organization',
-      name: siteName,
-    },
+    isPartOf: { '@id': `${siteUrl}/#website` },
+    publisher: { '@id': `${siteUrl}/#organization` },
   }
 }
 
@@ -718,9 +719,10 @@ export function itemListJsonLd(
       const itemUrl = absoluteUrl(item.url)
       const product: Record<string, unknown> = {
         '@type': 'Product',
+        '@id': `${itemUrl}#product`,
         name: item.name,
         url: itemUrl,
-        ...(item.image ? { image: absoluteUrl(item.image) } : {}),
+        image: absoluteUrl(item.image ?? '/HeliosXNew.png'),
         ...(item.description ? { description: item.description } : {}),
         ...(item.sku ? { sku: item.sku, mpn: item.sku } : {}),
         brand: {
@@ -737,6 +739,9 @@ export function itemListJsonLd(
           price: item.price,
           availability: 'https://schema.org/InStock',
           priceValidUntil: oneYearFromTodayISO(),
+          validFrom: '2026-05-24T00:00:00Z',
+          hasMerchantReturnPolicy: defaultMerchantReturnPolicy,
+          shippingDetails: defaultShippingDetails,
         }
       }
 
@@ -745,6 +750,32 @@ export function itemListJsonLd(
         position: index + 1,
         url: itemUrl,
         item: product,
+      }
+    }),
+  }
+}
+
+export function resourceItemListJsonLd(
+  items: { name: string; url: string; description?: string }[],
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: items.map((item, index) => {
+      const itemUrl = absoluteUrl(item.url)
+      return {
+        '@type': 'ListItem',
+        position: index + 1,
+        url: itemUrl,
+        item: {
+          '@type': 'Article',
+          '@id': `${itemUrl}#article`,
+          name: item.name,
+          headline: item.name,
+          url: itemUrl,
+          ...(item.description ? { description: item.description } : {}),
+          publisher: { '@id': `${siteUrl}/#organization` },
+        },
       }
     }),
   }

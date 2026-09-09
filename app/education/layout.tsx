@@ -4,8 +4,8 @@ import JsonLd from '@/components/JsonLd'
 import {
   breadcrumbJsonLd,
   buildMetadata,
-  itemListJsonLd,
   organizationJsonLd,
+  resourceItemListJsonLd,
   webPageJsonLd,
 } from '@/lib/seo'
 import { educationGuides } from '@/lib/seo-content'
@@ -50,7 +50,7 @@ export default function EducationLayout({ children }: { children: React.ReactNod
             '@type': 'CollectionPage',
           },
           breadcrumbJsonLd(breadcrumbItems),
-          itemListJsonLd(guideItems),
+          resourceItemListJsonLd(guideItems),
         ]}
       />
       {children}

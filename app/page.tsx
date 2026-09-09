@@ -10,7 +10,7 @@ import {
   webPageJsonLd,
   websiteJsonLd,
 } from '@/lib/seo'
-import { productPositioning, productStartingPrices } from '@/lib/seo-content'
+import { productImages, productPositioning, productStartingPrices } from '@/lib/seo-content'
 import CinematicIntro from '@/components/cinematic/CinematicIntro'
 import HomePage from './home/page'
 
@@ -19,6 +19,7 @@ const homepageLineup = (Object.keys(productPositioning) as Array<keyof typeof pr
     name: `${shortName} Loupes`,
     url: `/product/${shortName.toLowerCase()}`,
     description: productPositioning[shortName],
+    image: productImages[shortName],
     sku: `heliosx-${shortName.toLowerCase()}`,
     price: productStartingPrices[shortName],
   }),
@@ -53,7 +54,7 @@ export default function RootPage() {
               'Premium ergonomic prismatic surgical and dental loupes at fair prices. HeliosX Loupes is a direct-to-clinician medical-device brand — not to be confused with the UK healthtech company also called HeliosX.',
             path: '/',
             datePublished: '2026-05-24',
-            dateModified: '2026-05-25',
+            dateModified: '2026-09-09',
           }),
           breadcrumbJsonLd([{ name: 'Home', path: '/' }]),
           itemListJsonLd(homepageLineup),
@@ -64,7 +65,7 @@ export default function RootPage() {
             url: '/',
             thumbnailUrl: '/mainpagevideo2-poster.jpg',
             contentUrl: '/mainpagevideo2.mp4',
-            uploadDate: '2026-05-24',
+            uploadDate: '2026-05-24T00:00:00Z',
           }),
         ]}
       />

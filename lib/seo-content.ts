@@ -86,6 +86,14 @@ export const productStartingPrices: Record<keyof typeof productPositioning, numb
   Newton: 695,
 }
 
+export const productImages: Record<keyof typeof productPositioning, string> = {
+  Medusa: '/Medusa/MedusaMain.png',
+  Apollo: '/Apollo/ApollomainProduct(Notext).png',
+  Kepler: '/Keppler/KepplerMainProduct(Notext).png',
+  Galileo: '/Galileo/GalileoMainProduct(notext).png',
+  Newton: '/Newton/NewtonMainProduct(notext).png',
+}
+
 const postureSection: ContentSection = {
   title: 'Posture is part of the product',
   body:
@@ -132,12 +140,12 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'surgical-loupes',
     title: 'Surgical Loupes',
-    metaTitle: 'Surgical Loupes | Ergonomic Prismatic Loupes by HeliosX',
+    metaTitle: 'Surgical Loupes | Shop 2.5x–8.5x HeliosX Loupes',
     description:
       'Shop HeliosX surgical loupes for residents, surgeons, and medical students: ergonomic prismatic options, adjustable working distance, and fair pricing.',
     heroKicker: 'Surgical loupes',
     primaryKeyword: 'surgical loupes',
-    relatedKeywords: ['prismatic surgical loupes', 'best surgical loupes', 'affordable surgical loupes', 'intraoperative magnification'],
+    relatedKeywords: ['medical loupes', 'surgery loupes', 'loupes for surgeons', 'surgical magnification loupes'],
     audience: 'surgeons, residents, medical students, and procedure-focused clinicians',
     intro:
       'HeliosX surgical loupes combine ergonomic posture support, crisp optics, custom fit guidance, and honest pricing for clinicians who need precision without legacy markups.',
@@ -201,7 +209,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'prismatic-loupes',
     title: 'Prismatic Loupes',
-    metaTitle: 'Prismatic Loupes | Ergonomic Medusa and Apollo Systems',
+    metaTitle: 'Prismatic Loupes | Ergonomic 3.0x–8.5x Options',
     description:
       'Learn how HeliosX ergonomic prismatic loupes support posture, magnification, and clinical precision with Medusa and Apollo.',
     heroKicker: 'Prismatic loupes',
@@ -326,7 +334,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       'An honest guide to choosing loupes: Galilean vs prismatic, what each brand is good at, real prices, and matching magnification to your work.',
     heroKicker: 'Buying guide',
     primaryKeyword: 'best loupes',
-    relatedKeywords: ['best surgical loupes', 'best dental loupes', 'surgical loupes brands', 'loupes comparison', 'best loupes for residents'],
+    relatedKeywords: ['loupe buying guide', 'how to choose loupes', 'galilean vs prismatic loupes', 'loupe magnification guide'],
     audience: 'surgeons, dentists, hygienists, residents and students choosing their first or next pair of loupes',
     intro:
       'There is no single best loupe, and any guide that names one is selling something. The right pair depends on the procedures you actually perform, how long you wear them, the working distance your posture needs, and what you can realistically spend. This guide covers the decision honestly — including the brands we compete with, what each is genuinely good at, and where they beat us.',
@@ -459,7 +467,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'how-much-do-surgical-loupes-cost',
     title: 'How Much Do Surgical Loupes Cost?',
-    metaTitle: 'How Much Do Surgical Loupes Cost? | 2026 Pricing',
+    metaTitle: 'Surgical Loupes Cost: $695–$5,500+ | 2026 Guide',
     description:
       'Surgical loupes cost $800 to $5,500+ depending on optics and brand. See real price ranges, what drives cost, and HeliosX from $695.',
     heroKicker: 'Pricing guide',
@@ -591,7 +599,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       },
     ],
     datePublished: '2026-05-30',
-    dateModified: '2026-05-30',
+    dateModified: '2026-09-09',
   },
   {
     slug: 'heliosx-loupes-review',
@@ -989,9 +997,9 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'loupes-for-endodontics',
     title: 'Loupes for Endodontics',
-    metaTitle: 'Loupes for Endodontics | Magnification for Root Canal Work',
+    metaTitle: 'Endodontic Loupes | Magnification for Root Canals',
     description:
-      'The right loupes for endodontics: 4.5x to 6.0x, longer working distance and integrated lighting, built for canal anatomy.',
+      'Compare 4.5x–6.0x endodontic loupes for root canal work, including working distance, field of view, posture, and illumination needs.',
     heroKicker: 'Endodontic loupes',
     primaryKeyword: 'loupes for endodontics',
     relatedKeywords: [
@@ -1003,7 +1011,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     ],
     audience: 'endodontists, endodontic residents, general dentists who perform routine root canal therapy, and endodontic faculty',
     intro:
-      'Endodontic work happens at the limit of unaided vision. Canal orifices, isthmuses, and mid-root anatomy frequently sit below the resolution threshold of even corrected 20/20 sight at typical operator distances. Loupes are not optional equipment for serious endodontic practice — they are a baseline. The decision is which magnification, what working distance, and how much posture support to build in.',
+      'Loupes for endodontics typically use 4.5x–6.0x magnification for locating canal orifices, inspecting isthmuses, and refining access. The right setup also needs a working distance that supports posture and enough illumination for the narrow field; HeliosX loupes are sold without an LED light source.',
     proofPoints: [
       '4.5x to 6.0x is the working range most endodontists choose once they outgrow a first pair. Below 4.0x, fine canal anatomy is hard to verify under rubber dam.',
       'Endodontic loupes need longer working distance because the operator is often working in a slightly extended position to access posterior canals.',
@@ -1109,12 +1117,12 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       },
     ],
     datePublished: '2026-05-30',
-    dateModified: '2026-05-30',
+    dateModified: '2026-09-09',
   },
   {
     slug: 'loupes-for-periodontics',
     title: 'Loupes for Periodontics',
-    metaTitle: 'Loupes for Periodontics | Perio & Gum Surgery',
+    metaTitle: 'Periodontal Loupes | 3.0x–6.0x for Perio Surgery',
     description:
       'Loupes for periodontics: 3.0x–5.0x for scaling and gum surgery, ergonomic prismatic for long days. HeliosX from $1,195.',
     heroKicker: 'Periodontal loupes',
@@ -1128,7 +1136,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     ],
     audience: 'periodontists, periodontal residents, dental hygienists doing periodontal therapy, and general dentists doing routine perio',
     intro:
-      'Periodontics combines two visual demands that pull in different directions. Scaling, root planing, and routine perio work benefit from broader field of view at 3.0x to 3.5x. Periodontal microsurgery — connective tissue grafting, regenerative procedures, papilla preservation — pulls toward higher magnification at 4.5x to 6.0x. Most perio specialists end up with a single pair that compromises sensibly between the two, or invest in ergonomic prismatic optics that handle both ends of the range without re-buying.',
+      'Loupes for periodontics usually fall between 3.0x and 3.5x for scaling and routine periodontal work, while periodontal microsurgery often needs 4.5x–6.0x. The best choice balances field of view, posture, and the highest-detail procedure in the clinician’s regular case mix.',
     proofPoints: [
       'Scaling and root planing: 3.0x–3.5x for broad field of view and faster movement across multiple teeth per quadrant.',
       'Periodontal microsurgery: 4.5x–6.0x for connective tissue grafting, papilla preservation, and microsurgical suturing.',
@@ -1232,7 +1240,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       },
     ],
     datePublished: '2026-05-30',
-    dateModified: '2026-05-30',
+    dateModified: '2026-09-09',
   },
   {
     slug: 'loupes-for-orthodontics',
@@ -1351,7 +1359,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       },
     ],
     datePublished: '2026-05-30',
-    dateModified: '2026-05-30',
+    dateModified: '2026-09-09',
   },
   {
     slug: 'loupes-for-dental-implants',
@@ -1478,22 +1486,23 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   },
   {
     slug: 'loupes-for-dental-hygiene',
-    title: 'Loupes for Dental Hygiene',
-    metaTitle: 'Loupes for Dental Hygiene | Ergonomic Loupes for Hygienists',
+    title: 'Dental Hygiene Loupes',
+    metaTitle: 'Dental Hygiene Loupes | Lightweight & Ergonomic Options',
     description:
-      'Loupes for dental hygiene: 2.5x–3.0x for scaling and prophy, ultra-light builds for all-day wear. HeliosX from $695.',
+      'Compare lightweight and ergonomic dental hygiene loupes for scaling, probing, and all-day wear. See 2.5x–3.5x options from $695.',
     heroKicker: 'Dental hygiene loupes',
     primaryKeyword: 'dental hygiene loupes',
     relatedKeywords: [
-      'loupes for hygiene workflow',
-      'hygienist scaling loupes',
+      'loupes for dental hygienist',
+      'dental hygienist loupes',
+      'dental hygiene loupes with light',
       'lightweight dental loupes',
       'ergonomic hygiene loupes',
-      'best loupes for dental hygiene',
+      'best dental loupes for hygienists',
     ],
     audience: 'dental hygienists, hygiene students, hygiene faculty, and practice owners outfitting hygiene teams',
     intro:
-      'Dental hygiene is one of the strongest cases in dentistry for owning a pair of loupes. The work is sustained, fine-motor, in fixed seated posture, repeated across the entire workday for years. The MSK injury rate in the profession reflects the postural cost. The loupe priorities for hygiene are slightly different from any other dental role: magnification stays modest, wear weight becomes critical, and ergonomic prismatic design pays back across a career.',
+      'Dental hygiene loupes help hygienists see scaling, root planing, probing, and exam work while maintaining a more consistent working posture. Because hygiene work repeats across a full day, the best choice usually combines modest 2.5x–3.0x magnification with low weight; ergonomic prismatic optics are the upgrade for clinicians prioritizing neck posture.',
     proofPoints: [
       '2.5x–3.0x covers the visual demands of scaling, root planing, periodontal probing, and prophy exam work.',
       'Wear weight matters more in hygiene than any other dental role — heavy loupes worn for eight hours a day are felt at the neck.',
@@ -1552,6 +1561,16 @@ export const allSeoLandingPages: SeoLandingPage[] = [
           'Apollo ($1,695) — ergonomic prismatic at 3.0x–6.0x. The upgrade for hygienists who have noticed strain or who do periodontal therapy where posture support has a measurable career return.',
         ],
       },
+      {
+        title: 'Dental hygiene loupes with a light',
+        body:
+          'A coaxial loupe light can reduce shadows during posterior scaling and root planing, but the loupe and light should be evaluated separately. HeliosX loupe systems are sold without an LED light source. Confirm the mount, total front weight, battery runtime, and service terms before adding a third-party light.',
+        bullets: [
+          'A light is most useful for posterior and subgingival visibility where overhead lighting is easily blocked.',
+          'Choose the loupe for optical fit and posture first, then confirm that the light mount is compatible with the selected frame.',
+          'Include the lamp and cable when comparing total wear weight for a full hygiene schedule.',
+        ],
+      },
       valueSection,
     ],
     recommendedProducts: ['Newton', 'Galileo', 'Apollo', 'Medusa'],
@@ -1598,7 +1617,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       },
     ],
     datePublished: '2026-05-30',
-    dateModified: '2026-05-30',
+    dateModified: '2026-09-09',
   },
   {
     slug: 'vascular-surgery-loupes',
@@ -1978,7 +1997,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
   {
     slug: 'general-surgery-loupes',
     title: 'General Surgery Loupes',
-    metaTitle: 'General Surgery Loupes | Open Abdominal & Soft Tissue',
+    metaTitle: 'General Surgery Loupes | Magnification & Fit Guide',
     description:
       'Loupes for general surgery: 2.5x–3.5x for open abdominal, hernia and soft tissue work. Ergonomic prismatic for long cases. From $795.',
     heroKicker: 'General surgery',
@@ -1992,7 +2011,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     ],
     audience: 'general surgeons, general surgery residents and fellows, surgical oncology fellows, and trauma surgeons',
     intro:
-      'General surgery covers more anatomy and a wider case-mix variance than almost any other surgical specialty. Open abdominal work, hernia repair, breast and soft tissue, hepatobiliary, colorectal, surgical oncology, and trauma all fall under the same training pathway. The magnification needs are correspondingly broad — most general surgeons settle on a moderate range that handles the bulk of their work without committing to specialist-tier optics.',
+      'General surgery loupes usually use 2.5x–3.5x magnification for open abdominal, hernia, breast, soft-tissue, and trauma cases. Most general surgeons benefit more from a broad field, correct working distance, and stable posture than from maximum magnification.',
     proofPoints: [
       'Most general surgical work sits in the 2.5x–3.5x magnification range — wide field, longer working distance, and posture support are usually more important than maximum power.',
       'Subspecialty-focused general surgeons (HPB, surgical oncology, transplant) often move to 3.5x–4.5x for fine dissection and vascular reconstruction work.',
@@ -2097,7 +2116,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       },
     ],
     datePublished: '2026-05-30',
-    dateModified: '2026-05-30',
+    dateModified: '2026-09-09',
   },
   {
     slug: 'spine-surgery-loupes',
@@ -2222,12 +2241,12 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       },
     ],
     datePublished: '2026-05-30',
-    dateModified: '2026-05-30',
+    dateModified: '2026-09-09',
   },
   {
     slug: 'urology-loupes',
     title: 'Urology Loupes',
-    metaTitle: 'Urology Loupes | Open, Microsurgical & Pediatric',
+    metaTitle: 'Urology Loupes | Open, Pediatric & Microsurgery Guide',
     description:
       'Loupes for urology: 2.5x–4.0x for open and pediatric urology, 5.0x–6.0x for microsurgical vasovasostomy and varicocele repair. HeliosX from $795.',
     heroKicker: 'Urology',
@@ -2241,7 +2260,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     ],
     audience: 'urologists, urology residents and fellows, pediatric urology specialists, and microsurgical urology fellows',
     intro:
-      'Urology is two practices in one. Most urological work — open radical prostatectomy (in the smaller share of practices that still do it open), nephrectomy, scrotal surgery, urological reconstruction — sits in the 2.5x–4.0x magnification range. Microsurgical urology — vasovasostomy, varicocele repair, vasectomy reversal — is one of the highest-magnification surgical practices outside of microsurgery itself, routinely running at 5.0x–6.0x or the operating microscope. Most urologists own one loupe for general work and either a second pair or the microscope for microsurgical cases.',
+      'Urology loupes usually use 2.5x–4.0x magnification for open and pediatric work, while vasovasostomy, varicocele repair, and vasectomy reversal often need 5.0x–6.0x or an operating microscope. The right choice depends on whether the clinician’s case mix is broad, pediatric, or microsurgical.',
     proofPoints: [
       'General open urology and pediatric urology sit in the 2.5x–4.0x range. Most urologists settle around 3.0x–3.5x.',
       'Microsurgical urology (vasovasostomy, varicocelectomy) pushes to 5.0x–6.0x or the operating microscope — this is among the highest-magnification routine practices in surgery.',
@@ -2346,7 +2365,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       },
     ],
     datePublished: '2026-05-30',
-    dateModified: '2026-05-30',
+    dateModified: '2026-09-09',
   },
   {
     slug: 'gynecology-loupes',
@@ -6289,7 +6308,14 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
 
   // --- Broad commercial pages feed the decision cluster and the tail.
   'best-loupes': BUYING_DECISION_PAGES,
-  'surgical-loupes': SURGICAL_SUBSPECIALTIES.slice(0, 5),
+  'surgical-loupes': [
+    {
+      href: '/prismatic-loupes',
+      label: 'Prismatic loupes',
+      blurb: 'Ergonomic 3.0x–8.5x systems for posture and higher magnification.',
+    },
+    ...SURGICAL_SUBSPECIALTIES.slice(0, 4),
+  ],
   'dental-loupes': DENTAL_SUBSPECIALTIES,
   'best-dental-loupe-brands': DENTAL_SUBSPECIALTIES.slice(0, 4),
   'best-surgical-loupe-brands': SURGICAL_SUBSPECIALTIES.slice(0, 4),

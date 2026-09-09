@@ -8,6 +8,18 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/loupes-for-orthodontics',
+        headers: [
+          { key: 'Link', value: '<https://heliosxvision.com/loupes-for-orthodontics>; rel="canonical"' },
+        ],
+      },
+      {
+        source: '/spine-surgery-loupes',
+        headers: [
+          { key: 'Link', value: '<https://heliosxvision.com/spine-surgery-loupes>; rel="canonical"' },
+        ],
+      },
+      {
         source: '/(.*)',
         headers: [
           {

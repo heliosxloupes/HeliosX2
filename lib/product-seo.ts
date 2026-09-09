@@ -10,8 +10,17 @@ import {
   faqJsonLd,
   organizationJsonLd,
   productJsonLd,
+  webPageJsonLd,
   type ProductSpecInput,
 } from '@/lib/seo'
+
+const productSearchTitles: Record<string, string> = {
+  medusa: 'Medusa Adjustable Ergonomic Prismatic Loupes',
+  apollo: 'Apollo Ergonomic Prismatic Loupes',
+  galileo: 'Galileo Lightweight Surgical & Dental Loupes',
+  newton: 'Newton Ultra-Light Dental & Student Loupes',
+  kepler: 'Kepler High-Magnification Prismatic Loupes',
+}
 
 const productKeywords: Record<string, string[]> = {
   medusa: [
@@ -78,7 +87,7 @@ export async function getProductMetadata(slug: string): Promise<Metadata> {
     productPositioning[product.shortName as keyof typeof productPositioning] ?? product.description
 
   return buildMetadata({
-    title: `${product.name} | HeliosX ${product.shortName} Loupes`,
+    title: `${productSearchTitles[slug] ?? product.name} | HeliosX`,
     description: positioning,
     path: `/product/${slug}`,
     image: product.cardImageSrc || product.heroImages[0]?.src || '/HeliosXNew.png',
@@ -106,11 +115,23 @@ export async function getProductJsonLd(slug: string) {
   const faqs = productFaqs[slug] ?? []
 
   return [
+    webPageJsonLd({
+      title: productSearchTitles[slug] ?? product.name,
+      description,
+      path: `/product/${product.slug}`,
+      datePublished: '2026-05-20',
+      dateModified: '2026-09-09',
+    }),
     productJsonLd({
       name: product.name,
       description,
       slug: product.slug,
       image: product.cardImageSrc || product.heroImages[0]?.src,
+      images: [
+        product.cardImageSrc,
+        ...product.heroImages.map((image) => image.src),
+        ...product.specImages.map((image) => image.src),
+      ].filter((image): image is string => Boolean(image)),
       price: product.basePrice,
       priceLabel: product.priceLabel,
       magnifications: product.magnifications,

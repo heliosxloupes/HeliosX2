@@ -16,6 +16,7 @@ import {
 import {
   allSeoLandingPages,
   getSeoLandingPage,
+  productImages,
   productPositioning,
   productStartingPrices,
 } from '@/lib/seo-content'
@@ -79,6 +80,7 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
         name: `${shortName} Loupes`,
         url: `/product/${shortName.toLowerCase()}`,
         description: positioning,
+        image: productImages[shortName as keyof typeof productImages],
         sku: `heliosx-${shortName.toLowerCase()}`,
         ...(typeof price === 'number' ? { price } : {}),
       }
@@ -88,6 +90,7 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
         name: string
         url: string
         description: string
+        image: string
         sku: string
         price?: number
       } => item !== null,

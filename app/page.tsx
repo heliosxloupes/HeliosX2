@@ -4,7 +4,7 @@ import JsonLd from '@/components/JsonLd'
 import {
   breadcrumbJsonLd,
   buildMetadata,
-  itemListJsonLd,
+  catalogItemListJsonLd,
   organizationJsonLd,
   videoObjectJsonLd,
   webPageJsonLd,
@@ -57,7 +57,7 @@ export default function RootPage() {
             dateModified: '2026-09-09',
           }),
           breadcrumbJsonLd([{ name: 'Home', path: '/' }]),
-          itemListJsonLd(homepageLineup),
+          catalogItemListJsonLd(homepageLineup),
           videoObjectJsonLd({
             name: 'HeliosX Loupes brand film',
             description:

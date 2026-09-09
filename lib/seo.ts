@@ -150,6 +150,7 @@ export function organizationJsonLd() {
       availableLanguage: ['English'],
       areaServed: ['US', 'CA', 'GB', 'AU', 'IE', 'NZ'],
     },
+    hasMerchantReturnPolicy: defaultMerchantReturnPolicy,
   }
 }
 
@@ -527,6 +528,7 @@ export function productJsonLd(product: {
       highPrice,
       offerCount,
       availability: 'https://schema.org/InStock',
+      itemCondition: 'https://schema.org/NewCondition',
       url: productUrl,
       priceValidUntil,
       validFrom: '2026-05-24T00:00:00Z',
@@ -538,6 +540,7 @@ export function productJsonLd(product: {
       '@type': 'Offer',
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
+      itemCondition: 'https://schema.org/NewCondition',
       url: productUrl,
       priceValidUntil,
       validFrom: '2026-05-24T00:00:00Z',
@@ -701,7 +704,7 @@ export function howToJsonLd({
   }
 }
 
-export function itemListJsonLd(
+export function catalogItemListJsonLd(
   items: {
     name: string
     url: string
@@ -717,39 +720,21 @@ export function itemListJsonLd(
     '@type': 'ItemList',
     itemListElement: items.map((item, index) => {
       const itemUrl = absoluteUrl(item.url)
-      const product: Record<string, unknown> = {
-        '@type': 'Product',
-        '@id': `${itemUrl}#product`,
+      const itemNode: Record<string, unknown> = {
+        '@type': 'Thing',
+        '@id': `${itemUrl}#catalog-item`,
         name: item.name,
         url: itemUrl,
         image: absoluteUrl(item.image ?? '/HeliosXNew.png'),
         ...(item.description ? { description: item.description } : {}),
-        ...(item.sku ? { sku: item.sku, mpn: item.sku } : {}),
-        brand: {
-          '@type': 'Brand',
-          name: siteName,
-        },
-      }
-
-      if (typeof item.price === 'number' && Number.isFinite(item.price)) {
-        product.offers = {
-          '@type': 'Offer',
-          url: itemUrl,
-          priceCurrency: item.priceCurrency ?? 'USD',
-          price: item.price,
-          availability: 'https://schema.org/InStock',
-          priceValidUntil: oneYearFromTodayISO(),
-          validFrom: '2026-05-24T00:00:00Z',
-          hasMerchantReturnPolicy: defaultMerchantReturnPolicy,
-          shippingDetails: defaultShippingDetails,
-        }
+        ...(item.sku ? { identifier: item.sku } : {}),
       }
 
       return {
         '@type': 'ListItem',
         position: index + 1,
         url: itemUrl,
-        item: product,
+        item: itemNode,
       }
     }),
   }

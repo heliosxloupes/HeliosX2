@@ -8,7 +8,7 @@ import {
   breadcrumbJsonLd,
   buildMetadata,
   faqJsonLd,
-  itemListJsonLd,
+  catalogItemListJsonLd,
   medicalWebPageJsonLd,
   organizationJsonLd,
   webPageJsonLd,
@@ -140,7 +140,7 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
           ...(articleNode ? [articleNode] : []),
           breadcrumbJsonLd(breadcrumbItems),
           faqJsonLd(page.faqs),
-          ...(recommendedItems.length > 0 ? [itemListJsonLd(recommendedItems)] : []),
+          ...(recommendedItems.length > 0 ? [catalogItemListJsonLd(recommendedItems)] : []),
         ]}
       />
       <SeoLandingExperience page={page} modelRows={modelRows} />

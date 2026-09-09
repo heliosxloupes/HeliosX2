@@ -4,11 +4,11 @@ import JsonLd from '@/components/JsonLd'
 import {
   breadcrumbJsonLd,
   buildMetadata,
-  itemListJsonLd,
+  catalogItemListJsonLd,
   organizationJsonLd,
   webPageJsonLd,
 } from '@/lib/seo'
-import { productPositioning, productStartingPrices } from '@/lib/seo-content'
+import { productImages, productPositioning, productStartingPrices } from '@/lib/seo-content'
 
 const pageTitle = 'HeliosX Loupes | Surgical, Dental & Prismatic'
 const pageDescription =
@@ -35,6 +35,7 @@ const modelItems = Object.entries(productPositioning).map(([name, positioning]) 
     name: `${name} Surgical Loupes`,
     url: `/product/${name.toLowerCase()}`,
     description: positioning,
+    image: productImages[name as keyof typeof productImages],
     sku: `heliosx-${name.toLowerCase()}`,
     ...(typeof price === 'number' ? { price } : {}),
   }
@@ -56,7 +57,7 @@ export default function ProductLayout({ children }: { children: React.ReactNode 
             '@type': 'CollectionPage',
           },
           breadcrumbJsonLd(breadcrumbItems),
-          itemListJsonLd(modelItems),
+          catalogItemListJsonLd(modelItems),
         ]}
       />
       {children}

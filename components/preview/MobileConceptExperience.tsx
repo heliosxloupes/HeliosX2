@@ -160,7 +160,9 @@ export default function MobileConceptExperience() {
 
   return (
     <LenisProvider>
-      <div className="min-h-screen bg-[#03050a] text-white">
+      {/* Header is `fixed ... top-0` at 57px, so the page starts below it or
+          the announcement bar renders underneath the header. */}
+      <div className="min-h-screen bg-[#03050a] pt-[57px] text-white">
         <div className="border-b border-white/10 bg-[#070d16] px-4 py-2.5 text-center text-[11px] tracking-[0.06em] text-emerald-100/80">
           Worldwide shipping included <span className="mx-2 text-emerald-200/40">·</span> Custom fit, always
         </div>

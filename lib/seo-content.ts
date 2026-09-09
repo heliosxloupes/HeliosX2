@@ -4889,26 +4889,84 @@ export const educationGuides: EducationGuide[] = [
     kicker: 'Optics comparison',
     audience: 'buyers comparing loupe designs',
     intro:
-      'Galilean systems are often light and approachable. Prismatic systems can support higher magnification and posture-forward viewing.',
+      'There are only two optical designs in surgical and dental loupes, and almost every purchasing decision comes down to which one you need. Galilean systems use a simple two-lens arrangement. Prismatic systems fold the light path through prisms, which is what lets them reach higher magnification without becoming absurdly long. Neither is better in the abstract. They fail in different places, and the right question is which set of compromises matches your work.',
     sections: [
       {
-        title: 'Galilean loupes',
+        title: 'How a Galilean loupe works',
         body:
-          'Galilean loupes are a common entry point because they can be light, versatile, and easier to adopt.',
-        bullets: ['Good for students and broad daily use.', 'Often lighter than prismatic systems.', 'Usually strongest at lower to moderate magnification.'],
+          'A Galilean telescope is two lenses — a converging objective and a diverging eyepiece — with nothing folding the path between them. That simplicity is the whole advantage: fewer elements means less glass, less weight, and less cost. The limitation is equally structural. Beyond roughly 3.5× the design starts giving up too much in field of view and edge sharpness to be worth it, which is why virtually no manufacturer sells a Galilean loupe above that figure. HeliosX Galileo and Newton are both Galilean, and both stop at 3.5× for that reason.',
+        bullets: [
+          'Two lenses, no folded path — the simplest design available.',
+          'Lighter and less expensive than an equivalent prismatic.',
+          'Practical ceiling around 3.5×, which is a physical limit rather than a product decision.',
+        ],
       },
       {
-        title: 'Prismatic loupes',
+        title: 'How a prismatic loupe works',
         body:
-          'Prismatic loupes can support stronger magnification and more ergonomic viewing geometry. HeliosX Medusa and Apollo belong in this posture-forward category.',
-        bullets: ['Medusa: ergonomic prismatic with adjustable working distance.', 'Apollo: ergonomic prismatic.', 'Useful when posture and detail are both priorities.'],
+          'A prismatic loupe — sometimes called Keplerian — uses prisms to fold the light path back on itself inside the barrel. That folding is what makes higher magnification physically practical: without it, a 5× loupe would need a barrel long enough to be unwearable. The payoff is real resolution and a usable field at magnifications a Galilean cannot reach. The cost is weight, length, and price, because you are adding precision glass and the assembly tolerances get tighter. HeliosX Kepler, Apollo and Medusa are all prismatic.',
+        bullets: [
+          'Prisms fold the optical path so higher magnification fits in a wearable barrel.',
+          'Better resolution and field at 4× and above.',
+          'Heavier and more expensive — you are paying for more glass, made more precisely.',
+        ],
+      },
+      {
+        title: 'The ergonomic prismatic distinction',
+        body:
+          'This is the part that gets flattened in most comparisons, and it matters more than the Galilean-versus-prismatic question itself. Not every prismatic loupe is ergonomic. A conventional prismatic gives you the magnification but keeps traditional geometry — you still tilt your head down to look through it. An ergonomic prismatic uses the prisms to redirect the line of sight downward, so your head stays neutral and your eyes look straight ahead while the optics carry the view down to the field. HeliosX Kepler is a conventional prismatic built for high magnification; Apollo and Medusa are ergonomic prismatics built around that redirection.',
+        bullets: [
+          'Prismatic describes the optics; ergonomic describes the geometry.',
+          'A prismatic loupe is not automatically an ergonomic one.',
+          'The ergonomic version is what changes cervical load over a career.',
+        ],
+      },
+      {
+        title: 'Which one your work actually needs',
+        body:
+          'If you spend your day at 2.5× to 3.5× and weight matters more than magnification ceiling — general dentistry, hygiene, most everyday surgical work, and nearly all training — Galilean is the correct answer, not the budget compromise. If your work genuinely requires 4× or more, the question answers itself, because Galilean does not go there. The interesting decision sits in the middle: if you need higher magnification and you also expect to be doing this for another twenty years, the ergonomic prismatic premium buys posture rather than optics.',
+        bullets: [
+          'Everyday work at 2.5–3.5×: Galilean, and no apology needed.',
+          'Microsurgery, anastomosis, endodontics at 4×+: prismatic is the only option.',
+          'High magnification plus a long career ahead: ergonomic prismatic.',
+        ],
+      },
+      {
+        title: 'What the naming means at HeliosX',
+        body:
+          'The product names are not decorative. Galileo and Newton are Galilean designs, capped at 3.5× where that optical arrangement stops being sensible. Kepler is named for the Keplerian design that prismatic loupes are built on, and covers 4.0× to 6.0× for microsurgical work. Apollo and Medusa are ergonomic prismatics, with Medusa adding a working distance adjustable from 300 mm to 600 mm for clinicians who move between seated and standing work. The lineup is the optics, labelled honestly.',
+        bullets: [
+          'Galileo, Newton — Galilean, 2.5–3.5×.',
+          'Kepler — prismatic, 4.0–6.0×, conventional geometry.',
+          'Apollo, Medusa — ergonomic prismatic; Medusa adjusts 300–600 mm.',
+        ],
       },
     ],
     faqs: [
       {
         question: 'Are prismatic loupes better than Galilean loupes?',
         answer:
-          'Not always. Prismatic loupes can be better for posture and higher magnification needs, while Galilean loupes can be lighter and easier for many beginners.',
+          'Not in the abstract. Prismatic optics are necessary above about 3.5× and, in ergonomic form, better for posture. Galilean loupes are lighter and less expensive, and at 2.5–3.5× they are the right tool rather than a compromise. Match the design to the work, not to the price.',
+      },
+      {
+        question: 'Why do Galilean loupes stop at 3.5×?',
+        answer:
+          'It is a limitation of the design rather than a product decision. Without prisms folding the light path, pushing a two-lens system past roughly 3.5× costs too much field of view and edge sharpness to be worth selling.',
+      },
+      {
+        question: 'Is every prismatic loupe ergonomic?',
+        answer:
+          'No, and this is the most common misunderstanding in the category. Prismatic describes the optics; ergonomic describes whether the geometry redirects your line of sight downward so your head can stay neutral. Kepler is prismatic but conventional. Apollo and Medusa are ergonomic prismatics.',
+      },
+      {
+        question: 'Are prismatic loupes heavier?',
+        answer:
+          'Yes. More glass, folded paths and tighter assembly tolerances all add mass. That is the trade for magnification you cannot otherwise reach, and it is why weight matters most to people who wear loupes all day at lower magnification.',
+      },
+      {
+        question: 'Which design should a student buy first?',
+        answer:
+          'Galilean, in almost every case. It covers the magnification range training actually requires, weighs less over a long day, and costs meaningfully less at a point when most people are not yet certain what their long-term work will look like.',
       },
     ],
   },
@@ -5092,25 +5150,84 @@ export const educationGuides: EducationGuide[] = [
     kicker: 'Measurements',
     audience: 'loupe buyers preparing fit measurements',
     intro:
-      'Working distance is the distance from your eyes to the area where your hands normally work. It is one of the most important measurements for comfort and clarity.',
+      'Working distance is the distance from your eyes to the point where your hands are working. It is the measurement everything else hangs off. Magnification, depth of field, and the angle your neck sits at for the rest of your career are all downstream of this one number, and on a fixed-distance loupe it cannot be changed once the optics are cut.',
     sections: [
       {
-        title: 'Measure your real posture',
+        title: 'What working distance actually is',
         body:
-          'Do not measure while slouching toward the table. Sit or stand the way you want to work, then measure to the focal point.',
-        bullets: ['Use your normal chair, table, or operatory setup.', 'Keep your neck and back neutral.', 'Repeat the measurement several times.'],
+          'Measure from the outer corner of your eye to the point your hands are working on, with yourself set up exactly as you would be mid-procedure. Not from your forehead, not from the bridge of your glasses, and not from wherever you happen to be sitting while you read this. Most clinicians land somewhere between 350 mm and 500 mm, but the range is wide and the average is irrelevant — a 6‑4″ orthopedic surgeon standing at a table and a 5‑2″ hygienist seated at a reclined patient are not going to share a number.',
+        bullets: [
+          'Measure from the outer corner of the eye, not the forehead or brow.',
+          'Set up your real chair height, real patient position, real distance.',
+          'Take the measurement three times and average it.',
+        ],
       },
       {
-        title: 'Why it matters',
+        title: 'Measure your real posture, not your best one',
         body:
-          'Wrong working distance can force awkward posture or make the focal plane feel unstable.',
-        bullets: ['Too short can encourage hunching.', 'Too long can make the field feel distant.', 'Adjustable working distance can help users with multiple workflows.'],
+          'This is where most measurements go wrong, and the error is invisible until the loupes arrive. If you measure while leaning toward the field — which is exactly what people do when concentrating on a tape measure — you bake that lean permanently into the optics. The loupes then hold you in the posture you were trying to escape, for as long as you own them. Sit up first. Shoulders down, back straight, neck close to neutral, and only then measure.',
+        bullets: [
+          'Do not hunch toward the field while measuring.',
+          'Have someone else read the tape if you can — it is hard to stay upright and measure yourself.',
+          'If the number feels short, check your posture before you trust it.',
+        ],
+      },
+      {
+        title: 'What goes wrong when the number is off',
+        body:
+          'Too short and you work in permanent forward flexion, because the loupes will not focus unless your head comes down to meet the field. Too long and you lose the practical benefit of magnification — the field feels remote, and you find yourself creeping forward anyway. Neither failure damages the optics, and neither is obvious in the first week. Both compound across thousands of clinical hours, which is precisely why loupes are supposed to be measured rather than picked off a shelf.',
+        bullets: [
+          'Too short: forward head posture, cervical load, the problem loupes exist to solve.',
+          'Too long: the field feels distant and you drift forward regardless.',
+          'Either way the loupes stop earning their keep.',
+        ],
+      },
+      {
+        title: 'Depth of field: the tolerance around your number',
+        body:
+          'Working distance is not a single plane but a band — the depth of field is the range within which the image stays acceptably sharp. That band narrows as magnification rises, which is the practical trade nobody explains when they sell you higher power. At 2.5× you have room to shift and stay in focus. At 5× or 6× the tolerance is far tighter, and a working distance that was approximately right becomes noticeably wrong. The higher the magnification you choose, the more precisely this measurement has to be taken.',
+        bullets: [
+          'Higher magnification narrows the in-focus band.',
+          'Precision on this measurement matters more the more power you buy.',
+          'If you are unsure of your number, that is an argument for lower magnification, not higher.',
+        ],
+      },
+      {
+        title: 'Fixed or adjustable',
+        body:
+          'A fixed working distance is correct if you work in one consistent posture, and it is the simpler choice. But if you genuinely move between seated and standing work through the day, or between procedures with very different ergonomics, one fixed number is a compromise at both ends rather than a fit at either. HeliosX Medusa adjusts in real time from 300 mm to 600 mm for exactly that case. Decide which camp you are in before you measure, because it changes how much a single reading has to carry.',
+        bullets: [
+          'One consistent posture: fixed is fine, and simpler.',
+          'Genuinely split between sitting and standing: adjustable is worth the difference.',
+          'Medusa adjusts 300–600 mm; every other model is built to your one measurement.',
+        ],
       },
     ],
     faqs: [
       {
         question: 'Which HeliosX model has adjustable working distance?',
-        answer: 'Medusa is the HeliosX ergonomic prismatic system with adjustable working distance.',
+        answer:
+          'Medusa. It adjusts in real time from 300 mm to 600 mm, which suits clinicians who move between seated and standing work. Every other model is built to a single fixed working distance taken from your measurement.',
+      },
+      {
+        question: 'What is a normal working distance?',
+        answer:
+          'Most clinicians fall between 350 mm and 500 mm, but that range is wide enough that the average is not useful. Your height, your posture, and how your operatory or table is set up matter far more than any typical figure.',
+      },
+      {
+        question: 'Should I measure sitting or standing?',
+        answer:
+          'Measure in the posture you spend most of your clinical hours in. If your work is genuinely split between the two, either measure the position you use more, or choose an adjustable system. Averaging two different postures produces a number that fits neither.',
+      },
+      {
+        question: 'What if I get it wrong?',
+        answer:
+          'On a fixed-distance loupe the optics are cut to your number, so a significant error means the loupes do not work well for you. Small discrepancies can often be absorbed by frame adjustment. This is why it is worth measuring three times and measuring upright.',
+      },
+      {
+        question: 'Does working distance change with magnification?',
+        answer:
+          'The distance you choose is independent of magnification, but the tolerance around it is not. Higher magnification narrows the depth of field, so the same measurement error matters more at 5× than at 2.5×.',
       },
     ],
   },
@@ -5123,26 +5240,84 @@ export const educationGuides: EducationGuide[] = [
     kicker: 'PD guide',
     audience: 'customers preparing HeliosX measurements',
     intro:
-      'Pupillary distance helps align the optical system with your eyes. Accurate PD supports comfort, clarity, and a stable visual axis.',
+      'Pupillary distance is the gap between the centres of your pupils, measured in millimetres. It determines where the two optical barrels converge, which makes it the measurement with the least room for error in the entire fitting process. Get working distance slightly wrong and the field feels off. Get PD wrong and your eyes spend every clinical hour quietly compensating.',
     sections: [
       {
-        title: 'Best measurement sources',
+        title: 'Why PD carries the tightest tolerance',
         body:
-          'A well-reviewed smartphone PD app gives you a reliable measurement at home, and careful manual methods work too. Peer-reviewed research validates the smartphone approach for confident loupe orders without an extra appointment.',
-        bullets: ['Pick a well-reviewed PD app.', 'Measure in steady, even light with the phone held level.', 'Repeat once and average the readings for confidence.'],
+          'Loupes are two separate telescopes, and they have to converge on the same point your eyes converge on. When PD is off, the barrels aim slightly wide or slightly narrow of your visual axis, and your extraocular muscles pull the difference. The failure mode is not blur — it is fatigue. That is what makes it insidious: the loupes look fine for the first ten minutes, then produce headaches and eye strain by the end of a long list, and most people blame the magnification rather than the fit. Aim to be within about 1 mm.',
+        bullets: [
+          'The symptom of bad PD is eye strain and headache, not blurred vision.',
+          'It usually shows up hours in, not immediately.',
+          'Target accuracy is roughly 1 mm.',
+        ],
       },
       {
-        title: 'What the evidence says',
+        title: 'Three ways to measure, in order of reliability',
         body:
-          'A 2023 peer-reviewed study compared leading smartphone PD applications against a digital pupilometer and confirmed they measure accurately enough for confident at-home use. Used carefully, an app gives you the precision your HeliosX loupes are built around.',
-        bullets: ['The leading apps perform well against clinical instruments.', 'Take the measurement in steady, even light.', 'Repeat once and compare for consistency.'],
+          'An optician-measured PD taken on a digital pupilometer is the most reliable source, and if you have had an eye exam in the last couple of years the number is often printed on your prescription already. A well-reviewed smartphone PD app is the next best option and is what most customers use. A ruler held across the brow works, but it is the least forgiving of a rushed measurement. Whichever route you take, measure three times and average — a single reading is where nearly every PD error originates.',
+        bullets: [
+          'Best: optician or an existing eyeglass prescription.',
+          'Good: a well-reviewed smartphone PD app.',
+          'Workable: a millimetre ruler, carefully, in good light.',
+        ],
+      },
+      {
+        title: 'What the evidence says about phone apps',
+        body:
+          'A 2023 peer-reviewed study compared leading smartphone PD applications against a digital pupilometer and found they measure accurately enough for confident use. That result is what makes ordering custom-fit loupes online reasonable rather than a gamble — the measurement genuinely does not require someone else in the room. It does require care: steady even light, the phone held level at eye height, and a fixed distant point to look at while the reading is taken.',
+        bullets: [
+          'Leading apps perform well against clinical instruments.',
+          'Steady, even light and a level phone matter more than which app you pick.',
+          'Look at a fixed point several metres away, not at the camera.',
+        ],
+      },
+      {
+        title: 'Near PD and distance PD',
+        body:
+          'You may see two numbers on an optical prescription: distance PD and near PD. Near PD is smaller, because your eyes converge inward when focusing on something close. For loupes, the relevant figure follows the working distance the optics are built for, and this is one of the details a fitting process should handle rather than leave to the customer. If your prescription lists both and you are unsure which to send, send both and let us resolve it against your working distance.',
+        bullets: [
+          'Distance PD is measured looking at a far point; near PD is smaller.',
+          'Send both figures if your prescription lists them.',
+          'The right one depends on the working distance the loupes are built to.',
+        ],
+      },
+      {
+        title: 'Common mistakes',
+        body:
+          'Measuring while looking at the ruler rather than a distant point is the most frequent error, and it shifts the reading inward by converging your eyes. Taking one measurement and trusting it is the second. Measuring in dim light comes third, because pupil dilation moves the apparent centre. None of these are difficult to avoid, and all of them are easier to avoid than to detect afterwards.',
+        bullets: [
+          'Do not look at the ruler or the phone while measuring.',
+          'Never rely on a single reading.',
+          'Avoid dim light; dilated pupils shift the apparent centre.',
+        ],
       },
     ],
     faqs: [
       {
         question: 'Can I use a smartphone app to measure PD?',
         answer:
-          'Yes — a well-reviewed PD app gives you a reliable measurement at home, and peer-reviewed research validates the approach. Measure in good light, hold the phone level, and repeat once for confidence.',
+          'Yes — a well-reviewed PD app gives a reliable measurement at home, and peer-reviewed research validates the approach against clinical pupilometers. Measure in good light, hold the phone level, look at a fixed distant point, and repeat once for confidence.',
+      },
+      {
+        question: 'How accurate does my PD need to be?',
+        answer:
+          'Within about 1 mm. PD sets where the two optical barrels converge, so an error shows up as eye strain rather than blur — your eyes compensate for a while and then fatigue. This is why three readings and an average beat one careful attempt.',
+      },
+      {
+        question: 'Is my PD on my glasses prescription?',
+        answer:
+          'Often, yes. If you have had an eye exam in the last couple of years, check the prescription before measuring anything — an optician-measured PD taken on a digital pupilometer is more reliable than any at-home method.',
+      },
+      {
+        question: 'What is the difference between near PD and distance PD?',
+        answer:
+          'Near PD is smaller, because the eyes converge inward when focusing close. Which figure applies to your loupes depends on the working distance they are built for. If your prescription lists both, send both and we will resolve it.',
+      },
+      {
+        question: 'What happens if my PD is wrong?',
+        answer:
+          'The barrels aim slightly off your visual axis and your eye muscles absorb the difference. You get eye strain and headaches over a long day rather than obvious blur, which is why the cause often goes unrecognised. Small errors can sometimes be corrected by adjustment; large ones cannot.',
       },
     ],
     citations: [

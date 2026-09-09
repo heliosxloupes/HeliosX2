@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
   // the sitemap. /measurements/[token] is a per-customer route that is
   // noindex via its own layout metadata, so we do not need a robots
   // wildcard blocking it.
-  const sharedDisallow = ['/admin', '/admin/', '/api/', '/auth/', '/cart', '/checkout', '/preview/']
+  const sharedDisallow = ['/admin', '/admin/', '/api/', '/auth/', '/cart', '/checkout']
 
   // Explicit allow-list for major AI / search crawlers signals intent
   // even when '*' already permits them, and lets us tighten per-bot

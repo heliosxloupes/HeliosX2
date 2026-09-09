@@ -16,6 +16,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { GraduationCap } from "lucide-react";
 import LazyVideo from "@/components/LazyVideo";
+import MobileHomeExperience from "@/components/home/MobileHomeExperience";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -126,12 +127,26 @@ function ParallaxImage({
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useLayoutEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const syncViewport = () => setIsMobile(query.matches);
+
+    syncViewport();
+    query.addEventListener("change", syncViewport);
+    return () => query.removeEventListener("change", syncViewport);
+  }, []);
+
   return (
     <LenisProvider>
       <div className="min-h-screen bg-transparent text-white">
         <ScrollProgressBar />
         <Header />
 
+        {isMobile ? (
+          <MobileHomeExperience />
+        ) : (
         <main className="space-y-20 pb-16 md:space-y-28 md:pb-24">
           <HeroSection />
           <LineupSection />
@@ -151,6 +166,7 @@ export default function HomePage() {
             <CtaSection />
           </section>
         </main>
+        )}
       </div>
     </LenisProvider>
   );

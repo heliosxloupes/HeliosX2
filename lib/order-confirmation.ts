@@ -359,15 +359,26 @@ export async function processCheckoutSessionCompleted({
     },
   })
 
+  const completedAt = new Date().toISOString()
+
   if (session.metadata?.cartSessionId) {
     await supabase
       .from('abandoned_cart_sessions')
       .update({
-        completed_at: new Date().toISOString(),
+        completed_at: completedAt,
         checkout_session_id: session.id,
       })
       .eq('id', session.metadata.cartSessionId)
   }
+
+  // A shopper may have several saved cart rows from reconfiguring products.
+  // Close every older row for the same customer after payment so no recovery
+  // reminder can be sent after an order succeeds.
+  await supabase
+    .from('abandoned_cart_sessions')
+    .update({ completed_at: completedAt })
+    .eq('email', email.toLowerCase())
+    .is('completed_at', null)
 
   if (await hasPostPurchaseEvent(supabase, order.id, email)) {
     return { stored: true, emailed: false, skippedDuplicate: true, order }

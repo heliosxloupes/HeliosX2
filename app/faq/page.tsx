@@ -175,7 +175,7 @@ const faqSections = [
       },
       {
         q: 'What is your return policy?',
-        a: 'Orders may be cancelled for a full refund at any time before custom production begins. Once production begins, the custom order is no longer refundable. After delivery, authorized returns are available for fit or configuration modifications.',
+        a: 'Orders may be cancelled for a full refund before custom production begins. After production, non-defective orders are not refundable. Returns are accepted for defective products only; exchanges for confirmed defects and authorized fit or configuration corrections require review. See our Returns and Refunds page for full terms.',
       },
       {
         q: 'Where do you ship?',

@@ -1,3 +1,6 @@
+import { applyEditorialRevisions } from './seo-editorial'
+import { magnificationPriceByProduct } from './pricing'
+
 export type ContentSection = {
   title: string
   body: string
@@ -70,21 +73,15 @@ export const productPositioning = {
     'Ergonomic prismatic loupes with adjustable working distance for clinicians who change posture between seated and standing work.',
   Apollo:
     'Ergonomic prismatic loupes for clinicians who want posture-aware clarity and high-magnification options.',
-  Kepler: 'High-magnification prismatic loupes for microsurgery and detail work. 4.0x to 6.0x with configurable working distance, from $1,195.',
+  Kepler: 'Conventional prismatic loupes for higher-magnification work, available in 4.0x, 5.0x, and 6.0x.',
   Galileo: 'Lightweight affordable surgical and dental loupes for students, residents, and everyday clinical use.',
-  Newton: 'Ultra-light ergonomic loupes built for dental hygienists, dental students, and daily clinical use — starting at $695 with Galilean optics and all-day comfort.',
+  Newton: 'Our lowest-priced Galilean model, with 2.5x, 3.0x, and 3.5x configurations for everyday magnification.',
 }
 
-// Published starting price (USD) per product line. Used to emit
-// `offers` on every Product node in ItemList JSON-LD so Search Console
-// stops flagging "Invalid Product" warnings on the comparison pages.
-export const productStartingPrices: Record<keyof typeof productPositioning, number> = {
-  Medusa: 1695,
-  Apollo: 1695,
-  Kepler: 1195,
-  Galileo: 795,
-  Newton: 695,
-}
+// Derived from the checkout price list so cards and structured data cannot drift.
+export const productStartingPrices = Object.fromEntries(
+  Object.keys(productPositioning).map(name => [name, Math.min(...Object.values(magnificationPriceByProduct[name.toLowerCase()]))])
+) as Record<keyof typeof productPositioning, number>
 
 export const productImages: Record<keyof typeof productPositioning, string> = {
   Medusa: '/Medusa/MedusaMain.png',
@@ -109,17 +106,11 @@ const postureSection: ContentSection = {
 }
 
 const valueSection: ContentSection = {
-  title: 'Affordable without feeling cheap',
-  body:
-    'A lower price should not force clinicians into vague specs, weak fit support, or disposable optics. HeliosX is built around affordable premium value: clear model roles, fair pricing, and guidance before production begins. A 2004 peer-reviewed survey of 148 specialists and senior trainees (Jarrett PM, Microsurgery 2004;24:420–422) documented the intraoperative magnification ranges that real surgeons actually use — useful context when comparing brand claims against case-mix reality.',
-  bullets: [
-    'Transparent product roles and price ranges.',
-    'Measurement guidance for pupillary distance and working distance.',
-    'Education-first buying support for students, residents, dentists, and surgeons.',
-  ],
-  sourceLabel:
-    'Jarrett PM. Intraoperative magnification: who uses it? Microsurgery. 2004;24:420–422.',
-  sourceHref: '/research/intraoperative-magnification-who-uses-it.pdf',
+  title: 'Make the price part of the decision',
+  body: 'HeliosX is built around a simple mission: make premium magnification more accessible. Compare our published prices and model specifications, then confirm the fit and support terms before committing to a custom pair.',
+  bullets: ['Newton starts at $695; Galileo starts at $795.', 'Conventional prismatic Kepler starts at $1,195.', 'Ergonomic prismatic Apollo and Medusa start at $1,695.'],
+  sourceLabel: 'Complete pricing and optional extras',
+  sourceHref: '/how-much-do-surgical-loupes-cost',
 }
 
 const specialtyMagnificationSection: ContentSection = {
@@ -1167,7 +1158,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         title: 'Why ergonomics matter more in perio',
         body:
-          'Periodontal procedures are sit-down work, frequently with the operator hunched toward the field for extended periods. Hygienists doing periodontal therapy report some of the highest rates of cervical and shoulder musculoskeletal complaints in dentistry. A 2023 randomized controlled trial in Frontiers in Dental Medicine showed that loupes with ergonomic prismatic design reduced sustained neck flexion and self-reported strain across the workday in dental practitioners. For perio specifically, that ergonomic gain compounds across a five-to-ten-year career arc.',
+          'For periodontal work, measure working distance in the seated position and patient setup you actually use. Ergonomic prismatic loupes redirect the view, but the fit, stool height, and patient position still matter. A loupe design alone cannot guarantee comfortable posture or prevent pain.',
         bullets: [
           'Long case durations make posture the variable that decays slowest and hurts longest.',
           'Sit-down work without ergonomic optics tends toward sustained cervical flexion to maintain the operator viewing angle.',
@@ -6044,59 +6035,6 @@ for (const page of allSeoLandingPages) {
   }
 }
 
-// Universal buying/brand FAQs appended to any landing page with fewer
-// than 6 existing FAQs. Pages already over the threshold are left as-is.
-// AI Overviews and Google FAQ rich results both reward FAQ depth, so
-// padding thin pages closes the audit's biggest GEO weakness.
-const universalLoupesFaqs: ContentFaq[] = [
-  {
-    question: 'What measurements do I need to submit for HeliosX loupes?',
-    answer:
-      'Pupillary distance and working distance. The customer measurement flow is emailed after checkout and includes step-by-step instructions, smartphone-app recommendations, and manual measurement guidance. Prescription customers also submit a current eyeglass prescription.',
-  },
-  {
-    question: 'How long does it take to receive HeliosX loupes after ordering?',
-    answer:
-      'Custom production begins after you submit your measurements. Standard turnaround is roughly 3-5 weeks from measurement submission to delivery for US and Canadian orders. Express options are offered at checkout when available.',
-  },
-  {
-    question: 'Can I return HeliosX loupes if they do not fit?',
-    answer:
-      'Yes. Orders are fully refundable until custom production begins. Once production begins, the custom order is no longer refundable. After delivery, authorized returns are available for fit or configuration modifications.',
-  },
-  {
-    question: 'Are HeliosX loupes covered by a warranty?',
-    answer:
-      'Yes. Every HeliosX loupe includes a two-year limited warranty covering manufacturer-related defects in materials and workmanship from the delivery date. See /warranty for the full policy.',
-  },
-  {
-    question: 'How does HeliosX pricing compare to Orascoptic, SurgiTel, and LumaDent?',
-    answer:
-      'HeliosX models start at $695 for lightweight Galilean systems and $1,695 for ergonomic prismatic builds. That is roughly 50 to 70 percent less than equivalent loupes from legacy brands, with comparable optics, custom IPD fitting, and a measurement-first ordering process.',
-  },
-  {
-    question: 'Does HeliosX ship internationally?',
-    answer:
-      'HeliosX ships worldwide to destinations supported by its payment provider and international carriers. Custom production typically takes 1–2 weeks after measurements are approved, followed by destination-dependent transit time.',
-  },
-  {
-    question: 'Can I get prescription lenses with HeliosX loupes?',
-    answer:
-      'Yes. Prescription lenses are available across the HeliosX product line. Submit a current eyeglass prescription after checkout via the measurement flow and HeliosX coordinates the lens build.',
-  },
-]
-
-for (const page of allSeoLandingPages) {
-  if (page.faqs.length >= 6) continue
-  for (const candidate of universalLoupesFaqs) {
-    if (page.faqs.length >= 6) break
-    const alreadyAsked = page.faqs.some((existing) => existing.question === candidate.question)
-    if (!alreadyAsked) {
-      page.faqs.push(candidate)
-    }
-  }
-}
-
 const educationGuidePublicationDates: Record<string, { datePublished: string; dateModified: string }> = {
   'loupe-magnification-guide': { datePublished: '2026-04-01', dateModified: '2026-05-23' },
   'galilean-vs-prismatic-loupes': { datePublished: '2026-04-05', dateModified: '2026-05-23' },
@@ -6119,6 +6057,8 @@ for (const guide of educationGuides) {
     guide.dateModified = dates.dateModified
   }
 }
+
+applyEditorialRevisions(allSeoLandingPages, educationGuides)
 
 export function getSeoLandingPage(slug: string) {
   return allSeoLandingPages.find((page) => page.slug === slug) ?? null
@@ -6432,6 +6372,29 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
   ],
 }
 
+// Contextual paths keep specialty and brand guides reachable without repeating
+// a site-wide keyword list on every article.
+const editorialLinks: Record<string, string[]> = {
+  'best-surgical-loupe-brands': ['heliosx-vs-lumadent', 'heliosx-vs-orascoptic', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'heliosx-vs-examvision', 'heliosx-vs-admetec'],
+  'best-dental-loupe-brands': ['heliosx-vs-lumadent', 'heliosx-vs-orascoptic', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'heliosx-vs-examvision', 'heliosx-vs-admetec'],
+  'loupe-comparisons': ['best-surgical-loupe-brands', 'best-dental-loupe-brands', 'student-loupe-comparison', 'ergonomic-loupe-comparison', 'prismatic-loupe-comparison'],
+  'surgical-loupes': ['cardiac-surgery-loupes', 'pediatric-surgery-loupes', 'maxillofacial-surgery-loupes', 'ent-otolaryngology-loupes', 'ophthalmic-surgery-loupes', 'loupes-for-plastic-surgery'],
+  'student-loupe-comparison': ['loupes-for-dental-students', 'loupes-for-medical-students', 'loupes-for-residents', 'student-loupes-discount'],
+  'loupes-for-residents': ['loupes-for-medical-students', 'loupes-for-dental-students'],
+  'best-loupes-for-residents': ['loupes-for-residents', 'loupes-for-plastic-surgery', 'loupes-for-medical-students'],
+  'loupes-for-dental-hygiene': ['loupes-for-hygienists', 'loupes-for-dental-students'],
+}
+
 export function getRelatedPages(slug: string): RelatedPage[] {
-  return relatedPagesBySlug[slug] ?? []
+  const links = [...(relatedPagesBySlug[slug] ?? [])]
+  const targets = [...(editorialLinks[slug] ?? [])]
+  if (slug.startsWith('heliosx-vs-')) targets.push(`${slug.replace('heliosx-vs-', '')}-alternatives`)
+  if (slug.endsWith('-alternatives')) targets.push(`heliosx-vs-${slug.replace('-alternatives', '')}`)
+  for (const target of targets) {
+    const page = getSeoLandingPage(target)
+    if (page && !links.some(link => link.href === `/${target}`)) {
+      links.push({href:`/${target}`,label:page.title,blurb:page.description})
+    }
+  }
+  return links
 }

@@ -1,415 +1,237 @@
-'use client'
-
-import Image from 'next/image'
+﻿import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useScroll, useSpring } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
-
 import Header from '@/components/Header'
-import { LenisProvider } from '@/components/lenis-provider'
+import SeoAnalytics from '@/components/SeoAnalytics'
 import { linkifyText } from '@/components/seo/linkify'
 import { getRelatedPages } from '@/lib/seo-content'
 import type { EducationGuide } from '@/lib/seo-content'
+import styles from './BuyerGuide.module.css'
 
-type Diagram = {
-  src: string
-  alt: string
-} | null
-
+type Diagram = { src: string; alt: string } | null
 export type RelatedGuide = {
   slug: string
   title: string
   description: string
   kicker?: string
 }
-
-export type ShopByLink = {
-  label: string
-  href: string
-  description: string
-}
-
-type EducationGuideExperienceProps = {
+export type ShopByLink = { label: string; href: string; description: string }
+type Props = {
   guide: EducationGuide
   diagram: Diagram
   relatedGuides?: RelatedGuide[]
   shopByLinks?: ShopByLink[]
 }
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0 },
-}
-
-const stagger = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.05,
-    },
-  },
-}
-
-function ScrollProgressBar() {
-  const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  })
-
-  return (
-    <motion.div
-      className="fixed left-0 right-0 top-0 z-[200] h-[1.5px] origin-left pointer-events-none"
-      style={{
-        scaleX,
-        background:
-          'linear-gradient(90deg, rgba(52,211,153,0.92), rgba(125,211,252,0.92), rgba(52,211,153,0.72))',
-      }}
-    />
-  )
-}
-
-function getGuideImage(slug: string) {
-  if (slug === 'working-distance-for-loupes' || slug === 'how-to-measure-pupillary-distance') {
-    return {
-      src: '/oldguy2.png',
-      alt: 'Clinician at the operating field demonstrating loupe working posture',
-    }
-  }
-
-  if (slug.includes('pupillary') || slug.includes('working-distance') || slug.includes('prescription')) {
-    return {
-      src: '/workingdistance.png',
-      alt: 'HeliosX loupe measurement setup',
-    }
-  }
-
-  if (slug.includes('prismatic') || slug.includes('ergonomic')) {
-    return {
-      src: '/Medusa/MedusaStudioCloseup.png',
-      alt: 'Close view of HeliosX ergonomic prismatic loupes',
-    }
-  }
-
-  if (slug.includes('student') || slug.includes('resident')) {
-    return {
-      src: '/Galileo/Homepage1.png',
-      alt: 'HeliosX loupes for clinical training',
-    }
-  }
-
-  return {
-    src: '/Apollo/Apollo3xFemale2.png',
-    alt: 'Clinician wearing HeliosX loupes',
-  }
-}
+const id = (title: string) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 64)
 
 export default function EducationGuideExperience({
   guide,
   diagram,
   relatedGuides = [],
   shopByLinks = [],
-}: EducationGuideExperienceProps) {
-  // The education hubs carry the most internal authority on the site (64
-  // inbound links each) and previously linked only sideways to each other.
-  // These curated links push that authority down into the subspecialty tail.
-  const curatedRelated = getRelatedPages(guide.slug)
-  const hero = getGuideImage(guide.slug)
-  const diagramHasLightBackground =
-    diagram?.src.includes('pupillary distance') || diagram?.src.includes('workdistance diagram')
-
+}: Props) {
+  const curated = getRelatedPages(guide.slug)
+  const links = [
+    ...curated,
+    ...relatedGuides.map((g) => ({
+      href: `/education/${g.slug}`,
+      label: g.title,
+    })),
+    ...shopByLinks,
+  ].filter(
+    (link, index, list) =>
+      list.findIndex((item) => item.href === link.href) === index,
+  )
   return (
-    <LenisProvider>
-      <ScrollProgressBar />
+    <>
       <Header />
-      <main className="hx-mobile-editorial min-h-screen bg-black text-neutral-100">
-        <section className="relative min-h-[86svh] overflow-hidden">
-          <Image src={hero.src} alt={hero.alt} fill priority className="object-cover" />
-          <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(0,0,0,0.92)_10%,rgba(0,0,0,0.66)_46%,rgba(0,0,0,0.22)_76%,rgba(0,0,0,0.82)_100%)]" />
-          <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black via-black/72 to-transparent" />
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={stagger}
-            className="relative z-10 flex min-h-[86svh] flex-col justify-end px-5 pb-10 pt-28 md:px-12 md:pb-14"
-          >
-            <div className="max-w-4xl space-y-6">
-              <motion.div variants={fadeUp}>
-                <Link href="/education" className="text-sm font-semibold text-emerald-200 hover:text-white">
-                  Back to education
-                </Link>
-              </motion.div>
-              <motion.p variants={fadeUp} className="inline-flex rounded-full border border-white/15 bg-white/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-neutral-200 backdrop-blur-md">
-                {guide.kicker}
-              </motion.p>
-              <h1 className="text-[clamp(3rem,7vw,6.5rem)] font-bold leading-[0.95] text-white">
-                <span className="block overflow-hidden">
-                  <motion.span
-                    className="block"
-                    initial={{ y: '108%' }}
-                    animate={{ y: '0%' }}
-                    transition={{ duration: 0.78, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    {guide.title}
-                  </motion.span>
-                </span>
-              </h1>
-              <motion.p variants={fadeUp} className="max-w-2xl text-sm leading-7 text-neutral-200 md:text-base md:leading-8">
-                {linkifyText(guide.intro)}
-              </motion.p>
-              <motion.p variants={fadeUp} className="max-w-xl border-l border-emerald-300/60 pl-4 text-sm leading-6 text-neutral-300">
-                Built for {guide.audience}.
-              </motion.p>
-            </div>
-          </motion.div>
-        </section>
-
-        {diagram ? (
-          <section className="px-5 py-16 md:px-12 md:py-24">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              variants={fadeUp}
-              viewport={{ once: true, amount: 0.22 }}
-              className="mx-auto max-w-6xl overflow-hidden rounded-[28px] border border-white/10 bg-[#050b16] p-4 shadow-[0_30px_90px_rgba(0,0,0,0.45)] md:p-6"
-            >
-              <div
-                className={`relative overflow-hidden rounded-2xl border border-white/10 ${
-                  diagramHasLightBackground ? 'bg-white p-3' : 'bg-black'
-                }`}
-              >
-                <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_top_left,rgba(52,211,153,0.16),transparent_34%),linear-gradient(90deg,rgba(5,11,22,0.12),transparent_18%,transparent_82%,rgba(5,11,22,0.12))]" />
-                <Image
-                  src={diagram.src}
-                  alt={diagram.alt}
-                  width={1200}
-                  height={760}
-                  className="mx-auto h-auto max-h-[680px] w-full object-contain"
-                  priority
-                />
-              </div>
-            </motion.div>
-          </section>
-        ) : null}
-
-        <section className="px-5 py-16 md:px-12 md:py-24">
-          <div className="mx-auto max-w-6xl space-y-12">
-            {guide.sections.map((section, index) => (
-              <motion.section
-                key={section.title}
-                initial="hidden"
-                whileInView="visible"
-                variants={fadeUp}
-                viewport={{ once: true, amount: 0.26 }}
-                transition={{ duration: 0.58, ease: [0.16, 1, 0.3, 1] }}
-                className="grid gap-8 border-t border-white/10 pt-8 lg:grid-cols-[0.34fr,0.66fr]"
-              >
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
-                    {String(index + 1).padStart(2, '0')}
-                  </p>
-                  <h2 className="mt-3 text-3xl font-semibold leading-tight text-white md:text-4xl">
-                    {section.title}
-                  </h2>
-                </div>
-                <div className="space-y-6">
-                  <p className="text-base leading-8 text-neutral-300">{linkifyText(section.body)}</p>
-                  {section.sourceHref && section.sourceLabel ? (
-                    <p className="text-xs leading-6 text-neutral-400">
-                      <span className="font-semibold uppercase tracking-[0.18em] text-emerald-200/80">
-                        Source:{' '}
-                      </span>
-                      <Link
-                        href={section.sourceHref}
-                        target={section.sourceHref.startsWith('http') ? '_blank' : undefined}
-                        rel={section.sourceHref.startsWith('http') ? 'noreferrer' : undefined}
-                        className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white"
-                      >
-                        {section.sourceLabel}
-                      </Link>
+      <SeoAnalytics pageType="education" pageName={guide.title} />
+      <main className={styles.page}>
+        <div className={styles.wrap}>
+          <nav aria-label="Breadcrumb" className={styles.crumbs}>
+            <Link href="/">Home</Link>
+            <span aria-hidden="true">/</span>
+            <Link href="/education">Education</Link>
+          </nav>
+          <header className={`${styles.section} max-w-3xl`}>
+            <p className={styles.kicker}>HeliosX field notes</p>
+            <h1>{guide.title}</h1>
+            <p className={styles.intro}>{linkifyText(guide.intro)}</p>
+            <p className={styles.meta}>
+              By HeliosX
+              {guide.dateModified ? (
+                <>
+                  {' '}
+                  · Updated{' '}
+                  <time dateTime={guide.dateModified}>
+                    {new Date(
+                      `${guide.dateModified}T12:00:00Z`,
+                    ).toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                      timeZone: 'UTC',
+                    })}
+                  </time>
+                </>
+              ) : null}
+            </p>
+          </header>
+          <nav aria-label="On this page" className={styles.nav}>
+            {guide.sections.map((s) => (
+              <a key={s.title} href={`#${id(s.title)}`}>
+                {s.title}
+              </a>
+            ))}
+          </nav>
+          <div className={`${styles.section} ${styles.articleGrid}`}>
+            <div>
+              {diagram ? (
+                <figure className="mb-10 overflow-hidden rounded border border-white/15 bg-white">
+                  <Image
+                    src={diagram.src}
+                    alt={diagram.alt}
+                    width={1200}
+                    height={760}
+                    sizes="(max-width:767px) calc(100vw - 40px), 740px"
+                    className="h-auto w-full"
+                  />
+                </figure>
+              ) : null}
+              {guide.sections.map((s) => (
+                <section
+                  key={s.title}
+                  id={id(s.title)}
+                  className={styles.article}
+                >
+                  <h2>{s.title}</h2>
+                  <p>{linkifyText(s.body)}</p>
+                  {s.bullets.length ? (
+                    <ul>
+                      {s.bullets.map((b) => (
+                        <li key={b}>{linkifyText(b)}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  {s.sourceHref ? (
+                    <p className={styles.source}>
+                      Source:{' '}
+                      <a href={s.sourceHref}>{s.sourceLabel ?? s.sourceHref}</a>
                     </p>
                   ) : null}
-                  <div className="grid gap-3 sm:grid-cols-3">
-                    {section.bullets.map((bullet) => (
-                      <div key={bullet} className="border-t border-white/10 pt-4 text-sm leading-6 text-neutral-300">
-                        {linkifyText(bullet)}
-                      </div>
-                    ))}
-                  </div>
-                  {section.image ? (
-                    <figure className="mt-8 overflow-hidden rounded-2xl border border-white/10 bg-white">
-                      <div className="relative w-full bg-white">
-                        <Image
-                          src={section.image.src}
-                          alt={section.image.alt}
-                          width={section.image.width ?? 1200}
-                          height={section.image.height ?? 700}
-                          className="h-auto w-full object-contain"
-                        />
-                      </div>
-                      {section.image.caption ? (
-                        <figcaption className="border-t border-white/10 bg-[#050b16] px-5 py-4 text-xs leading-6 text-neutral-400">
-                          {section.image.caption}
-                        </figcaption>
+                  {s.image ? (
+                    <figure>
+                      <Image
+                        src={s.image.src}
+                        alt={s.image.alt}
+                        width={s.image.width ?? 1200}
+                        height={s.image.height ?? 700}
+                        sizes="(max-width:767px) calc(100vw - 40px), 740px"
+                      />
+                      {s.image.caption ? (
+                        <figcaption>{s.image.caption}</figcaption>
                       ) : null}
                     </figure>
                   ) : null}
-                </div>
-              </motion.section>
-            ))}
-          </div>
-        </section>
-
-        {guide.citations?.length ? (
-          <section className="border-y border-white/10 bg-neutral-950/70 px-5 py-14 md:px-12">
-            <div className="mx-auto max-w-6xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
-                References
-              </p>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                {guide.citations.map((citation) => (
-                  <Link
-                    key={citation.href}
-                    href={citation.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="border-t border-white/10 py-4 text-sm font-semibold text-emerald-200 transition hover:text-white"
-                  >
-                    {citation.label}
-                  </Link>
-                ))}
-              </div>
+                </section>
+              ))}
             </div>
-          </section>
-        ) : null}
-
-        <section className="px-5 py-16 md:px-12 md:py-24">
-          <div className="mx-auto max-w-4xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
-              Questions
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">Quick answers</h2>
-            <div className="mt-7 divide-y divide-white/10 border-y border-white/10">
-              {guide.faqs.map((faq) => (
-                <details key={faq.question} className="group py-5">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-white transition group-open:text-emerald-200">
-                    <span>{faq.question}</span>
-                    <ChevronDown
-                      aria-hidden="true"
-                      className="h-5 w-5 shrink-0 text-emerald-300 transition-transform group-open:rotate-180"
-                      strokeWidth={2}
-                    />
-                  </summary>
-                  <p className="mt-3 text-sm leading-7 text-neutral-300">{linkifyText(faq.answer)}</p>
+            <aside className={styles.aside}>
+              <p className={styles.kicker}>Put the guide to use</p>
+              <h2 className="mt-3">Choose with a clear plan.</h2>
+              <p>
+                Compare optical designs, current prices, and fitting
+                requirements before ordering a custom pair.
+              </p>
+              <Link
+                href="/best-loupes"
+                className={styles.primary}
+                data-seo-event="education_compare_models"
+              >
+                Find your HeliosX model
+              </Link>
+              <Link
+                href="/measurements"
+                className={styles.secondary}
+                data-seo-event="education_measurements"
+              >
+                Measurement instructions
+              </Link>
+            </aside>
+          </div>
+          {guide.citations?.length ? (
+            <section className={styles.section}>
+              <h2>Sources and further reading</h2>
+              <div className={styles.related}>
+                {guide.citations
+                  .filter(
+                    (c, i, a) => a.findIndex((x) => x.href === c.href) === i,
+                  )
+                  .map((c) => (
+                    <a key={c.href} href={c.href}>
+                      {c.label}
+                    </a>
+                  ))}
+              </div>
+            </section>
+          ) : null}
+          <section className={styles.section}>
+            <h2>Common questions</h2>
+            <div className={styles.faq}>
+              {guide.faqs.map((f) => (
+                <details key={f.question}>
+                  <summary>{f.question}</summary>
+                  <p>{linkifyText(f.answer)}</p>
                 </details>
               ))}
             </div>
-          </div>
-        </section>
-
-        {relatedGuides.length > 0 || shopByLinks.length > 0 ? (
-          <section className="border-t border-white/10 bg-neutral-950/60 px-5 py-16 md:px-12 md:py-24">
-            <div className="mx-auto max-w-6xl space-y-12">
-              {relatedGuides.length > 0 ? (
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-200/80">
-                    Related guides
-                  </p>
-                  <h2 className="mt-3 text-2xl font-semibold leading-tight text-white md:text-3xl">
-                    Keep reading the education library.
-                  </h2>
-                  <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-                    {relatedGuides.map((related) => (
-                      <Link
-                        key={related.slug}
-                        href={`/education/${related.slug}`}
-                        className="group flex h-full flex-col rounded-2xl border border-white/10 bg-[#050b16]/85 p-5 transition hover:border-emerald-200/40 hover:bg-[#070d1a]"
-                      >
-                        {related.kicker ? (
-                          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-200/80">
-                            {related.kicker}
-                          </p>
-                        ) : null}
-                        <h3 className="mt-2 text-lg font-semibold leading-snug text-white group-hover:text-emerald-100">
-                          {related.title}
-                        </h3>
-                        <p className="mt-3 line-clamp-3 text-sm leading-6 text-neutral-300">
-                          {related.description}
-                        </p>
-                        <span className="mt-auto pt-4 text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200/80 transition group-hover:text-white">
-                          Read guide →
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-
-              {shopByLinks.length > 0 ? (
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-200/80">
-                    Shop by specialty
-                  </p>
-                  <h2 className="mt-3 text-2xl font-semibold leading-tight text-white md:text-3xl">
-                    Match the right loupe to your work.
-                  </h2>
-                  <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    {shopByLinks.map((link) => (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        className="group flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-[#050b16]/85 p-5 transition hover:border-emerald-200/40 hover:bg-[#070d1a]"
-                      >
-                        <div>
-                          <h3 className="text-base font-semibold text-white group-hover:text-emerald-100">
-                            {link.label}
-                          </h3>
-                          <p className="mt-2 text-sm leading-6 text-neutral-300">{link.description}</p>
-                        </div>
-                        <span className="mt-4 text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200/80 transition group-hover:text-white">
-                          Explore →
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
+          </section>
+          <section className={styles.closing}>
+            <h2>Need help applying this to your setup?</h2>
+            <p className={styles.lead}>
+              Tell us your specialty, usual working position, and the question
+              you are trying to resolve. Ask before ordering if your
+              configuration is uncertain.
+            </p>
+            <div className={styles.actions}>
+              <a
+                href={`mailto:heliosxloupes@gmail.com?subject=${encodeURIComponent(`Question about ${guide.title}`)}`}
+                className={styles.primary}
+                data-seo-event="education_fit_email"
+              >
+                Email HeliosX
+              </a>
+              <Link
+                href="/product"
+                className={styles.secondary}
+                data-seo-event="education_shop"
+              >
+                Compare loupes
+              </Link>
             </div>
           </section>
-        ) : null}
-
-        {curatedRelated.length > 0 ? (
-          <section className="border-t border-white/10 px-5 py-16 md:px-12 md:py-24">
-            <div className="mx-auto max-w-4xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
-                Continue reading
-              </p>
-              <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
-                Magnification by specialty
-              </h2>
-              <div className="mt-8 grid gap-px overflow-hidden rounded-lg bg-white/10 sm:grid-cols-2">
-                {curatedRelated.map((related) => (
+          {links.length ? (
+            <section className={styles.section}>
+              <h2>Related guides</h2>
+              <div className={styles.related}>
+                {links.map((l) => (
                   <Link
-                    key={related.href}
-                    href={related.href}
-                    className="group block bg-[#050b16] p-6 transition hover:bg-[#070d1a]"
+                    key={l.href}
+                    href={l.href}
+                    data-seo-event="education_related"
                   >
-                    <span className="block text-base font-semibold text-white transition group-hover:text-emerald-100">
-                      {related.label}
-                    </span>
-                    <span className="mt-2 block text-sm leading-6 text-neutral-400">
-                      {related.blurb}
-                    </span>
+                    {l.label}
                   </Link>
                 ))}
               </div>
-            </div>
-          </section>
-        ) : null}
+            </section>
+          ) : null}
+        </div>
       </main>
-    </LenisProvider>
+    </>
   )
 }

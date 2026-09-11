@@ -1,661 +1,345 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { Check, ChevronDown } from 'lucide-react'
-import { useRef } from 'react'
-import type { ReactNode } from 'react'
-
 import Header from '@/components/Header'
-import { LenisProvider } from '@/components/lenis-provider'
 import SeoAnalytics from '@/components/SeoAnalytics'
 import { linkifyText } from '@/components/seo/linkify'
-import { getRelatedPages } from '@/lib/seo-content'
+import {
+  getRelatedPages,
+  productImages,
+  productStartingPrices,
+} from '@/lib/seo-content'
 import type { SeoLandingPage } from '@/lib/seo-content'
-import MobileComparisonExperience from '@/components/mobile/MobileComparisonExperience'
+import styles from './BuyerGuide.module.css'
 
-type ModelRow = {
-  name: string
-  href: string
-  positioning: string
+type ModelRow = { name: string; href: string; positioning: string }
+const tradeoffs: Record<string, string> = {
+  Newton:
+    'Galilean optics. Choose Apollo or Medusa for a redirected ergonomic view.',
+  Galileo: 'A lightweight Galilean option; not an ergonomic prismatic system.',
+  Kepler:
+    'Conventional prismatic optics. Choose Apollo or Medusa for ergonomic viewing.',
+  Apollo:
+    'Working distance is fixed to your configuration; magnification is selected at purchase.',
+  Medusa:
+    'Working distance adjusts from 300–600 mm. Magnification does not switch on the loupe.',
 }
-
-type SeoLandingExperienceProps = {
-  page: SeoLandingPage
-  modelRows: ModelRow[]
-}
-
-function slugifySectionTitle(title: string): string {
-  return title
+const id = (title: string) =>
+  title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
     .slice(0, 64)
-}
+const usd = (price: number) =>
+  new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+  }).format(price)
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 26 },
-  visible: { opacity: 1, y: 0 },
-}
-
-const stagger = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.05,
-    },
-  },
-}
-
-function ScrollProgressBar() {
-  const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  })
-
+// Reading content is server-rendered and visible without hydration.
+export default function SeoLandingExperience({
+  page,
+  modelRows,
+}: {
+  page: SeoLandingPage
+  modelRows: ModelRow[]
+}) {
+  const products = page.recommendedProducts
+    .map((name) => modelRows.find((row) => row.name === name))
+    .filter((row): row is ModelRow => !!row)
+  const imageKey = (products[0]?.name ?? 'Apollo') as keyof typeof productImages
+  const related = getRelatedPages(page.slug)
+  const words = [
+    page.intro,
+    ...page.sections.flatMap((s) => [s.title, s.body, ...s.bullets]),
+    ...page.faqs.flatMap((f) => [f.question, f.answer]),
+  ]
+    .join(' ')
+    .split(/\s+/).length
+  const email = `mailto:heliosxloupes@gmail.com?subject=${encodeURIComponent(`Help choosing loupes: ${page.title}`)}&body=${encodeURIComponent('Hi HeliosX,\n\nMy specialty / training stage:\nThe procedures I do most:\nMy current loupes and magnification (if any):\nMy budget:\nMy question:\n')}`
   return (
-    <motion.div
-      className="fixed left-0 right-0 top-0 z-[200] h-[1.5px] origin-left pointer-events-none"
-      style={{
-        scaleX,
-        background:
-          'linear-gradient(90deg, rgba(52,211,153,0.92), rgba(125,211,252,0.92), rgba(52,211,153,0.72))',
-      }}
-    />
-  )
-}
-
-function MagneticWrapper({ children }: { children: ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-  const springX = useSpring(x, { stiffness: 180, damping: 18 })
-  const springY = useSpring(y, { stiffness: 180, damping: 18 })
-
-  return (
-    <motion.div
-      ref={ref}
-      style={{ x: springX, y: springY, display: 'inline-flex' }}
-      onMouseMove={(event) => {
-        const rect = ref.current?.getBoundingClientRect()
-        if (!rect) return
-        x.set((event.clientX - (rect.left + rect.width / 2)) * 0.18)
-        y.set((event.clientY - (rect.top + rect.height / 2)) * 0.18)
-      }}
-      onMouseLeave={() => {
-        x.set(0)
-        y.set(0)
-      }}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-function getHeroImage(slug: string) {
-  if (slug === 'dental-loupes') {
-    return {
-      src: '/mirrorshotdental.png',
-      alt: 'Dental clinician using a mirror retractor during a chairside procedure with HeliosX loupes',
-    }
-  }
-
-  if (slug.includes('dental') || slug.includes('hygienist') || slug.includes('lumadent')) {
-    return {
-      src: '/Galileo/girlinmirror.png',
-      alt: 'Clinician wearing HeliosX loupes during dental and clinical preparation',
-    }
-  }
-
-  if (slug.includes('student') || slug.includes('resident') || slug.includes('affordable') || slug.includes('cheap')) {
-    return {
-      src: '/Newton/NewtonAsian.png',
-      alt: 'HeliosX lightweight loupes for students and residents',
-    }
-  }
-
-  if (slug.includes('prismatic') || slug.includes('ergonomic') || slug.includes('surgitel') || slug.includes('admetec')) {
-    return {
-      src: '/Medusa/MedusaDoctorSeated.png',
-      alt: 'Clinician wearing HeliosX ergonomic prismatic loupes',
-    }
-  }
-
-  if (slug.includes('comparison') || slug.includes('alternative') || slug.includes('orascoptic') || slug.includes('q-optics') || slug.includes('examvision')) {
-    return {
-      src: '/Apollo/Apollowomanscrubbing.png',
-      alt: 'Clinician preparing with HeliosX loupes before a procedure',
-    }
-  }
-
-  return {
-    src: '/Apollo/Apollo3xFemale2.png',
-    alt: 'Surgeon wearing HeliosX loupes in a clinical setting',
-  }
-}
-
-function useParallax() {
-  const ref = useRef<HTMLElement | null>(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end start'],
-  })
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.96])
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.76])
-
-  return { ref, scale, opacity }
-}
-
-export default function SeoLandingExperience({ page, modelRows }: SeoLandingExperienceProps) {
-  const hero = getHeroImage(page.slug)
-  const heroMotion = useParallax()
-
-  // Curated contextual links for this specific page. Where a page has them,
-  // they replace the generic hub list below -- every SEO landing page linking
-  // to the same five hubs is what left 19 pages with no in-content inbound
-  // links at all (8 Sep 2026 audit). See relatedPagesBySlug in lib/seo-content.
-  const curatedRelated = getRelatedPages(page.slug)
-
-  const relatedGuides =
-    curatedRelated.length > 0
-      ? curatedRelated.map(({ href, label }) => ({ href, label }))
-      : [
-          { href: '/education/loupe-magnification-guide', label: 'Magnification guide' },
-          { href: '/education/intraoperative-magnification-by-specialty', label: 'Magnification by specialty' },
-          { href: '/education/galilean-vs-prismatic-loupes', label: 'Galilean vs prismatic' },
-          { href: '/education/working-distance-for-loupes', label: 'Working distance' },
-          { href: '/measurements', label: 'Measurements' },
-        ]
-
-  const highIntentLinks = [
-    { href: '/best-dental-loupe-brands', label: 'Best dental loupe brands' },
-    { href: '/best-surgical-loupe-brands', label: 'Best surgical loupe brands' },
-    { href: '/student-loupe-comparison', label: 'Student loupe comparison' },
-    { href: '/ergonomic-loupe-comparison', label: 'Ergonomic loupe comparison' },
-    { href: '/prismatic-loupe-comparison', label: 'Prismatic loupe comparison' },
-    { href: '/heliosx-vs-lumadent', label: 'HeliosX vs LumaDent' },
-    { href: '/heliosx-vs-orascoptic', label: 'HeliosX vs Orascoptic' },
-    { href: '/heliosx-vs-surgitel', label: 'HeliosX vs SurgiTel' },
-  ].filter((link) => link.href !== `/${page.slug}`)
-
-  return (
-    <LenisProvider>
-      <SeoAnalytics pageType="seo_landing" pageName={page.title} />
-      <ScrollProgressBar />
+    <>
       <Header />
-      <main className="hx-mobile-editorial min-h-screen bg-black text-neutral-100">
-        {page.slug === 'loupe-comparisons' ? (
-          <div className="md:hidden">
-            <MobileComparisonExperience />
-          </div>
-        ) : null}
-        <div className={page.slug === 'loupe-comparisons' ? 'hidden md:block' : undefined}>
-        <section ref={heroMotion.ref} className="relative min-h-[94svh] overflow-hidden">
-          <motion.div style={{ scale: heroMotion.scale, opacity: heroMotion.opacity }} className="absolute inset-0">
-            <Image src={hero.src} alt={hero.alt} fill priority className="object-cover" />
-          </motion.div>
-          <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(0,0,0,0.92)_8%,rgba(0,0,0,0.62)_43%,rgba(0,0,0,0.26)_70%,rgba(0,0,0,0.78)_100%)]" />
-          <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black via-black/72 to-transparent" />
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={stagger}
-            className="relative z-10 flex min-h-[94svh] flex-col justify-end px-5 pb-10 pt-28 md:px-12 md:pb-14"
-          >
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr),minmax(280px,0.52fr)] lg:items-end">
-              <div className="max-w-3xl space-y-6">
-                <motion.p
-                  variants={fadeUp}
-                  className="inline-flex rounded-full border border-white/15 bg-white/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-neutral-200 backdrop-blur-md"
-                >
-                  {page.heroKicker}
-                </motion.p>
-                <h1 className="max-w-4xl text-[clamp(3rem,7.5vw,6.75rem)] font-bold leading-[0.94] text-white">
-                  <span className="block overflow-hidden">
-                    <motion.span
-                      className="block"
-                      initial={{ y: '108%' }}
-                      animate={{ y: '0%' }}
-                      transition={{ duration: 0.78, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                      {page.title}
-                    </motion.span>
-                  </span>
-                  {' '}
-                  <span className="block overflow-hidden">
-                    <motion.span
-                      className="block bg-gradient-to-r from-white via-sky-200 to-emerald-300 bg-clip-text text-transparent"
-                      initial={{ y: '108%' }}
-                      animate={{ y: '0%' }}
-                      transition={{ duration: 0.78, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                      {page.heroTail ?? 'built around real clinical work.'}
-                    </motion.span>
-                  </span>
-                </h1>
-                <motion.p variants={fadeUp} className="max-w-2xl text-sm leading-7 text-neutral-200 md:text-base md:leading-8">
-                  {linkifyText(page.intro)}
-                </motion.p>
-                <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
-                  <MagneticWrapper>
-                    <Link
-                      href="/product"
-                      data-seo-event="shop_loupes_primary"
-                      className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-black shadow-[0_18px_50px_rgba(255,255,255,0.18)] transition hover:bg-neutral-200"
-                    >
-                      Shop HeliosX loupes
-                    </Link>
-                  </MagneticWrapper>
-                  <Link
-                    href="/measurements"
-                    data-seo-event="measurements_primary"
-                    className="rounded-full border border-white/20 bg-black/25 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:border-white"
-                  >
-                    Read measurement guide
-                  </Link>
-                </motion.div>
-              </div>
-
-              <motion.aside
-                variants={fadeUp}
-                className="border-l border-white/15 pl-5 text-sm text-neutral-200 backdrop-blur-sm lg:pb-2"
-              >
-                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-200">
-                  Built for
-                </p>
-                <p className="mt-3 text-xl font-semibold leading-7 text-white">{page.audience}</p>
-                {/* Proof points sit above the fold and are the first thing a
-                    reader weighs. Checkmarks and figure emphasis make them read
-                    as claims rather than as more running text. */}
-                <div className="mt-6 space-y-3">
-                  {page.proofPoints.map((point) => (
-                    <div
-                      key={point}
-                      className="flex gap-3 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 leading-6 text-neutral-200"
-                    >
-                      <Check
-                        aria-hidden="true"
-                        className="mt-1 h-4 w-4 shrink-0 text-emerald-300"
-                        strokeWidth={2.5}
-                      />
-                      <span>{linkifyText(point)}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.aside>
-            </div>
-          </motion.div>
-        </section>
-
-        {page.sections.length > 3 ? (
-          <section className="px-5 pt-10 md:px-12">
-            <nav
-              aria-label="On this page"
-              className="mx-auto max-w-6xl rounded-2xl border border-white/10 bg-neutral-950/60 px-5 py-4"
-            >
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-200/80">
-                On this page
+      <SeoAnalytics pageType="seo_landing" pageName={page.title} />
+      <main className={styles.page}>
+        <div className={styles.wrap}>
+          <nav aria-label="Breadcrumb" className={styles.crumbs}>
+            <Link href="/">Home</Link>
+            <span aria-hidden="true">/</span>
+            <Link href="/loupe-comparisons">Buying guides</Link>
+          </nav>
+          <header className={styles.hero}>
+            <div>
+              <p className={styles.kicker}>HeliosX buying guide</p>
+              <h1>{page.title}</h1>
+              <p className={styles.intro}>{linkifyText(page.intro)}</p>
+              <p className={styles.meta}>
+                By HeliosX · {Math.max(2, Math.ceil(words / 220))} min read
+                {page.dateModified ? (
+                  <>
+                    {' '}
+                    · Updated{' '}
+                    <time dateTime={page.dateModified}>
+                      {new Date(
+                        `${page.dateModified}T12:00:00Z`,
+                      ).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                        timeZone: 'UTC',
+                      })}
+                    </time>
+                  </>
+                ) : null}
               </p>
-              <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-neutral-300">
-                {page.sections.map((section, index) => (
-                  <li key={`toc-${section.title}`}>
-                    <a
-                      href={`#${slugifySectionTitle(section.title)}`}
-                      className="underline decoration-white/20 underline-offset-4 transition hover:text-white hover:decoration-emerald-200"
-                    >
-                      <span className="mr-1 text-neutral-500">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      {section.title}
-                    </a>
-                  </li>
+              <div className={styles.actions}>
+                <a
+                  href="#model-shortlist"
+                  className={styles.primary}
+                  data-seo-event="guide_see_models"
+                >
+                  See models &amp; prices <span aria-hidden="true">↓</span>
+                </a>
+                <a href="#buying-advice" className={styles.secondary}>
+                  Read the guide
+                </a>
+              </div>
+              <p className={styles.fineprint}>
+                We make and sell HeliosX loupes. This is our buying guidance,
+                not an independent product test or paid ranking.
+              </p>
+            </div>
+            <div className={styles.heroImage}>
+              <Image
+                src={productImages[imageKey]}
+                alt={`HeliosX ${imageKey} loupes`}
+                fill
+                priority
+                sizes="(max-width: 767px) calc(100vw - 40px), 440px"
+              />
+              <p className={styles.heroCaption}>
+                {imageKey} · From {usd(productStartingPrices[imageKey])} USD
+              </p>
+            </div>
+          </header>
+          <nav aria-label="On this page" className={styles.nav}>
+            {page.comparisonRows?.length ? (
+              <a href="#comparison">Comparison</a>
+            ) : null}
+            <a href="#model-shortlist">HeliosX options</a>
+            <a href="#buying-advice">What to look for</a>
+            <a href="#questions">Questions</a>
+            <a href="#help-choosing">Ask for help</a>
+          </nav>
+          {page.comparisonRows?.length ? (
+            <section id="comparison" className={styles.section}>
+              <p className={styles.kicker}>The differences that matter</p>
+              <h2 className="mt-3">Compare before you commit</h2>
+              <div className={styles.comparison}>
+                {page.comparisonRows.map((row) => (
+                  <div key={row.feature} className={styles.compareRow}>
+                    <h3>{row.feature}</h3>
+                    <div className={styles.ours}>
+                      <strong>HeliosX</strong>
+                      {row.heliosx}
+                    </div>
+                    <div>
+                      <strong>{page.competitorName ?? 'Other options'}</strong>
+                      {row.other}
+                    </div>
+                  </div>
                 ))}
-              </ul>
-            </nav>
-          </section>
-        ) : null}
-
-        <section className="px-5 py-16 md:px-12 md:py-24">
-          <div className="mx-auto max-w-6xl space-y-12">
-            {page.sections.map((section, index) => (
-              <motion.article
-                key={section.title}
-                id={slugifySectionTitle(section.title)}
-                initial="hidden"
-                whileInView="visible"
-                variants={fadeUp}
-                viewport={{ once: true, amount: 0.26 }}
-                transition={{ duration: 0.58, ease: [0.16, 1, 0.3, 1] }}
-                className="grid gap-8 border-t border-white/10 pt-8 lg:grid-cols-[0.34fr,0.66fr] scroll-mt-24"
-              >
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
-                    {String(index + 1).padStart(2, '0')}
-                  </p>
-                  <h2 className="mt-3 text-3xl font-semibold leading-tight text-white md:text-4xl">
-                    {section.title}
-                  </h2>
-                </div>
-                <div className="space-y-6">
-                  <p className="text-lg leading-9 text-neutral-200 md:text-[1.15rem]">
-                    {linkifyText(section.body)}
-                  </p>
-                  {section.sourceHref && section.sourceLabel ? (
-                    <p className="text-xs leading-6 text-neutral-400">
-                      <span className="font-semibold uppercase tracking-[0.18em] text-emerald-200/80">
-                        Source:{' '}
-                      </span>
+              </div>
+              {page.verdict ? (
+                <p className={styles.verdict}>{linkifyText(page.verdict)}</p>
+              ) : null}
+            </section>
+          ) : null}
+          <section id="model-shortlist" className={styles.section}>
+            <p className={styles.kicker}>Your HeliosX shortlist</p>
+            <h2 className="mt-3">Start with the work you do.</h2>
+            <p className={styles.lead}>
+              Compare the optical design, then choose your magnification and
+              frame on the product page.
+            </p>
+            <div className={styles.shortlist}>
+              {products.map((row) => {
+                const key = row.name as keyof typeof productImages
+                return (
+                  <article className={styles.card} key={row.name}>
+                    <Link
+                      href={row.href}
+                      className={styles.cardImage}
+                      tabIndex={-1}
+                      aria-hidden="true"
+                    >
+                      <Image
+                        src={productImages[key]}
+                        alt=""
+                        fill
+                        sizes="(max-width: 767px) calc(100vw - 40px), 355px"
+                      />
+                    </Link>
+                    <div className={styles.cardBody}>
+                      <div className={styles.cardTitle}>
+                        <h3>{row.name}</h3>
+                        <span className={styles.price}>
+                          From {usd(productStartingPrices[key])}
+                        </span>
+                      </div>
+                      <p>{row.positioning}</p>
+                      <p className={styles.tradeoff}>{tradeoffs[row.name]}</p>
                       <Link
-                        href={section.sourceHref}
-                        target={section.sourceHref.startsWith('http') ? '_blank' : undefined}
-                        rel={section.sourceHref.startsWith('http') ? 'noreferrer' : undefined}
-                        className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white"
+                        href={row.href}
+                        className={styles.secondary}
+                        data-seo-event={`recommended_product_${row.name.toLowerCase()}`}
                       >
-                        {section.sourceLabel}
+                        Explore {row.name} <span aria-hidden="true">↗</span>
                       </Link>
+                    </div>
+                  </article>
+                )
+              })}
+            </div>
+            <p className={styles.fineprint}>
+              Starting prices in USD. Magnification and optional prescription
+              lenses affect the total; shipping and taxes appear at checkout.{' '}
+              <Link href="/product">See all five models</Link>.
+            </p>
+          </section>
+          <section
+            id="buying-advice"
+            className={`${styles.section} ${styles.articleGrid}`}
+            aria-label="Buying advice"
+          >
+            <div>
+              {page.sections.map((section) => (
+                <article
+                  id={id(section.title)}
+                  key={section.title}
+                  className={styles.article}
+                >
+                  <h2>{section.title}</h2>
+                  <p>{linkifyText(section.body)}</p>
+                  {section.bullets.length > 0 ? (
+                    <ul>
+                      {section.bullets.map((b) => (
+                        <li key={b}>{linkifyText(b)}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  {section.sourceHref ? (
+                    <p className={styles.source}>
+                      Source:{' '}
+                      <a href={section.sourceHref}>
+                        {section.sourceLabel ?? section.sourceHref}
+                      </a>
                     </p>
                   ) : null}
-                  {/* Bullets carry the scannable substance of every page, so they
-                      read as cards with their own surface rather than as loose
-                      text under a hairline. Long lists (brand profiles, specialty
-                      routing) drop to two columns so lines stay readable. */}
-                  <div
-                    className={`grid gap-3 ${
-                      section.bullets.length > 4 ? 'sm:grid-cols-2' : 'sm:grid-cols-3'
-                    }`}
-                  >
-                    {section.bullets.map((bullet) => (
-                      <div
-                        key={bullet}
-                        className="group relative rounded-xl border border-white/10 bg-white/[0.04] p-4 text-sm leading-6 text-neutral-300 transition duration-300 hover:border-emerald-300/40 hover:bg-white/[0.07]"
-                      >
-                        <span
-                          aria-hidden="true"
-                          className="absolute left-0 top-4 h-5 w-[2px] rounded-full bg-emerald-300/50 transition group-hover:bg-emerald-300"
-                        />
-                        <span className="block pl-3">{linkifyText(bullet)}</span>
-                      </div>
-                    ))}
-                  </div>
                   {section.image ? (
-                    <figure className="mt-8 overflow-hidden rounded-2xl border border-white/10 bg-white">
-                      <div className="relative w-full bg-white">
-                        <Image
-                          src={section.image.src}
-                          alt={section.image.alt}
-                          width={section.image.width ?? 1200}
-                          height={section.image.height ?? 700}
-                          className="h-auto w-full object-contain"
-                        />
-                      </div>
+                    <figure>
+                      <Image
+                        src={section.image.src}
+                        alt={section.image.alt}
+                        width={section.image.width ?? 1200}
+                        height={section.image.height ?? 700}
+                        sizes="(max-width: 767px) calc(100vw - 40px), 740px"
+                      />
                       {section.image.caption ? (
-                        <figcaption className="border-t border-white/10 bg-[#050b16] px-5 py-4 text-xs leading-6 text-neutral-400">
-                          {section.image.caption}
-                        </figcaption>
+                        <figcaption>{section.image.caption}</figcaption>
                       ) : null}
                     </figure>
                   ) : null}
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-y border-white/10 bg-neutral-950/70 px-5 py-16 md:px-12 md:py-24">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={stagger}
-            viewport={{ once: true, amount: 0.18 }}
-            className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.78fr,1.22fr]"
-          >
-            <motion.div variants={fadeUp}>
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
-                Buyer criteria
-              </p>
-              <h2 className="mt-3 text-3xl font-semibold leading-tight text-white md:text-4xl">
-                Choose by work, posture, and fit.
-              </h2>
-              <p className="mt-5 text-sm leading-7 text-neutral-300">
-                A useful loupe guide answers the real buying question. Start with the procedures you perform, then compare optics around posture, magnification, fit support, and price.
-              </p>
-            </motion.div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[
-                ['Workflow', 'Which procedures, appointments, or cases will these loupes support most often?'],
-                ['Posture', 'Do you need ergonomic prismatic viewing or adjustable working distance?'],
-                ['Magnification', 'How much detail do you need before field of view becomes too narrow?'],
-                ['Fit', 'Do you have accurate pupillary distance, working distance, and prescription details?'],
-                ['Budget', 'Are you buying for school, residency, practice, or a focused upgrade?'],
-                ['Support', 'Can you easily get help with measurements, shipping, prescription, and setup?'],
-              ].map(([label, body]) => (
-                <motion.div key={label} variants={fadeUp} className="border-t border-white/10 pt-5">
-                  <h3 className="text-sm font-semibold text-white">{label}</h3>
-                  <p className="mt-2 text-sm leading-6 text-neutral-400">{body}</p>
-                </motion.div>
+                </article>
               ))}
             </div>
-          </motion.div>
-        </section>
-
-        {page.comparisonRows?.length ? (
-          <section className="px-5 py-16 md:px-12 md:py-24">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              variants={fadeUp}
-              viewport={{ once: true, amount: 0.18 }}
-              className="mx-auto max-w-6xl"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
-                Side-by-side
+            <aside className={styles.aside}>
+              <p className={styles.kicker}>Before you order</p>
+              <h2 className="mt-3">Get the fit right.</h2>
+              <p>
+                After checkout, we collect your measurements and review the
+                configuration before custom production. If you are unsure what
+                to choose, email us first.
               </p>
-              <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">Comparison snapshot</h2>
-              <div className="mt-8 overflow-x-auto border-y border-white/10">
-                <table className="w-full min-w-[760px] border-collapse text-left">
-                  <caption className="sr-only">
-                    Side-by-side comparison of HeliosX and {page.competitorName ?? 'other brands'}
-                    {' '}across {page.comparisonRows.length} positioning factors.
-                  </caption>
-                  <thead>
-                    <tr className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
-                      <th scope="col" className="py-4 pr-4 font-semibold">Feature</th>
-                      {/* The HeliosX column is the one readers are scanning for.
-                          Tinting it and topping it with the accent rule makes the
-                          table answer its own question at a glance. */}
-                      <th
-                        scope="col"
-                        className="border-t-2 border-emerald-300/70 bg-emerald-300/[0.07] p-4 font-semibold text-emerald-200"
-                      >
-                        HeliosX
-                      </th>
-                      <th scope="col" className="p-4 font-semibold">
-                        {page.competitorName ?? 'Other brands'}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {page.comparisonRows.map((row) => (
-                      <tr
-                        key={row.feature}
-                        className="border-t border-white/10 text-sm text-neutral-300 align-top"
-                      >
-                        <th scope="row" className="py-5 pr-4 font-semibold text-white">
-                          {row.feature}
-                        </th>
-                        <td className="bg-emerald-300/[0.07] p-5 leading-6 text-white">
-                          {row.heliosx}
-                        </td>
-                        <td className="p-5 leading-6 text-neutral-400">{row.other}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              {page.verdict ? (
-                <div className="mt-9 max-w-4xl overflow-hidden rounded-2xl border border-emerald-300/25 bg-gradient-to-br from-emerald-300/[0.10] to-transparent p-6 md:p-8">
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-200/90">
-                    The honest answer
-                  </p>
-                  <p className="mt-4 text-lg leading-9 text-emerald-50 md:text-xl md:leading-10">
-                    {linkifyText(page.verdict)}
-                  </p>
-                </div>
-              ) : null}
-            </motion.div>
-          </section>
-        ) : null}
-
-        <section className="border-y border-white/10 bg-neutral-950/70 px-5 py-16 md:px-12">
-          <div className="mx-auto max-w-6xl">
-            <div className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
-                  Product path
-                </p>
-                <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">The HeliosX lineup</h2>
-              </div>
-              <Link href="/product" className="text-sm font-semibold text-emerald-200 hover:text-white">
-                Compare all loupes
+              <Link
+                href="/measurements"
+                className={styles.secondary}
+                data-seo-event="guide_measurements"
+              >
+                How measurement works
               </Link>
-            </div>
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              variants={stagger}
-              viewport={{ once: true, amount: 0.16 }}
-              className="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
-            >
-              {page.recommendedProducts.map((product) => {
-                const row = modelRows.find((item) => item.name === product)
-                if (!row) return null
-
-                return (
-                  <motion.div key={product} variants={fadeUp}>
-                    <Link
-                      href={row.href}
-                      data-seo-event={`recommended_product_${product.toLowerCase()}`}
-                      className="group block border-t border-white/10 pt-5 transition"
-                    >
-                      <h3 className="text-xl font-semibold text-white transition group-hover:text-emerald-200">{product}</h3>
-                      <p className="mt-3 text-sm leading-6 text-neutral-300">{row.positioning}</p>
-                    </Link>
-                  </motion.div>
-                )
-              })}
-            </motion.div>
-          </div>
-        </section>
-
-        <section className="px-5 py-16 md:px-12 md:py-24">
-          <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.08fr,0.92fr]">
-            <motion.div initial="hidden" whileInView="visible" variants={fadeUp} viewport={{ once: true, amount: 0.2 }}>
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
-                Keep comparing
+              <p>
+                Full cancellation refunds are available before production
+                begins. After production, non-defective orders are not
+                refundable.
               </p>
-              <h2 className="mt-3 text-3xl font-semibold leading-tight text-white md:text-4xl">
-                Related buyer searches
-              </h2>
-              <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                {highIntentLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    data-seo-event={`high_intent_${link.label.toLowerCase().replaceAll(' ', '_')}`}
-                    className="border-t border-white/10 py-4 text-sm font-semibold text-neutral-200 transition hover:border-emerald-300/70 hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </motion.div>
-            <motion.aside
-              initial="hidden"
-              whileInView="visible"
-              variants={fadeUp}
-              viewport={{ once: true, amount: 0.2 }}
-              className="border-l border-white/10 pl-6"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
-                Education
-              </p>
-              <h2 className="mt-3 text-2xl font-semibold text-white">Learn the fit variables</h2>
-              <div className="mt-6 space-y-3">
-                {relatedGuides.map((guide) => (
-                  <Link
-                    key={guide.href}
-                    href={guide.href}
-                    data-seo-event={`related_${guide.label.toLowerCase().replaceAll(' ', '_')}`}
-                    className="block border-t border-white/10 py-4 text-sm text-neutral-200 transition hover:text-emerald-200"
-                  >
-                    {guide.label}
-                  </Link>
-                ))}
-              </div>
-            </motion.aside>
-          </div>
-        </section>
-
-        <section className="border-t border-white/10 px-5 py-16 md:px-12 md:py-24">
-          <div className="mx-auto max-w-4xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
-              Questions
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">Quick answers</h2>
-            <div className="mt-7 divide-y divide-white/10 border-y border-white/10">
+              <Link href="/returns" className={styles.secondary}>
+                Read the return policy
+              </Link>
+            </aside>
+          </section>
+          <section id="questions" className={styles.section}>
+            <h2>Questions before buying</h2>
+            <div className={styles.faq}>
               {page.faqs.map((faq) => (
-                <details key={faq.question} className="group py-5">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-white transition group-open:text-emerald-200">
-                    <span>{faq.question}</span>
-                    <ChevronDown
-                      aria-hidden="true"
-                      className="h-5 w-5 shrink-0 text-emerald-300 transition-transform group-open:rotate-180"
-                      strokeWidth={2}
-                    />
-                  </summary>
-                  <p className="mt-3 text-sm leading-7 text-neutral-300">{linkifyText(faq.answer)}</p>
+                <details key={faq.question}>
+                  <summary>{faq.question}</summary>
+                  <p>{linkifyText(faq.answer)}</p>
                 </details>
               ))}
             </div>
-          </div>
-        </section>
-
-        {curatedRelated.length > 0 ? (
-          <section className="border-t border-white/10 px-5 py-16 md:px-12 md:py-24">
-            <div className="mx-auto max-w-4xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
-                Continue reading
-              </p>
-              <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
-                Related guides
-              </h2>
-              <div className="mt-8 grid gap-px overflow-hidden rounded-lg bg-white/10 sm:grid-cols-2">
-                {curatedRelated.map((related) => (
+          </section>
+          <section
+            id="help-choosing"
+            className={`${styles.section} ${styles.closing}`}
+          >
+            <p className={styles.kicker}>
+              Premium magnification. More accessible.
+            </p>
+            <h2 className="mt-3">A clear choice starts with your work.</h2>
+            <p className={styles.lead}>
+              Tell us your specialty, typical procedures, current magnification,
+              and budget. We can help you narrow the options before you order.
+            </p>
+            <div className={styles.actions}>
+              <a
+                href={email}
+                className={styles.primary}
+                data-seo-event="guide_fit_email"
+              >
+                Help me choose
+              </a>
+              <Link
+                href="/product"
+                className={styles.secondary}
+                data-seo-event="guide_shop_bottom"
+              >
+                Shop all loupes
+              </Link>
+            </div>
+            <p className={styles.fineprint}>
+              Email opens in your mail app: heliosxloupes@gmail.com ·{' '}
+              <Link href="/warranty">Two-year limited warranty</Link>
+            </p>
+          </section>
+          {related.length > 0 ? (
+            <section className={styles.section}>
+              <h2>Continue your research</h2>
+              <div className={styles.related}>
+                {related.map((link) => (
                   <Link
-                    key={related.href}
-                    href={related.href}
-                    data-seo-event={`related_page_${related.href.replaceAll('/', '_')}`}
-                    className="group block bg-neutral-950 p-6 transition hover:bg-neutral-900"
+                    href={link.href}
+                    key={link.href}
+                    data-seo-event="guide_related"
                   >
-                    <span className="block text-base font-semibold text-white transition group-hover:text-emerald-200">
-                      {related.label}
-                    </span>
-                    <span className="mt-2 block text-sm leading-6 text-neutral-400">
-                      {related.blurb}
-                    </span>
+                    {link.label} <span aria-hidden="true">↗</span>
                   </Link>
                 ))}
               </div>
-            </div>
-          </section>
-        ) : null}
+            </section>
+          ) : null}
         </div>
       </main>
-    </LenisProvider>
+    </>
   )
 }

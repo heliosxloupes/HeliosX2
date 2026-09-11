@@ -9,7 +9,6 @@ import {
   buildMetadata,
   faqJsonLd,
   catalogItemListJsonLd,
-  medicalWebPageJsonLd,
   organizationJsonLd,
   webPageJsonLd,
 } from '@/lib/seo'
@@ -40,14 +39,12 @@ export function generateMetadata({ params }: SeoPageProps): Metadata {
     description: page.description,
     path: `/${page.slug}`,
     keywords: [page.primaryKeyword, ...page.relatedKeywords],
-    image: null,
+    image: productImages[page.recommendedProducts[0] as keyof typeof productImages],
   })
 }
 
-// Comparison-cluster slugs use commercial-investigation intent, so they
-// schema as plain WebPage + Article instead of MedicalWebPage (which
-// implies clinical/diagnostic content and risks Google demoting these
-// pages for the wrong intent).
+// Comparison pages include the comparison hub in their breadcrumb.
+// All buying guides use WebPage + Article, matching their editorial content.
 const COMPARISON_SLUG_PATTERNS = [
   /^heliosx-vs-/,
   /-alternatives$/,
@@ -105,31 +102,16 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
   const datePublished = page.datePublished ?? '2026-05-25'
   const dateModified = page.dateModified ?? '2026-05-25'
 
-  const pageNode = isComparison
-    ? webPageJsonLd({
-        title: page.title,
-        description: page.description,
-        path: `/${page.slug}`,
-        datePublished,
-        dateModified,
-        breadcrumb: breadcrumbItems,
-      })
-    : medicalWebPageJsonLd({
-        title: page.title,
-        description: page.description,
-        path: `/${page.slug}`,
-        audienceType: page.audience,
-      })
-
-  const articleNode = isComparison
-    ? articleJsonLd({
-        title: page.title,
-        description: page.description,
-        path: `/${page.slug}`,
-        datePublished,
-        dateModified,
-      })
-    : null
+  const pageNode = webPageJsonLd({
+    title: page.title, description: page.description, path: `/${page.slug}`,
+    datePublished, dateModified, breadcrumb: breadcrumbItems,
+  })
+  const articleNode = articleJsonLd({
+    title: page.title, description: page.description, path: `/${page.slug}`,
+    image: productImages[page.recommendedProducts[0] as keyof typeof productImages],
+    citations: page.sections.filter(section => section.sourceHref).map(section => ({ label: section.sourceLabel ?? section.title, href: section.sourceHref! })),
+    datePublished, dateModified,
+  })
 
   return (
     <>

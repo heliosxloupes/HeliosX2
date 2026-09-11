@@ -14,7 +14,7 @@ import type { ReactNode } from 'react'
 // sentence-ending period, or end-of-string. File-extension URLs (.pdf
 // etc.) only live in sourceHref fields, which render separately, so the
 // trailing-dot exclusion here is safe.
-const INTERNAL_PATH_REGEX = /\/[a-z0-9][a-z0-9-/]*[a-z0-9]/g
+const INTERNAL_PATH_REGEX = /(?<![a-zA-Z0-9/:])\/[a-z0-9][a-z0-9-/]*[a-z0-9]/g
 
 // Prices ($695, $1,695, $3,500+), magnifications (3.0x, 8.5x) and percent
 // figures (30-50%) are the numbers a buyer actually scans for. Lifting them
@@ -62,7 +62,7 @@ export function linkifyText(text: string): ReactNode {
         href={path}
         className="text-emerald-200 underline decoration-emerald-200/30 underline-offset-4 transition hover:text-white hover:decoration-emerald-200"
       >
-        {path}
+        {path.split('/').filter(Boolean).pop()?.replaceAll('-', ' ').replace(/^[a-z]/, (letter) => letter.toUpperCase())}
       </Link>,
     )
     cursor = start + path.length

@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 import { upsertCrmContact } from '@/lib/commerce'
 import { HELIOSX_SUPPORT_EMAIL, sendEmail, type OrderEmailSummary } from '@/lib/email'
 import { getSupabaseServiceClient } from '@/lib/supabase/server'
+import { getSiteUrl } from '@/lib/site-url'
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => null)
@@ -88,7 +89,7 @@ async function sendMeasurementEmails({
   const customerName = order?.customer_name as string | undefined
   const customerEmail = (order?.customer_email as string | undefined) || submittedEmail
   const who = customerName || customerEmail
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://heliosxvision.com'
+  const baseUrl = getSiteUrl()
 
   const orderSummary: OrderEmailSummary = {
     orderNumber: order?.id,

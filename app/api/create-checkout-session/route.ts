@@ -8,6 +8,7 @@ import {
   resolveAddOn,
   resolveProductPrice,
 } from '@/lib/pricing'
+import { getSiteUrl } from '@/lib/site-url'
 
 const WORLDWIDE_SHIPPING_COUNTRIES = `
   AC AD AE AF AG AI AL AM AO AQ AR AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ
@@ -132,9 +133,7 @@ export async function POST(req: Request) {
 
     const stripe = new Stripe(secretKey, { apiVersion: '2024-06-20' as any })
 
-    const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || 'https://heliosxvision.com')
-      .trim()
-      .replace(/\/+$/, '')
+    const baseUrl = getSiteUrl()
 
     const cookies = Object.fromEntries(
       String(req.headers.get('cookie') ?? '')

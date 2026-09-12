@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server'
 
 import { renderTemplate, sendEmail } from '@/lib/email'
+import { createCartRecoveryToken } from '@/lib/cart-recovery'
 import { getSupabaseServiceClient } from '@/lib/supabase/server'
+import { getSiteUrl } from '@/lib/site-url'
 
 export const dynamic = 'force-dynamic'
 
@@ -99,6 +101,14 @@ export async function GET(req: Request) {
     const subject = renderTemplate(template.subject, { email })
     const body = renderTemplate(template.body, { email })
     const isCheckout = template.key.startsWith('checkout_abandoned')
+    let recoveryUrl: string
+    try {
+      const recoveryToken = createCartRecoveryToken(cart.id)
+      recoveryUrl = `${getSiteUrl()}/cart/recover?token=${encodeURIComponent(recoveryToken)}`
+    } catch (error) {
+      console.error('Cart recovery link generation failed', error)
+      continue
+    }
     const result: any = await sendEmail({
       to: email,
       subject,
@@ -109,10 +119,8 @@ export async function GET(req: Request) {
       eyebrow: isCheckout ? 'Checkout reminder' : 'Cart reminder',
       title: isCheckout ? 'Your checkout is still open' : 'Your HeliosX configuration is saved',
       cta: {
-        label: isCheckout ? 'Return to checkout' : 'Return to cart',
-        url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://heliosxvision.com'}${
-          isCheckout ? '/checkout' : '/cart'
-        }`,
+        label: isCheckout ? 'Restore checkout' : 'Restore saved cart',
+        url: recoveryUrl,
       },
     })
 

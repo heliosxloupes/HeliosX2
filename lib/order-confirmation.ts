@@ -9,6 +9,7 @@ import {
   sendEmail,
 } from '@/lib/email'
 import { upsertCrmContact } from '@/lib/commerce'
+import { getSiteUrl } from '@/lib/site-url'
 
 const DEFAULT_POST_PURCHASE_SUBJECT = 'Your HeliosX order is confirmed'
 const DEFAULT_POST_PURCHASE_BODY = `Thanks for your order. We have received your payment and reserved your HeliosX loupe configuration.
@@ -209,7 +210,7 @@ export async function sendStandaloneCheckoutConfirmation({
     measurement_url: `mailto:${HELIOSX_SUPPORT_EMAIL}`,
     pdcheck_ios_url: PDCHECK_AR_IOS_URL,
     support_email: HELIOSX_SUPPORT_EMAIL,
-    site_url: process.env.NEXT_PUBLIC_BASE_URL || 'https://heliosxloupes.com',
+    site_url: getSiteUrl(),
   })
   const result: any = await sendPostPurchaseEmail({
     to: email,
@@ -394,7 +395,7 @@ export async function processCheckoutSessionCompleted({
     return { stored: true, emailed: false, skippedInactiveTemplate: true, order }
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+  const baseUrl = getSiteUrl('http://localhost:3000')
   const measurementUrl = `${baseUrl}/measurements/${order.measurement_token}`
   const templateValues = {
     measurement_url: measurementUrl,

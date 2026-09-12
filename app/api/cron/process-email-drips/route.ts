@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { renderTemplate, sendEmail } from '@/lib/email'
+import { sendEmail } from '@/lib/email'
 import { createCartRecoveryToken } from '@/lib/cart-recovery'
 import { getSupabaseServiceClient } from '@/lib/supabase/server'
 import { getSiteUrl } from '@/lib/site-url'
@@ -13,6 +13,14 @@ const MAX_RECOVERY_EMAILS_PER_CUSTOMER = 2
 const MIN_RECOVERY_EMAIL_GAP_DAYS = 3
 
 const normalizeEmail = (value: unknown) => String(value ?? '').trim().toLowerCase()
+
+const recoveryProductImages: Record<string, string> = {
+  newton: '/mobile-home/newton-v2.png',
+  galileo: '/mobile-home/galileo-editorial.png',
+  apollo: '/mobile-home/apollo-editorial.png',
+  medusa: '/mobile-home/medusa-editorial.png',
+  kepler: '/mobile-home/kepler-v2.png',
+}
 
 const cartActivityTime = (cart: any) =>
   new Date(cart.reached_checkout_at ?? cart.added_to_cart_at).getTime()
@@ -98,8 +106,34 @@ export async function GET(req: Request) {
 
     if (!template) continue
 
-    const subject = renderTemplate(template.subject, { email })
-    const body = renderTemplate(template.body, { email })
+    const storedItems = Array.isArray(cart.cart_items) ? cart.cart_items : []
+    const displayItems = storedItems.filter((item: any) => item && !item.isAddon)
+    const firstProduct = displayItems[0]
+    const firstProductName = String(firstProduct?.name ?? 'HeliosX surgical loupes')
+    const shortProductName = firstProductName.replace(/\s+surgical loupes$/i, '').trim()
+    const productReference = displayItems.length === 1
+      ? `${shortProductName} loupes`
+      : 'HeliosX loupe configuration'
+    const productImage = firstProduct
+      ? recoveryProductImages[String(firstProduct.productSlug ?? '').toLowerCase()] ?? String(firstProduct.image ?? '')
+      : ''
+    const productImageUrl = productImage
+      ? /^https?:\/\//i.test(productImage)
+        ? productImage
+        : `${getSiteUrl()}${productImage.startsWith('/') ? '' : '/'}${productImage}`
+      : null
+    const subject = `A personal note about your ${productReference}`
+    const body = `Hello — this is Dr. Efimenko, founder of HeliosX.
+
+I wanted to personally reach out regarding your interest in our ${productReference}. Choosing surgical loupes is personal, especially when you are buying online for the first time.
+
+If a question about magnification, working distance, measurements, prescription lenses, or fit held you back, reply directly to this email. Tell me what kind of work you do and what you are deciding between, and I will give you an honest recommendation.
+
+Your configuration is saved below if you would like to pick up where you left off. There is no pressure either way.
+
+Best,
+Dr. Efimenko
+Founder, HeliosX`
     const isCheckout = template.key.startsWith('checkout_abandoned')
     let recoveryUrl: string
     try {
@@ -114,13 +148,25 @@ export async function GET(req: Request) {
       subject,
       body,
       preview: isCheckout
-        ? 'Your HeliosX checkout is still available when you are ready.'
-        : 'Your HeliosX loupe configuration is still waiting for you.',
-      eyebrow: isCheckout ? 'Checkout reminder' : 'Cart reminder',
-      title: isCheckout ? 'Your checkout is still open' : 'Your HeliosX configuration is saved',
+        ? 'A personal note from Dr. Efimenko about your saved loupe configuration.'
+        : 'Dr. Efimenko wanted to personally follow up about your loupe configuration.',
+      eyebrow: 'From the founder',
+      title: `A personal note about your ${productReference}.`,
       cta: {
         label: isCheckout ? 'Restore checkout' : 'Restore saved cart',
         url: recoveryUrl,
+      },
+      recoverySummary: {
+        imageUrl: productImageUrl,
+        items: displayItems.map((item: any) => ({
+          name: String(item.name ?? 'HeliosX surgical loupes'),
+          quantity: Math.max(1, Number(item.quantity ?? 1)),
+          price: Number(item.price ?? 0),
+        })),
+        total: displayItems.reduce(
+          (sum: number, item: any) => sum + Number(item.price ?? 0) * Math.max(1, Number(item.quantity ?? 1)),
+          0,
+        ),
       },
     })
 

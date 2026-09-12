@@ -28,6 +28,16 @@ export type OrderEmailSummary = {
   items?: OrderEmailItem[]
 }
 
+export type RecoveryEmailSummary = {
+  imageUrl?: string | null
+  total?: number | null
+  items: Array<{
+    name: string
+    quantity: number
+    price: number
+  }>
+}
+
 function getResend() {
   if (!process.env.RESEND_API_KEY) return null
   if (!resend) resend = new Resend(process.env.RESEND_API_KEY)
@@ -48,6 +58,7 @@ export async function sendEmail({
   cta,
   secondaryCta,
   orderSummary,
+  recoverySummary,
   bcc,
 }: {
   to: string
@@ -65,6 +76,7 @@ export async function sendEmail({
     url: string
   }
   orderSummary?: OrderEmailSummary
+  recoverySummary?: RecoveryEmailSummary
   bcc?: string | string[]
 }) {
   const client = getResend()
@@ -81,8 +93,14 @@ export async function sendEmail({
     bcc,
     subject,
     replyTo: HELIOSX_SUPPORT_EMAIL,
-    text: renderTextEmail(body, orderSummary),
-    html: renderHeliosEmail({
+    text: `${renderTextEmail(body, orderSummary)}${cta ? `\n\n${cta.label}: ${cta.url}` : ''}`,
+    html: recoverySummary ? renderRecoveryEmail({
+      preview: preview ?? subject,
+      title: title ?? subject,
+      body,
+      cta,
+      summary: recoverySummary,
+    }) : renderHeliosEmail({
       preview: preview ?? subject,
       eyebrow,
       title: title ?? subject,
@@ -92,6 +110,71 @@ export async function sendEmail({
       orderSummary,
     }),
   })
+}
+
+function renderRecoveryEmail({
+  preview,
+  title,
+  body,
+  cta,
+  summary,
+}: {
+  preview: string
+  title: string
+  body: string
+  cta?: { label: string; url: string }
+  summary: RecoveryEmailSummary
+}) {
+  const itemRows = summary.items.map((item) => `
+    <tr>
+      <td style="padding:14px 0;border-top:1px solid #24312b;color:#f1f5f2;font-size:14px;font-weight:700;line-height:1.4;">
+        ${escapeHtml(item.name)}${item.quantity > 1 ? ` <span style="color:#7f8c85;font-weight:400;">× ${item.quantity}</span>` : ''}
+      </td>
+      <td align="right" style="padding:14px 0;border-top:1px solid #24312b;color:#f1f5f2;font-size:14px;font-weight:700;white-space:nowrap;">
+        ${escapeHtml(new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(item.price * item.quantity))}
+      </td>
+    </tr>`).join('')
+
+  return `<!doctype html>
+<html>
+  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>${escapeHtml(title)}</title></head>
+  <body style="margin:0;background:#e4e9e6;font-family:Arial,Helvetica,sans-serif;">
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">${escapeHtml(preview)}</div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%;background:#e4e9e6;border-collapse:collapse;">
+      <tr><td align="center" style="padding:28px 12px;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%;max-width:620px;background:#060a08;border:1px solid #1b2822;border-collapse:collapse;">
+          <tr><td style="padding:24px 28px;border-bottom:1px solid #1b2822;">
+            <table role="presentation" width="100%"><tr>
+              <td style="color:#f5f7f5;font-size:14px;font-weight:800;letter-spacing:.22em;">HELIOSX</td>
+              <td align="right" style="color:#78e8bd;font-size:10px;font-weight:800;letter-spacing:.16em;">PERSONAL NOTE</td>
+            </tr></table>
+          </td></tr>
+          <tr><td style="padding:38px 28px 20px;">
+            <div style="color:#78e8bd;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;">From the founder</div>
+            <h1 style="max-width:500px;margin:14px 0 20px;color:#f3f6f4;font-size:38px;line-height:1.05;font-weight:500;letter-spacing:-.04em;">${escapeHtml(title)}</h1>
+            <div style="color:#b4beb8;font-size:15px;line-height:1.72;">${renderRecoveryBody(body)}</div>
+          </td></tr>
+          ${summary.imageUrl ? `<tr><td style="padding:8px 28px 0;"><div style="height:260px;background:#0b120e;border:1px solid #24312b;text-align:center;overflow:hidden;"><img src="${escapeHtml(summary.imageUrl)}" width="560" alt="Your saved HeliosX loupe configuration" style="display:block;width:100%;height:260px;object-fit:contain;border:0;" /></div></td></tr>` : ''}
+          <tr><td style="padding:0 28px;">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">${itemRows}
+              ${summary.total != null ? `<tr><td style="padding:15px 0;border-top:1px solid #3a4b42;color:#78e8bd;font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;">Saved configuration</td><td align="right" style="padding:15px 0;border-top:1px solid #3a4b42;color:#f5f7f5;font-size:19px;font-weight:700;">${escapeHtml(new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(summary.total))}</td></tr>` : ''}
+            </table>
+          </td></tr>
+          ${cta ? `<tr><td style="padding:22px 28px 8px;"><a href="${escapeHtml(cta.url)}" style="display:block;background:#78e8bd;color:#06100b;padding:17px 20px;text-align:center;text-decoration:none;font-size:13px;font-weight:800;letter-spacing:.05em;">${escapeHtml(cta.label.toUpperCase())} &nbsp;→</a></td></tr>` : ''}
+          <tr><td style="padding:18px 28px 25px;color:#98a49d;font-size:12px;line-height:1.65;text-align:center;">Questions about fit or magnification? Reply directly to this email.</td></tr>
+          <tr><td style="padding:20px 28px;border-top:1px solid #1b2822;background:#030504;color:#68736d;font-size:10px;line-height:1.7;">Secure Stripe checkout &nbsp;·&nbsp; Measurements reviewed before production &nbsp;·&nbsp; Two-year limited warranty<br /><a href="${HELIOSX_SITE_URL}" style="color:#8d9992;text-decoration:none;">heliosxvision.com</a> &nbsp;·&nbsp; <a href="${HELIOSX_SITE_URL}/returns" style="color:#8d9992;text-decoration:none;">Returns</a> &nbsp;·&nbsp; <a href="${HELIOSX_SITE_URL}/warranty" style="color:#8d9992;text-decoration:none;">Warranty</a></td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>`
+}
+
+function renderRecoveryBody(body: string) {
+  return body.split(/\n{2,}/).map((paragraph) => {
+    const lines = paragraph.trim().split('\n').map(escapeHtml)
+    return `<p style="margin:0 0 18px;color:#b4beb8;font-size:15px;line-height:1.72;">${lines.join('<br />')}</p>`
+  }).join('')
 }
 
 export function renderTemplate(

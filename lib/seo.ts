@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const siteUrl = 'https://heliosxvision.com'
 export const siteName = 'HeliosX Loupes'
-export const supportEmail = 'heliosxloupes@gmail.com'
+export const supportEmail = 'support@heliosxvision.com'
 
 export function absoluteUrl(path = '/') {
   if (path.startsWith('http')) return path

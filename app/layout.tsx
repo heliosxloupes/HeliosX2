@@ -5,6 +5,7 @@ import SmoothScroll from '@/components/SmoothScroll/SmoothScroll'
 import AmbientBackground from '@/components/AmbientBackground'
 import AnalyticsScripts from '@/components/AnalyticsScripts'
 import Footer from '@/components/Footer/Footer'
+import ContactProvider from '@/components/Contact/ContactProvider'
 import { buildMetadata, siteUrl } from '@/lib/seo'
 
 const syne = Syne({
@@ -56,15 +57,17 @@ export default function RootLayout({
     <html lang="en" className={`${syne.variable} ${manrope.variable}`}>
       <body>
         <AnalyticsScripts />
-        <div className="site-shell">
-          <AmbientBackground />
-          <div className="site-content">
-            <SmoothScroll>
-              {children}
-              <Footer />
-            </SmoothScroll>
+        <ContactProvider>
+          <div className="site-shell">
+            <AmbientBackground />
+            <div className="site-content">
+              <SmoothScroll>
+                {children}
+                <Footer />
+              </SmoothScroll>
+            </div>
           </div>
-        </div>
+        </ContactProvider>
       </body>
     </html>
   )

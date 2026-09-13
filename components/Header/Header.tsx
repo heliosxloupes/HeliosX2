@@ -6,15 +6,17 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X } from 'lucide-react'
+import { Mail, X } from 'lucide-react'
 import CartButton from '../CartButton'
 import MobileStorefrontHeader from '@/components/mobile/MobileStorefrontHeader'
+import { useContact } from '../Contact/ContactProvider'
 
 function MobileNav() {
   const [open, setOpen] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
+  const { openContact } = useContact()
 
   const toggle = () => setOpen((prev) => !prev)
 
@@ -221,6 +223,19 @@ function MobileNav() {
                   </p>
                   <ul className="space-y-2 text-sm text-neutral-300">
                     <li>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setOpen(false)
+                          openContact('mobile_navigation')
+                        }}
+                        className="flex items-center gap-2 text-emerald-200 transition hover:text-white"
+                      >
+                        <Mail className="h-4 w-4" aria-hidden="true" />
+                        Contact HeliosX
+                      </button>
+                    </li>
+                    <li>
                       <Link
                         href="/surgical-loupes"
                         onClick={() => setOpen(false)}
@@ -287,6 +302,7 @@ export default function Header() {
   const headerRef = useRef<HTMLDivElement | null>(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const pathname = usePathname()
+  const { openContact } = useContact()
 
   useEffect(() => {
     const header = headerRef.current
@@ -394,6 +410,14 @@ export default function Header() {
 
         {/* Right: Cart + Order CTA */}
         <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => openContact('desktop_navigation')}
+            className="hidden items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-neutral-300 transition-colors hover:text-white lg:inline-flex"
+          >
+            <Mail className="h-3.5 w-3.5 text-emerald-300" aria-hidden="true" />
+            Contact
+          </button>
           <CartButton />
 
           <Link

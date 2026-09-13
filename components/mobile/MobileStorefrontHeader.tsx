@@ -1,13 +1,14 @@
 'use client'
 
 import * as Dialog from '@radix-ui/react-dialog'
-import { ArrowRight, ArrowUpRight, Menu, Minus, Plus, ShoppingBag, X } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Mail, Menu, Minus, Plus, ShoppingBag, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 
+import { useContact } from '@/components/Contact/ContactProvider'
 import { getCart, type CartItem } from '@/lib/cart'
 import pricing from '@/lib/pricing.json'
 
@@ -74,6 +75,7 @@ function StorefrontSheet({
 
 export default function MobileStorefrontHeader() {
   const pathname = usePathname()
+  const { openContact } = useContact()
   const [menuOpen, setMenuOpen] = useState(false)
   const [bagOpen, setBagOpen] = useState(false)
   const [items, setItems] = useState<CartItem[]>([])
@@ -174,6 +176,17 @@ export default function MobileStorefrontHeader() {
               <ArrowUpRight size={19} className="text-emerald-200" />
             </Link>
           ))}
+          <button
+            type="button"
+            onClick={() => {
+              setMenuOpen(false)
+              window.setTimeout(() => openContact('mobile_navigation'), 0)
+            }}
+            className="flex min-h-[66px] w-full items-center justify-between gap-5 border-b border-white/10 py-4 text-left font-display text-[1.42rem] leading-tight tracking-[-0.025em]"
+          >
+            Contact HeliosX
+            <Mail size={19} className="text-emerald-200" />
+          </button>
         </nav>
         <div className="mt-7">
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-200/70">The collection</p>

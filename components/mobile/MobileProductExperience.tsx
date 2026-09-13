@@ -9,6 +9,7 @@ import { useMemo, useRef, useState } from 'react'
 import type { PointerEvent as ReactPointerEvent } from 'react'
 
 import ProductReviews from '@/components/ProductReviews'
+import { useContact } from '@/components/Contact/ContactProvider'
 import { addToCart } from '@/lib/cart'
 import { magnificationPriceByProduct, PRESCRIPTION_PRICE } from '@/lib/pricing'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
@@ -69,6 +70,7 @@ export default function MobileProductExperience({
   frames: FrameConfig[]
 }) {
   const router = useRouter()
+  const { openContact, setProductContext } = useContact()
   const reduceMotion = useReducedMotion()
   const [mag, setMag] = useState(config.magnifications[0] ?? '')
   const [frameId, setFrameId] = useState(frames[0]?.id ?? '')
@@ -318,6 +320,26 @@ export default function MobileProductExperience({
           <Ruler size={21} className="mt-0.5 shrink-0 text-emerald-200" />
           <p className="text-xs leading-5 text-neutral-300"><strong className="mb-1 block text-sm font-medium text-white">No measurements on hand? That&apos;s okay.</strong>You can submit them after checkout. We review your fit before making your loupes.</p>
         </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            setProductContext({
+              slug: config.slug,
+              name: config.shortName,
+              magnification: mag,
+              frame: chosenFrame?.label,
+              color: chosenColor?.name,
+            })
+            openContact(`product_${config.slug}_purchase_mobile`)
+          }}
+          className="mb-3 flex min-h-14 w-full items-center justify-between border-y border-white/15 py-3 text-left text-sm text-neutral-300"
+        >
+          <span>
+            Questions before ordering? <span className="text-emerald-200">Email a loupe specialist</span>
+          </span>
+          <span aria-hidden="true">↗</span>
+        </button>
 
         <details className="group border-b border-white/15">
           <summary className="flex min-h-[64px] cursor-pointer list-none items-center justify-between py-4 text-base [&::-webkit-details-marker]:hidden">Specifications <ChevronDown size={18} className="text-emerald-200 transition-transform group-open:rotate-180" /></summary>

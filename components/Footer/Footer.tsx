@@ -1,10 +1,11 @@
+import Image from 'next/image'
 import Link from 'next/link'
-import { Mail } from 'lucide-react'
+import { ArrowUpRight, Mail } from 'lucide-react'
 
-import { supportEmail } from '@/lib/seo'
 import CookiePreferencesButton from '@/components/CookiePreferencesButton'
+import { supportEmail } from '@/lib/seo'
 
-const exploreLinks: { label: string; href: string }[] = [
+const exploreLinks = [
   { label: 'All loupes', href: '/product' },
   { label: 'Surgical loupes', href: '/surgical-loupes' },
   { label: 'Dental loupes', href: '/dental-loupes' },
@@ -13,14 +14,14 @@ const exploreLinks: { label: string; href: string }[] = [
   { label: 'Loupe comparisons', href: '/loupe-comparisons' },
 ]
 
-const buyingGuideLinks: { label: string; href: string }[] = [
+const buyingGuideLinks = [
   { label: 'How much do loupes cost?', href: '/how-much-do-surgical-loupes-cost' },
   { label: 'Are loupes worth it?', href: '/are-surgical-loupes-worth-it' },
   { label: 'HeliosX loupes review', href: '/heliosx-loupes-review' },
   { label: 'Student & resident discount', href: '/student-loupes-discount' },
 ]
 
-const dentalSpecialtyLinks: { label: string; href: string }[] = [
+const dentalSpecialtyLinks = [
   { label: 'Endodontics', href: '/loupes-for-endodontics' },
   { label: 'Periodontics', href: '/loupes-for-periodontics' },
   { label: 'Orthodontics', href: '/loupes-for-orthodontics' },
@@ -28,7 +29,7 @@ const dentalSpecialtyLinks: { label: string; href: string }[] = [
   { label: 'Dental hygiene', href: '/loupes-for-dental-hygiene' },
 ]
 
-const surgicalSpecialtyLinks: { label: string; href: string }[] = [
+const surgicalSpecialtyLinks = [
   { label: 'Vascular surgery', href: '/vascular-surgery-loupes' },
   { label: 'Orthopedic surgery', href: '/orthopedic-surgery-loupes' },
   { label: 'Hand surgery', href: '/hand-surgery-loupes' },
@@ -38,7 +39,7 @@ const surgicalSpecialtyLinks: { label: string; href: string }[] = [
   { label: 'Gynecology', href: '/gynecology-loupes' },
 ]
 
-const educationLinks: { label: string; href: string }[] = [
+const educationLinks = [
   { label: 'Measurements guide', href: '/measurements' },
   { label: 'Magnification guide', href: '/education/loupe-magnification-guide' },
   { label: 'Galilean vs prismatic', href: '/education/galilean-vs-prismatic-loupes' },
@@ -47,7 +48,7 @@ const educationLinks: { label: string; href: string }[] = [
   { label: 'Research library', href: '/education/research' },
 ]
 
-const policyLinks: { label: string; href: string }[] = [
+const policyLinks = [
   { label: 'Shipping', href: '/shipping' },
   { label: 'Returns & refunds', href: '/returns' },
   { label: 'Warranty', href: '/warranty' },
@@ -55,30 +56,21 @@ const policyLinks: { label: string; href: string }[] = [
   { label: 'Terms of service', href: '/terms' },
 ]
 
-const supportLinks: { label: string; href: string }[] = [
+const supportLinks = [
   { label: 'FAQ', href: '/faq' },
   { label: 'Submit measurements', href: '/measurements' },
 ]
 
-function FooterColumn({
-  title,
-  links,
-}: {
-  title: string
-  links: { label: string; href: string }[]
-}) {
+function FooterColumn({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
-    <div className="space-y-3">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-emerald-200/80">
+    <div>
+      <h3 className="mb-4 text-[10px] font-semibold uppercase tracking-[0.24em] text-emerald-200/80">
         {title}
-      </p>
-      <ul className="space-y-2 text-sm">
+      </h3>
+      <ul className="space-y-2.5">
         {links.map((link) => (
-          <li key={link.href}>
-            <Link
-              href={link.href}
-              className="text-neutral-300 transition hover:text-white"
-            >
+          <li key={`${title}-${link.href}`}>
+            <Link href={link.href} className="text-[13px] leading-5 text-neutral-400 transition-colors hover:text-white">
               {link.label}
             </Link>
           </li>
@@ -89,82 +81,59 @@ function FooterColumn({
 }
 
 export default function Footer() {
+  const contactSubject = encodeURIComponent('Question for HeliosX')
+
   return (
-    <footer className="relative border-t border-white/10 bg-[#030609] text-neutral-300">
-      <div className="px-5 py-10 md:hidden">
-        <Link href="/" className="font-display text-xl font-semibold uppercase tracking-[0.16em] text-white">
-          HeliosX
-        </Link>
-        <p className="mt-3 max-w-sm text-sm leading-6 text-neutral-400">
-          Surgical precision, finally accessible.
-        </p>
+    <footer className="relative overflow-hidden border-t border-white/10 bg-[#030508] text-neutral-300">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(23,176,143,0.13),transparent_28%),radial-gradient(circle_at_88%_12%,rgba(72,136,255,0.08),transparent_24%)]" />
 
-        <div className="mt-7 border-t border-white/10">
-          {[
-            ['Explore', exploreLinks],
-            ['Buying guide', buyingGuideLinks],
-            ['Surgical specialties', surgicalSpecialtyLinks],
-            ['Dental specialties', dentalSpecialtyLinks],
-            ['Education', educationLinks],
-            ['Policies & support', [...policyLinks, ...supportLinks]],
-          ].map(([title, links]) => (
-            <details key={title as string} className="group border-b border-white/10">
-              <summary className="flex min-h-[58px] cursor-pointer list-none items-center justify-between py-4 text-sm font-medium text-white [&::-webkit-details-marker]:hidden">
-                {title as string}
-                <span className="text-xl font-light text-emerald-200 transition-transform group-open:rotate-45">+</span>
-              </summary>
-              <ul className="grid grid-cols-2 gap-x-5 gap-y-3 pb-5 text-[13px] leading-5">
-                {(links as { label: string; href: string }[]).map((link) => (
-                  <li key={`${title}-${link.href}`}>
-                    <Link href={link.href} className="flex min-h-11 items-center text-neutral-400">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </details>
-          ))}
-        </div>
-
-        <div className="mt-7 space-y-3 text-xs leading-5 text-neutral-500">
-          <a href={`mailto:${supportEmail}`} className="block min-h-11 text-emerald-200">
-            {supportEmail}
+      <div className="relative mx-auto max-w-[1400px] px-5 pb-8 pt-12 md:px-12 md:pt-16">
+        <div className="grid gap-7 border-b border-white/10 pb-11 md:grid-cols-[1fr_auto] md:items-end md:pb-14">
+          <div>
+            <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.28em] text-emerald-300/80">
+              Guidance before you order
+            </p>
+            <h2 className="max-w-3xl font-display text-[clamp(2rem,4.6vw,4.8rem)] font-medium leading-[0.98] tracking-[-0.055em] text-white">
+              Choose your view<br className="hidden sm:block" /> with clarity.
+            </h2>
+          </div>
+          <a
+            href={`mailto:${supportEmail}?subject=${contactSubject}`}
+            className="group flex min-h-14 w-full items-center justify-between gap-6 border border-emerald-200/30 bg-emerald-200/10 px-5 text-sm font-semibold text-white transition hover:border-emerald-200/60 hover:bg-emerald-200/15 md:w-[285px]"
+          >
+            <span className="flex items-center gap-3">
+              <Mail className="h-4 w-4 text-emerald-300" strokeWidth={1.7} aria-hidden="true" />
+              Email a loupe specialist
+            </span>
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
           </a>
-          <CookiePreferencesButton />
-          <p>&copy; {new Date().getFullYear()} HeliosX Loupes.</p>
-          <p>No gatekeeping. Just fair pricing.</p>
         </div>
-      </div>
 
-      <div className="mx-auto hidden max-w-[1400px] px-12 py-16 md:block">
-        <div className="grid gap-12 md:grid-cols-12">
-          <div className="space-y-5 md:col-span-4">
-            <Link href="/" className="inline-flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-emerald-300/40 bg-gradient-to-br from-emerald-500/30 to-transparent text-sm font-semibold text-white">
-                H
-              </span>
-              <span className="text-base font-semibold text-white">HeliosX</span>
+        <div className="grid gap-12 py-12 lg:grid-cols-12 lg:gap-10 lg:py-16">
+          <div className="lg:col-span-3">
+            <Link href="/" className="inline-flex items-center gap-3" aria-label="HeliosX home">
+              <Image
+                src="/logominimalnowriting.png"
+                alt="HeliosX logo"
+                width={38}
+                height={38}
+                className="h-9 w-9 object-contain brightness-0 invert"
+              />
+              <span className="text-sm font-semibold uppercase tracking-[0.3em] text-white">HELIOSX</span>
             </Link>
-            <p className="max-w-sm text-sm leading-6 text-neutral-300">
+            <p className="mt-6 max-w-xs text-sm leading-6 text-neutral-400">
               Surgical precision, finally accessible. Ergonomic prismatic and lightweight loupes designed for surgeons, dentists, residents, hygienists, and students who want honest pricing without compromise.
             </p>
-            <div className="space-y-2 text-sm text-neutral-300">
-              <p className="flex items-center gap-2">
-                <Mail className="h-4 w-4 shrink-0 text-emerald-300/80" strokeWidth={1.75} aria-hidden="true" />
-                <a
-                  href={`mailto:${supportEmail}`}
-                  className="text-emerald-200 underline decoration-emerald-200/30 underline-offset-4 transition hover:text-white"
-                >
-                  {supportEmail}
-                </a>
-              </p>
-              <p className="text-xs text-neutral-500">
-                Our team answers within one business day.
-              </p>
-            </div>
+            <a
+              href={`mailto:${supportEmail}`}
+              className="mt-6 inline-block text-xs text-emerald-200 underline decoration-emerald-200/30 underline-offset-4 transition hover:text-white"
+            >
+              {supportEmail}
+            </a>
+            <p className="mt-2 text-[11px] text-neutral-600">Replies within one business day.</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 md:col-span-8 md:grid-cols-4">
+          <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:col-span-9 lg:grid-cols-4 xl:grid-cols-7">
             <FooterColumn title="Explore" links={exploreLinks} />
             <FooterColumn title="Buying guide" links={buyingGuideLinks} />
             <FooterColumn title="Surgical specialty" links={surgicalSpecialtyLinks} />
@@ -172,16 +141,14 @@ export default function Footer() {
             <FooterColumn title="Education" links={educationLinks} />
             <FooterColumn title="Policies" links={policyLinks} />
             <FooterColumn title="Support" links={supportLinks} />
-          </div>
+          </nav>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-neutral-500 md:flex-row md:items-center md:justify-between">
-          <p>
-            &copy; {new Date().getFullYear()} HeliosX Loupes. Engineered for excellence. Perfect focus, every detail.
-          </p>
+        <div className="flex flex-col gap-3 border-t border-white/10 pt-6 text-[11px] text-neutral-600 md:flex-row md:items-center md:justify-between">
+          <p>&copy; {new Date().getFullYear()} HeliosX Loupes. Engineered for excellence. Perfect focus, every detail.</p>
           <div className="flex items-center gap-4">
             <CookiePreferencesButton />
-            <p>No gate keeping. Just fair pricing.</p>
+            <p className="uppercase tracking-[0.16em]">No gate keeping. Just fair pricing.</p>
           </div>
         </div>
       </div>

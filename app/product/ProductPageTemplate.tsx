@@ -12,6 +12,7 @@ import Header from '@/components/Header'
 import Noise from '@/components/Noise'
 import ProductReviews from '@/components/ProductReviews'
 import MobileProductExperience from '@/components/mobile/MobileProductExperience'
+import { useContact } from '@/components/Contact/ContactProvider'
 import { addToCart } from '@/lib/cart'
 import { trackGenerateLead, trackViewItem } from '@/lib/analytics'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
@@ -329,6 +330,7 @@ const cardVariants = {
 
 export default function ProductPageTemplate({ config }: { config: ProductPageConfig }) {
   const router = useRouter()
+  const { openContact, setProductContext } = useContact()
   const techRef = useRef<HTMLDivElement | null>(null)
   const galleryRef = useRef<HTMLDivElement | null>(null)
   const thumbScrollingRef = useRef(false)
@@ -403,6 +405,25 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
     currentFrameConfig.colors.find(
       (color) => color.value === selectedFrameColor
     ) ?? currentFrameConfig.colors[0]
+
+  useEffect(() => {
+    setProductContext({
+      slug: config.slug,
+      name: config.shortName,
+      magnification: selectedMag,
+      frame: currentFrameConfig.label,
+      color: currentColorConfig.name,
+    })
+
+    return () => setProductContext(null)
+  }, [
+    config.shortName,
+    config.slug,
+    currentColorConfig.name,
+    currentFrameConfig.label,
+    selectedMag,
+    setProductContext,
+  ])
 
   const persistEmail = async (source: 'cart') => {
     const email = emailInput.trim().toLowerCase()
@@ -870,6 +891,16 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                     ? `Custom measurement review included. Typical production time is 1–2 weeks. Two-year limited warranty. ${riskFreeCopy}`
                     : 'Medusa is live in the catalogue. Add-to-cart will be enabled once final pricing is set.'}
                 </p>
+                <button
+                  type="button"
+                  onClick={() => openContact(`product_${config.slug}_purchase`)}
+                  className="mt-3 flex min-h-11 w-full items-center justify-between border-t border-white/10 pt-3 text-left text-xs text-neutral-300 transition hover:text-white"
+                >
+                  <span>
+                    Questions before ordering? <span className="text-emerald-300">Email a loupe specialist</span>
+                  </span>
+                  <span aria-hidden="true">↗</span>
+                </button>
               </motion.div>
             </motion.div>
           </motion.div>

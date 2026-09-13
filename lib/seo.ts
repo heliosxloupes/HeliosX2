@@ -107,9 +107,9 @@ export function buildMetadata({
 // Add real social/profile URLs as they're claimed — empty entries
 // are filtered out before serialization so the schema stays clean.
 const organizationSameAs: string[] = [
+  'https://www.linkedin.com/company/heliosx-vision',
   // 'https://www.instagram.com/heliosxloupes',
   // 'https://www.youtube.com/@heliosxloupes',
-  // 'https://www.linkedin.com/company/heliosxloupes',
   // 'https://www.crunchbase.com/organization/heliosx-loupes',
   // 'https://www.wikidata.org/wiki/Q__________',
 ].filter(Boolean) as string[]

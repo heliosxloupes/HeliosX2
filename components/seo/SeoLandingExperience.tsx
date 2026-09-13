@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import SeoAnalytics from '@/components/SeoAnalytics'
 import { linkifyText } from '@/components/seo/linkify'
+import { supportEmail } from '@/lib/seo'
 import {
   getRelatedPages,
   productImages,
@@ -56,7 +57,7 @@ export default function SeoLandingExperience({
   ]
     .join(' ')
     .split(/\s+/).length
-  const email = `mailto:heliosxloupes@gmail.com?subject=${encodeURIComponent(`Help choosing loupes: ${page.title}`)}&body=${encodeURIComponent('Hi HeliosX,\n\nMy specialty / training stage:\nThe procedures I do most:\nMy current loupes and magnification (if any):\nMy budget:\nMy question:\n')}`
+  const email = `mailto:${supportEmail}?subject=${encodeURIComponent(`Help choosing loupes: ${page.title}`)}&body=${encodeURIComponent('Hi HeliosX,\n\nMy specialty / training stage:\nThe procedures I do most:\nMy current loupes and magnification (if any):\nMy budget:\nMy question:\n')}`
   return (
     <>
       <Header />
@@ -70,7 +71,7 @@ export default function SeoLandingExperience({
           </nav>
           <header className={styles.hero}>
             <div>
-              <p className={styles.kicker}>HeliosX buying guide</p>
+              <p className={styles.kicker}>{page.heroKicker}</p>
               <h1>{page.title}</h1>
               <p className={styles.intro}>{linkifyText(page.intro)}</p>
               <p className={styles.meta}>

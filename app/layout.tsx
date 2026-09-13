@@ -55,6 +55,9 @@ export default function RootLayout({
   // isn't running. See components/SmoothScroll/SmoothScroll.tsx.
   return (
     <html lang="en" className={`${syne.variable} ${manrope.variable}`}>
+      <head>
+        <script async src="https://news.google.com/swg/js/v1/publisher.js" />
+      </head>
       <body>
         <AnalyticsScripts />
         <ContactProvider>

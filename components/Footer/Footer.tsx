@@ -18,6 +18,7 @@ const buyingGuideLinks = [
   { label: 'How much do loupes cost?', href: '/how-much-do-surgical-loupes-cost' },
   { label: 'Are loupes worth it?', href: '/are-surgical-loupes-worth-it' },
   { label: 'HeliosX loupes review', href: '/heliosx-loupes-review' },
+  { label: 'Reddit loupe discussions', href: '/best-surgical-loupes-reddit' },
   { label: 'Student & resident discount', href: '/student-loupes-discount' },
 ]
 
@@ -97,16 +98,24 @@ export default function Footer() {
               Choose your view<br className="hidden sm:block" /> with clarity.
             </h2>
           </div>
-          <a
-            href={`mailto:${supportEmail}?subject=${contactSubject}`}
-            className="group flex min-h-14 w-full items-center justify-between gap-6 border border-emerald-200/30 bg-emerald-200/10 px-5 text-sm font-semibold text-white transition hover:border-emerald-200/60 hover:bg-emerald-200/15 md:w-[285px]"
-          >
-            <span className="flex items-center gap-3">
-              <Mail className="h-4 w-4 text-emerald-300" strokeWidth={1.7} aria-hidden="true" />
-              Email a loupe specialist
-            </span>
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-          </a>
+          <div className="grid w-full gap-3 md:w-[285px]">
+            <div
+              {...{ 'google-add-preferred-source-btn': '' }}
+              data-theme="dark"
+              data-lang="en"
+              suppressHydrationWarning
+            />
+            <a
+              href={`mailto:${supportEmail}?subject=${contactSubject}`}
+              className="group flex min-h-14 w-full items-center justify-between gap-6 border border-emerald-200/30 bg-emerald-200/10 px-5 text-sm font-semibold text-white transition hover:border-emerald-200/60 hover:bg-emerald-200/15"
+            >
+              <span className="flex items-center gap-3">
+                <Mail className="h-4 w-4 text-emerald-300" strokeWidth={1.7} aria-hidden="true" />
+                Email a loupe specialist
+              </span>
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+            </a>
+          </div>
         </div>
 
         <div className="grid gap-12 py-12 lg:grid-cols-12 lg:gap-10 lg:py-16">

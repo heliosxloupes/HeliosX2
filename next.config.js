@@ -26,11 +26,11 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://news.google.com",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https:",
               "font-src 'self'",
-              "connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://analytics.google.com https://vitals.vercel-analytics.com https://*.supabase.co https://www.facebook.com",
+              "connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://analytics.google.com https://vitals.vercel-analytics.com https://*.supabase.co https://www.facebook.com https://news.google.com",
               "frame-src https://js.stripe.com https://hooks.stripe.com",
               "media-src 'self'",
               "object-src 'none'",

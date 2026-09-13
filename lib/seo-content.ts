@@ -4714,6 +4714,326 @@ competitorPages.push(...secondaryCompetitorPages, ...authorityComparisonPages)
 
 allSeoLandingPages.push(...competitorPages)
 
+// Buyer-question pages: the query shapes LLM answers kept pulling from competitors
+// (advisory, international, sceptic). Prices come from lib/pricing.json so they cannot
+// drift; competitor facts reuse only what seo-editorial.ts verified on 2026-09-10.
+const usd = (value: number) => `$${value.toLocaleString('en-US')}`
+const priceRange = (model: string) => {
+  const prices = Object.values(magnificationPriceByProduct[model])
+  return `${usd(Math.min(...prices))}–${usd(Math.max(...prices))}`
+}
+const buyerQuestionDate = '2026-09-12'
+
+const buyerQuestionPages: SeoLandingPage[] = [
+  {
+    slug: 'which-surgical-loupes-should-i-get',
+    title: 'Which surgical loupes should I get?',
+    metaTitle: 'Which Surgical Loupes Should I Get? A 4-Step Answer',
+    description:
+      'Choose surgical loupes in four steps: magnification, optical design, working distance, and budget. Specific picks by training stage and situation.',
+    heroKicker: 'Buyer decision guide',
+    primaryKeyword: 'which surgical loupes should I get',
+    relatedKeywords: ['how to choose surgical loupes', 'first surgical loupes', 'surgical loupes for residents', 'what magnification loupes'],
+    audience: 'medical students, residents, and surgeons buying a first or replacement pair',
+    intro:
+      'Most students and residents should start with 2.5x–3.5x Galilean loupes, move to prismatic optics only when their cases need 4.0x or more, and consider ergonomic prismatic loupes when neck posture is the main problem. Decide in this order: magnification, optical design, working distance, then budget. The brand comes last.',
+    proofPoints: [
+      `Galilean entry: Newton ${priceRange('newton')}, Galileo ${priceRange('galileo')} (2.5x–3.5x).`,
+      `Detail work: Kepler ${priceRange('kepler')} (conventional prismatic, 4.0x–6.0x).`,
+      `Posture-first: Apollo ${priceRange('apollo')}, Medusa ${priceRange('medusa')} (ergonomic prismatic).`,
+    ],
+    sections: [
+      {
+        title: 'Step 1: Pick magnification for the work you actually do',
+        body:
+          'Buy for the cases you do most often, not the most demanding case you can imagine. Higher magnification narrows your field of view and depth of field, so more is not automatically better. Use these as common starting points, then confirm with the surgeons you train with.',
+        bullets: [
+          '2.5x–3.0x: the usual first pair for students and broad general work.',
+          '3.5x: common when fine suturing and detailed dissection become routine.',
+          '4.0x–6.0x: fine-detail work such as small vessels, nerves, and hand surgery.',
+          'Above 6.0x: microsurgical detail, where many surgeons switch to an operating microscope.',
+        ],
+        sourceLabel: 'Loupe magnification guide',
+        sourceHref: '/education/loupe-magnification-guide',
+      },
+      {
+        title: 'Step 2: Choose the optical design',
+        body:
+          'Galilean loupes are light and practical up to about 3.5x. Conventional prismatic loupes reach higher magnification, usually at more weight. Ergonomic prismatic loupes redirect your line of sight so you can keep your head more upright; "prismatic" alone does not mean ergonomic.',
+        bullets: [
+          'Newton and Galileo: Galilean, 2.5x–3.5x.',
+          'Kepler: conventional prismatic, 4.0x–6.0x.',
+          'Apollo: ergonomic prismatic, 3.0x–6.0x.',
+          'Medusa: ergonomic prismatic, 3.0x–8.5x, with working distance adjustable from 300–600 mm.',
+        ],
+        sourceLabel: 'How Galilean and prismatic optics differ',
+        sourceHref: '/education/galilean-vs-prismatic-loupes',
+      },
+      {
+        title: 'Step 3: Get the working distance right',
+        body:
+          'Working distance is the gap between your eyes and the field when you stand or sit in your normal operating posture. A loupe built for the wrong distance forces you to lean in or pull back to stay in focus, which defeats the point. Measure in the posture you really use, and if you switch between seated and standing work, consider an adjustable system.',
+        bullets: [
+          'Measure your working distance and pupillary distance before ordering: /measurements.',
+          'Medusa adjusts from 300–600 mm for clinicians who change posture during the day.',
+          'Every HeliosX order is measured and reviewed before custom production begins.',
+        ],
+        sourceLabel: 'Working distance for loupes',
+        sourceHref: '/education/working-distance-for-loupes',
+      },
+      {
+        title: 'Step 4: Budget for the finished order',
+        body: `Compare complete orders, not headline prices. HeliosX prices run from ${priceRange('newton')} for Newton to ${priceRange('medusa')} for Medusa, in USD. Prescription lenses add $200, and standard worldwide shipping is included in the listed price. Lights are often priced separately, so check light and mount compatibility on its own line.`,
+        bullets: [
+          'Ask every brand you are considering for an itemized quote at the same magnification and optical design.',
+          'Use your eligible student or resident price if that is what you would actually pay.',
+          'Read the return terms before you pay: HeliosX orders are fully refundable until custom production begins.',
+        ],
+        sourceLabel: 'HeliosX prices and buying costs',
+        sourceHref: '/how-much-do-surgical-loupes-cost',
+      },
+      {
+        title: 'Quick picks by situation',
+        body:
+          'If you already know your situation, start here. Where another brand fits better, we say so.',
+        bullets: [
+          `First pair on a tight budget: Newton at 2.5x–3.5x, ${priceRange('newton')}.`,
+          `Detail work at 4.0x–6.0x without ergonomic optics: Kepler, ${priceRange('kepler')}.`,
+          `Long cases and neck strain: Apollo (3.0x–6.0x, ${priceRange('apollo')}) or Medusa (3.0x–8.5x, ${priceRange('medusa')}).`,
+          'You switch between seated and standing work: Medusa, for its 300–600 mm adjustable working distance.',
+          'You need several magnifications in one loupe: HeliosX does not offer that; compare ExamVision Kepler Advanced or Admetec Ergo V.',
+          'You want a no-obligation trial first: look at an eligible Orascoptic student program; HeliosX return terms differ from a trial.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Newton', 'Kepler', 'Apollo', 'Medusa'],
+    verdict: `If you are unsure, start with 2.5x–3.5x Galilean loupes built to your measured working distance, and move to prismatic only when your cases need more than 3.5x. At HeliosX that means Newton (${priceRange('newton')}) or Galileo (${priceRange('galileo')}) first, Kepler (${priceRange('kepler')}) for 4.0x–6.0x detail, and Apollo or Medusa (from $1,695) when posture is the problem.`,
+    faqs: [
+      {
+        question: 'What magnification should my first surgical loupes be?',
+        answer:
+          'Most first pairs are 2.5x–3.5x. That range keeps a wide field of view and forgiving depth of field while you learn to operate under magnification. Move to 4.0x or higher when your routine cases need finer detail.',
+      },
+      {
+        question: 'Should I buy Galilean or prismatic loupes?',
+        answer:
+          'Choose Galilean for 2.5x–3.5x when light weight and a wide field matter most. Choose prismatic for 4.0x and above. Choose ergonomic prismatic, such as Apollo or Medusa, if keeping your head upright during long cases is the priority.',
+      },
+      {
+        question: 'Which HeliosX loupe should a resident start with?',
+        answer: `Most residents start with Newton (${priceRange('newton')}) or Galileo (${priceRange('galileo')}) at 2.5x–3.5x. If your specialty routinely works at 4.0x or more, start with Kepler (${priceRange('kepler')}); if neck strain is already a problem, start with Apollo or Medusa (from $1,695).`,
+      },
+      {
+        question: 'Can I change the magnification later?',
+        answer:
+          'No. Each HeliosX loupe is built at one magnification. Medusa adjusts working distance from 300–600 mm, not magnification. If you need to switch magnification within one loupe, compare ExamVision Kepler Advanced or Admetec Ergo V.',
+      },
+      {
+        question: 'Can someone help me choose before I order?',
+        answer:
+          'Yes. Email heliosxloupes@gmail.com with your specialty, current magnification, typical procedures, and budget, and we will help narrow the configuration before you pay.',
+      },
+    ],
+    datePublished: buyerQuestionDate,
+    dateModified: buyerQuestionDate,
+  },
+  {
+    slug: 'surgical-loupes-international-shipping',
+    title: 'Surgical loupes with international shipping',
+    metaTitle: 'Surgical Loupes With International Shipping | HeliosX',
+    description:
+      'HeliosX ships custom surgical and dental loupes worldwide, with standard shipping included in the listed USD price. Timelines, customs, and warranty.',
+    heroKicker: 'International buyers',
+    primaryKeyword: 'surgical loupes international shipping',
+    relatedKeywords: ['buy surgical loupes online international', 'dental loupes worldwide shipping', 'loupes shipping to Europe', 'loupes shipping to Canada'],
+    audience: 'surgeons, dentists, residents, and students outside the United States',
+    intro:
+      'HeliosX ships custom surgical and dental loupes worldwide, and standard worldwide shipping is included in the listed price. Checkout accepts delivery addresses in more than 200 countries and territories, prices are published in USD, and every pair is built to your measurements before it ships.',
+    proofPoints: [
+      'Standard worldwide shipping included in the listed product price.',
+      `Published USD prices from ${usd(productStartingPrices.Newton)}; no regional quote needed.`,
+      'Two-year limited warranty from the delivery date, wherever you are.',
+    ],
+    sections: [
+      {
+        title: 'What the listed price includes',
+        body:
+          'The price you see covers the loupe configuration you choose and standard worldwide shipping. Prices are in US dollars; your card issuer converts the charge to your currency. Import duties, taxes, and brokerage fees depend on your country and carrier, so check them for your destination before ordering if they matter to your budget.',
+        bullets: [
+          `Newton ${priceRange('newton')}, Galileo ${priceRange('galileo')}, Kepler ${priceRange('kepler')}.`,
+          `Apollo ${priceRange('apollo')}, Medusa ${priceRange('medusa')}.`,
+          'Prescription lenses add $200.',
+          'Ask us about your destination before ordering: heliosxloupes@gmail.com.',
+        ],
+        sourceLabel: 'Shipping policy',
+        sourceHref: '/shipping',
+      },
+      {
+        title: 'Timeline from order to delivery',
+        body:
+          'After checkout, we collect and review your measurements. Custom production typically takes 1–2 weeks once measurements, and prescription details when applicable, are approved. Prescription orders usually need an extra 5–7 business days. Transit time then depends on your destination, the carrier service, and customs processing.',
+        bullets: [
+          'You receive carrier and tracking details by email when your order ships.',
+          'Address changes are possible until the carrier takes the package.',
+          'Plan around customs: allow extra time if you need your loupes by a fixed start date.',
+        ],
+      },
+      {
+        title: 'Getting the fit right from a distance',
+        body:
+          'You do not need a local dealer or fitting appointment. You measure at home in your normal working posture, and we review the measurements before production starts. If anything looks off, we ask before we build.',
+        bullets: [
+          'Measurement instructions: /measurements.',
+          'Pupillary distance at home: /education/how-to-measure-pupillary-distance.',
+          'Working distance in your real posture: /education/working-distance-for-loupes.',
+        ],
+      },
+      {
+        title: 'Warranty and returns outside the US',
+        body:
+          'The same terms apply wherever you live. Orders are fully refundable until custom production begins. After that, non-defective orders are not refundable, because each pair is made to your measurements. Manufacturing defects are covered by the two-year limited warranty from the delivery date.',
+        bullets: [
+          'Warranty details: /warranty.',
+          'Returns and authorization: /returns. We respond within one business day.',
+        ],
+      },
+      {
+        title: 'Why buying direct helps abroad',
+        body:
+          'Some loupe brands sell through regional dealers and quote prices by country, so availability and cost can vary with where you live. HeliosX publishes one USD price list and ships direct, so you can see the price and configuration before you order, then add your country\'s import charges.',
+        bullets: [
+          'The same models and prices are available to every country we ship to.',
+          'Email support replaces the local dealer visit: heliosxloupes@gmail.com.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Newton', 'Apollo', 'Medusa'],
+    verdict: `Outside the US, you can price and order HeliosX loupes entirely online: published USD prices from ${usd(productStartingPrices.Newton)}, standard worldwide shipping included, measurements reviewed before production, and a two-year limited warranty from delivery. Check your country's import charges before you order.`,
+    faqs: [
+      {
+        question: 'Does HeliosX ship surgical loupes internationally?',
+        answer:
+          'Yes. HeliosX ships worldwide to destinations supported by its payment provider and international carriers; checkout accepts addresses in more than 200 countries and territories. Enter your address at checkout to confirm availability.',
+      },
+      {
+        question: 'Is international shipping included in the price?',
+        answer:
+          'Standard worldwide shipping is included in the listed product price. Import duties, taxes, and brokerage fees depend on your country and carrier and may be charged on delivery.',
+      },
+      {
+        question: 'How long does international delivery take?',
+        answer:
+          'Custom production typically takes 1–2 weeks after your measurements are approved, plus 5–7 business days for prescription orders. Transit time then varies by destination, carrier service, and customs processing.',
+      },
+      {
+        question: 'What currency are HeliosX prices in?',
+        answer:
+          'US dollars. Your card issuer converts the charge to your local currency at its own rate.',
+      },
+      {
+        question: 'What if my loupes arrive with a defect?',
+        answer:
+          'Email heliosxloupes@gmail.com with your order number, a short description, and photos. Manufacturing defects are covered by the two-year limited warranty, and we respond within one business day.',
+      },
+    ],
+    datePublished: buyerQuestionDate,
+    dateModified: buyerQuestionDate,
+  },
+  {
+    slug: 'are-cheap-surgical-loupes-good',
+    title: 'Are cheap surgical loupes any good?',
+    metaTitle: 'Are Cheap Surgical Loupes Any Good? An Honest Answer',
+    description:
+      'What separates a marketplace loupe from a custom pair: measured fit, stated optics, and support. How to judge budget loupes before you buy.',
+    heroKicker: 'Honest buyer answer',
+    primaryKeyword: 'are cheap surgical loupes good',
+    relatedKeywords: ['cheap surgical loupes', 'budget surgical loupes', 'amazon surgical loupes', 'affordable loupes worth it'],
+    audience: 'students, residents, and clinicians weighing budget loupes against custom pairs',
+    intro:
+      'It depends on what "cheap" means. Many low-cost marketplace loupes are sold at a standard working distance rather than built to your measurements, and their listings often leave out the optical design and warranty terms. That matters more than the price itself. A budget loupe is reasonable for trying magnification; for daily clinical work, buy one that is measured for you.',
+    proofPoints: [
+      'The biggest risk with any loupe is fit, not price: a wrong working distance changes your posture.',
+      `HeliosX Newton is a custom-measured Galilean loupe from ${usd(productStartingPrices.Newton)}.`,
+      'Two-year limited warranty and a written return policy on every HeliosX order.',
+    ],
+    sections: [
+      {
+        title: 'What cheap loupes usually leave out',
+        body:
+          'Price cuts in loupes usually come from the parts of the product you cannot see in a listing photo. Before buying anything inexpensive, check which of these you are giving up.',
+        bullets: [
+          'Measured fit: a working distance and pupillary distance set for you, rather than a standard setting.',
+          'Stated optics: a named optical design (Galilean or prismatic) and a stated magnification you can verify.',
+          'Frame balance: weight and nose-pad comfort over a full day of cases.',
+          'Support: a warranty you can use, and someone to contact if the fit is wrong.',
+        ],
+      },
+      {
+        title: 'When a budget loupe is reasonable',
+        body:
+          'An inexpensive pair has real uses, as long as you know what you are buying it for.',
+        bullets: [
+          'Trying magnification before committing to a custom pair.',
+          'Occasional use, or a backup pair kept in a second location.',
+          'Pre-clinical practice, when your posture and working distance are still settling.',
+        ],
+      },
+      {
+        title: 'How to judge any loupe before you buy',
+        body:
+          'Use the same checklist on a $100 listing and a $2,000 quote. If a seller cannot answer these, treat that as your answer.',
+        bullets: [
+          'Is the working distance measured in your posture, or a fixed standard?',
+          'What optical design and magnification is it, exactly?',
+          'What does the warranty cover, for how long, and who handles claims?',
+          'What are the return terms, in writing, before and after production?',
+          'What is the finished price once prescription, light, shipping, and taxes are included?',
+        ],
+      },
+      {
+        title: 'Where HeliosX sits on price',
+        body: `HeliosX is budget-conscious, not a marketplace product. Newton starts at ${usd(productStartingPrices.Newton)} and every pair is built to your measurements. Ergonomic prismatic Apollo starts at $1,695 at 3.0x, compared with LumaDent's published Ergo Air Ti starting price of $1,995 at 3.0x. The difference comes from selling direct and publishing prices; we have not run a controlled optical comparison against other brands, and a lower price does not by itself prove equal optical performance.`,
+        bullets: [
+          `Newton ${priceRange('newton')} and Galileo ${priceRange('galileo')}: Galilean, 2.5x–3.5x.`,
+          `Kepler ${priceRange('kepler')}: conventional prismatic, 4.0x–6.0x.`,
+          `Apollo ${priceRange('apollo')} and Medusa ${priceRange('medusa')}: ergonomic prismatic.`,
+          'Standard worldwide shipping included; fully refundable until custom production begins.',
+        ],
+        sourceLabel: 'LumaDent Ergo Air Ti published price, checked September 10, 2026',
+        sourceHref: 'https://www.lumadent.com/products/ergo-air-ti-ttl-loupes',
+      },
+    ],
+    recommendedProducts: ['Newton', 'Galileo', 'Kepler'],
+    verdict: `Cheap loupes can be fine for trying magnification or occasional use. For daily clinical work, the price matters less than three things: a working distance measured in your posture, a stated optical design, and a warranty and return policy in writing. HeliosX Newton covers all three from ${usd(productStartingPrices.Newton)}.`,
+    faqs: [
+      {
+        question: 'Are cheap surgical loupes bad for your posture?',
+        answer:
+          'The main risk with any poorly fitted loupe is posture. If the working distance does not match how you sit or stand, you lean in or pull back to stay in focus. That is a fit problem, and it can happen at any price; a loupe measured to your posture avoids it.',
+      },
+      {
+        question: 'Is $695 cheap for surgical loupes?',
+        answer:
+          'Newton at $695 is a custom-measured Galilean loupe, so it costs more than marketplace loupes. For an ergonomic comparison, Apollo starts at $1,695 at 3.0x, and LumaDent publishes an Ergo Air Ti starting price of $1,995 at 3.0x.',
+      },
+      {
+        question: 'Should a student buy cheap loupes first?',
+        answer:
+          'Some students buy an inexpensive pair to learn which magnification suits them, then buy a measured pair. If you already know your magnification and working distance, buying one measured pair can cost less overall than buying twice.',
+      },
+      {
+        question: 'Do HeliosX loupes come with a warranty?',
+        answer:
+          'Yes. Every HeliosX loupe has a two-year limited warranty covering manufacturer-related defects from the delivery date. Orders are fully refundable until custom production begins. See /warranty and /returns.',
+      },
+    ],
+    datePublished: buyerQuestionDate,
+    dateModified: buyerQuestionDate,
+  },
+]
+
+allSeoLandingPages.push(...buyerQuestionPages)
+
 export const educationGuides: EducationGuide[] = [
   {
     slug: 'loupe-magnification-guide',

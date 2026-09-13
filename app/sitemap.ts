@@ -1,7 +1,13 @@
 import type { MetadataRoute } from 'next'
 
+import contentDates from '@/lib/content-dates.json'
 import { allSeoLandingPages, educationGuides } from '@/lib/seo-content'
 import { siteUrl } from '@/lib/seo'
+
+// When each landing page / guide last had its own content changed, from git
+// history (`npm run content-dates`). Accurate lastmod is what makes Google
+// come back to re-read edited pages, so prefer it over hand-set dates.
+const contentLastModified = contentDates as Record<string, string>
 
 // Default freshness used for any path that does not have an explicit
 // override. Bump this when the broader site/content gets a meaningful
@@ -18,9 +24,9 @@ const staticPathLastModified: Record<string, string> = {
   '/product/galileo': '2026-09-09',
   '/product/newton': '2026-09-09',
   '/product/kepler': '2026-09-09',
-  '/education': '2026-05-23',
-  '/measurements': '2026-05-20',
-  '/faq': '2026-05-23',
+  '/education': '2026-09-09',
+  '/measurements': '2026-09-09',
+  '/faq': '2026-09-10',
   '/shipping': '2026-04-01',
   '/returns': '2026-09-09',
   '/warranty': '2026-09-09',
@@ -75,7 +81,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const path = `/${page.slug}`
     entries.push({
       url: `${siteUrl}${path}`,
-      lastModified: toDate(page.dateModified ?? page.datePublished ?? SITE_CONTENT_LAST_MODIFIED),
+      lastModified: toDate(
+        contentLastModified[page.slug] ?? page.dateModified ?? page.datePublished ?? SITE_CONTENT_LAST_MODIFIED
+      ),
       changeFrequency: changeFrequencyFor(path),
       priority: priorityFor(path),
     })
@@ -85,7 +93,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const path = `/education/${guide.slug}`
     entries.push({
       url: `${siteUrl}${path}`,
-      lastModified: toDate(guide.dateModified ?? guide.datePublished ?? SITE_CONTENT_LAST_MODIFIED),
+      lastModified: toDate(
+        contentLastModified[guide.slug] ?? guide.dateModified ?? guide.datePublished ?? SITE_CONTENT_LAST_MODIFIED
+      ),
       changeFrequency: changeFrequencyFor(path),
       priority: priorityFor(path),
     })

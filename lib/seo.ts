@@ -125,7 +125,7 @@ export function organizationJsonLd() {
     url: siteUrl,
     logo: {
       '@type': 'ImageObject',
-      url: absoluteUrl('/logominimalnowriting.png'),
+      url: absoluteUrl('/heliosx-logo-512.png'),
       width: 512,
       height: 512,
     },
@@ -272,7 +272,7 @@ export function videoObjectJsonLd({
       name: siteName,
       logo: {
         '@type': 'ImageObject',
-        url: absoluteUrl('/logominimalnowriting.png'),
+        url: absoluteUrl('/heliosx-logo-512.png'),
       },
     },
     ...(duration ? { duration } : {}),
@@ -403,7 +403,7 @@ export function articleJsonLd({
       name: siteName,
       logo: {
         '@type': 'ImageObject',
-        url: absoluteUrl('/logominimalnowriting.png'),
+        url: absoluteUrl('/heliosx-logo-512.png'),
       },
     },
   }

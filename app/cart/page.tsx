@@ -129,11 +129,24 @@ export default function CartPage() {
 
   const subtotal = baseSubtotal + addOnTotal
 
+  // The checkout button sits in a sticky bar on phones, far from the email
+  // field, so an error message alone goes unseen. Bring the field to the
+  // shopper. Runs inside the tap, so iOS also opens the keyboard.
+  const focusEmailField = () => {
+    const field = ['mobile-cart-email', 'cart-email']
+      .map((id) => document.getElementById(id) as HTMLInputElement | null)
+      .find((input) => input && input.offsetParent !== null)
+    if (!field) return
+    field.scrollIntoView({ block: 'center' })
+    field.focus({ preventScroll: true })
+  }
+
   const handleCheckout = async () => {
     if (!items.length) return
     const normalizedEmail = email.trim().toLowerCase()
     if (!/^\S+@\S+\.\S+$/.test(normalizedEmail)) {
       setEmailError('Enter your email to continue to checkout.')
+      focusEmailField()
       return
     }
 
@@ -483,11 +496,16 @@ export default function CartPage() {
               </div>
 
               <div className="mb-4 space-y-2">
-                <label className="block text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                <label
+                  htmlFor="cart-email"
+                  className="block text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400"
+                >
                   Email for checkout
                 </label>
                 <input
+                  id="cart-email"
                   type="email"
+                  autoComplete="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   placeholder="you@example.com"
@@ -507,8 +525,7 @@ export default function CartPage() {
                 Proceed to payment
               </button>
               <p className="mt-3 text-[0.65rem] text-neutral-500">
-                Test mode only - payments are processed in Stripe&apos;s sandbox
-                environment.
+                Payments are processed securely by Stripe.
               </p>
             </motion.div>
           </motion.aside>

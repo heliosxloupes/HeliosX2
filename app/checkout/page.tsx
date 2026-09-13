@@ -30,6 +30,9 @@ declare global {
   }
 }
 
+const usd = (amount: number) =>
+  amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+
 export default function CheckoutPage() {
   const router = useRouter()
   const checkoutRef = useRef<HTMLDivElement>(null)
@@ -339,31 +342,24 @@ export default function CheckoutPage() {
                       </p>
                       <p className="mt-1 text-sm font-medium">{item.name}</p>
                       {!item.isAddon && (
-                        <>
-                          <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-[0.7rem] text-neutral-300">
-                            {(item.magnification || item.selectedMagnification) && (
-                              <span>Mag: {item.magnification || item.selectedMagnification}</span>
-                            )}
-                            {item.frameStyle && (
-                              <span>Frame: {item.frameStyle}</span>
-                            )}
-                            {item.frameColor && (
-                              <span>Color: {item.frameColor}</span>
-                            )}
-                          </div>
-                          <div className="mt-2 flex items-center justify-between text-xs text-neutral-300">
-                            <span>Qty: {item.quantity}</span>
-                            <span className="text-sm font-semibold text-neutral-50">
-                              ${(item.price * item.quantity).toFixed(2)}
-                            </span>
-                          </div>
-                        </>
+                        <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-[0.7rem] text-neutral-300">
+                          {(item.magnification || item.selectedMagnification) && (
+                            <span>Mag: {item.magnification || item.selectedMagnification}</span>
+                          )}
+                          {item.frameStyle && (
+                            <span>Frame: {item.frameStyle}</span>
+                          )}
+                          {item.frameColor && (
+                            <span>Color: {item.frameColor}</span>
+                          )}
+                        </div>
                       )}
-                      {item.isAddon && (
-                        <p className="mt-1 text-[0.7rem] text-neutral-400">
-                          Billed via linked Stripe price ID.
-                        </p>
-                      )}
+                      <div className="mt-2 flex items-center justify-between text-xs text-neutral-300">
+                        <span>Qty: {item.quantity}</span>
+                        <span className="text-sm font-semibold text-neutral-50">
+                          {usd(item.price * item.quantity)}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -372,14 +368,14 @@ export default function CheckoutPage() {
 
             <div className="border-t border-white/10 pt-4">
               <div className="mb-3 flex items-center justify-between text-sm text-neutral-300">
-                <span>Base loupes subtotal</span>
+                <span>Subtotal</span>
                 <span className="text-lg font-semibold text-neutral-50">
-                  ${subtotal.toFixed(2)}
+                  {usd(subtotal)}
                 </span>
               </div>
               <p className="text-[0.72rem] leading-5 text-neutral-400">
-                Final itemized totals, including prescription lenses and extended
-                warranty, are confirmed directly inside Stripe before payment.
+                Worldwide shipping included. Stripe shows your final total before
+                you pay.
               </p>
             </div>
           </aside>

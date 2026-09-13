@@ -14,7 +14,7 @@ import ProductReviews from '@/components/ProductReviews'
 import MobileProductExperience from '@/components/mobile/MobileProductExperience'
 import { useContact } from '@/components/Contact/ContactProvider'
 import { addToCart } from '@/lib/cart'
-import { trackGenerateLead, trackViewItem } from '@/lib/analytics'
+import { trackViewItem } from '@/lib/analytics'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productFaqs } from '@/lib/product-faqs'
 import { magnificationPriceByProduct } from '@/lib/pricing'
@@ -339,10 +339,6 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   const [activeHeroIndex, setActiveHeroIndex] = useState(0)
   const [selectedMag, setSelectedMag] = useState<string>(config.magnifications[0] ?? '')
   const [capturedEmail, setCapturedEmail] = useState('')
-  const [emailInput, setEmailInput] = useState('')
-  const [emailPromptOpen, setEmailPromptOpen] = useState(false)
-  const [pendingAction, setPendingAction] = useState<'cart' | 'checkout'>('cart')
-  const [emailError, setEmailError] = useState('')
 
   const frameConfigs =
     config.slug === 'newton'
@@ -382,7 +378,6 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
     if (typeof window === 'undefined') return
     const savedEmail = window.localStorage.getItem('heliosx_customer_email') ?? ''
     setCapturedEmail(savedEmail)
-    setEmailInput(savedEmail)
   }, [])
 
   useEffect(() => {
@@ -425,30 +420,6 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
     setProductContext,
   ])
 
-  const persistEmail = async (source: 'cart') => {
-    const email = emailInput.trim().toLowerCase()
-    if (!/^\S+@\S+\.\S+$/.test(email)) {
-      setEmailError('Enter a valid email to continue.')
-      return null
-    }
-
-    setEmailError('')
-    setCapturedEmail(email)
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem('heliosx_customer_email', email)
-    }
-
-    await fetch('/api/crm/capture', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, source }),
-    }).catch(() => null)
-
-    trackGenerateLead(`product_${config.slug}_email_capture`)
-
-    return email
-  }
-
   const writeCartSession = async (email: string) => {
     const cartItems = typeof window !== 'undefined'
       ? JSON.parse(window.localStorage.getItem('heliosx_cart') ?? '[]')
@@ -467,7 +438,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   }
 
   const addConfiguredItem = async (email: string) => {
-    if (!isAvailable) return
+    if (!isAvailable) return false
 
     addToCart({
       productSlug: config.slug,
@@ -482,29 +453,15 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
       selectedFrameName: `${currentFrameConfig.label} - ${currentColorConfig.name}`,
       selectedFrameImage: currentColorConfig.image,
     })
-    await writeCartSession(email)
+    // Returning shoppers already gave an email; keep their saved cart current.
+    if (email) await writeCartSession(email)
+    return true
   }
 
+  // No email wall here: the bag asks for it right before payment (as on
+  // phones) and saves it to the CRM through /api/cart-session.
   const handleAddToCart = async () => {
-    if (!isAvailable) return
-
-    const email = capturedEmail || (await persistEmail('cart'))
-    if (!email) {
-      setPendingAction('cart')
-      setEmailPromptOpen(true)
-      return
-    }
-
-    await addConfiguredItem(email)
-    router.push('/cart')
-  }
-
-  const submitEmailPrompt = async () => {
-    const email = await persistEmail('cart')
-    if (!email) return
-    setEmailPromptOpen(false)
-    await addConfiguredItem(email)
-    router.push(pendingAction === 'checkout' ? '/checkout' : '/cart')
+    if (await addConfiguredItem(capturedEmail)) router.push('/cart')
   }
 
   const scrollToTech = () => {
@@ -867,25 +824,6 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                   {isAvailable && <ShoppingCart className="h-4 w-4" strokeWidth={2} aria-hidden="true" />}
                   {isAvailable ? 'Add to cart' : 'Pricing coming soon'}
                 </button>
-                {emailPromptOpen && !capturedEmail && (
-                  <div className="mt-3 space-y-2">
-                    <input
-                      value={emailInput}
-                      onChange={(event) => setEmailInput(event.target.value)}
-                      type="email"
-                      placeholder="Email for cart and checkout"
-                      className="w-full rounded-full border border-white/15 bg-white px-4 py-3 text-sm text-black outline-none"
-                    />
-                    {emailError && <p className="px-2 text-xs text-red-300">{emailError}</p>}
-                    <button
-                      type="button"
-                      onClick={submitEmailPrompt}
-                      className="w-full rounded-full bg-emerald-300 px-4 py-3 text-sm font-semibold text-black transition hover:bg-emerald-200"
-                    >
-                      Continue
-                    </button>
-                  </div>
-                )}
                 <p className="mt-2 text-[0.65rem] leading-relaxed text-neutral-500">
                   {isAvailable
                     ? `Custom measurement review included. Typical production time is 1–2 weeks. Two-year limited warranty. ${riskFreeCopy}`

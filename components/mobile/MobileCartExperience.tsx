@@ -4,8 +4,11 @@ import { ArrowLeft, ArrowRight, Check, Minus, Plus, ShieldCheck, Trash2 } from '
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { useRef } from 'react'
+
 import type { CartItem } from '@/lib/cart'
 import { PRESCRIPTION_PRICE, WARRANTY_PRICE } from '@/lib/pricing'
+import { useStickyBarOffset } from './useStickyBarOffset'
 
 type Props = {
   items: CartItem[]
@@ -39,6 +42,8 @@ export default function MobileCartExperience({
   const rxPairs = items.reduce((sum, item) => sum + (item.hasPrescriptionLenses ? item.quantity : 0), 0)
   const addOns = rxPairs * PRESCRIPTION_PRICE + (warranty ? WARRANTY_PRICE : 0)
   const total = loupeSubtotal + addOns
+  const checkoutBarRef = useRef<HTMLDivElement>(null)
+  useStickyBarOffset(checkoutBarRef, items.length > 0)
 
   return (
     <main className="min-h-screen bg-[#06090b] pb-32 pt-14 text-white">
@@ -117,7 +122,7 @@ export default function MobileCartExperience({
       )}
 
       {items.length ? (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/15 bg-[#0c1710]/95 px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
+        <div ref={checkoutBarRef} className="fixed inset-x-0 bottom-0 z-40 border-t border-white/15 bg-[#0c1710]/95 px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
           <div className="mx-auto flex max-w-lg items-center gap-4">
             <div className="min-w-0 flex-1"><small className="block text-[11px] text-neutral-400">Total / shipping included</small><strong className="block text-xl font-medium">{money(total)}</strong></div>
             <button type="button" onClick={onCheckout} className="flex min-h-[52px] min-w-[58%] items-center justify-between rounded-md bg-emerald-100 px-5 text-sm font-semibold text-[#08261b]">Secure checkout <ArrowRight size={18} /></button>

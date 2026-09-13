@@ -14,6 +14,7 @@ import { addToCart } from '@/lib/cart'
 import { magnificationPriceByProduct, PRESCRIPTION_PRICE } from '@/lib/pricing'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productFaqs } from '@/lib/product-faqs'
+import { useStickyBarOffset } from './useStickyBarOffset'
 
 type FrameConfig = {
   id: string
@@ -72,6 +73,8 @@ export default function MobileProductExperience({
   const router = useRouter()
   const { openContact, setProductContext } = useContact()
   const reduceMotion = useReducedMotion()
+  const buyBarRef = useRef<HTMLDivElement>(null)
+  useStickyBarOffset(buyBarRef)
   const [mag, setMag] = useState(config.magnifications[0] ?? '')
   const [frameId, setFrameId] = useState(frames[0]?.id ?? '')
   const [color, setColor] = useState(frames[0]?.colors[0]?.value ?? '')
@@ -366,7 +369,7 @@ export default function MobileProductExperience({
 
       <ProductReviews productName={config.shortName} reviews={getProductReviews(config.slug)} aggregate={rating} />
 
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/15 bg-[#0c1710]/95 px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
+      <div ref={buyBarRef} className="fixed inset-x-0 bottom-0 z-40 border-t border-white/15 bg-[#0c1710]/95 px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
         <div className="mx-auto flex max-w-lg items-center gap-4">
           <div className="min-w-0 flex-1"><small className="block truncate text-[11px] text-neutral-400">{config.shortName} / {mag}</small><strong className="mt-0.5 block text-xl font-medium">{money(total)} <span className="text-[10px] font-normal text-neutral-400">USD</span></strong></div>
           <button type="button" onClick={addConfiguredPair} disabled={!available} className="flex min-h-[52px] min-w-[54%] items-center justify-between rounded-md bg-emerald-100 px-5 text-sm font-semibold text-[#08261b] disabled:opacity-50">

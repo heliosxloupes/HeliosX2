@@ -45,8 +45,9 @@ Explore the collection at https://heliosxvision.com or contact support@heliosxvi
 
 ## Brand Assets
 
-- Company logo: `assets/linkedin/heliosx-linkedin-logo.png`
-- Company cover: `assets/linkedin/heliosx-linkedin-cover.png`
+- Company logo candidate: the existing HeliosX brand artwork; requires owner approval before upload.
+- Company cover: not selected; requires owner approval before upload.
+- Do not upload or post generated product imagery without explicit owner approval.
 
 ## First Post Draft
 

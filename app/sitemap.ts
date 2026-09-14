@@ -9,6 +9,11 @@ import { siteUrl } from '@/lib/seo'
 // come back to re-read edited pages, so prefer it over hand-set dates.
 const contentLastModified = contentDates as Record<string, string>
 
+// Some pages are also revised in lib/seo-editorial.ts, which sets
+// dateModified; use whichever date is newer.
+const latest = (...dates: (string | undefined)[]) =>
+  dates.filter((d): d is string => Boolean(d)).sort().at(-1)
+
 // Default freshness used for any path that does not have an explicit
 // override. Bump this when the broader site/content gets a meaningful
 // refresh so crawlers see a real lastmod signal instead of `now`.
@@ -82,7 +87,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({
       url: `${siteUrl}${path}`,
       lastModified: toDate(
-        contentLastModified[page.slug] ?? page.dateModified ?? page.datePublished ?? SITE_CONTENT_LAST_MODIFIED
+        latest(contentLastModified[page.slug], page.dateModified) ?? page.datePublished ?? SITE_CONTENT_LAST_MODIFIED
       ),
       changeFrequency: changeFrequencyFor(path),
       priority: priorityFor(path),
@@ -94,7 +99,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({
       url: `${siteUrl}${path}`,
       lastModified: toDate(
-        contentLastModified[guide.slug] ?? guide.dateModified ?? guide.datePublished ?? SITE_CONTENT_LAST_MODIFIED
+        latest(contentLastModified[guide.slug], guide.dateModified) ?? guide.datePublished ?? SITE_CONTENT_LAST_MODIFIED
       ),
       changeFrequency: changeFrequencyFor(path),
       priority: priorityFor(path),

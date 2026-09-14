@@ -871,4 +871,402 @@ export function applyEditorialRevisions(
         ...baseFaqs,
       ],
     })
+  expandThinGuides(guides)
+}
+
+// Sep 14 2026: the compact-template guides rendered under 300 words and
+// shared the same generic sections, and several reviewed guides were under
+// 500. These add practical, checkable buying guidance. Keep optical and
+// clinical statements conservative (see CLAUDE.md, Copywriting).
+const expanded = '2026-09-14'
+
+function expandThinGuides(guides: EducationGuide[]) {
+  const byslug = (slug: string) => guides.find((g) => g.slug === slug)
+  const specialtyTable = (guide: EducationGuide) =>
+    guide.sections.filter((s) => s.title === 'Magnification changes by specialty')
+
+  const dentalStudents = byslug('best-loupes-for-dental-students')
+  if (dentalStudents)
+    Object.assign(dentalStudents, {
+      dateModified: expanded,
+      metaTitle: 'Best Loupes for Dental Students | Magnification, Fit & Budget',
+      description:
+        'How dental students can choose a first pair of loupes: program requirements, magnification, working distance, Galilean vs prismatic, prescription, lights, and total cost.',
+      intro:
+        'A first pair of dental loupes should suit the preclinical and clinical work you are doing now, fit the posture your program teaches, and leave room in a student budget. Start with your program’s requirements, measure your own working distance, and compare the finished order rather than the headline price.',
+      sections: [
+        section(
+          'Check your program’s requirements first',
+          'Many dental schools set expectations for when students start using loupes, which magnification is acceptable, and whether a particular light or vendor event is recommended. Ask before you buy so you do not pay twice.',
+          [
+            'When does your program expect loupes in preclinic and in clinic?',
+            'Is a magnification range recommended or required?',
+            'Will you need a headlight, and does it have to mount on the frame you choose?',
+            'Are there fitting days or group orders through the school?',
+          ],
+        ),
+        section(
+          'Choose magnification for the work in front of you',
+          'Lower magnification gives a wider field of view and more depth of field, which makes it easier to keep the whole tooth and surrounding area in view while you build skill. Higher magnification shows more detail but narrows the view and makes head movement more noticeable. Buy for your current clinical tasks, not a specialty you might choose years from now.',
+          [
+            'Newton and Galileo cover 2.5x–3.5x in a lightweight Galilean design.',
+            'Apollo (3.0x–6.0x) and Medusa (3.0x–8.5x) are ergonomic prismatic options for students who want a more upright viewing posture.',
+            'If you are unsure between two powers, compare the field of view at your working distance, not just the number.',
+          ],
+          '/education/loupe-magnification-guide',
+          'How to choose loupe magnification',
+        ),
+        section(
+          'Measure working distance in your clinic posture',
+          'Working distance is the distance from your eyes to the tooth you are treating when you sit the way your program teaches. Taller students do not automatically need a longer distance, and copying a classmate’s number is a common reason loupes feel wrong. Measure seated at the chair with the patient or typodont at your normal height.',
+          [
+            'Sit upright with relaxed shoulders and your forearms roughly level.',
+            'Have someone measure from your eye to the working area, and repeat it.',
+            'If you alternate between positions, record each one separately.',
+          ],
+          '/education/working-distance-for-loupes',
+          'How to measure working distance',
+        ),
+        section(
+          'Galilean or prismatic for a first pair?',
+          'Galilean loupes are lighter and simpler and are a common starting point at 2.5x–3.5x. Prismatic loupes allow higher magnification. Ergonomic prismatic designs redirect your line of sight so you can look toward the mouth with less forward head tilt. Decide which features matter for your schedule, then compare models.',
+          [
+            'Long clinic days: compare frame balance and viewing angle, not only weight.',
+            `Tight budget: Newton starts at ${range('newton').split('–')[0]}, Galileo at ${range('galileo').split('–')[0]}.`,
+            'Planning for endodontics or restorative detail later: an ergonomic prismatic system can grow with you.',
+          ],
+          '/education/galilean-vs-prismatic-loupes',
+          'Galilean vs prismatic loupes',
+        ),
+        section(
+          'Prescription lenses, lights, and the total cost',
+          `If you wear glasses for close or intermediate work, prescription lenses can be built into the loupe carrier for ${dollars(PRESCRIPTION_PRICE)} per pair. Lights are sold separately by most brands, so check compatibility before you buy one. HeliosX prices run from ${range('newton')} for Newton to ${range('medusa')} for Medusa, with worldwide shipping included.`,
+          [
+            'Check student pricing and eligibility: /student-loupes-discount.',
+            'Ask for an itemized quote from every brand you compare.',
+            'Include taxes, shipping, lights, and warranty terms in the comparison.',
+          ],
+          '/how-much-do-surgical-loupes-cost',
+          'What loupes cost',
+        ),
+        fit,
+      ],
+      faqs: [
+        faq(
+          'What magnification do most dental students start with?',
+          'Many students start in the 2.5x–3.5x range because the wider view is easier while building skill, but follow your program’s guidance and compare the view at your own working distance.',
+        ),
+        faq(
+          'Do I need loupes in my first year of dental school?',
+          'It depends on your program. Some expect loupes in preclinic, others later. Ask before buying so the configuration matches what you will use.',
+        ),
+        faq(
+          'Can I use loupes if I wear glasses?',
+          `Yes. You can order prescription lenses for ${dollars(PRESCRIPTION_PRICE)} per pair and submit your prescription after checkout, or wear contact lenses with standard carrier lenses.`,
+        ),
+        faq(
+          'Is a lighter loupe always better for students?',
+          'Weight matters over long clinic days, but so do balance, fit, and viewing angle. A light pair that makes you lean forward is not a comfortable pair.',
+        ),
+        ...baseFaqs,
+      ],
+    })
+
+  const prescription = byslug('prescription-loupes-guide')
+  if (prescription)
+    Object.assign(prescription, {
+      dateModified: expanded,
+      metaTitle: 'Prescription Loupes Guide | Glasses, Lenses & Ordering',
+      description:
+        'How prescription lenses work with surgical and dental loupes: who needs them, what information to provide, contact lenses vs prescription carriers, and how HeliosX handles your prescription.',
+      intro:
+        'If you wear glasses for close or intermediate work, your loupes may need prescription lenses so the magnified view is sharp without wearing glasses underneath. This guide covers who usually needs them, what information to have ready, and how the HeliosX process works after checkout.',
+      sections: [
+        section(
+          'Do you need prescription loupes?',
+          'Loupes magnify the image, but they do not correct your vision. If you normally need glasses to see clearly at arm’s length or closer, you will usually want that correction built into the loupe frame. If you only wear glasses for distance, or you wear contact lenses at work, you may not need prescription carriers at all.',
+          [
+            'Wear glasses for reading or computer work: prescription carriers are worth discussing.',
+            'Wear contact lenses in clinic or the OR: standard carriers often work.',
+            'Unsure: bring the question to your eye-care professional and tell us your working distance.',
+          ],
+        ),
+        section(
+          'What to have ready',
+          'A current prescription from a recent eye examination is the starting point. Your working distance and pupillary distance matter as well, because the loupes are aligned for the distance at which you work, not for driving or reading a book.',
+          [
+            'A current written prescription, including any astigmatism values.',
+            'Your working distance, measured in your normal posture: /education/working-distance-for-loupes.',
+            'Your pupillary distance (PD): /education/how-to-measure-pupillary-distance.',
+          ],
+        ),
+        section(
+          'How prescription lenses fit into the loupes',
+          'Most loupes mount the optics on or through a carrier lens in the frame. With a prescription, that carrier lens includes your correction, so you look through your prescription and the loupe optics together. That is why the prescription, PD, and working distance need to be reviewed together before production.',
+          [
+            'Your everyday glasses prescription may be written for a different distance than your working distance.',
+            'Progressive or multifocal prescriptions need extra care; ask before ordering.',
+            'Tell us if you have a strong correction so we can review it before you commit.',
+          ],
+        ),
+        section(
+          'How HeliosX handles your prescription',
+          `Prescription lenses add ${dollars(PRESCRIPTION_PRICE)} per pair. Choose the option at checkout, then submit your prescription with your measurements after ordering. We review the details before custom production and contact you if anything needs clarification.`,
+          [
+            'Cancellation is fully refundable before production begins.',
+            'Production usually takes 1–2 weeks after your measurements are approved.',
+            'Standard worldwide shipping is included in the listed price.',
+          ],
+          '/measurements',
+          'HeliosX measurement instructions',
+        ),
+        section(
+          'When your prescription changes',
+          'Prescriptions change over time. If your correction changes after you receive your loupes, contact us with the new prescription and your order details so we can discuss the options before you order a replacement pair.',
+        ),
+      ],
+      faqs: [
+        faq(
+          'Can I wear my glasses under loupes instead?',
+          'Some people do, but it usually moves the loupes further from your eyes, which can narrow the view and make fit less comfortable. Prescription carriers or contact lenses are usually better options.',
+        ),
+        faq(
+          'Do I need an eye exam before ordering?',
+          'You need a current prescription. If yours is old, or your near vision has changed, an up-to-date exam is the safest starting point.',
+        ),
+        faq(
+          'How much do prescription lenses cost at HeliosX?',
+          `${dollars(PRESCRIPTION_PRICE)} per pair, added at checkout.`,
+        ),
+        faq(
+          'When do I send my prescription?',
+          'After checkout, together with your measurements. We review everything before production begins.',
+        ),
+        ...baseFaqs,
+      ],
+    })
+
+  const howToChoose = byslug('how-to-choose-surgical-loupes')
+  if (howToChoose)
+    Object.assign(howToChoose, {
+      dateModified: expanded,
+      metaTitle: 'How to Choose Surgical Loupes | A Step-by-Step Buying Guide',
+      description:
+        'Choose surgical loupes step by step: procedures, magnification, Galilean vs prismatic, working distance, fit, lights, prescription, total cost, and return terms.',
+      intro:
+        'The right surgical loupes depend on the work you do, the posture you keep, and the detail you need to see. Work through these decisions in order and you will narrow a confusing market to a short list you can actually compare.',
+      sections: [
+        section(
+          'Step 1: Start with your procedures',
+          'List the tasks you do most and how long you wear loupes in a typical day. A general surgery resident closing skin, a hand surgeon repairing tendons, and a dentist doing restorative work need different views. Buy for your current case mix and the next couple of years, not a hypothetical future.',
+          [
+            'Which tasks do you do most often?',
+            'How many hours a day will you wear loupes?',
+            'Do you mostly sit, stand, or alternate?',
+          ],
+        ),
+        ...specialtyTable(howToChoose),
+        section(
+          'Step 2: Choose a magnification range',
+          'More magnification shows more detail but gives a narrower field of view and less depth of field, and small head movements become more noticeable. Lower magnification keeps more of the surgical field in view. Choose the lowest magnification that shows the detail your tasks need.',
+          [
+            '2.5x–3.5x: common for general work and for building skill.',
+            '4.0x–6.0x: finer detail, narrower view.',
+            'Above 6.0x: specialised detail work; compare field of view carefully.',
+          ],
+          '/education/loupe-magnification-guide',
+          'Loupe magnification guide',
+        ),
+        optics,
+        section(
+          'Step 3: Measure your working distance',
+          'Working distance is the distance from your eyes to your hands at work. Loupes are built to focus at that distance, so an incorrect number is one of the most common reasons a pair feels wrong. Measure in your normal posture rather than estimating from height.',
+          [
+            'Measure seated and standing separately if you use both.',
+            'If you change positions often, compare an adjustable-distance design such as Medusa (300–600 mm).',
+          ],
+          '/education/working-distance-for-loupes',
+          'How to measure working distance',
+        ),
+        section(
+          'Step 4: Fit, frame, lights, and prescription',
+          `Frame fit and balance decide whether you can wear loupes for a full list. Check whether you need a light and whether it mounts on the frame you choose. If you wear glasses for close work, prescription lenses add ${dollars(PRESCRIPTION_PRICE)} per pair at HeliosX.`,
+          [
+            'Confirm quoted weights include the frame, optics, prescription, and light.',
+            'Ask how fit problems are handled after delivery.',
+            'Prescription details: /education/prescription-loupes-guide.',
+          ],
+        ),
+        costs,
+        section(
+          'Step 5: Read the terms before you pay',
+          'Custom loupes are made to your measurements, so return terms matter more than for off-the-shelf products. Read the warranty and return policy of every brand you compare, and ask what happens if the fit needs correcting.',
+          [
+            'HeliosX: fully refundable before production begins; two-year limited warranty.',
+            'Returns policy: /returns. Warranty: /warranty.',
+          ],
+        ),
+      ],
+      faqs: [
+        faq(
+          'What is the most important factor when choosing loupes?',
+          'Fit to your working distance and posture. The right magnification in the wrong configuration will still feel uncomfortable and hard to use.',
+        ),
+        faq(
+          'Should I buy Galilean or prismatic loupes?',
+          'Galilean designs are lighter and a common choice at 2.5x–3.5x. Prismatic designs allow higher magnification; ergonomic prismatic designs also redirect the view for a more upright head position. Choose by magnification and posture needs.',
+        ),
+        faq(
+          'How long does a custom pair take?',
+          'At HeliosX, production usually takes 1–2 weeks after your measurements are approved, then the pair ships with worldwide shipping included.',
+        ),
+        ...baseFaqs,
+      ],
+    })
+
+  const plastic = byslug('best-loupes-for-plastic-surgery')
+  if (plastic)
+    Object.assign(plastic, {
+      dateModified: expanded,
+      metaTitle: 'Best Loupes for Plastic Surgery | Magnification & Fit',
+      description:
+        'Choosing loupes for plastic and reconstructive surgery: aesthetic, reconstructive, hand, and microsurgery-oriented work, magnification ranges, ergonomics, and HeliosX options.',
+      intro:
+        'Plastic surgery covers very different tasks, from aesthetic procedures and skin closure to hand and reconstructive work. That range is why there is no single “best” magnification. Choose for the work you do most, and keep the operating microscope in mind for tasks where your service uses one.',
+      sections: [
+        section(
+          'Match the loupe to the type of work',
+          'Aesthetic and general reconstructive work often benefits from a wider view of the operative field, while fine hand and nerve work may call for more detail. Many surgeons own one pair for most cases; others keep a second, higher-power pair for detailed tasks.',
+          [
+            'Aesthetic and skin work: a moderate magnification with a broad field of view.',
+            'Hand and reconstructive work: higher magnification for fine structures.',
+            'Microvascular anastomosis: many services use an operating microscope; loupes do not replace one where it is required.',
+          ],
+        ),
+        ...specialtyTable(plastic),
+        section(
+          'Long cases make ergonomics a priority',
+          'Plastic surgery lists can be long, and small posture differences add up. Ergonomic prismatic loupes redirect your line of sight so you can look toward the field with less forward head tilt. Research on ergonomic loupes is promising but limited, so treat viewing angle as one part of a good setup rather than a guarantee.',
+          [
+            'Compare viewing angle together with frame balance and working distance.',
+            'Include the weight of any light you will wear.',
+          ],
+          '/education/ergonomic-loupes-neck-pain',
+          'What research says about ergonomic loupes',
+        ),
+        section(
+          'HeliosX options for plastic surgery',
+          `Galileo and Newton (2.5x–3.5x) suit general and aesthetic work on a budget. Apollo (3.0x–6.0x, from ${range('apollo').split('–')[0]}) and Medusa (3.0x–8.5x, from ${range('medusa').split('–')[0]}) are ergonomic prismatic systems; Medusa also adjusts working distance from 300–600 mm for surgeons who move between sitting and standing. Kepler offers conventional prismatic 4.0x–6.0x for detailed work.`,
+          [
+            'Compare Medusa: /product/medusa.',
+            'Compare Apollo: /product/apollo.',
+            'Compare Kepler: /product/kepler.',
+          ],
+        ),
+        section(
+          'Working distance and position changes',
+          'Plastic surgeons often change position during a case. A fixed working distance should match the position you use most, while an adjustable design can cover a range. Measure in your usual operating setup.',
+          [],
+          '/education/working-distance-for-loupes',
+          'How to measure working distance',
+        ),
+        fit,
+      ],
+      faqs: [
+        faq(
+          'What magnification do plastic surgeons use?',
+          'It depends on the task. Broad aesthetic and closure work often uses lower magnification, while hand and nerve work may need more detail. Ask colleagues in your service and compare the view at your working distance.',
+        ),
+        faq(
+          'Can loupes replace a microscope for microsurgery?',
+          'Not where your service requires a microscope. Loupes can help with preparation and many detailed tasks, but they are a different tool.',
+        ),
+        faq(
+          'Should I buy one pair or two?',
+          'Many surgeons start with one versatile pair for most cases. A second, higher-magnification pair can make sense if a large share of your work is fine detail.',
+        ),
+        ...baseFaqs,
+      ],
+    })
+
+  const distance = byslug('working-distance-for-loupes')
+  if (distance) {
+    distance.dateModified = expanded
+    distance.sections.push(
+      section(
+        'Step-by-step: measuring your working distance',
+        'You need a tape measure, a helper, and your usual working setup. Measure the way you want to work, not the way you currently compensate for a poor fit.',
+        [
+          'Set your chair, stool, or table height the way you normally work.',
+          'Place a target where your hands work: a typodont, a practice pad, or an instrument tip.',
+          'Sit or stand upright with relaxed shoulders and look at the target.',
+          'Have your helper measure from the outer corner of your eye to the target.',
+          'Repeat two or three times and use the consistent value.',
+        ],
+        '/measurements',
+        'HeliosX measurement instructions',
+      ),
+      section(
+        'Seated and standing work',
+        'Many clinicians sit for some tasks and stand for others, and the distance to the field often changes between the two. If you work both ways, record both distances. A fixed-distance loupe should be ordered for the position you use most; an adjustable design such as Medusa (300–600 mm) can cover both within its range.',
+      ),
+      section(
+        'Common measurement mistakes',
+        'Most working-distance problems come from measuring in the wrong posture or copying someone else’s number.',
+        [
+          'Leaning forward while measuring, which records a shorter distance than your upright posture.',
+          'Estimating from height instead of measuring.',
+          'Measuring at a table height you do not actually use.',
+          'Using a colleague’s configuration because they recommended it.',
+        ],
+      ),
+    )
+    distance.faqs.push(
+      faq(
+        'What happens if my working distance is wrong?',
+        'The image may only be sharp when you lean in or pull back, which pushes you out of a comfortable posture. Contact your supplier with your measurements rather than adapting your posture to the loupes.',
+      ),
+      faq(
+        'Should I measure with my current loupes on?',
+        'Measure the posture you want to keep. If your current loupes make you lean, measuring with them on can repeat the same problem.',
+      ),
+    )
+  }
+
+  const ergonomics = byslug('ergonomic-loupes-neck-pain')
+  if (ergonomics) {
+    ergonomics.dateModified = expanded
+    ergonomics.sections.push(
+      section(
+        'What to compare in an ergonomic loupe',
+        'An ergonomic loupe is more than a label. Compare the features that change how you hold your head and shoulders during a case.',
+        [
+          'Viewing direction: can you see the field with a more upright head?',
+          'Working distance: does it match the posture you want to keep?',
+          'Frame balance and total weight, including any light and prescription.',
+          'Fit around the nose and temples over a full list.',
+        ],
+      ),
+      section(
+        'Posture habits that matter with any loupe',
+        'Equipment is one part of the picture. Table or chair height, patient position, and breaks during long cases also affect how you feel at the end of the day. These are general ergonomic practices, not treatment for an existing condition.',
+        [
+          'Adjust table or chair height before you adjust your neck.',
+          'Bring the field toward you rather than leaning toward it.',
+          'Check posture at natural breaks in a long case.',
+          'See an appropriate clinician for persistent pain.',
+        ],
+      ),
+    )
+    ergonomics.faqs.push(
+      faq(
+        'Are Apollo and Medusa both ergonomic?',
+        'Yes. Both are ergonomic prismatic designs. Apollo uses a fixed working distance; Medusa adjusts from 300–600 mm.',
+      ),
+      faq(
+        'Do ergonomic loupes take time to get used to?',
+        'Some people need a short adjustment period when the viewing direction changes. Start with shorter cases if you can, and contact us if the fit still feels wrong.',
+      ),
+    )
+  }
 }

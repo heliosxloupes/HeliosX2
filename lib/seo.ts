@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 
 export const siteUrl = 'https://heliosxvision.com'
 export const siteName = 'HeliosX Loupes'
-export const supportEmail = 'support@heliosxvision.com'
+// heliosxvision.com has no inbox (no MX records), so the public contact
+// address is the team Gmail, which is where every site email already goes.
+export const supportEmail = 'heliosxloupes@gmail.com'
 
 export function absoluteUrl(path = '/') {
   if (path.startsWith('http')) return path

@@ -244,7 +244,9 @@ export default function MobileProductExperience({
       <motion.section {...rise} className="px-5 pb-2 pt-7">
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-200/75">{categoryByModel[config.slug]}</p>
         <div className="mt-3 flex items-end justify-between gap-4">
-          <h1 className="font-display text-[2.8rem] font-medium leading-none tracking-[-0.055em]">{config.shortName}</h1>
+          {/* The desktop template renders the page's single <h1>; both layouts are in the
+              DOM, so this one is a level-1 heading for assistive tech only. */}
+          <p role="heading" aria-level={1} className="font-display text-[2.8rem] font-medium leading-none tracking-[-0.055em]">{config.shortName}</p>
           <span className="pb-1 text-sm text-neutral-400">{rangeByModel[config.slug]}</span>
         </div>
         <p className="mt-4 text-[15px] leading-6 text-neutral-300">{config.description}</p>

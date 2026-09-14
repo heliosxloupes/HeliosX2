@@ -80,8 +80,14 @@ export default function CinematicIntro({ onComplete }: Props) {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const small = window.matchMedia('(max-width: 820px)').matches
     const coarse = window.matchMedia('(pointer: coarse)').matches
+    // Visitors from an ad or campaign link came for a specific product or
+    // offer; the full-screen intro would sit between them and the page.
+    const params = new URLSearchParams(window.location.search)
+    const fromCampaign = ['gclid', 'fbclid', 'msclkid', 'ttclid', 'utm_source', 'utm_medium', 'utm_campaign'].some(
+      (key) => params.has(key)
+    )
 
-    if (seen || reduced || small || coarse) {
+    if (seen || reduced || small || coarse || fromCampaign) {
       // Skip — land straight on the homepage. Mark seen so it doesn't retry.
       try {
         localStorage.setItem(CINEMATIC.seenKey, '1')
@@ -92,6 +98,16 @@ export default function CinematicIntro({ onComplete }: Props) {
     }
     setPhase('playing')
   }, [onComplete])
+
+  // Escape closes the intro, like the visible "Skip intro" button.
+  useEffect(() => {
+    if (phase !== 'playing') return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') finish()
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [phase, finish])
 
   // --- Setup once we're playing: lock scroll, preload frames, wire GSAP ---
   useEffect(() => {

@@ -82,9 +82,10 @@ export default function MobileCatalogueExperience() {
     <main className="min-h-screen bg-[#06090b] pb-20 pt-14 text-white">
       <section className="border-b border-white/10 px-5 pb-9 pt-12">
         <p className="text-[10px] font-semibold uppercase tracking-[0.23em] text-emerald-200/75">The collection / 2026</p>
-        <h1 className="mt-4 max-w-[330px] font-display text-[3.4rem] font-medium leading-[0.91] tracking-[-0.065em]">
+        {/* /product renders its <h1> in the desktop layout; see MobileProductExperience. */}
+        <p role="heading" aria-level={1} className="mt-4 max-w-[330px] font-display text-[3.4rem] font-medium leading-[0.91] tracking-[-0.065em]">
           Five systems.<br />One standard.
-        </h1>
+        </p>
         <p className="mt-6 max-w-sm text-[15px] leading-6 text-neutral-300">
           Custom-fit surgical loupes with published prices. Choose by posture, magnification, and the work in front of you.
         </p>

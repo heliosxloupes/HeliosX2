@@ -308,6 +308,60 @@ for (const [slug, title, context] of [
   }
 }
 
+// Sep 14 2026, page-two push: Search Console shows this page at 19.6 for
+// "best surgical loupes" (405 impressions/28d) and 27.1 for "best surgical
+// magnifying glasses" (176), while /best-loupes and the residents guide
+// compete for the same searches at 44–66. Make this the page that answers
+// those searches outright; the competing pages now link here instead.
+{
+  const surgical = revisions['best-surgical-loupe-brands']
+  surgical.title = 'Best surgical loupes: 7 brands compared'
+  surgical.metaTitle = 'Best Surgical Loupes 2026: 7 Brands Compared | HeliosX'
+  surgical.description =
+    'The best surgical loupes (surgical magnifying glasses) depend on your procedures, magnification, and posture. Compare HeliosX, LumaDent, Orascoptic, SurgiTel, Q-Optics, ExamVision, and Admetec by fit, features, and price.'
+  surgical.intro =
+    'The best surgical loupes show the detail your procedures need, at your working distance, in a posture you can hold for a full list. Surgical loupes are also called surgical magnifying glasses or surgical telescopes. There is no single best brand for every surgeon, so below you can match a type of loupe to your work, then compare seven brands by the features and buying terms that change the decision.'
+  surgical.sections = [
+    ...(surgical.sections ?? []).slice(0, 1),
+    section(
+      'Best surgical loupes by type of work',
+      'Start with the work, then shortlist the optical design that suits it. These pairings are starting points, not rules; compare the view at your own working distance before you buy.',
+      [
+        'Residents and general surgical work: Galilean loupes at 2.5x–3.5x keep a wide field of view. HeliosX Newton from $695 or Galileo from $795.',
+        'Fine detail such as vascular, hand, or pediatric work: prismatic loupes at 4.0x–6.0x. HeliosX Kepler from $1,195.',
+        'Long cases where head posture matters: ergonomic prismatic designs that redirect your view. HeliosX Apollo (3.0x–6.0x) from $1,695.',
+        'Moving between sitting and standing: adjustable working distance. HeliosX Medusa (3.0x–8.5x, 300–600 mm) from $1,695.',
+        'Microvascular anastomosis: many services use an operating microscope; loupes do not replace one where it is required.',
+      ],
+      '/education/how-to-choose-surgical-loupes',
+      'Step-by-step guide to choosing surgical loupes',
+    ),
+    section(
+      'Surgical magnifying glasses, loupes, and telescopes',
+      'These names describe the same kind of device: magnifying optics mounted on a spectacle frame or headband and focused at your working distance. Two things separate them in practice: the optical design (Galilean or prismatic) and whether the optics are fixed in the lens (through-the-lens) or hinge up (flip-up). Everyday reading magnifiers are not surgical loupes; they are not built for a surgical working distance or for hours of wear.',
+      [
+        'Galilean: lighter, simpler, and typically 2.5x–3.5x.',
+        'Prismatic: allows higher magnification; HeliosX prismatic models run from 3.0x to 8.5x.',
+        'Ergonomic prismatic: redirects your line of sight so you can work with a more upright head.',
+      ],
+      '/education/galilean-vs-prismatic-loupes',
+      'Galilean vs prismatic loupes',
+    ),
+    ...(surgical.sections ?? []).slice(1),
+  ]
+  surgical.faqs = [
+    faq(
+      'What are the best surgical magnifying glasses?',
+      'Surgical magnifying glasses are surgical loupes. The best pair matches your procedures, working distance, and posture: Galilean 2.5x–3.5x for general work and training, prismatic 4.0x–6.0x for fine detail, and ergonomic prismatic designs for long cases. Compare field of view and fit, not only the magnification number.',
+    ),
+    faq(
+      'What magnification is best for surgery?',
+      'Many surgeons start at 2.5x–3.5x for a wide field of view, and move to 4.0x–6.0x for fine structures. The best magnification is the lowest one that shows the detail your procedures need.',
+    ),
+    ...(surgical.faqs ?? []),
+  ]
+}
+
 revisions['how-much-do-surgical-loupes-cost'] = {
   title: 'How much do surgical loupes cost?',
   metaTitle: 'Surgical Loupe Prices: $695–$2,075 | HeliosX',
@@ -391,6 +445,8 @@ revisions['best-loupes'] = {
         'Lowest entry cost: Newton from $695. Compare Galileo from $795 for another lightweight Galilean option.',
         'Conventional prismatic detail: Kepler from $1,195.',
         'Ergonomic viewing: Apollo from $1,695 for fixed working distance, or Medusa from $1,695 for adjustable working distance.',
+        'Comparing brands for the operating room: see the best surgical loupes compared: /best-surgical-loupe-brands.',
+        'Comparing brands for dentistry: /best-dental-loupe-brands.',
       ],
     ),
     compareFit,
@@ -859,6 +915,7 @@ export function applyEditorialRevisions(
             'Buy for your current case mix rather than a hypothetical future specialty.',
             'Higher magnification is useful only when the remaining field of view suits the task.',
             'Ask about fit before ordering a custom pair.',
+            'Comparing other brands too? See the best surgical loupes compared: /best-surgical-loupe-brands.',
           ],
         ),
         fit,
@@ -872,6 +929,7 @@ export function applyEditorialRevisions(
       ],
     })
   expandThinGuides(guides)
+  expandThinLandingPages(pages)
 }
 
 // Sep 14 2026: the compact-template guides rendered under 300 words and
@@ -1269,4 +1327,210 @@ function expandThinGuides(guides: EducationGuide[]) {
       ),
     )
   }
+
+  const residents = byslug('best-loupes-for-residents')
+  if (residents) {
+    residents.dateModified = expanded
+    residents.sections.push(
+      section(
+        'When to buy during residency',
+        'Buy when you will use them regularly, not months ahead of a rotation that may change. Custom loupes take time: measurements are reviewed before production, and production usually takes 1–2 weeks after approval, plus shipping. Order a few weeks before the rotation where you expect to wear them.',
+        [
+          'Confirm the rotation start date and any program requirement first.',
+          'Measure your working distance in the operating position you use now.',
+          'Leave time for a fit question to be answered before your first case.',
+        ],
+      ),
+      section(
+        'Budgeting a first pair',
+        `A first pair does not need every feature. Newton (${range('newton')}) and Galileo (${range('galileo')}) cover general training at 2.5x–3.5x. Move up to Kepler (${range('kepler')}) for higher magnification or to Apollo or Medusa (from ${range('apollo').split('–')[0]}) for ergonomic viewing when your work needs it. Prescription lenses add ${dollars(PRESCRIPTION_PRICE)}.`,
+        [
+          'Check resident and student pricing: /student-loupes-discount.',
+          'Compare complete orders, including a light if you need one.',
+          'A well-fitted first pair can stay useful after you add a second, higher-power pair.',
+        ],
+        '/how-much-do-surgical-loupes-cost',
+        'What loupes cost',
+      ),
+      section(
+        'Questions to ask any seller before you order',
+        'The same questions separate a good first purchase from a frustrating one, whichever brand you choose.',
+        [
+          'What happens if the working distance or fit is wrong?',
+          'What does the warranty cover, and for how long?',
+          'Is the order refundable before production, and after?',
+          'Does the price include shipping, prescription lenses, and a light?',
+        ],
+      ),
+    )
+    residents.faqs.push(
+      faq(
+        'Should residents buy Galilean or prismatic loupes?',
+        'Many residents start with Galilean loupes at 2.5x–3.5x because they are lighter and give a wider view. Choose prismatic when your rotations need more magnification, or ergonomic prismatic when long cases make head posture a priority.',
+      ),
+      faq(
+        'How long do custom loupes take to arrive?',
+        'At HeliosX, production usually takes 1–2 weeks after your measurements are approved, then the order ships with worldwide shipping included.',
+      ),
+    )
+  }
+
+  const bySpecialty = byslug('intraoperative-magnification-by-specialty')
+  if (bySpecialty) {
+    bySpecialty.dateModified = expanded
+    bySpecialty.sections.push(
+      section(
+        'Reading a 2004 survey today',
+        'The survey is a useful map of how different specialties used magnification, but it is one regional sample of 148 surgeons from 2004. Equipment, training, and service expectations have changed since. Treat it as a reason to ask your own department what they use, not as a current rule.',
+        [
+          'Ask senior colleagues which magnification they use for your common procedures.',
+          'Check whether your service expects loupes or a microscope for specific steps.',
+          'Compare the view at your own working distance before committing.',
+        ],
+        '/research/intraoperative-magnification-who-uses-it.pdf',
+        'Jarrett PM. Intraoperative magnification: who uses it? (PDF)',
+      ),
+      section(
+        'Matching magnification to your specialty',
+        'Specialty guides turn the general pattern into specific buying advice for common procedures, magnification ranges, and working positions.',
+        [
+          'Plastic surgery: /education/best-loupes-for-plastic-surgery.',
+          'Cardiothoracic: /cardiac-surgery-loupes.',
+          'Pediatric surgery: /pediatric-surgery-loupes.',
+          'Maxillofacial: /maxillofacial-surgery-loupes.',
+          'ENT and otolaryngology: /ent-otolaryngology-loupes.',
+          'Ophthalmic surgery: /ophthalmic-surgery-loupes.',
+        ],
+      ),
+      section(
+        'Where each HeliosX model fits',
+        'Our lineup separates the three needs the survey describes: affordable everyday magnification, higher magnification for fine structures, and ergonomic viewing for long cases.',
+        [
+          'Everyday magnification: Newton and Galileo, 2.5x–3.5x.',
+          'Higher magnification: Kepler, 4.0x–6.0x; Medusa up to 8.5x.',
+          'Ergonomic viewing: Apollo and Medusa; Medusa also adjusts working distance from 300–600 mm.',
+        ],
+      ),
+    )
+  }
+
+  const research = byslug('research')
+  if (research)
+    Object.assign(research, {
+      dateModified: expanded,
+      metaTitle: 'Loupe Research Library | Ergonomics, Measurement & Use',
+      description:
+        'Plain-language summaries of research on surgical loupes: prismatic loupe ergonomics, smartphone pupillary-distance measurement, and how specialties use intraoperative magnification.',
+      intro:
+        'This library summarizes the published research we cite across HeliosX guides, in plain language, with each study’s size and limits. Research on loupes is still limited: most studies are small, short, or simulated, and none tested HeliosX products. Use it to ask better questions, not as proof that any loupe will produce a clinical outcome.',
+      sections: [
+        section(
+          'How to read loupe research',
+          'Three details decide how much weight a study can carry.',
+          [
+            'Size: a study of 19 or 44 people can show a pattern, but not how everyone will respond.',
+            'Setting: simulated tasks in a lab are not the same as a full operating list.',
+            'What was tested: results for one brand or design do not transfer automatically to another.',
+          ],
+        ),
+        section(
+          'Prismatic loupes and neck posture',
+          'Fan and colleagues ran a randomized crossover trial with 19 surgeons (Frontiers in Public Health, 2024). They compared each surgeon’s usual non-prismatic loupes with low-tilt (15°) and high-tilt (48°) prismatic loupes during three simulated surgical tasks. Prismatic loupes reduced head inclination (by a median of 13–14° for low-tilt and 22–26° for high-tilt) and reduced neck muscle activity. Surgical errors did not differ, high-tilt loupes slowed two of three tasks, and most participants preferred the low-tilt design.',
+          [
+            'Limits noted by the authors: simulated tasks, short exposure, little training time, and head flexion only.',
+            'The study did not test long-term pain prevention or HeliosX products.',
+            'Our summary for buyers: /education/ergonomic-loupes-neck-pain.',
+          ],
+          'https://pmc.ncbi.nlm.nih.gov/articles/PMC10803506/',
+          'Fan X et al. Frontiers in Public Health, 2024',
+        ),
+        section(
+          'Measuring pupillary distance with a phone',
+          'Han and colleagues compared three smartphone apps with a digital pupilometer in 44 adults (Cureus, 2023). Warby Parker and Eye Measure had a mean absolute error of about 0.5 mm; PDCheck AR averaged about 1.4 mm. The authors noted the small sample and a single examiner.',
+          [
+            'If you measure with an app, repeat the measurement and compare it with a second method.',
+            'An optician or an existing glasses prescription can confirm your pupillary distance.',
+            'HeliosX reviews your measurements before production: /education/how-to-measure-pupillary-distance.',
+          ],
+          'https://pmc.ncbi.nlm.nih.gov/articles/PMC10389117/',
+          'Han KD et al. Cureus, 2023',
+        ),
+        section(
+          'Who uses intraoperative magnification',
+          'Jarrett surveyed 148 specialists and senior trainees in the west of Scotland (Microsurgery, 2004). Use of loupes and microscopes was consistent within specialties but differed sharply between them, from frequent use in plastic, maxillofacial, ophthalmic, and ENT surgery to more occasional use in general surgery, urology, orthopedics, and gynecology.',
+          [
+            'Full summary: /education/intraoperative-magnification-by-specialty.',
+            'The survey is from 2004; practice has changed since.',
+          ],
+          '/research/intraoperative-magnification-who-uses-it.pdf',
+          'Jarrett PM. Microsurgery, 2004 (PDF)',
+        ),
+        section(
+          'What research does not tell you yet',
+          'There is little published evidence comparing loupe brands head to head, on long-term musculoskeletal outcomes, or on how magnification choice affects surgical results in real operating lists. When a seller makes a claim in those areas, ask for the source.',
+        ),
+      ],
+      faqs: [
+        faq(
+          'Do ergonomic loupes prevent neck pain?',
+          'Research shows prismatic loupes can reduce head inclination and neck muscle activity in simulated tasks. It has not shown long-term pain prevention, and it did not test HeliosX products.',
+        ),
+        faq(
+          'How accurate are smartphone pupillary-distance apps?',
+          'In one 44-person study, the most accurate apps averaged about 0.5 mm of error and PDCheck AR about 1.4 mm, compared with a digital pupilometer. Repeat any app measurement and confirm it if you can.',
+        ),
+        faq(
+          'Has HeliosX published its own clinical studies?',
+          'No. The studies here tested other products or general practice. We cite them for context and say so on each summary.',
+        ),
+      ],
+    })
+}
+
+// Sep 14 2026: landing pages that rendered under 500 words.
+function expandThinLandingPages(pages: SeoLandingPage[]) {
+  const microsurgery = pages.find((p) => p.slug === 'loupes-for-microsurgery')
+  if (!microsurgery) return
+  microsurgery.dateModified = expanded
+  microsurgery.sections.push(
+    section(
+      'Loupes and the operating microscope',
+      'Microsurgery spans tasks that loupes handle well, such as exposure, dissection, and preparation, and tasks where services use an operating microscope, such as microvascular anastomosis. Loupes are portable and quick to use; a microscope provides far higher magnification. Plan your loupe choice around the steps you will actually do under loupes.',
+      [
+        'Ask your service which steps are done under loupes and which under the microscope.',
+        'Very small structures, roughly one to two millimeters and below, may need microscope-level magnification.',
+      ],
+      '/education/intraoperative-magnification-by-specialty',
+      'How specialties use loupes and microscopes',
+    ),
+    section(
+      'Choosing magnification for fine work',
+      'Higher magnification shows smaller structures but narrows the field of view and reduces depth of field, so small head movements move the image more. Many surgeons doing fine work use 4.0x–6.0x prismatic loupes; higher powers suit narrower tasks and steadier setups.',
+      [
+        'Kepler: conventional prismatic, 4.0x–6.0x, from $1,195.',
+        'Apollo: ergonomic prismatic, 3.0x–6.0x, from $1,695.',
+        'Medusa: ergonomic prismatic up to 8.5x, with working distance adjustable from 300–600 mm.',
+      ],
+      '/education/loupe-magnification-guide',
+      'Loupe magnification guide',
+    ),
+    section(
+      'Stability, posture, and working distance',
+      'At high magnification, an accurate working distance and a stable posture matter more than at lower powers. Measure in your operating position, keep the working field at a height you can hold, and consider an ergonomic design if you spend long periods looking down.',
+      [
+        'Measure working distance in your usual seated or standing position: /education/working-distance-for-loupes.',
+        'Include the weight of a headlight if you will wear one.',
+      ],
+    ),
+  )
+  microsurgery.faqs.push(
+    faq(
+      'What magnification do I need for microsurgery?',
+      'Loupes at 4.0x–6.0x are common for fine work, with higher powers for narrower tasks. Steps such as microvascular anastomosis are usually done under an operating microscope.',
+    ),
+    faq(
+      'Can loupes replace an operating microscope?',
+      'No. Loupes are useful for many detailed steps, but they do not replace a microscope where your service requires one.',
+    ),
+  )
 }

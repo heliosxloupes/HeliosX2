@@ -187,7 +187,7 @@ export function trackGenerateLead(source: string, extras: Record<string, unknown
 }
 
 export function trackContact(
-  event: 'contact_open' | 'contact_topic_select' | 'email_click',
+  event: 'contact_open' | 'contact_topic_select' | 'email_click' | 'contact_submit',
   extras: Record<string, unknown> = {}
 ): void {
   trackCustomEvent(event, extras)

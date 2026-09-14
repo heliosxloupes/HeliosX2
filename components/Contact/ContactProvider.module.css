@@ -185,6 +185,109 @@
   height: 18px;
 }
 
+.form {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  color: #cbd4d2;
+  font-size: 12px;
+}
+
+.field em {
+  color: #71807d;
+  font-style: normal;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 11px 12px;
+  color: #f4f6f7;
+  font: inherit;
+  font-size: 16px; /* 16px stops iOS zooming into the field */
+  outline: none;
+  transition: border-color 160ms ease;
+}
+
+.field textarea {
+  min-height: 108px;
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: rgba(108, 215, 189, 0.52);
+}
+
+.form .emailButton {
+  width: 100%;
+  margin-top: 4px;
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.form .emailButton:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.formError {
+  color: #f0a4a4;
+  font-size: 12px;
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.sent {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  border: 1px solid rgba(108, 215, 189, 0.36);
+  background: rgba(23, 176, 143, 0.08);
+  padding: 16px;
+  color: #d8f1e9;
+  font-size: 13px;
+}
+
+.sent svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: #6cd7bd;
+}
+
+.sent p {
+  margin-top: 4px;
+  color: #aebbb8;
+  font-size: 12px;
+}
+
+@media (max-width: 420px) {
+  .fieldRow {
+    grid-template-columns: 1fr;
+  }
+}
+
 .emailAddress {
   display: inline-block;
   margin-top: 19px;

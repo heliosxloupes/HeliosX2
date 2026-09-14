@@ -60,8 +60,11 @@ export async function sendEmail({
   orderSummary,
   recoverySummary,
   bcc,
+  replyTo = HELIOSX_SUPPORT_EMAIL,
 }: {
   to: string
+  /** Where "Reply" goes. Defaults to the support inbox. */
+  replyTo?: string
   subject: string
   body: string
   preview?: string
@@ -92,7 +95,7 @@ export async function sendEmail({
     to,
     bcc,
     subject,
-    replyTo: HELIOSX_SUPPORT_EMAIL,
+    replyTo,
     text: `${renderTextEmail(body, orderSummary)}${cta ? `\n\n${cta.label}: ${cta.url}` : ''}`,
     html: recoverySummary ? renderRecoveryEmail({
       preview: preview ?? subject,

@@ -201,7 +201,7 @@ function escapeHtml(value: string) {
 function linkify(text: string) {
   return escapeHtml(text).replace(
     /(https?:\/\/[^\s<]+)/g,
-    '<a href="$1" style="color:#047857;text-decoration:underline;">$1</a>'
+    '<a href="$1" style="color:#78e8bd;text-decoration:underline;">$1</a>'
   )
 }
 
@@ -261,6 +261,21 @@ function renderTextEmail(body: string, orderSummary?: OrderEmailSummary) {
   return lines.filter((line) => line !== '').join('\n')
 }
 
+
+// Shared layout for every HeliosX email: the dark card, mint accents and
+// trust footer introduced with the founder follow-up (renderRecoveryEmail).
+const BRAND = {
+  page: '#e4e9e6',
+  card: '#060a08',
+  line: '#1b2822',
+  rule: '#24312b',
+  mint: '#78e8bd',
+  heading: '#f3f6f4',
+  text: '#b4beb8',
+  muted: '#7f8c85',
+  panel: '#0b120e',
+}
+
 function renderBody(body: string) {
   return body
     .split(/\n{2,}/)
@@ -278,16 +293,14 @@ function renderBody(body: string) {
           .filter(Boolean)
           .map(
             (line) =>
-              `<li style="margin:0 0 10px 0;padding-left:2px;color:#374151;font-size:15px;line-height:1.6;">${linkify(
-                line
-              )}</li>`
+              `<li style="margin:0 0 10px 0;padding-left:2px;color:${BRAND.text};font-size:15px;line-height:1.65;">${linkify(line)}</li>`
           )
           .join('')
 
-        return `<ul style="margin:0 0 22px 20px;padding:0;">${items}</ul>`
+        return `<ul style="margin:0 0 20px 20px;padding:0;">${items}</ul>`
       }
 
-      return `<p style="margin:0 0 18px 0;color:#374151;font-size:15px;line-height:1.7;">${linkify(
+      return `<p style="margin:0 0 18px 0;color:${BRAND.text};font-size:15px;line-height:1.72;">${linkify(
         paragraph
       ).replaceAll('\n', '<br />')}</p>`
     })
@@ -295,29 +308,32 @@ function renderBody(body: string) {
 }
 
 function renderButton(label: string, url: string, variant: 'primary' | 'secondary') {
-  const isPrimary = variant === 'primary'
-  return `
-    <a href="${escapeHtml(url)}"
-      style="display:inline-block;border-radius:999px;padding:14px 22px;font-size:14px;font-weight:700;letter-spacing:.02em;text-decoration:none;${
-        isPrimary
-          ? 'background:#0f172a;color:#ffffff;'
-          : 'background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0;'
-      }">
-      ${escapeHtml(label)}
-    </a>
-  `
+  const style =
+    variant === 'primary'
+      ? `background:${BRAND.mint};color:#06100b;`
+      : `background:transparent;color:${BRAND.mint};border:1px solid ${BRAND.mint};`
+  return `<a href="${escapeHtml(url)}" style="display:block;${style}padding:17px 20px;text-align:center;text-decoration:none;font-size:13px;font-weight:800;letter-spacing:.05em;">${escapeHtml(
+    label.toUpperCase()
+  )}${variant === 'primary' ? ' &nbsp;→' : ''}</a>`
 }
 
 function renderInfoRow(label: string, value?: string | null) {
   if (!value) return ''
   return `
     <tr>
-      <td style="padding:9px 0;color:#64748b;font-size:13px;line-height:1.45;">${escapeHtml(label)}</td>
-      <td align="right" style="padding:9px 0;color:#0f172a;font-size:13px;line-height:1.45;font-weight:650;">${escapeHtml(
+      <td style="padding:9px 0;color:${BRAND.muted};font-size:13px;line-height:1.45;">${escapeHtml(label)}</td>
+      <td align="right" style="padding:9px 0;color:${BRAND.heading};font-size:13px;line-height:1.45;font-weight:700;">${escapeHtml(
         value
       ).replaceAll('\n', '<br />')}</td>
-    </tr>
-  `
+    </tr>`
+}
+
+function renderAddressPanel(label: string, value?: string) {
+  if (!value) return ''
+  return `<td valign="top" style="padding:16px;background:${BRAND.panel};border:1px solid ${BRAND.rule};">
+    <div style="color:${BRAND.mint};font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;">${label}</div>
+    <div style="margin-top:8px;color:${BRAND.heading};font-size:13px;line-height:1.6;">${escapeHtml(value).replaceAll('\n', '<br />')}</div>
+  </td>`
 }
 
 function renderOrderSummary(summary?: OrderEmailSummary) {
@@ -326,78 +342,62 @@ function renderOrderSummary(summary?: OrderEmailSummary) {
   const itemRows = (summary.items ?? [])
     .map((item) => {
       const details = item.details?.filter(Boolean) ?? []
+      const quantity = item.quantity ?? 1
       return `
         <tr>
-          <td style="padding:14px 0;border-top:1px solid #e5e7eb;">
-            <div style="color:#0f172a;font-size:14px;font-weight:750;line-height:1.35;">${escapeHtml(
-              item.name
-            )}</div>
+          <td style="padding:14px 0;border-top:1px solid ${BRAND.rule};">
+            <div style="color:${BRAND.heading};font-size:14px;font-weight:700;line-height:1.4;">${escapeHtml(item.name)}${
+              quantity > 1 ? ` <span style="color:${BRAND.muted};font-weight:400;">× ${quantity}</span>` : ''
+            }</div>
             ${
               details.length
-                ? `<div style="margin-top:5px;color:#64748b;font-size:12px;line-height:1.5;">${details
+                ? `<div style="margin-top:5px;color:${BRAND.muted};font-size:12px;line-height:1.5;">${details
                     .map(escapeHtml)
-                    .join(' &bull; ')}</div>`
+                    .join(' &nbsp;·&nbsp; ')}</div>`
                 : ''
             }
-            <div style="margin-top:5px;color:#94a3b8;font-size:12px;">Qty ${item.quantity ?? 1}</div>
           </td>
-          <td align="right" style="padding:14px 0;border-top:1px solid #e5e7eb;color:#0f172a;font-size:14px;font-weight:750;white-space:nowrap;">
+          <td align="right" valign="top" style="padding:14px 0;border-top:1px solid ${BRAND.rule};color:${BRAND.heading};font-size:14px;font-weight:700;white-space:nowrap;">
             ${escapeHtml(formatMoney(item.amountTotal, currency))}
           </td>
-        </tr>
-      `
+        </tr>`
     })
     .join('')
 
+  const info = [
+    renderInfoRow('Customer', summary.customerName),
+    renderInfoRow('Email', summary.customerEmail),
+    renderInfoRow('Phone', summary.customerPhone),
+    renderInfoRow('Payment', summary.paymentStatus),
+    renderInfoRow('Paid', formatDate(summary.paidAt)),
+  ].join('')
+  const addresses = [
+    renderAddressPanel('Shipping to', summary.shippingAddress),
+    renderAddressPanel('Billing', summary.billingAddress),
+  ].filter(Boolean)
+
   return `
-    <div style="margin:28px 0;border:1px solid #dbe7e2;border-radius:22px;overflow:hidden;background:#fbfdfc;">
-      <div style="background:#0f172a;padding:18px 20px;">
-        <div style="color:#6ee7b7;font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;">Receipt</div>
-        <div style="margin-top:7px;color:#ffffff;font-size:20px;font-weight:750;">Order confirmed</div>
-      </div>
-      <div style="padding:20px;">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
-          ${renderInfoRow('Order', summary.orderNumber)}
-          ${renderInfoRow('Customer', summary.customerName)}
-          ${renderInfoRow('Email', summary.customerEmail)}
-          ${renderInfoRow('Phone', summary.customerPhone)}
-          ${renderInfoRow('Payment', summary.paymentStatus)}
-          ${renderInfoRow('Paid', formatDate(summary.paidAt))}
-        </table>
+    <tr><td style="padding:8px 28px 0;">
+      ${info ? `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-bottom:6px;">${info}</table>` : ''}
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+        ${itemRows}
         ${
-          itemRows
-            ? `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-top:14px;">${itemRows}</table>`
+          summary.subtotal != null && summary.subtotal !== summary.total
+            ? `<tr><td style="padding:12px 0;border-top:1px solid ${BRAND.rule};color:${BRAND.muted};font-size:13px;">Subtotal</td><td align="right" style="padding:12px 0;border-top:1px solid ${BRAND.rule};color:${BRAND.heading};font-size:13px;font-weight:700;">${escapeHtml(formatMoney(summary.subtotal, currency))}</td></tr>`
             : ''
         }
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-top:8px;border-top:2px solid #0f172a;">
-          ${renderInfoRow('Subtotal', formatMoney(summary.subtotal, currency))}
-          ${renderInfoRow('Total paid', formatMoney(summary.total, currency))}
-        </table>
-        <div style="margin-top:18px;display:block;">
-          ${
-            summary.shippingAddress
-              ? `<div style="margin-bottom:12px;border-radius:16px;background:#f1f5f9;padding:16px;">
-                  <div style="color:#64748b;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;">Shipping</div>
-                  <div style="margin-top:8px;color:#0f172a;font-size:14px;line-height:1.55;font-weight:600;">${escapeHtml(
-                    summary.shippingAddress
-                  ).replaceAll('\n', '<br />')}</div>
-                </div>`
-              : ''
-          }
-          ${
-            summary.billingAddress
-              ? `<div style="border-radius:16px;background:#ecfdf5;padding:16px;">
-                  <div style="color:#047857;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;">Billing</div>
-                  <div style="margin-top:8px;color:#0f172a;font-size:14px;line-height:1.55;font-weight:600;">${escapeHtml(
-                    summary.billingAddress
-                  ).replaceAll('\n', '<br />')}</div>
-                </div>`
-              : ''
-          }
-        </div>
-      </div>
-    </div>
-  `
+        ${
+          summary.total != null
+            ? `<tr><td style="padding:15px 0;border-top:1px solid #3a4b42;color:${BRAND.mint};font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;">Total paid</td><td align="right" style="padding:15px 0;border-top:1px solid #3a4b42;color:${BRAND.heading};font-size:19px;font-weight:700;">${escapeHtml(formatMoney(summary.total, currency))}</td></tr>`
+            : ''
+        }
+      </table>
+      ${
+        addresses.length
+          ? `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:separate;border-spacing:${addresses.length > 1 ? '8px 0' : '0'};margin:14px ${addresses.length > 1 ? '-8px' : '0'} 0;"><tr>${addresses.join('')}</tr></table>`
+          : ''
+      }
+    </td></tr>`
 }
 
 function renderHeliosEmail({
@@ -417,69 +417,36 @@ function renderHeliosEmail({
   secondaryCta?: { label: string; url: string }
   orderSummary?: OrderEmailSummary
 }) {
+  const kicker = orderSummary?.orderNumber ? `Order ${orderSummary.orderNumber}` : ''
   return `<!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>${escapeHtml(title)}</title>
-  </head>
-  <body style="margin:0;background:#f4f7f6;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>${escapeHtml(title)}</title></head>
+  <body style="margin:0;background:${BRAND.page};font-family:Arial,Helvetica,sans-serif;">
     <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">${escapeHtml(preview)}</div>
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f4f7f6;margin:0;padding:0;">
-      <tr>
-        <td align="center" style="padding:32px 16px;">
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;border-collapse:separate;border-spacing:0;">
-            <tr>
-              <td style="border-radius:28px 28px 0 0;background:#020617;padding:28px 30px;border:1px solid #10201c;border-bottom:0;">
-                <div style="font-size:13px;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:#6ee7b7;">HeliosX</div>
-                <div style="margin-top:18px;color:#f8fafc;font-size:30px;line-height:1.15;font-weight:750;letter-spacing:-.02em;">${escapeHtml(
-                  title
-                )}</div>
-                <div style="margin-top:12px;color:#94a3b8;font-size:13px;letter-spacing:.18em;text-transform:uppercase;">${escapeHtml(
-                  eyebrow
-                )}</div>
-              </td>
-            </tr>
-            <tr>
-              <td style="background:#ffffff;padding:30px;border:1px solid #dbe7e2;border-top:0;">
-                ${renderBody(body)}
-                ${renderOrderSummary(orderSummary)}
-                ${
-                  cta || secondaryCta
-                    ? `<div style="margin-top:26px;margin-bottom:8px;">
-                        ${cta ? renderButton(cta.label, cta.url, 'primary') : ''}
-                        ${
-                          secondaryCta
-                            ? `<span style="display:inline-block;width:10px;"></span>${renderButton(
-                                secondaryCta.label,
-                                secondaryCta.url,
-                                'secondary'
-                              )}`
-                            : ''
-                        }
-                      </div>`
-                    : ''
-                }
-                <div style="margin-top:28px;border-top:1px solid #e5e7eb;padding-top:20px;color:#64748b;font-size:13px;line-height:1.6;">
-                  Need help or want us to review your measurements? Reply directly to this email and our team will take a look.
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td style="border-radius:0 0 28px 28px;background:#f8fafc;padding:24px 30px;border:1px solid #dbe7e2;border-top:0;">
-                <div style="color:#0f172a;font-size:14px;font-weight:700;">Team HeliosX</div>
-                <div style="margin-top:8px;color:#64748b;font-size:13px;line-height:1.6;">
-                  Surgical optics built around the way you work.<br />
-                  <a href="mailto:${HELIOSX_SUPPORT_EMAIL}" style="color:#047857;text-decoration:none;">${HELIOSX_SUPPORT_EMAIL}</a>
-                  <span style="color:#cbd5e1;"> - </span>
-                  <a href="${HELIOSX_SITE_URL}" style="color:#047857;text-decoration:none;">heliosxloupes.com</a>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%;background:${BRAND.page};border-collapse:collapse;">
+      <tr><td align="center" style="padding:28px 12px;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%;max-width:620px;background:${BRAND.card};border:1px solid ${BRAND.line};border-collapse:collapse;">
+          <tr><td style="padding:24px 28px;border-bottom:1px solid ${BRAND.line};">
+            <table role="presentation" width="100%"><tr>
+              <td style="color:#f5f7f5;font-size:14px;font-weight:800;letter-spacing:.22em;">HELIOSX</td>
+              <td align="right" style="color:${BRAND.mint};font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;">${escapeHtml(eyebrow)}</td>
+            </tr></table>
+          </td></tr>
+          <tr><td style="padding:38px 28px 12px;">
+            ${kicker ? `<div style="color:${BRAND.mint};font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;">${escapeHtml(kicker)}</div>` : ''}
+            <h1 style="max-width:520px;margin:${kicker ? '14px' : '0'} 0 20px;color:${BRAND.heading};font-size:34px;line-height:1.08;font-weight:500;letter-spacing:-.03em;">${escapeHtml(title)}</h1>
+            <div style="color:${BRAND.text};font-size:15px;line-height:1.72;">${renderBody(body)}</div>
+          </td></tr>
+          ${renderOrderSummary(orderSummary)}
+          ${cta ? `<tr><td style="padding:22px 28px 0;">${renderButton(cta.label, cta.url, 'primary')}</td></tr>` : ''}
+          ${secondaryCta ? `<tr><td style="padding:10px 28px 0;">${renderButton(secondaryCta.label, secondaryCta.url, 'secondary')}</td></tr>` : ''}
+          <tr><td style="padding:26px 28px 6px;">
+            <div style="color:${BRAND.heading};font-size:14px;font-weight:700;">Team HeliosX</div>
+            <div style="margin-top:4px;color:${BRAND.muted};font-size:12px;line-height:1.6;">Questions about fit, magnification or your order? Reply directly to this email.</div>
+          </td></tr>
+          <tr><td style="padding:22px 28px;border-top:1px solid ${BRAND.line};background:#030504;color:#68736d;font-size:10px;line-height:1.7;">Secure Stripe checkout &nbsp;·&nbsp; Measurements reviewed before production &nbsp;·&nbsp; Two-year limited warranty<br /><a href="${HELIOSX_SITE_URL}" style="color:#8d9992;text-decoration:none;">heliosxvision.com</a> &nbsp;·&nbsp; <a href="${HELIOSX_SITE_URL}/returns" style="color:#8d9992;text-decoration:none;">Returns</a> &nbsp;·&nbsp; <a href="${HELIOSX_SITE_URL}/warranty" style="color:#8d9992;text-decoration:none;">Warranty</a></td></tr>
+        </table>
+      </td></tr>
     </table>
   </body>
 </html>`

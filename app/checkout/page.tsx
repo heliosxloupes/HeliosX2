@@ -6,6 +6,7 @@ import Script from 'next/script'
 import Image from 'next/image'
 import Header from '@/components/Header'
 import { getCart } from '@/lib/cart'
+import { getEffectiveConsent } from '@/lib/consent'
 import { PRESCRIPTION_PRICE, WARRANTY_PRICE } from '@/lib/pricing'
 
 type CartItem = {
@@ -203,7 +204,9 @@ export default function CheckoutPage() {
               items: apiItems,
               customerEmail,
               cartSessionId: window.localStorage.getItem('heliosx_cart_session_id') ?? '',
-              analyticsConsent: window.localStorage.getItem('heliosx_analytics_consent'),
+              // Same rules as the privacy banner, so a US visitor who never
+              // saw the banner still gets the server-side purchase event.
+              analyticsConsent: getEffectiveConsent(),
             }),
           })
 

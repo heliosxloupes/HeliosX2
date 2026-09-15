@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation'
 import Script from 'next/script'
 import { Suspense, useEffect, useRef, useState } from 'react'
 
-const CONSENT_KEY = 'heliosx_analytics_consent'
+import { CONSENT_KEY, getEffectiveConsent, isOptOutRegion } from '@/lib/consent'
+
 const CONSENT_EVENT = 'heliosx:open-privacy-choices'
 const configuredGaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 const configuredMetaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1802043734283628'
@@ -56,10 +57,17 @@ function revokeTrackingConsent() {
 
 export default function AnalyticsScripts() {
   const [consent, setConsent] = useState<ConsentState>('loading')
+  // US visitors see the banner only when they open Privacy choices, so it
+  // reads as an opt-out rather than a request for permission.
+  const [optOutRegion, setOptOutRegion] = useState(false)
 
   useEffect(() => {
-    const savedConsent = window.localStorage.getItem(CONSENT_KEY)
-    setConsent(savedConsent === 'granted' ? 'granted' : savedConsent === 'denied' ? 'denied' : 'unset')
+    // Rules live in lib/consent.ts: a saved choice wins, then Global Privacy
+    // Control, then the visitor's region.
+    const initial = getEffectiveConsent()
+    if (initial === 'denied') window.__heliosxAnalyticsConsentGranted = false
+    setOptOutRegion(isOptOutRegion())
+    setConsent(initial)
 
     const openPrivacyChoices = () => setConsent('unset')
     window.addEventListener(CONSENT_EVENT, openPrivacyChoices)
@@ -142,21 +150,27 @@ export default function AnalyticsScripts() {
           className="fixed inset-x-3 bottom-[calc(var(--hx-sticky-bar,0px)+0.75rem)] z-[100] mx-auto max-w-3xl rounded-2xl border border-white/15 bg-neutral-950/95 px-4 py-3 text-white shadow-2xl backdrop-blur-xl [padding-bottom:calc(0.75rem+env(safe-area-inset-bottom))] md:inset-x-4 md:bottom-4 md:flex md:items-center md:gap-6 md:p-5"
         >
           <div className="flex-1">
-            <p className="text-sm font-semibold">Help us measure what works</p>
+            <p className="text-sm font-semibold">
+              {optOutRegion ? 'Your privacy choices' : 'Help us measure what works'}
+            </p>
             {/* The full disclosure runs long enough to fill ~40% of a 390px
                 viewport, which buried the primary CTA on the homepage and the
                 price on every product page. Mobile gets the short form and the
                 policy link; desktop keeps the complete wording. */}
             <p className="mt-1 text-xs leading-snug text-neutral-300 md:leading-5">
               <span className="md:hidden">
-                Analytics and advertising cookies.{' '}
+                {optOutRegion
+                  ? 'We use analytics and advertising cookies. You can opt out. '
+                  : 'Analytics and advertising cookies. '}
                 <Link href="/privacy" className="text-emerald-200 underline underline-offset-4">
                   Privacy policy
                 </Link>
                 .
               </span>
               <span className="hidden md:inline">
-                With your permission, HeliosX uses Google Analytics and Meta Pixel to understand site use and measure advertising. Essential site functions always remain available. Read our{' '}
+                {optOutRegion
+                  ? 'HeliosX uses Google Analytics and Meta Pixel to understand site use and measure advertising. You can opt out of this tracking at any time. Essential site functions always remain available. Read our '
+                  : 'With your permission, HeliosX uses Google Analytics and Meta Pixel to understand site use and measure advertising. Essential site functions always remain available. Read our '}
                 <Link href="/privacy" className="text-emerald-200 underline underline-offset-4">
                   privacy policy
                 </Link>
@@ -167,17 +181,23 @@ export default function AnalyticsScripts() {
           <div className="mt-3 flex shrink-0 gap-2 md:mt-0">
             <button
               type="button"
+              // The Pixel's automatic click tracking would otherwise report
+              // this very click, so revoke before the click event fires.
+              onPointerDown={() => window.fbq?.('consent', 'revoke')}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') window.fbq?.('consent', 'revoke')
+              }}
               onClick={() => chooseConsent('denied')}
               className="flex-1 rounded-full border border-white/20 px-4 py-2 text-xs font-semibold text-neutral-200 transition hover:border-white/40 hover:text-white md:flex-none"
             >
-              Essential only
+              {optOutRegion ? 'Opt out' : 'Essential only'}
             </button>
             <button
               type="button"
               onClick={() => chooseConsent('granted')}
               className="flex-1 rounded-full bg-white px-4 py-2 text-xs font-semibold text-black transition hover:bg-neutral-200 md:flex-none"
             >
-              Accept analytics
+              {optOutRegion ? 'Allow' : 'Accept analytics'}
             </button>
           </div>
         </section>

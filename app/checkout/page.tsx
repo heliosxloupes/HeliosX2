@@ -207,6 +207,7 @@ export default function CheckoutPage() {
               // Same rules as the privacy banner, so a US visitor who never
               // saw the banner still gets the server-side purchase event.
               analyticsConsent: getEffectiveConsent(),
+              checkoutEventId: window.localStorage.getItem('heliosx_checkout_event_id') ?? '',
             }),
           })
 

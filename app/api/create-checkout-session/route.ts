@@ -1,3 +1,4 @@
+import { sendMetaEvent } from '@/lib/meta-conversions'
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
@@ -176,6 +177,28 @@ export async function POST(req: Request) {
       },
       return_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     })
+
+    // Server copy of InitiateCheckout: browser pixels get blocked, this one does not.
+    const checkoutEventId = String(body.checkoutEventId ?? '').slice(0, 64)
+    if (checkoutEventId) {
+      await sendMetaEvent({
+        eventName: 'InitiateCheckout',
+        eventId: checkoutEventId,
+        eventSourceUrl: `${baseUrl}/checkout`,
+        analyticsConsent,
+        email: customerEmail,
+        fbp: String(cookies._fbp ?? '') || null,
+        fbc: String(cookies._fbc ?? '') || null,
+        clientIp,
+        clientUserAgent,
+        custom: {
+          currency: 'USD',
+          value: line_items.reduce((total, item) => total + ((item.price_data?.unit_amount ?? 0) / 100) * (item.quantity ?? 1), 0),
+          content_type: 'product',
+          num_items: line_items.reduce((total, item) => total + (item.quantity ?? 1), 0),
+        },
+      })
+    }
 
     return NextResponse.json({ client_secret: session.client_secret })
   } catch (err: any) {

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 
 import { upsertCrmContact } from '@/lib/commerce'
 import { HELIOSX_SUPPORT_EMAIL, sendEmail } from '@/lib/email'
+import { metaContextFromRequest, sendMetaEvent } from '@/lib/meta-conversions'
 
 const clip = (value: unknown, max: number) => String(value ?? '').trim().slice(0, max)
 
@@ -77,6 +78,21 @@ export async function POST(req: Request) {
     )
   }
   if (!mailed) console.error('Contact form email failed (saved to CRM)', mail)
+
+  // Server copy of the browser's Lead event. Same eventId, so Meta counts one lead.
+  const eventId = clip(body?.eventId, 64)
+  if (eventId) {
+    await sendMetaEvent({
+      eventName: 'Lead',
+      eventId,
+      eventSourceUrl: page || 'https://heliosxvision.com/contact',
+      analyticsConsent: clip(body?.analyticsConsent, 16) || null,
+      email,
+      phone: clip(body?.phone, 40),
+      ...metaContextFromRequest(req),
+      custom: { content_name: clip(body?.topic, 120) || 'Contact form' },
+    })
+  }
 
   return NextResponse.json({ ok: true })
 }

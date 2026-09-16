@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 import Header from '@/components/Header'
 import { getCart } from '@/lib/cart'
 import type { CartItem } from '@/lib/cart'
-import { cartItemsToGA4Items, trackBeginCheckout, trackViewCart } from '@/lib/analytics'
+import { cartItemsToGA4Items, newEventId, trackBeginCheckout, trackViewCart } from '@/lib/analytics'
 import Noise from '@/components/Noise'
 import { PRESCRIPTION_PRICE, WARRANTY_PRICE } from '@/lib/pricing'
 import MobileCartExperience from '@/components/mobile/MobileCartExperience'
@@ -179,7 +179,10 @@ export default function CartPage() {
       sessionStorage.setItem('heliosx_addons', JSON.stringify(payload))
     }
 
-    trackBeginCheckout(cartItemsToGA4Items(items), subtotal)
+    // One id for both copies of this checkout event: browser pixel and server CAPI.
+    const checkoutEventId = newEventId()
+    window.localStorage.setItem('heliosx_checkout_event_id', checkoutEventId)
+    trackBeginCheckout(cartItemsToGA4Items(items), subtotal, 'USD', checkoutEventId)
 
     router.push('/checkout')
   }

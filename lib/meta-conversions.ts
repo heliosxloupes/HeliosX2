@@ -133,3 +133,91 @@ export async function sendMetaPurchase({ session, orderId, items }: MetaPurchase
     return { sent: false, reason: 'meta_api_request_failed' }
   }
 }
+
+type ServerEventInput = {
+  eventName: 'Lead' | 'InitiateCheckout' | 'AddToCart' | 'ViewContent'
+  /** Must match the eventID the browser pixel sent, so Meta de-duplicates the pair. */
+  eventId: string
+  eventSourceUrl?: string
+  analyticsConsent?: string | null
+  email?: string | null
+  phone?: string | null
+  fbp?: string | null
+  fbc?: string | null
+  clientIp?: string | null
+  clientUserAgent?: string | null
+  custom?: Record<string, unknown>
+}
+
+/**
+ * Server copy of a browser pixel event. Ad blockers and iOS drop a large share of
+ * browser events; the server copy is what Meta actually optimises delivery on.
+ */
+export async function sendMetaEvent(input: ServerEventInput) {
+  const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1802043734283628'
+  const accessToken = process.env.META_CONVERSIONS_API_TOKEN
+
+  if (!accessToken) return { sent: false, reason: 'meta_token_not_configured' }
+  if (input.analyticsConsent && input.analyticsConsent !== 'granted') {
+    return { sent: false, reason: 'analytics_consent_not_granted' }
+  }
+
+  const userData: Record<string, unknown> = {}
+  const emailHash = sha256(input.email)
+  const phoneHash = hashedPhone(input.phone)
+  if (emailHash) userData.em = [emailHash]
+  if (phoneHash) userData.ph = [phoneHash]
+  if (input.fbp) userData.fbp = input.fbp
+  if (input.fbc) userData.fbc = input.fbc
+  if (input.clientIp) userData.client_ip_address = input.clientIp
+  if (input.clientUserAgent) userData.client_user_agent = input.clientUserAgent
+
+  const payload: Record<string, unknown> = {
+    data: [
+      {
+        event_name: input.eventName,
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: input.eventId,
+        action_source: 'website',
+        event_source_url: input.eventSourceUrl,
+        user_data: userData,
+        custom_data: input.custom ?? {},
+      },
+    ],
+  }
+  if (process.env.META_TEST_EVENT_CODE) payload.test_event_code = process.env.META_TEST_EVENT_CODE
+
+  try {
+    const response = await fetch(`https://graph.facebook.com/${pixelId}/events`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...payload, access_token: accessToken }),
+      signal: AbortSignal.timeout(8000),
+    })
+    const result = await response.json().catch(() => ({}))
+    if (!response.ok) {
+      console.error(`Meta Conversions API rejected ${input.eventName}`, {
+        status: response.status,
+        code: result?.error?.code,
+      })
+      return { sent: false, reason: 'meta_api_rejected', status: response.status }
+    }
+    return { sent: true, eventsReceived: result?.events_received ?? null }
+  } catch (error) {
+    console.error(`Meta Conversions API request failed for ${input.eventName}`, error)
+    return { sent: false, reason: 'meta_request_failed' }
+  }
+}
+
+/** Reads the pixel cookies and request context Meta uses to match a person. */
+export function metaContextFromRequest(request: Request) {
+  const cookieHeader = request.headers.get('cookie') ?? ''
+  const read = (name: string) =>
+    cookieHeader.split(';').map((part) => part.trim()).find((part) => part.startsWith(`${name}=`))?.split('=').slice(1).join('=') ?? null
+  return {
+    fbp: read('_fbp'),
+    fbc: read('_fbc'),
+    clientIp: (request.headers.get('x-forwarded-for') ?? '').split(',')[0].trim() || request.headers.get('x-real-ip'),
+    clientUserAgent: request.headers.get('user-agent'),
+  }
+}

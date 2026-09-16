@@ -133,7 +133,12 @@ export function trackViewCart(items: GA4Item[], value: number, currency = 'USD')
   sendWhenReady(() => sendGA4('view_cart', { currency, value, items }))
 }
 
-export function trackBeginCheckout(items: GA4Item[], value: number, currency = 'USD'): void {
+/** Returns the eventID used for Meta, so the server can send the same event once. */
+export function newEventId(): string {
+  return typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `hx-${Date.now()}-${Math.random().toString(16).slice(2)}`
+}
+
+export function trackBeginCheckout(items: GA4Item[], value: number, currency = 'USD', eventId?: string): void {
   sendWhenReady(() => {
     sendGA4('begin_checkout', { currency, value, items })
     sendMeta('InitiateCheckout', {
@@ -143,7 +148,7 @@ export function trackBeginCheckout(items: GA4Item[], value: number, currency = '
       currency,
       num_items: items.reduce((total, item) => total + (item.quantity ?? 1), 0),
       value,
-    })
+    }, eventId)
   })
 }
 
@@ -179,10 +184,10 @@ export function trackPurchase(input: {
   })
 }
 
-export function trackGenerateLead(source: string, extras: Record<string, unknown> = {}): void {
+export function trackGenerateLead(source: string, extras: Record<string, unknown> = {}, eventId?: string): void {
   sendWhenReady(() => {
     sendGA4('generate_lead', { form_source: source, ...extras })
-    sendMeta('Lead', { content_name: source, ...extras })
+    sendMeta('Lead', { content_name: source, ...extras }, eventId)
   })
 }
 

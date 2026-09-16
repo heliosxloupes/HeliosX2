@@ -113,7 +113,10 @@ export default function AnalyticsScripts() {
       n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
       t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
       (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      window.fbq('init', ${JSON.stringify(metaPixelId)});
+      var hxEmail = '';
+      try { hxEmail = window.localStorage.getItem('heliosx_customer_email') || ''; } catch (e) {}
+      // Advanced matching: fbq hashes this before it leaves the browser.
+      window.fbq('init', ${JSON.stringify(metaPixelId)}, hxEmail ? { em: hxEmail } : {});
       window.fbq('consent', 'grant');
       window.fbq('track', 'PageView');
     ` : ''}

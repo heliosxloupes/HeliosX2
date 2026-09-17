@@ -224,9 +224,16 @@ export default function MobileStorefrontHeader() {
             <div className="divide-y divide-white/10">
               {items.map((item, index) => (
                 <article key={`${item.productSlug}-${item.selectedMagnification}-${item.selectedFrameId}-${index}`} className="grid grid-cols-[82px_minmax(0,1fr)] gap-4 py-5">
-                  <div className="relative aspect-square overflow-hidden rounded-md bg-neutral-900">
-                    {item.selectedFrameImage || item.image ? (
-                      <Image src={item.selectedFrameImage || item.image || ''} alt="" fill sizes="82px" className="object-contain p-1" />
+                  <div className="relative aspect-square">
+                    <div className="relative h-full w-full overflow-hidden rounded-md bg-neutral-900">
+                      {item.image || item.selectedFrameImage ? (
+                        <Image src={item.image || item.selectedFrameImage || ''} alt="" fill sizes="82px" className="object-cover" />
+                      ) : null}
+                    </div>
+                    {item.image && item.selectedFrameImage ? (
+                      <div className="absolute -bottom-1.5 -right-1.5 h-8 w-10 overflow-hidden rounded border border-white/20 bg-white shadow-lg">
+                        <Image src={item.selectedFrameImage} alt="" fill sizes="40px" className="object-contain p-0.5" />
+                      </div>
                     ) : null}
                   </div>
                   <div className="min-w-0">

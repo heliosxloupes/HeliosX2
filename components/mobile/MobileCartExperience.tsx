@@ -66,8 +66,17 @@ export default function MobileCartExperience({
             {items.map((item, index) => (
               <article key={`${item.productSlug}-${item.selectedFrameId}-${item.selectedMagnification}-${index}`} className="border-b border-white/10 px-5 py-6">
                 <div className="flex gap-4">
-                  <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-md bg-white">
-                    {item.selectedFrameImage || item.image ? <Image src={item.selectedFrameImage || item.image || ''} alt={item.name} fill sizes="112px" className="object-contain p-1" /> : null}
+                  {/* Main image is the loupe system itself; the chosen frame is a small inset, so the
+                      bag never shows bare frames that look like a different product. */}
+                  <div className="relative h-28 w-28 shrink-0">
+                    <div className="relative h-full w-full overflow-hidden rounded-md bg-neutral-900">
+                      {item.image || item.selectedFrameImage ? <Image src={item.image || item.selectedFrameImage || ''} alt={`${item.shortName ?? item.name} loupes`} fill sizes="112px" className="object-cover" /> : null}
+                    </div>
+                    {item.image && item.selectedFrameImage ? (
+                      <div className="absolute -bottom-2 -right-2 h-11 w-14 overflow-hidden rounded border border-white/20 bg-white shadow-lg">
+                        <Image src={item.selectedFrameImage} alt={`${item.selectedFrameName ?? 'Selected'} frame`} fill sizes="56px" className="object-contain p-0.5" />
+                      </div>
+                    ) : null}
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-200/70">Custom loupe system</p>

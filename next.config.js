@@ -54,6 +54,13 @@ const nextConfig = {
       { source: '/galileo', destination: '/product/galileo', permanent: true },
       { source: '/newton', destination: '/product/newton', permanent: true },
       { source: '/kepler', destination: '/product/kepler', permanent: true },
+      // Consolidated 2026-09-20: this page duplicated /loupes-for-dental-hygiene
+      // word for word, and Google never indexed it.
+      {
+        source: '/loupes-for-hygienists',
+        destination: '/loupes-for-dental-hygiene',
+        permanent: true,
+      },
     ]
   },
   webpack: (config, { isServer }) => {

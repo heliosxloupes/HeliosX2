@@ -8,7 +8,7 @@ import { magnificationPriceByProduct, PRESCRIPTION_PRICE } from './pricing'
 
 // Reviewed commercial content. Keep facts separate from brand preference;
 // competitor details below were checked against primary sources on 2026-09-10.
-const reviewed = '2026-09-10'
+const reviewed = '2026-09-20'
 const dollars = (value: number) => `$${value.toLocaleString('en-US')}`
 const range = (model: string) => {
   const prices = Object.values(magnificationPriceByProduct[model])
@@ -90,6 +90,13 @@ type Brand = {
   price: string
   distinction: string
   products: string[]
+  /**
+   * Hygiene-specific version of `detail`, used by `hygienistBrandProfiles` on
+   * the dental hygiene page. Where a brand publishes its own hygienist landing
+   * page, `hygieneSource` points at it instead of the general product page.
+   */
+  hygieneNote?: string
+  hygieneSource?: string
 }
 const brands: Brand[] = [
   {
@@ -104,6 +111,8 @@ const brands: Brand[] = [
     distinction:
       'Ergo Air Ti has variable working distance; compare frame and magnification options.',
     products: ['Medusa', 'Apollo', 'Newton'],
+    hygieneNote:
+      'LumaDent sells its headlights separately from its loupes. For hygiene that matters more than it might sound, because the light is what you notice on a long list of recall appointments. Price the loupe and the light together before comparing it with anything else.',
   },
   {
     name: 'Orascoptic',
@@ -117,6 +126,9 @@ const brands: Brand[] = [
     distinction:
       'Student program and demonstration route. Confirm applicable trial and service terms.',
     products: ['Newton', 'Galileo', 'Apollo'],
+    hygieneNote:
+      'Orascoptic runs a hygienist section of its own and offers in-person demonstrations. If you want to look through a pair before you commit, that route is worth using. Ask which trial and service terms apply to your quote, since eligibility varies.',
+    hygieneSource: 'https://www.orascoptic.com/en-us/hygienists',
   },
   {
     name: 'SurgiTel',
@@ -130,6 +142,9 @@ const brands: Brand[] = [
     distinction:
       'Several ergonomic families; compare the specified viewing angle and fitting options.',
     products: ['Apollo', 'Medusa', 'Kepler'],
+    hygieneNote:
+      'SurgiTel publishes a hygiene section and sells several ergonomic families rather than one design. Compare a named model against Apollo or Medusa. Ask what the fitted viewing angle will be and what a later adjustment costs, because those answers differ by model.',
+    hygieneSource: 'https://www.surgitel.com/hygiene/',
   },
   {
     name: 'Q-Optics',
@@ -142,6 +157,8 @@ const brands: Brand[] = [
     price: 'Confirm a current quote for your configuration and eligibility.',
     distinction: 'ErgoAngle emphasizes individualized ergonomic fitting.',
     products: ['Apollo', 'Medusa', 'Galileo'],
+    hygieneNote:
+      'Q-Optics builds ErgoAngle around an individually set viewing angle, width, loupe height, and working distance. Hygiene work is done from a narrower set of seated positions than restorative dentistry, so ask how the angle is measured and what happens if your chair position changes.',
   },
   {
     name: 'ExamVision',
@@ -155,6 +172,8 @@ const brands: Brand[] = [
     distinction:
       'Kepler Advanced switches between four magnifications in one system.',
     products: ['Kepler', 'Medusa', 'Apollo'],
+    hygieneNote:
+      'ExamVision Kepler Advanced covers 4.0x to 7.0x in one loupe. That range sits above what most hygiene instrumentation calls for, so it is worth considering only if you also do work that needs high magnification. For hygiene alone you would be paying for range you rarely use.',
   },
   {
     name: 'Admetec',
@@ -168,6 +187,9 @@ const brands: Brand[] = [
     distinction:
       'Ergo V combines ergonomic viewing with three magnification settings.',
     products: ['Medusa', 'Apollo'],
+    hygieneNote:
+      'Admetec publishes a hygienist buying guide and recommends 3.0x, 4.0x, and 5.0x for hygiene work. Its Ergo V puts three magnification settings in one ergonomic loupe, which is a different proposition from choosing one HeliosX magnification at purchase.',
+    hygieneSource: 'https://www.admetec.com/loupes-for-hygienists/',
   },
 ]
 
@@ -250,6 +272,20 @@ const brandProfiles = brands.map((brand) =>
     `${brand.name} official information`,
   ),
 )
+// Same six brands, rewritten for hygiene work. Several of them publish their
+// own hygienist pages and rank for these terms, so the comparison has to speak
+// to hygiene rather than repeat the general dental copy.
+const hygienistBrandProfiles = brands
+  .filter((brand) => brand.hygieneNote)
+  .map((brand) =>
+    section(
+      brand.name,
+      brand.hygieneNote!,
+      [brand.check],
+      brand.hygieneSource ?? brand.source,
+      `${brand.name} official information; checked September 20, 2026`,
+    ),
+  )
 for (const [slug, title, context] of [
   [
     'best-surgical-loupe-brands',
@@ -360,6 +396,21 @@ for (const [slug, title, context] of [
     ),
     ...(surgical.faqs ?? []),
   ]
+}
+
+// Sep 20 2026: light queries ("best dental loupe light", "best dental loupes
+// with light") split between this page, /best-loupes, and the hygiene page,
+// with Google rotating between all three. /dental-loupes-with-light now owns
+// them, so point there from the shortlist rather than answering here.
+{
+  const dental = revisions['best-dental-loupe-brands']
+  const shortlist = dental.sections?.[0]
+  if (shortlist) {
+    shortlist.bullets = [
+      ...shortlist.bullets,
+      'Buying a light at the same time: compare mounts and runtime on /dental-loupes-with-light.',
+    ]
+  }
 }
 
 revisions['how-much-do-surgical-loupes-cost'] = {
@@ -482,123 +533,326 @@ revisions['loupe-comparisons'] = {
   ],
 }
 
-for (const [slug, title] of [
-  ['student-loupe-comparison', 'Student loupe comparison: what to buy first'],
-  ['student-loupes-discount', 'Student loupes: compare the final price'],
-  ['loupes-for-dental-students', 'Loupes for dental students'],
-  ['loupes-for-medical-students', 'Loupes for medical students'],
-]) {
-  revisions[slug] = {
-    title,
-    metaTitle: `${slug.includes('discount') ? 'Student Loupe Prices' : title.split(':')[0]} | HeliosX`,
-    description:
-      'Compare first-pair loupes, published prices, school requirements, and student-program tradeoffs. Newton starts at $695; ergonomic models from $1,695.',
-    intro:
-      'Before buying your first loupes, check your program’s requirements and try the magnification your instructors recommend. Then compare the complete cost and fitting support. HeliosX Newton starts at $695 without requiring a student discount code.',
-    recommendedProducts: ['Newton', 'Galileo', 'Apollo'],
-    comparisonRows: undefined,
-    verdict: undefined,
-    sections: [
-      section(
-        'Check these three things with your program',
-        'Avoid buying a configuration you cannot use in clinic. School rules, required lights, and fitting schedules can matter more than a promotion.',
-        [
-          'Is there a required magnification, frame, light, or approved supplier?',
-          'When do you need the completed loupes, and when can measurements be taken?',
-          'Will your clinical posture or prescription change before you start using them?',
-        ],
-      ),
-      section(
-        'Choose a first pair you can actually use',
-        'Newton and Galileo offer 2.5x–3.5x Galilean configurations. Apollo is an ergonomic prismatic option from $1,695. Do not choose higher magnification simply because a classmate did.',
-        [
-          'Newton: ' + range('newton') + '. Galileo: ' + range('galileo') + '.',
-          'Compare Apollo if redirected ergonomic viewing is a priority.',
-          'Keep room in the budget for prescription needs and illumination.',
-        ],
-      ),
-      section(
-        'Compare student benefits with the complete HeliosX price',
-        'Orascoptic publishes student benefits including a 45-day trial, subject to eligibility and purchase terms. Ask your representative which benefits apply to your order. HeliosX offers published pricing and a different custom-production policy.',
-        [
-          'Compare your actual eligible quote, not a claimed retail discount percentage.',
-          'Confirm returns, fit corrections, and prescription-change costs before paying.',
-        ],
-        'https://www.orascoptic.com/en-us/students',
-        'Orascoptic student program; checked September 10, 2026',
-      ),
-      fit,
-    ],
-    faqs: [
-      faq(
-        'Do I need a code for HeliosX’s entry price?',
-        'No. Newton’s $695 starting price is the published 2.5x price. Other magnifications and optional extras change the total.',
-      ),
-      faq(
-        'Should a medical student buy loupes before residency?',
-        'Check with your program first. If you will not use them during your current rotations, it may be better to wait until your procedural work and fitting needs are clear.',
-      ),
-      ...baseFaqs,
-    ],
-  }
+revisions['student-loupe-comparison'] = {
+  title: 'Student loupes compared: what to buy first',
+  metaTitle: 'Student Loupes: Compare Brands & Prices | HeliosX',
+  description:
+    'Compare student loupes across six brands by price, magnification, and what you actually get. Newton starts at $695 with no discount code required.',
+  intro:
+    'Your first pair of loupes is bought under the worst conditions: limited budget, no experience of what you will prefer, and a deadline set by your program. The good news is that the decision is narrower than the marketing suggests. Confirm what your school requires, pick a magnification you can adapt to, then compare the finished price rather than the advertised one.',
+  recommendedProducts: ['Newton', 'Galileo', 'Apollo'],
+  comparisonRows: undefined,
+  verdict: undefined,
+  sections: [
+    section(
+      'The shortlist in one minute',
+      'Most student buyers land in one of three places. Find yours and skip the rest.',
+      [
+        'Lowest published entry price: HeliosX Newton from $695 at 2.5x, no code needed.',
+        'You want a trial and an in-person fitting: look at the Orascoptic student program and confirm your eligibility.',
+        'You will keep this pair into practice: compare ergonomic prismatic viewing from $1,695 before buying twice.',
+      ],
+    ),
+    section(
+      'Check with your program before you compare anything',
+      'Every year students buy a configuration they cannot use in clinic. Programs vary more than you would expect, and a rule about magnification or an approved supplier will override any price comparison you have done.',
+      [
+        'Is a specific magnification, frame, light, or supplier required?',
+        'When do the loupes need to be in your hands, and when can measurements be taken?',
+        'Will your prescription or your clinical posture change before you start using them?',
+      ],
+    ),
+    section(
+      'Choose a first pair you can actually adapt to',
+      'Higher magnification is the most common first-pair mistake. A narrower field and shorter depth of focus are harder to learn on, and the pair a classmate recommends was chosen for their work and their eyes. Newton and Galileo cover 2.5x to 3.5x as Galilean systems, which is where most students start. Apollo is the ergonomic prismatic option if you already know you want a redirected line of sight.',
+      [
+        'Newton: ' + range('newton') + '. Galileo: ' + range('galileo') + '.',
+        'Leave room in the budget for prescription lenses and a light.',
+        'If you can look through a pair before ordering, do it, even if you buy elsewhere.',
+      ],
+    ),
+    section(
+      'Compare the finished price, not the discount',
+      'Student pricing is where comparison gets difficult, because a percentage off an unpublished retail price tells you nothing. Orascoptic publishes student benefits including a 45-day trial, subject to eligibility and purchase terms. Ask your representative which of those apply to your actual quote. HeliosX publishes its prices instead, so the number you see is the number you pay before options.',
+      [
+        'Compare your eligible quote against a complete HeliosX order, line by line.',
+        'Confirm what a fit correction or a prescription change costs after delivery.',
+        'Check whether a quoted price includes the light, the mount, and shipping.',
+      ],
+      'https://www.orascoptic.com/en-us/students',
+      'Orascoptic student program; checked September 10, 2026',
+    ),
+    ...brandProfiles,
+    compareFit,
+    fit,
+  ],
+  faqs: [
+    faq(
+      'Do I need a student code for the HeliosX entry price?',
+      'No. Newton’s $695 starting price is the published price at 2.5x and it applies to everyone. Other magnifications and optional extras change the total.',
+    ),
+    faq(
+      'What magnification should a student buy first?',
+      'Most students are best served between 2.5x and 3.5x. Lower magnification gives a wider field and more depth of focus, which makes it easier to learn on. Check whether your program specifies a figure before deciding.',
+    ),
+    faq(
+      'Is it worth buying loupes as a student, or waiting?',
+      'If you will use them in clinic this year, buying early builds the habit while your technique is still forming. If your procedural work has not started, waiting until your fitting needs are clear is reasonable.',
+    ),
+    ...baseFaqs,
+  ],
 }
 
-for (const [slug, title] of [
-  ['loupes-for-dental-hygiene', 'Loupes for dental hygiene'],
-  ['loupes-for-hygienists', 'Loupes for hygienists'],
-]) {
-  revisions[slug] = {
-    title,
-    metaTitle: 'Dental Hygiene Loupes: Fit, Magnification & Price | HeliosX',
-    description:
-      'Choose hygiene loupes around seated posture, field of view, weight, and lighting. Compare Newton, Galileo, and ergonomic Apollo with clear prices.',
-    intro:
-      'For dental hygiene, choose loupes around the view you need for instrumentation and the posture you can maintain through repeated appointments. Start by comparing a lightweight Galilean pair with ergonomic prismatic viewing—not by chasing the highest magnification.',
-    recommendedProducts: ['Galileo', 'Newton', 'Apollo'],
-    comparisonRows: undefined,
-    verdict: undefined,
-    sections: [
-      section(
-        'Magnification: check the view during instrumentation',
-        'Compare a 2.5x–3.5x Galilean option if you want a broad starting view. If you are considering an ergonomic design, assess it separately: the viewing direction and adaptation feel different.',
-        [
-          'Check the tooth and surrounding landmarks you need to see together.',
-          'Practice looking between the working field, instruments, and patient.',
-          'Ask your program about magnification requirements before ordering.',
-        ],
-      ),
-      section(
-        'Weight and posture are separate decisions',
-        'A light frame can help with wearability, but low weight alone does not redirect the view. Newton and Galileo are Galilean systems. Apollo and Medusa use ergonomic prismatic viewing; Medusa also adjusts working distance.',
-        [
-          'Compare the total fitted weight, including prescription and any light.',
-          'Measure while seated with your usual stool and patient setup.',
-          'Loupes are not a treatment for neck pain or a guarantee of comfortable posture.',
-        ],
-      ),
-      section(
-        'Do you need a loupe light?',
-        'Compare illumination alongside magnification. A headlight is a separate purchase decision: confirm the mount, beam alignment, battery runtime, and total worn weight for the setup you plan to use.',
-        [
-          'Ask us about the specific light and mount you already own before assuming compatibility.',
-          'Keep the beam centered on your working field.',
-          'Compare a complete loupe-and-light total when evaluating another brand’s bundle.',
-        ],
-      ),
-      fit,
-    ],
-    faqs: [
-      faq(
-        'Which HeliosX model is the lowest-cost hygiene option?',
-        'Newton starts at $695 for 2.5x. Galileo starts at $795. Both are Galilean systems; compare Apollo from $1,695 if you want ergonomic prismatic viewing.',
-      ),
-      faq(
-        'Will ergonomic loupes prevent neck pain?',
-        'No product can guarantee that. Ergonomic viewing changes the line of sight, but fit, seating, patient positioning, and work habits still matter. Persistent symptoms need appropriate clinical assessment.',
-      ),
-      ...baseFaqs,
-    ],
-  }
+revisions['loupes-for-dental-students'] = {
+  title: 'Loupes for dental students',
+  metaTitle: 'Best Loupes for Dental Students: Prices Compared | HeliosX',
+  description:
+    'What dental students need from a first pair of loupes: school requirements, magnification for preclinical and clinic work, and published prices from $695.',
+  intro:
+    'Dental school is where most clinicians form their working posture, which makes the first pair of loupes more consequential than its price suggests. You will use them in preclinical lab work before you use them on a patient, and those two settings ask for slightly different things.',
+  recommendedProducts: ['Newton', 'Galileo', 'Apollo'],
+  comparisonRows: undefined,
+  verdict: undefined,
+  sections: [
+    section(
+      'Start with your school’s requirements',
+      'Dental programs are more prescriptive than medical ones. Some specify magnification, some require a light from the first clinical year, and some run an approved supplier list that limits your choice entirely. Find out before you compare prices.',
+      [
+        'Is there a required magnification or an approved supplier list?',
+        'Is a loupe light required, and from which year?',
+        'When is the fitting window, and what is the deadline for clinic?',
+      ],
+    ),
+    section(
+      'Preclinical lab and clinic ask for different things',
+      'Typodont work on the bench lets you set your own position, so you can tolerate a narrower field. Clinic does not, because the patient is in the chair and the access is whatever it is. A pair chosen purely for lab work can feel restrictive once you start treating. Choosing for the harder of the two settings is usually the safer call.',
+      [
+        'Most dental students do well between 2.5x and 3.5x for general clinic work.',
+        'Consider the working distance you will use seated at a chair, not at a bench.',
+        'If you already know you want endodontics, read /loupes-for-endodontics before choosing magnification.',
+      ],
+    ),
+    section(
+      'Buy once if you can',
+      'A second pair in third year is a common and expensive outcome. It usually happens because the first pair was bought on price alone, or because magnification was chosen before any chairside experience. If the budget allows, an ergonomic prismatic pair you keep into practice costs less over five years than two Galilean pairs.',
+      [
+        'Newton: ' + range('newton') + '. Galileo: ' + range('galileo') + '.',
+        'Apollo starts at $1,695 for ergonomic prismatic viewing.',
+        'Prescription lenses are a separate line. Include them before comparing totals.',
+        'Compare brand by brand on /best-dental-loupe-brands.',
+      ],
+    ),
+    section(
+      'Compare the finished price against any student offer',
+      'Orascoptic publishes student benefits including a 45-day trial, subject to eligibility and purchase terms. Confirm what applies to your quote rather than to the advertised program. HeliosX publishes prices for everyone, so there is no code to chase.',
+      [
+        'Compare an itemized quote against a complete HeliosX order.',
+        'Ask what a fit correction costs if your posture changes during the program.',
+      ],
+      'https://www.orascoptic.com/en-us/students',
+      'Orascoptic student program; checked September 10, 2026',
+    ),
+    section(
+      'When in the program to buy',
+      'Earlier is usually better, within reason. Loupes change how you position yourself, and the habits you form in preclinical lab work are the ones you carry into clinic. Buying after those habits have set means unlearning them. The argument for waiting is prescription stability and knowing your specialty, which matters more for some students than others.',
+      [
+        'If your program requires them by a particular term, work backwards from that date and allow for production time.',
+        'If your prescription is still changing, tell us at the measurement stage so the order accounts for it.',
+        'A pair bought in first year and used daily is better value than a better pair bought in fourth.',
+      ],
+    ),
+    section(
+      'Do you need a light as a dental student?',
+      'Many programs require one from the first clinical year, and clinic lighting in a teaching environment is rarely ideal. The mount is fitted to the loupe, so this is a decision to make now rather than later. If the budget is tight, a lower magnification with a light usually beats a higher magnification without one.',
+      [
+        'Check your program requirement before deciding it is optional.',
+        'Mounts and runtime are covered on /dental-loupes-with-light.',
+      ],
+    ),
+    compareFit,
+    fit,
+  ],
+  faqs: [
+    faq(
+      'What are the best loupes for dental students?',
+      'The best first pair is one you can use in clinic, at a magnification you can adapt to, from a supplier your program allows. Most dental students are well served between 2.5x and 3.5x. Newton starts at $695 and Galileo at $795.',
+    ),
+    faq(
+      'What magnification do dental students need?',
+      'Between 2.5x and 3.5x covers most preclinical and clinical work. Check your program first, because some specify a figure. Higher magnification narrows the field and is harder to learn on.',
+    ),
+    faq(
+      'Do dental students need a loupe light?',
+      'Many programs require one from the first clinical year. The light mounts to the loupe, so it is worth deciding before you order rather than adding it later.',
+    ),
+    ...baseFaqs,
+  ],
+}
+
+revisions['loupes-for-medical-students'] = {
+  title: 'Loupes for medical students',
+  metaTitle: 'Loupes for Medical Students: When to Buy | HeliosX',
+  description:
+    'Whether to buy loupes as a medical student, what magnification suits surgical rotations, and how to choose a pair you keep into residency. From $695.',
+  intro:
+    'Medical students face a question dental students do not: whether to buy at all yet. Most of medical school involves no magnification, and the rotations that do are short. The answer usually turns on when your procedural work starts and how certain you are about your specialty.',
+  recommendedProducts: ['Newton', 'Galileo', 'Kepler'],
+  comparisonRows: undefined,
+  verdict: undefined,
+  sections: [
+    section(
+      'Buy now or wait until residency?',
+      'If you are heading into a surgical specialty and have procedural rotations ahead, buying as a student gets you through the adaptation period before it costs you anything. If your specialty is undecided, waiting is defensible. Working distance and magnification differ enough between surgical fields that a pair bought speculatively may not suit the work you end up doing.',
+      [
+        'Buying early makes sense if you have surgical rotations this year or next.',
+        'Waiting makes sense if your specialty is open and your procedural exposure is limited.',
+        'Either way, check whether your program or rotation site specifies anything.',
+      ],
+    ),
+    section(
+      'Magnification for surgical rotations',
+      'Surgical work is generally done at a longer working distance than dentistry, because you are standing at a table rather than seated at a chair. That changes the fit more than the magnification figure does. Most students on surgical rotations do well between 2.5x and 3.5x, which keeps enough field to see the instrument and the surrounding anatomy together.',
+      [
+        'Measure standing, at the table height you actually work at.',
+        'A longer working distance means a heavier optical assembly for the same magnification.',
+        'Higher magnification is worth it only when the work genuinely demands it.',
+      ],
+    ),
+    section(
+      'Choosing a pair you keep into residency',
+      'Residency is when loupes get worn for long cases, and that is when fit problems become expensive. A pair bought for a student budget can carry you into your first year, though it is worth knowing what you would upgrade to. Kepler covers the higher-magnification path if you are heading toward microsurgical work.',
+      [
+        'Newton: ' + range('newton') + '. Galileo: ' + range('galileo') + '.',
+        'Kepler starts at $1,195 for conventional prismatic detail work.',
+        'More on the residency decision in /education/best-loupes-for-residents.',
+      ],
+    ),
+    section(
+      'Loupes do not replace the microscope',
+      'This trips up students choosing magnification on ambition rather than need. Services that require an operating microscope require it regardless of what you are wearing, and buying 6.0x loupes will not change that. Loupes cover the open, exposure, and assisting work that fills most of a rotation. Pick for that, and let the specialty decide the rest later.',
+      [
+        'Microvascular anastomosis is done under a microscope on most services.',
+        'Higher magnification narrows the field, which makes assisting harder rather than easier.',
+        'If you are heading toward microsurgical work, read /loupes-for-microsurgery before committing.',
+      ],
+    ),
+    section(
+      'Budget honestly, including what comes after',
+      'A student budget has to cover more than the loupe. Prescription lenses are a separate line, a light is the most common addition, and both are easier to plan for now than to find money for later. There is no code to chase on HeliosX prices, so the published figure is the one to build the budget around.',
+      [
+        'Prescription lenses add ' + dollars(PRESCRIPTION_PRICE) + ' to the order.',
+        'Decide about a light before production, because the mount is fitted to the loupe.',
+        'Compare a complete order against any quoted student package, line by line.',
+      ],
+    ),
+    compareFit,
+    fit,
+  ],
+  faqs: [
+    faq(
+      'Should a medical student buy loupes before residency?',
+      'Check with your program first. If you will not use them during your current rotations, waiting until your procedural work and fitting needs are clear is usually the better call. If you have surgical rotations ahead, buying early gets the adaptation done before it matters.',
+    ),
+    faq(
+      'What magnification do medical students need?',
+      'Most students on surgical rotations do well between 2.5x and 3.5x. Working distance matters more than the magnification figure, because surgical work is done standing at a table rather than seated.',
+    ),
+    faq(
+      'Are surgical loupes different from dental loupes?',
+      'The optics are the same technology, but the fit differs. Surgical loupes are usually built for a longer working distance and a standing posture. A pair fitted for seated dental work may not suit the table.',
+    ),
+    ...baseFaqs,
+  ],
+}
+
+revisions['loupes-for-dental-hygiene'] = {
+  title: 'Dental hygiene loupes: how to choose your pair',
+  metaTitle: 'Dental Hygiene Loupes: Magnification, Light & Price | HeliosX',
+  description:
+    'Choose dental hygienist loupes by seated posture, field of view, weight, and lighting. Compare six brands, then see Newton, Galileo, and Apollo with published prices.',
+  intro:
+    'Hygiene is a different buying problem from restorative dentistry. You work from a narrower set of seated positions, you do it for most of the day, and detection matters as much as detail. Choose the magnification that keeps the tooth and the surrounding tissue in view together, then check that you can wear the result through a full column of recalls.',
+  recommendedProducts: ['Galileo', 'Newton', 'Apollo'],
+  comparisonRows: undefined,
+  verdict: undefined,
+  sections: [
+    section(
+      'The shortlist in one minute',
+      'If you want the short version, start here and read the rest only where it applies to you. This compares published products and buying terms. It is not a hands-on ranking of optical quality.',
+      [
+        'First pair on a budget: Newton from $695 at 2.5x.',
+        'A wider starting view with a bit more room: Galileo from $795.',
+        'Ergonomic prismatic viewing, for a more upright head position: Apollo from $1,695.',
+        'Already know you want a light: read /dental-loupes-with-light before you choose the loupe, because the mount comes with it.',
+      ],
+    ),
+    section(
+      'Magnification for hygiene instrumentation',
+      'Most hygiene work sits between 2.5x and 4.0x. Lower magnification gives you a wider field, which helps when you are moving along an arch rather than staying on one tooth. Higher magnification narrows the field and shortens your depth of field, so small movements take the target out of focus. Admetec recommends 3.0x to 5.0x for hygienists on its own buying guide, which is a reasonable range to compare against rather than a rule to follow.',
+      [
+        'Check that you can see the tooth, the margin, and the surrounding tissue at the same time.',
+        'Scaling and calculus detection reward field of view more than raw magnification.',
+        'If you are new to loupes, 2.5x is easier to adapt to than 3.5x.',
+        'Ask your employer or program whether a magnification or supplier is specified before you order.',
+      ],
+    ),
+    section(
+      'Posture across a full day of recalls',
+      'Hygiene exposes fit problems that a short procedure would hide. You are seated, often leaning, and repeating the same head position for hours. A lighter frame helps you tolerate the pair, though weight alone does not change where you have to look. That is what a declination angle does. Galilean loupes like Newton and Galileo point you down toward the field; ergonomic prismatic systems like Apollo and Medusa redirect the view so your head stays closer to neutral. Which one suits you depends on your chair, your patient positioning, and what you can adapt to.',
+      [
+        'Weigh the finished pair, including prescription lenses and any light you plan to wear.',
+        'Take your measurements seated at your own operatory, in the posture you actually hold.',
+        'Loupes are not a treatment for neck pain and cannot guarantee comfortable posture. If you have persistent symptoms, get them assessed properly.',
+      ],
+      '/education/ergonomic-loupes-neck-pain',
+      'What the evidence does and does not show on loupes and neck pain',
+    ),
+    section(
+      'Light matters more in hygiene than most buyers expect',
+      'Sub-gingival work, distal surfaces, and anything in the posterior are all limited by what reaches the field, and the overhead unit light rarely gets there once your head is in the way. A loupe-mounted light solves that, and it also adds weight to the frame and a battery pack to your day. Treat it as part of the same purchase rather than something to add later, because the mount is fitted to the loupe.',
+      [
+        'Price the loupe and the light together when you compare brands. A bundle and a loupe-only price are not the same number.',
+        'Check the beam sits centered in your field at your working distance, not just straight ahead.',
+        'If you place composite, ask about an orange filter so the light does not start curing before you are ready.',
+        'We cover runtime, mounts, and filters in detail on /dental-loupes-with-light.',
+      ],
+    ),
+    section(
+      'Where HeliosX fits',
+      'HeliosX exists to make premium magnification more accessible, so the prices are published and the configuration is visible before you order. For hygiene the choice is usually between a Galilean pair you can afford immediately and an ergonomic prismatic pair you buy once.',
+      [
+        'Newton: ' + range('newton') + '. Galileo: ' + range('galileo') + '.',
+        'Apollo is the ergonomic prismatic option from $1,695. Medusa adds adjustable working distance.',
+        'Prescription lenses are a separate line on the order. Factor them in before comparing totals.',
+      ],
+    ),
+    ...hygienistBrandProfiles,
+    compareFit,
+    fit,
+  ],
+  faqs: [
+    faq(
+      'What magnification do dental hygienists use?',
+      'Most hygienists work between 2.5x and 4.0x. Lower magnification gives a wider field, which suits moving along an arch and detecting calculus. Higher magnification narrows the field and the depth of focus. If this is your first pair, 2.5x is the easier place to start.',
+    ),
+    faq(
+      'Which HeliosX model is the lowest-cost hygiene option?',
+      'Newton starts at $695 for 2.5x. Galileo starts at $795. Both are Galilean systems. Compare Apollo from $1,695 if you want ergonomic prismatic viewing.',
+    ),
+    faq(
+      'Are dental hygienist glasses the same as loupes?',
+      'Usually yes. Hygienists searching for glasses are almost always looking for loupes, which are magnifying telescopes mounted in a frame. Safety eyewear and prescription glasses are separate items, though a prescription can be built into a loupe.',
+    ),
+    faq(
+      'Do I need a light with hygiene loupes?',
+      'Not always, but it is the most common upgrade and it is worth deciding early. The overhead unit light is often blocked by your own head during sub-gingival and posterior work. The mount is fitted to the loupe, so adding a light later can mean sending the pair back.',
+    ),
+    faq(
+      'Will ergonomic loupes prevent neck pain?',
+      'No product can guarantee that. Ergonomic viewing changes the line of sight, which can help you work with a more upright head position. Fit, seating, patient positioning, and work habits still matter. Persistent symptoms need appropriate clinical assessment.',
+    ),
+    ...baseFaqs,
+  ],
 }
 
 revisions['orthopedic-surgery-loupes'] = {
@@ -753,6 +1007,32 @@ for (const [slug, title] of [
       ? 'A low price is useful only if the loupes fit and show the detail you need. Compare the optical design, measurements, and support before judging value. HeliosX starts at $695 for Galilean loupes, with conventional and ergonomic prismatic options above that.'
       : 'Choose HeliosX loupes by optical design, magnification, and fit. Newton starts at $695 for Galilean optics; Kepler starts at $1,195 for conventional prismatic optics; Apollo and Medusa start at $1,695 for ergonomic prismatic viewing.',
   }
+}
+
+// Sep 20 2026: /dental-loupes inherited its body from /best-loupes, which left
+// six pages sharing one set of sections and none of them indexed. Give the
+// dental hub its own routing content and let it pass authority downward.
+{
+  const dentalHub = revisions['dental-loupes']
+  dentalHub.metaTitle = 'Dental Loupes: Compare Models & Prices from $695 | HeliosX'
+  dentalHub.description =
+    'Dental loupes for dentists, hygienists, and students. Compare Galilean and ergonomic prismatic models, magnification, lighting, and published prices from $695.'
+  dentalHub.intro =
+    'Dentistry is not one job, and loupes that suit a restorative day are not automatically right for a hygiene column or a dental school clinic. Start with the optical design and the magnification, then check the fit against the posture you actually hold.'
+  dentalHub.sections = [
+    ...(dentalHub.sections ?? []),
+    section(
+      'Where to go next by role',
+      'The right magnification for one kind of dental work is wrong for another. These pages cover the specifics rather than repeating general advice.',
+      [
+        'Hygiene, where weight and a full day of recalls decide the choice: /loupes-for-dental-hygiene.',
+        'Adding a light, which has to be settled before the loupe is made: /dental-loupes-with-light.',
+        'Choosing a first pair in dental school: /loupes-for-dental-students.',
+        'Canal location and access at higher magnification: /loupes-for-endodontics.',
+        'Brand-by-brand comparison with published prices: /best-dental-loupe-brands.',
+      ],
+    ),
+  ]
 }
 
 export function applyEditorialRevisions(

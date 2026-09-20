@@ -2483,13 +2483,152 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     datePublished: '2026-05-30',
     dateModified: '2026-05-30',
   },
+  {
+    slug: 'dental-loupes-with-light',
+    title: 'Dental loupes with a light: how to choose both',
+    metaTitle: 'Dental Loupes With Light: Mounts, Runtime & Price | HeliosX',
+    description:
+      'How to choose a dental loupe light: mount compatibility, battery runtime, beam size, weight, and cure-light filtering. Written for hygienists and dentists.',
+    heroKicker: 'Loupes and lighting',
+    primaryKeyword: 'dental loupes with light',
+    relatedKeywords: [
+      'best dental loupe light',
+      'dental hygiene loupes with light',
+      'loupes with light for dental hygienist',
+      'dental loupes with light for dental hygienist',
+      'best loupe light',
+    ],
+    audience: 'dentists and dental hygienists buying a loupe-mounted light',
+    intro:
+      'A loupe light is the upgrade most clinicians add and the one most of them research last. That order causes problems, because the mount is fitted to the loupe. Decide about the light while you are still choosing the loupe and you avoid sending the pair back later.',
+    proofPoints: [
+      'Mount compatibility decided before production.',
+      'Honest weight and runtime figures.',
+      'Published prices on every configuration.',
+    ],
+    sections: [
+      {
+        title: 'Why the overhead light is not enough',
+        body:
+          'The operatory light is positioned above and behind you, which means your own head blocks it at exactly the moment you lean in. Sub-gingival work, distal surfaces, and anything posterior all sit in that shadow. A loupe-mounted light moves the source onto your line of sight, so the illuminated spot follows wherever you look.',
+        bullets: [
+          'Coaxial light removes the shadow your head casts into the field.',
+          'Magnification without matching light gives you a bigger view of a darker field.',
+          'Colour temperature affects shade matching. Ask before you assume.',
+        ],
+      },
+      {
+        title: 'Mount compatibility comes first',
+        body:
+          'This is the decision that cannot be undone cheaply. Loupe lights clamp or bolt to a specific frame or bridge, and a mount made for one brand rarely transfers to another. If you already own a light, tell us which one before ordering so we can confirm the fit rather than guess at it.',
+        bullets: [
+          'Through-the-lens frames and flip-up frames mount lights differently.',
+          'A light bought separately may need an adapter that adds its own weight.',
+          'Ask what happens to the mount if the loupe needs a fit correction later.',
+        ],
+      },
+      {
+        title: 'Battery runtime and the working day',
+        body:
+          'Runtime figures are usually quoted at the lowest brightness setting, which is not how most people work. Assume you will run at a middle setting and plan for the clinical day you actually have. A pack that lasts a morning is fine if you can swap it at lunch, and a problem if you cannot.',
+        bullets: [
+          'Check the quoted runtime against the brightness level you will use.',
+          'A second battery is cheaper than a light that dies mid-appointment.',
+          'Cabled packs clip to scrubs and add a cable to manage; some lights put the cell on the frame instead and add it to the weight on your nose.',
+        ],
+      },
+      {
+        title: 'Beam size, alignment, and weight',
+        body:
+          'A light that is brighter than the one next to it is not automatically better. What matters is whether the spot matches your field at your working distance and stays centered when you move. An oversized spot puts light in the patient’s eyes; an undersized one leaves you hunting for the edge of your own field.',
+        bullets: [
+          'Check the spot at your working distance, not at arm’s length on a counter.',
+          'Weigh the finished assembly: loupe, prescription lenses, light, and any frame-mounted cell.',
+          'Front-heavy weight is felt on the bridge of the nose within about an hour.',
+        ],
+      },
+      {
+        title: 'Cure-light filtering for composite work',
+        body:
+          'If you place composite, an unfiltered light can begin curing the material before you are ready to. An orange filter that flips or slides over the lens solves this. Hygienists placing sealants need the same feature, so it is worth asking about even if restorative work is not your main job.',
+        bullets: [
+          'Ask whether the filter is included or sold separately.',
+          'A filter you have to unclip and set down is a filter you will stop using.',
+        ],
+      },
+      {
+        title: 'Brightness is the most oversold number',
+        body:
+          'Lumen and lux figures are quoted inconsistently across brands, measured at different distances, and rarely tell you what the light does in a mouth. Past a certain point more output is actively unhelpful, because a very bright spot on wet enamel reflects back at you and the contrast in the rest of the field drops. What you want is enough light, evenly delivered, with a way to turn it down.',
+        bullets: [
+          'Check that the light has usable intermediate settings, not just on and off.',
+          'Two lights quoting the same figure can look different in use, because the measurement distance is rarely stated.',
+          'Colour temperature around neutral daylight makes shade matching more predictable than a very cool beam.',
+        ],
+      },
+      {
+        title: 'What the price actually includes',
+        body:
+          'Loupe light pricing is where quotes stop being comparable. One brand quotes the head alone, another includes the battery, the charger, and the mount, and a third bundles it with the loupe at a number that hides both. Ask for the itemized list before you compare anything against anything.',
+        bullets: [
+          'Confirm whether the quote covers the light head, the mount, the battery, and the charger.',
+          'Ask what a replacement battery costs in two years, because that is when you will buy one.',
+          'Check the warranty terms on the light separately. They are often shorter than on the loupe.',
+          'See /how-much-do-surgical-loupes-cost for how the rest of the order adds up.',
+        ],
+      },
+      {
+        title: 'Where HeliosX fits',
+        body:
+          'HeliosX publishes prices for the loupe and tells you what the light adds, so the comparison is a comparison rather than a quote request. For hygiene specifically, the lighter Galilean pairs keep the total wearable once a light is fitted. See /loupes-for-dental-hygiene for the magnification side of that decision.',
+        bullets: [
+          'Newton and Galileo keep the base weight low before the light is added.',
+          'Apollo and Medusa redirect the line of sight, which changes where the beam needs to point.',
+          'Tell us the light you own or want at the measurement stage: /measurements.',
+          'Brand-by-brand comparison, including who bundles a light: /best-dental-loupe-brands.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Galileo', 'Newton', 'Apollo'],
+    faqs: [
+      {
+        question: 'Do dental loupes come with a light?',
+        answer:
+          'Usually not as standard. Most brands, including HeliosX, sell the light as a separate item because mount, brightness, and battery choice vary by clinician. Always check whether a quoted price is loupe-only or a bundle.',
+      },
+      {
+        question: 'What is the best dental loupe light?',
+        answer:
+          'The best light is the one that mounts to your loupe, runs for your clinical day at the brightness you actually use, and puts a spot the size of your field at your working distance. Raw brightness figures are the least useful way to compare.',
+      },
+      {
+        question: 'Can I add a light to loupes I already own?',
+        answer:
+          'Sometimes. It depends on the frame and whether an adapter exists for it. Send us the make and model of both the loupe and the light and we will tell you whether it fits rather than guessing.',
+      },
+      {
+        question: 'How long do loupe light batteries last?',
+        answer:
+          'Quoted runtimes are typically measured at the lowest brightness setting. At a middle setting, expect noticeably less. Plan for the length of your clinical day and consider a second battery if you cannot swap mid-session.',
+      },
+      {
+        question: 'Do hygienists need a loupe light?',
+        answer:
+          'It is the most common upgrade in hygiene, because sub-gingival and posterior work sit in the shadow cast by your own head. It is not mandatory, but it is worth deciding before ordering, since the mount is fitted to the loupe.',
+      },
+    ],
+    datePublished: '2026-09-20',
+    dateModified: '2026-09-20',
+  },
 ]
 
 const audiencePages: SeoLandingPage[] = [
   ['loupes-for-residents', 'Loupes for Residents', 'residents who need durable surgical loupes without legacy pricing', ['Galileo', 'Newton', 'Medusa', 'Apollo', 'Kepler']],
   ['loupes-for-medical-students', 'Loupes for Medical Students', 'medical students preparing for surgical and procedural training', ['Galileo', 'Newton']],
   ['loupes-for-dental-students', 'Loupes for Dental Students', 'dental students choosing first loupes', ['Galileo', 'Newton', 'Medusa', 'Apollo']],
-  ['loupes-for-hygienists', 'Loupes for Hygienists', 'dental hygienists and hygiene students', ['Newton', 'Galileo', 'Medusa', 'Apollo']],
+  // 'loupes-for-hygienists' was removed on 2026-09-20. It duplicated
+  // /loupes-for-dental-hygiene word for word and Google never indexed it.
+  // The slug now 301s to that page in next.config.js.
   ['loupes-for-plastic-surgery', 'Loupes for Plastic Surgery', 'plastic surgery residents, fellows, and surgeons', ['Apollo', 'Medusa', 'Kepler', 'Galileo']],
   ['loupes-for-microsurgery', 'Loupes for Microsurgery', 'advanced surgical users and microsurgery-oriented trainees', ['Kepler', 'Apollo', 'Medusa']],
 ].map(([slug, title, audience, products]) => ({
@@ -2605,7 +2744,7 @@ const competitorPages: SeoLandingPage[] = [
           'Maxillofacial surgery (OMFS): /maxillofacial-surgery-loupes.',
           'Pediatric surgery: /pediatric-surgery-loupes.',
           'Ophthalmic surgery: /ophthalmic-surgery-loupes.',
-          'Hygienists and dental hygiene workflows: /loupes-for-hygienists.',
+          'Hygienists and dental hygiene workflows: /loupes-for-dental-hygiene.',
           'Dental students: /loupes-for-dental-students.',
           'Medical students: /loupes-for-medical-students.',
           'Residents: /loupes-for-residents.',
@@ -3930,7 +4069,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
           'Dental work spans posture-light hygiene, restorative dentistry, periodontics, endodontics, and oral and maxillofacial surgery. Each profile has a different magnification, posture, and adaptation curve. These specialty pages drill in:',
         bullets: [
           'OMFS and surgical crossover: see /maxillofacial-surgery-loupes.',
-          'Hygienist workflows: see /loupes-for-hygienists.',
+          'Hygienist workflows: see /loupes-for-dental-hygiene.',
           'Dental students: see /loupes-for-dental-students.',
           'Magnification selection by specialty: see /education/loupe-magnification-guide.',
           'Posture and neck strain in dental work: see /education/ergonomic-loupes-neck-pain.',
@@ -6569,7 +6708,7 @@ const seoLandingHeroTails: Record<string, string> = {
   'loupes-for-residents': 'on a trainee budget.',
   'loupes-for-medical-students': 'for the long road of training.',
   'loupes-for-dental-students': 'from preclinic forward.',
-  'loupes-for-hygienists': 'light enough for a full shift.',
+  'loupes-for-dental-hygiene': 'light enough for a full shift.',
   'loupes-for-plastic-surgery': 'for aesthetic and reconstructive work.',
   'loupes-for-microsurgery': 'high magnification you can wear.',
 
@@ -6742,6 +6881,11 @@ const DENTAL_SUBSPECIALTIES: RelatedPage[] = [
     href: '/loupes-for-dental-hygiene',
     label: 'Loupes for dental hygiene',
     blurb: 'Full-day scaling, where weight and posture matter most.',
+  },
+  {
+    href: '/dental-loupes-with-light',
+    label: 'Dental loupes with a light',
+    blurb: 'Mounts, runtime, beam alignment, and cure-light filtering.',
   },
 ]
 
@@ -6989,7 +7133,8 @@ const editorialLinks: Record<string, string[]> = {
   'student-loupe-comparison': ['loupes-for-dental-students', 'loupes-for-medical-students', 'loupes-for-residents', 'student-loupes-discount'],
   'loupes-for-residents': ['loupes-for-medical-students', 'loupes-for-dental-students'],
   'best-loupes-for-residents': ['loupes-for-residents', 'loupes-for-plastic-surgery', 'loupes-for-medical-students'],
-  'loupes-for-dental-hygiene': ['loupes-for-hygienists', 'loupes-for-dental-students'],
+  'loupes-for-dental-hygiene': ['dental-loupes-with-light', 'best-dental-loupe-brands', 'loupes-for-dental-students'],
+  'dental-loupes-with-light': ['loupes-for-dental-hygiene', 'best-dental-loupe-brands', 'dental-loupes'],
 }
 
 export function getRelatedPages(slug: string): RelatedPage[] {

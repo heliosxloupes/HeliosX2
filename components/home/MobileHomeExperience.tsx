@@ -213,7 +213,7 @@ export default function MobileHomeExperience() {
       <motion.section {...rise}>
         <ParallaxMedia className="h-[330px]" travel={6}>
           <Image
-            src="/mobile-home/medusa-editorial.png"
+            src="/mobile-home/medusa-pedestal-v2.png"
             alt="Medusa ergonomic prismatic surgical loupes"
             fill
             priority

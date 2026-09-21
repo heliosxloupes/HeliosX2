@@ -838,6 +838,7 @@ revisions['loupes-for-dental-hygiene'] = {
         'Weigh the finished pair, including prescription lenses and any light you plan to wear.',
         'Take your measurements seated at your own operatory, in the posture you actually hold.',
         'Loupes are not a treatment for neck pain and cannot guarantee comfortable posture. If you have persistent symptoms, get them assessed properly.',
+        'Assisting chairside rather than instrumenting? The fit problem is different: /loupes-for-dental-assistants.',
       ],
       '/education/ergonomic-loupes-neck-pain',
       'What the evidence does and does not show on loupes and neck pain',

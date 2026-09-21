@@ -2484,6 +2484,121 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     dateModified: '2026-05-30',
   },
   {
+    slug: 'loupes-for-dental-assistants',
+    title: 'Loupes for dental assistants',
+    metaTitle: 'Dental Assistant Loupes: Fit, Reach & Price | HeliosX',
+    description:
+      'Dental assistant loupes are a different fit problem from hygiene: you work at arm’s length across the patient. Compare working distance, weight, and prices from $695.',
+    heroKicker: 'Loupes for assistants',
+    primaryKeyword: 'dental assistant loupes',
+    relatedKeywords: [
+      'loupes for dental assistants',
+      'dental loupes for dental assistants',
+      'dental assisting loupes',
+      'best loupes for dental assistants',
+    ],
+    audience: 'dental assistants working chairside in four-handed dentistry',
+    intro:
+      'Most loupe advice is written for the operator. Assisting is a different job: you are further from the field, angled across the patient rather than square to it, and you need to see what the dentist sees without being in the position they are in. That changes the working distance more than it changes the magnification.',
+    proofPoints: [
+      'Working distance measured in your real assisting position.',
+      'Lightweight Galilean options from $695.',
+      'Measurements reviewed before production.',
+    ],
+    sections: [
+      {
+        title: 'Working distance is the decision, not magnification',
+        body:
+          'An assistant sits or stands further back than the operator and reaches across the patient, so the distance from your eyes to the tooth is usually longer than it is for the dentist or hygienist you work with. Order a loupe built for their distance and it will not focus where you actually work. This is the most common mistake assistants make when buying a first pair, and it is not fixable afterwards without a refit.',
+        bullets: [
+          'Measure in your assisting position, with your usual stool height and the patient where you actually place them.',
+          'Do not copy the specification from the operator you assist. Their working distance is not yours.',
+          'If you rotate between operators or operatories, measure at the setup you spend the most time in.',
+          'Full measurement guidance: /measurements.',
+        ],
+      },
+      {
+        title: 'What assistants actually need to see',
+        body:
+          'Assisting is about anticipation. You are tracking the field to place suction accurately, retract without obstructing, and have the next instrument ready before it is asked for. That rewards a wide, stable field over fine detail. Lower magnification keeps more of the mouth and the operator’s hands in view at once, which is what makes the timing work.',
+        bullets: [
+          'Most assistants are well served at 2.5x, and rarely need more than 3.5x.',
+          'Higher magnification narrows the field, which makes tracking the operator harder rather than easier.',
+          'Precise suction placement depends on seeing the field and the handpiece together.',
+        ],
+      },
+      {
+        title: 'Weight matters over a full schedule',
+        body:
+          'Assistants wear their loupes across every appointment in the day, often longer than the operator does, and you are frequently moving between chairs, the sterilisation area and the front. A light Galilean pair is easier to keep on for that pattern than a heavier prismatic system built for sustained detail work.',
+        bullets: [
+          'Weigh the finished pair including prescription lenses and any light.',
+          'Newton and Galileo are the lightweight Galilean options.',
+          'Loupes are not a treatment for neck or back pain. Fit, seating and posture still matter, and persistent symptoms need proper assessment.',
+        ],
+      },
+      {
+        title: 'Do you need a light?',
+        body:
+          'Less often than a hygienist does. You are usually not the one working sub-gingivally, and the operator’s light and the overhead unit cover most of what you need to track. A light becomes worth it if you assist on endodontic or surgical cases regularly, or if you are moving toward an expanded-function role.',
+        bullets: [
+          'Decide before ordering, because the mount is fitted to the loupe.',
+          'Mounts, runtime and cure-light filtering: /dental-loupes-with-light.',
+        ],
+      },
+      {
+        title: 'Buying on an assistant budget',
+        body:
+          'Assistants are usually paying out of pocket, and often earning less than the clinicians they work beside. HeliosX publishes its prices rather than running quote-only pricing, so you can see the whole cost before you commit. Newton starts at $695 at 2.5x, which is the configuration most assistants order.',
+        bullets: [
+          'Newton from $695. Galileo from $795 for a slightly wider starting view.',
+          'Prescription lenses are a separate line on the order. Include them before comparing totals.',
+          'Ask about the cost of a refit before you buy, not after.',
+          'What the whole order comes to: /how-much-do-surgical-loupes-cost.',
+        ],
+      },
+      {
+        title: 'If you are heading to hygiene school',
+        body:
+          'Many assistants buy their first loupes while planning to move into hygiene. Those are different jobs with different requirements: hygiene instrumentation is done at your own working distance and usually wants a light. If hygiene school starts within a year, read the hygiene requirements before ordering, because a pair fitted for assisting may not suit it.',
+        bullets: [
+          'Hygiene-specific magnification, posture and lighting: /loupes-for-dental-hygiene.',
+          'Programs sometimes specify magnification or an approved supplier. Check before you buy.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Newton', 'Galileo', 'Apollo'],
+    faqs: [
+      {
+        question: 'What magnification do dental assistants need?',
+        answer:
+          'Most assistants are well served at 2.5x, and rarely need more than 3.5x. Assisting rewards a wide, stable field so you can track the operator and place suction accurately. Higher magnification narrows that field.',
+      },
+      {
+        question: 'Can I use the same loupes as the dentist I assist?',
+        answer:
+          'Usually not. You work at a longer distance and at a different angle across the patient, so a loupe built for their working distance will not focus where you work. Measure in your own assisting position.',
+      },
+      {
+        question: 'Do dental assistants need loupes with a light?',
+        answer:
+          'Less often than hygienists do, because you are not usually the one working sub-gingivally. A light is worth considering if you regularly assist on endodontic or surgical cases. Decide before ordering, since the mount is fitted to the loupe.',
+      },
+      {
+        question: 'How much do dental assistant loupes cost?',
+        answer:
+          'HeliosX Newton starts at $695 at 2.5x and Galileo at $795. Prescription lenses are priced separately. Prices are published rather than quoted, so the total is visible before you order.',
+      },
+      {
+        question: 'Will loupes help my neck and back while assisting?',
+        answer:
+          'They may help you hold a more upright position, but no product can guarantee that. Fit, stool height, patient positioning and habits all matter, and persistent symptoms need proper clinical assessment.',
+      },
+    ],
+    datePublished: '2026-09-20',
+    dateModified: '2026-09-20',
+  },
+  {
     slug: 'dental-loupes-with-light',
     title: 'Dental loupes with a light: how to choose both',
     metaTitle: 'Dental Loupes With Light: Mounts, Runtime & Price | HeliosX',
@@ -2496,7 +2611,9 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       'dental hygiene loupes with light',
       'loupes with light for dental hygienist',
       'dental loupes with light for dental hygienist',
+      'dental hygienist loupes with light',
       'best loupe light',
+      'cordless dental loupe light',
     ],
     audience: 'dentists and dental hygienists buying a loupe-mounted light',
     intro:
@@ -2554,6 +2671,28 @@ export const allSeoLandingPages: SeoLandingPage[] = [
         bullets: [
           'Ask whether the filter is included or sold separately.',
           'A filter you have to unclip and set down is a filter you will stop using.',
+        ],
+      },
+      {
+        title: 'Dental hygiene loupes with light: what changes',
+        body:
+          'Hygienists buy loupes with a light more often than any other group in dentistry, and for a specific reason. Sub-gingival deposit, distal surfaces and the posterior sextants are all assessed by what you can see, and the overhead unit light is blocked by your own head at the moment you lean in. If you are searching for dental loupes with light for a dental hygienist, the decision below the beam is about weight and runtime across a full column of recalls, not peak brightness for a single procedure.',
+        bullets: [
+          'Assume six to eight hours of intermittent use, not one long case. That is the runtime figure that matters.',
+          'Weight sits on the bridge of your nose all day. A lighter head at a moderate setting beats a heavy one you stop wearing.',
+          'A hygiene column means repeated donning and doffing. Check the mount tolerates it without drifting out of alignment.',
+          'Magnification choice comes first: /loupes-for-dental-hygiene.',
+        ],
+      },
+      {
+        title: 'Cordless or corded, and where the battery sits',
+        body:
+          'Loupe lights split into two designs and the difference is felt by the end of a shift. A cordless light puts the cell on the frame, so there is nothing to catch on a patient bib or a chair arm, and you carry the weight on your face. A corded light runs a thin cable to a pack that clips to your scrubs, which keeps the frame lighter and gives longer runtime, at the cost of a cable to route and a pack to remember.',
+        bullets: [
+          'Cordless suits shorter appointment blocks and anyone who moves between operatories often.',
+          'Corded suits long clinical days, because a belt pack holds a larger cell than a frame can carry.',
+          'Either way, ask what a replacement battery costs and whether the charger is included.',
+          'If you already own a light, tell us the make and model before ordering so we can confirm the mount rather than guess.',
         ],
       },
       {
@@ -6887,6 +7026,11 @@ const DENTAL_SUBSPECIALTIES: RelatedPage[] = [
     label: 'Dental loupes with a light',
     blurb: 'Mounts, runtime, beam alignment, and cure-light filtering.',
   },
+  {
+    href: '/loupes-for-dental-assistants',
+    label: 'Loupes for dental assistants',
+    blurb: 'Longer reach across the patient, and a wider field for tracking.',
+  },
 ]
 
 const BUYING_DECISION_PAGES: RelatedPage[] = [
@@ -7133,8 +7277,9 @@ const editorialLinks: Record<string, string[]> = {
   'student-loupe-comparison': ['loupes-for-dental-students', 'loupes-for-medical-students', 'loupes-for-residents', 'student-loupes-discount'],
   'loupes-for-residents': ['loupes-for-medical-students', 'loupes-for-dental-students'],
   'best-loupes-for-residents': ['loupes-for-residents', 'loupes-for-plastic-surgery', 'loupes-for-medical-students'],
-  'loupes-for-dental-hygiene': ['dental-loupes-with-light', 'best-dental-loupe-brands', 'loupes-for-dental-students'],
-  'dental-loupes-with-light': ['loupes-for-dental-hygiene', 'best-dental-loupe-brands', 'dental-loupes'],
+  'loupes-for-dental-hygiene': ['dental-loupes-with-light', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'loupes-for-dental-students'],
+  'dental-loupes-with-light': ['loupes-for-dental-hygiene', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'dental-loupes'],
+  'loupes-for-dental-assistants': ['loupes-for-dental-hygiene', 'dental-loupes-with-light', 'dental-loupes'],
 }
 
 export function getRelatedPages(slug: string): RelatedPage[] {

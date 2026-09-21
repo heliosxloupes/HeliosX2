@@ -455,11 +455,20 @@ revisions['how-much-do-surgical-loupes-cost'] = {
     ),
     section(
       'When is the upgrade worth paying for?',
-      'Move up when it solves a defined problem. Choose higher magnification because you need more visible detail; choose ergonomic prismatic viewing because you want a different viewing posture; choose adjustable working distance because your setup changes.',
+      'Move up when it solves a defined problem. Choose higher magnification because you need more visible detail; choose ergonomic prismatic viewing because you want a different viewing posture; choose adjustable working distance because your setup changes. Kepler is the conventional prismatic option from $1,195, covering 4.0x to 6.0x: /product/kepler.',
       [
         'A first Galilean pair does not have to be a temporary purchase if it suits your work.',
         'Prismatic does not automatically mean ergonomic.',
         'Do not pay for a feature you cannot explain how you will use.',
+        'Still narrowing the field? Work through /which-surgical-loupes-should-i-get.',
+      ],
+    ),
+    section(
+      'Price is not the same question as value',
+      'A cheap pair that you stop wearing costs more than a considered one you keep. The questions worth asking are what the optics actually do at your working distance, what happens when the fit needs correcting, and who pays for that. If you are weighing a budget pair against a premium one, /are-cheap-surgical-loupes-good sets out what separates them.',
+      [
+        'Ordering from outside the US? Duties and delivery windows are covered on /surgical-loupes-international-shipping.',
+        'Ask what a fit correction costs before you buy, not after.',
       ],
     ),
     fit,
@@ -494,10 +503,19 @@ revisions['best-loupes'] = {
       'Start with one of these three paths, then compare its closest alternative.',
       [
         'Lowest entry cost: Newton from $695. Compare Galileo from $795 for another lightweight Galilean option.',
-        'Conventional prismatic detail: Kepler from $1,195.',
+        'Conventional prismatic detail: Kepler from $1,195, covering 4.0x to 6.0x: /product/kepler.',
         'Ergonomic viewing: Apollo from $1,695 for fixed working distance, or Medusa from $1,695 for adjustable working distance.',
         'Comparing brands for the operating room: see the best surgical loupes compared: /best-surgical-loupe-brands.',
         'Comparing brands for dentistry: /best-dental-loupe-brands.',
+        'Want the decision walked through step by step? /which-surgical-loupes-should-i-get.',
+      ],
+    ),
+    section(
+      'Before you decide on price alone',
+      'Budget pairs and premium pairs differ in ways a spec sheet does not show: how the optics hold up at your working distance, how the frame sits after an hour, and what happens when the fit needs correcting. Two pages cover the parts buyers most often find out about late.',
+      [
+        'What actually separates a cheap pair from an expensive one: /are-cheap-surgical-loupes-good.',
+        'Ordering from outside the US, including duties and delivery windows: /surgical-loupes-international-shipping.',
       ],
     ),
     compareFit,

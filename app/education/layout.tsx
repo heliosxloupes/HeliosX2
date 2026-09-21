@@ -1,14 +1,6 @@
 import type { Metadata } from 'next'
 
-import JsonLd from '@/components/JsonLd'
-import {
-  breadcrumbJsonLd,
-  buildMetadata,
-  organizationJsonLd,
-  resourceItemListJsonLd,
-  webPageJsonLd,
-} from '@/lib/seo'
-import { educationGuides } from '@/lib/seo-content'
+import { buildMetadata } from '@/lib/seo'
 
 const pageTitle = 'HeliosX Education | Loupe Guides & Research'
 const pageDescription =
@@ -21,39 +13,9 @@ export const metadata: Metadata = buildMetadata({
   keywords: ['loupe education', 'surgical loupes guide', 'dental loupes guide', 'prismatic loupes'],
 })
 
-// Added after the 8 Sep 2026 audit found this hub carrying no structured data.
-// CollectionPage plus an ItemList of the guides it indexes.
-const breadcrumbItems = [
-  { name: 'Home', path: '/' },
-  { name: 'Education', path: '/education' },
-]
-
-const guideItems = educationGuides.map((guide) => ({
-  name: guide.title,
-  url: `/education/${guide.slug}`,
-  description: guide.description,
-}))
-
+// Structured data for the hub itself lives in app/education/(hub)/layout.tsx so
+// it does not leak onto the twelve guide pages, which emit their own complete
+// Article, WebPage and BreadcrumbList nodes.
 export default function EducationLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <JsonLd
-        data={[
-          organizationJsonLd(),
-          {
-            ...webPageJsonLd({
-              title: pageTitle,
-              description: pageDescription,
-              path: '/education',
-              breadcrumb: breadcrumbItems,
-            }),
-            '@type': 'CollectionPage',
-          },
-          breadcrumbJsonLd(breadcrumbItems),
-          resourceItemListJsonLd(guideItems),
-        ]}
-      />
-      {children}
-    </>
-  )
+  return <>{children}</>
 }

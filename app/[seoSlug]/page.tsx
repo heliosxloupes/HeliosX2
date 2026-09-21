@@ -102,9 +102,14 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
   const datePublished = page.datePublished ?? '2026-05-25'
   const dateModified = page.dateModified ?? '2026-05-25'
 
+  // No `breadcrumb` here: webPageJsonLd nests a full BreadcrumbList inside
+  // WebPage.breadcrumb, and breadcrumbJsonLd() below emits the same list as a
+  // top-level node. Passing both shipped the identical list twice on every
+  // landing page. The standalone node is the one Google documents for
+  // breadcrumb rich results, so that is the copy we keep.
   const pageNode = webPageJsonLd({
     title: page.title, description: page.description, path: `/${page.slug}`,
-    datePublished, dateModified, breadcrumb: breadcrumbItems,
+    datePublished, dateModified,
   })
   const articleNode = articleJsonLd({
     title: page.title, description: page.description, path: `/${page.slug}`,
@@ -121,7 +126,9 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
           pageNode,
           ...(articleNode ? [articleNode] : []),
           breadcrumbJsonLd(breadcrumbItems),
-          faqJsonLd(page.faqs),
+          // Guard against an empty FAQPage node: no page has an empty faqs
+          // array today, but the first one added would emit mainEntity: [].
+          ...(page.faqs.length > 0 ? [faqJsonLd(page.faqs)] : []),
           ...(recommendedItems.length > 0 ? [catalogItemListJsonLd(recommendedItems)] : []),
         ]}
       />

@@ -35,6 +35,16 @@ export function GET() {
         <g:service>Standard</g:service>
         <g:price>0.00 USD</g:price>
       </g:shipping>
+      <!--
+        Every pair is built to the buyer's measurements after checkout, so
+        "in_stock" only holds alongside an honest handling time. Without these
+        two tags the feed reads as ships-immediately, which contradicts the
+        7-14 day build declared in the Product schema (lib/seo.ts,
+        defaultShippingDetails) and is what Merchant Center penalises on
+        made-to-order goods.
+      -->
+      <g:min_handling_time>7</g:min_handling_time>
+      <g:max_handling_time>14</g:max_handling_time>
     </item>`
     },
   )

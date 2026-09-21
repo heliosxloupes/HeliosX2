@@ -2484,6 +2484,141 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     dateModified: '2026-05-30',
   },
   {
+    slug: 'neurosurgery-loupes',
+    title: 'Neurosurgery loupes: where they work and where they stop',
+    metaTitle: 'Best Surgical Loupes for Neurosurgery: Honest Limits | HeliosX',
+    description:
+      'Neurosurgery loupes for spine, peripheral nerve, exposure and closure. Honest limits against the operating microscope, magnification, working distance, and prices from $1,195.',
+    heroKicker: 'Neurosurgery loupes',
+    primaryKeyword: 'best surgical loupes for neurosurgery',
+    relatedKeywords: [
+      'neurosurgery loupes',
+      'best loupes for neurosurgery',
+      'neurosurgeon loupes',
+      'loupes vs microscope neurosurgery',
+      'neurosurgery loupe magnification',
+    ],
+    audience: 'neurosurgeons, neurosurgical residents, and spine surgeons',
+    intro:
+      'Loupes do part of the work in neurosurgery and not the rest of it. They cover exposure, closure, much spine work and a good deal of peripheral nerve surgery. They do not replace an operating microscope where one is indicated, and any vendor telling you otherwise is selling rather than advising. What follows is where the line sits and how to choose for the work on your side of it.',
+    proofPoints: [
+      'Conventional prismatic 4.0x to 6.0x from $1,195.',
+      'Adjustable working distance for seated and standing work.',
+      'Published prices, no quote required.',
+    ],
+    sections: [
+      {
+        title: 'Where loupes stop and the microscope begins',
+        body:
+          'This is the decision that matters most and the one most buying guides avoid. An operating microscope offers coaxial illumination down a narrow corridor, magnification well beyond any loupe, and a stable optical axis that does not move with your head. Loupes offer speed, freedom of movement and no setup. Neither substitutes for the other. Where your service, your department protocol or the procedure itself calls for the microscope, that decision is not an optical preference and loupes do not change it.',
+        bullets: [
+          'Microscope territory: deep corridors, microvascular anastomosis, and work at magnification beyond what a loupe delivers with usable depth of field.',
+          'Loupe territory: exposure and closure, much of spine, peripheral nerve, and cases where you move around the table.',
+          'Treat any claim that loupes remove the need for a microscope as marketing, not evidence.',
+          'Microsurgical work specifically: /loupes-for-microsurgery.',
+        ],
+      },
+      {
+        title: 'What the clinical literature says about loupes in spine work',
+        body:
+          'The line above is not a HeliosX opinion. The StatPearls clinical reference on microdiscectomy, the most common indication for spinal surgery, states that because of its collinear light and magnification an operating microscope is preferred, and that magnifying loupes with a headlight may also be used. A 2014 Cochrane systematic review defines microdiscectomy and open discectomy as being performed with or without the aid of headlight loupe or microscope magnification. Read together: for this procedure family, loupes with a headlight are an accepted magnification route, and the microscope remains preferred.',
+        bullets: [
+          'Note the pairing. Both sources describe loupes with a headlight, not loupes alone, because illumination is the limiting factor at depth.',
+          'Neither source establishes equivalence between loupes and the microscope. They establish that loupes are an accepted option for this work.',
+          'Procedure family matters more than specialty label. Microdiscectomy is not cranial tumour work, and the evidence does not transfer.',
+        ],
+        sourceLabel:
+          'Dowling TJ, Munakomi S, Dowling TJ. Microdiscectomy. StatPearls, 2023. PMID 32310444. See also Rasouli MR et al., Cochrane Database of Systematic Reviews 2014, DOI 10.1002/14651858.CD010328.pub2',
+        sourceHref: 'https://pubmed.ncbi.nlm.nih.gov/32310444/',
+      },
+      {
+        title: 'The shortlist in one minute',
+        body:
+          'If you are searching for the best surgical loupes for neurosurgery, the honest answer depends on which half of the work you mean, so start from the section above. For the half loupes cover, most neurosurgical buyers land in one of three places. This compares published products and buying terms. It is not a hands-on ranking of optical quality.',
+        bullets: [
+          'Detail work within loupe range: Kepler, conventional prismatic 4.0x to 6.0x, from $1,195.',
+          'Long cases where head posture is the limiting factor: Apollo, ergonomic prismatic 3.0x to 6.0x, from $1,695.',
+          'Moving between seated and standing: Medusa, ergonomic prismatic 3.0x to 8.5x with adjustable working distance, from $1,695.',
+          'Spine-specific considerations: /spine-surgery-loupes.',
+        ],
+      },
+      {
+        title: 'Magnification for neurosurgical work',
+        body:
+          'Higher is not automatically better, and in neurosurgery the tradeoff bites harder than in most specialties. Every step up narrows the field and shortens the depth of field, so a deep corridor that was workable at 4.0x can become a constant refocusing exercise at 6.0x. Choose the lowest magnification that resolves the structure you need to see, then confirm you still have enough depth to work through the corridor rather than at a single plane.',
+        bullets: [
+          'Most loupe-appropriate neurosurgical work sits between 3.5x and 6.0x.',
+          'Depth of field, not magnification, is usually what fails first in a deep field.',
+          'Check the view at your real working distance, not across a demo table.',
+          'Illumination becomes limiting before magnification does in any deep corridor.',
+        ],
+      },
+      {
+        title: 'Working distance and posture over a long case',
+        body:
+          'Neurosurgical cases run long and much of the work happens standing, often with the head held in one position for extended periods. Working distance sets your neck angle more than any other specification. Measure standing, at your real table height, in the posture you actually hold rather than the one you would like to. If you alternate between seated spine work and standing cranial work, a fixed working distance will suit one and compromise the other.',
+        bullets: [
+          'Measure standing at your own table height, gowned if you can.',
+          'Medusa adjusts working distance from 300 to 600 mm, which covers a seated and standing mix in one pair.',
+          'Ergonomic prismatic designs redirect the line of sight so the head can stay closer to neutral.',
+          'Loupes are not a treatment for neck pain. Fit, table height and case length all matter, and persistent symptoms need proper assessment.',
+        ],
+      },
+      {
+        title: 'Weight, and why it is felt late',
+        body:
+          'A pair that feels fine at the start of a case can be the thing you notice four hours in. Longer working distances need larger optical assemblies, so the specification that fixes your posture also adds the weight you carry. Weigh the finished configuration rather than the frame: prescription lenses and a headlight both add to the front load, and the light is where most of the surprise sits.',
+        bullets: [
+          'Weigh the complete setup including prescription lenses and any light.',
+          'Front-heavy weight is felt on the bridge of the nose, and it is felt late.',
+          'Ask what a fit correction costs before ordering, not after.',
+        ],
+      },
+      {
+        title: 'Where HeliosX fits',
+        body:
+          'HeliosX exists to make premium magnification more accessible, so prices are published and the configuration is visible before you order. For neurosurgery the realistic choice is between conventional prismatic detail and ergonomic prismatic viewing for long cases.',
+        bullets: [
+          'Kepler: conventional prismatic, 4.0x to 6.0x, from $1,195.',
+          'Apollo: ergonomic prismatic, 3.0x to 6.0x, from $1,695.',
+          'Medusa: ergonomic prismatic, 3.0x to 8.5x, adjustable working distance, from $1,695.',
+          'Compare brands across the field: /best-surgical-loupe-brands.',
+          'What a complete order comes to: /how-much-do-surgical-loupes-cost.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Kepler', 'Apollo', 'Medusa'],
+    faqs: [
+      {
+        question: 'What magnification do neurosurgeons use with loupes?',
+        answer:
+          'Most loupe-appropriate neurosurgical work sits between 3.5x and 6.0x. Higher magnification narrows the field and shortens depth of field, which is a real problem in a deep corridor. Choose the lowest magnification that resolves what you need to see.',
+      },
+      {
+        question: 'Can loupes replace an operating microscope in neurosurgery?',
+        answer:
+          'No. A microscope offers coaxial illumination down a narrow corridor, magnification beyond any loupe, and an optical axis that does not move with your head. Loupes cover exposure, closure, much spine work and peripheral nerve surgery. Where the microscope is indicated, loupes do not change that.',
+      },
+      {
+        question: 'Which HeliosX loupe suits neurosurgery?',
+        answer:
+          'Kepler covers conventional prismatic 4.0x to 6.0x from $1,195. Apollo offers ergonomic prismatic viewing from $1,695 for long cases where head posture matters. Medusa adds adjustable working distance from 300 to 600 mm, which suits alternating seated and standing work.',
+      },
+      {
+        question: 'Do I need a headlight for neurosurgical loupes?',
+        answer:
+          'In any deep corridor, illumination becomes limiting before magnification does. Overhead theatre lighting is frequently blocked by your own head and hands at depth. If you buy a light, decide before production because the mount is fitted to the loupe.',
+      },
+      {
+        question: 'Should a neurosurgical resident buy loupes?',
+        answer:
+          'If you are assisting and closing regularly, yes, and buying early gets the adaptation done before it costs you anything. Measure standing at the table height you actually work at, and choose the lower end of the magnification range for your first pair.',
+      },
+    ],
+    datePublished: '2026-09-20',
+    dateModified: '2026-09-20',
+  },
+  {
     slug: 'loupes-for-dental-assistants',
     title: 'Loupes for dental assistants',
     metaTitle: 'Dental Assistant Loupes: Fit, Reach & Price | HeliosX',
@@ -6959,6 +7094,11 @@ export type RelatedPage = {
 
 const SURGICAL_SUBSPECIALTIES: RelatedPage[] = [
   {
+    href: '/neurosurgery-loupes',
+    label: 'Neurosurgery loupes',
+    blurb: 'Where loupes work, and where the microscope takes over.',
+  },
+  {
     href: '/general-surgery-loupes',
     label: 'General surgery loupes',
     blurb: 'Magnification for open abdominal and soft-tissue work.',
@@ -7273,13 +7413,14 @@ const editorialLinks: Record<string, string[]> = {
   'best-surgical-loupes-reddit': ['affordable-surgical-loupes-reddit'],
   'best-dental-loupe-brands': ['heliosx-vs-lumadent', 'heliosx-vs-orascoptic', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'heliosx-vs-examvision', 'heliosx-vs-admetec'],
   'loupe-comparisons': ['best-surgical-loupe-brands', 'best-dental-loupe-brands', 'student-loupe-comparison', 'ergonomic-loupe-comparison', 'prismatic-loupe-comparison'],
-  'surgical-loupes': ['cardiac-surgery-loupes', 'pediatric-surgery-loupes', 'maxillofacial-surgery-loupes', 'ent-otolaryngology-loupes', 'ophthalmic-surgery-loupes', 'loupes-for-plastic-surgery'],
+  'surgical-loupes': ['neurosurgery-loupes', 'cardiac-surgery-loupes', 'pediatric-surgery-loupes', 'maxillofacial-surgery-loupes', 'ent-otolaryngology-loupes', 'ophthalmic-surgery-loupes', 'loupes-for-plastic-surgery'],
   'student-loupe-comparison': ['loupes-for-dental-students', 'loupes-for-medical-students', 'loupes-for-residents', 'student-loupes-discount'],
   'loupes-for-residents': ['loupes-for-medical-students', 'loupes-for-dental-students'],
   'best-loupes-for-residents': ['loupes-for-residents', 'loupes-for-plastic-surgery', 'loupes-for-medical-students'],
   'loupes-for-dental-hygiene': ['dental-loupes-with-light', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'loupes-for-dental-students'],
   'dental-loupes-with-light': ['loupes-for-dental-hygiene', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'dental-loupes'],
   'loupes-for-dental-assistants': ['loupes-for-dental-hygiene', 'dental-loupes-with-light', 'dental-loupes'],
+  'neurosurgery-loupes': ['spine-surgery-loupes', 'loupes-for-microsurgery', 'best-surgical-loupe-brands', 'surgical-loupes'],
 }
 
 export function getRelatedPages(slug: string): RelatedPage[] {

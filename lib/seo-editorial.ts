@@ -794,6 +794,23 @@ revisions['loupes-for-dental-hygiene'] = {
   comparisonRows: undefined,
   verdict: undefined,
   sections: [
+    // Independent evidence leads the page. Every competitor ranking for these
+    // terms opens in buying mode, and the trade press and peer-reviewed results
+    // that hold page one answer the question a hygienist actually starts with:
+    // does magnification do anything for the strain. Citing the mixed result
+    // honestly is the one thing a vendor page can offer that a brochure cannot.
+    section(
+      'What the research actually shows',
+      'The evidence on loupes and musculoskeletal strain in hygiene is real but narrower than most marketing suggests, so it is worth knowing before you spend. A 2021 study of 24 hygienists scaling with accelerometers on the head, C5 and T5 found that loupes with a custom measured declination angle produced significantly less trunk flexion than loupes set to a standard manufacturer angle (P = .01). In the same study neck flexion was not significantly affected, by either loupe type or by wearing loupes at all.',
+      [
+        'The finding that held up is about fit, not magnification. A custom declination angle changed posture; an off-the-shelf angle did not.',
+        'A 2019 systematic review in the Journal of the American Dental Association (Roll et al., DOI 10.1016/j.adaj.2019.01.031) concluded that magnification has a positive effect on musculoskeletal symptoms, while noting small samples, mixed loupe styles, and no long-term data.',
+        'A 2016 study of hygienists in Work (Hayes et al., DOI 10.3233/WOR-162253) found no statistically significant differences and reported both improvements and deteriorations, concluding that loupes carry potential benefits and risks.',
+        'Read together: buy for the view and for a fit measured to you. Treat any promise that loupes will fix neck pain as unsupported.',
+      ],
+      'https://doi.org/10.1111/idh.12470',
+      'Ludwig EA, Tolle SL, Jenkins E, Russell D. Magnification loupes influence on neck and trunk flexion of dental hygienists while scaling, a pilot study. International Journal of Dental Hygiene, 2021',
+    ),
     section(
       'The shortlist in one minute',
       'If you want the short version, start here and read the rest only where it applies to you. This compares published products and buying terms. It is not a hands-on ranking of optical quality.',
@@ -867,7 +884,7 @@ revisions['loupes-for-dental-hygiene'] = {
     ),
     faq(
       'Will ergonomic loupes prevent neck pain?',
-      'No product can guarantee that. Ergonomic viewing changes the line of sight, which can help you work with a more upright head position. Fit, seating, patient positioning, and work habits still matter. Persistent symptoms need appropriate clinical assessment.',
+      'No product can guarantee that, and the research does not support the claim. A 2021 study of hygienists scaling found neck flexion was not significantly affected by wearing loupes or by loupe type, although a custom declination angle did reduce trunk flexion. Ergonomic viewing changes the line of sight, which can help you work with a more upright head position. Fit, seating, patient positioning, and work habits still matter. Persistent symptoms need appropriate clinical assessment.',
     ),
     ...baseFaqs,
   ],

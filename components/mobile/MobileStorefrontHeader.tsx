@@ -127,7 +127,7 @@ export default function MobileStorefrontHeader() {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#030609]/80 backdrop-blur-xl">
         <div className="flex h-14 items-center justify-between px-4">
           <Link href="/" className="flex min-h-11 items-center gap-2.5" aria-label="HeliosX home">
-            <Image src="/logominimalnowriting.png" alt="" width={27} height={27} className="h-7 w-7 object-contain brightness-0 invert" priority />
+            <Image src="/logominimalnowriting.png" alt="HeliosX logo" width={27} height={27} className="h-7 w-7 object-contain brightness-0 invert" priority />
             <span className="text-sm font-semibold uppercase tracking-[0.18em] text-neutral-100">HeliosX</span>
           </Link>
           <div className="flex items-center gap-1.5">
@@ -227,12 +227,12 @@ export default function MobileStorefrontHeader() {
                   <div className="relative aspect-square">
                     <div className="relative h-full w-full overflow-hidden rounded-md bg-neutral-900">
                       {item.image || item.selectedFrameImage ? (
-                        <Image src={item.image || item.selectedFrameImage || ''} alt="" fill sizes="82px" className="object-cover" />
+                        <Image src={item.image || item.selectedFrameImage || ''} alt={item.shortName || item.name} fill sizes="82px" className="object-cover" />
                       ) : null}
                     </div>
                     {item.image && item.selectedFrameImage ? (
                       <div className="absolute -bottom-1.5 -right-1.5 h-8 w-10 overflow-hidden rounded border border-white/20 bg-white shadow-lg">
-                        <Image src={item.selectedFrameImage} alt="" fill sizes="40px" className="object-contain p-0.5" />
+                        <Image src={item.selectedFrameImage} alt={`${item.selectedFrameName ?? 'Selected'} frame`} fill sizes="40px" className="object-contain p-0.5" />
                       </div>
                     ) : null}
                   </div>

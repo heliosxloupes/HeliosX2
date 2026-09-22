@@ -176,7 +176,7 @@ export default function SeoLandingExperience({
                     >
                       <Image
                         src={productImages[key]}
-                        alt=""
+                        alt={`HeliosX ${row.name} loupes`}
                         fill
                         sizes="(max-width: 767px) calc(100vw - 40px), 355px"
                       />

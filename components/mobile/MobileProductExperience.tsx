@@ -298,7 +298,7 @@ export default function MobileProductExperience({
                 }}
                 className={`overflow-hidden rounded-md border ${frameId === option.id ? 'border-emerald-200 ring-1 ring-emerald-200' : 'border-white/15'}`}
               >
-                <span className="relative block h-[72px] bg-white"><Image src={option.baseImage} alt="" fill sizes="33vw" className="object-contain p-1" /></span>
+                <span className="relative block h-[72px] bg-white"><Image src={option.baseImage} alt={`${option.label} frame`} fill sizes="33vw" className="object-contain p-1" /></span>
                 <span className="flex min-h-11 items-center justify-center px-2 text-xs">{option.label}</span>
               </button>
             ))}

@@ -26,11 +26,11 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://*.js.stripe.com https://checkout.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://news.google.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://*.js.stripe.com https://checkout.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://news.google.com https://www.clarity.ms https://*.clarity.ms",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https:",
               "font-src 'self'",
-              "connect-src 'self' https://api.stripe.com https://checkout.stripe.com https://m.stripe.network https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://vitals.vercel-analytics.com https://*.supabase.co https://www.facebook.com https://connect.facebook.net https://news.google.com",
+              "connect-src 'self' https://api.stripe.com https://checkout.stripe.com https://m.stripe.network https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://vitals.vercel-analytics.com https://*.supabase.co https://www.facebook.com https://connect.facebook.net https://news.google.com https://*.clarity.ms",
               // Embedded Checkout renders its payment form in an iframe served from checkout.stripe.com.
               // Leaving it out blanked the payment step for every shopper.
               "frame-src https://checkout.stripe.com https://js.stripe.com https://*.js.stripe.com https://hooks.stripe.com",

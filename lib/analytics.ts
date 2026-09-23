@@ -15,6 +15,7 @@ declare global {
     dataLayer?: unknown[]
     gtag?: (...args: any[]) => void
     fbq?: (...args: any[]) => void
+    clarity?: (...args: any[]) => void
     __heliosxAnalyticsReady?: boolean
     __heliosxAnalyticsConsentGranted?: boolean
     __heliosxAnalyticsQueue?: AnalyticsCallback[]

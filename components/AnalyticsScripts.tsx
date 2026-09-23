@@ -10,8 +10,10 @@ import { CONSENT_KEY, getEffectiveConsent, isOptOutRegion } from '@/lib/consent'
 const CONSENT_EVENT = 'heliosx:open-privacy-choices'
 const configuredGaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 const configuredMetaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1802043734283628'
+const configuredClarityId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || 'yn19o4h2si'
 const gaId = configuredGaId && /^G-[A-Z0-9]+$/i.test(configuredGaId) ? configuredGaId : null
 const metaPixelId = /^\d+$/.test(configuredMetaPixelId) ? configuredMetaPixelId : null
+const clarityId = /^[a-z0-9]+$/i.test(configuredClarityId) ? configuredClarityId : null
 
 type ConsentState = 'loading' | 'unset' | 'granted' | 'denied'
 
@@ -53,6 +55,8 @@ function revokeTrackingConsent() {
     ad_personalization: 'denied',
   })
   window.fbq?.('consent', 'revoke')
+  // Clarity stops recording and drops its cookies for the rest of the session.
+  window.clarity?.('consent', false)
 }
 
 export default function AnalyticsScripts() {
@@ -119,6 +123,14 @@ export default function AnalyticsScripts() {
       window.fbq('init', ${JSON.stringify(metaPixelId)}, hxEmail ? { em: hxEmail } : {});
       window.fbq('consent', 'grant');
       window.fbq('track', 'PageView');
+    ` : ''}
+    ${clarityId ? `
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, 'clarity', 'script', ${JSON.stringify(clarityId)});
+      window.clarity('consent');
     ` : ''}
     window.__heliosxAnalyticsReady = true;
     (window.__heliosxAnalyticsQueue || []).splice(0).forEach(function(send){ send(); });

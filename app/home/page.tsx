@@ -857,7 +857,7 @@ function FitSection() {
   const pillars = [
     "Multiple frame styles: modern, hipster, vintage, classic.",
     "Material choices: ultra-light polymer or premium alloy metal.",
-    "Magnification options from 2.5x to 6.0x for any procedure type.",
+    "Magnification options from 2.5x to 8.5x for any procedure type.",
   ];
 
   return (
@@ -900,7 +900,7 @@ function FitSection() {
 
           {[
             "No two surgeons operate the same way, and your loupes shouldn't force you into a template. HeliosX offers multiple frame styles, magnifications, and material options designed to fit your workflow, your anatomy, and your aesthetic.",
-            "Choose from 2.5x to 6.0x magnification, lightweight plastic or premium metal frames, and designs ranging from modern minimalist to vintage-inspired. We tailor the system to you without charging you two months of rent for it.",
+            "Choose from 2.5x to 8.5x magnification, lightweight plastic or premium metal frames, and designs ranging from modern minimalist to vintage-inspired. We tailor the system to you without charging you two months of rent for it.",
           ].map((text, i) => (
             <motion.p
               key={i}
@@ -1060,7 +1060,7 @@ function CtaSection() {
               variants={staggerChildren}
             >
               <BulletItem>Prismatic and Galilean systems across the magnification range.</BulletItem>
-              <BulletItem>Magnification options from 2.5x to 6.0x.</BulletItem>
+              <BulletItem>Magnification options from 2.5x to 8.5x.</BulletItem>
               <BulletItem>Custom frame styles fitted to your anatomy.</BulletItem>
               <BulletItem>Lightweight builds that respect your posture.</BulletItem>
             </motion.div>

@@ -10,6 +10,7 @@ import { Mail, X } from 'lucide-react'
 import CartButton from '../CartButton'
 import MobileStorefrontHeader from '@/components/mobile/MobileStorefrontHeader'
 import { useContact } from '../Contact/ContactProvider'
+import ProductMegaMenu from './ProductMegaMenu'
 
 function MobileNav() {
   const [open, setOpen] = useState(false)
@@ -301,8 +302,38 @@ const desktopNavItems = [
 export default function Header() {
   const headerRef = useRef<HTMLDivElement | null>(null)
   const [isAdmin, setIsAdmin] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuTop, setMenuTop] = useState(60)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const pathname = usePathname()
   const { openContact } = useContact()
+
+  const openMenu = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    if (headerRef.current) setMenuTop(headerRef.current.getBoundingClientRect().bottom)
+    setMenuOpen(true)
+  }
+  const closeMenu = (delay = 140) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    closeTimer.current = setTimeout(() => setMenuOpen(false), delay)
+  }
+
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [menuOpen])
+
+  useEffect(() => () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+  }, [])
 
   useEffect(() => {
     const header = headerRef.current
@@ -322,6 +353,7 @@ export default function Header() {
       // scrolling down
       if (delta > threshold && currentY > 80 && !isHidden) {
         isHidden = true
+        setMenuOpen(false)
         gsap.to(header, {
           yPercent: -100,
           duration: 0.35,
@@ -366,6 +398,7 @@ export default function Header() {
       <header
         ref={headerRef}
         className="hidden md:block fixed top-0 left-0 z-50 w-full bg-black/75 backdrop-blur-md border-b border-white/10"
+        onMouseLeave={() => closeMenu()}
       >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-3 lg:px-10 xl:px-16">
         {/* Left: logo + wordmark */}
@@ -387,12 +420,18 @@ export default function Header() {
         <nav className="hidden items-center gap-5 text-[0.7rem] font-medium uppercase tracking-[0.18em] md:flex">
           {desktopNavItems.map(({ href, label }) => {
             const active = pathname === href || pathname.startsWith(href + '/')
+            const isProduct = href === '/product'
             return (
               <Link
                 key={href}
                 href={href}
+                onMouseEnter={isProduct ? openMenu : () => closeMenu(0)}
+                onFocus={isProduct ? openMenu : undefined}
+                onClick={isProduct ? () => setMenuOpen(false) : undefined}
+                aria-expanded={isProduct ? menuOpen : undefined}
+                aria-controls={isProduct ? 'product-menu' : undefined}
                 className={`relative transition-colors duration-200 ${
-                  active
+                  active || (isProduct && menuOpen)
                     ? 'text-white after:absolute after:-bottom-[2px] after:left-0 after:h-[1.5px] after:w-full after:rounded-full after:bg-emerald-400'
                     : 'text-neutral-400 hover:text-white'
                 }`}
@@ -429,6 +468,13 @@ export default function Header() {
         </div>
       </div>
     </header>
+    <ProductMegaMenu
+      open={menuOpen}
+      top={menuTop}
+      onNavigate={() => setMenuOpen(false)}
+      onMouseEnter={openMenu}
+      onMouseLeave={() => closeMenu()}
+    />
     </>
   )
 }

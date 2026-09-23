@@ -344,7 +344,7 @@ export default function MobileHomeExperience() {
           </Link>
         </motion.div>
         <ParallaxMedia className="h-[365px]" travel={6}>
-          <Image src="/mobile-home/work-editorial.png" alt="Clinician wearing HeliosX loupes" fill sizes="100vw" className="object-cover" />
+          <Image src="/mobile-home/work-editorial-v2.png" alt="Clinician wearing HeliosX loupes" fill sizes="100vw" className="object-cover" />
         </ParallaxMedia>
       </section>
 

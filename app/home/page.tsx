@@ -872,7 +872,7 @@ function FitSection() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <ParallaxImage
-            src="/Galileo/girlinmirror.png"
+            src="/Galileo/girlinmirror-v2.png"
             alt="Surgeon adjusting HeliosX loupes in mirror"
             containerClassName="aspect-[4/5] rounded-[30px] border border-white/10 bg-neutral-900/60"
           />

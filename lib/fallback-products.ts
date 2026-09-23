@@ -211,7 +211,7 @@ export const fallbackProducts: CmsProduct[] = [
     ],
     specImages: [
       { src: '/Galileo/cutegirlhallway.png', alt: 'Surgeon walking to the OR' },
-      { src: '/Galileo/girlinmirror.png', alt: 'Surgeon fitting loupes in mirror' },
+      { src: '/Galileo/girlinmirror-v2.png', alt: 'Surgeon fitting loupes in mirror' },
       { src: '/Galileo/lockerroom.png', alt: 'Locker room preparation with loupes' },
     ],
   },

@@ -42,7 +42,8 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(true)
   const [stripeLoaded, setStripeLoaded] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [customerEmail, setCustomerEmail] = useState('')
+  // null until read from storage; '' means the shopper skipped the email.
+  const [customerEmail, setCustomerEmail] = useState<string | null>(null)
 
   useEffect(() => {
     const cart = getCart() as CartItem[] | undefined
@@ -52,11 +53,7 @@ export default function CheckoutPage() {
     }
 
     const savedEmail = window.localStorage.getItem('heliosx_customer_email') ?? ''
-    if (!/^\S+@\S+\.\S+$/.test(savedEmail)) {
-      router.replace('/cart')
-      return
-    }
-    setCustomerEmail(savedEmail)
+    setCustomerEmail(/^\S+@\S+\.\S+$/.test(savedEmail) ? savedEmail : '')
 
     let mergedItems: CartItem[] = [...cart]
 
@@ -117,7 +114,7 @@ export default function CheckoutPage() {
   )
 
   useEffect(() => {
-    if (!items.length || !stripeLoaded || !checkoutRef.current || !customerEmail) {
+    if (!items.length || !stripeLoaded || !checkoutRef.current || customerEmail === null) {
       if (!items.length) {
         setLoading(false)
       }
@@ -177,7 +174,7 @@ export default function CheckoutPage() {
 
         const fetchClientSecret = async () => {
           const cartSessionId = window.localStorage.getItem('heliosx_cart_session_id') ?? ''
-          await fetch('/api/cart-session', {
+          if (customerEmail) await fetch('/api/cart-session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

@@ -54,12 +54,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Too many items in cart' }, { status: 400 })
     }
 
-    if (!/^\S+@\S+\.\S+$/.test(customerEmail)) {
-      return NextResponse.json(
-        { error: 'Customer email is required before checkout' },
-        { status: 400 }
-      )
-    }
+    // Optional: when absent, Stripe's embedded form asks for it.
+    const validEmail = /^\S+@\S+\.\S+$/.test(customerEmail) ? customerEmail : ''
 
     const secretKey = process.env.STRIPE_SECRET_KEY
     if (!secretKey) {
@@ -153,7 +149,7 @@ export async function POST(req: Request) {
       mode: 'payment',
       line_items,
       ui_mode: 'embedded',
-      customer_email: customerEmail,
+      ...(validEmail ? { customer_email: validEmail } : {}),
       billing_address_collection: 'required',
       phone_number_collection: { enabled: true },
       shipping_address_collection: { allowed_countries: WORLDWIDE_SHIPPING_COUNTRIES },
@@ -167,7 +163,7 @@ export async function POST(req: Request) {
         },
       ],
       metadata: {
-        customerEmail,
+        customerEmail: validEmail,
         cartSessionId,
         analyticsConsent,
         clientIp,
@@ -186,7 +182,7 @@ export async function POST(req: Request) {
         eventId: checkoutEventId,
         eventSourceUrl: `${baseUrl}/checkout`,
         analyticsConsent,
-        email: customerEmail,
+        email: validEmail || null,
         fbp: String(cookies._fbp ?? '') || null,
         fbc: String(cookies._fbc ?? '') || null,
         clientIp,

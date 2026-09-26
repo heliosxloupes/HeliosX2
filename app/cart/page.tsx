@@ -143,17 +143,21 @@ export default function CartPage() {
 
   const handleCheckout = async () => {
     if (!items.length) return
+    // Email is optional here: Stripe collects it on the payment step anyway.
+    // Requiring it before checkout cost shoppers a step on the page where most
+    // of them left (Clarity, Sep 2026: ~1s active time on /cart).
     const normalizedEmail = email.trim().toLowerCase()
-    if (!/^\S+@\S+\.\S+$/.test(normalizedEmail)) {
-      setEmailError('Enter your email to continue to checkout.')
+    if (normalizedEmail && !/^\S+@\S+\.\S+$/.test(normalizedEmail)) {
+      setEmailError('Check your email address, or leave it blank.')
       focusEmailField()
       return
     }
 
     setEmailError('')
-    window.localStorage.setItem('heliosx_customer_email', normalizedEmail)
+    if (normalizedEmail) window.localStorage.setItem('heliosx_customer_email', normalizedEmail)
+    else window.localStorage.removeItem('heliosx_customer_email')
 
-    const response = await fetch('/api/cart-session', {
+    const response = !normalizedEmail ? null : await fetch('/api/cart-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -503,7 +507,7 @@ export default function CartPage() {
                   htmlFor="cart-email"
                   className="block text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400"
                 >
-                  Email for checkout
+                  Email <span className="normal-case tracking-normal text-neutral-500">(optional)</span>
                 </label>
                 <input
                   id="cart-email"

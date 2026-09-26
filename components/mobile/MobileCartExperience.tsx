@@ -114,10 +114,10 @@ export default function MobileCartExperience({
 
           <section className="px-5 py-7">
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-200/70">Checkout</p>
-            <label htmlFor="mobile-cart-email" className="mt-4 block text-sm">Email address</label>
+            <label htmlFor="mobile-cart-email" className="mt-4 block text-sm">Email address <span className="text-neutral-500">(optional)</span></label>
             <input id="mobile-cart-email" type="email" autoComplete="email" value={email} onChange={(event) => onEmailChange(event.target.value)} placeholder="you@example.com" className="mt-2 min-h-[52px] w-full rounded-md border border-white/20 bg-transparent px-4 text-base outline-none focus:border-emerald-200" />
             {emailError ? <p className="mt-2 text-xs text-red-300">{emailError}</p> : null}
-            <p className="mt-3 text-xs leading-5 text-neutral-500">Used for your receipt and measurement link. No account required.</p>
+            <p className="mt-3 text-xs leading-5 text-neutral-500">Saves your cart. You can also enter it at payment. No account required.</p>
             <dl className="mt-7 space-y-3 border-t border-white/10 pt-5 text-sm">
               <div className="flex justify-between text-neutral-400"><dt>Loupes</dt><dd>{money(loupeSubtotal)}</dd></div>
               {rxPairs ? <div className="flex justify-between text-neutral-400"><dt>Prescription lenses x {rxPairs}</dt><dd>{money(rxPairs * PRESCRIPTION_PRICE)}</dd></div> : null}

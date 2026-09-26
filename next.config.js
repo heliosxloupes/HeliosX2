@@ -33,7 +33,7 @@ const nextConfig = {
               "connect-src 'self' https://api.stripe.com https://checkout.stripe.com https://m.stripe.network https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://vitals.vercel-analytics.com https://*.supabase.co https://www.facebook.com https://connect.facebook.net https://news.google.com https://*.clarity.ms https://c.bing.com",
               // Embedded Checkout renders its payment form in an iframe served from checkout.stripe.com.
               // Leaving it out blanked the payment step for every shopper.
-              "frame-src https://checkout.stripe.com https://js.stripe.com https://*.js.stripe.com https://hooks.stripe.com",
+              "frame-src https://checkout.stripe.com https://js.stripe.com https://*.js.stripe.com https://hooks.stripe.com https://news.google.com",
               "media-src 'self'",
               "object-src 'none'",
               "base-uri 'self'",

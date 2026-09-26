@@ -26,7 +26,7 @@ export default function PrivacyPage() {
             We use Supabase for operational data and Resend for transactional and abandoned-cart email. You can contact us at heliosxloupes@gmail.com for privacy questions or data requests.
           </p>
           <p className="text-neutral-300">
-            We use Google Analytics and Meta Pixel to understand website activity, measure advertising performance, and improve our campaigns. These tools may use cookies or similar browser storage.
+            We use Google Analytics, Microsoft Clarity and Meta Pixel to understand website activity, measure advertising performance, and improve our campaigns. Microsoft Clarity records how pages are used, such as clicks, taps and scrolling, with form entries masked. These tools may use cookies or similar browser storage.
           </p>
           <p className="text-neutral-300">
             If you visit from the United States, this tracking is on by default and you can opt out at any time from Privacy choices in the footer. We also treat a browser Global Privacy Control signal as a request to opt out. If you visit from anywhere else, nothing runs until you accept it in the privacy banner. You can change your choice from Privacy choices in the footer whenever you like.

@@ -92,6 +92,7 @@ export default function AnalyticsScripts() {
         ad_personalization: 'granted',
       })
       window.fbq?.('consent', 'grant')
+      window.clarity?.('consent')
     }
 
     setConsent(choice)
@@ -184,8 +185,8 @@ export default function AnalyticsScripts() {
               </span>
               <span className="hidden md:inline">
                 {optOutRegion
-                  ? 'HeliosX uses Google Analytics and Meta Pixel to understand site use and measure advertising. You can opt out of this tracking at any time. Essential site functions always remain available. Read our '
-                  : 'With your permission, HeliosX uses Google Analytics and Meta Pixel to understand site use and measure advertising. Essential site functions always remain available. Read our '}
+                  ? 'HeliosX uses Google Analytics, Microsoft Clarity and Meta Pixel to understand site use and measure advertising. You can opt out of this tracking at any time. Essential site functions always remain available. Read our '
+                  : 'With your permission, HeliosX uses Google Analytics, Microsoft Clarity and Meta Pixel to understand site use and measure advertising. Essential site functions always remain available. Read our '}
                 <Link href="/privacy" className="text-emerald-200 underline underline-offset-4">
                   privacy policy
                 </Link>

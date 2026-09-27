@@ -85,8 +85,8 @@ export default function EducationGuidePage({ params }: EducationGuideProps) {
         }
       : guide.slug === 'working-distance-for-loupes'
         ? {
-            src: '/workingdistance.png',
-            alt: 'Diagram showing working distance from clinician eye to focal point',
+            src: '/Website images/working distance.png',
+            alt: 'Dental clinician in blue scrubs working on a patient, with a line marking working distance from eye to treatment site',
           }
         : guide.slug === 'how-to-measure-pupillary-distance'
           ? {

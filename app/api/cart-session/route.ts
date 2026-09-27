@@ -37,6 +37,33 @@ export async function POST(req: Request) {
     if (data?.id) return NextResponse.json({ ok: true, cartSessionId: data.id })
   }
 
+  // No usable id (new device, cleared storage, or first cart write): reuse this
+  // shopper's latest open cart instead of adding a row per visit. Duplicate
+  // rows used to start parallel reminder sequences for the same person.
+  const { data: openCart } = await supabase
+    .from('abandoned_cart_sessions')
+    .select('id, stage')
+    .eq('email', email)
+    .is('completed_at', null)
+    .gte('updated_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
+    .order('updated_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (openCart?.id) {
+    // Never move a cart back from 'checkout' to 'cart'.
+    const merged = openCart.stage === 'checkout' && stage === 'cart'
+      ? { ...payload, stage: 'checkout', reached_checkout_at: undefined }
+      : payload
+    const { data: updated } = await supabase
+      .from('abandoned_cart_sessions')
+      .update(merged)
+      .eq('id', openCart.id)
+      .select('id')
+      .maybeSingle()
+    if (updated?.id) return NextResponse.json({ ok: true, cartSessionId: updated.id })
+  }
+
   const { data, error } = await supabase
     .from('abandoned_cart_sessions')
     .insert(payload)

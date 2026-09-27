@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Header from '@/components/Header'
-import IpdLiveTool from '@/components/measurements/IpdLiveTool'
+import PdAppGuide from '@/components/measurements/PdAppGuide'
 
 type Status = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -143,9 +143,9 @@ export default function MeasurementPage({ params }: { params: { token: string } 
                     className="rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm outline-none transition focus:border-white/30 disabled:opacity-50"
                   />
                   <details className="rounded-2xl border border-white/10 bg-black p-4">
-                    <summary className="cursor-pointer text-sm font-semibold text-emerald-200">Measure PD with your camera</summary>
+                    <summary className="cursor-pointer text-sm font-semibold text-emerald-200">How to measure your PD with an app</summary>
                     <div className="mt-6">
-                      <IpdLiveTool onAccept={(value) => setPupillaryDistance(value.toFixed(1))} />
+                      <PdAppGuide compact />
                     </div>
                   </details>
                   <input

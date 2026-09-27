@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { motion, useInView, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
 
 import Header from '@/components/Header'
+import PdAppGuide from '@/components/measurements/PdAppGuide'
 import WorkingDistanceSchematic from '@/components/measurements/WorkingDistanceSchematic'
 import MaskedLines from '@/components/motion/MaskedLines'
 import Reveal from '@/components/motion/Reveal'
@@ -115,10 +116,10 @@ function Hero() {
           </motion.p>
           <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
             <Link
-              href="/measurements/ipd"
+              href="#step-1"
               className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-black shadow-[0_18px_50px_rgba(255,255,255,0.18)] transition hover:bg-neutral-200"
             >
-              Measure PD with camera
+              Measure PD with an app
             </Link>
             <Link
               href="/product"
@@ -194,12 +195,13 @@ function StepArticle({
         <p className="sr-only">Step {index + 1}</p>
         <h2 className="mt-5 text-3xl font-semibold text-white md:text-4xl">{step.title}</h2>
         <p className="mt-5 max-w-[68ch] text-base leading-8 text-neutral-300">{step.body}</p>
-        {index === 0 && (
-          <Link href="/measurements/ipd" className="mt-6 inline-flex rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-neutral-200">
-            Open camera measurement tool
-          </Link>
-        )}
       </Reveal>
+
+      {index === 0 && (
+        <Reveal delay={0.1} className="mt-8">
+          <PdAppGuide />
+        </Reveal>
+      )}
 
       {step.visual === 'working-distance-schematic' && (
         <Reveal

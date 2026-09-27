@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Header from '@/components/Header'
-import IpdCameraTool from '@/components/measurements/IpdCameraTool'
+import IpdLiveTool from '@/components/measurements/IpdLiveTool'
 
 type Status = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -145,7 +145,7 @@ export default function MeasurementPage({ params }: { params: { token: string } 
                   <details className="rounded-2xl border border-white/10 bg-black p-4">
                     <summary className="cursor-pointer text-sm font-semibold text-emerald-200">Measure PD with your camera</summary>
                     <div className="mt-6">
-                      <IpdCameraTool onAccept={(value) => setPupillaryDistance(value.toFixed(1))} />
+                      <IpdLiveTool onAccept={(value) => setPupillaryDistance(value.toFixed(1))} />
                     </div>
                   </details>
                   <input

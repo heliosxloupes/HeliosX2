@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import Header from '@/components/Header'
-import IpdCameraTool from '@/components/measurements/IpdCameraTool'
+import IpdLiveTool from '@/components/measurements/IpdLiveTool'
 
 export const metadata: Metadata = {
   title: 'Camera PD measurement | HeliosX',
@@ -14,7 +14,7 @@ export default function IpdMeasurementPage() {
       <Header />
       <main className="min-h-screen bg-[#030508] px-5 pb-24 pt-28 text-white md:px-12">
         <div className="mx-auto max-w-3xl">
-          <IpdCameraTool />
+          <IpdLiveTool />
         </div>
       </main>
     </>

@@ -1,0 +1,166 @@
+.frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #06080b;
+  aspect-ratio: 500 / 460;
+  max-width: 100%;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: scale(1.04);
+  transform-origin: 55% 45%;
+  transition: opacity 1.4s ease, transform 2.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lit .svg {
+  opacity: 1;
+  transform: none;
+}
+
+.lightpool {
+  opacity: 0.25;
+  transition: opacity 1.8s ease;
+}
+
+.lampOn .lightpool {
+  opacity: 1;
+}
+
+.dot {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.dotOn {
+  opacity: 1;
+}
+
+.pill {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(8, 10, 14, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 5px 11px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #e5e5e5;
+  opacity: 0;
+  transform: translate(0, calc(-50% + 6px));
+  transition: opacity 0.7s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.pill i {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #6ee7b7;
+}
+
+.pillOn {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+.measure {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 4px 4px 2px;
+}
+
+.readoutLabel {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #737373;
+}
+
+.num {
+  margin-top: 4px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(90deg, #fff, #bae6fd 55%, #6ee7b7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.num small {
+  margin-left: 6px;
+  font-size: 18px;
+}
+
+.replay {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.25);
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  transition: border-color 0.2s;
+}
+
+.replay:hover {
+  border-color: #fff;
+}
+
+.replay:focus-visible {
+  outline: 2px solid #bae6fd;
+  outline-offset: 2px;
+}
+
+@media (max-width: 560px) {
+  .pill {
+    padding: 4px 9px;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+  }
+  .measure {
+    font-size: 11px;
+  }
+  .num {
+    font-size: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svg,
+  .lightpool,
+  .dot,
+  .pill {
+    transition: none;
+  }
+}

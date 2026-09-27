@@ -1574,7 +1574,7 @@ function expandThinGuides(guides: EducationGuide[]) {
           'Set your chair, stool, or table height the way you normally work.',
           'Place a target where your hands work: a typodont, a practice pad, or an instrument tip.',
           'Sit or stand upright with relaxed shoulders and look at the target.',
-          'Have your helper measure from the outer corner of your eye to the target.',
+          'Have your helper measure from your nasal radix, the deepest point of your nose bridge, to the target.',
           'Repeat two or three times and use the consistent value.',
         ],
         '/measurements',

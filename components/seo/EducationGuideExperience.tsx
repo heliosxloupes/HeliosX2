@@ -5,9 +5,14 @@ import SeoAnalytics from '@/components/SeoAnalytics'
 import { linkifyText } from '@/components/seo/linkify'
 import { getRelatedPages } from '@/lib/seo-content'
 import type { EducationGuide } from '@/lib/seo-content'
+import MaskedLines from '@/components/motion/MaskedLines'
+import ParallaxMedia from '@/components/motion/ParallaxMedia'
+import Reveal from '@/components/motion/Reveal'
+import ScrollProgressBar from '@/components/motion/ScrollProgressBar'
+import SectionNav from '@/components/motion/SectionNav'
 import styles from './BuyerGuide.module.css'
 
-type Diagram = { src: string; alt: string } | null
+type Diagram = { src: string; alt: string; photo?: boolean } | null
 export type RelatedGuide = {
   slug: string
   title: string
@@ -48,6 +53,7 @@ export default function EducationGuideExperience({
   )
   return (
     <>
+      <ScrollProgressBar />
       <Header />
       <SeoAnalytics pageType="education" pageName={guide.title} />
       <main className={styles.page}>
@@ -58,8 +64,13 @@ export default function EducationGuideExperience({
             <Link href="/education">Education</Link>
           </nav>
           <header className={`${styles.section} max-w-3xl`}>
-            <p className={styles.kicker}>HeliosX field notes</p>
-            <h1>{guide.title}</h1>
+            <Reveal y={12}>
+              <p className={styles.kicker}>HeliosX field notes</p>
+            </Reveal>
+            <h1>
+              <MaskedLines lines={[{ text: guide.title }]} />
+            </h1>
+            <Reveal delay={0.25}>
             <p className={styles.intro}>{linkifyText(guide.intro)}</p>
             <p className={styles.meta}>
               By HeliosX
@@ -80,30 +91,46 @@ export default function EducationGuideExperience({
                 </>
               ) : null}
             </p>
+            </Reveal>
           </header>
-          <nav aria-label="On this page" className={styles.nav}>
-            {guide.sections.map((s) => (
-              <a key={s.title} href={`#${id(s.title)}`}>
-                {s.title}
-              </a>
-            ))}
-          </nav>
+          <SectionNav
+            className={`${styles.nav} lg:sticky lg:top-[58px] lg:z-30 lg:bg-[#080c0c]/85 lg:backdrop-blur-md`}
+            items={guide.sections.map((s) => ({ id: id(s.title), label: s.title }))}
+          />
           <div className={`${styles.section} ${styles.articleGrid}`}>
             <div>
               {diagram ? (
-                <figure className="mb-10 overflow-hidden rounded border border-white/15 bg-white">
-                  <Image
-                    src={diagram.src}
-                    alt={diagram.alt}
-                    width={1200}
-                    height={760}
-                    sizes="(max-width:767px) calc(100vw - 40px), 740px"
-                    className="h-auto w-full"
-                  />
-                </figure>
+                <Reveal
+                  as="figure"
+                  className="mb-10 overflow-hidden rounded-[24px] border border-white/10 bg-[#050b16] p-3 shadow-[0_24px_70px_rgba(0,0,0,0.38)]"
+                >
+                  {diagram.photo ? (
+                    <ParallaxMedia className="aspect-square rounded-2xl border border-white/10 bg-black" distance={40}>
+                      <Image
+                        src={diagram.src}
+                        alt={diagram.alt}
+                        fill
+                        sizes="(max-width:767px) calc(100vw - 40px), 740px"
+                        className="object-cover object-[50%_48%]"
+                      />
+                    </ParallaxMedia>
+                  ) : (
+                    <div className="overflow-hidden rounded-2xl bg-white">
+                      <Image
+                        src={diagram.src}
+                        alt={diagram.alt}
+                        width={1200}
+                        height={760}
+                        sizes="(max-width:767px) calc(100vw - 40px), 740px"
+                        className="h-auto w-full"
+                      />
+                    </div>
+                  )}
+                </Reveal>
               ) : null}
               {guide.sections.map((s) => (
-                <section
+                <Reveal
+                  as="section"
                   key={s.title}
                   id={id(s.title)}
                   className={styles.article}
@@ -137,10 +164,10 @@ export default function EducationGuideExperience({
                       ) : null}
                     </figure>
                   ) : null}
-                </section>
+                </Reveal>
               ))}
             </div>
-            <aside className={styles.aside}>
+            <Reveal as="aside" className={styles.aside} delay={0.35}>
               <p className={styles.kicker}>Put the guide to use</p>
               <h2 className="mt-3">Choose with a clear plan.</h2>
               <p>
@@ -161,7 +188,7 @@ export default function EducationGuideExperience({
               >
                 Measurement instructions
               </Link>
-            </aside>
+            </Reveal>
           </div>
           {guide.citations?.length ? (
             <section className={styles.section}>

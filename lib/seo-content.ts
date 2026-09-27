@@ -6169,9 +6169,9 @@ export const educationGuides: EducationGuide[] = [
       {
         title: 'What working distance actually is',
         body:
-          'Measure from the outer corner of your eye to the point your hands are working on, with yourself set up exactly as you would be mid-procedure. Not from your forehead, not from the bridge of your glasses, and not from wherever you happen to be sitting while you read this. Most clinicians land somewhere between 350 mm and 500 mm, but the range is wide and the average is irrelevant — a 6‑4″ orthopedic surgeon standing at a table and a 5‑2″ hygienist seated at a reclined patient are not going to share a number.',
+          'Measure from your nasal radix, the deepest point of the bridge of your nose between the eyes, to the exact point where your instrument tips meet tissue, with yourself set up exactly as you would be mid-procedure. Not from your forehead, not from the bridge of your glasses, and not from wherever you happen to be sitting while you read this. Most clinicians land somewhere between 350 mm and 500 mm, but the range is wide and the average is irrelevant — a 6‑4″ orthopedic surgeon standing at a table and a 5‑2″ hygienist seated at a reclined patient are not going to share a number.',
         bullets: [
-          'Measure from the outer corner of the eye, not the forehead or brow.',
+          'Measure from the nasal radix, the deepest point of the nose bridge, not the forehead or brow.',
           'Set up your real chair height, real patient position, real distance.',
           'Take the measurement three times and average it.',
         ],

@@ -79,14 +79,8 @@ const steps = [
   {
     title: 'Measure working distance',
     body:
-      'Working distance is the gap between your eyes and the field you are working on, measured in your natural clinical posture. Set yourself up as if you were mid-procedure — same chair height, same patient position, same distance from the field — then measure from the outer corner of your eye to the point where your hands are working. Most clinicians land somewhere between 350 mm and 500 mm, but the number that matters is yours rather than the average. This measurement is what every other decision hangs off: it sets the focal length the optics are cut to, and on fixed-distance models it cannot be changed afterwards.',
-    image: {
-      src: '/workingdistance.png',
-      alt: 'Clinician demonstrating natural working distance posture during a procedure',
-      width: 1500,
-      height: 1000,
-      label: 'Working distance',
-    },
+      'Working distance is the straight line from your nasal radix, the deepest point of the bridge of your nose between the eyes, to the exact point where your instrument tips meet tissue, measured in your natural clinical posture. Set yourself up as if you were mid-procedure — same table or chair height, same patient position, same distance from the field — and have a colleague run the tape while you hold still. Most clinicians land somewhere between 350 mm and 500 mm, but the number that matters is yours rather than the average. This measurement is what every other decision hangs off: it sets the focal length the optics are cut to, and on fixed-distance models it cannot be changed afterwards.',
+    visual: 'working-distance-schematic' as const,
   },
   {
     title: 'Check your posture before you trust the number',

@@ -85,8 +85,9 @@ export default function EducationGuidePage({ params }: EducationGuideProps) {
         }
       : guide.slug === 'working-distance-for-loupes'
         ? {
-            src: '/Website images/working distance.png',
-            alt: 'Dental clinician in blue scrubs working on a patient, with a line marking working distance from eye to treatment site',
+            src: '/images/measurements/working-distance-radix-tape.jpg',
+            alt: 'Surgeon at the operating table while a colleague holds a tape measure from her nasal radix down to her instrument tips',
+            photo: true,
           }
         : guide.slug === 'how-to-measure-pupillary-distance'
           ? {

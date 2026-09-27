@@ -59,11 +59,12 @@ const faqSections = [
             <div style={{ position: 'relative', width: '100%', maxWidth: '640px', margin: '1.5rem auto', borderRadius: '24px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', background: '#050b16', padding: '12px', boxShadow: '0 24px 70px rgba(0,0,0,0.35)' }}>
               <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '16px', border: '1px solid rgba(110,231,183,0.16)', background: '#000' }}>
                 <img
-                  src="/workingdistance.png"
-                  alt="Dental professional measuring working distance"
-                  width={600}
-                  height={400}
-                  style={{ width: '100%', height: 'auto', objectFit: 'contain', display: 'block' }}
+                  src="/images/measurements/working-distance-radix-tape.jpg"
+                  alt="Surgeon at the operating table while a colleague holds a tape measure from her nasal radix down to her instrument tips"
+                  width={1122}
+                  height={1402}
+                  loading="lazy"
+                  style={{ width: '100%', height: 'auto', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: '50% 52%', display: 'block' }}
                 />
                 <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'linear-gradient(90deg, rgba(0,0,0,0.22), transparent 22%, transparent 78%, rgba(0,0,0,0.22))' }} />
               </div>
@@ -80,7 +81,7 @@ const faqSections = [
 
             <p><strong>2. Measure the Distance</strong></p>
             <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem', marginBottom: '1rem' }}>
-              <li>Place a measuring tape at the corner of your eye</li>
+              <li>Place a measuring tape at your nasal radix, the deepest point of the bridge of your nose</li>
               <li>Extend it to the object or position where your hands normally work</li>
               <li>Record this distance - this is your working distance</li>
             </ul>

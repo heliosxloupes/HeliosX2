@@ -27,7 +27,7 @@ export const faqSchemaItems: { question: string; answer: string }[] = [
   {
     question: 'How do I measure my working distance?',
     answer:
-      'Sit or stand in your normal working posture with your back and neck straight. Place a measuring tape at the corner of your eye and extend it to where your hands normally work. Record this distance — this is your working distance for loupe configuration.',
+      'Sit or stand in your normal working posture with your back and neck straight. Place a measuring tape at your nasal radix, the deepest point of the bridge of your nose, and extend it to the exact point where your instrument tips meet tissue. Record this distance — this is your working distance for loupe configuration.',
   },
   {
     question: 'How long do production and shipping take?',

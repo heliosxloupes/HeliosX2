@@ -91,8 +91,10 @@ export default function EducationGuidePage({ params }: EducationGuideProps) {
           }
         : guide.slug === 'how-to-measure-pupillary-distance'
           ? {
-              src: '/pupillary distance.png',
-              alt: 'Diagram showing pupillary distance measured between pupil centers',
+              src: '/images/measurements/pupillary-distance-ruler.jpg',
+              alt: 'Clinician in a surgical cap holding a millimetre ruler across her brow, with pupil centres marked 63 mm apart',
+              photo: true,
+              aspect: '1505 / 1045',
             }
           : null
 

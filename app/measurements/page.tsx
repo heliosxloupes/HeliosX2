@@ -69,11 +69,12 @@ const steps = [
     body:
       'Pupillary distance is the gap between the centres of your pupils, in millimetres. It determines where the two optical barrels converge, so it carries the least tolerance of any measurement here — aim to be within 1 mm. Use a well-reviewed smartphone PD app, or hold a ruler across your brow in good lighting and read the distance between pupil centres while looking straight ahead at a fixed point several metres away. Take the measurement three times and use the average; a single reading is where most errors come from. If you have an eyeglass prescription from the last couple of years, the PD is often printed on it already, and an optician-measured PD is more reliable than either method above.',
     image: {
-      src: '/pupillary distance.png',
-      alt: 'Pupillary distance measured between the centers of the pupils with a ruler held across the brow',
-      width: 1196,
-      height: 777,
+      src: '/images/measurements/pupillary-distance-ruler.jpg',
+      alt: 'Clinician in a surgical cap holding a millimetre ruler across her brow, with pupil centres marked 63 mm apart',
+      width: 1505,
+      height: 1045,
       label: 'Pupillary distance',
+      photo: true,
     },
   },
   {

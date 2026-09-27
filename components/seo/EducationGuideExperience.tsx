@@ -12,7 +12,7 @@ import ScrollProgressBar from '@/components/motion/ScrollProgressBar'
 import SectionNav from '@/components/motion/SectionNav'
 import styles from './BuyerGuide.module.css'
 
-type Diagram = { src: string; alt: string; photo?: boolean } | null
+type Diagram = { src: string; alt: string; photo?: boolean; aspect?: string } | null
 export type RelatedGuide = {
   slug: string
   title: string
@@ -105,13 +105,17 @@ export default function EducationGuideExperience({
                   className="mb-10 overflow-hidden rounded-[24px] border border-white/10 bg-[#050b16] p-3 shadow-[0_24px_70px_rgba(0,0,0,0.38)]"
                 >
                   {diagram.photo ? (
-                    <ParallaxMedia className="aspect-square rounded-2xl border border-white/10 bg-black" distance={40}>
+                    <ParallaxMedia
+                      className="rounded-2xl border border-white/10 bg-black"
+                      style={{ aspectRatio: diagram.aspect ?? '1 / 1' }}
+                      distance={40}
+                    >
                       <Image
                         src={diagram.src}
                         alt={diagram.alt}
                         fill
                         sizes="(max-width:767px) calc(100vw - 40px), 740px"
-                        className="object-cover object-[50%_48%]"
+                        className="object-cover object-[50%_45%]"
                       />
                     </ParallaxMedia>
                   ) : (

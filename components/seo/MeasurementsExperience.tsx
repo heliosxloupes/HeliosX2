@@ -22,6 +22,7 @@ type StepImage = {
   width: number
   height: number
   label?: string
+  photo?: boolean
 }
 
 type Step = {
@@ -222,7 +223,11 @@ function StepArticle({
               {step.image.label}
             </p>
           )}
-          <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white p-3">
+          <div
+            className={`relative flex items-center justify-center overflow-hidden rounded-2xl border border-white/10 ${
+              step.image.photo ? 'bg-black' : 'min-h-[280px] bg-white p-3'
+            }`}
+          >
             <motion.div
               className="w-full"
               initial={{ scale: 1.06, opacity: 0 }}
@@ -236,7 +241,7 @@ function StepArticle({
                 width={step.image.width}
                 height={step.image.height}
                 sizes="(max-width: 1023px) 100vw, 760px"
-                className="h-auto max-h-[480px] w-full object-contain"
+                className={step.image.photo ? 'h-auto w-full' : 'h-auto max-h-[480px] w-full object-contain'}
               />
             </motion.div>
           </div>

@@ -192,10 +192,6 @@ export default function CartPage() {
     router.push('/checkout')
   }
 
-  const handleEditConfig = () => {
-    router.push(items[0] ? cartEditHref(items[0], 0) : '/product')
-  }
-
   return (
     <>
       <Header />
@@ -275,12 +271,10 @@ export default function CartPage() {
                   Order summary
                 </h2>
                 {items.length > 0 && (
-                  <button
-                    onClick={handleEditConfig}
-                    className="text-[0.7rem] uppercase tracking-[0.18em] text-neutral-300 underline-offset-4 hover:underline"
-                  >
-                    Edit selection
-                  </button>
+                  <span className="text-[0.7rem] uppercase tracking-[0.18em] text-neutral-500">
+                    {items.reduce((sum, item) => sum + item.quantity, 0)}{' '}
+                    {items.reduce((sum, item) => sum + item.quantity, 0) === 1 ? 'pair' : 'pairs'}
+                  </span>
                 )}
               </div>
 
@@ -302,80 +296,63 @@ export default function CartPage() {
                   variants={listVariants}
                   initial="hidden"
                   animate="visible"
-                  className="mt-2 space-y-5 overflow-y-auto pr-2 lg:max-h-[360px]"
+                  className="mt-2 space-y-4 overflow-y-auto lg:max-h-[360px]"
                 >
                   {items.map((item, idx) => (
                     <motion.li
                       key={`${item.productSlug}-${idx}`}
                       variants={cardVariants}
-                      whileHover={{ y: -3 }}
-                      transition={{
-                        type: 'spring',
-                        stiffness: 220,
-                        damping: 20,
-                      }}
-                      className="flex gap-4 rounded-2xl bg-black/45 p-4 ring-1 ring-white/5"
+                      className="overflow-hidden rounded-2xl bg-black/45 ring-1 ring-inset ring-white/5 transition-colors duration-300 hover:bg-black/60 hover:ring-white/10"
                     >
-                      <div className="relative h-20 w-28 overflow-hidden rounded-2xl bg-neutral-800">
-                        {item.image ? (
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            fill
-                            className="object-cover"
-                          />
-                        ) : (
-                          <div className="flex h-full w-full items-center justify-center text-xs text-neutral-500">
-                            No image
-                          </div>
-                        )}
-                      </div>
+                      <div className="flex gap-4 p-4">
+                        <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-2xl bg-neutral-800">
+                          {item.image ? (
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              fill
+                              className="object-cover"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center text-xs text-neutral-500">
+                              No image
+                            </div>
+                          )}
+                        </div>
 
-                      <div className="flex flex-1 flex-col justify-between text-xs lg:text-sm">
-                        <div className="flex items-start justify-between gap-3">
-                          <div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-baseline justify-between gap-3">
                             <p className="text-[0.7rem] uppercase tracking-[0.2em] text-neutral-400">
                               {item.shortName ?? item.productSlug}
                             </p>
-                            <p className="mt-1 text-sm font-medium text-neutral-50">
-                              {item.name}
-                            </p>
-                            <div className="mt-2 space-y-1 text-[0.78rem] text-neutral-200">
-                              <p className="flex gap-2">
-                                <span className="text-neutral-400">
-                                  Magnification:
-                                </span>
-                                <span>
-                                  {item.selectedMagnification ?? 'Not selected'}
-                                </span>
-                              </p>
-                              <p className="flex gap-2">
-                                <span className="text-neutral-400">Frame:</span>
-                                <span>
-                                  {item.selectedFrameName ?? 'Not selected'}
-                                </span>
-                              </p>
-                            </div>
+                            <span className="text-sm font-semibold tabular-nums text-neutral-50">
+                              ${(item.price * item.quantity).toFixed(2)}
+                            </span>
                           </div>
-
-                          <div className="grid shrink-0 gap-2">
-                            <CartEditButton
-                              label={`Edit ${item.shortName ?? item.name}`}
-                              onClick={() => router.push(cartEditHref(item, idx))}
-                            />
-                            <CartRemoveButton
-                              label={`Remove ${item.shortName ?? item.name}`}
-                              onClick={() => handleRemoveItem(idx)}
-                            />
-                          </div>
+                          <p className="mt-1 text-sm font-medium text-neutral-50">
+                            {item.name}
+                          </p>
+                          <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[0.78rem]">
+                            <dt className="text-neutral-500">Magnification</dt>
+                            <dd className="text-neutral-200">{item.selectedMagnification ?? 'Not selected'}</dd>
+                            <dt className="text-neutral-500">Frame</dt>
+                            <dd className="truncate text-neutral-200">{item.selectedFrameName ?? 'Not selected'}</dd>
+                            <dt className="text-neutral-500">Qty</dt>
+                            <dd className="text-neutral-200">{item.quantity}</dd>
+                          </dl>
                         </div>
+                      </div>
 
-                        <div className="mt-2 flex items-center justify-between text-xs text-neutral-300">
-                          <span>Qty: {item.quantity}</span>
-                          <span className="text-sm font-semibold text-neutral-50">
-                            ${(item.price * item.quantity).toFixed(2)}
-                          </span>
-                        </div>
+                      <div className="flex items-center gap-1 border-t border-white/[0.06] px-2.5 py-1.5">
+                        <CartEditButton
+                          label={`Edit ${item.shortName ?? item.name}`}
+                          onClick={() => router.push(cartEditHref(item, idx))}
+                        />
+                        <span aria-hidden="true" className="h-4 w-px bg-white/10" />
+                        <CartRemoveButton
+                          label={`Remove ${item.shortName ?? item.name}`}
+                          onClick={() => handleRemoveItem(idx)}
+                        />
                       </div>
                     </motion.li>
                   ))}

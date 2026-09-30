@@ -5,8 +5,9 @@ import { motion, useReducedMotion } from 'framer-motion'
 const ease = [0.22, 0.61, 0.36, 1] as const
 const spring = { type: 'spring', stiffness: 420, damping: 22 } as const
 
-const pill =
-  'group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border px-3.5 py-1.5 text-[0.78rem] font-semibold uppercase tracking-[0.14em] outline-none transition-colors duration-300 focus-visible:ring-2'
+// Quiet at rest so the pair stays the focus; the tint and motion arrive on hover.
+const action =
+  'relative inline-flex min-h-9 items-center gap-2 rounded-full px-3 text-[0.72rem] font-semibold uppercase tracking-[0.16em] outline-none transition-colors duration-300 focus-visible:ring-2'
 
 type Props = { label: string; onClick: () => void }
 
@@ -24,11 +25,11 @@ export function CartEditButton({ label, onClick }: Props) {
       whileHover="hover"
       whileFocus="hover"
       whileTap={reduceMotion ? undefined : { scale: 0.95 }}
-      className={`${pill} border-white/15 bg-white/[0.03] text-neutral-200 hover:border-[#48CFC8]/50 hover:bg-[#48CFC8]/10 hover:text-white focus-visible:ring-[#48CFC8]/60`}
+      className={`${action} text-neutral-200 hover:bg-[#48CFC8]/10 hover:text-white focus-visible:ring-[#48CFC8]/60`}
     >
       <motion.svg
         viewBox="0 0 24 24"
-        className="h-4 w-4"
+        className="h-3.5 w-3.5"
         fill="none"
         stroke="currentColor"
         strokeWidth={2}
@@ -69,11 +70,11 @@ export function CartRemoveButton({ label, onClick }: Props) {
       whileHover="hover"
       whileFocus="hover"
       whileTap={reduceMotion ? undefined : { scale: 0.95 }}
-      className={`${pill} border-white/10 bg-transparent text-neutral-400 hover:border-red-400/50 hover:bg-red-500/10 hover:text-red-300 focus-visible:ring-red-400/60`}
+      className={`${action} text-neutral-400 hover:bg-red-500/10 hover:text-red-300 focus-visible:ring-red-400/60`}
     >
       <svg
         viewBox="0 0 24 24"
-        className="h-4 w-4 overflow-visible"
+        className="h-3.5 w-3.5 overflow-visible"
         fill="none"
         stroke="currentColor"
         strokeWidth={2}

@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 
 import Header from '@/components/Header'
 import { cartEditHref, getCart } from '@/lib/cart'
+import { CartEditButton, CartRemoveButton } from '@/components/cart/CartLineActions'
 import type { CartItem } from '@/lib/cart'
 import { cartItemsToGA4Items, newEventId, trackBeginCheckout, trackViewCart } from '@/lib/analytics'
 import Noise from '@/components/Noise'
@@ -357,21 +358,15 @@ export default function CartPage() {
                             </div>
                           </div>
 
-                          <div className="flex items-center gap-3">
-                            <button
-                              type="button"
+                          <div className="grid shrink-0 gap-2">
+                            <CartEditButton
+                              label={`Edit ${item.shortName ?? item.name}`}
                               onClick={() => router.push(cartEditHref(item, idx))}
-                              className="text-[0.65rem] text-neutral-400 hover:text-white"
-                            >
-                              Edit
-                            </button>
-                            <button
-                              type="button"
+                            />
+                            <CartRemoveButton
+                              label={`Remove ${item.shortName ?? item.name}`}
                               onClick={() => handleRemoveItem(idx)}
-                              className="text-[0.65rem] text-neutral-500 hover:text-red-400"
-                            >
-                              Remove
-                            </button>
+                            />
                           </div>
                         </div>
 

@@ -5,12 +5,12 @@ import { ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight, Plus, Ruler, 
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { PointerEvent as ReactPointerEvent } from 'react'
 
 import ProductReviews from '@/components/ProductReviews'
 import { useContact } from '@/components/Contact/ContactProvider'
-import { addToCart } from '@/lib/cart'
+import { addToCart, getCartEditTarget, replaceCartItem } from '@/lib/cart'
 import { magnificationPriceByProduct, PRESCRIPTION_PRICE } from '@/lib/pricing'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productFaqs } from '@/lib/product-faqs'
@@ -79,6 +79,29 @@ export default function MobileProductExperience({
   const [frameId, setFrameId] = useState(frames[0]?.id ?? '')
   const [color, setColor] = useState(frames[0]?.colors[0]?.value ?? '')
   const [prescription, setPrescription] = useState(false)
+  // Index of the bagged line being edited (opened from the cart with ?edit=N).
+  const [editIndex, setEditIndex] = useState<number | null>(null)
+  const [editQuantity, setEditQuantity] = useState(1)
+
+  useEffect(() => {
+    const target = getCartEditTarget(config.slug)
+    if (!target) return
+    const { item } = target
+    if (item.selectedMagnification && config.magnifications.includes(item.selectedMagnification)) {
+      setMag(item.selectedMagnification)
+    }
+    const frame = frames.find((entry) => entry.id === item.selectedFrameId)
+    if (frame) {
+      setFrameId(frame.id)
+      if (frame.colors.some((entry) => entry.value === item.selectedFrameColor)) {
+        setColor(item.selectedFrameColor as string)
+      }
+    }
+    setPrescription(Boolean(item.hasPrescriptionLenses))
+    setEditQuantity(Math.max(1, item.quantity))
+    setEditIndex(target.index)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [config.slug])
   const [galleryMode, setGalleryMode] = useState<'product' | 'frame'>('product')
   const [heroIndex, setHeroIndex] = useState(0)
   const galleryPointerStart = useRef<{ x: number; y: number } | null>(null)
@@ -151,12 +174,12 @@ export default function MobileProductExperience({
 
   const addConfiguredPair = () => {
     if (!available || !chosenFrame || !chosenColor) return
-    addToCart({
+    const item = {
       productSlug: config.slug,
       name: `${config.shortName} Surgical Loupes`,
       shortName: config.shortName,
       price: basePrice,
-      quantity: 1,
+      quantity: editIndex !== null ? editQuantity : 1,
       image: config.heroImages[0] ?? null,
       selectedMagnification: mag,
       selectedFrameId: chosenFrame.id,
@@ -164,7 +187,10 @@ export default function MobileProductExperience({
       selectedFrameName: `${chosenFrame.label} - ${chosenColor.name}`,
       selectedFrameImage: chosenColor.image,
       hasPrescriptionLenses: prescription,
-    })
+    }
+    // Editing a bagged pair replaces that line rather than adding a second pair.
+    const replaced = editIndex !== null && replaceCartItem(editIndex, item)
+    if (!replaced) addToCart(item)
     router.push('/cart')
   }
 
@@ -375,7 +401,7 @@ export default function MobileProductExperience({
         <div className="mx-auto flex max-w-lg items-center gap-4">
           <div className="min-w-0 flex-1"><small className="block truncate text-[11px] text-neutral-400">{config.shortName} / {mag}</small><strong className="mt-0.5 block text-xl font-medium">{money(total)} <span className="text-[10px] font-normal text-neutral-400">USD</span></strong></div>
           <button type="button" onClick={addConfiguredPair} disabled={!available} className="flex min-h-[52px] min-w-[54%] items-center justify-between rounded-md bg-emerald-100 px-5 text-sm font-semibold text-[#08261b] disabled:opacity-50">
-            Add to bag <ShoppingBag size={18} />
+            {editIndex !== null ? 'Update bag' : 'Add to bag'} <ShoppingBag size={18} />
           </button>
         </div>
       </div>

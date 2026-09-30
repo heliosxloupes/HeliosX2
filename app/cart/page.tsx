@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 import Header from '@/components/Header'
-import { getCart } from '@/lib/cart'
+import { cartEditHref, getCart } from '@/lib/cart'
 import type { CartItem } from '@/lib/cart'
 import { cartItemsToGA4Items, newEventId, trackBeginCheckout, trackViewCart } from '@/lib/analytics'
 import Noise from '@/components/Noise'
@@ -192,8 +192,7 @@ export default function CartPage() {
   }
 
   const handleEditConfig = () => {
-    const targetSlug = items[0]?.productSlug
-    router.push(targetSlug ? `/product/${targetSlug}` : '/product')
+    router.push(items[0] ? cartEditHref(items[0], 0) : '/product')
   }
 
   return (
@@ -358,14 +357,22 @@ export default function CartPage() {
                             </div>
                           </div>
 
-                          {/* Remove button */}
-                          <button
-                            type="button"
-                            onClick={() => handleRemoveItem(idx)}
-                            className="text-[0.65rem] text-neutral-500 hover:text-red-400"
-                          >
-                            Remove
-                          </button>
+                          <div className="flex items-center gap-3">
+                            <button
+                              type="button"
+                              onClick={() => router.push(cartEditHref(item, idx))}
+                              className="text-[0.65rem] text-neutral-400 hover:text-white"
+                            >
+                              Edit
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveItem(idx)}
+                              className="text-[0.65rem] text-neutral-500 hover:text-red-400"
+                            >
+                              Remove
+                            </button>
+                          </div>
                         </div>
 
                         <div className="mt-2 flex items-center justify-between text-xs text-neutral-300">

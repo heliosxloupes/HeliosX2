@@ -13,7 +13,7 @@ import Noise from '@/components/Noise'
 import ProductReviews from '@/components/ProductReviews'
 import MobileProductExperience from '@/components/mobile/MobileProductExperience'
 import { useContact } from '@/components/Contact/ContactProvider'
-import { addToCart } from '@/lib/cart'
+import { addToCart, getCartEditTarget, replaceCartItem } from '@/lib/cart'
 import { trackViewItem } from '@/lib/analytics'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productFaqs } from '@/lib/product-faqs'
@@ -362,6 +362,29 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
     defaultColor
   )
   const [quantity, setQuantity] = useState(1)
+  // Index of the bagged line being edited (opened from the cart with ?edit=N).
+  const [editIndex, setEditIndex] = useState<number | null>(null)
+  const [editPrescription, setEditPrescription] = useState(false)
+
+  useEffect(() => {
+    const target = getCartEditTarget(config.slug)
+    if (!target) return
+    const { item } = target
+    if (item.selectedMagnification && config.magnifications.includes(item.selectedMagnification)) {
+      setSelectedMag(item.selectedMagnification)
+    }
+    const frame = frameConfigs.find((entry) => entry.id === item.selectedFrameId)
+    if (frame) {
+      setSelectedFrameId(frame.id as FrameId)
+      if (frame.colors.some((entry) => entry.value === item.selectedFrameColor)) {
+        setSelectedFrameColor(item.selectedFrameColor as string)
+      }
+    }
+    setQuantity(Math.max(1, item.quantity))
+    setEditPrescription(Boolean(item.hasPrescriptionLenses))
+    setEditIndex(target.index)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [config.slug])
 
   const selectedMagnificationPrice = magnificationPriceByProduct[config.slug]?.[selectedMag]
   const basePrice = config.basePrice ?? selectedMagnificationPrice ?? 0
@@ -440,7 +463,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   const addConfiguredItem = async (email: string) => {
     if (!isAvailable) return false
 
-    addToCart({
+    const item = {
       productSlug: config.slug,
       name: `${config.shortName} Surgical Loupes`,
       shortName: config.shortName,
@@ -452,7 +475,12 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
       selectedFrameColor,
       selectedFrameName: `${currentFrameConfig.label} - ${currentColorConfig.name}`,
       selectedFrameImage: currentColorConfig.image,
-    })
+    }
+    // Editing a bagged pair replaces that line rather than adding a second pair.
+    const replaced =
+      editIndex !== null &&
+      replaceCartItem(editIndex, { ...item, hasPrescriptionLenses: editPrescription })
+    if (!replaced) addToCart(item)
     // Returning shoppers already gave an email; keep their saved cart current.
     if (email) await writeCartSession(email)
     return true
@@ -822,7 +850,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                   }`}
                 >
                   {isAvailable && <ShoppingCart className="h-4 w-4" strokeWidth={2} aria-hidden="true" />}
-                  {isAvailable ? 'Add to cart' : 'Pricing coming soon'}
+                  {isAvailable ? (editIndex !== null ? 'Update cart' : 'Add to cart') : 'Pricing coming soon'}
                 </button>
                 <p className="mt-2 text-[0.65rem] leading-relaxed text-neutral-500">
                   {isAvailable

@@ -50,18 +50,53 @@ export function getCartItemCount(): number {
   return cart.reduce((total, item) => total + item.quantity, 0)
 }
 
+function sameConfiguration(a: CartItem, b: CartItem): boolean {
+  return (
+    a.productSlug === b.productSlug &&
+    a.selectedFrameId === b.selectedFrameId &&
+    a.selectedFrameColor === b.selectedFrameColor &&
+    a.selectedMagnification === b.selectedMagnification &&
+    Boolean(a.hasPrescriptionLenses) === Boolean(b.hasPrescriptionLenses)
+  )
+}
+
+// Link from the cart back to a product page to change one bagged line.
+export function cartEditHref(item: CartItem, index: number): string {
+  return `/product/${item.productSlug}?edit=${index}`
+}
+
+// The bagged line a product page was opened to edit (via ?edit=N), if it
+// belongs to this product.
+export function getCartEditTarget(productSlug: string): { index: number; item: CartItem } | null {
+  if (typeof window === 'undefined') return null
+  const raw = new URLSearchParams(window.location.search).get('edit')
+  if (raw === null || !/^\d+$/.test(raw)) return null
+  const index = Number(raw)
+  const item = getCart()[index]
+  return item && item.productSlug === productSlug ? { index, item } : null
+}
+
+// Swap one line for its edited version instead of adding a second pair. If
+// the edit makes it identical to another line, the two are merged.
+export function replaceCartItem(index: number, item: CartItem): boolean {
+  const cart = getCart()
+  if (!cart[index] || cart[index].productSlug !== item.productSlug) return false
+  cart[index] = item
+  const duplicate = cart.findIndex((other, i) => i !== index && sameConfiguration(other, item))
+  if (duplicate >= 0) {
+    cart[duplicate].quantity += item.quantity
+    cart.splice(index, 1)
+  }
+  saveCart(cart)
+  return true
+}
+
 // Add item to cart
 export function addToCart(item: CartItem): void {
   const cart = getCart()
   
   // Check if item already exists in cart
-  const existingIndex = cart.findIndex(cartItem => 
-    cartItem.productSlug === item.productSlug &&
-    cartItem.selectedFrameId === item.selectedFrameId &&
-    cartItem.selectedFrameColor === item.selectedFrameColor &&
-    cartItem.selectedMagnification === item.selectedMagnification &&
-    Boolean(cartItem.hasPrescriptionLenses) === Boolean(item.hasPrescriptionLenses)
-  )
+  const existingIndex = cart.findIndex(cartItem => sameConfiguration(cartItem, item))
   
   if (existingIndex >= 0) {
     // Update quantity if item exists

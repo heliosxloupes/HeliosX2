@@ -6,6 +6,7 @@ import Link from 'next/link'
 
 import { useRef } from 'react'
 
+import { cartEditHref } from '@/lib/cart'
 import type { CartItem } from '@/lib/cart'
 import { PRESCRIPTION_PRICE, WARRANTY_PRICE } from '@/lib/pricing'
 import { useStickyBarOffset } from './useStickyBarOffset'
@@ -81,7 +82,10 @@ export default function MobileCartExperience({
                   <div className="min-w-0 flex-1">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-200/70">Custom loupe system</p>
                     <h2 className="mt-1 font-display text-[1.8rem] leading-none">{item.shortName ?? item.name}</h2>
-                    <p className="mt-2 text-xs leading-5 text-neutral-400">{item.selectedMagnification} / {item.selectedFrameName}</p>
+                    <p className="mt-2 text-xs leading-5 text-neutral-400">
+                      {item.selectedMagnification} / {item.selectedFrameName}
+                      <Link href={cartEditHref(item, index)} className="ml-2 text-emerald-200 underline underline-offset-4">Edit</Link>
+                    </p>
                     <div className="mt-3 flex items-center justify-between">
                       <div className="flex items-center rounded-full border border-white/15">
                         <button type="button" onClick={() => onQuantity(index, item.quantity - 1)} aria-label={`Decrease ${item.name} quantity`} className="flex h-11 w-11 items-center justify-center"><Minus size={14} /></button>

@@ -14,7 +14,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
-import { GraduationCap } from "lucide-react";
+import ResidentDiscountBadge from "@/components/home/ResidentDiscountBadge";
 import LazyVideo from "@/components/LazyVideo";
 import MobileHomeExperience from "@/components/home/MobileHomeExperience";
 
@@ -426,13 +426,7 @@ function HeroSection() {
                   variants={fadeUp}
                   transition={{ duration: 0.6, delay: 0.85 }}
                 >
-                  <Link
-                    href="/product"
-                    className="inline-flex items-center gap-2 rounded-full border border-emerald-300/30 bg-emerald-500/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-200 backdrop-blur-sm transition hover:border-emerald-300/50 hover:bg-emerald-500/16"
-                  >
-                    <GraduationCap className="h-3.5 w-3.5 shrink-0" />
-                    Resident &amp; Student Discounts
-                  </Link>
+                  <ResidentDiscountBadge />
                 </motion.div>
               </div>
 

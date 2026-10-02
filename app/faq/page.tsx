@@ -176,7 +176,7 @@ const faqSections = [
       },
       {
         q: 'What is your return policy?',
-        a: 'Orders may be cancelled for a full refund before custom production begins. After production, non-defective orders are not refundable. Returns are accepted for defective products only; exchanges for confirmed defects and authorized fit or configuration corrections require review. See our Returns and Refunds page for full terms.',
+        a: 'Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs can be cancelled for a full refund any time before production starts; after that, we cover defects and fit corrections. Every pair has a two-year limited warranty. See our Returns and Refunds page for full terms.',
       },
       {
         q: 'Where do you ship?',

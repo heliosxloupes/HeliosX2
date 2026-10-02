@@ -286,6 +286,7 @@ export default function MobileProductExperience({
         </div>
         <TraineePricing model={config.shortName} magnification={mag} price={basePrice} />
         <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs text-neutral-300">
+          <span className="flex items-center gap-1.5 font-medium text-emerald-100"><Check size={14} className="text-emerald-200" /> 30-day returns (non-prescription)</span>
           <span className="flex items-center gap-1.5"><Check size={14} className="text-emerald-200" /> Custom fit</span>
           <span className="flex items-center gap-1.5"><Check size={14} className="text-emerald-200" /> 2-year limited warranty</span>
           <span className="flex items-center gap-1.5"><Check size={14} className="text-emerald-200" /> Affirm &amp; Klarna at checkout</span>
@@ -389,7 +390,7 @@ export default function MobileProductExperience({
         </details>
         <details className="group border-b border-white/15">
           <summary className="flex min-h-[64px] cursor-pointer list-none items-center justify-between py-4 text-base [&::-webkit-details-marker]:hidden">Shipping, fit &amp; warranty <ChevronDown size={18} className="text-emerald-200 transition-transform group-open:rotate-180" /></summary>
-          <div className="space-y-3 pb-6 text-sm leading-6 text-neutral-400"><p>Custom production usually takes 1-2 weeks after your measurements are approved. Standard worldwide shipping is included.</p><p>The two-year limited warranty covers manufacturer-related defects.</p><p>Orders are fully refundable before custom production begins.</p></div>
+          <div className="space-y-3 pb-6 text-sm leading-6 text-neutral-400"><p>Custom production usually takes 1-2 weeks after your measurements are approved. Standard worldwide shipping is included.</p><p>The two-year limited warranty covers manufacturer-related defects.</p><p>Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs are fully refundable until custom production begins.</p></div>
         </details>
       </section>
 

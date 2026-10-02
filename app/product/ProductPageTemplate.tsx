@@ -393,7 +393,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   const isAvailable = config.isAvailable ?? currentUnitPrice > 0
   const priceLabel = config.priceLabel ?? `$${currentUnitPrice}.00`
   const subtotal = currentUnitPrice * quantity
-  const riskFreeCopy = 'Risk-free. Fully refundable before custom production begins.'
+  const riskFreeCopy = '30-day returns on non-prescription pairs. Prescription pairs are fully refundable until production begins.'
   const isErgonomicModel = ['medusa', 'apollo'].includes(config.slug)
   const heroAggregateRating = getProductAggregateRating(config.slug)
   const productFaqList = productFaqs[config.slug] ?? []

@@ -26,7 +26,7 @@ export default function AfterCheckoutSteps({ className = '' }: { className?: str
         ))}
       </ol>
       <p className="mt-3 text-neutral-400">
-        Fully refundable until production starts. Resident, fellow or student? Email us for your {TRAINEE_PERCENT_OFF}% code and enter it at checkout.
+        <strong className="font-medium text-neutral-100">30-day returns</strong> on non-prescription pairs; prescription pairs are refundable until production starts. Resident, fellow or student? Email us proof of your training status and, once we have verified it, we send a code for {TRAINEE_PERCENT_OFF}% off.
       </p>
     </div>
   )

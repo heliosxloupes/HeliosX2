@@ -668,7 +668,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
           'Step 2: submit PD, working distance, prescription, posture notes via the linked form.',
           'Step 3: HeliosX confirms the fit detail; production begins.',
           'Step 4: production typically takes 1–2 weeks, followed by destination-dependent shipping.',
-          'Refund and modification policy: full refund any time before custom production begins; authorized fit or configuration modifications are available after delivery.',
+          'Refund and modification policy: 30-day returns on non-prescription pairs; prescription pairs fully refundable until custom production begins, with fit corrections after delivery.',
         ],
       },
       valueSection,
@@ -682,7 +682,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       { feature: 'Ergonomic prismatic price', heliosx: '$1,695 (Medusa, Apollo)', other: 'Commonly $3,500–$5,500+' },
       { feature: 'Headlight integration', heliosx: 'Sold separately; no proprietary bundle', other: 'Often bundled with proprietary headlight systems' },
       { feature: 'Resident / student access pricing', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'Dental-school programs common; surgical-resident access varies' },
-      { feature: 'Refund and modification policy', heliosx: 'Full refund before custom production begins; authorized modifications after delivery', other: 'Varies; restocking fees common' },
+      { feature: 'Refund and modification policy', heliosx: '30-day returns on non-prescription pairs; prescription pairs refundable until production', other: 'Varies; restocking fees common' },
     ],
     competitorName: 'Typical legacy loupe brand',
     verdict:
@@ -716,7 +716,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'What if my loupes do not fit when they arrive?',
         answer:
-          'Orders are fully refundable until custom production begins. Once production begins, the custom order is no longer refundable. After delivery, authorized returns are available for fit or configuration modifications, while manufacturer-related defects are covered by the two-year limited warranty.',
+          'Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs are fully refundable until custom production begins; after that, we cover fit corrections and manufacturer-related defects under the two-year limited warranty.',
       },
       {
         question: 'Where are HeliosX loupes manufactured?',
@@ -5201,7 +5201,7 @@ const buyerQuestionPages: SeoLandingPage[] = [
         bullets: [
           'Ask every brand you are considering for an itemized quote at the same magnification and optical design.',
           'Use your eligible student or resident price if that is what you would actually pay.',
-          'Read the return terms before you pay: HeliosX orders are fully refundable until custom production begins.',
+          'Read the return terms before you pay: non-prescription HeliosX pairs come with 30-day returns, and prescription pairs are fully refundable until custom production begins.',
         ],
         sourceLabel: 'HeliosX prices and buying costs',
         sourceHref: '/how-much-do-surgical-loupes-cost',
@@ -5305,7 +5305,7 @@ const buyerQuestionPages: SeoLandingPage[] = [
       {
         title: 'Warranty and returns outside the US',
         body:
-          'The same terms apply wherever you live. Orders are fully refundable until custom production begins. After that, non-defective orders are not refundable, because each pair is made to your measurements. Manufacturing defects are covered by the two-year limited warranty from the delivery date.',
+          'The same terms apply wherever you live. Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs are fully refundable until custom production begins. Manufacturing defects are covered by the two-year limited warranty from the delivery date.',
         bullets: [
           'Warranty details: /warranty.',
           'Returns and authorization: /returns. We respond within one business day.',
@@ -5411,7 +5411,7 @@ const buyerQuestionPages: SeoLandingPage[] = [
           `Newton ${priceRange('newton')} and Galileo ${priceRange('galileo')}: Galilean, 2.5x–3.5x.`,
           `Kepler ${priceRange('kepler')}: conventional prismatic, 4.0x–6.0x.`,
           `Apollo ${priceRange('apollo')} and Medusa ${priceRange('medusa')}: ergonomic prismatic.`,
-          'Standard worldwide shipping included; fully refundable until custom production begins.',
+          'Standard worldwide shipping included; 30-day returns on non-prescription pairs.',
         ],
         sourceLabel: 'LumaDent Ergo Air Ti published price, checked September 10, 2026',
         sourceHref: 'https://www.lumadent.com/products/ergo-air-ti-ttl-loupes',
@@ -5438,7 +5438,7 @@ const buyerQuestionPages: SeoLandingPage[] = [
       {
         question: 'Do HeliosX loupes come with a warranty?',
         answer:
-          'Yes. Every HeliosX loupe has a two-year limited warranty covering manufacturer-related defects from the delivery date. Orders are fully refundable until custom production begins. See /warranty and /returns.',
+          'Yes. Every HeliosX loupe has a two-year limited warranty covering manufacturer-related defects from the delivery date. Non-prescription pairs can be returned within 30 days of delivery, and prescription pairs are fully refundable until custom production begins. See /warranty and /returns.',
       },
     ],
     datePublished: buyerQuestionDate,
@@ -6480,7 +6480,7 @@ educationGuides.push({
         'Galileo and Newton start around $695 — competitive with disposable-quality knockoffs but built around real custom IPD and working-distance measurement.',
         'Apollo and Medusa start around $1,695 — typically 50 to 70 percent less than equivalent ergonomic prismatic loupes from legacy brands.',
         'Kepler starts around $1,195 — the most accessible entry into high-magnification loupe territory.',
-        'Risk-free before production: each order remains fully refundable until the custom build enters production.',
+        '30-day returns on non-prescription pairs; prescription pairs stay fully refundable until production.',
       ],
     },
     {
@@ -6524,7 +6524,7 @@ educationGuides.push({
     {
       question: 'Can I order HeliosX loupes before I know my PD and working distance?',
       answer:
-        'Yes. You pick the system and magnification at checkout, then submit your pupillary distance and working distance via the measurement flow afterward. The build only starts once your measurements are confirmed, so the order stays fully refundable up to that point.',
+        'Yes. You pick the system and magnification at checkout, then submit your pupillary distance and working distance via the measurement flow afterward. The build only starts once your measurements are confirmed, so the order stays fully refundable up to that point. Non-prescription pairs also come with 30-day returns after delivery.',
     },
   ],
   citations: [

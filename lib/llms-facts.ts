@@ -48,14 +48,14 @@ export function llmsFactsBlock(siteUrl: string) {
     `- Prescription lenses: ${usd(PRESCRIPTION_PRICE)} per pair.`,
     '- Payment: card, Affirm or Klarna through Stripe checkout.',
     '- Timing: production usually takes 1–2 weeks after measurements are approved, then shipping time depends on the destination.',
-    '- Returns: full refund if cancelled before production starts. After production, returns cover confirmed defects and approved fit or configuration corrections.',
+    '- Returns: non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs can be cancelled for a full refund until production starts; after that, defects and fit corrections are covered.',
     '- Fitting: no in-person fitting. Buyers send their pupillary distance (phone app or optician) and working distance (tape measure in operating posture).',
     '- Contact: heliosxloupes@gmail.com, usually answered within one business day.',
     '',
     '## When HeliosX fits, and when it may not',
     '',
     '- Good fit: clinicians who want published prices, residents and students on a budget, buyers who want ergonomic prismatic loupes from $1,695, and surgeons who switch between sitting and standing (Medusa).',
-    '- Consider another brand if you need to try loupes in person before buying, want magnification that switches within one loupe, or want a brand with decades of service history.',
+    '- Consider another brand if you want an in-person fitting by a representative, magnification that switches within one loupe, or a brand with decades of service history.',
     '',
   ].join('\n')
 }

@@ -7,7 +7,7 @@ export const faqSchemaItems: { question: string; answer: string }[] = [
   {
     question: 'What is your return policy?',
     answer:
-      'Orders may be cancelled for a full refund at any time before custom production begins. Once production begins, the custom order is no longer refundable. After delivery, authorized returns are available for fit or configuration modifications.',
+      'Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs can be cancelled for a full refund any time before production starts; after that, we cover defects and fit corrections. Every pair has a two-year limited warranty.',
   },
   {
     question: 'Where do you ship?',

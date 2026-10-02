@@ -119,7 +119,8 @@ export default function MeasurementPage({ params }: { params: { token: string } 
                 <p className="text-xs uppercase tracking-[0.28em] text-neutral-500">Custom fit</p>
                 <h1 className="mt-2 text-3xl font-semibold">Submit your HeliosX measurements</h1>
                 <p className="mt-3 text-sm leading-6 text-neutral-400">
-                  Your order remains fully refundable until custom production begins. After you
+                  Prescription orders remain fully refundable until custom production begins, and
+                  non-prescription pairs can be returned within 30 days of delivery. After you
                   submit these measurements, we review your fit details before releasing the order to production.
                 </p>
                 <div className="mt-6 grid gap-4">

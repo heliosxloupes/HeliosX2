@@ -20,7 +20,7 @@ export default function TermsPage() {
             HeliosX surgical loupes are custom-fit products. After checkout, customers must submit required measurements before production begins.
           </p>
           <p className="text-neutral-300">
-            Orders may be cancelled for a full refund at any time before custom production begins. Once custom production begins, non-defective orders are no longer refundable. After delivery, returns are accepted for confirmed manufacturing defects only. Exchanges are accepted after review for confirmed defects and authorized fit or configuration corrections. Manufacturer-related defects remain covered by the two-year limited warranty.
+            Non-prescription pairs may be returned within 30 days of delivery, in their original condition with the case, for a full refund of the loupes. Prescription pairs may be cancelled for a full refund at any time before custom production begins; once production begins they are not returnable for a change of mind, and pairs that do not match the approved measurements are corrected or remade. Manufacturer-related defects are covered by the two-year limited warranty.
           </p>
           <p className="text-neutral-300">
             Shipping updates are provided by email when tracking is available. Contact heliosxloupes@gmail.com for order, refund, or support questions.

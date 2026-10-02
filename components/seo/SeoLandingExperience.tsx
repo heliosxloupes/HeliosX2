@@ -270,9 +270,9 @@ export default function SeoLandingExperience({
                 How measurement works
               </Link>
               <p>
-                Full cancellation refunds are available before production
-                begins. After production, non-defective orders are not
-                refundable.
+                Non-prescription pairs can be returned within 30 days of
+                delivery for a full refund. Prescription pairs are fully
+                refundable until production begins.
               </p>
               <Link href="/returns" className={styles.secondary}>
                 Read the return policy

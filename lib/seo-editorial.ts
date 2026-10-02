@@ -4,7 +4,7 @@ import type {
   SeoLandingPage,
   EducationGuide,
 } from './seo-content'
-import { magnificationPriceByProduct, PRESCRIPTION_PRICE, TRAINEE_PERCENT_OFF, traineePrice } from './pricing'
+import { magnificationPriceByProduct, PRESCRIPTION_PRICE, TRAINEE_PERCENT_OFF } from './pricing'
 
 // Reviewed commercial content. Keep facts separate from brand preference;
 // competitor details below were checked against primary sources on 2026-09-10.
@@ -35,7 +35,7 @@ const fit = section(
   'Your loupes are made to your configuration. After checkout, we collect your measurements and review them before custom production. Ask about your working distance, prescription, or frame before ordering if any of those choices are uncertain.',
   [
     'Measure in the posture you actually use at work: /measurements.',
-    'Cancellation is fully refundable before production begins. After production, non-defective orders are not refundable.',
+    'Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs are fully refundable until production begins.',
     'Defective-product returns and authorized fit or configuration exchanges are subject to review: /returns.',
   ],
 )
@@ -77,7 +77,7 @@ const baseFaqs = [
   ),
   faq(
     'Can I return loupes if I change my mind?',
-    'You can cancel for a full refund before custom production begins. Once production begins, non-defective orders are not refundable. Defective-product returns and approved fit or configuration exchanges require authorization. Read /returns before ordering.',
+    'Yes. Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs can be cancelled for a full refund until production begins; after that, we cover defects and fit corrections. Read /returns for the details.',
   ),
 ]
 
@@ -324,7 +324,7 @@ for (const [slug, title, context] of [
         [
           'Newton starts at $695; Galileo starts at $795.',
           'Kepler starts at $1,195; Apollo and Medusa start at $1,695.',
-          'Our custom-production return terms differ from a no-obligation trial. Read them before you buy.',
+          '30-day returns on non-prescription pairs, so you can try them in your own work.',
         ],
       ),
       ...brandProfiles,
@@ -607,7 +607,7 @@ revisions['student-loupe-comparison'] = {
   faqs: [
     faq(
       'How does the HeliosX student discount work?',
-      `Verified students, residents and fellows get ${TRAINEE_PERCENT_OFF}% off any model. Email proof of your training status, such as a student ID, enrollment letter or schedule, and we send a code to use at checkout. Newton at 2.5x comes to $${traineePrice(695).toFixed(2)}.`,
+      `Verified students, residents and fellows get ${TRAINEE_PERCENT_OFF}% off any model. Email proof of your training status, such as a student ID, enrollment letter or schedule, and once we have verified it, we send a code to use at checkout.`,
     ),
     faq(
       'What magnification should a student buy first?',
@@ -1163,7 +1163,7 @@ revisions['surgical-loupes'] = {
       [
         'Order online and pay by card, Affirm or Klarna.',
         'Send your pupillary distance, from a phone app or an optician, and your working distance.',
-        'We confirm your build, make it in about 1–2 weeks and ship it free. You can cancel for a full refund until production starts.',
+        'We confirm your build, make it in about 1–2 weeks and ship it free. Non-prescription pairs come with 30-day returns.',
       ],
     ),
   ],
@@ -1190,7 +1190,7 @@ revisions['surgical-loupes'] = {
     ),
     faq(
       'Can I return custom surgical loupes?',
-      'You can cancel for a full refund any time before production starts. After that, each pair is made to your measurements, so returns cover confirmed defects and approved fit corrections. Read /returns for the details.',
+      'Yes. Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs can be cancelled for a full refund until production starts. Read /returns for the details.',
     ),
   ],
 }
@@ -1264,7 +1264,7 @@ revisions['dental-loupes'] = {
       [
         'Step-by-step measuring guide: /measurements.',
         'Production takes about 1–2 weeks after we approve your measurements, and worldwide shipping is included.',
-        'You can cancel for a full refund until production starts.',
+        'Non-prescription pairs come with 30-day returns; prescription pairs are refundable until production starts.',
       ],
     ),
   ],
@@ -1472,14 +1472,14 @@ revisions['heliosx-loupes-review'] = {
     ),
     section(
       'Return policy',
-      'You can cancel for a full refund before production starts. Because each pair is made to your measurements, returns after production cover confirmed defects and approved fit or configuration corrections.',
+      'Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs can be cancelled for a full refund before production starts; after that, we cover defects and fit corrections.',
       ['Full policy: /returns.'],
     ),
     section(
       'When another brand may suit you better',
       'If one of these matters more to you than price, look elsewhere first.',
       [
-        'You want to try loupes in person before buying. Brands with representative demonstrations or trial periods are the safer route.',
+        'You want a representative to fit you in person before ordering.',
         'You need magnification that switches within one loupe. Compare ExamVision and Admetec: /examvision-alternatives.',
         'You want a brand with decades of service history behind it, such as Orascoptic, SurgiTel or Designs for Vision.',
       ],
@@ -1496,7 +1496,7 @@ revisions['heliosx-loupes-review'] = {
     ),
     faq(
       'Does HeliosX offer a trial period?',
-      'There is no formal trial. You can cancel for a full refund until production starts, and we confirm your measurements with you before anything is built.',
+      'Yes, in effect. Non-prescription pairs can be returned within 30 days of delivery for a full refund, so you can try them in your own work. Prescription pairs can be cancelled for a full refund until production starts.',
     ),
     faq(
       'How long does HeliosX take to deliver?',
@@ -1967,7 +1967,7 @@ function expandThinGuides(guides: EducationGuide[]) {
           'How HeliosX handles your prescription',
           `Prescription lenses add ${dollars(PRESCRIPTION_PRICE)} per pair. Choose the option at checkout, then submit your prescription with your measurements after ordering. We review the details before custom production and contact you if anything needs clarification.`,
           [
-            'Cancellation is fully refundable before production begins.',
+            '30-day returns on non-prescription pairs; prescription pairs are refundable until production begins.',
             'Production usually takes 1–2 weeks after your measurements are approved.',
             'Standard worldwide shipping is included in the listed price.',
           ],
@@ -2056,7 +2056,7 @@ function expandThinGuides(guides: EducationGuide[]) {
           'Step 5: Read the terms before you pay',
           'Custom loupes are made to your measurements, so return terms matter more than for off-the-shelf products. Read the warranty and return policy of every brand you compare, and ask what happens if the fit needs correcting.',
           [
-            'HeliosX: fully refundable before production begins; two-year limited warranty.',
+            'HeliosX: 30-day returns on non-prescription pairs, prescription pairs refundable until production begins, two-year limited warranty.',
             'Returns policy: /returns. Warranty: /warranty.',
           ],
         ),

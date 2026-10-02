@@ -500,7 +500,7 @@ export default function CartPage() {
                 />
                 {emailError && <p className="text-xs text-red-300">{emailError}</p>}
                 <p className="text-[0.65rem] text-neutral-500">
-                  Risk-free. Fully refundable before custom production begins.
+                  30-day returns on non-prescription pairs. Prescription pairs are fully refundable until production begins.
                 </p>
               </div>
 

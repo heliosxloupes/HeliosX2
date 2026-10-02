@@ -444,7 +444,11 @@ function oneYearFromTodayISO(): string {
 const defaultMerchantReturnPolicy = {
   '@type': 'MerchantReturnPolicy',
   applicableCountry: ['US', 'CA', 'GB', 'AU', 'IE', 'NZ'],
-  returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+  // 30-day returns on non-prescription pairs (prescription pairs: refundable
+  // until production). Add returnFees once return shipping cost is decided.
+  returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+  merchantReturnDays: 30,
+  returnMethod: 'https://schema.org/ReturnByMail',
   merchantReturnLink: absoluteUrl('/returns'),
 }
 

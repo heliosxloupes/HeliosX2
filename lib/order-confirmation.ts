@@ -26,7 +26,7 @@ For PD, we recommend using PDCheck AR by EyeQue on iPhone. Download the app here
 
 After measuring, reply directly to this email with a screenshot of your PDCheck AR result, or submit your details through your secure measurement page: {{measurement_url}}
 
-Your order remains fully refundable until custom production begins.`
+Prescription orders remain fully refundable until custom production begins. Non-prescription pairs can be returned within 30 days of delivery for a full refund.`
 
 function compactDetails(details: Array<string | null | undefined>) {
   return details

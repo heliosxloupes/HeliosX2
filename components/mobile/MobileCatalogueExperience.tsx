@@ -109,7 +109,7 @@ export default function MobileCatalogueExperience() {
         </p>
         <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-xs text-neutral-300">
           <li className="flex items-center gap-1.5"><Check size={14} className="text-emerald-200" /> 2-year limited warranty</li>
-          <li className="flex items-center gap-1.5"><Check size={14} className="text-emerald-200" /> Refundable until production</li>
+          <li className="flex items-center gap-1.5"><Check size={14} className="text-emerald-200" /> 30-day returns</li>
           <li className="flex items-center gap-1.5"><Check size={14} className="text-emerald-200" /> Residents &amp; students save {TRAINEE_PERCENT_OFF}%</li>
         </ul>
         <div className="mt-7 border-t border-white/10 pt-5">

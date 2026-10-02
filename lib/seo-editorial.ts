@@ -4,11 +4,11 @@ import type {
   SeoLandingPage,
   EducationGuide,
 } from './seo-content'
-import { magnificationPriceByProduct, PRESCRIPTION_PRICE } from './pricing'
+import { magnificationPriceByProduct, PRESCRIPTION_PRICE, TRAINEE_PERCENT_OFF } from './pricing'
 
 // Reviewed commercial content. Keep facts separate from brand preference;
 // competitor details below were checked against primary sources on 2026-09-10.
-const reviewed = '2026-09-20'
+const reviewed = '2026-10-02'
 const dollars = (value: number) => `$${value.toLocaleString('en-US')}`
 const range = (model: string) => {
   const prices = Object.values(magnificationPriceByProduct[model])
@@ -1069,6 +1069,586 @@ for (const [slug, title] of [
       ],
     ),
   ]
+}
+
+// Oct 2 2026: /surgical-loupes, /dental-loupes and four other pages still
+// inherited their body from /best-loupes (78% identical text between the two
+// hubs), and the prismatic and ergonomic comparisons shared one body (96%).
+// Google ranked /surgical-loupes around position 60 and left /dental-loupes
+// unindexed. Each page below now answers its own query with HeliosX's
+// published specifications, and links down to the specialty pages.
+const posturePaper =
+  'https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2023.1257365/full'
+
+revisions['surgical-loupes'] = {
+  title: 'Surgical loupes',
+  metaTitle: 'Surgical Loupes: Types, Magnification & Prices | HeliosX',
+  description:
+    'How to choose surgical loupes: Galilean or prismatic optics, magnification by specialty, working distance, weight and price. Five custom-fit models from $695.',
+  intro:
+    'Surgical loupes are a pair of small telescopes mounted in a spectacle frame and focused at your working distance, so fine anatomy looks larger without you leaning in. Choosing a pair comes down to the optical design, the magnification, the working distance and the fit. This guide covers each one using the published specifications and prices of the five HeliosX models, from $695.',
+  recommendedProducts: ['Galileo', 'Kepler', 'Apollo', 'Medusa'],
+  comparisonRows: undefined,
+  verdict: undefined,
+  sections: [
+    section(
+      'How surgical loupes work',
+      'Each eyepiece is a telescope, and the two are angled to meet at one point: your working distance, measured from your eyes to the tissue. Magnification makes that point look larger. In exchange you see a smaller area in focus and have less room to move before the image blurs. Most choices below are a trade between those numbers and the weight on your nose.',
+      [
+        'Magnification: how much larger the field appears. Most surgical work sits between 2.5x and 4.0x, with 5.0x and above for fine vessel and nerve work.',
+        'Field of view: the width you see in focus. Galileo shows 150–170 mm at 2.5x; Kepler shows 60–75 mm at 4.0x.',
+        'Depth of field: how far you can move before focus drops off. It shrinks as magnification rises.',
+      ],
+    ),
+    section(
+      'Galilean, prismatic or ergonomic prismatic',
+      'Galilean loupes use a short two-lens telescope. They are light and give a wide, deep view, and they are usually offered up to about 3.5x because the field narrows and the edges soften beyond that. Prismatic loupes fold the light path through prisms, which allows higher magnification with a flatter image, at the cost of weight. Ergonomic prismatic loupes also angle the line of sight downward, so you can look into the field with your head closer to upright.',
+      [
+        'Galilean: Newton (2.5x–3.5x, 40–50 g with frame) and Galileo (2.5x–3.5x, 200 mm depth of field).',
+        'Conventional prismatic: Kepler (4.0x–6.0x, 68–85 g with frame).',
+        'Ergonomic prismatic: Apollo (3.0x–6.0x, 55–58.2 g with frame) and Medusa (3.0x–8.5x, 56–65 g with frame, adjustable working distance).',
+      ],
+      '/education/galilean-vs-prismatic-loupes',
+      'Galilean vs prismatic loupes, explained',
+    ),
+    section(
+      'Magnification by surgical specialty',
+      'Choose the lowest magnification that shows the hardest step you do routinely. Going higher than you need narrows the field and makes every small head movement visible. These are common starting ranges; each specialty page covers the procedures behind them.',
+      [
+        'General surgery: 2.5x–3.5x for open abdominal, hernia and soft tissue work. /general-surgery-loupes.',
+        'Orthopedics: 2.5x–3.5x for joint replacement, 3.5x–5.0x for hand and foot work. /orthopedic-surgery-loupes.',
+        'Spine: 3.0x–4.5x for exposure and decompression. /spine-surgery-loupes.',
+        'Vascular: 3.0x–5.0x for anastomosis and bypass. /vascular-surgery-loupes.',
+        'Hand surgery: 4.0x–5.0x for tendon and nerve repair, more for digital vessels. /hand-surgery-loupes.',
+        'Cardiothoracic, neurosurgery and ENT each weigh loupes against the microscope: /cardiac-surgery-loupes, /neurosurgery-loupes, /ent-otolaryngology-loupes.',
+      ],
+    ),
+    section(
+      'Set the working distance from your real posture',
+      'Working distance runs from your eyes to the point where your instruments meet tissue, measured the way you actually stand or sit at the table. Taller surgeons and those who operate standing usually need a longer distance. If you split your cases between sitting and standing, any fixed distance is a compromise, and that is the problem Medusa’s adjustable 300–600 mm range was built for.',
+      [
+        'Measure at the table with a tape from the bridge of your nose to your instrument tips: /measurements.',
+        'Fixed options: Apollo is built at 420, 450, 500 or 550 mm, Kepler in four ranges between 280 and 600 mm, Newton within 300–550 mm and Galileo within 300–580 mm.',
+        'How to choose a distance: /education/working-distance-for-loupes.',
+      ],
+    ),
+    section(
+      'Weight over a long case',
+      'Everything in the loupe rests on your nose and ears for the length of the case, and a headlight adds to it. Galilean pairs suit long lists of shorter cases. Prismatic pairs carry more glass forward of the frame, so nose pad fit and balance matter more.',
+      [
+        'Newton: 40 g at 2.5x, 50 g at 3.5x, with frame.',
+        'Apollo 55–58.2 g and Medusa 56–65 g, with frame.',
+        'Kepler: 68 g at 4.0x to 85 g at 6.0x, with frame.',
+      ],
+    ),
+    section(
+      'Plan lights and prescriptions before ordering',
+      `A prescription is built into the carrier lenses, so the magnified view and the room around it are both sharp; prescription lenses add ${dollars(PRESCRIPTION_PRICE)}. A headlight changes the total weight and needs a compatible mount, so ask which lights fit your frame before the loupes are made.`,
+      [
+        'Choosing a loupe light: /dental-loupes-with-light.',
+        'How prescription loupes work: /education/prescription-loupes-guide.',
+      ],
+    ),
+    section(
+      'What surgical loupes cost',
+      `HeliosX publishes every price: Newton ${range('newton')}, Galileo ${range('galileo')}, Kepler ${range('kepler')}, Apollo ${range('apollo')} and Medusa ${range('medusa')}. Each includes worldwide shipping and a two-year limited warranty, and verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off. Brands that sell through representatives usually quote individually, so compare a finished quote at the same magnification and optical design.`,
+      [
+        'Prices across the category and what they include: /how-much-do-surgical-loupes-cost.',
+        'Seven brands compared: /best-surgical-loupe-brands.',
+      ],
+    ),
+    section(
+      'Ordering without a fitting appointment',
+      'A rep fitting comes down to two measurements: your pupillary distance and your working distance. Both can be taken at home, and we review them before anything is built.',
+      [
+        'Order online and pay by card, Affirm or Klarna.',
+        'Send your pupillary distance, from a phone app or an optician, and your working distance.',
+        'We confirm your build, make it in about 1–2 weeks and ship it free. You can cancel for a full refund until production starts.',
+      ],
+    ),
+  ],
+  faqs: [
+    faq(
+      'What magnification is best for surgical loupes?',
+      'For most surgeons a first pair falls between 2.5x and 3.5x, which keeps a wide field and plenty of depth. Fine vessel, nerve and tendon work usually calls for 4.0x to 5.0x. Choose the lowest magnification that shows your hardest routine step clearly.',
+    ),
+    faq(
+      'Are prismatic loupes better than Galilean loupes for surgery?',
+      'Not by default. Prismatic loupes give a sharper image at 4.0x and above, and ergonomic versions let you work with your head more upright. Galilean loupes are lighter and show a wider field at 2.5x to 3.5x. The magnification you need decides it.',
+    ),
+    faq(
+      'Do I need an in-person fitting for surgical loupes?',
+      'No. A fitting comes down to your pupillary distance and working distance. You can measure both at home, and HeliosX reviews them before production.',
+    ),
+    faq(
+      'Can surgical loupes include my prescription?',
+      `Yes. Prescription lenses are built into the frame for ${dollars(PRESCRIPTION_PRICE)}. Send your current prescription after ordering, including any reading addition.`,
+    ),
+    faq(
+      'Do residents get a discount on surgical loupes?',
+      `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email proof of your training status and we send a code to use at checkout.`,
+    ),
+    faq(
+      'Can I return custom surgical loupes?',
+      'You can cancel for a full refund any time before production starts. After that, each pair is made to your measurements, so returns cover confirmed defects and approved fit corrections. Read /returns for the details.',
+    ),
+  ],
+}
+
+revisions['dental-loupes'] = {
+  title: 'Dental loupes',
+  metaTitle: 'Dental Loupes: Magnification, Posture & Prices | HeliosX',
+  description:
+    'Choose dental loupes by role: magnification for hygiene, restorative, endo and implant work, seated posture, lights and weight. Five models from $695.',
+  intro:
+    'Dental loupes magnify the mouth at your seated working distance. Hygienists and general dentists usually work at 2.5x to 3.5x, while endodontics, periodontal surgery and implants call for more. The right pair also depends on how you sit, whether you add a light and how many hours a day you wear it. Here is how to choose, with HeliosX models from $695.',
+  recommendedProducts: ['Newton', 'Galileo', 'Apollo', 'Medusa'],
+  comparisonRows: undefined,
+  verdict: undefined,
+  sections: [
+    section(
+      'Magnification by dental role',
+      'Start from the most detailed task you do every day, then pick the lowest magnification that shows it. More magnification narrows the field, so a hygienist who wants a full quadrant in view needs a different pair from an endodontist locating a canal.',
+      [
+        'Hygiene: 2.5x–3.0x for scaling, probing and calculus detection across a full day. /loupes-for-dental-hygiene.',
+        'Dental school: 2.5x is the usual first pair, but check your program’s requirements. /loupes-for-dental-students.',
+        'General and restorative dentistry: 2.5x–3.5x for preparations, margins and caries.',
+        'Endodontics: 4.5x–6.0x for canal location and access, alongside the microscope. /loupes-for-endodontics.',
+        'Periodontics and implants: 3.0x–5.0x for surgery and placement. /loupes-for-periodontics and /loupes-for-dental-implants.',
+        'Orthodontics: 2.5x–3.5x for bonding and wire work. /loupes-for-orthodontics.',
+      ],
+    ),
+    section(
+      'Posture in the dental chair',
+      'Dentistry means close, seated work with the head tipped forward for hours, which is why neck and shoulder strain are so common in the profession. Your loupes set that head angle. The further the telescopes point down (the declination angle), the less you need to bend your neck. Ergonomic prismatic loupes go further by bending the line of sight, so you look down into the mouth with your head closer to upright.',
+      [
+        'In a 2024 crossover trial, high-tilt prismatic loupes reduced surgeons’ head inclination by 22–26° compared with traditional loupes (Fan et al., Frontiers in Public Health). The study measured surgeons in simulated tasks, not dentists.',
+        'HeliosX ergonomic prismatic options: Apollo (3.0x–6.0x) and Medusa (3.0x–8.5x, adjustable working distance).',
+        'What the posture research does and does not show: /education/ergonomic-loupes-neck-pain.',
+      ],
+      posturePaper,
+      'Fan et al., Frontiers in Public Health (2024)',
+    ),
+    section(
+      'Field of view across the arch',
+      'Field of view is how much of the mouth stays in focus without moving your head. It narrows as magnification rises, which is the main reason most clinicians start at 2.5x. Depth of field matters as much, because it decides how far you can lean before the image blurs.',
+      [
+        'Galileo: 150–170 mm at 2.5x and 110–130 mm at 3.5x, with 200 mm depth of field.',
+        'Newton: 80–120 mm at 2.5x and 60–100 mm at 3.5x, with 200 mm depth of field.',
+      ],
+    ),
+    section(
+      'Weight across a full schedule',
+      'A hygiene column or a restorative day can mean eight hours in loupes. All of that weight rests on the bridge of your nose, and a light adds more.',
+      [
+        'Newton: 40 g at 2.5x, 45 g at 3.0x and 50 g at 3.5x, with frame.',
+        'Ergonomic prismatic: Apollo 55–58.2 g and Medusa 56–65 g, with frame.',
+      ],
+    ),
+    section(
+      'Lights and composite curing',
+      'A loupe light sends illumination along your line of sight, into posterior areas the overhead light misses. If you place composite, use an orange filter so the light does not start curing the material early. Decide on a light before ordering, because the mount and total weight depend on it.',
+      ['How to choose a loupe light: /dental-loupes-with-light.'],
+    ),
+    section(
+      'What dental loupes cost',
+      `HeliosX publishes every price: Newton ${range('newton')}, Galileo ${range('galileo')}, Apollo ${range('apollo')} and Medusa ${range('medusa')}, with shipping and a two-year limited warranty included. Prescription lenses add ${dollars(PRESCRIPTION_PRICE)}. Verified dental students and residents get ${TRAINEE_PERCENT_OFF}% off.`,
+      [
+        'Dental brands compared with published prices: /best-dental-loupe-brands.',
+        'What else to budget for: /how-much-do-surgical-loupes-cost.',
+      ],
+    ),
+    section(
+      'Ordering without a rep visit',
+      'Measure your working distance seated in your normal operating position, from the bridge of your nose to the tooth you are working on. Your pupillary distance can come from a phone app or an optician. We review both before production and confirm your build with you.',
+      [
+        'Step-by-step measuring guide: /measurements.',
+        'Production takes about 1–2 weeks after we approve your measurements, and worldwide shipping is included.',
+        'You can cancel for a full refund until production starts.',
+      ],
+    ),
+  ],
+  faqs: [
+    faq(
+      'What magnification should a dental hygienist use?',
+      '2.5x or 3.0x suits most hygienists. It keeps a wide field for scaling and probing and is easy to adapt to. Hygienists who do a lot of detailed periodontal work sometimes add a 3.5x pair later.',
+    ),
+    faq(
+      'Are 2.5x loupes enough for dental school?',
+      'Usually. 2.5x is the most common first pair because the wide field and generous depth make it easier to learn with. Check your program’s requirements before you buy.',
+    ),
+    faq(
+      'Do dentists need ergonomic loupes?',
+      'Not always. A well-fitted Galilean pair with the right declination angle works for many dentists. Ergonomic prismatic loupes are worth a look if you already have neck or shoulder strain or spend long days in the chair.',
+    ),
+    faq(
+      'Can I add a light to dental loupes later?',
+      'Sometimes, but it is easier to decide before ordering. A light needs a compatible mount and adds weight, so ask us which lights fit the frame you are choosing.',
+    ),
+    faq(
+      'Can dental loupes include my prescription?',
+      `Yes. We build your prescription into the carrier lenses for ${dollars(PRESCRIPTION_PRICE)}.`,
+    ),
+    faq(
+      'How long does it take to get custom dental loupes?',
+      'Production takes about 1–2 weeks after we approve your measurements. Shipping time then depends on where you are, and shipping is included worldwide.',
+    ),
+  ],
+}
+
+revisions['prismatic-loupe-comparison'] = {
+  title: 'Prismatic loupes compared',
+  metaTitle: 'Prismatic Loupes: Compare Optics, Weight & Price | HeliosX',
+  description:
+    'What prismatic loupes do better than Galilean loupes, what they cost you in weight and field, and how conventional and ergonomic prismatic models compare.',
+  intro:
+    'Prismatic loupes, also called Keplerian loupes, fold light through prisms inside each telescope. That allows higher magnification with a sharper, flatter image than a Galilean design, in exchange for more weight and a narrower field. The useful question is which kind of prismatic loupe you need, and whether you need one at all.',
+  recommendedProducts: ['Kepler', 'Apollo', 'Medusa'],
+  comparisonRows: undefined,
+  verdict: undefined,
+  sections: [
+    section(
+      'What the prisms do',
+      'A Galilean telescope has two lenses and stays short and light. A prismatic telescope adds prisms that fold the light path and turn the image upright, so a longer optical system fits in a compact housing. That is what makes higher magnification possible with less distortion toward the edges. The prisms are solid glass, which is why these loupes weigh more.',
+      ['HeliosX prismatic models start at 3.0x (Apollo and Medusa) and 4.0x (Kepler), and go up to 8.5x (Medusa).'],
+    ),
+    section(
+      'Conventional or ergonomic prismatic',
+      'A conventional prismatic loupe looks straight along the line of the telescope. An ergonomic prismatic loupe adds an angled light path, so you look down into the field while your head stays closer to upright. The word prismatic on its own does not tell you which one you are buying.',
+      [
+        `Kepler: conventional prismatic, 4.0x–6.0x, ${range('kepler')}.`,
+        `Apollo: ergonomic prismatic at a fixed working distance, 3.0x–6.0x, ${range('apollo')}.`,
+        `Medusa: ergonomic prismatic with an adjustable 300–600 mm working distance, 3.0x–8.5x, ${range('medusa')}.`,
+      ],
+    ),
+    section(
+      'Trade-offs to plan for',
+      'Prismatic loupes ask more of the fit. Weight sits further forward, the field narrows as magnification rises and depth of field is shallower, so small head movements show in the image.',
+      [
+        'Weight with frame: Kepler 68–85 g, Apollo 55–58.2 g and Medusa 56–65 g, against 40–50 g for the Galilean Newton.',
+        'Depth of field: 80 mm on Kepler, against 200 mm on Newton and Galileo.',
+        'Field of view at 4.0x: 60–75 mm on Kepler and 80 mm on Medusa.',
+      ],
+    ),
+    section(
+      'When a Galilean pair is the better buy',
+      'If your work sits at 2.5x to 3.5x, a Galilean pair gives you a wider field, more depth and less weight for less money. Plenty of surgeons keep a Galilean pair for routine cases and add a prismatic pair for detailed work.',
+      [
+        'Newton from $695 and Galileo from $795: /product/newton and /product/galileo.',
+        'The optical differences in detail: /education/galilean-vs-prismatic-loupes.',
+      ],
+    ),
+    section(
+      'What prismatic loupes cost',
+      `HeliosX prismatic loupes cost ${range('kepler')} for Kepler, ${range('apollo')} for Apollo and ${range('medusa')} for Medusa, with worldwide shipping and a two-year limited warranty. Verified trainees get ${TRAINEE_PERCENT_OFF}% off.`,
+      ['How these prices compare across brands: /how-much-do-surgical-loupes-cost.'],
+    ),
+  ],
+  faqs: [
+    faq(
+      'Are prismatic loupes worth the extra cost?',
+      'They are if you need 4.0x or more, or if an ergonomic prismatic design would let you work with your head more upright. Below that, a Galilean pair usually gives a wider field for less.',
+    ),
+    faq(
+      'Are all prismatic loupes ergonomic?',
+      'No. Conventional prismatic loupes such as Kepler look straight along the telescope. Ergonomic prismatic loupes such as Apollo and Medusa angle the view so you can keep your head more upright.',
+    ),
+    faq(
+      'Why are prismatic loupes heavier?',
+      'The prisms are solid glass. Kepler weighs 68–85 g with frame, against 40–50 g for the Galilean Newton.',
+    ),
+    faq(
+      'What magnifications do prismatic loupes come in?',
+      'HeliosX prismatic loupes run from 3.0x on Apollo and Medusa to 8.5x on Medusa. Kepler covers 4.0x to 6.0x. Each pair is built at one magnification.',
+    ),
+  ],
+}
+
+revisions['ergonomic-loupe-comparison'] = {
+  title: 'Ergonomic loupes compared',
+  metaTitle: 'Ergonomic Loupes: Posture, Evidence & Prices | HeliosX',
+  description:
+    'How ergonomic loupes change head and neck posture, what the research shows, who benefits most, and how Apollo and Medusa compare on fit and price.',
+  intro:
+    'Ergonomic loupes let you see the working field without tipping your head as far forward. Some do it with a steeper declination angle, others with an angled prismatic light path. Here is what each approach changes, what the evidence does and does not show, and how to choose between them.',
+  recommendedProducts: ['Apollo', 'Medusa'],
+  comparisonRows: undefined,
+  verdict: undefined,
+  sections: [
+    section(
+      'Two ways to reduce neck flexion',
+      'Every loupe points your eyes down toward the field, and the declination angle sets how far. A steeper angle lets you lower your eyes instead of your head, up to the point where looking down becomes a strain of its own. Ergonomic prismatic loupes add an angled light path inside the telescope, so the view bends downward while your head stays closer to upright.',
+      [
+        'Declination: available on most loupes, limited by how far your eyes can comfortably look down.',
+        'Ergonomic prismatic: the optics do more of the work. HeliosX Apollo and Medusa use this design.',
+      ],
+    ),
+    section(
+      'What the research shows',
+      'In a randomized crossover trial, 19 surgeons performed simulated tasks with traditional loupes and two prismatic designs. High-tilt prismatic loupes reduced head inclination by 22–26° and neck muscle activity by 32–42% compared with traditional loupes, with no significant difference in errors, although some tasks took slightly longer. The study did not test HeliosX loupes, and it does not show that any loupe prevents or treats neck pain.',
+      [],
+      posturePaper,
+      'Fan et al., Frontiers in Public Health (2024)',
+    ),
+    section(
+      'Who benefits most',
+      'The case is strongest when your work holds you in one bent posture for long stretches.',
+      [
+        'Hygienists and dentists with long chairside days: /loupes-for-dental-hygiene.',
+        'Surgeons with long cases in deep fields: /spine-surgery-loupes.',
+        'Anyone already managing neck or shoulder strain, alongside medical advice: /education/ergonomic-loupes-neck-pain.',
+      ],
+    ),
+    section(
+      'Apollo or Medusa',
+      'Both are ergonomic prismatic and both are built at one magnification. The difference is working distance.',
+      [
+        `Apollo: built at one working distance (420, 450, 500 or 550 mm), 3.0x–6.0x, 55–58.2 g with frame, ${range('apollo')}.`,
+        `Medusa: adjustable 300–600 mm working distance for clinicians who sit and stand, 3.0x–8.5x, 56–65 g with frame, ${range('medusa')}.`,
+      ],
+    ),
+    section(
+      'Getting used to them',
+      'Looking down through an angled light path feels different at first, so expect a short adjustment period. Wear them for shorter cases or appointments first, and measure your working distance carefully, because the viewing angle is set around it.',
+      ['Measuring guide: /measurements.'],
+    ),
+    section(
+      'What ergonomic loupes cost',
+      `HeliosX ergonomic prismatic loupes start at $1,695: Apollo ${range('apollo')} and Medusa ${range('medusa')}, with worldwide shipping and a two-year limited warranty. Verified trainees get ${TRAINEE_PERCENT_OFF}% off.`,
+      ['Ergonomic options from other brands, with their published prices: /best-dental-loupe-brands.'],
+    ),
+  ],
+  faqs: [
+    faq(
+      'Do ergonomic loupes help with neck pain?',
+      'They can reduce how far you bend your neck while you work, which lowers the load on your neck muscles. That is different from treating neck pain, and the research so far comes from short simulated tasks.',
+    ),
+    faq(
+      'What is the difference between ergonomic and prismatic loupes?',
+      'Prismatic describes the optics; ergonomic describes the viewing angle. Kepler is prismatic but not ergonomic. Apollo and Medusa are both.',
+    ),
+    faq(
+      'How long does it take to adjust to ergonomic loupes?',
+      'Expect a short adjustment period. Start with shorter cases or appointments and build up.',
+    ),
+    faq(
+      'Are ergonomic loupes heavier than Galilean loupes?',
+      'Ergonomic prismatic loupes are heavier because of the prism glass. Apollo weighs 55–58.2 g and Medusa 56–65 g with frame, against 40–50 g for Newton.',
+    ),
+  ],
+}
+
+revisions['heliosx-loupes-review'] = {
+  title: 'HeliosX loupes: an honest overview',
+  metaTitle: 'HeliosX Loupes Review: Models, Prices, Pros & Cons',
+  description:
+    'An honest overview of HeliosX loupes: the five models and prices, what is included, how ordering and fitting work, the return policy, and when another brand suits you better.',
+  intro:
+    'This is our own overview, not an independent review. HeliosX sells custom-fit surgical and dental loupes directly to clinicians, with published prices from $695. Use this page to check the facts quickly, and to see where another brand may be the better choice for you.',
+  recommendedProducts: ['Newton', 'Kepler', 'Medusa'],
+  comparisonRows: undefined,
+  verdict: undefined,
+  sections: [
+    section(
+      'HeliosX at a glance',
+      'HeliosX sells five loupe systems online, direct to clinicians, without sales representatives.',
+      [
+        `Newton: Galilean, 2.5x–3.5x, ${range('newton')}.`,
+        `Galileo: Galilean, 2.5x–3.5x, ${range('galileo')}.`,
+        `Kepler: conventional prismatic, 4.0x–6.0x, ${range('kepler')}.`,
+        `Apollo: ergonomic prismatic, 3.0x–6.0x, ${range('apollo')}.`,
+        `Medusa: ergonomic prismatic with adjustable working distance, 3.0x–8.5x, ${range('medusa')}.`,
+      ],
+    ),
+    section(
+      'What is included',
+      `Every order includes worldwide shipping and a two-year limited warranty against manufacturer defects. Prescription lenses add ${dollars(PRESCRIPTION_PRICE)}, and verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off.`,
+      ['Warranty terms: /warranty.', 'Production and shipping times: /shipping.'],
+    ),
+    section(
+      'How ordering and fitting work',
+      'You choose a model, magnification and frame online and pay by card, Affirm or Klarna. After checkout you send your pupillary distance, your working distance and, if needed, your prescription. We review them with you before production, which usually takes 1–2 weeks.',
+      ['Measuring guide: /measurements.'],
+    ),
+    section(
+      'Return policy',
+      'You can cancel for a full refund before production starts. Because each pair is made to your measurements, returns after production cover confirmed defects and approved fit or configuration corrections.',
+      ['Full policy: /returns.'],
+    ),
+    section(
+      'When another brand may suit you better',
+      'If one of these matters more to you than price, look elsewhere first.',
+      [
+        'You want to try loupes in person before buying. Brands with representative demonstrations or trial periods are the safer route.',
+        'You need magnification that switches within one loupe. Compare ExamVision and Admetec: /examvision-alternatives.',
+        'You want a brand with decades of service history behind it, such as Orascoptic, SurgiTel or Designs for Vision.',
+      ],
+    ),
+  ],
+  faqs: [
+    faq(
+      'How much do HeliosX loupes cost?',
+      `From ${range('newton').split('–')[0]} for Newton to ${range('medusa').split('–')[1]} for Medusa at 8.5x, with shipping and a two-year limited warranty included.`,
+    ),
+    faq(
+      'Does HeliosX offer a student or resident discount?',
+      `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off. Email proof of your training status and we send a code for checkout.`,
+    ),
+    faq(
+      'Does HeliosX offer a trial period?',
+      'There is no formal trial. You can cancel for a full refund until production starts, and we confirm your measurements with you before anything is built.',
+    ),
+    faq(
+      'How long does HeliosX take to deliver?',
+      'Production takes about 1–2 weeks after your measurements are approved. Shipping time then depends on your destination, and shipping is included worldwide.',
+    ),
+  ],
+}
+
+// /best-loupes collects the "best ___ loupes" searches (4,300 impressions in
+// 90 days, ranking around position 45) and /affordable-loupes the price-led
+// ones, yet the two shared 88% of their text. Give each its own answer.
+revisions['best-loupes'] = {
+  title: 'Best loupes for your work',
+  metaTitle: 'Best Loupes 2026: Picks by Specialty, Role & Budget | HeliosX',
+  description:
+    'The best loupes for surgeons, dentists, hygienists and students, chosen by magnification, posture and budget, with prices and the trade-offs of each pick.',
+  intro:
+    'The best loupes show the detail your work needs at a comfortable working distance, at a price you can justify. Below are specific picks by role with the reasoning behind each. They come from our own lineup; when you want to look wider, the brand guides at the end compare other makers.',
+  recommendedProducts: ['Newton', 'Galileo', 'Kepler', 'Medusa'],
+  comparisonRows: undefined,
+  verdict: undefined,
+  sections: [
+    section(
+      'Best loupes for surgery',
+      'Match the loupe to the most detailed step you do routinely, then choose the lightest design that delivers it.',
+      [
+        `General and orthopedic work at 2.5x–3.5x: Galileo, for a 110–170 mm field and 200 mm depth of field, ${range('galileo')}.`,
+        `Vessels, nerves and tendons at 4.0x and up: Kepler, conventional prismatic from 4.0x to 6.0x, ${range('kepler')}.`,
+        'Long cases where neck strain matters: Apollo or Medusa, ergonomic prismatic from $1,695. Choose Medusa if you switch between sitting and standing.',
+        'Neurosurgery and spine: 3.5x–4.5x prismatic for exposure and decompression, with the microscope for microsurgery. /neurosurgery-loupes.',
+      ],
+    ),
+    section(
+      'Best dental loupes',
+      'Most dental work happens at 2.5x to 3.5x. What separates good choices is weight over a full schedule and how upright the loupe lets you sit.',
+      [
+        `Hygienists: Newton at 2.5x or 3.0x, 40–45 g with frame, ${range('newton')}. /loupes-for-dental-hygiene.`,
+        'General dentists: Galileo at 3.0x–3.5x, or Apollo when posture is the priority.',
+        'Endodontists: 4.5x and above, usually alongside a microscope. /loupes-for-endodontics.',
+        'If you want a light, decide before ordering: /dental-loupes-with-light.',
+      ],
+    ),
+    section(
+      'Best loupes for students and residents',
+      `A first pair should be forgiving: wide field, generous depth and a price that does not need a loan. Verified students, residents and fellows get ${TRAINEE_PERCENT_OFF}% off any HeliosX model.`,
+      [
+        'Dental students: Newton or Galileo at 2.5x. /loupes-for-dental-students.',
+        'Medical students and junior residents: Galileo at 2.5x–3.0x. /loupes-for-medical-students.',
+        'Surgical residents moving into finer work: Kepler at 4.0x. /loupes-for-residents.',
+      ],
+    ),
+    section(
+      'Best ergonomic loupes',
+      'If your neck is the problem, compare ergonomic prismatic designs first. Apollo is built at one working distance; Medusa adjusts from 300 to 600 mm.',
+      ['How ergonomic loupes compare, with the posture evidence: /ergonomic-loupe-comparison.'],
+    ),
+    section(
+      'How we chose these picks',
+      'We matched each role to the magnification range used for its most detailed routine task, then to the lightest HeliosX design that delivers it. We have not tested other brands hands-on, so for brand-by-brand comparisons use the guides below.',
+      ['Surgical brands: /best-surgical-loupe-brands.', 'Dental brands: /best-dental-loupe-brands.'],
+    ),
+  ],
+  faqs: [
+    faq(
+      'What are the best loupes for a beginner?',
+      'A 2.5x Galilean pair. It has the widest field and most depth, so it is the easiest to learn with. Newton and Galileo both start at 2.5x.',
+    ),
+    faq(
+      'What are the best loupes for neck pain?',
+      'Ergonomic prismatic loupes, which angle your view so you can work with your head more upright. They can reduce neck flexion while you work, though no loupe is a treatment for neck pain.',
+    ),
+    faq(
+      'What magnification loupes are best?',
+      'The lowest magnification that shows your hardest routine task clearly. Higher magnification narrows the field and depth of field.',
+    ),
+    faq(
+      'Are expensive loupes worth it?',
+      'Only for features you will use, such as higher magnification, ergonomic optics or an adjustable working distance. For 2.5x to 3.5x work, a well-fitted Galilean pair does the job.',
+    ),
+  ],
+}
+
+revisions['affordable-loupes'] = {
+  title: 'Affordable loupes: what you get at each price',
+  metaTitle: 'Affordable Loupes: Prices & What You Get from $695 | HeliosX',
+  description:
+    'What cheap and affordable loupes give up, what they should not, and HeliosX prices from $695 with shipping, a two-year warranty and trainee pricing included.',
+  intro:
+    'Loupes are sold at roughly three price levels: budget pairs sold online, direct-to-clinician brands like HeliosX, and brands sold through representatives. A lower price is only a good deal if the optics, the fit and the support still meet your needs. Here is what to check at each level.',
+  recommendedProducts: ['Newton', 'Galileo', 'Kepler'],
+  comparisonRows: undefined,
+  verdict: undefined,
+  sections: [
+    section(
+      'What changes as the price drops',
+      'The biggest differences are not visible in a product photo.',
+      [
+        'Glass and coatings decide how sharp and bright the edges of the field are.',
+        'Alignment matters: two telescopes that do not meet at exactly the same point cause eye strain over a long day.',
+        'Fit: a generic working distance means leaning in or out all day.',
+        'Support: check the warranty, and what happens if the fit is wrong.',
+      ],
+    ),
+    section(
+      'Where HeliosX sits',
+      `HeliosX sells direct to clinicians with published prices: Newton ${range('newton')}, Galileo ${range('galileo')}, Kepler ${range('kepler')}, Apollo ${range('apollo')} and Medusa ${range('medusa')}. Every pair is built to your measurements and includes worldwide shipping and a two-year limited warranty.`,
+      ['Newton at 2.5x is our most affordable pair, at $695.'],
+    ),
+    section(
+      'Ways to pay less without buying worse',
+      'Most of the savings come from buying only what your work needs.',
+      [
+        `Trainee pricing: verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off.`,
+        'Choose the magnification you need rather than the highest available. Magnification sets most of the price.',
+        'Spread the cost: Affirm and Klarna are available at checkout.',
+        `Skip prescription lenses (${dollars(PRESCRIPTION_PRICE)}) unless you wear glasses for close work.`,
+      ],
+    ),
+    section(
+      'Red flags in cheap loupes',
+      'Walk away, or ask more questions, if you see any of these.',
+      [
+        'No stated working distance, or the same distance for everyone.',
+        'No field of view or depth of field figures.',
+        'A warranty shorter than a year, or none at all.',
+        'No way to send or confirm your measurements before the pair is made.',
+      ],
+    ),
+    section(
+      'Compare the full cost',
+      'Shipping, prescription lenses, lights and duties can change the total. Compare finished quotes for the same magnification and optical design.',
+      ['Loupe prices across the category: /how-much-do-surgical-loupes-cost.'],
+    ),
+  ],
+  faqs: [
+    faq(
+      'Are cheap loupes worth it?',
+      'They can be, if the optics are sharp to the edges, the pair is built to your working distance and there is a real warranty. Without those, a cheap pair often ends up as a second purchase.',
+    ),
+    faq(
+      'What is the cheapest HeliosX loupe?',
+      'Newton at 2.5x, at $695 with shipping and a two-year limited warranty included.',
+    ),
+    faq(
+      'Can I pay for loupes in installments?',
+      'Yes. Affirm and Klarna are offered at checkout, subject to their approval.',
+    ),
+    faq(
+      'Is there a student discount?',
+      `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off. Email proof of your training status and we send a code for checkout.`,
+    ),
+  ],
 }
 
 export function applyEditorialRevisions(

@@ -111,7 +111,8 @@ export function addToCart(item: CartItem): void {
   const variant = [item.selectedMagnification, item.selectedFrameName].filter(Boolean).join(' / ')
   trackAddToCart({
     itemId: item.productSlug,
-    itemName: item.shortName ?? item.name,
+    // Same name view_item sends, so GA4 joins views to add-to-carts per model.
+    itemName: item.name,
     price: item.price,
     quantity: item.quantity,
     variant: variant || undefined,

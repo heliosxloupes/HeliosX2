@@ -110,7 +110,14 @@ export default function AnalyticsScripts() {
         ad_user_data: 'granted',
         ad_personalization: 'granted'
       });
-      window.gtag('config', ${JSON.stringify(gaId)}, { send_page_view: true });
+      // Team devices: open any page once with ?hx_internal=1 and every later
+      // visit is tagged traffic_type=internal, which a GA4 data filter drops.
+      var hxInternal = false;
+      try {
+        if (new URLSearchParams(window.location.search).has('hx_internal')) window.localStorage.setItem('heliosx_internal', '1');
+        hxInternal = window.localStorage.getItem('heliosx_internal') === '1';
+      } catch (e) {}
+      window.gtag('config', ${JSON.stringify(gaId)}, hxInternal ? { send_page_view: true, traffic_type: 'internal' } : { send_page_view: true });
     ` : ''}
     ${metaPixelId ? `
       !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?

@@ -214,7 +214,7 @@ export function cartItemsToGA4Items(items: CartLike[]): GA4Item[] {
     const variant = [item.selectedMagnification, item.selectedFrameName].filter(Boolean).join(' / ')
     return {
       item_id: item.productSlug,
-      item_name: item.shortName ?? item.name,
+      item_name: item.name,
       item_brand: 'HeliosX',
       item_category: 'Loupes',
       ...(variant ? { item_variant: variant } : {}),

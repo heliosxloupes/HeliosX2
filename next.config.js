@@ -1,3 +1,5 @@
+const { redirects: seoRedirects } = require('./lib/seo-redirects.json')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -61,6 +63,8 @@ const nextConfig = {
         destination: '/loupes-for-dental-hygiene',
         permanent: true,
       },
+      // Near-duplicate pages merged on 2026-10-02; see lib/seo-redirects.json.
+      ...seoRedirects.map(({ source, destination }) => ({ source, destination, permanent: true })),
     ]
   },
   webpack: (config, { isServer }) => {

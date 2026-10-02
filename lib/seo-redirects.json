@@ -1,0 +1,15 @@
+{
+  "_comment": "Pages merged into a stronger sibling. next.config.js turns these into 301s, and lib/seo-content.ts drops the source slugs so they leave the sitemap, llms-full.txt and static params. Added 2026-10-02: each pair below was 78-96% identical text and the source page had little or no search data.",
+  "redirects": [
+    { "source": "/prismatic-loupes", "destination": "/prismatic-loupe-comparison" },
+    { "source": "/ergonomic-loupes", "destination": "/ergonomic-loupe-comparison" },
+    { "source": "/cheap-loupes", "destination": "/affordable-loupes" },
+    { "source": "/student-loupes-discount", "destination": "/student-loupe-comparison" },
+    { "source": "/lumadent-alternatives", "destination": "/heliosx-vs-lumadent" },
+    { "source": "/surgitel-alternatives", "destination": "/heliosx-vs-surgitel" },
+    { "source": "/q-optics-alternatives", "destination": "/heliosx-vs-q-optics" },
+    { "source": "/admetec-alternatives", "destination": "/heliosx-vs-admetec" },
+    { "source": "/heliosx-vs-examvision", "destination": "/examvision-alternatives" },
+    { "source": "/heliosx-vs-orascoptic", "destination": "/orascoptic-alternatives" }
+  ]
+}

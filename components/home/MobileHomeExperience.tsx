@@ -176,16 +176,17 @@ export default function MobileHomeExperience() {
     <main className="overflow-x-clip bg-[#03050a] pb-16 pt-14 text-white">
       <section className="px-5 pb-7 pt-9">
         <motion.div {...rise}>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-200/75">
+          {/* Same heading order as the desktop hero: the eyebrow is the <h1>. */}
+          <h1 className="text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-200/75">
             Surgical &amp; dental loupes
-          </p>
-          <h1 className="mt-4 font-display text-[2.55rem] font-semibold leading-[1.03] text-white">
+          </h1>
+          <p className="mt-4 font-display text-[2.55rem] font-semibold leading-[1.03] text-white">
             Surgical precision.
             <br />
             <span className="bg-gradient-to-r from-white via-sky-200 to-emerald-300 bg-clip-text text-transparent">
               Finally accessible.
             </span>
-          </h1>
+          </p>
           <p className="mt-5 max-w-sm text-[15px] leading-6 text-neutral-300">
             Premium optics for the work that matters. No gatekeeping. Just fair pricing.
           </p>
@@ -201,7 +202,7 @@ export default function MobileHomeExperience() {
               Custom loupes from {money(startingPrice('newton'))} <span className="text-neutral-500">USD</span>
             </p>
             <Link
-              href="/student-loupes-discount"
+              href="/student-loupe-comparison"
               className="flex min-h-11 items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald-200"
             >
               <GraduationCap size={14} /> Students

@@ -1,5 +1,6 @@
 import { applyEditorialRevisions } from './seo-editorial'
 import { magnificationPriceByProduct } from './pricing'
+import seoRedirects from './seo-redirects.json'
 
 export type ContentSection = {
   title: string
@@ -389,7 +390,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
           'Magnification needs, posture demands and budget all shift by role and specialty. These pages go deeper on each — read the one that matches your work before you commit to a brand.',
         bullets: [
           'Dental students and hygienists: 2.5x–3.5x Galilean is usually right. See /education/best-loupes-for-dental-students and /dental-loupes.',
-          'Residents and medical students: prioritise durability and price. See /education/best-loupes-for-residents and /student-loupes-discount.',
+          'Residents and medical students: prioritise durability and price. See /education/best-loupes-for-residents and /student-loupe-comparison.',
           'Cardiac surgery: see /cardiac-surgery-loupes for magnification and posture guidance.',
           'ENT and otolaryngology: see /ent-otolaryngology-loupes.',
           'Pediatric surgery: see /pediatric-surgery-loupes.',
@@ -3000,8 +3001,8 @@ const competitorPages: SeoLandingPage[] = [
         body:
           'If you already know the brand you are comparing against, jump straight to the head-to-head or the alternatives page. Each one is built with the same structure: where the competitor is strong, where HeliosX is different, how the lineups map, what changes when you switch, and a 10-row qualitative comparison table.',
         bullets: [
-          'Head-to-head: /heliosx-vs-lumadent, /heliosx-vs-orascoptic, /heliosx-vs-surgitel, /heliosx-vs-q-optics, /heliosx-vs-examvision, /heliosx-vs-admetec.',
-          'Alternatives: /lumadent-alternatives, /orascoptic-alternatives, /surgitel-alternatives, /q-optics-alternatives, /examvision-alternatives, /admetec-alternatives.',
+          'Head-to-head: /heliosx-vs-lumadent, /heliosx-vs-surgitel, /heliosx-vs-q-optics, /heliosx-vs-admetec.',
+          'Alternatives: /orascoptic-alternatives, /examvision-alternatives.',
           'By type: /prismatic-loupe-comparison, /ergonomic-loupe-comparison, /student-loupe-comparison.',
           'By audience: /best-dental-loupe-brands, /best-surgical-loupe-brands.',
         ],
@@ -7065,6 +7066,15 @@ for (const guide of educationGuides) {
 
 applyEditorialRevisions(allSeoLandingPages, educationGuides)
 
+// Merged pages 301 to a sibling (next.config.js); remove them here so they
+// drop out of the sitemap, llms-full.txt, static params and related links.
+{
+  const merged = new Set(seoRedirects.redirects.map(({ source }) => source.slice(1)))
+  for (let index = allSeoLandingPages.length - 1; index >= 0; index -= 1) {
+    if (merged.has(allSeoLandingPages[index].slug)) allSeoLandingPages.splice(index, 1)
+  }
+}
+
 export function getSeoLandingPage(slug: string) {
   return allSeoLandingPages.find((page) => page.slug === slug) ?? null
 }
@@ -7190,8 +7200,8 @@ const BUYING_DECISION_PAGES: RelatedPage[] = [
     blurb: 'What the lineup does well, and where it does not.',
   },
   {
-    href: '/cheap-loupes',
-    label: 'Cheap loupes, honestly assessed',
+    href: '/affordable-loupes',
+    label: 'Affordable loupes, honestly assessed',
     blurb: 'What you give up at the bottom of the market, and what you do not.',
   },
 ]
@@ -7222,12 +7232,12 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
   'galilean-vs-prismatic-loupes': [
     ...MEASUREMENT_PAGES.slice(0, 2),
     {
-      href: '/prismatic-loupes',
+      href: '/prismatic-loupe-comparison',
       label: 'Prismatic loupes',
       blurb: 'Where prismatic optics earn their price over Galilean.',
     },
     {
-      href: '/ergonomic-loupes',
+      href: '/ergonomic-loupe-comparison',
       label: 'Ergonomic loupes',
       blurb: 'Optics that refract the view down so your neck stays neutral.',
     },
@@ -7247,7 +7257,7 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
       blurb: 'The group most affected by posture load over a career.',
     },
     {
-      href: '/ergonomic-loupes',
+      href: '/ergonomic-loupe-comparison',
       label: 'Ergonomic loupes',
       blurb: 'How declination and refracted optics change neck flexion.',
     },
@@ -7260,7 +7270,7 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
   'best-loupes-for-residents': [
     ...BUYING_DECISION_PAGES.slice(0, 3),
     {
-      href: '/student-loupes-discount',
+      href: '/student-loupe-comparison',
       label: 'Student pricing',
       blurb: 'What the discount covers and who qualifies.',
     },
@@ -7280,7 +7290,7 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
   ],
   'surgical-loupes': [
     {
-      href: '/prismatic-loupes',
+      href: '/prismatic-loupe-comparison',
       label: 'Prismatic loupes',
       blurb: 'Ergonomic 3.0x–8.5x systems for posture and higher magnification.',
     },
@@ -7293,7 +7303,7 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
   'how-much-do-surgical-loupes-cost': [
     ...BUYING_DECISION_PAGES.slice(1, 4),
     {
-      href: '/student-loupes-discount',
+      href: '/student-loupe-comparison',
       label: 'Student pricing',
       blurb: 'What the discount covers and who qualifies.',
     },
@@ -7405,16 +7415,15 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
 // Contextual paths keep specialty and brand guides reachable without repeating
 // a site-wide keyword list on every article.
 const editorialLinks: Record<string, string[]> = {
-  'best-surgical-loupe-brands': ['best-surgical-loupes-reddit', 'heliosx-vs-lumadent', 'heliosx-vs-orascoptic', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'heliosx-vs-examvision', 'heliosx-vs-admetec'],
+  'best-surgical-loupe-brands': ['best-surgical-loupes-reddit', 'heliosx-vs-lumadent', 'orascoptic-alternatives', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'examvision-alternatives', 'heliosx-vs-admetec'],
   'best-loupes': ['best-surgical-loupes-reddit', 'affordable-surgical-loupes-reddit'],
-  'affordable-loupes': ['affordable-surgical-loupes-reddit', 'cheap-loupes', 'how-much-do-surgical-loupes-cost'],
-  'cheap-loupes': ['affordable-surgical-loupes-reddit', 'how-much-do-surgical-loupes-cost'],
-  'how-much-do-surgical-loupes-cost': ['affordable-surgical-loupes-reddit', 'student-loupes-discount'],
+  'affordable-loupes': ['affordable-surgical-loupes-reddit', 'how-much-do-surgical-loupes-cost'],
+  'how-much-do-surgical-loupes-cost': ['affordable-surgical-loupes-reddit', 'student-loupe-comparison'],
   'best-surgical-loupes-reddit': ['affordable-surgical-loupes-reddit'],
-  'best-dental-loupe-brands': ['heliosx-vs-lumadent', 'heliosx-vs-orascoptic', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'heliosx-vs-examvision', 'heliosx-vs-admetec'],
+  'best-dental-loupe-brands': ['heliosx-vs-lumadent', 'orascoptic-alternatives', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'examvision-alternatives', 'heliosx-vs-admetec'],
   'loupe-comparisons': ['best-surgical-loupe-brands', 'best-dental-loupe-brands', 'student-loupe-comparison', 'ergonomic-loupe-comparison', 'prismatic-loupe-comparison'],
   'surgical-loupes': ['neurosurgery-loupes', 'cardiac-surgery-loupes', 'pediatric-surgery-loupes', 'maxillofacial-surgery-loupes', 'ent-otolaryngology-loupes', 'ophthalmic-surgery-loupes', 'loupes-for-plastic-surgery'],
-  'student-loupe-comparison': ['loupes-for-dental-students', 'loupes-for-medical-students', 'loupes-for-residents', 'student-loupes-discount'],
+  'student-loupe-comparison': ['loupes-for-dental-students', 'loupes-for-medical-students', 'loupes-for-residents', 'student-loupe-comparison'],
   'loupes-for-residents': ['loupes-for-medical-students', 'loupes-for-dental-students'],
   'best-loupes-for-residents': ['loupes-for-residents', 'loupes-for-plastic-surgery', 'loupes-for-medical-students'],
   'loupes-for-dental-hygiene': ['dental-loupes-with-light', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'loupes-for-dental-students'],

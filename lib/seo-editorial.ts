@@ -1316,7 +1316,7 @@ function expandThinGuides(guides: EducationGuide[]) {
           'Prescription lenses, lights, and the total cost',
           `If you wear glasses for close or intermediate work, prescription lenses can be built into the loupe carrier for ${dollars(PRESCRIPTION_PRICE)} per pair. Lights are sold separately by most brands, so check compatibility before you buy one. HeliosX prices run from ${range('newton')} for Newton to ${range('medusa')} for Medusa, with worldwide shipping included.`,
           [
-            'Check student pricing and eligibility: /student-loupes-discount.',
+            'Check student pricing and eligibility: /student-loupe-comparison.',
             'Ask for an itemized quote from every brand you compare.',
             'Include taxes, shipping, lights, and warranty terms in the comparison.',
           ],
@@ -1661,7 +1661,7 @@ function expandThinGuides(guides: EducationGuide[]) {
         'Budgeting a first pair',
         `A first pair does not need every feature. Newton (${range('newton')}) and Galileo (${range('galileo')}) cover general training at 2.5x–3.5x. Move up to Kepler (${range('kepler')}) for higher magnification or to Apollo or Medusa (from ${range('apollo').split('–')[0]}) for ergonomic viewing when your work needs it. Prescription lenses add ${dollars(PRESCRIPTION_PRICE)}.`,
         [
-          'Check resident and student pricing: /student-loupes-discount.',
+          'Check resident and student pricing: /student-loupe-comparison.',
           'Compare complete orders, including a light if you need one.',
           'A well-fitted first pair can stay useful after you add a second, higher-power pair.',
         ],

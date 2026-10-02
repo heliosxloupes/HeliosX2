@@ -20,7 +20,7 @@ const buyingGuideLinks = [
   { label: 'HeliosX loupes review', href: '/heliosx-loupes-review' },
   { label: 'Reddit loupe discussions', href: '/best-surgical-loupes-reddit' },
   { label: 'Affordable loupes on Reddit', href: '/affordable-surgical-loupes-reddit' },
-  { label: 'Student & resident discount', href: '/student-loupes-discount' },
+  { label: 'Student & resident discount', href: '/student-loupe-comparison' },
 ]
 
 const dentalSpecialtyLinks = [

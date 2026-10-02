@@ -43,7 +43,7 @@ const PRODUCT_RELATED_LINKS: Record<
       blurb: 'Why this is chosen before magnification.',
     },
     {
-      href: '/ergonomic-loupes',
+      href: '/ergonomic-loupe-comparison',
       label: 'Ergonomic loupes',
       blurb: 'How refracted optics keep the neck neutral.',
     },
@@ -126,7 +126,7 @@ const PRODUCT_RELATED_LINKS: Record<
       blurb: 'Where 33 g over a full day is the whole argument.',
     },
     {
-      href: '/student-loupes-discount',
+      href: '/student-loupe-comparison',
       label: 'Student pricing',
       blurb: 'What the discount covers and who qualifies.',
     },

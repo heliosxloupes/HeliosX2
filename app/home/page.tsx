@@ -349,17 +349,18 @@ function HeroSection() {
               {/* Left - headline block */}
               <div className="max-w-2xl space-y-6 md:space-y-7">
 
-                {/* Badge */}
-                <motion.div
+                {/* Badge doubles as the page's <h1>, so the heading names what the
+                    site sells; the statement below keeps its look as a <p>. */}
+                <motion.h1
                   className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-neutral-200 backdrop-blur-md"
                   variants={fadeIn}
                   transition={{ duration: 0.5 }}
                 >
                   Surgical &amp; dental loupes
-                </motion.div>
+                </motion.h1>
 
-                {/* H1 - line-by-line slide-up reveal */}
-                <h1 className="max-w-4xl text-[clamp(3.1rem,8vw,7rem)] font-bold leading-[0.93] tracking-[-0.03em]">
+                {/* Statement - line-by-line slide-up reveal */}
+                <p className="max-w-4xl text-[clamp(3.1rem,8vw,7rem)] font-bold leading-[0.93] tracking-[-0.03em]">
                   <span style={{ overflow: "hidden", display: "block" }}>
                     <motion.span
                       style={{ display: "block" }}
@@ -381,7 +382,7 @@ function HeroSection() {
                       finally accessible.
                     </motion.span>
                   </span>
-                </h1>
+                </p>
 
                 {/* Subtext */}
                 <motion.p

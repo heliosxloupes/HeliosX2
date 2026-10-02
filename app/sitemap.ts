@@ -37,6 +37,7 @@ const staticPathLastModified: Record<string, string> = {
   '/warranty': '2026-09-09',
   '/privacy': '2026-04-01',
   '/terms': '2026-09-09',
+  '/surgical-loupes-latin-america': '2026-10-02',
   '/research/intraoperative-magnification-who-uses-it.pdf': '2026-05-22',
 }
 

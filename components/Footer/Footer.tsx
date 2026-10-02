@@ -21,6 +21,7 @@ const buyingGuideLinks = [
   { label: 'Reddit loupe discussions', href: '/best-surgical-loupes-reddit' },
   { label: 'Affordable loupes on Reddit', href: '/affordable-surgical-loupes-reddit' },
   { label: 'Student & resident discount', href: '/student-loupe-comparison' },
+  { label: 'Loupes for Latin America', href: '/surgical-loupes-latin-america' },
 ]
 
 const dentalSpecialtyLinks = [

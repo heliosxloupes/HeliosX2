@@ -4,6 +4,7 @@ import { sendEmail } from '@/lib/email'
 import { createCartRecoveryToken } from '@/lib/cart-recovery'
 import { getSupabaseServiceClient } from '@/lib/supabase/server'
 import { getSiteUrl } from '@/lib/site-url'
+import { TRAINEE_PERCENT_OFF } from '@/lib/pricing'
 
 export const dynamic = 'force-dynamic'
 
@@ -122,8 +123,31 @@ export async function GET(req: Request) {
         ? productImage
         : `${getSiteUrl()}${productImage.startsWith('/') ? '' : '/'}${productImage}`
       : null
-    const subject = `A personal note about your ${productReference}`
-    const body = `Hello — this is Dr. Efimenko, founder of HeliosX.
+    // Each step used to send this same founder note, so a shopper got the
+    // identical email twice. Step 1 stays the personal note; step 2 answers
+    // the question buyers actually raise in replies: how can a custom pair
+    // fit if they never try it on?
+    const step = Number(String(template.key).split('_').pop()) || 1
+    const subject = step >= 2
+      ? `How the fit works for your ${productReference}`
+      : `A personal note about your ${productReference}`
+    const body = step >= 2
+      ? `Hello again,
+
+Most people who pause at this point have the same worry: you cannot try custom loupes on before you buy. Here is how we handle that.
+
+1. You send two measurements: your pupillary distance (a phone app or an optician) and your working distance (a tape measure, in the posture you operate in).
+2. We review them and confirm your build with you before anything is made.
+3. You can cancel for a full refund at any point until production starts. After delivery, a two-year limited warranty covers manufacturer defects.
+
+If you are a resident, fellow or student, we take ${TRAINEE_PERCENT_OFF}% off once you send proof of your training status. Affirm and Klarna are available at checkout if you would rather spread the cost.
+
+Reply with any question, or tell me what you are deciding between, and I will answer it myself.
+
+Best,
+Dr. Efimenko
+Founder, HeliosX`
+      : `Hello, this is Dr. Efimenko, founder of HeliosX.
 
 I wanted to personally reach out regarding your interest in our ${productReference}. Choosing surgical loupes is personal, especially when you are buying online for the first time.
 
@@ -147,11 +171,15 @@ Founder, HeliosX`
       to: email,
       subject,
       body,
-      preview: isCheckout
-        ? 'A personal note from Dr. Efimenko about your saved loupe configuration.'
-        : 'Dr. Efimenko wanted to personally follow up about your loupe configuration.',
+      preview: step >= 2
+        ? 'Two measurements, a build you approve, and a full refund until production starts.'
+        : isCheckout
+          ? 'A personal note from Dr. Efimenko about your saved loupe configuration.'
+          : 'Dr. Efimenko wanted to personally follow up about your loupe configuration.',
       eyebrow: 'From the founder',
-      title: `A personal note about your ${productReference}.`,
+      title: step >= 2
+        ? `How the fit works for your ${productReference}.`
+        : `A personal note about your ${productReference}.`,
       cta: {
         label: isCheckout ? 'Restore checkout' : 'Restore saved cart',
         url: recoveryUrl,

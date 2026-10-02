@@ -676,7 +676,16 @@ export const reviews: Review[] = [
   },
 ]
 
+// Off until each review is matched to a real order. These 50 entries were
+// added in one commit on 2026-05-24 with dates back to December 2025, before
+// the store had taken an order, yet each is marked verified and they fed
+// AggregateRating structured data. The FTC rule on fake reviews (16 CFR 465)
+// and Google's review snippet policy both prohibit that. Turning this off
+// hides the star lines, the review wall and the rating schema in one place.
+export const PUBLISH_REVIEWS = false
+
 export function getProductReviews(slug: string): Review[] {
+  if (!PUBLISH_REVIEWS) return []
   return reviews
     .filter((review) => review.productSlug === slug)
     .sort((a, b) => b.datePublished.localeCompare(a.datePublished))

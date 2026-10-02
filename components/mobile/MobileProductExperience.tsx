@@ -11,6 +11,7 @@ import type { PointerEvent as ReactPointerEvent } from 'react'
 import ProductReviews from '@/components/ProductReviews'
 import { useContact } from '@/components/Contact/ContactProvider'
 import { addToCart, getCartEditTarget, replaceCartItem } from '@/lib/cart'
+import TraineePricing from '@/components/product/TraineePricing'
 import { magnificationPriceByProduct, PRESCRIPTION_PRICE } from '@/lib/pricing'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productFaqs } from '@/lib/product-faqs'
@@ -283,9 +284,11 @@ export default function MobileProductExperience({
           <strong className="text-[2rem] font-medium tracking-[-0.04em]" aria-live="polite">{money(total)}</strong>
           <span className="text-xs text-neutral-400">USD / Shipping included</span>
         </div>
+        <TraineePricing model={config.shortName} magnification={mag} price={basePrice} />
         <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs text-neutral-300">
           <span className="flex items-center gap-1.5"><Check size={14} className="text-emerald-200" /> Custom fit</span>
           <span className="flex items-center gap-1.5"><Check size={14} className="text-emerald-200" /> 2-year limited warranty</span>
+          <span className="flex items-center gap-1.5"><Check size={14} className="text-emerald-200" /> Affirm &amp; Klarna at checkout</span>
         </div>
         <div className="mt-6 border-l-2 border-emerald-200 bg-[#14231d] px-4 py-4">
           <strong className="text-sm font-medium text-emerald-100">{config.slug === 'medusa' ? 'Working distance that moves with you.' : 'A working distance made for you.'}</strong>
@@ -296,6 +299,11 @@ export default function MobileProductExperience({
       <section className="px-5">
         <fieldset className="mt-7 border-t border-white/15 pt-6">
           <legend className="flex w-full items-center gap-3 text-base"><span className="text-xs text-emerald-200">01</span> Magnification <Link href="/education/loupe-magnification-guide" className="ml-auto flex min-h-11 items-center text-xs text-emerald-200 underline underline-offset-4">Help me choose</Link></legend>
+          <p className="mt-2 text-xs leading-5 text-neutral-400">
+            {config.slug === 'medusa'
+              ? 'Each pair is built at one magnification. What Medusa adjusts is working distance (300–600 mm), so choose the magnification you will use most.'
+              : 'Each pair is built at one magnification, so choose the one you will use most.'}
+          </p>
           <div className="mt-4 grid grid-cols-3 gap-2">
             {config.magnifications.map((option) => {
               const price = magnificationPriceByProduct[config.slug]?.[option] ?? 0

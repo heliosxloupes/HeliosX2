@@ -149,6 +149,10 @@ export async function POST(req: Request) {
       mode: 'payment',
       line_items,
       ui_mode: 'embedded',
+      // Verified residents, fellows and students get a personal promotion code
+      // (see lib/pricing.json "trainee"); Stripe validates it, so the charge
+      // stays server-authoritative.
+      allow_promotion_codes: true,
       ...(validEmail ? { customer_email: validEmail } : {}),
       billing_address_collection: 'required',
       phone_number_collection: { enabled: true },

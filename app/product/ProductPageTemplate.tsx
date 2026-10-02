@@ -18,6 +18,7 @@ import { trackViewItem } from '@/lib/analytics'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productFaqs } from '@/lib/product-faqs'
 import { magnificationPriceByProduct } from '@/lib/pricing'
+import TraineePricing from '@/components/product/TraineePricing'
 
 // Contextual outbound links per model.
 //
@@ -699,7 +700,12 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                   <span className="h-1 w-1 rounded-full bg-emerald-400" />
                 </div>
                 <p className="mb-4 text-xs leading-relaxed text-neutral-300">
-                  Select your preferred magnification level for optimal precision.
+                  {config.slug === 'medusa'
+                    ? 'Each pair is built at one magnification. What Medusa adjusts is working distance (300–600 mm), so choose the magnification you will use most.'
+                    : 'Each pair is built at one magnification, so choose the one you will use most.'}{' '}
+                  <Link href="/education/loupe-magnification-guide" className="text-emerald-300 underline underline-offset-4 hover:text-white">
+                    Help me choose
+                  </Link>
                 </p>
                 <div className="flex flex-wrap gap-3">
                   {config.magnifications.map((mag) => (
@@ -836,9 +842,12 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 <div className="flex items-center justify-between text-sm text-neutral-200">
                   <span>{isAvailable ? 'Subtotal' : 'Pricing'}</span>
                   <span className="font-semibold">
-                    {isAvailable ? `$${subtotal}.00` : priceLabel}
+                    {isAvailable ? `$${subtotal.toLocaleString('en-US')}.00` : priceLabel}
                   </span>
                 </div>
+                {isAvailable && (
+                  <TraineePricing model={config.shortName} magnification={selectedMag} price={currentUnitPrice} />
+                )}
 
                 <button
                   onClick={handleAddToCart}
@@ -854,7 +863,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 </button>
                 <p className="mt-2 text-[0.65rem] leading-relaxed text-neutral-500">
                   {isAvailable
-                    ? `Custom measurement review included. Typical production time is 1–2 weeks. Two-year limited warranty. ${riskFreeCopy}`
+                    ? `Custom measurement review included. Typical production time is 1–2 weeks. Two-year limited warranty. Pay over time with Affirm or Klarna at checkout. ${riskFreeCopy}`
                     : 'Medusa is live in the catalogue. Add-to-cart will be enabled once final pricing is set.'}
                 </p>
                 <button

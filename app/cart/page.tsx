@@ -8,6 +8,7 @@ import { motion } from 'framer-motion'
 import Header from '@/components/Header'
 import { cartEditHref, getCart } from '@/lib/cart'
 import { CartEditButton, CartRemoveButton } from '@/components/cart/CartLineActions'
+import AfterCheckoutSteps from '@/components/cart/AfterCheckoutSteps'
 import type { CartItem } from '@/lib/cart'
 import { cartItemsToGA4Items, newEventId, trackBeginCheckout, trackViewCart } from '@/lib/analytics'
 import Noise from '@/components/Noise'
@@ -510,9 +511,7 @@ export default function CartPage() {
               >
                 Proceed to payment
               </button>
-              <p className="mt-3 text-[0.65rem] text-neutral-500">
-                Payments are processed securely by Stripe.
-              </p>
+              <AfterCheckoutSteps className="mt-5 border-t border-white/10 pt-5" />
             </motion.div>
           </motion.aside>
         </section>

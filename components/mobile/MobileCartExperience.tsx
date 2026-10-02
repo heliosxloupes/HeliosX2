@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useRef } from 'react'
 
 import { cartEditHref } from '@/lib/cart'
+import AfterCheckoutSteps from '@/components/cart/AfterCheckoutSteps'
 import type { CartItem } from '@/lib/cart'
 import { PRESCRIPTION_PRICE, WARRANTY_PRICE } from '@/lib/pricing'
 import { useStickyBarOffset } from './useStickyBarOffset'
@@ -129,7 +130,7 @@ export default function MobileCartExperience({
               <div className="flex justify-between text-neutral-400"><dt>Worldwide shipping</dt><dd className="text-emerald-200">Included</dd></div>
               <div className="flex justify-between border-t border-white/10 pt-4 text-lg text-white"><dt>Total</dt><dd>{money(total)}</dd></div>
             </dl>
-            <div className="mt-6 border-l-2 border-emerald-200 bg-[#14231d] px-4 py-4 text-xs leading-5 text-neutral-300">Fully refundable before custom production begins. Production usually takes 1-2 weeks after your measurements are approved.</div>
+            <AfterCheckoutSteps className="mt-6 border-l-2 border-emerald-200 bg-[#14231d] px-4 py-4" />
           </section>
         </>
       )}

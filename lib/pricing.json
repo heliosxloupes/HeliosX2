@@ -26,5 +26,9 @@
     "prescription-lenses": { "name": "Prescription Lenses", "price": 200 },
     "extended-warranty": { "name": "Extended Warranty", "price": 99 }
   },
-  "limits": { "maxQuantityPerLine": 10, "maxLineItems": 20 }
+  "limits": { "maxQuantityPerLine": 10, "maxLineItems": 20 },
+  "trainee": {
+    "_comment": "Verified resident, fellow and student discount. Applied at checkout with a Stripe promotion code issued after verification, so the server still charges catalogue prices from this file.",
+    "percentOff": 10
+  }
 }

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 
-import { magnificationPriceByProduct } from '@/lib/pricing'
+import { magnificationPriceByProduct, TRAINEE_PERCENT_OFF } from '@/lib/pricing'
 
 type Filter = 'all' | 'ergonomic' | 'lightweight' | 'high-mag'
 
@@ -64,6 +64,24 @@ const filters: { value: Filter; label: string }[] = [
   { value: 'high-mag', label: 'High magnification' },
 ]
 
+// Most visitors here arrive cold from an Instagram or Facebook ad that says
+// "from $695", then met a $1,695 Medusa first and left within seconds. Give
+// them the price promise and a one-tap route to the model that fits their work.
+const finder = [
+  { need: 'Dental hygiene or student clinic', slug: 'newton', name: 'Newton' },
+  { need: 'Everyday surgery and residency', slug: 'galileo', name: 'Galileo' },
+  { need: 'Fine detail at 4.0x and above', slug: 'kepler', name: 'Kepler' },
+  { need: 'Long cases and neck strain', slug: 'apollo', name: 'Apollo' },
+  { need: 'You sit and stand during cases', slug: 'medusa', name: 'Medusa' },
+] as const
+
+const startingPrice = (slug: string) => {
+  const prices = Object.values(magnificationPriceByProduct[slug] ?? {})
+  return prices.length ? Math.min(...prices) : 0
+}
+
+const magnificationCount = (slug: string) => Object.keys(magnificationPriceByProduct[slug] ?? {}).length
+
 const money = (value: number) =>
   new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -87,8 +105,29 @@ export default function MobileCatalogueExperience() {
           Five systems.<br />One standard.
         </p>
         <p className="mt-6 max-w-sm text-[15px] leading-6 text-neutral-300">
-          Custom-fit surgical loupes with published prices. Choose by posture, magnification, and the work in front of you.
+          Custom-fit surgical and dental loupes from {money(startingPrice('newton'))}, shipping included. Choose by posture, magnification, and the work in front of you.
         </p>
+        <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-xs text-neutral-300">
+          <li className="flex items-center gap-1.5"><Check size={14} className="text-emerald-200" /> 2-year limited warranty</li>
+          <li className="flex items-center gap-1.5"><Check size={14} className="text-emerald-200" /> Refundable until production</li>
+          <li className="flex items-center gap-1.5"><Check size={14} className="text-emerald-200" /> Residents &amp; students save {TRAINEE_PERCENT_OFF}%</li>
+        </ul>
+        <div className="mt-7 border-t border-white/10 pt-5">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-200/70">Find your starting point</p>
+          <ul className="mt-3 divide-y divide-white/10">
+            {finder.map((row) => (
+              <li key={row.slug}>
+                <Link href={`/product/${row.slug}`} className="flex min-h-12 items-center justify-between gap-3 py-2.5 text-sm">
+                  <span className="text-neutral-300">{row.need}</span>
+                  <span className="flex shrink-0 items-center gap-2 text-white">
+                    {row.name} <span className="text-xs text-neutral-500">from {money(startingPrice(row.slug))}</span>
+                    <ArrowRight size={15} className="text-emerald-200" />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
         <div className="mt-6 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Filter loupes">
           {filters.map((option) => (
             <button
@@ -106,8 +145,7 @@ export default function MobileCatalogueExperience() {
 
       <section aria-live="polite">
         {visible.map((product, index) => {
-          const prices = Object.values(magnificationPriceByProduct[product.slug] ?? {})
-          const startingPrice = prices.length ? Math.min(...prices) : 0
+          const fromPrice = startingPrice(product.slug)
 
           return (
             <article key={product.slug} className="border-b border-white/10">
@@ -132,8 +170,8 @@ export default function MobileCatalogueExperience() {
                   </div>
                   <p className="mt-4 text-sm leading-6 text-neutral-400">{product.note}</p>
                   <div className="mt-5 flex items-end justify-between border-t border-white/10 pt-4">
-                    <span className="text-xs text-neutral-400">{product.range}</span>
-                    <span className="text-right"><small className="block text-[10px] uppercase tracking-wider text-neutral-500">From</small><strong className="text-lg font-medium">{money(startingPrice)}</strong></span>
+                    <span className="text-xs text-neutral-400">{magnificationCount(product.slug)} magnifications, {product.range}</span>
+                    <span className="text-right"><small className="block text-[10px] uppercase tracking-wider text-neutral-500">From</small><strong className="text-lg font-medium">{money(fromPrice)}</strong></span>
                   </div>
                 </div>
               </Link>

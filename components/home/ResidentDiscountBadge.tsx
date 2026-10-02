@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowUpRight, GraduationCap } from 'lucide-react'
+import { TRAINEE_PERCENT_OFF } from '@/lib/pricing'
 
 const EMAIL = 'heliosxloupes@gmail.com'
 const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent('Resident / student discount verification')}&body=${encodeURIComponent(
@@ -26,8 +27,8 @@ const steps = [
     body: 'A current program ID, enrollment or residency letter, or a screenshot of your program profile.',
   },
   {
-    title: 'Receive your price',
-    body: 'We confirm eligibility and reply with your discounted price, usually within one business day.',
+    title: 'Get your code',
+    body: 'We confirm eligibility and reply with a personal discount code for checkout, usually within one business day.',
   },
 ]
 
@@ -144,7 +145,7 @@ export default function ResidentDiscountBadge() {
                 Resident &amp; student pricing
               </p>
               <h3 className="mt-2 text-[1.35rem] font-semibold leading-snug tracking-[-0.01em] text-white">
-                Verify once. Get your trainee price.
+                Verify once. Save {TRAINEE_PERCENT_OFF}% on any pair.
               </h3>
 
               <ol className="relative mt-6 space-y-5">

@@ -4,7 +4,7 @@ import type {
   SeoLandingPage,
   EducationGuide,
 } from './seo-content'
-import { magnificationPriceByProduct, PRESCRIPTION_PRICE, TRAINEE_PERCENT_OFF } from './pricing'
+import { magnificationPriceByProduct, PRESCRIPTION_PRICE, TRAINEE_PERCENT_OFF, traineePrice } from './pricing'
 
 // Reviewed commercial content. Keep facts separate from brand preference;
 // competitor details below were checked against primary sources on 2026-09-10.
@@ -555,7 +555,7 @@ revisions['student-loupe-comparison'] = {
   title: 'Student loupes compared: what to buy first',
   metaTitle: 'Student Loupes: Compare Brands & Prices | HeliosX',
   description:
-    'Compare student loupes across six brands by price, magnification, and what you actually get. Newton starts at $695 with no discount code required.',
+    `Compare student loupes across six brands by price, magnification, and what you actually get. Newton starts at $695, and verified students get ${TRAINEE_PERCENT_OFF}% off.`,
   intro:
     'Your first pair of loupes is bought under the worst conditions: limited budget, no experience of what you will prefer, and a deadline set by your program. The good news is that the decision is narrower than the marketing suggests. Confirm what your school requires, pick a magnification you can adapt to, then compare the finished price rather than the advertised one.',
   recommendedProducts: ['Newton', 'Galileo', 'Apollo'],
@@ -591,7 +591,7 @@ revisions['student-loupe-comparison'] = {
     ),
     section(
       'Compare the finished price, not the discount',
-      'Student pricing is where comparison gets difficult, because a percentage off an unpublished retail price tells you nothing. Orascoptic publishes student benefits including a 45-day trial, subject to eligibility and purchase terms. Ask your representative which of those apply to your actual quote. HeliosX publishes its prices instead, so the number you see is the number you pay before options.',
+      `Student pricing is where comparison gets difficult, because a percentage off an unpublished retail price tells you nothing. Orascoptic publishes student benefits including a 45-day trial, subject to eligibility and purchase terms. Ask your representative which of those apply to your actual quote. HeliosX publishes its prices instead, and verified students, residents and fellows get a flat ${TRAINEE_PERCENT_OFF}% off them, so you can work out your exact price before asking anyone.`,
       [
         'Compare your eligible quote against a complete HeliosX order, line by line.',
         'Confirm what a fit correction or a prescription change costs after delivery.',
@@ -606,8 +606,8 @@ revisions['student-loupe-comparison'] = {
   ],
   faqs: [
     faq(
-      'Do I need a student code for the HeliosX entry price?',
-      'No. Newton’s $695 starting price is the published price at 2.5x and it applies to everyone. Other magnifications and optional extras change the total.',
+      'How does the HeliosX student discount work?',
+      `Verified students, residents and fellows get ${TRAINEE_PERCENT_OFF}% off any model. Email proof of your training status, such as a student ID, enrollment letter or schedule, and we send a code to use at checkout. Newton at 2.5x comes to $${traineePrice(695).toFixed(2)}.`,
     ),
     faq(
       'What magnification should a student buy first?',

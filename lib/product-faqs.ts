@@ -1,3 +1,5 @@
+import { TRAINEE_PERCENT_OFF } from './pricing'
+
 // Per-product FAQs surfaced as both visible content (rendered by
 // ProductPageTemplate when present) and as FAQPage JSON-LD so PDPs
 // become eligible for "People also ask" rich results and AI Overview
@@ -24,7 +26,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'Are there discounts for residents and students?',
       answer:
-        'Yes. Resident- and student-friendly pricing is documented across the HeliosX lineup with explicit discount eligibility. Email heliosxloupes@gmail.com with your training program details to confirm.',
+        `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
     },
     {
       question: 'What happens if my Medusa loupes get damaged?',
@@ -51,7 +53,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'Are there discounts for residents and students?',
       answer:
-        'Yes. Resident- and student-friendly pricing is documented across the HeliosX lineup. Email heliosxloupes@gmail.com with your training program details to confirm eligibility.',
+        `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
     },
   ],
   kepler: [
@@ -85,7 +87,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'Is Galileo good for dental students?',
       answer:
-        'Yes. Galileo is built specifically as an entry-tier loupe that students can afford during training without compromising on the optical or fitting standard. Resident and student discount eligibility is documented across the lineup.',
+        `Yes. Galileo is built specifically as an entry-tier loupe that students can afford during training without compromising on the optical or fitting standard. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off.`,
     },
     {
       question: 'How much does Galileo weigh?',
@@ -117,7 +119,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'Are there discounts for residents and students?',
       answer:
-        'Yes. Resident- and student-friendly pricing is documented across the HeliosX lineup. Email heliosxloupes@gmail.com with your training program details to confirm.',
+        `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
     },
   ],
 }

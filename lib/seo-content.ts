@@ -1,5 +1,5 @@
 import { applyEditorialRevisions } from './seo-editorial'
-import { magnificationPriceByProduct } from './pricing'
+import { magnificationPriceByProduct, TRAINEE_PERCENT_OFF } from './pricing'
 import seoRedirects from './seo-redirects.json'
 
 export type ContentSection = {
@@ -582,7 +582,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'Do residents, medical students, and dental students get discounts?',
         answer:
-          'Yes. HeliosX runs resident- and student-friendly pricing across the lineup, with explicit discounts available on request. Email heliosxloupes@gmail.com with your training program details to confirm eligibility before placing an order.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'Is a $5,000 loupe meaningfully better than a $1,500 loupe?',
@@ -681,7 +681,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       { feature: 'Optical glass tier', heliosx: 'Premium multi-layer-coated standard across all 5 models', other: 'Premium optics typically reserved for top-tier models' },
       { feature: 'Ergonomic prismatic price', heliosx: '$1,695 (Medusa, Apollo)', other: 'Commonly $3,500–$5,500+' },
       { feature: 'Headlight integration', heliosx: 'Sold separately; no proprietary bundle', other: 'Often bundled with proprietary headlight systems' },
-      { feature: 'Resident / student access pricing', heliosx: 'Documented discounts available on request', other: 'Dental-school programs common; surgical-resident access varies' },
+      { feature: 'Resident / student access pricing', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'Dental-school programs common; surgical-resident access varies' },
       { feature: 'Refund and modification policy', heliosx: 'Full refund before custom production begins; authorized modifications after delivery', other: 'Varies; restocking fees common' },
     ],
     competitorName: 'Typical legacy loupe brand',
@@ -2962,7 +2962,7 @@ const competitorPages: SeoLandingPage[] = [
     relatedKeywords: ['surgical loupe comparisons', 'dental loupe comparisons', 'best loupe brands'],
     audience: 'buyers comparing loupe brands before choosing surgical or dental loupes',
     intro:
-      'This comparison hub helps buyers evaluate HeliosX against established loupe brands without reducing the decision to name recognition alone. HeliosX is the prismatic-forward affordable-premium brand in this space — two ergonomic prismatic platforms (Medusa and Apollo) covering 3.0x–8.5x, published pricing from $695, documented resident and student discounts, and direct-to-clinician shipping with a measurement step before production.',
+      `This comparison hub helps buyers evaluate HeliosX against established loupe brands without reducing the decision to name recognition alone. HeliosX is the prismatic-forward affordable-premium brand in this space — two ergonomic prismatic platforms (Medusa and Apollo) covering 3.0x–8.5x, published pricing from $695, a ${TRAINEE_PERCENT_OFF}% discount for verified residents, fellows and students, and direct-to-clinician shipping with a measurement step before production.`,
     proofPoints: [
       'Two ergonomic prismatic platforms covering 3.0x–8.5x — widest prismatic range at this price tier.',
       'Published pricing from $695 across the lineup. No quote required.',
@@ -3038,7 +3038,7 @@ const competitorPages: SeoLandingPage[] = [
       {
         title: 'Why HeliosX leads with positioning',
         body:
-          'Most legacy loupe brands keep pricing behind a quote, route ordering through a dealer, and treat the measurement step as a fitting visit. HeliosX leads with the opposite: published price tiers from $695, direct-to-clinician ordering, an online measurement step before production, and documented resident and student discount eligibility on the public site. The combination is what makes us the prismatic-forward affordable-premium choice in this category.',
+          `Most legacy loupe brands keep pricing behind a quote, route ordering through a dealer, and treat the measurement step as a fitting visit. HeliosX leads with the opposite: published price tiers from $695, direct-to-clinician ordering, an online measurement step before production, and a ${TRAINEE_PERCENT_OFF}% discount for verified residents, fellows and students on the public site. The combination is what makes us the prismatic-forward affordable-premium choice in this category.`,
         bullets: [
           'Posted pricing: Galileo and Newton from $695, Kepler from $1,195, Medusa from $1,695, Apollo from $1,695.',
           'Two ergonomic prismatic platforms covering 3.0x–8.5x — the widest prismatic range at this price tier.',
@@ -3068,7 +3068,7 @@ const competitorPages: SeoLandingPage[] = [
       {
         question: 'Is HeliosX a challenger loupe brand?',
         answer:
-          'Yes. HeliosX is the prismatic-forward affordable-premium challenger — two ergonomic prismatic platforms covering 3.0x–8.5x, published pricing from $695, documented resident and student discounts, direct-to-clinician shipping, one-business-day support, and a measurement step before production starts.',
+          `Yes. HeliosX is the prismatic-forward affordable-premium challenger — two ergonomic prismatic platforms covering 3.0x–8.5x, published pricing from $695, a ${TRAINEE_PERCENT_OFF}% discount for verified residents, fellows and students, direct-to-clinician shipping, one-business-day support, and a measurement step before production starts.`,
       },
       {
         question: 'Why does HeliosX cost less than legacy brands?',
@@ -3102,7 +3102,7 @@ const competitorPages: SeoLandingPage[] = [
     proofPoints: [
       'HeliosX prices start at $695 (Galileo, Newton) and ergonomic prismatic at $1,695 (Medusa) / $1,695 (Apollo) — structurally lower than legacy loupe pricing.',
       'Medusa and Apollo cover the widest ergonomic prismatic range in the price tier, from 3.0x to 8.5x.',
-      'Resident- and student-friendly pricing with discounts, direct-to-clinician shipping, and measurement guidance after checkout.',
+      `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students, direct-to-clinician shipping, and measurement guidance after checkout.`,
     ],
     sections: [
       {
@@ -3193,7 +3193,7 @@ const competitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or dental-student discounts?',
         answer:
-          'Yes. HeliosX runs resident- and student-friendly pricing across the lineup, with explicit discounts available for residents and students. Email heliosxloupes@gmail.com with your training program details to confirm eligibility.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or need lens updates?',
@@ -3217,7 +3217,7 @@ const competitorPages: SeoLandingPage[] = [
     proofPoints: [
       'HeliosX prices start at $695 (Galileo, Newton) and ergonomic prismatic at $1,695 (Medusa) / $1,695 (Apollo) — typically 50–70% less than legacy premium loupe pricing.',
       'Medusa and Apollo cover the widest ergonomic prismatic range in the price tier (3.0x to 8.5x), with Kepler covering 4x–6x microsurgery.',
-      'Resident- and student-friendly pricing with discounts, direct-to-clinician shipping, and one-business-day support before production starts.',
+      `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students, direct-to-clinician shipping, and one-business-day support before production starts.`,
     ],
     sections: [
       {
@@ -3286,7 +3286,7 @@ const competitorPages: SeoLandingPage[] = [
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Dealer-routed fulfillment in many regions' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support team, one-business-day response before production begins', other: 'Dealer rep + central brand support' },
       { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard loupe-brand warranty terms routed through dealer' },
-      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and student pricing through dealer programs' },
+      { feature: 'Resident / student access', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'School and student pricing through dealer programs' },
       { feature: 'Education resources', heliosx: 'Measurement, magnification, ergonomics, research, and per-specialty guides built into the buying flow', other: 'Product documents, blog posts, and dealer training resources' },
     ],
     verdict:
@@ -3310,7 +3310,7 @@ const competitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          'Yes. Resident- and student-friendly pricing is documented across the lineup, with explicit discounts available. Email heliosxloupes@gmail.com with your training program details to confirm eligibility.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes get damaged or lost?',
@@ -3334,7 +3334,7 @@ const competitorPages: SeoLandingPage[] = [
     proofPoints: [
       'HeliosX prices start at $695 (Galileo, Newton) and ergonomic prismatic at $1,695 (Medusa) / $1,695 (Apollo) — typically 50–70% below legacy premium loupe pricing.',
       'Medusa and Apollo cover the widest ergonomic prismatic range in the price tier (3.0x–8.5x), with Kepler for 4x–6x microsurgery.',
-      'Resident- and student-friendly pricing with discounts, direct-to-clinician shipping, one-business-day support, replacement and lens-update warranty paths.',
+      `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students, direct-to-clinician shipping, one-business-day support, replacement and lens-update warranty paths.`,
     ],
     sections: [
       {
@@ -3377,7 +3377,7 @@ const competitorPages: SeoLandingPage[] = [
         bullets: [
           'Fittings: dealer rep → measurement guidance from HeliosX support after checkout.',
           'Pricing: tier varies by channel → posted on every product page.',
-          'Resident access: school program → documented resident and student discounts.',
+          `Resident access: school program → a ${TRAINEE_PERCENT_OFF}% discount for verified residents, fellows and students.`,
           'Warranty: dealer-routed → direct replacement and lens-update paths.',
         ],
       },
@@ -3405,7 +3405,7 @@ const competitorPages: SeoLandingPage[] = [
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Dealer-routed fulfillment in many regions' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support team, one-business-day response before production', other: 'Dealer rep plus central brand support' },
       { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard premium-loupe warranty terms routed through dealer' },
-      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and student pricing through dealer programs' },
+      { feature: 'Resident / student access', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'School and student pricing through dealer programs' },
       { feature: 'Education resources', heliosx: 'Measurement, magnification, ergonomics, research, and per-specialty guides built into the buying flow', other: 'Product documents, blog posts, and dealer training resources' },
     ],
     verdict:
@@ -3451,7 +3451,7 @@ const competitorPages: SeoLandingPage[] = [
     intro:
       'A good LumaDent alternative should preserve modern direct-to-clinician shopping while adding ergonomic prismatic depth, surgical credibility, premium build quality, and structurally lower pricing across the lineup. HeliosX competes on every one of those axes — with the widest prismatic range in the price tier and resident-friendly access.',
     proofPoints: [
-      'HeliosX prices start at $695 (Galileo, Newton) and ergonomic prismatic at $1,695 (Medusa) / $1,695 (Apollo) with documented resident and student discounts.',
+      `HeliosX prices start at $695 (Galileo, Newton) and ergonomic prismatic at $1,695 (Medusa) / $1,695 (Apollo) with a ${TRAINEE_PERCENT_OFF}% discount for verified residents, fellows and students.`,
       'Medusa (3.0x–8.5x) and Apollo (3.0x–6.0x) cover the widest ergonomic prismatic range in the price tier; Kepler adds 4x–6x microsurgery.',
       'Surgical, dental, hygienist, resident, and student audiences each have a tailored buying path with measurement guidance after checkout.',
     ],
@@ -3525,7 +3525,7 @@ const competitorPages: SeoLandingPage[] = [
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Direct-to-clinician shipping' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Dental-audience support with light-system focus' },
       { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard loupe-brand warranty terms' },
-      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'Dental-student audience pricing' },
+      { feature: 'Resident / student access', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'Dental-student audience pricing' },
     ],
     verdict:
       'HeliosX is a strong LumaDent alternative for buyers who want dental usability with surgical credibility, ergonomic prismatic options, a wider frame catalogue, and documented resident pricing.',
@@ -3575,7 +3575,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
     proofPoints: [
       'HeliosX prices start at $695 (Galileo, Newton) and ergonomic prismatic at $1,695 (Medusa) / $1,695 (Apollo) — below the ergonomics-incumbent tier.',
       'Two ergonomic prismatic systems with the widest prismatic range in the price tier (Medusa 3.0x–8.5x, Apollo 3.0x–6.0x).',
-      'Resident- and student-friendly pricing with discounts, direct-to-clinician shipping, and one-business-day support response.',
+      `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students, direct-to-clinician shipping, and one-business-day support response.`,
     ],
     sections: [
       {
@@ -3644,7 +3644,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Mixed direct and dealer fulfillment by region' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production begins', other: 'Ergonomic evaluation and support through brand or rep' },
       { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard ergonomic-loupe warranty terms' },
-      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and dental-student pricing through the brand’s programs' },
+      { feature: 'Resident / student access', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'School and dental-student pricing through the brand’s programs' },
       { feature: 'Education resources', heliosx: 'Working distance, magnification, ergonomics (citing a 2024 Frontiers in Public Health crossover trial), and per-specialty guides built into the site', other: 'Posture and ergonomics evaluation content' },
     ],
     verdict:
@@ -3668,7 +3668,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          'Yes. Resident- and student-friendly pricing is documented across the lineup, with explicit discounts available. Email heliosxloupes@gmail.com with your training program to confirm eligibility.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -3692,7 +3692,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
     proofPoints: [
       'HeliosX starts at $695 (Galileo, Newton) and ergonomic prismatic at $1,695 (Medusa) / $1,695 (Apollo) — structurally below the prismatic-incumbent tier.',
       'Medusa (3.0x–8.5x) and Apollo (3.0x–6.0x) are the two ergonomic prismatic systems with the broadest prismatic range in the tier.',
-      'Resident- and student-friendly pricing with discounts, direct-to-clinician shipping, and one-business-day support response.',
+      `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students, direct-to-clinician shipping, and one-business-day support response.`,
     ],
     sections: [
       {
@@ -3761,7 +3761,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Mixed direct and dealer fulfillment' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production begins', other: 'Brand support plus dealer relationships' },
       { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard loupe-brand warranty terms' },
-      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and student pricing through brand or dealer programs' },
+      { feature: 'Resident / student access', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'School and student pricing through brand or dealer programs' },
       { feature: 'Education resources', heliosx: 'Plain-language measurement, magnification, ergonomics, and research guides built into the site', other: 'Spec sheets, datasheets, and support documents' },
     ],
     verdict:
@@ -3785,7 +3785,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          'Yes. Resident- and student-friendly pricing is documented across the lineup, with explicit discounts available. Email heliosxloupes@gmail.com with your training program details to confirm eligibility.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -3809,7 +3809,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
     proofPoints: [
       'HeliosX is custom-built per order around your PD and working distance, just like premium-incumbent loupes — at $695–$2,075 across the lineup.',
       'Medusa (3.0x–8.5x) and Apollo (3.0x–6.0x) cover the widest ergonomic prismatic range in the price tier.',
-      'Resident- and student-friendly pricing with discounts, direct-to-clinician shipping, and one-business-day support response.',
+      `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students, direct-to-clinician shipping, and one-business-day support response.`,
     ],
     sections: [
       {
@@ -3879,7 +3879,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Dealer-routed fulfillment in many regions' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Dealer rep + central brand support' },
       { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Premium loupe-brand warranty routed through dealer' },
-      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'Premium custom pricing without explicit access tier' },
+      { feature: 'Resident / student access', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'Premium custom pricing without explicit access tier' },
     ],
     verdict:
       'Choose HeliosX if you want custom-fit education, transparent pricing, ergonomic prismatic depth, and direct-to-clinician access. Compare ExamVision if the premium European craftsmanship brand identity and dealer fitting are your top priorities.',
@@ -3902,7 +3902,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          'Yes. Resident- and student-friendly pricing is documented across the lineup with explicit discounts. Email heliosxloupes@gmail.com with your training program details to confirm eligibility.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -3965,7 +3965,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         title: 'When HeliosX is the better fit',
         body:
-          'HeliosX wins when the buyer wants the ergonomic-prismatic adjustable concept delivered at a structurally lower price tier, with the broadest prismatic magnification range in the tier (Medusa 8.0x and 8.5x), direct-to-clinician access, and resident- and student-friendly pricing. The warranty covers replacement and lens-update paths, optional protection coverage is available at order, and the buying flow explains the choice in plain language.',
+          `HeliosX wins when the buyer wants the ergonomic-prismatic adjustable concept delivered at a structurally lower price tier, with the broadest prismatic magnification range in the tier (Medusa 8.0x and 8.5x), direct-to-clinician access, and ${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students. The warranty covers replacement and lens-update paths, optional protection coverage is available at order, and the buying flow explains the choice in plain language.`,
         bullets: [
           'You want adjustable working distance ergonomic prismatic at a price tier below the technology-incumbent.',
           'You need 8.0x or 8.5x prismatic optics (Medusa carries both).',
@@ -3996,7 +3996,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Specialty channel and dealer fulfillment' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Dealer rep and brand support' },
       { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Premium loupe-brand warranty terms' },
-      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'Premium pricing without explicit access tier' },
+      { feature: 'Resident / student access', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'Premium pricing without explicit access tier' },
     ],
     verdict:
       'Choose HeliosX if you want ergonomic prismatic adjustable working distance, the broadest prismatic range in the tier, and structurally lower pricing through direct-to-clinician access. Compare Admetec if a specific innovation concept and technology-first brand identity are central to your decision.',
@@ -4019,7 +4019,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          'Yes. Resident- and student-friendly pricing is documented across the lineup with explicit discounts. Email heliosxloupes@gmail.com with your training program details to confirm eligibility.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -4043,7 +4043,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
     proofPoints: [
       'HeliosX Medusa and Apollo are positioned directly as ergonomic prismatic systems with documented working distance ranges.',
       'Medusa adds real-time adjustable working distance across 3.0x to 8.5x — the broadest prismatic range in the price tier.',
-      'Pricing starts at $695 (Galileo, Newton) with documented resident and student discounts, direct-to-clinician shipping, and one-business-day support.',
+      `Pricing starts at $695 (Galileo, Newton) with a ${TRAINEE_PERCENT_OFF}% discount for verified residents, fellows and students, direct-to-clinician shipping, and one-business-day support.`,
     ],
     sections: [
       {
@@ -4117,7 +4117,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Mixed direct and dealer fulfillment by region' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Ergonomic evaluation support through brand or rep' },
       { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard ergonomic-loupe warranty terms' },
-      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and student pricing through brand programs' },
+      { feature: 'Resident / student access', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'School and student pricing through brand programs' },
     ],
     verdict:
       'HeliosX is a SurgiTel alternative for buyers who want ergonomic prismatic posture support at a price tier below the ergonomics incumbent, the widest prismatic range in the tier, and direct-to-clinician access with documented resident pricing.',
@@ -4140,7 +4140,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          'Yes. Resident- and student-friendly pricing is documented across the lineup with explicit discounts. Email heliosxloupes@gmail.com with your training program details to confirm eligibility.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -4164,7 +4164,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
     proofPoints: [
       'HeliosX Medusa (3.0x–8.5x) and Apollo (3.0x–6.0x) cover the broadest ergonomic prismatic range in the price tier, including 8.0x and 8.5x options.',
       'Pricing from $695 (Galileo, Newton) up through ergonomic prismatic and high magnification — structurally below the prismatic-incumbent tier.',
-      'Resident- and student-friendly pricing with documented discounts, direct-to-clinician shipping, premium optical glass and rigid metal barrels.',
+      `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students, direct-to-clinician shipping, premium optical glass and rigid metal barrels.`,
     ],
     sections: [
       {
@@ -4236,7 +4236,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Mixed direct and dealer fulfillment' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Brand support plus dealer relationships' },
       { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard loupe-brand warranty terms' },
-      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and student pricing through brand or dealer programs' },
+      { feature: 'Resident / student access', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'School and student pricing through brand or dealer programs' },
       { feature: 'Education resources', heliosx: 'Plain-language measurement, magnification, ergonomics, and research guides built into the site', other: 'Spec sheets, datasheets, and support documents' },
     ],
     verdict:
@@ -4260,7 +4260,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          'Yes. Resident- and student-friendly pricing is documented across the lineup, with explicit discounts available. Email heliosxloupes@gmail.com with your training program details to confirm eligibility.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -4283,11 +4283,11 @@ const authorityComparisonPages: SeoLandingPage[] = [
     relatedKeywords: ['best dental loupes', 'dental loupe comparison', 'LumaDent alternatives', 'Orascoptic alternatives'],
     audience: 'dentists, hygienists, dental students, and practice owners comparing loupe brands',
     intro:
-      'The best dental loupe brand depends on the procedures you do, how long you wear magnification, how carefully your working distance is measured, and whether posture or price matters most. HeliosX is the prismatic-forward affordable-premium brand in this lineup — two ergonomic prismatic platforms (Medusa and Apollo) covering 3.0x–8.5x, published price tiers from $695, documented resident and student discounts, and direct-to-clinician shipping with one-business-day support.',
+      `The best dental loupe brand depends on the procedures you do, how long you wear magnification, how carefully your working distance is measured, and whether posture or price matters most. HeliosX is the prismatic-forward affordable-premium brand in this lineup — two ergonomic prismatic platforms (Medusa and Apollo) covering 3.0x–8.5x, published price tiers from $695, a ${TRAINEE_PERCENT_OFF}% discount for verified residents, fellows and students, and direct-to-clinician shipping with one-business-day support.`,
     proofPoints: [
       'Two ergonomic prismatic platforms — the widest prismatic range at this price tier.',
       'Published pricing from $695; no quote request required.',
-      'Documented resident and student discount eligibility across the lineup.',
+      `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students across the lineup.`,
     ],
     sections: [
       {
@@ -4305,7 +4305,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         title: 'The HeliosX position in dental',
         body:
-          'HeliosX is the prismatic-forward affordable-premium brand. Two ergonomic prismatic platforms (Medusa from $1,695 and Apollo from $1,695) cover 3.0x through 8.5x — the widest prismatic range at this price tier. Galileo and Newton handle the entry tier from $695 with documented resident and student discounts. Every order ships direct-to-clinician with a measurement step before production, and customer support runs on a one-business-day response SLA.',
+          `HeliosX is the prismatic-forward affordable-premium brand. Two ergonomic prismatic platforms (Medusa from $1,695 and Apollo from $1,695) cover 3.0x through 8.5x — the widest prismatic range at this price tier. Galileo and Newton handle the entry tier from $695 with a ${TRAINEE_PERCENT_OFF}% discount for verified residents, fellows and students. Every order ships direct-to-clinician with a measurement step before production, and customer support runs on a one-business-day response SLA.`,
         bullets: [
           'Medusa 3.0x–8.5x with adjustable working distance; Apollo 3.0x–6.0x posture-locked.',
           'Galileo and Newton from $695 for hygienists, students, and entry-tier daily use.',
@@ -4318,7 +4318,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
         body:
           'Here is qualitative positioning for the brands dental buyers typically compare — what each is best known for, in plain language. Use this as orientation, then match the brand profile against your own workflow.',
         bullets: [
-          'HeliosX — prismatic-forward affordable-premium specialist. Two ergonomic prismatic platforms covering 3.0x–8.5x, posted pricing from $695, direct-to-clinician shipping, documented resident and student discounts.',
+          `HeliosX — prismatic-forward affordable-premium specialist. Two ergonomic prismatic platforms covering 3.0x–8.5x, posted pricing from $695, direct-to-clinician shipping, a ${TRAINEE_PERCENT_OFF}% discount for verified residents, fellows and students.`,
           'Orascoptic — established North American brand with broad category authority, a wide dealer network, and strong dental-school relationships.',
           'LumaDent — value-tier Galilean specialist popular with hygienists and dental students. Direct-to-clinician model.',
           'SurgiTel — the brand most associated with declination-angle ergonomic positioning across both Galilean and prismatic systems.',
@@ -4362,7 +4362,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       { feature: 'Build quality', heliosx: 'Premium optical glass with multi-layer coatings, rigid metal barrels, reinforced mounts on every tier', other: 'Premium-tier construction expected' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician with measurement-first production', other: 'Dealer or distributor routing typical for premium-tier brands' },
       { feature: 'Customer support', heliosx: 'One-business-day SLA from a clinician-aware team', other: 'Dealer support layer typical' },
-      { feature: 'Resident and student access', heliosx: 'Documented discount eligibility across the lineup', other: 'Educational pricing varies by brand partner or school program' },
+      { feature: 'Resident and student access', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'Educational pricing varies by brand partner or school program' },
       { feature: 'Replacement and warranty', heliosx: 'Warranty with replacement and lens-update paths; optional protection coverage at order', other: 'Warranty terms vary by brand' },
     ],
     verdict:
@@ -4381,7 +4381,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident and student discounts?',
         answer:
-          'Yes. Resident- and student-friendly pricing is documented across the lineup with explicit discount eligibility. Email heliosxloupes@gmail.com with your training program details to confirm and apply.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'Why does HeliosX cost less than legacy dental brands?',
@@ -4410,7 +4410,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
     proofPoints: [
       'Medusa reaches 8.5x — the widest prismatic range at this price tier.',
       'Kepler from $1,195 for high-magnification surgical work; Galileo and Newton from $695 for residents.',
-      'Documented resident and student discount eligibility across the lineup.',
+      `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students across the lineup.`,
     ],
     sections: [
       {
@@ -4434,7 +4434,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
           'Apollo 3.0x–6.0x posture-locked ergonomic prismatic for the most common surgical range.',
           'Kepler 4.0x–6.0x from $1,195 — high-magnification surgical platform without the prismatic ergonomic weight.',
           'Galileo and Newton from $695 — accessible entry for residents and medical students.',
-          'Documented resident and student discount eligibility; optional protection coverage at order.',
+          `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students; optional protection coverage at order.`,
         ],
       },
       {
@@ -4486,7 +4486,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       { feature: 'Pricing philosophy', heliosx: 'Posted prices from $695 across the entire lineup', other: 'Premium-tier brands typically quote-based' },
       { feature: 'Prismatic catalog', heliosx: 'Medusa (3.0x–8.5x adjustable) + Apollo (3.0x–6.0x fixed)', other: 'Prismatic catalog and range vary by brand' },
       { feature: 'High-magnification surgical', heliosx: 'Kepler 4.0x–6.0x from $1,195', other: 'High-magnification surgical options vary by brand and product family' },
-      { feature: 'Resident and student access', heliosx: 'Galileo and Newton from $695 with documented discount eligibility', other: 'Educational pricing varies by brand partner or school program' },
+      { feature: 'Resident and student access', heliosx: `Galileo and Newton from $695 with ${TRAINEE_PERCENT_OFF}% off for verified trainees`, other: 'Educational pricing varies by brand partner or school program' },
       { feature: 'Frame and color options', heliosx: 'Apollo 1 + Apollo 2 in five colorways each; six JJ-series frames; H1/H2 Newton frames', other: 'Frame catalog varies by configuration' },
       { feature: 'Build quality', heliosx: 'Premium optical glass with multi-layer coatings, rigid metal barrels, reinforced mounts on every tier', other: 'Premium-tier construction expected' },
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician with measurement-first production', other: 'Dealer or distributor routing typical for premium-tier brands' },
@@ -4499,7 +4499,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         question: 'Which surgical loupe brands should residents compare?',
         answer:
-          'Residents should compare HeliosX, Orascoptic, SurgiTel, Q-Optics, LumaDent, ExamVision, Admetec, and Designs for Vision. Score them against the same checklist: published pricing, ergonomic prismatic options in your magnification range, measurement process before production, warranty + protection coverage, and direct vs. dealer support. HeliosX is the only brand on this list that publishes pricing from $695 and documents resident and student discount eligibility on the public site.',
+          `Residents should compare HeliosX, Orascoptic, SurgiTel, Q-Optics, LumaDent, ExamVision, Admetec, and Designs for Vision. Score them against the same checklist: published pricing, ergonomic prismatic options in your magnification range, measurement process before production, warranty + protection coverage, and direct vs. dealer support. HeliosX is the only brand on this list that publishes pricing from $695 and publishes a ${TRAINEE_PERCENT_OFF}% discount for verified residents, fellows and students.`,
       },
       {
         question: 'Which HeliosX models are strongest for surgical work?',
@@ -4509,7 +4509,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident and student discounts?',
         answer:
-          'Yes. Resident- and student-friendly pricing is documented across the lineup with explicit discount eligibility. Email heliosxloupes@gmail.com with your training program details to confirm and apply.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'Why does HeliosX cost less than legacy surgical brands?',
@@ -4534,10 +4534,10 @@ const authorityComparisonPages: SeoLandingPage[] = [
     relatedKeywords: ['best loupes for students', 'dental student loupes', 'medical student loupes', 'resident loupes'],
     audience: 'dental students, medical students, residents, and first-time loupe buyers',
     intro:
-      'Students need loupes that are affordable enough to start, comfortable enough to wear while learning, and measured well enough that bad fit does not become a hidden tax. HeliosX starts at $695 with Galileo and Newton, documents resident and student discount eligibility across the lineup, and gives every buyer a measurement step before production so the loupes arrive set up for the user.',
+      `Students need loupes that are affordable enough to start, comfortable enough to wear while learning, and measured well enough that bad fit does not become a hidden tax. HeliosX starts at $695 with Galileo and Newton, takes ${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students, and gives every buyer a measurement step before production so the loupes arrive set up for the user.`,
     proofPoints: [
       'Galileo and Newton start at $695 — the lowest entry price in the premium-build tier.',
-      'Resident and student discount eligibility documented across every product line.',
+      `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students on every product line.`,
       'Measurement step before production so PD and working distance are right the first time.',
     ],
     sections: [
@@ -4555,7 +4555,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         title: 'Where HeliosX sits in the student tier',
         body:
-          'HeliosX is built specifically to be the brand a student can actually afford during training without compromising on the optical or fitting standard. Galileo and Newton are the entry product lines; resident and student discount eligibility is documented across the lineup; and the same premium optical glass and rigid metal-barrel construction used on the higher-tier models is on the entry models too.',
+          `HeliosX is built specifically to be the brand a student can actually afford during training without compromising on the optical or fitting standard. Galileo and Newton are the entry product lines; verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off; and the same premium optical glass and rigid metal-barrel construction used on the higher-tier models is on the entry models too.`,
         bullets: [
           'Galileo and Newton from $695 in 2.5x–3.5x — the forgiving range for first-time loupe wearers.',
           'Apollo from $1,695 and Medusa from $1,695 as the prismatic upgrade path when residency or post-grad work demands more.',
@@ -4568,7 +4568,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
         body:
           'Most of the legacy loupe brands quote student pricing through a dealer or school program; you may not see the price until you sign up for a fitting. Here is qualitative positioning for the brands students typically encounter, so you know what each is known for before you ask for a quote:',
         bullets: [
-          'HeliosX — published price tiers from $695, documented resident and student discounts, direct shipping, measurement step before production.',
+          `HeliosX — published price tiers from $695, a ${TRAINEE_PERCENT_OFF}% discount for verified residents, fellows and students, direct shipping, measurement step before production.`,
           'Orascoptic — established North American brand with strong dental-school relationships and a wide dealer network.',
           'LumaDent — popular among dental students for value-tier Galilean systems.',
           'SurgiTel — best known for declination-angle ergonomic systems, often introduced at school sessions.',
@@ -4583,7 +4583,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
           'Pick the lowest magnification that meets your case mix — usually 2.5x or 3.0x. See /education/loupe-magnification-guide.',
           'Get your PD and working distance measured before you buy. See /measurements.',
           'Check the warranty and whether replacement and protection coverage are included or optional.',
-          'Confirm resident or student discount eligibility before placing the order.',
+          `Residents and students: email proof of training status for your ${TRAINEE_PERCENT_OFF}% code before ordering.`,
           'Plan the upgrade path — when residency starts and you spend more hours per day in loupes, ergonomic prismatic (Medusa or Apollo) becomes worth the step up.',
         ],
       },
@@ -4602,7 +4602,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
     recommendedProducts: ['Galileo', 'Newton', 'Medusa', 'Apollo'],
     comparisonRows: [
       { feature: 'Entry pricing', heliosx: 'Galileo and Newton from $695, published openly', other: 'Student pricing varies by dealer, school, or promotion' },
-      { feature: 'Resident and student access', heliosx: 'Documented discount eligibility across the entire lineup', other: 'Discount programs vary by brand partner' },
+      { feature: 'Resident and student access', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'Discount programs vary by brand partner' },
       { feature: 'Magnification range for first buyers', heliosx: '2.5x–3.5x at entry on Galileo and Newton; 3.0x–8.5x prismatic upgrade path on Medusa', other: 'Entry catalogs vary by brand' },
       { feature: 'Frame and color options', heliosx: 'H1/H2 Newton frames; six JJ-series Galileo frames; full Apollo lineup for the upgrade path', other: 'Frame catalogs vary by configuration' },
       { feature: 'Build quality', heliosx: 'Premium optical glass with multi-layer coatings and rigid metal barrels on entry models too', other: 'Entry-tier construction quality varies by brand' },
@@ -4628,7 +4628,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident and student discounts?',
         answer:
-          'Yes. Resident- and student-friendly pricing is documented across the lineup with explicit discount eligibility. Email heliosxloupes@gmail.com with your training program details to confirm eligibility and apply.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'Should a student buy a prismatic loupe or wait?',
@@ -4946,7 +4946,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
           'Fittings: dealer rep → measurement guidance from HeliosX support after checkout.',
           'Pricing: premium European craftsmanship tier → access-mission pricing documented per product.',
           'Warranty: dealer-routed → direct replacement and lens-update paths.',
-          'Resident access: school program → documented resident and student discounts.',
+          `Resident access: school program → a ${TRAINEE_PERCENT_OFF}% discount for verified residents, fellows and students.`,
         ],
       },
       {
@@ -4975,7 +4975,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician shipping with one-business-day support response', other: 'Dealer-routed fulfillment in many regions' },
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production', other: 'Dealer rep plus central brand support' },
       { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Premium loupe-brand warranty routed through dealer' },
-      { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'Premium custom pricing without explicit access tier' },
+      { feature: 'Resident / student access', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students`, other: 'Premium custom pricing without explicit access tier' },
     ],
     verdict:
       'HeliosX is an ExamVision alternative for buyers who want the same custom-fit principle at a price tier well below premium-incumbent positioning, ergonomic prismatic depth, direct-to-clinician access, and documented resident pricing.',
@@ -4998,7 +4998,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          'Yes. Resident- and student-friendly pricing is documented across the lineup with explicit discounts. Email heliosxloupes@gmail.com with your training program details to confirm eligibility.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -5053,7 +5053,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
           'If you want adjustable working distance and ergonomic prismatic optics: start with Medusa from $1,695.',
           'If you want fixed ergonomic prismatic clarity at higher magnifications: Apollo from $1,695 in 3.0x to 6.0x.',
           'If you want a high-magnification surgical platform: Kepler from $1,195 in 4.0x to 6.0x.',
-          'If a resident or student is buying alongside an attending pair: Galileo or Newton from $695 with discount eligibility.',
+          `If a resident or student is buying alongside an attending pair: Galileo or Newton from $695 with ${TRAINEE_PERCENT_OFF}% off for verified trainees.`,
         ],
       },
       {
@@ -5090,7 +5090,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       { feature: 'Shipping model', heliosx: 'Direct-to-clinician with measurement-first production', other: 'Dealer-network or regional distributor routing' },
       { feature: 'Customer support', heliosx: 'One-business-day response SLA from a small, clinician-aware team', other: 'Dealer or distributor support layer' },
       { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support; two-year limited manufacturer-defect warranty', other: 'Warranty terms vary' },
-      { feature: 'Resident and student access', heliosx: 'Documented resident and student discount eligibility across the lineup', other: 'Educational pricing varies by partner' },
+      { feature: 'Resident and student access', heliosx: `${TRAINEE_PERCENT_OFF}% off for verified residents, fellows and students across the lineup`, other: 'Educational pricing varies by partner' },
     ],
     verdict:
       'HeliosX is an Admetec alternative for buyers who want ergonomic prismatic optics, adjustable working distance, and posture-aware design explained through plain-language buying guidance — at posted pricing, with direct support, and a measurement step before anything ships.',
@@ -5113,7 +5113,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         question: 'Are there discounts for residents and students?',
         answer:
-          'Yes. Resident- and student-friendly pricing is documented across the lineup with explicit discount eligibility. Email heliosxloupes@gmail.com with your training program details to confirm.',
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',

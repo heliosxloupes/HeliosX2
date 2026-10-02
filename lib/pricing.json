@@ -28,7 +28,7 @@
   },
   "limits": { "maxQuantityPerLine": 10, "maxLineItems": 20 },
   "trainee": {
-    "_comment": "Verified resident, fellow and student discount. Applied at checkout with a Stripe promotion code issued after verification, so the server still charges catalogue prices from this file.",
-    "percentOff": 10
+    "_comment": "Verified resident, fellow and student promotion (15% from 2026-10-02). Applied at checkout with a Stripe promotion code that the team sends by hand after checking proof of training status, so the server still charges catalogue prices from this file. The site shows the percentage only, never a discounted price.",
+    "percentOff": 15
   }
 }

@@ -131,33 +131,32 @@ export async function GET(req: Request) {
     const subject = step >= 2
       ? `How the fit works for your ${productReference}`
       : `A personal note about your ${productReference}`
+    // Signed by the team, not a named founder (owner's decision, Oct 2026).
     const body = step >= 2
       ? `Hello again,
 
-Most people who pause at this point have the same worry: you cannot try custom loupes on before you buy. Here is how we handle that.
+Most people who pause at this point have the same worry: you cannot try loupes on before you buy. So here is how we take that risk off your shoulders.
 
-1. You send two measurements: your pupillary distance (a phone app or an optician) and your working distance (a tape measure, in the posture you operate in).
-2. We review them and confirm your build with you before anything is made.
-3. You can cancel for a full refund at any point until production starts. After delivery, a two-year limited warranty covers manufacturer defects.
+1. Try them in your own work. Non-prescription pairs come with 30-day returns, so if they are not right, send them back for a full refund.
+2. You send two measurements: your pupillary distance (a phone app or an optician) and your working distance (a tape measure, in the posture you work in).
+3. We review them and confirm your build with you before anything is made. A two-year limited warranty covers manufacturer defects after delivery.
 
-If you are a resident, fellow or student, we take ${TRAINEE_PERCENT_OFF}% off once you send proof of your training status. Affirm and Klarna are available at checkout if you would rather spread the cost.
+If you are a resident, fellow or student, we are running ${TRAINEE_PERCENT_OFF}% off right now. Reply with proof of your training status and, once we have checked it, we will send you a code. Affirm and Klarna are also available at checkout if you would rather spread the cost.
 
-Reply with any question, or tell me what you are deciding between, and I will answer it myself.
+Reply with any question, or tell us what you are deciding between. A real person on our team reads every email.
 
-Best,
-Dr. Efimenko
-Founder, HeliosX`
-      : `Hello, this is Dr. Efimenko, founder of HeliosX.
+From the bottom of our hearts (and not the bottom of your pocket),
+The HeliosX Team`
+      : `Hello from the HeliosX team,
 
-I wanted to personally reach out regarding your interest in our ${productReference}. Choosing surgical loupes is personal, especially when you are buying online for the first time.
+We noticed you were looking at our ${productReference}, and we wanted to reach out ourselves. Choosing loupes is personal, especially when you are buying online for the first time.
 
-If a question about magnification, working distance, measurements, prescription lenses, or fit held you back, reply directly to this email. Tell me what kind of work you do and what you are deciding between, and I will give you an honest recommendation.
+If a question about magnification, working distance, measurements, prescription lenses or fit held you back, just reply to this email. Tell us what kind of work you do and what you are deciding between, and we will give you an honest recommendation.
 
-Your configuration is saved below if you would like to pick up where you left off. There is no pressure either way.
+Your configuration is saved below if you would like to pick up where you left off. Non-prescription pairs come with 30-day returns, so there is no pressure either way.
 
-Best,
-Dr. Efimenko
-Founder, HeliosX`
+From the bottom of our hearts (and not the bottom of your pocket),
+The HeliosX Team`
     const isCheckout = template.key.startsWith('checkout_abandoned')
     let recoveryUrl: string
     try {
@@ -172,11 +171,11 @@ Founder, HeliosX`
       subject,
       body,
       preview: step >= 2
-        ? 'Two measurements, a build you approve, and a full refund until production starts.'
+        ? '30-day returns, two measurements, and a build you approve before it is made.'
         : isCheckout
-          ? 'A personal note from Dr. Efimenko about your saved loupe configuration.'
-          : 'Dr. Efimenko wanted to personally follow up about your loupe configuration.',
-      eyebrow: 'From the founder',
+          ? 'A note from the HeliosX team about your saved loupe configuration.'
+          : 'The HeliosX team wanted to follow up about your loupe configuration.',
+      eyebrow: 'From the HeliosX team',
       title: step >= 2
         ? `How the fit works for your ${productReference}.`
         : `A personal note about your ${productReference}.`,

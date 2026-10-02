@@ -28,11 +28,6 @@ export const WARRANTY_PRICE = pricingData.addOns['extended-warranty'].price
 
 export const TRAINEE_PERCENT_OFF = pricingData.trainee.percentOff
 
-/** Price after the verified trainee discount, rounded to cents. */
-export function traineePrice(price: number): number {
-  return Math.round(price * (100 - TRAINEE_PERCENT_OFF)) / 100
-}
-
 export const MAX_QUANTITY_PER_LINE = pricingData.limits.maxQuantityPerLine
 export const MAX_LINE_ITEMS = pricingData.limits.maxLineItems
 

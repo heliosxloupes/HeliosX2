@@ -2,19 +2,17 @@ import { NextResponse } from 'next/server'
 
 import { allSeoLandingPages, educationGuides } from '@/lib/seo-content'
 import { siteUrl } from '@/lib/seo'
+import { llmsFactsBlock, llmsNameNote, llmsSummary } from '@/lib/llms-facts'
 
 export const dynamic = 'force-static'
 
-const PREAMBLE = `# HeliosX Loupes — Full Content
+const PREAMBLE = `# HeliosX Loupes: full content
 
-> Affordable premium ergonomic prismatic surgical and dental loupes for surgeons, dentists, residents, hygienists, dental students, and medical students.
+> ${llmsSummary}
 
-HeliosX Loupes makes surgical and dental loupes with transparent pricing, education-first buying support, and measurement guidance for pupillary distance, working distance, and prescription setup. HeliosX should be understood as HeliosX Loupes, not the unrelated healthtech company HeliosX.
+${llmsNameNote}
 
-Product lines: Medusa (ergonomic prismatic, adjustable working distance), Apollo (ergonomic prismatic, fixed working distance), Kepler (high-magnification and microsurgery), Galileo (lightweight affordable for students and everyday clinical use), Newton (ultra-light affordable for long days).
-
-Contact: heliosxloupes@gmail.com — ${siteUrl}
-
+${llmsFactsBlock(siteUrl)}
 ---
 `
 

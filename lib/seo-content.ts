@@ -95,14 +95,14 @@ export const productImages: Record<keyof typeof productPositioning, string> = {
 const postureSection: ContentSection = {
   title: 'Posture is part of the product',
   body:
-    'The best loupe choice protects how you work, not just what you see. HeliosX combines magnification, working distance, frame balance, and measurement support so the fit decision is practical. A 2023 peer-reviewed randomized controlled trial of dental practitioners (Frontiers in Dental Medicine) found that loupes with proper ergonomic design measurably reduced sustained neck flexion and self-reported musculoskeletal strain across the workday.',
+    'The best loupe choice protects how you work, not just what you see. HeliosX combines magnification, working distance, frame balance, and measurement support so the fit decision is practical. A 2024 randomized crossover trial of 19 surgeons (Fan et al., Frontiers in Public Health) found that high-tilt prismatic loupes reduced head inclination by 22–26° and neck muscle activity by 32–42% compared with traditional loupes in simulated surgical tasks.',
   bullets: [
     'Medusa and Apollo are the ergonomic prismatic HeliosX systems.',
     'Medusa adds adjustable working distance for users with multiple working postures.',
     'Galileo and Newton keep the access path lightweight and affordable.',
   ],
   sourceLabel:
-    'See the underlying research: HeliosX ergonomic loupes and neck pain (Frontiers in Dental Medicine, 2023).',
+    'See the underlying research: HeliosX ergonomic loupes and neck pain (Fan et al., Frontiers in Public Health, 2024).',
   sourceHref: '/education/ergonomic-loupes-neck-pain',
 }
 
@@ -747,7 +747,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       'Surgical loupes are worth the money for most clinicians who work on small structures, repetitive fine motor tasks, or in postures that punish the neck and back over years. They are not worth the money for everyone in every specialty — but the case for owning a pair is stronger than most undecided buyers realize, and the price-of-entry has dropped enough that the old "wait until you’re an attending" advice no longer holds.',
     proofPoints: [
       'Loupes reach two outcomes simultaneously: clearer view of small structures and a more neutral working posture when fit correctly.',
-      'A 2023 randomized controlled trial of dental practitioners (Frontiers in Dental Medicine) found ergonomic loupes reduced sustained neck flexion and self-reported musculoskeletal strain across the workday.',
+      'A 2024 randomized crossover trial of 19 surgeons (Fan et al., Frontiers in Public Health) found high-tilt prismatic loupes reduced head inclination by 22–26° and neck muscle activity by 32–42% versus traditional loupes in simulated tasks.',
       'Entry pricing has dropped meaningfully: a credible first pair now costs under $1,000 with custom IPD and a real warranty, instead of $2,500 to $4,000.',
     ],
     sections: [
@@ -1525,7 +1525,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         title: 'The ergonomic case for hygienists specifically',
         body:
-          'Dental hygiene has one of the highest rates of work-related musculoskeletal complaints in dentistry. Studies of hygienist populations consistently report sustained cervical flexion, shoulder strain, and lower back complaints across the career. The 2023 randomized controlled trial of dental practitioners in Frontiers in Dental Medicine that documented ergonomic loupe benefits applies most strongly to hygienists, because the strain pattern measured — sustained cervical flexion — is the exact pattern hygiene work produces.',
+          'Dental hygiene has one of the highest rates of work-related musculoskeletal complaints in dentistry. Studies of hygienist populations consistently report sustained cervical flexion, shoulder strain, and lower back complaints across the career. A 2024 randomized crossover trial (Fan et al., Frontiers in Public Health) found prismatic loupes reduced head inclination and neck muscle activity compared with traditional loupes. It measured surgeons, not hygienists, but the strain it measured is sustained neck flexion, the same pattern hygiene work produces.',
         bullets: [
           'Sustained cervical flexion is the dominant strain pattern in hygiene practice.',
           'Ergonomic prismatic optics raise the viewing angle and reduce the cervical-flexion load measurably.',
@@ -2170,7 +2170,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         title: 'Why ergonomic prismatic optics pay back most in spine surgery',
         body:
-          'Spinal cases routinely run four to eight hours. The surgeon spends almost the entire case in sustained cervical flexion looking into a deep corridor. The ergonomic strain pattern documented for dental practitioners in the 2023 Frontiers RCT — sustained cervical flexion — describes spinal surgery posture exactly. Ergonomic prismatic loupes raise the viewing angle so the surgeon does not drop the head into the field for the duration of the case.',
+          'Spinal cases routinely run four to eight hours. The surgeon spends almost the entire case in sustained cervical flexion looking into a deep corridor. The sustained neck flexion measured in a 2024 randomized crossover trial of surgeons (Fan et al., Frontiers in Public Health) describes spinal surgery posture closely. Ergonomic prismatic loupes raise the viewing angle so the surgeon does not drop the head into the field for the duration of the case.',
         bullets: [
           'Multi-hour cases plus a deep narrow corridor create the worst sustained cervical flexion pattern in surgical practice.',
           'Ergonomic prismatic designs raise the operator viewing angle measurably across the case.',
@@ -3645,7 +3645,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       { feature: 'Customer support', heliosx: 'Surgeon-informed support, one-business-day response before production begins', other: 'Ergonomic evaluation and support through brand or rep' },
       { feature: 'Modification and warranty', heliosx: 'Post-delivery modification support plus a two-year limited manufacturer-defect warranty', other: 'Standard ergonomic-loupe warranty terms' },
       { feature: 'Resident / student access', heliosx: 'Resident- and student-friendly pricing with documented discounts', other: 'School and dental-student pricing through the brand’s programs' },
-      { feature: 'Education resources', heliosx: 'Working distance, magnification, ergonomics (with cited 2023 Frontiers RCT), and per-specialty guides built into the site', other: 'Posture and ergonomics evaluation content' },
+      { feature: 'Education resources', heliosx: 'Working distance, magnification, ergonomics (citing a 2024 Frontiers in Public Health crossover trial), and per-specialty guides built into the site', other: 'Posture and ergonomics evaluation content' },
     ],
     verdict:
       'Choose HeliosX if you want ergonomic prismatic posture support at a price tier below the ergonomics incumbent, the widest prismatic range in the tier, and direct support. Compare SurgiTel if you already operate inside their fitting ecosystem and the declination-angle methodology is central to your decision.',
@@ -4065,7 +4065,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
           'Two ergonomic prismatic systems explicitly positioned as posture-aware optics.',
           'Premium optical glass, multi-layer coatings, rigid metal barrels.',
           'Apollo 1 and 2 in five colorways each, JJ-series for Medusa, H1 and H2 for Newton.',
-          'Working distance, magnification, and ergonomics guides built into the site (with cited 2023 Frontiers RCT).',
+          'Working distance, magnification, and ergonomics guides built into the site (citing a 2024 Frontiers in Public Health crossover trial).',
         ],
       },
       {
@@ -4130,7 +4130,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX address the posture problem as seriously as SurgiTel?',
         answer:
-          'Yes. Medusa and Apollo are explicitly built as ergonomic prismatic systems, and the /education/ergonomic-loupes-neck-pain guide cites a 2023 Frontiers in Public Health randomized crossover trial showing prismatic loupes reduced head flexion by 22–26° and cervical erector spinae activity by 32–42% versus traditional loupes.',
+          'Yes. Medusa and Apollo are explicitly built as ergonomic prismatic systems, and the /education/ergonomic-loupes-neck-pain guide cites a 2024 Frontiers in Public Health randomized crossover trial (Fan et al.) showing high-tilt prismatic loupes reduced head inclination by 22–26° and cervical erector spinae activity by 32–42% versus traditional loupes.',
       },
       {
         question: 'Why does HeliosX cost less than SurgiTel without cutting ergonomics?',
@@ -5994,7 +5994,7 @@ export const educationGuides: EducationGuide[] = [
     kicker: 'Ergonomics',
     audience: 'surgeons, dental clinicians, residents, and hygienists concerned about neck, shoulder, and back strain',
     intro:
-      'Neck pain is the loupe industry’s quietest problem. Most marketing focuses on magnification numbers and frame styles. The bigger clinical question — what your loupes do to your head, neck, and shoulders across thousands of hours of work — usually gets buried. A 2023 randomized crossover trial published in Frontiers in Public Health put real numbers on the answer: prismatic loupes cut median head flexion roughly in half compared with traditional designs and dropped neck muscle activity by 32 to 42 percent in the high-tilt condition, with no significant change in surgical accuracy.',
+      'Neck pain is the loupe industry’s quietest problem. Most marketing focuses on magnification numbers and frame styles. The bigger clinical question — what your loupes do to your head, neck, and shoulders across thousands of hours of work — usually gets buried. A 2024 randomized crossover trial published in Frontiers in Public Health (Fan et al.) put real numbers on the answer: prismatic loupes cut median head flexion roughly in half compared with traditional designs and dropped neck muscle activity by 32 to 42 percent in the high-tilt condition, with no significant change in surgical accuracy.',
     sections: [
       {
         title: 'Neck pain is documented across surgical and dental work',
@@ -6017,7 +6017,7 @@ export const educationGuides: EducationGuide[] = [
           'Outcomes also captured: self-reported discomfort, surgical accuracy, and task completion time.',
         ],
         sourceLabel:
-          'Mengelkamp et al. (2023). Prismatic loupes reduce surgeons’ neck workload — a randomized crossover trial. Frontiers in Public Health.',
+          'Fan X, et al. (2024). Ergonomics and performance of using prismatic loupes in simulated surgical tasks among surgeons: a randomized controlled, cross-over trial. Frontiers in Public Health.',
         sourceHref:
           'https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2023.1257365/full',
       },
@@ -6035,7 +6035,7 @@ export const educationGuides: EducationGuide[] = [
           src: '/research/loupes-ergonomics/posture-comparison.jpg',
           alt: 'Side-view photographs of a surgeon working with three different loupe configurations: traditional loupes (A), low-tilt prismatic loupes (B), and high-tilt prismatic loupes (C), showing progressively reduced head flexion.',
           caption:
-            'Figure 2 from Mengelkamp et al. (2023), Frontiers in Public Health. Posture side-view under traditional (A), low-tilt prismatic (B), and high-tilt prismatic (C) loupes. © 2024 Fan, Yang, Young, Kaner, Kjellman, Forsman. Licensed under CC BY 4.0.',
+            'Figure 2 from Fan et al. (2024), Frontiers in Public Health. Posture side-view under traditional (A), low-tilt prismatic (B), and high-tilt prismatic (C) loupes. © 2024 Fan, Yang, Young, Kaner, Kjellman, Forsman. Licensed under CC BY 4.0.',
           width: 1200,
           height: 700,
         },
@@ -6053,7 +6053,7 @@ export const educationGuides: EducationGuide[] = [
           src: '/research/loupes-ergonomics/muscle-activity.jpg',
           alt: 'Chart comparing cervical erector spinae muscle activity across three loupe conditions: traditional, low-tilt prismatic, and high-tilt prismatic. Muscle activity falls progressively as prism tilt increases.',
           caption:
-            'Figure 4 from Mengelkamp et al. (2023), Frontiers in Public Health. Cervical erector spinae muscle activity (% MVE) across the three loupe conditions. © 2024 Fan, Yang, Young, Kaner, Kjellman, Forsman. Licensed under CC BY 4.0.',
+            'Figure 4 from Fan et al. (2024), Frontiers in Public Health. Cervical erector spinae muscle activity (% MVE) across the three loupe conditions. © 2024 Fan, Yang, Young, Kaner, Kjellman, Forsman. Licensed under CC BY 4.0.',
           width: 1200,
           height: 700,
         },
@@ -6069,7 +6069,7 @@ export const educationGuides: EducationGuide[] = [
           'Authors call for long-term studies on chronic outcomes, but the short-term tradeoff in this trial favored the prismatic conditions.',
         ],
         sourceLabel:
-          'Mengelkamp et al. (2023). Frontiers in Public Health.',
+          'Fan et al. (2024). Frontiers in Public Health.',
         sourceHref:
           'https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2023.1257365/full',
       },
@@ -6130,7 +6130,7 @@ export const educationGuides: EducationGuide[] = [
       {
         question: 'What is the difference between Galilean and prismatic loupes for posture?',
         answer:
-          'Galilean loupes typically have less prism angle and require more head flexion to bring the operative field into the line of sight. Prismatic loupes use internal prisms to fold the visual path, which lets the user keep a more upright head position for the same operative working distance. The 2023 Frontiers trial quantified that geometry difference at roughly 13° to 26° of reduced head flexion depending on prism angle.',
+          'Galilean loupes typically have less prism angle and require more head flexion to bring the operative field into the line of sight. Prismatic loupes use internal prisms to fold the visual path, which lets the user keep a more upright head position for the same operative working distance. The 2024 Frontiers in Public Health trial quantified that geometry difference at roughly 13° to 26° of reduced head flexion depending on prism angle.',
       },
       {
         question: 'Which HeliosX model is best for clinicians worried about neck strain?',
@@ -6145,13 +6145,13 @@ export const educationGuides: EducationGuide[] = [
       {
         question: 'Will switching to prismatic loupes slow my procedures down?',
         answer:
-          'In the 2023 Frontiers trial, the high-tilt prismatic condition added roughly 11 to 15 seconds across two simulated tasks, with no significant difference in surgical errors. The authors framed this as a modest time tradeoff for a measurable reduction in physical workload.',
+          'In the 2024 Fan et al. trial, the high-tilt prismatic condition added roughly 11 to 15 seconds across two simulated tasks, with no significant difference in surgical errors. The authors framed this as a modest time tradeoff for a measurable reduction in physical workload.',
       },
     ],
     citations: [
       {
         label:
-          'Mengelkamp et al. (2023). Prismatic loupes reduce surgeons’ neck workload — a randomized crossover trial. Frontiers in Public Health. doi:10.3389/fpubh.2023.1257365',
+          'Fan X, et al. (2024). Ergonomics and performance of using prismatic loupes in simulated surgical tasks among surgeons: a randomized controlled, cross-over trial. Frontiers in Public Health. doi:10.3389/fpubh.2023.1257365',
         href: 'https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2023.1257365/full',
       },
     ],

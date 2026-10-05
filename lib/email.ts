@@ -153,7 +153,7 @@ function renderRecoveryEmail({
             </tr></table>
           </td></tr>
           <tr><td style="padding:38px 28px 20px;">
-            <div style="color:#78e8bd;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;">From the founder</div>
+            <div style="color:#78e8bd;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;">From the HeliosX team</div>
             <h1 style="max-width:500px;margin:14px 0 20px;color:#f3f6f4;font-size:38px;line-height:1.05;font-weight:500;letter-spacing:-.04em;">${escapeHtml(title)}</h1>
             <div style="color:#b4beb8;font-size:15px;line-height:1.72;">${renderRecoveryBody(body)}</div>
           </td></tr>

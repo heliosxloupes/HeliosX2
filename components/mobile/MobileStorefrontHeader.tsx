@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 
 import { useContact } from '@/components/Contact/ContactProvider'
 import { getCart, type CartItem } from '@/lib/cart'
@@ -38,8 +38,10 @@ function StorefrontSheet({
   onOpenChange,
   title,
   description,
+  origin,
   children,
 }: {
+  origin: string
   open: boolean
   onOpenChange: (open: boolean) => void
   title: string
@@ -49,9 +51,11 @@ function StorefrontSheet({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-[80] bg-black/75 backdrop-blur-sm" />
-        <Dialog.Content className="fixed inset-y-0 right-0 z-[90] flex w-full max-w-[520px] flex-col overflow-hidden border-l border-emerald-200/20 bg-[#0c1310] text-white shadow-[-24px_0_80px_rgba(0,0,0,0.55)] focus:outline-none">
-          <div className="flex shrink-0 items-start justify-between gap-5 border-b border-white/10 px-5 pb-5 pt-[max(1.1rem,env(safe-area-inset-top))]">
+        <Dialog.Overlay className="hx-sheet-overlay fixed inset-0 z-[80] bg-black/75 backdrop-blur-sm" />
+        <Dialog.Content
+          style={{ '--hx-origin': origin } as CSSProperties}
+          className="hx-sheet fixed inset-y-0 right-0 z-[90] flex w-full max-w-[520px] flex-col overflow-hidden border-l border-emerald-200/20 bg-[#0c1310] text-white shadow-[-24px_0_80px_rgba(0,0,0,0.55)] focus:outline-none">
+          <div className="hx-sheet-row flex shrink-0 items-start justify-between gap-5 border-b border-white/10 px-5 pb-5 pt-[max(1.1rem,env(safe-area-inset-top))]">
             <div>
               <Dialog.Title className="font-display text-[1.9rem] font-medium leading-tight tracking-[-0.035em]">
                 {title}
@@ -162,15 +166,17 @@ export default function MobileStorefrontHeader() {
       <StorefrontSheet
         open={menuOpen}
         onOpenChange={setMenuOpen}
+        origin="calc(100% - 2.15rem) 1.75rem"
         title="Explore HeliosX"
         description="Surgical precision, finally accessible."
       >
         <nav aria-label="Mobile navigation" className="border-t border-white/10">
-          {menuLinks.map(([label, href]) => (
+          {menuLinks.map(([label, href], index) => (
             <Link
               key={href}
               href={href}
-              className="flex min-h-[66px] items-center justify-between gap-5 border-b border-white/10 py-4 font-display text-[1.42rem] leading-tight tracking-[-0.025em]"
+              style={{ '--i': index + 1 } as CSSProperties}
+              className="hx-sheet-row flex min-h-[66px] items-center justify-between gap-5 border-b border-white/10 py-4 font-display text-[1.42rem] leading-tight tracking-[-0.025em]"
             >
               {label}
               <ArrowUpRight size={19} className="text-emerald-200" />
@@ -182,13 +188,14 @@ export default function MobileStorefrontHeader() {
               setMenuOpen(false)
               window.setTimeout(() => openContact('mobile_navigation'), 0)
             }}
-            className="flex min-h-[66px] w-full items-center justify-between gap-5 border-b border-white/10 py-4 text-left font-display text-[1.42rem] leading-tight tracking-[-0.025em]"
+            style={{ '--i': menuLinks.length + 1 } as CSSProperties}
+            className="hx-sheet-row flex min-h-[66px] w-full items-center justify-between gap-5 border-b border-white/10 py-4 text-left font-display text-[1.42rem] leading-tight tracking-[-0.025em]"
           >
             Contact HeliosX
             <Mail size={19} className="text-emerald-200" />
           </button>
         </nav>
-        <div className="mt-7">
+        <div className="hx-sheet-row mt-7" style={{ '--i': menuLinks.length + 2 } as CSSProperties}>
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-200/70">The collection</p>
           <div className="mt-3 divide-y divide-white/10 border-y border-white/10">
             {models.map((model) => (
@@ -199,7 +206,10 @@ export default function MobileStorefrontHeader() {
             ))}
           </div>
         </div>
-        <p className="mt-8 font-display text-[1.9rem] leading-[1.1] tracking-[-0.04em] text-emerald-200">
+        <p
+          style={{ '--i': menuLinks.length + 3 } as CSSProperties}
+          className="hx-sheet-row mt-8 font-display text-[1.9rem] leading-[1.1] tracking-[-0.04em] text-emerald-200"
+        >
           Skill thrives where access exists.
         </p>
       </StorefrontSheet>
@@ -207,6 +217,7 @@ export default function MobileStorefrontHeader() {
       <StorefrontSheet
         open={bagOpen}
         onOpenChange={setBagOpen}
+        origin="calc(100% - 5.35rem) 1.75rem"
         title="Your bag"
         description="Your selections are saved on this device."
       >

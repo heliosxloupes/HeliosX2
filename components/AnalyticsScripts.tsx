@@ -170,7 +170,7 @@ export default function AnalyticsScripts() {
         <section
           role="dialog"
           aria-label="Privacy choices"
-          className="fixed inset-x-3 bottom-[calc(var(--hx-sticky-bar,0px)+0.75rem)] z-[100] mx-auto max-w-3xl rounded-2xl border border-white/15 bg-neutral-950/95 px-4 py-3 text-white shadow-2xl backdrop-blur-xl [padding-bottom:calc(0.75rem+env(safe-area-inset-bottom))] md:inset-x-4 md:bottom-4 md:flex md:items-center md:gap-6 md:p-5"
+          className="fixed inset-x-3 bottom-[calc(var(--hx-sticky-bar,0px)+0.75rem)] z-[75] mx-auto max-w-3xl rounded-2xl border border-white/15 bg-neutral-950/95 px-4 py-3 text-white shadow-2xl backdrop-blur-xl [padding-bottom:calc(0.75rem+env(safe-area-inset-bottom))] md:inset-x-4 md:bottom-4 md:flex md:items-center md:gap-6 md:p-5"
         >
           <div className="flex-1">
             <p className="text-sm font-semibold">

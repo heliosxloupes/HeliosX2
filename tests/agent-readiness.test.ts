@@ -112,6 +112,7 @@ describe('structured data', () => {
     expect(org.contactPoint.email).toBe('heliosxloupes@gmail.com')
     expect(org.contactPoint.contactType).toBeTruthy()
     expect(org.sameAs).toContain('https://www.instagram.com/heliosxloupes/')
+    expect(org.sameAs).toContain('https://www.facebook.com/profile.php?id=61594420101254')
   })
 
   it('catalog lists expose Product nodes with AggregateOffer prices', () => {

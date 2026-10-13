@@ -113,6 +113,7 @@ export function buildMetadata({
 const organizationSameAs: string[] = [
   'https://www.linkedin.com/company/heliosx-vision',
   'https://www.instagram.com/heliosxloupes/',
+  'https://www.facebook.com/profile.php?id=61594420101254',
   // 'https://www.youtube.com/@heliosxloupes',
   // 'https://www.crunchbase.com/organization/heliosx-loupes',
   // 'https://www.wikidata.org/wiki/Q__________',

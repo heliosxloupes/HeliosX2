@@ -6,7 +6,7 @@ import { GET as markdownRoute } from '@/app/api/markdown/route'
 import { middleware } from '@/middleware'
 import { isNegotiablePath, prefersMarkdown } from '@/lib/markdown-negotiation'
 import { renderPageMarkdown } from '@/lib/page-markdown'
-import { catalogItemListJsonLd, organizationJsonLd } from '@/lib/seo'
+import { catalogItemListJsonLd, organizationJsonLd, productJsonLd } from '@/lib/seo'
 import { aboutPage, contactPage, type TrustPage } from '@/lib/trust-pages'
 
 describe('prefersMarkdown', () => {
@@ -121,6 +121,22 @@ describe('structured data', () => {
     expect(item['@type']).toBe('Product')
     expect(item.offers).toMatchObject({ '@type': 'AggregateOffer', priceCurrency: 'USD', lowPrice: 1695, highPrice: 2075 })
     expect(item.offers.availability).toBe('https://schema.org/InStock')
+  })
+})
+
+describe('product page JSON-LD', () => {
+  it('has an AggregateOffer with one priced Offer per magnification', () => {
+    const data = productJsonLd({
+      name: 'Medusa Surgical Loupes', description: 'x', slug: 'medusa', priceLabel: '$1,695-$2,075',
+      magnifications: ['3.0x', '4.0x', '5.0x', '6.0x', '8.0x', '8.5x'],
+    }) as any
+    const node = Array.isArray(data) ? data.find((d: any) => d['@type'] === 'Product') : data['@type'] === 'Product' ? data : (data['@graph'] ?? []).find((d: any) => d['@type'] === 'Product')
+    const offers = node.offers
+    expect(offers['@type']).toBe('AggregateOffer')
+    expect(offers.lowPrice).toBe(1695)
+    expect(offers.offers).toHaveLength(6)
+    expect(offers.offers[0]).toMatchObject({ '@type': 'Offer', price: 1695, priceCurrency: 'USD', availability: 'https://schema.org/InStock' })
+    expect(offers.offers[5].price).toBe(2075)
   })
 })
 

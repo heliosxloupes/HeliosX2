@@ -543,6 +543,19 @@ export function productJsonLd(product: {
       validFrom: '2026-05-24T00:00:00Z',
       hasMerchantReturnPolicy: defaultMerchantReturnPolicy,
       shippingDetails: defaultShippingDetails,
+      // One Offer per magnification, each with its exact price, so agents
+      // don't have to infer prices from the range.
+      offers: Object.entries(magnificationPriceByProduct[product.slug] ?? {}).map(([magnification, price]) => ({
+        '@type': 'Offer',
+        name: `${product.name}, ${magnification}`,
+        sku: `${sku}-${magnification.replace('.', '')}`,
+        price,
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+        itemCondition: 'https://schema.org/NewCondition',
+        url: productUrl,
+        priceValidUntil,
+      })),
     }
   } else {
     offers = {

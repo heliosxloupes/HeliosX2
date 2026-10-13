@@ -60,6 +60,8 @@ const policyLinks = [
 ]
 
 const supportLinks = [
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Submit measurements', href: '/measurements' },
 ]

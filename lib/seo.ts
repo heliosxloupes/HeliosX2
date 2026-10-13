@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+import { magnificationPriceByProduct } from './pricing'
+
 export const siteUrl = 'https://heliosxvision.com'
 export const siteName = 'HeliosX Loupes'
 // heliosxvision.com has no inbox (no MX records), so the public contact
@@ -110,7 +112,7 @@ export function buildMetadata({
 // are filtered out before serialization so the schema stays clean.
 const organizationSameAs: string[] = [
   'https://www.linkedin.com/company/heliosx-vision',
-  // 'https://www.instagram.com/heliosxloupes',
+  'https://www.instagram.com/heliosxloupes/',
   // 'https://www.youtube.com/@heliosxloupes',
   // 'https://www.crunchbase.com/organization/heliosx-loupes',
   // 'https://www.wikidata.org/wiki/Q__________',
@@ -726,14 +728,33 @@ export function catalogItemListJsonLd(
     '@type': 'ItemList',
     itemListElement: items.map((item, index) => {
       const itemUrl = absoluteUrl(item.url)
+      // Product pages get a Product node with their price range so agents can
+      // read prices from the catalog without opening each page.
+      const productSlug = item.url.match(/^\/product\/([a-z0-9-]+)$/)?.[1]
+      const priceTable = productSlug ? magnificationPriceByProduct[productSlug] : undefined
+      const prices = priceTable ? Object.values(priceTable) : []
       const itemNode: Record<string, unknown> = {
-        '@type': 'Thing',
+        '@type': prices.length ? 'Product' : 'Thing',
         '@id': `${itemUrl}#catalog-item`,
         name: item.name,
         url: itemUrl,
-        image: absoluteUrl(item.image ?? '/HeliosXNew.png'),
+        image: absoluteUrl(item.image ?? '/HeliosX-share.jpg'),
         ...(item.description ? { description: item.description } : {}),
         ...(item.sku ? { identifier: item.sku } : {}),
+        ...(prices.length
+          ? {
+              brand: { '@type': 'Brand', name: 'HeliosX' },
+              offers: {
+                '@type': 'AggregateOffer',
+                priceCurrency: 'USD',
+                lowPrice: Math.min(...prices),
+                highPrice: Math.max(...prices),
+                offerCount: prices.length,
+                availability: 'https://schema.org/InStock',
+                url: itemUrl,
+              },
+            }
+          : {}),
       }
 
       return {

@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+import { isNegotiablePath, prefersMarkdown } from './lib/markdown-negotiation'
+
 /**
  * One canonical host: https://heliosxvision.com (no www).
  *
@@ -37,12 +39,36 @@ function withVisitorCountry(request: NextRequest, response: NextResponse) {
   return response
 }
 
+/**
+ * Markdown content negotiation: an agent that sends Accept: text/markdown
+ * gets the Markdown rendering of the same URL (app/api/markdown). Page
+ * responses carry Vary: Accept so caches keep the two variants apart.
+ */
+function negotiate(request: NextRequest) {
+  const { pathname } = request.nextUrl
+  const method = request.method
+  if ((method === 'GET' || method === 'HEAD') && isNegotiablePath(pathname) && prefersMarkdown(request.headers.get('accept'))) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/api/markdown'
+    url.search = ''
+    url.searchParams.set('path', pathname)
+    // Query params don't always survive a rewrite, so the path also travels
+    // in a request header that app/api/markdown reads first.
+    const headers = new Headers(request.headers)
+    headers.set('x-markdown-path', pathname)
+    return NextResponse.rewrite(url, { request: { headers } })
+  }
+  const response = NextResponse.next()
+  if (isNegotiablePath(pathname)) response.headers.append('Vary', 'Accept')
+  return response
+}
+
 export function middleware(request: NextRequest) {
   const host = (request.headers.get('host') ?? '').toLowerCase()
 
   // Leave local dev and Vercel preview deployments on their own hostnames.
   if (host.startsWith('localhost') || host.startsWith('127.0.0.1') || host.endsWith('.vercel.app')) {
-    return withVisitorCountry(request, NextResponse.next())
+    return withVisitorCountry(request, negotiate(request))
   }
 
   const isLegacyDomain = host.includes('heliosxloupes.com')
@@ -56,7 +82,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, { status: 301 })
   }
 
-  return withVisitorCountry(request, NextResponse.next())
+  return withVisitorCountry(request, negotiate(request))
 }
 
 export const config = {

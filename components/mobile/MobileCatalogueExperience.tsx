@@ -98,9 +98,10 @@ export default function MobileCatalogueExperience() {
             <Link href={`/product/${model.slug}`} className="group block">
               <div className="relative h-[300px] overflow-hidden" style={{ background: model.photo.tone }}>
                 <StagePhoto model={model} scale={1.04} animate={false} alt={`${model.name} surgical loupes`} />
-                <span className="m2-kicker absolute inset-x-0 top-5 z-[1] text-center" style={{ color: 'rgba(8,38,27,0.72)' }}>{model.category}</span>
-                <span aria-hidden="true" className="m2-giant absolute inset-x-0 top-11 z-[1] text-center" style={{ fontSize: 'min(21vw, 6.2rem)' }}>
-                  {model.name}
+                <span className="m2-shade" aria-hidden="true" />
+                <span className="absolute inset-x-0 top-6 z-[2] text-center">
+                  <span aria-hidden="true" className="m2-giant m2-giant--light" style={{ fontSize: 'min(21vw, 6.2rem)' }}>{model.name}</span>
+                  <span className="m2-sub mt-2.5">{model.category} loupes</span>
                 </span>
               </div>
               <div className="relative -mt-5 rounded-t-[22px] bg-[#f7f9f7] px-5 pb-5 pt-5">

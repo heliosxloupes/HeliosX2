@@ -164,13 +164,14 @@ export default function MobileProductExperience({
         ) : (
           <Image src={config.heroImages[0]} alt={`${config.shortName} surgical loupes`} fill priority sizes="100vw" className="object-cover" />
         )}
-        <div className="absolute inset-x-0 top-[92px] z-[1] text-center">
-          <span className="m2-kicker m2-rise" style={{ color: 'rgba(8,38,27,0.72)' }}>{model?.category ?? 'Surgical loupes'}</span>
+        <span className="m2-shade" aria-hidden="true" />
+        <div className="absolute inset-x-0 top-[78px] z-[2] text-center">
           {/* The desktop template renders the page's single <h1>; both layouts are in the
               DOM, so this one is a level-1 heading for assistive tech only. */}
-          <p role="heading" aria-level={1} className="m2-giant m2-rise mt-3.5" style={{ animationDelay: '40ms', fontSize: 'min(22vw, 6.6rem)' }}>
+          <p role="heading" aria-level={1} className="m2-giant m2-giant--light m2-rise" style={{ fontSize: 'min(24vw, 7rem)' }}>
             {config.shortName}
           </p>
+          <span className="m2-sub m2-rise mt-3" style={{ animationDelay: '60ms' }}>{model?.category ?? 'Surgical'} loupes</span>
         </div>
         {model ? <span className="m2-chip m2-fade bottom-[52px] right-4">{model.chip}</span> : null}
       </section>

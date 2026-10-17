@@ -89,7 +89,7 @@ export default function MobileStorefrontHeader() {
 
   return (
     <>
-      <header className="m2 m2-chrome" data-solid={solid} style={{ background: solid ? undefined : 'transparent' }}>
+      <header className="m2 m2-chrome" data-solid={solid} data-on-photo={!solid && /^\/product\/[^/]+/.test(pathname)} style={{ background: solid ? undefined : 'transparent' }}>
         <div className="m2-chrome__side">
           {inner ? (
             <button type="button" className="m2-icon" aria-label="Back" onClick={() => (window.history.length > 1 ? router.back() : router.push(backHref))}>

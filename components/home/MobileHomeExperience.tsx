@@ -63,8 +63,11 @@ function StageCarousel() {
           >
             <span className="relative block h-[420px] overflow-hidden rounded-[28px]" style={{ background: model.photo.tone }}>
               <StagePhoto model={model} scale={1.02} priority={index === 0} animate={index === 0} />
-              <span className="m2-kicker absolute inset-x-0 top-6 z-[1] text-center" style={{ color: 'rgba(8,38,27,0.72)' }}>{model.category}</span>
-              <span aria-hidden="true" className={`m2-giant absolute inset-x-0 top-[52px] z-[1] text-center ${index === 0 ? 'm2-rise' : ''}`} style={{ fontSize: 'min(23vw, 6.8rem)' }}>{model.name}</span>
+              <span className="m2-shade" aria-hidden="true" />
+              <span className="absolute inset-x-0 top-7 z-[2] text-center">
+                <span aria-hidden="true" className={`m2-giant m2-giant--light ${index === 0 ? 'm2-rise' : ''}`} style={{ fontSize: 'min(22vw, 6.6rem)' }}>{model.name}</span>
+                <span className="m2-sub mt-2.5">{model.category} loupes</span>
+              </span>
               <span className="m2-chip bottom-4 left-4 tab">From {money(startingPrice(model.slug))}</span>
               <span className="m2-icon m2-icon--ink absolute bottom-3.5 right-4 z-[4]" aria-hidden="true">
                 <ArrowUpRight size={19} />

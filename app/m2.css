@@ -654,3 +654,30 @@
     animation: m2-fadein 0.2s ease both;
   }
 }
+
+/* Light-on-photo type (the studio-photo stages): a warm shade across the top
+   of the photograph keeps the white name and its line legible. */
+.m2-shade {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 1;
+  height: 64%;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(34, 26, 21, 0.7) 0%, rgba(34, 26, 21, 0.42) 52%, rgba(34, 26, 21, 0) 100%);
+}
+
+.m2-giant--light {
+  color: #f1f4f1;
+  letter-spacing: -0.045em;
+}
+
+.m2-sub {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(241, 244, 241, 0.88);
+}
+
+.m2-chrome[data-on-photo='true'] .m2-brand {
+  color: #f1f4f1;
+}

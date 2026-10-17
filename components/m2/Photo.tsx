@@ -9,14 +9,19 @@ export function StagePhoto({
   scale = 1,
   priority = false,
   animate = true,
+  fadeBottom = false,
   alt,
 }: {
   model: M2Model
   scale?: number
   priority?: boolean
   animate?: boolean
+  fadeBottom?: boolean
   alt?: string
 }) {
+  const mask = fadeBottom
+    ? 'linear-gradient(180deg, transparent 0%, #000 30%, #000 72%, transparent 100%)'
+    : 'linear-gradient(180deg, transparent 0%, #000 30%)'
   const width = `calc(${model.photo.width} * ${scale})`
   return (
     <div
@@ -24,8 +29,8 @@ export function StagePhoto({
       style={{
         width,
         transform: `translateX(${model.photo.shift})`,
-        WebkitMaskImage: 'linear-gradient(180deg, transparent 0%, #000 30%)',
-        maskImage: 'linear-gradient(180deg, transparent 0%, #000 30%)',
+        WebkitMaskImage: mask,
+        maskImage: mask,
       }}
     >
       <div className={`relative h-full w-full ${animate ? 'm2-rise' : ''}`}>

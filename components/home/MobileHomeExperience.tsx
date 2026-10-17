@@ -27,7 +27,8 @@ const FAQS = [
   ['What does the warranty cover?', 'A two-year limited warranty covers manufacturer-related defects in materials and workmanship. Normal wear, accidental damage, misuse, and unauthorized modifications are excluded.'],
 ] as const
 
-// The collection opens the page: one studio stage per model, swiped like a product reel.
+// The collection opens the page full screen: one studio photograph per model,
+// swiped like a product reel. The brand line stays put while the photos move.
 function StageCarousel() {
   const trackRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
@@ -45,53 +46,60 @@ function StageCarousel() {
     el.scrollTo({ left: index * el.clientWidth, behavior: 'smooth' })
   }
 
+  const current = MODELS[active] ?? MODELS[0]
+
   return (
-    <div className="relative">
+    <section className="relative h-[100svh] min-h-[620px] max-h-[920px] overflow-hidden" aria-label="The HeliosX collection">
       <div
         ref={trackRef}
         onScroll={onScroll}
-        className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        aria-label="The HeliosX collection"
-        role="region"
+        className="absolute inset-0 flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {MODELS.map((model, index) => (
           <Link
             key={model.slug}
             href={`/product/${model.slug}`}
-            className="block w-full shrink-0 snap-center px-3"
+            className="relative block h-full w-full shrink-0 snap-center overflow-hidden"
+            style={{ background: model.photo.tone }}
             aria-label={`${model.name}, ${model.category}, from ${money(startingPrice(model.slug))}`}
           >
-            <span className="relative block h-[420px] overflow-hidden rounded-[28px]" style={{ background: model.photo.tone }}>
-              <StagePhoto model={model} scale={1.02} priority={index === 0} animate={index === 0} />
-              <span className="m2-shade" aria-hidden="true" />
-              <span className="absolute inset-x-0 top-7 z-[2] text-center">
-                <span aria-hidden="true" className={`m2-giant m2-giant--light ${index === 0 ? 'm2-rise' : ''}`} style={{ fontSize: 'min(22vw, 6.6rem)' }}>{model.name}</span>
-                <span className="m2-sub mt-2.5">{model.category} loupes</span>
-              </span>
-              <span className="m2-chip bottom-4 left-4 tab">From {money(startingPrice(model.slug))}</span>
-              <span className="m2-icon m2-icon--ink absolute bottom-3.5 right-4 z-[4]" aria-hidden="true">
-                <ArrowUpRight size={19} />
-              </span>
+            <span className="absolute inset-x-0 bottom-[150px] top-[150px]">
+              <StagePhoto model={model} scale={1.12} priority={index === 0} animate={index === 0} fadeBottom />
+            </span>
+            <span className="m2-shade" aria-hidden="true" />
+            <span className="absolute inset-x-0 top-[88px] z-[2] text-center">
+              <span aria-hidden="true" className={`m2-giant m2-giant--light ${index === 0 ? 'm2-rise' : ''}`} style={{ fontSize: 'min(24vw, 7rem)' }}>{model.name}</span>
+              <span className="m2-sub mt-3">{model.category} loupes</span>
             </span>
           </Link>
         ))}
       </div>
-      <div className="mt-5 flex justify-center gap-1.5 pb-12" role="tablist" aria-label="Choose a model">
-        {MODELS.map((model, index) => (
-          <button
-            key={model.slug}
-            type="button"
-            role="tab"
-            aria-selected={active === index}
-            aria-label={model.name}
-            onClick={() => goTo(index)}
-            className="flex h-8 items-center"
-          >
-            <span className={`block h-[5px] rounded-full transition-[width,background-color] duration-300 ${active === index ? 'w-7 bg-[#08261b]' : 'w-[5px] bg-[rgba(8,38,27,0.25)]'}`} />
-          </button>
-        ))}
+
+      {/* Fixed over the moving photos: the promise, the price, the way in. */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-[300px] bg-[linear-gradient(180deg,rgba(24,19,15,0)_0%,rgba(24,19,15,0.55)_45%,rgba(24,19,15,0.82)_100%)]" aria-hidden="true" />
+      <div className="absolute inset-x-0 bottom-0 z-[4] px-5 pb-[46px]">
+        {/* Same heading order as the desktop hero: the eyebrow is the <h1>. */}
+        <h1 className="text-[11px] font-bold uppercase tracking-[0.28em] text-[rgba(241,244,241,0.72)]">Surgical &amp; dental loupes</h1>
+        <p className="m2-rise mt-2 text-[min(2.3rem,10.6vw)] font-extrabold leading-[0.98] tracking-[-0.05em] text-[#f1f4f1]">
+          Surgical precision.
+          <br />
+          Finally accessible.
+        </p>
+        <div className="mt-5 flex items-center justify-between gap-3">
+          <Link href={`/product/${current.slug}`} className="flex min-h-[48px] items-center gap-3 rounded-full bg-[#f1f4f1] py-1.5 pl-4 pr-1.5 text-[14px] font-extrabold text-[#08261b] transition-transform active:scale-[0.97]">
+            <span className="tab">{current.name} from {money(startingPrice(current.slug))}</span>
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-[#08261b] text-[#f1f4f1]"><ArrowUpRight size={17} /></span>
+          </Link>
+          <div className="flex gap-1" role="tablist" aria-label="Choose a model">
+            {MODELS.map((model, index) => (
+              <button key={model.slug} type="button" role="tab" aria-selected={active === index} aria-label={model.name} onClick={() => goTo(index)} className="flex h-9 items-center px-0.5">
+                <span className={`block h-[5px] rounded-full transition-[width,background-color] duration-300 ${active === index ? 'w-6 bg-[#f1f4f1]' : 'w-[5px] bg-[rgba(241,244,241,0.45)]'}`} />
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   )
 }
 
@@ -120,24 +128,10 @@ export default function MobileHomeExperience() {
 
   return (
     <main className="m2 overflow-x-clip pb-6">
-      {/* STAGE */}
-      <section className="m2-stage pt-[84px]">
-        <div className="px-5">
-          {/* Same heading order as the desktop hero: the eyebrow is the <h1>. */}
-          <h1 className="m2-kicker">Surgical &amp; dental loupes</h1>
-          <p className="m2-rise mt-3 text-[min(2.45rem,11.2vw)] font-extrabold leading-[0.98] tracking-[-0.055em]">
-            Surgical precision.
-            <br />
-            Finally accessible.
-          </p>
-        </div>
-        <div className="mt-6">
-          <StageCarousel />
-        </div>
-      </section>
+      <StageCarousel />
 
       {/* SHEET */}
-      <section className="m2-sheet pb-2">
+      <section className="m2-sheet pb-2" style={{ marginTop: -24 }}>
         <p className="m2-lede text-[16px]">Premium optics for the work that matters. No gatekeeping. Just fair pricing.</p>
         <div className="mt-5 flex gap-2">
           <Link href="#mobile-collection" className="m2-btn m2-btn--ink flex-[1.4] justify-between">

@@ -1,10 +1,20 @@
 import { fallbackProducts } from '@/lib/fallback-products'
 import { absoluteUrl } from '@/lib/seo'
+import { modelBySlug } from '@/components/m2/models'
 
 export const dynamic = 'force-static'
 
 function escapeXml(value: string) {
   return value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+}
+
+function studioImages(slug: string, name: string) {
+  const model = modelBySlug(slug)
+  if (!model) return []
+  return [model.photo.src, ...model.gallery].map((src, index) => ({
+    src,
+    alt: `${name} surgical loupes, studio photo ${index + 1}`,
+  }))
 }
 
 export function GET() {
@@ -13,6 +23,8 @@ export function GET() {
       { src: product.cardImageSrc, alt: product.cardImageAlt },
       ...product.heroImages,
       ...product.specImages,
+      // Studio photography used by the mobile storefront (public/m2).
+      ...studioImages(product.slug, product.shortName),
     ]
 
     const uniqueImages = Array.from(new Map(images.map((image) => [image.src, image])).values())

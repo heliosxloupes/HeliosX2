@@ -22,13 +22,13 @@ const SITE_CONTENT_LAST_MODIFIED = '2026-05-24'
 // Per-path overrides for content that changes on its own cadence
 // (homepage, product pages, legal docs). Keep dates in ISO format.
 const staticPathLastModified: Record<string, string> = {
-  '': '2026-09-09',
-  '/product': '2026-09-09',
-  '/product/medusa': '2026-09-09',
-  '/product/apollo': '2026-09-09',
-  '/product/galileo': '2026-09-09',
-  '/product/newton': '2026-09-09',
-  '/product/kepler': '2026-09-09',
+  '': '2026-10-17',
+  '/product': '2026-10-17',
+  '/product/medusa': '2026-10-17',
+  '/product/apollo': '2026-10-17',
+  '/product/galileo': '2026-10-17',
+  '/product/newton': '2026-10-17',
+  '/product/kepler': '2026-10-17',
   '/education': '2026-09-09',
   '/measurements': '2026-09-09',
   '/faq': '2026-09-10',

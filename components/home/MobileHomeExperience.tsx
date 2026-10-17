@@ -214,7 +214,7 @@ export default function MobileHomeExperience() {
           </Link>
         </div>
         <div className="relative mx-3 h-[380px] overflow-hidden rounded-[24px]">
-          <Image src="/mobile-home/work-editorial-v2.png" alt="Clinician wearing HeliosX loupes" fill sizes="100vw" className="object-cover" />
+          <Image src="/m2/mission.webp" alt="Clinician wearing HeliosX loupes" fill sizes="100vw" className="object-cover" style={{ objectPosition: "42% 35%" }} />
         </div>
       </section>
 

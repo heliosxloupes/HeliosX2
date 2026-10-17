@@ -17,6 +17,8 @@ export type M2Model = {
   focus: string
   group: 'Ergonomic' | 'Everyday' | 'Fine detail'
   cutout: string
+  /** Full studio photo used as the stage, with the wall tone it fades into. */
+  photo?: { src: string; tone: string; shift: string; width: string }
   /** Studio photos and the product film, newest shoots first. Empty means use the CMS hero images. */
   gallery: string[]
   film?: string
@@ -34,6 +36,7 @@ export const MODELS: M2Model[] = [
     focus: 'Adjustable working distance, 300 to 600 mm',
     group: 'Ergonomic',
     cutout: '/m2/medusa/cut.webp',
+    photo: { src: '/m2/medusa/stage.webp', tone: '#8a786c', shift: '-50%', width: '124%' },
     gallery: ['/m2/medusa/g1.webp', '/m2/medusa/g2.webp', '/m2/medusa/g3.webp', '/m2/medusa/g4.webp', '/m2/medusa/g5.webp', '/m2/medusa/g6.webp'],
     film: '/m2/medusa/film.mp4',
     facts: [
@@ -76,6 +79,7 @@ export const MODELS: M2Model[] = [
     focus: 'High magnification for fine-detail work',
     group: 'Fine detail',
     cutout: '/m2/kepler/cut.webp',
+    photo: { src: '/m2/kepler/stage.webp', tone: '#a69489', shift: '-47%', width: '150%' },
     gallery: ['/m2/kepler/g1.webp', '/m2/kepler/g2.webp', '/m2/kepler/g3.webp', '/m2/kepler/g4.webp', '/m2/kepler/g5.webp'],
     film: '/m2/kepler/film.mp4',
     facts: [
@@ -98,6 +102,7 @@ export const MODELS: M2Model[] = [
     focus: 'Wide field for daily precision work',
     group: 'Everyday',
     cutout: '/m2/galileo/cut.webp',
+    photo: { src: '/m2/galileo/stage.webp', tone: '#ae9c8f', shift: '-49%', width: '150%' },
     gallery: ['/m2/galileo/g1.webp', '/m2/galileo/g2.webp', '/m2/galileo/g3.webp', '/m2/galileo/g4.webp', '/m2/galileo/g5.webp', '/m2/galileo/g6.webp'],
     film: '/m2/galileo/film.mp4',
     facts: [

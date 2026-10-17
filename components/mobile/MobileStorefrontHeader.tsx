@@ -1,18 +1,17 @@
 'use client'
 
-import * as Dialog from '@radix-ui/react-dialog'
-import { ArrowRight, ArrowUpRight, Mail, Menu, Minus, Plus, ShoppingBag, X } from 'lucide-react'
+import { useMotionValueEvent, useScroll } from 'framer-motion'
+import { ArrowRight, ArrowUpRight, ChevronLeft, Mail, Menu, Minus, Plus, ShoppingBag } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
-import type { CSSProperties, ReactNode } from 'react'
 
+import Sheet from '@/components/m2/Sheet'
+import { MODELS, money, startingPrice } from '@/components/m2/models'
 import { useContact } from '@/components/Contact/ContactProvider'
 import { getCart, type CartItem } from '@/lib/cart'
 import pricing from '@/lib/pricing.json'
-
-const models = ['medusa', 'apollo', 'kepler', 'galileo', 'newton'] as const
 
 const menuLinks = [
   ['Shop all loupes', '/product'],
@@ -23,81 +22,38 @@ const menuLinks = [
   ['Questions & answers', '/faq'],
 ] as const
 
-const money = (value: number) =>
-  new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 0,
-  }).format(value)
-
-const startingPrice = (slug: (typeof models)[number]) =>
-  Math.min(...Object.values(pricing.products[slug].prices))
-
-// Mobile v2: paper sheets, ink type, deep green controls.
-const ink = 'text-[#08261b]'
-const hair = 'border-[rgba(8,38,27,0.12)]'
-
-function StorefrontSheet({
-  open,
-  onOpenChange,
-  title,
-  description,
-  origin,
-  children,
-}: {
-  origin: string
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  title: string
-  description: string
-  children: ReactNode
-}) {
-  return (
-    <Dialog.Root open={open} onOpenChange={onOpenChange}>
-      <Dialog.Portal>
-        <Dialog.Overlay className="hx-sheet-overlay fixed inset-0 z-[80] bg-[rgba(8,38,27,0.32)]" />
-        <Dialog.Content
-          style={{ '--hx-origin': origin } as CSSProperties}
-          className={`hx-sheet fixed inset-y-0 right-0 z-[90] flex w-full max-w-[520px] flex-col overflow-hidden bg-[#eef0ec] ${ink} focus:outline-none`}>
-          <div className="hx-sheet-row flex shrink-0 items-start justify-between gap-5 px-5 pb-4 pt-[max(1.1rem,env(safe-area-inset-top))]">
-            <div>
-              <Dialog.Title className="text-[2rem] font-extrabold leading-tight tracking-[-0.045em]">
-                {title}
-              </Dialog.Title>
-              <Dialog.Description className="mt-1 text-[13px] leading-5 text-[#56665d]">
-                {description}
-              </Dialog.Description>
-            </div>
-            <Dialog.Close
-              className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#08261b] text-[#eef0ec] transition active:scale-95"
-              aria-label="Close panel">
-              <X size={20} />
-            </Dialog.Close>
-          </div>
-          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-2">
-            {children}
-          </div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
-  )
-}
+const cutouts = new Set(MODELS.map((model) => model.slug as string))
 
 export default function MobileStorefrontHeader() {
-  const pathname = usePathname()
+  const pathname = usePathname() ?? '/'
+  const router = useRouter()
   const { openContact } = useContact()
   const [menuOpen, setMenuOpen] = useState(false)
   const [bagOpen, setBagOpen] = useState(false)
   const [items, setItems] = useState<CartItem[]>([])
+  const [solid, setSolid] = useState(false)
+  const [bump, setBump] = useState(false)
+  const { scrollY } = useScroll()
+
+  // Clear over the studio stage, frosted paper once the page moves.
+  useMotionValueEvent(scrollY, 'change', (y) => {
+    const next = y > 24
+    setSolid((prev) => (prev === next ? prev : next))
+  })
 
   const syncCart = () => setItems(getCart())
 
   useEffect(() => {
     syncCart()
-    window.addEventListener('cartUpdated', syncCart)
+    const onUpdate = () => {
+      syncCart()
+      setBump(true)
+      window.setTimeout(() => setBump(false), 450)
+    }
+    window.addEventListener('cartUpdated', onUpdate)
     window.addEventListener('storage', syncCart)
     return () => {
-      window.removeEventListener('cartUpdated', syncCart)
+      window.removeEventListener('cartUpdated', onUpdate)
       window.removeEventListener('storage', syncCart)
     }
   }, [])
@@ -108,14 +64,9 @@ export default function MobileStorefrontHeader() {
   }, [pathname])
 
   const count = useMemo(() => items.reduce((sum, item) => sum + item.quantity, 0), [items])
-  const rxCount = useMemo(
-    () => items.reduce((sum, item) => sum + (item.hasPrescriptionLenses ? item.quantity : 0), 0),
-    [items],
-  )
+  const rxCount = useMemo(() => items.reduce((sum, item) => sum + (item.hasPrescriptionLenses ? item.quantity : 0), 0), [items])
   const subtotal = useMemo(
-    () =>
-      items.reduce((sum, item) => sum + item.price * item.quantity, 0) +
-      rxCount * pricing.addOns['prescription-lenses'].price,
+    () => items.reduce((sum, item) => sum + item.price * item.quantity, 0) + rxCount * pricing.addOns['prescription-lenses'].price,
     [items, rxCount],
   )
 
@@ -132,80 +83,72 @@ export default function MobileStorefrontHeader() {
     setItems(next)
   }
 
+  // Product pages and the bag get a back button; everything else opens the menu.
+  const inner = pathname.startsWith('/product/') || pathname.startsWith('/cart') || pathname.startsWith('/checkout')
+  const backHref = pathname.startsWith('/product/') ? '/product' : '/product'
+
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-[rgba(8,38,27,0.08)] bg-[rgba(238,240,236,0.9)] pt-[env(safe-area-inset-top)] backdrop-blur-md">
-        <div className="flex h-14 items-center justify-between px-4">
-          <Link href="/" className="flex min-h-11 items-center gap-2.5" aria-label="HeliosX home">
-            <Image src="/logominimalnowriting.png" alt="HeliosX logo" width={26} height={26} className="h-[26px] w-[26px] object-contain brightness-0" priority />
-            <span className={`text-[12px] font-extrabold uppercase tracking-[0.32em] ${ink}`}>HeliosX</span>
-          </Link>
-          <div className="flex items-center gap-1.5">
-            <button
-              type="button"
-              onClick={() => {
-                syncCart()
-                setBagOpen(true)
-              }}
-              className={`relative grid h-11 w-11 place-items-center rounded-full ${ink} transition active:scale-95`}
-              aria-label={`Open bag, ${count} item${count === 1 ? '' : 's'}`}
-            >
-              <ShoppingBag size={20} />
-              {count > 0 && (
-                <span className="absolute right-0.5 top-0.5 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-[#08261b] px-1 text-[10px] font-bold text-[#eef0ec]">
-                  {count}
-                </span>
-              )}
+      <header className="m2 m2-chrome" data-solid={solid} style={{ background: solid ? undefined : 'transparent' }}>
+        <div className="m2-chrome__side">
+          {inner ? (
+            <button type="button" className="m2-icon" aria-label="Back" onClick={() => (window.history.length > 1 ? router.back() : router.push(backHref))}>
+              <ChevronLeft size={20} />
             </button>
-            <button
-              type="button"
-              onClick={() => setMenuOpen(true)}
-              className="grid h-11 w-11 place-items-center rounded-full bg-[#08261b] text-[#eef0ec] transition active:scale-95"
-              aria-label="Open menu"
-            >
-              <Menu size={20} />
+          ) : (
+            <button type="button" className="m2-icon" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
+              <Menu size={19} />
             </button>
-          </div>
+          )}
+        </div>
+        <Link href="/" className="m2-brand flex min-h-11 items-center" aria-label="HeliosX home">
+          HELIOSX
+        </Link>
+        <div className="m2-chrome__side m2-chrome__side--end">
+          <button
+            type="button"
+            className="m2-icon"
+            aria-label={`Open bag, ${count} item${count === 1 ? '' : 's'}`}
+            onClick={() => {
+              syncCart()
+              setBagOpen(true)
+            }}
+          >
+            <ShoppingBag size={19} />
+            {count > 0 ? <span className="m2-badge tab" data-bump={bump}>{count}</span> : null}
+          </button>
+          {inner ? (
+            <button type="button" className="m2-icon" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
+              <Menu size={19} />
+            </button>
+          ) : null}
         </div>
       </header>
 
-      <StorefrontSheet
-        open={menuOpen}
-        onOpenChange={setMenuOpen}
-        origin="calc(100% - 2.15rem) 1.75rem"
-        title="Explore HeliosX"
-        description="Surgical precision, finally accessible."
-      >
-        <div className="hx-sheet-row" style={{ '--i': 1 } as CSSProperties}>
-          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#56665d]">The collection</p>
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            {models.map((model, index) => (
-              <Link
-                key={model}
-                href={`/product/${model}`}
-                className={`flex min-h-[108px] flex-col justify-between rounded-[14px] bg-[#e1d9d0] p-3 transition active:scale-[0.98] ${index === 0 ? 'col-span-2 min-h-[132px]' : ''}`}
-              >
-                <span className={`relative block w-full ${index === 0 ? 'h-[64px]' : 'h-12'}`}>
-                  <Image src={`/mobile/${model}.webp`} alt="" fill sizes="(max-width: 767px) 80vw, 1px" className="object-contain" />
-                </span>
-                <span className="flex items-baseline justify-between gap-2">
-                  <span className="text-[15px] font-bold capitalize">{model}</span>
-                  <span className="text-[11px] text-[#56665d]">From {money(startingPrice(model))}</span>
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-        <nav aria-label="Mobile navigation" className={`mt-6 border-t ${hair}`}>
-          {menuLinks.map(([label, href], index) => (
+      <Sheet open={menuOpen} onOpenChange={setMenuOpen} title="HeliosX" description="Surgical precision, finally accessible." full>
+        <nav aria-label="Loupe collection" className="grid gap-2">
+          {MODELS.map((model, index) => (
             <Link
-              key={href}
-              href={href}
-              style={{ '--i': index + 2 } as CSSProperties}
-              className={`hx-sheet-row flex min-h-[60px] items-center justify-between gap-5 border-b ${hair} py-3.5 text-[1.3rem] font-bold leading-tight tracking-[-0.03em]`}
+              key={model.slug}
+              href={`/product/${model.slug}`}
+              className="m2-stage relative block h-[96px] overflow-hidden rounded-[22px] transition-transform active:scale-[0.98]"
+              style={{ animation: `m2-rise 0.6s ${80 + index * 50}ms var(--ease-out) both` }}
             >
+              <span className="absolute left-4 top-3 z-[1]">
+                <span className="block text-[2rem] font-extrabold uppercase leading-none tracking-[-0.05em]">{model.name}</span>
+                <span className="mt-1.5 block text-[12px] font-semibold text-[#4d5f54]">{model.category}, from {money(startingPrice(model.slug))}</span>
+              </span>
+              <span className="absolute -right-6 bottom-1 top-1 w-[58%]">
+                <Image src={model.cutout} alt="" fill sizes="(max-width: 767px) 58vw, 1px" className="object-contain object-right" />
+              </span>
+            </Link>
+          ))}
+        </nav>
+        <nav aria-label="Mobile navigation" className="mt-6">
+          {menuLinks.map(([label, href]) => (
+            <Link key={href} href={href} className="flex min-h-[56px] items-center justify-between gap-5 border-b border-[rgba(8,38,27,0.12)] text-[1.2rem] font-bold tracking-[-0.03em]">
               {label}
-              <ArrowUpRight size={19} className="text-[#0b6b53]" />
+              <ArrowUpRight size={18} className="text-[#0b6b53]" />
             </Link>
           ))}
           <button
@@ -214,91 +157,73 @@ export default function MobileStorefrontHeader() {
               setMenuOpen(false)
               window.setTimeout(() => openContact('mobile_navigation'), 0)
             }}
-            style={{ '--i': menuLinks.length + 2 } as CSSProperties}
-            className={`hx-sheet-row flex min-h-[60px] w-full items-center justify-between gap-5 border-b ${hair} py-3.5 text-left text-[1.3rem] font-bold leading-tight tracking-[-0.03em]`}
+            className="flex min-h-[56px] w-full items-center justify-between gap-5 border-b border-[rgba(8,38,27,0.12)] text-left text-[1.2rem] font-bold tracking-[-0.03em]"
           >
             Contact HeliosX
-            <Mail size={19} className="text-[#0b6b53]" />
+            <Mail size={18} className="text-[#0b6b53]" />
           </button>
         </nav>
-        <p
-          style={{ '--i': menuLinks.length + 3 } as CSSProperties}
-          className="hx-sheet-row mt-8 text-[1.7rem] font-extrabold leading-[1.1] tracking-[-0.045em]"
-        >
-          Skill thrives where access exists.
+        <p className="mt-8 text-[1.9rem] font-extrabold leading-[1.02] tracking-[-0.05em]">
+          Skill thrives where <span className="text-[#0b6b53]">access exists.</span>
         </p>
-      </StorefrontSheet>
+      </Sheet>
 
-      <StorefrontSheet
+      <Sheet
         open={bagOpen}
         onOpenChange={setBagOpen}
-        origin="calc(100% - 5.35rem) 1.75rem"
         title="Your bag"
-        description="Your selections are saved on this device."
+        description={items.length ? `${count} item${count === 1 ? '' : 's'}, saved on this device` : 'Your selections are saved on this device.'}
+        footer={
+          items.length ? (
+            <Link href="/cart" className="m2-btn m2-btn--ink w-full justify-between">
+              Review bag <span className="soft">{money(subtotal)}</span>
+            </Link>
+          ) : null
+        }
       >
         {items.length === 0 ? (
-          <div className="pt-6">
-            <div className="relative h-[120px] rounded-[18px] bg-[#e1d9d0]">
-              <Image src="/mobile/galileo.webp" alt="" fill sizes="(max-width: 767px) 90vw, 1px" className="object-contain p-4" />
+          <div className="pb-2 pt-2">
+            <div className="m2-stage relative h-[150px] rounded-[22px]">
+              <Image src="/m2/galileo/cut.webp" alt="" fill sizes="(max-width: 767px) 90vw, 1px" className="object-contain p-5" />
             </div>
-            <h2 className="mt-6 text-[2rem] leading-[1.05] tracking-[-0.045em]">Your next pair starts here.</h2>
-            <p className="mt-3 text-sm leading-6 text-[#56665d]">Explore five systems, each configured around your work and measurements.</p>
-            <Link href="/product" className="mt-7 flex min-h-[54px] items-center justify-between rounded-[14px] bg-[#14231d] px-5 text-sm font-bold text-[#eef0ec]">
+            <h2 className="mt-5 text-[1.6rem] font-extrabold leading-[1.05] tracking-[-0.045em]">Your next pair starts here.</h2>
+            <p className="mt-2 text-sm leading-6 text-[#4d5f54]">Explore five systems, each configured around your work and measurements.</p>
+            <Link href="/product" className="m2-btn m2-btn--ink mt-5 w-full justify-between">
               Explore loupes <ArrowRight size={18} />
             </Link>
           </div>
         ) : (
           <>
-            <div className="divide-y divide-[rgba(8,38,27,0.12)]">
+            <div className="grid gap-2">
               {items.map((item, index) => (
-                <article key={`${item.productSlug}-${item.selectedMagnification}-${item.selectedFrameId}-${index}`} className="grid grid-cols-[82px_minmax(0,1fr)] gap-4 py-5">
-                  <div className="relative aspect-square">
-                    <div className="relative h-full w-full overflow-hidden rounded-[12px] bg-[#e1d9d0]">
-                      {(models as readonly string[]).includes(item.productSlug) ? (
-                        <Image src={`/mobile/${item.productSlug}.webp`} alt={item.shortName || item.name} fill sizes="82px" className="object-contain p-1.5" />
-                      ) : item.image || item.selectedFrameImage ? (
-                        <Image src={item.image || item.selectedFrameImage || ''} alt={item.shortName || item.name} fill sizes="82px" className="object-cover" />
-                      ) : null}
-                    </div>
-                    {item.selectedFrameImage ? (
-                      <div className="absolute -bottom-1.5 -right-1.5 h-8 w-10 overflow-hidden rounded-md border border-[rgba(8,38,27,0.12)] bg-white">
-                        <Image src={item.selectedFrameImage} alt={`${item.selectedFrameName ?? 'Selected'} frame`} fill sizes="40px" className="object-contain p-0.5" />
-                      </div>
+                <article key={`${item.productSlug}-${item.selectedMagnification}-${item.selectedFrameId}-${index}`} className="flex gap-3 rounded-[18px] bg-[#f7f9f7] p-2.5">
+                  <div className="m2-stage relative h-[76px] w-[86px] shrink-0 overflow-hidden rounded-[14px]">
+                    {cutouts.has(item.productSlug) ? (
+                      <Image src={`/m2/${item.productSlug}/cut.webp`} alt={item.shortName || item.name} fill sizes="86px" className="object-contain p-1.5" />
+                    ) : item.image ? (
+                      <Image src={item.image} alt={item.shortName || item.name} fill sizes="86px" className="object-cover" />
                     ) : null}
                   </div>
-                  <div className="min-w-0">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <h2 className="text-lg">{item.shortName || item.name}</h2>
-                        <p className="mt-1 text-xs leading-5 text-[#56665d]">
-                          {item.selectedMagnification} / {item.selectedFrameName}
-                        </p>
-                        {item.hasPrescriptionLenses && <p className="text-xs text-[#0b6b53]">Prescription lenses</p>}
-                      </div>
-                      <strong className="text-sm font-bold tabular-nums">{money((item.price + (item.hasPrescriptionLenses ? pricing.addOns['prescription-lenses'].price : 0)) * item.quantity)}</strong>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="text-[16px] font-extrabold tracking-[-0.02em]">{item.shortName || item.name}</h3>
+                      <strong className="tab text-[14px] font-extrabold">{money((item.price + (item.hasPrescriptionLenses ? pricing.addOns['prescription-lenses'].price : 0)) * item.quantity)}</strong>
                     </div>
-                    <div className="mt-3 flex items-center gap-1">
-                      <button type="button" onClick={() => changeQuantity(index, -1)} className="grid h-11 w-11 place-items-center rounded-full border border-[rgba(8,38,27,0.22)]" aria-label={`Reduce ${item.name} quantity`}><Minus size={15} /></button>
-                      <span className="w-9 text-center text-sm font-bold tabular-nums" aria-live="polite">{item.quantity}</span>
-                      <button type="button" onClick={() => changeQuantity(index, 1)} disabled={item.quantity >= pricing.limits.maxQuantityPerLine} className="grid h-11 w-11 place-items-center rounded-full border border-[rgba(8,38,27,0.22)] disabled:opacity-40" aria-label={`Increase ${item.name} quantity`}><Plus size={15} /></button>
+                    <p className="truncate text-[12px] text-[#4d5f54]">{item.selectedMagnification} / {item.selectedFrameName}{item.hasPrescriptionLenses ? ' / Rx' : ''}</p>
+                    <div className="mt-1.5 flex items-center gap-1">
+                      <button type="button" onClick={() => changeQuantity(index, -1)} className="m2-icon h-9 w-9 bg-[#e4e9e4]" aria-label={`Reduce ${item.name} quantity`}><Minus size={14} /></button>
+                      <span className="tab w-7 text-center text-sm font-bold" aria-live="polite">{item.quantity}</span>
+                      <button type="button" onClick={() => changeQuantity(index, 1)} disabled={item.quantity >= pricing.limits.maxQuantityPerLine} className="m2-icon h-9 w-9 bg-[#e4e9e4] disabled:opacity-40" aria-label={`Increase ${item.name} quantity`}><Plus size={14} /></button>
                     </div>
                   </div>
                 </article>
               ))}
             </div>
-            <div className={`mt-5 border-y ${hair} py-5`}>
-              <p className="flex items-baseline justify-between gap-4 text-xl font-bold"><span>Subtotal</span><strong className="tabular-nums">{money(subtotal)}</strong></p>
-              <p className="mt-3 flex justify-between gap-4 text-xs text-[#56665d]"><span>Standard worldwide shipping</span><span>Included</span></p>
-            </div>
-            <p className="mt-5 rounded-[14px] bg-[#e2f3ea] px-4 py-3 text-xs leading-5 text-[#2b3a32]">
-              Your measurements are submitted after checkout and reviewed before production.
-            </p>
-            <Link href="/cart" className="mt-5 flex min-h-[54px] items-center justify-between rounded-[14px] bg-[#14231d] px-5 text-sm font-bold text-[#eef0ec]">
-              Review bag <ArrowRight size={18} />
-            </Link>
+            <p className="mt-4 flex justify-between text-[13px] text-[#4d5f54]"><span>Standard worldwide shipping</span><span className="font-bold text-[#0b6b53]">Included</span></p>
+            <p className="mt-3 rounded-[16px] bg-[#e4e9e4] px-4 py-3 text-[12.5px] leading-5 text-[#26352d]">Your measurements are submitted after checkout and reviewed before production.</p>
           </>
         )}
-      </StorefrontSheet>
+      </Sheet>
     </>
   )
 }

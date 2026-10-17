@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowLeft, ArrowRight, Check, Minus, Plus, ShieldCheck, Trash2 } from 'lucide-react'
+import { ArrowRight, Minus, Plus, ShieldCheck, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -10,6 +10,7 @@ import { cartEditHref } from '@/lib/cart'
 import AfterCheckoutSteps from '@/components/cart/AfterCheckoutSteps'
 import type { CartItem } from '@/lib/cart'
 import { PRESCRIPTION_PRICE, WARRANTY_PRICE } from '@/lib/pricing'
+import { MODELS } from '@/components/m2/models'
 import { useStickyBarOffset } from './useStickyBarOffset'
 
 type Props = {
@@ -28,9 +29,7 @@ type Props = {
 const money = (value: number) =>
   new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
 
-// Studio cut-outs (public/mobile) stand in for the loupe photo in the bag.
-const cutoutModels = ['medusa', 'apollo', 'kepler', 'galileo', 'newton']
-const eyebrow = 'text-[11px] font-bold uppercase tracking-[0.22em] text-[#56665d]'
+const cutouts = new Set(MODELS.map((model) => model.slug as string))
 
 export default function MobileCartExperience({
   items,
@@ -48,112 +47,132 @@ export default function MobileCartExperience({
   const rxPairs = items.reduce((sum, item) => sum + (item.hasPrescriptionLenses ? item.quantity : 0), 0)
   const addOns = rxPairs * PRESCRIPTION_PRICE + (warranty ? WARRANTY_PRICE : 0)
   const total = loupeSubtotal + addOns
+  const pairs = items.reduce((sum, item) => sum + item.quantity, 0)
   const checkoutBarRef = useRef<HTMLDivElement>(null)
   useStickyBarOffset(checkoutBarRef, items.length > 0)
 
   return (
-    <main className="min-h-screen bg-[#eef0ec] pb-36 pt-14 text-[#08261b]">
-      <section className="px-5 pb-6 pt-6">
-        <Link href="/product" className="flex min-h-11 items-center gap-1.5 text-[13px] font-semibold"><ArrowLeft size={16} /> Continue shopping</Link>
-        <p className={`mt-6 ${eyebrow}`}>Your configuration</p>
-        <h1 className="mt-2 text-[3.2rem] leading-none tracking-[-0.06em]">The bag.</h1>
-        <p className="mt-3 text-[15px] leading-6 text-[#2b3a32]">Review each custom pair before secure checkout.</p>
+    <main className="m2 min-h-screen pb-32">
+      <section className="px-5 pb-5 pt-[88px]">
+        <p className="m2-kicker">Your configuration</p>
+        <h1 className="m2-rise mt-2 text-[3.1rem] font-extrabold leading-none tracking-[-0.06em]">The bag.</h1>
+        <p className="m2-lede mt-3">
+          {items.length ? `${pairs} custom pair${pairs === 1 ? '' : 's'}. ` : ''}Review each custom pair before secure checkout.
+        </p>
       </section>
 
       {!items.length ? (
-        <section className="px-5 pb-16">
-          <div className="mv2-plane relative h-[220px] overflow-hidden rounded-[24px]">
-            <Image src="/mobile/galileo.webp" alt="" fill sizes="(max-width: 767px) 90vw, 1px" className="object-contain p-6 drop-shadow-[0_18px_18px_rgba(55,40,28,0.25)]" />
+        <section className="px-3 pb-10">
+          <div className="m2-stage h-[300px] rounded-[28px]">
+            <span className="m2-drift absolute inset-x-[4%] top-[60px] h-[190px]" style={{ transform: 'rotate(-6deg)' }}>
+              <Image src="/m2/galileo/cut.webp" alt="" fill sizes="(max-width: 767px) 92vw, 1px" className="object-contain" />
+            </span>
+            <span className="m2-floor bottom-[26px]" aria-hidden="true" />
           </div>
-          <p className="mt-7 text-xl font-bold text-[#08261b]">Your bag is empty.</p>
-          <p className="mt-2 text-[15px] leading-6 text-[#2b3a32]">Explore the five HeliosX systems and build the one that fits your work.</p>
-          <Link href="/product" className="mt-7 flex min-h-[56px] items-center justify-between rounded-[16px] bg-[#14231d] px-5 text-[15px] font-bold text-[#eef0ec]">Explore the collection <ArrowRight size={18} /></Link>
+          <div className="px-2">
+            <p className="mt-6 text-[1.4rem] font-extrabold tracking-[-0.03em]">Your bag is empty.</p>
+            <p className="m2-lede mt-1.5">Explore the five HeliosX systems and build the one that fits your work.</p>
+            <Link href="/product" className="m2-btn m2-btn--ink mt-6 w-full justify-between">Explore the collection <ArrowRight size={18} /></Link>
+          </div>
         </section>
       ) : (
         <>
-          <section className="grid gap-3 px-3">
-            {items.map((item, index) => {
-              const useCutout = cutoutModels.includes(item.productSlug)
-              return (
-                <article key={`${item.productSlug}-${item.selectedFrameId}-${item.selectedMagnification}-${index}`} className="rounded-[24px] bg-[#f8f9f6] p-4">
-                  <div className="flex gap-4">
-                    {/* Main image is the loupe system itself; the chosen frame is a small inset, so the
-                        bag never shows bare frames that look like a different product. */}
-                    <div className="relative h-28 w-28 shrink-0">
-                      <div className="mv2-plane relative h-full w-full overflow-hidden rounded-[16px]">
-                        {useCutout ? (
-                          <Image src={`/mobile/${item.productSlug}.webp`} alt={`${item.shortName ?? item.name} loupes`} fill sizes="112px" className="object-contain p-2" />
-                        ) : item.image || item.selectedFrameImage ? (
-                          <Image src={item.image || item.selectedFrameImage || ''} alt={`${item.shortName ?? item.name} loupes`} fill sizes="112px" className="object-cover" />
-                        ) : null}
-                      </div>
-                      {item.selectedFrameImage ? (
-                        <div className="absolute -bottom-2 -right-2 h-11 w-14 overflow-hidden rounded-[10px] border border-[rgba(8,38,27,0.12)] bg-white">
-                          <Image src={item.selectedFrameImage} alt={`${item.selectedFrameName ?? 'Selected'} frame`} fill sizes="56px" className="object-contain p-0.5" />
-                        </div>
-                      ) : null}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#56665d]">Custom loupe system</p>
-                      <h2 className="mt-1 text-[1.6rem] leading-none tracking-[-0.04em]">{item.shortName ?? item.name}</h2>
-                      <p className="mt-2 text-[12.5px] leading-5 text-[#2b3a32]">
+          <section className="grid gap-2.5 px-3">
+            {items.map((item, index) => (
+              <article key={`${item.productSlug}-${item.selectedFrameId}-${item.selectedMagnification}-${index}`} className="overflow-hidden rounded-[24px] bg-[#f7f9f7]">
+                {/* Main image is the loupe system itself; the chosen frame is a small inset, so the
+                    bag never shows bare frames that look like a different product. */}
+                <div className="m2-stage relative h-[150px]">
+                  <span aria-hidden="true" className="m2-giant absolute inset-x-0 top-3 text-center opacity-90" style={{ fontSize: 'min(17vw, 4.6rem)' }}>
+                    {item.shortName ?? item.name}
+                  </span>
+                  <span className="absolute inset-x-[8%] bottom-3 top-[44px]" style={{ transform: 'rotate(-5deg)' }}>
+                    {cutouts.has(item.productSlug) ? (
+                      <Image src={`/m2/${item.productSlug}/cut.webp`} alt={`${item.shortName ?? item.name} loupes`} fill sizes="(max-width: 767px) 84vw, 1px" className="object-contain" />
+                    ) : item.image ? (
+                      <Image src={item.image} alt={`${item.shortName ?? item.name} loupes`} fill sizes="84vw" className="object-cover" />
+                    ) : null}
+                  </span>
+                  {item.selectedFrameImage ? (
+                    <span className="absolute bottom-3 right-3 z-[3] h-[42px] w-[64px] overflow-hidden rounded-[10px] bg-white shadow-[0_6px_16px_rgba(40,30,22,0.16)]">
+                      <Image src={item.selectedFrameImage} alt={`${item.selectedFrameName ?? 'Selected'} frame`} fill sizes="64px" className="object-contain p-0.5" />
+                    </span>
+                  ) : null}
+                </div>
+                <div className="px-4 pb-3 pt-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <h2 className="text-[1.3rem] font-extrabold leading-tight tracking-[-0.035em]">{item.shortName ?? item.name}</h2>
+                      <p className="mt-0.5 text-[13px] text-[#4d5f54]">
                         {item.selectedMagnification} / {item.selectedFrameName}
-                        <Link href={cartEditHref(item, index)} className="ml-2 font-bold text-[#0b6b53] underline underline-offset-4">Edit</Link>
+                        <Link href={cartEditHref(item, index)} className="ml-2 font-extrabold text-[#0b6b53] underline underline-offset-4">Edit</Link>
                       </p>
-                      <div className="mt-3 flex items-center justify-between gap-2">
-                        <div className="flex items-center rounded-full border-[1.5px] border-[rgba(8,38,27,0.16)]">
-                          <button type="button" onClick={() => onQuantity(index, item.quantity - 1)} aria-label={`Decrease ${item.name} quantity`} className="flex h-11 w-11 items-center justify-center"><Minus size={14} /></button>
-                          <span className="min-w-5 text-center text-sm font-bold tabular-nums">{item.quantity}</span>
-                          <button type="button" onClick={() => onQuantity(index, item.quantity + 1)} aria-label={`Increase ${item.name} quantity`} className="flex h-11 w-11 items-center justify-center"><Plus size={14} /></button>
-                        </div>
-                        <strong className="text-[15px] font-extrabold tabular-nums">{money(item.price * item.quantity)}</strong>
-                      </div>
                     </div>
+                    <strong className="tab shrink-0 text-[16px] font-extrabold">{money(item.price * item.quantity)}</strong>
                   </div>
-                  <div className="mt-4 flex items-center justify-between border-t border-[rgba(8,38,27,0.1)] pt-2">
-                    <button type="button" onClick={() => onPrescription(index, !item.hasPrescriptionLenses)} aria-pressed={Boolean(item.hasPrescriptionLenses)} className="flex min-h-11 items-center gap-2.5 text-left text-[13px] font-semibold text-[#2b3a32]">
-                      <span className={`flex h-5 w-5 items-center justify-center rounded-[6px] border-[1.5px] ${item.hasPrescriptionLenses ? 'border-[#08261b] bg-[#08261b] text-[#eef0ec]' : 'border-[rgba(8,38,27,0.3)]'}`}>{item.hasPrescriptionLenses ? <Check size={13} /> : null}</span>
-                      Prescription lenses (+{money(PRESCRIPTION_PRICE)} per pair)
-                    </button>
-                    <button type="button" onClick={() => onRemove(index)} aria-label={`Remove ${item.name}`} className="flex h-11 w-11 items-center justify-center rounded-full text-[#56665d]"><Trash2 size={16} /></button>
+                  <div className="mt-3 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1 rounded-full bg-[#e4e9e4] p-1">
+                      <button type="button" onClick={() => onQuantity(index, item.quantity - 1)} aria-label={`Decrease ${item.name} quantity`} className="m2-icon h-9 w-9 bg-[#f7f9f7]"><Minus size={14} /></button>
+                      <span className="tab w-7 text-center text-[14px] font-extrabold" aria-live="polite">{item.quantity}</span>
+                      <button type="button" onClick={() => onQuantity(index, item.quantity + 1)} aria-label={`Increase ${item.name} quantity`} className="m2-icon h-9 w-9 bg-[#f7f9f7]"><Plus size={14} /></button>
+                    </div>
+                    <button type="button" onClick={() => onRemove(index)} aria-label={`Remove ${item.name}`} className="m2-icon h-10 w-10 bg-transparent text-[#4d5f54]"><Trash2 size={17} /></button>
                   </div>
-                </article>
-              )
-            })}
+                  <button type="button" role="switch" aria-checked={Boolean(item.hasPrescriptionLenses)} onClick={() => onPrescription(index, !item.hasPrescriptionLenses)} className="mt-2 flex min-h-[52px] w-full items-center justify-between gap-3 border-t border-[rgba(8,38,27,0.1)] pt-2 text-left">
+                    <span className="text-[13.5px] font-bold">Prescription lenses <span className="tab font-semibold text-[#4d5f54]">+{money(PRESCRIPTION_PRICE)} per pair</span></span>
+                    <span className="m2-switch" aria-hidden="true" />
+                  </button>
+                </div>
+              </article>
+            ))}
           </section>
 
-          <section className="px-5 pt-8">
-            <p className={eyebrow}>Protection</p>
-            <button type="button" onClick={() => onWarrantyChange(!warranty)} aria-pressed={warranty} className={`mt-3 flex w-full min-h-[82px] items-center gap-4 rounded-[18px] border-[1.5px] px-4 text-left transition-colors ${warranty ? 'border-[#08261b] bg-[#e2f3ea]' : 'border-[rgba(8,38,27,0.14)]'}`}>
+          <section className="px-3 pt-3">
+            <button type="button" role="switch" aria-checked={warranty} onClick={() => onWarrantyChange(!warranty)} className="m2-row min-h-[78px] rounded-[24px] pl-4">
               <ShieldCheck className="shrink-0 text-[#0b6b53]" size={22} />
-              <span className="min-w-0 flex-1"><strong className="block text-sm font-bold">Extended warranty</strong><small className="mt-0.5 block text-xs leading-5 text-[#56665d]">Additional coverage beyond the included two-year limited warranty.</small></span>
-              <strong className="text-sm font-extrabold tabular-nums">+{money(WARRANTY_PRICE)}</strong>
+              <span className="min-w-0 flex-1">
+                <strong className="block text-[15px] font-extrabold">Extended warranty <span className="tab font-semibold text-[#4d5f54]">+{money(WARRANTY_PRICE)}</span></strong>
+                <small className="block text-[12.5px] leading-5 text-[#4d5f54]">Additional coverage beyond the included two-year limited warranty.</small>
+              </span>
+              <span className="m2-switch" aria-hidden="true" />
             </button>
           </section>
 
-          <section className="px-5 py-8">
-            <p className={eyebrow}>Checkout</p>
-            <label htmlFor="mobile-cart-email" className="mt-3 block text-sm font-bold">Email address <span className="font-normal text-[#56665d]">(optional)</span></label>
-            <input id="mobile-cart-email" type="email" autoComplete="email" inputMode="email" autoCapitalize="none" value={email} onChange={(event) => onEmailChange(event.target.value)} placeholder="you@example.com" aria-invalid={Boolean(emailError)} aria-describedby="mobile-cart-email-help" className="mt-2 min-h-[54px] w-full rounded-[14px] border-[1.5px] border-[rgba(8,38,27,0.18)] bg-[#f8f9f6] px-4 text-base text-[#08261b] outline-none placeholder:text-[#6b7a71] focus:border-[#0b6b53]" />
-            {emailError ? <p className="mt-2 text-[13px] font-semibold text-[#b42318]">{emailError}</p> : null}
-            <p id="mobile-cart-email-help" className="mt-2 text-[12.5px] leading-5 text-[#56665d]">Saves your cart. You can also enter it at payment. No account required.</p>
-            <dl className="mt-7 space-y-3 rounded-[18px] bg-[#f8f9f6] px-4 py-5 text-sm">
-              <div className="flex justify-between text-[#2b3a32]"><dt>Loupes</dt><dd className="tabular-nums">{money(loupeSubtotal)}</dd></div>
-              {rxPairs ? <div className="flex justify-between text-[#2b3a32]"><dt>Prescription lenses x {rxPairs}</dt><dd className="tabular-nums">{money(rxPairs * PRESCRIPTION_PRICE)}</dd></div> : null}
-              {warranty ? <div className="flex justify-between text-[#2b3a32]"><dt>Extended warranty</dt><dd className="tabular-nums">{money(WARRANTY_PRICE)}</dd></div> : null}
-              <div className="flex justify-between text-[#2b3a32]"><dt>Worldwide shipping</dt><dd className="font-bold text-[#0b6b53]">Included</dd></div>
-              <div className="flex justify-between border-t border-[rgba(8,38,27,0.12)] pt-4 text-lg font-extrabold text-[#08261b]"><dt>Total</dt><dd className="tabular-nums">{money(total)}</dd></div>
+          <section className="px-5 pt-8">
+            <label htmlFor="mobile-cart-email" className="block text-[15px] font-extrabold">Email address <span className="font-semibold text-[#4d5f54]">(optional)</span></label>
+            <input
+              id="mobile-cart-email"
+              type="email"
+              autoComplete="email"
+              inputMode="email"
+              autoCapitalize="none"
+              enterKeyHint="done"
+              value={email}
+              onChange={(event) => onEmailChange(event.target.value)}
+              placeholder="you@example.com"
+              aria-invalid={Boolean(emailError)}
+              aria-describedby="mobile-cart-email-help"
+              className="mt-2 min-h-[54px] w-full rounded-[16px] border-[1.5px] border-[rgba(8,38,27,0.16)] bg-[#f7f9f7] px-4 text-[16px] text-[#08261b] outline-none placeholder:text-[#6b7a71] focus:border-[#0b6b53]"
+            />
+            {emailError ? <p className="mt-2 text-[13px] font-bold text-[#b42318]">{emailError}</p> : null}
+            <p id="mobile-cart-email-help" className="mt-2 text-[12.5px] leading-5 text-[#4d5f54]">Saves your cart. You can also enter it at payment. No account required.</p>
+
+            <dl className="m2-facts mt-7 border-y border-[rgba(8,38,27,0.12)]">
+              <div><dt>Loupes</dt><dd className="tab">{money(loupeSubtotal)}</dd></div>
+              {rxPairs ? <div><dt>Prescription lenses x {rxPairs}</dt><dd className="tab">{money(rxPairs * PRESCRIPTION_PRICE)}</dd></div> : null}
+              {warranty ? <div><dt>Extended warranty</dt><dd className="tab">{money(WARRANTY_PRICE)}</dd></div> : null}
+              <div><dt>Worldwide shipping</dt><dd className="text-[#0b6b53]">Included</dd></div>
+              <div className="text-[17px]"><dt className="font-extrabold text-[#08261b]">Total</dt><dd className="tab font-extrabold">{money(total)}</dd></div>
             </dl>
-            <AfterCheckoutSteps className="mt-4 rounded-[18px] bg-[#e2f3ea] px-4 py-4" />
+            <AfterCheckoutSteps className="mt-5 rounded-[22px] bg-[#e4e9e4] px-4 py-4" />
           </section>
         </>
       )}
 
       {items.length ? (
-        <div ref={checkoutBarRef} className="fixed inset-x-0 bottom-0 z-40 bg-gradient-to-t from-[#eef0ec] via-[#eef0ec] to-[rgba(238,240,236,0)] px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-5">
-          <button type="button" onClick={onCheckout} className="mx-auto flex min-h-[58px] w-full max-w-lg items-center justify-between rounded-[18px] bg-[#14231d] px-5 text-[#eef0ec] transition active:scale-[0.98]">
-            <span className="flex items-center gap-2 text-[15px] font-extrabold">Secure checkout <ArrowRight size={18} /></span>
-            <span className="text-right"><small className="block text-[10px] font-semibold text-[rgba(238,240,236,0.7)]">Total, shipping included</small><strong className="block text-[15px] font-extrabold tabular-nums">{money(total)}</strong></span>
+        <div ref={checkoutBarRef} className="m2-bar">
+          <button type="button" onClick={onCheckout} className="m2-btn m2-btn--ink justify-between">
+            Secure checkout <span className="soft">{money(total)}</span>
           </button>
         </div>
       ) : null}

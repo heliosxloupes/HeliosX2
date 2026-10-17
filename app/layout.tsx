@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Syne, Manrope } from 'next/font/google'
 import './globals.css'
 import './mobile-v2.css'
+import './m2.css'
 import SmoothScroll from '@/components/SmoothScroll/SmoothScroll'
 import AmbientBackground from '@/components/AmbientBackground'
 import AnalyticsScripts from '@/components/AnalyticsScripts'
@@ -18,7 +19,7 @@ const syne = Syne({
 
 const manrope = Manrope({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700', '800'],
   variable: '--font-manrope',
   display: 'swap',
 })

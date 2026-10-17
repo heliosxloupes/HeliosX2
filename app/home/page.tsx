@@ -127,7 +127,10 @@ function ParallaxImage({
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
-  const [isMobile, setIsMobile] = useState(false);
+  // null until the viewport is known: the server and first client render
+  // include both layouts and CSS shows the right one, so a phone never
+  // flashes the desktop hero. After that, only the matching layout mounts.
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useLayoutEffect(() => {
     const query = window.matchMedia("(max-width: 767px)");
@@ -144,10 +147,13 @@ export default function HomePage() {
         <ScrollProgressBar />
         <Header />
 
-        {isMobile ? (
-          <MobileHomeExperience />
-        ) : (
-        <main className="space-y-20 pb-16 md:space-y-28 md:pb-24">
+        {isMobile !== false ? (
+          <div className={isMobile === null ? "md:hidden" : undefined}>
+            <MobileHomeExperience />
+          </div>
+        ) : null}
+        {isMobile === true ? null : (
+        <main className={`space-y-20 pb-16 md:space-y-28 md:pb-24 ${isMobile === null ? "max-md:hidden" : ""}`}>
           <HeroSection />
           <LineupSection />
           <ManifestoSection />

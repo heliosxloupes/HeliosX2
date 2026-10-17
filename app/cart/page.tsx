@@ -9,6 +9,7 @@ import Header from '@/components/Header'
 import { cartEditHref, getCart } from '@/lib/cart'
 import { CartEditButton, CartRemoveButton } from '@/components/cart/CartLineActions'
 import AfterCheckoutSteps from '@/components/cart/AfterCheckoutSteps'
+import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 import type { CartItem } from '@/lib/cart'
 import { cartItemsToGA4Items, newEventId, trackBeginCheckout, trackViewCart } from '@/lib/analytics'
 import Noise from '@/components/Noise'
@@ -477,6 +478,10 @@ export default function CartPage() {
                 <span>Add-ons</span>
                 <span>${addOnTotal.toFixed(2)}</span>
               </div>
+              <div className="mb-4 flex items-center justify-between text-sm text-neutral-300">
+                <span>Worldwide shipping</span>
+                <span className="text-emerald-200">Included</span>
+              </div>
               <div className="mb-4 flex items-center justify-between text-sm font-semibold text-neutral-50">
                 <span>Total</span>
                 <span>${subtotal.toFixed(2)}</span>
@@ -512,6 +517,15 @@ export default function CartPage() {
                 Proceed to payment
               </button>
               <AfterCheckoutSteps className="mt-5 border-t border-white/10 pt-5" />
+              <AskSpecialistButton
+                source="cart_summary"
+                className="mt-4 flex min-h-11 w-full items-center justify-between border-t border-white/10 pt-3 text-left text-xs text-neutral-300 transition hover:text-white"
+              >
+                <span>
+                  Questions before you pay? <span className="text-emerald-300">Ask a loupe specialist</span>
+                </span>
+                <span aria-hidden="true">↗</span>
+              </AskSpecialistButton>
             </motion.div>
           </motion.aside>
         </section>

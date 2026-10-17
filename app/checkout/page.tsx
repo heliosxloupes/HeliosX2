@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Script from 'next/script'
 import Image from 'next/image'
+import AfterCheckoutSteps from '@/components/cart/AfterCheckoutSteps'
+import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
+import CopyEmail from '@/components/Contact/CopyEmail'
 import Header from '@/components/Header'
 import { getCart } from '@/lib/cart'
 import { getEffectiveConsent } from '@/lib/consent'
@@ -280,7 +283,7 @@ export default function CheckoutPage() {
               Secure checkout
             </h1>
             <p className="mt-2 max-w-xl text-sm leading-6 text-neutral-300">
-              Review your order and complete payment securely with Stripe&apos;s embedded checkout.
+              Pay by card, Affirm or Klarna through Stripe. Nothing is made until we have checked your measurements with you.
             </p>
             <p className="mt-3 rounded-2xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-xs font-medium text-emerald-100">
               30-day returns on non-prescription pairs. Prescription pairs are fully refundable until production begins.
@@ -368,16 +371,43 @@ export default function CheckoutPage() {
             </div>
 
             <div className="border-t border-white/10 pt-4">
-              <div className="mb-3 flex items-center justify-between text-sm text-neutral-300">
-                <span>Subtotal</span>
-                <span className="text-lg font-semibold text-neutral-50">
-                  {usd(subtotal)}
-                </span>
-              </div>
-              <p className="text-[0.72rem] leading-5 text-neutral-400">
-                Worldwide shipping included. Stripe shows your final total before
-                you pay.
+              <dl className="space-y-2 text-sm text-neutral-300">
+                <div className="flex items-center justify-between">
+                  <dt>Subtotal</dt>
+                  <dd className="tabular-nums">{usd(subtotal)}</dd>
+                </div>
+                <div className="flex items-center justify-between">
+                  <dt>Worldwide shipping</dt>
+                  <dd className="text-emerald-200">Included</dd>
+                </div>
+                <div className="flex items-center justify-between border-t border-white/10 pt-3 text-neutral-50">
+                  <dt className="font-semibold">Total</dt>
+                  <dd className="text-lg font-semibold tabular-nums">{usd(subtotal)}</dd>
+                </div>
+              </dl>
+              <p className="mt-2 text-[0.72rem] leading-5 text-neutral-400">
+                Taxes, if any, are shown by Stripe before you pay.
               </p>
+            </div>
+
+            <AfterCheckoutSteps className="mt-6 border-t border-white/10 pt-5" />
+
+            <div className="mt-6 rounded-2xl border border-white/10 bg-black/35 p-4">
+              <p className="text-sm font-medium text-neutral-50">Questions before you pay?</p>
+              <p className="mt-1 text-xs leading-5 text-neutral-400">
+                Ask about fit, magnification or delivery. A real person replies within one business day, and your checkout stays open.
+              </p>
+              <AskSpecialistButton
+                source="checkout_summary"
+                className="hx-ask-cta mt-3 flex min-h-11 w-full items-center justify-between rounded-full border border-emerald-200/30 bg-emerald-200/10 px-4 text-sm font-semibold text-white transition hover:border-emerald-200/60 hover:bg-emerald-200/15"
+              >
+                <span>Ask a loupe specialist</span>
+                <span aria-hidden="true">↗</span>
+              </AskSpecialistButton>
+              <CopyEmail
+                className="mt-3 text-xs text-neutral-300"
+                buttonClassName="border border-white/15 text-neutral-200 hover:border-emerald-200/60 hover:text-white"
+              />
             </div>
           </aside>
         </section>

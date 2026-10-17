@@ -13,9 +13,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight, Check, Mail, X } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 
-import { trackContact, trackGenerateLead } from '@/lib/analytics'
-import { supportEmail } from '@/lib/seo'
+import { newEventId, trackContact, trackGenerateLead } from '@/lib/analytics'
 
+import CopyEmail from './CopyEmail'
 import styles from './ContactProvider.module.css'
 
 type ProductContext = {
@@ -99,28 +99,6 @@ export default function ContactProvider({ children }: { children: React.ReactNod
 
   const selectedTopic = topics.find((item) => item.id === topic) ?? topics[1]
   const magnification = formatMagnification(productContext?.magnification)
-  const subject = productContext
-    ? `${selectedTopic.subject}: ${productContext.name}${magnification ? ` ${magnification}` : ''}`
-    : selectedTopic.subject
-  const productLines = productContext
-    ? [
-        `Product: ${productContext.name}`,
-        magnification ? `Magnification: ${magnification}` : '',
-        productContext.frame ? `Frame: ${productContext.frame}` : '',
-        productContext.color ? `Color: ${productContext.color}` : '',
-        '',
-      ].filter(Boolean)
-    : []
-  const body = [
-    'Hi HeliosX team,',
-    '',
-    ...productLines,
-    'My question:',
-    '',
-    '',
-    `Page: https://heliosxvision.com${pathname}`,
-  ].join('\n')
-  const mailto = `mailto:${supportEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 
   // Sent through /api/contact: saved to the CRM and emailed to the team, so a
   // question never depends on the visitor's mail app being set up.
@@ -133,6 +111,7 @@ export default function ContactProvider({ children }: { children: React.ReactNod
       ? [productContext.name, magnification, productContext.frame, productContext.color].filter(Boolean).join(' · ')
       : ''
     try {
+      const leadEventId = newEventId()
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -142,6 +121,8 @@ export default function ContactProvider({ children }: { children: React.ReactNod
           product: productLabel,
           page: `https://heliosxvision.com${pathname}`,
           source,
+          eventId: leadEventId,
+          analyticsConsent: window.localStorage.getItem('heliosx_analytics_consent') ?? '',
         }),
       })
       const payload = await response.json().catch(() => ({}))
@@ -155,7 +136,7 @@ export default function ContactProvider({ children }: { children: React.ReactNod
         page_path: pathname,
         product: productContext?.slug,
       })
-      trackGenerateLead('contact_form', { contact_topic: topic, product: productContext?.slug })
+      trackGenerateLead('contact_form', { contact_topic: topic, product: productContext?.slug }, leadEventId)
     } catch (caught) {
       setStatus('error')
       setError(caught instanceof Error ? caught.message : 'Something went wrong. Please try again.')
@@ -320,21 +301,10 @@ export default function ContactProvider({ children }: { children: React.ReactNod
                   </button>
                 </form>
               )}
-              <a
-                className={styles.emailAddress}
-                href={mailto}
-                onClick={() =>
-                  trackContact('email_click', {
-                    contact_source: source,
-                    contact_topic: topic,
-                    page_path: pathname,
-                    product: productContext?.slug,
-                    magnification: productContext?.magnification,
-                  })
-                }
-              >
-                Prefer email? {supportEmail}
-              </a>
+              <p className={styles.emailAddress}>
+                Prefer your own inbox?{' '}
+                <CopyEmail buttonClassName={styles.copyButton} />
+              </p>
               <p className={styles.responseTime}>Our team answers within one business day.</p>
             </motion.section>
           </div>

@@ -637,7 +637,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                   {config.name}
                 </h1>
                 {heroAggregateRating && heroAggregateRating.reviewCount > 0 && (
-                  <div className="mt-2 flex items-center gap-2 text-xs text-neutral-300">
+                  <a href="#reviews" className="mt-2 flex w-fit items-center gap-2 text-xs text-neutral-300 transition hover:text-white">
                     <span aria-hidden="true" className="flex items-center gap-[2px]">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <svg
@@ -660,7 +660,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                       ({heroAggregateRating.reviewCount} verified review
                       {heroAggregateRating.reviewCount === 1 ? '' : 's'})
                     </span>
-                  </div>
+                  </a>
                 )}
                 <p className="mt-3 text-sm leading-relaxed text-neutral-300">
                   {config.description}
@@ -872,7 +872,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                   className="mt-3 flex min-h-11 w-full items-center justify-between border-t border-white/10 pt-3 text-left text-xs text-neutral-300 transition hover:text-white"
                 >
                   <span>
-                    Questions before ordering? <span className="text-emerald-300">Email a loupe specialist</span>
+                    Questions before ordering? <span className="text-emerald-300">Ask a loupe specialist</span>
                   </span>
                   <span aria-hidden="true">↗</span>
                 </button>

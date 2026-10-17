@@ -8,6 +8,7 @@ import { useRef } from 'react'
 
 import { cartEditHref } from '@/lib/cart'
 import AfterCheckoutSteps from '@/components/cart/AfterCheckoutSteps'
+import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 import type { CartItem } from '@/lib/cart'
 import { PRESCRIPTION_PRICE, WARRANTY_PRICE } from '@/lib/pricing'
 import { modelBySlug } from '@/components/m2/models'
@@ -157,6 +158,13 @@ export default function MobileCartExperience({
               <div className="text-[17px]"><dt className="font-extrabold text-[#08261b]">Total</dt><dd className="tab font-extrabold">{money(total)}</dd></div>
             </dl>
             <AfterCheckoutSteps className="mt-5 rounded-[22px] bg-[#e4e9e4] px-4 py-4" />
+            <AskSpecialistButton
+              source="cart_summary_mobile"
+              className="mt-3 flex min-h-[56px] w-full items-center justify-between rounded-[18px] bg-[#f7f9f7] px-4 text-left text-[14px] text-[#26352d] transition-transform active:scale-[0.98]"
+            >
+              <span>Questions before you pay? <span className="font-extrabold text-[#0b6b53]">Ask a loupe specialist</span></span>
+              <ArrowRight size={18} className="shrink-0 text-[#0b6b53]" />
+            </AskSpecialistButton>
           </section>
         </>
       )}

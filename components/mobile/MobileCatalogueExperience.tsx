@@ -58,8 +58,8 @@ export default function MobileCatalogueExperience() {
           Custom-fit surgical and dental loupes from {money(startingPrice('newton'))}, shipping included. Choose by posture, magnification, and the work in front of you.
         </p>
         <ul className="mt-4 flex flex-wrap gap-1.5 text-[12px] font-bold">
-          <li className="flex min-h-9 items-center gap-1.5 rounded-full bg-[#f7f9f7] px-3"><Check size={14} className="text-[#0b6b53]" /> 2-year limited warranty</li>
-          <li className="flex min-h-9 items-center gap-1.5 rounded-full bg-[#f7f9f7] px-3"><Check size={14} className="text-[#0b6b53]" /> 30-day returns</li>
+          <li><Link href="/warranty" className="flex min-h-9 items-center gap-1.5 rounded-full bg-[#f7f9f7] px-3 active:scale-[0.98]"><Check size={14} className="text-[#0b6b53]" /> 2-year limited warranty</Link></li>
+          <li><Link href="/returns" className="flex min-h-9 items-center gap-1.5 rounded-full bg-[#f7f9f7] px-3 active:scale-[0.98]"><Check size={14} className="text-[#0b6b53]" /> 30-day returns</Link></li>
           <li className="flex min-h-9 items-center gap-1.5 rounded-full bg-[#d1fae5] px-3"><Check size={14} className="text-[#0b6b53]" /> Residents &amp; students save {TRAINEE_PERCENT_OFF}%</li>
         </ul>
       </section>

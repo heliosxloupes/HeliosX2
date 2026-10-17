@@ -3,7 +3,8 @@ import Link from 'next/link'
 import { ArrowUpRight, Mail } from 'lucide-react'
 
 import CookiePreferencesButton from '@/components/CookiePreferencesButton'
-import { supportEmail } from '@/lib/seo'
+import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
+import CopyEmail from '@/components/Contact/CopyEmail'
 
 const exploreLinks = [
   { label: 'All loupes', href: '/product' },
@@ -86,7 +87,6 @@ function FooterColumn({ title, links }: { title: string; links: { label: string;
 }
 
 export default function Footer() {
-  const contactSubject = encodeURIComponent('Question for HeliosX')
 
   return (
     <footer data-tone="dark" className="relative overflow-hidden border-t border-white/10 bg-[#030508] text-neutral-300">
@@ -109,16 +109,16 @@ export default function Footer() {
               data-lang="en"
               suppressHydrationWarning
             />
-            <a
-              href={`mailto:${supportEmail}?subject=${contactSubject}`}
+            <AskSpecialistButton
+              source="footer"
               className="group flex min-h-14 w-full items-center justify-between gap-6 border border-emerald-200/30 bg-emerald-200/10 px-5 text-sm font-semibold text-white transition hover:border-emerald-200/60 hover:bg-emerald-200/15"
             >
               <span className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-emerald-300" strokeWidth={1.7} aria-hidden="true" />
-                Email a loupe specialist
+                Ask a loupe specialist
               </span>
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-            </a>
+            </AskSpecialistButton>
           </div>
         </div>
 
@@ -137,12 +137,10 @@ export default function Footer() {
             <p className="mt-6 max-w-xs text-sm leading-6 text-neutral-400">
               Surgical precision, finally accessible. Ergonomic prismatic and lightweight loupes designed for surgeons, dentists, residents, hygienists, and students who want honest pricing without compromise.
             </p>
-            <a
-              href={`mailto:${supportEmail}`}
-              className="mt-6 inline-block text-xs text-emerald-200 underline decoration-emerald-200/30 underline-offset-4 transition hover:text-white"
-            >
-              {supportEmail}
-            </a>
+            <CopyEmail
+              className="mt-6 text-xs text-emerald-200"
+              buttonClassName="border border-emerald-200/25 text-emerald-200 hover:border-emerald-200/60 hover:text-white"
+            />
             <p className="mt-2 text-[11px] text-neutral-600">Replies within one business day.</p>
           </div>
 

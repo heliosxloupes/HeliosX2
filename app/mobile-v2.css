@@ -435,6 +435,18 @@
     border-top: 1px solid var(--m-hair) !important;
   }
 
+  /* Checkout "Questions before you pay?" action on the light shell. */
+  html body .hx-mobile-checkout .hx-ask-cta {
+    min-height: 48px;
+    border-color: transparent;
+    background: #0b6b53;
+    color: #f7f9f7 !important;
+  }
+
+  html body .hx-mobile-checkout .hx-ask-cta * {
+    color: #f7f9f7 !important;
+  }
+
   html body .hx-mobile-policy article > section {
     border-top: 1px solid var(--m-hair);
   }

@@ -2,6 +2,7 @@
 
 import React, { useMemo, useState } from 'react'
 import Header from '@/components/Header'
+import { useContact } from '@/components/Contact/ContactProvider'
 import styles from './page.module.css'
 
 const faqSections = [
@@ -253,6 +254,7 @@ function extractTextFromNode(node: React.ReactNode): string {
 }
 
 function FAQPage() {
+  const { openContact } = useContact()
   const [search, setSearch] = useState('')
 
   const filteredSections = useMemo(() => {
@@ -287,9 +289,9 @@ function FAQPage() {
               onChange={e => setSearch(e.target.value)}
             />
           </div>
-          <a className={styles.contactButton} href="mailto:heliosxloupes@gmail.com">
-            Email HeliosX Support
-          </a>
+          <button type="button" className={styles.contactButton} onClick={() => openContact('faq_hero')}>
+            Ask HeliosX Support
+          </button>
         </div>
       </section>
 

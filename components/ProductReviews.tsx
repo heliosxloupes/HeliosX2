@@ -117,7 +117,7 @@ export default function ProductReviews({ productName, reviews, aggregate }: Prod
 
   return (
     <>
-    <section className="border-t border-white/10 bg-[#06090b] px-5 py-12 md:hidden">
+    <section id="reviews-mobile" className="scroll-mt-24 border-t border-white/10 bg-[#06090b] px-5 py-12 md:hidden">
       <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-200/70">
         Clinician reviews
       </p>
@@ -139,7 +139,7 @@ export default function ProductReviews({ productName, reviews, aggregate }: Prod
       </div>
       <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-neutral-600">Swipe to read</p>
     </section>
-    <section className="relative hidden overflow-hidden border-t border-white/10 bg-black px-5 py-20 md:block md:px-12 md:py-28">
+    <section id="reviews" className="relative hidden scroll-mt-24 overflow-hidden border-t border-white/10 bg-black px-5 py-20 md:block md:px-12 md:py-28">
       <div className="mx-auto max-w-[1400px]">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>

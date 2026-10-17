@@ -183,7 +183,11 @@ export default function SeoLandingExperience({
                     </Link>
                     <div className={styles.cardBody}>
                       <div className={styles.cardTitle}>
-                        <h3>{row.name}</h3>
+                        <h3>
+                          <Link href={row.href} className="hover:underline hover:underline-offset-4">
+                            {row.name}
+                          </Link>
+                        </h3>
                         <span className={styles.price}>
                           From {usd(productStartingPrices[key])}
                         </span>

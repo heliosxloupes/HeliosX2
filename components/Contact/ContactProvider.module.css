@@ -298,6 +298,16 @@
   text-underline-offset: 5px;
 }
 
+.emailAddress { text-decoration: none; }
+
+.copyButton {
+  margin-left: 2px;
+  border: 1px solid rgba(108, 215, 189, 0.32);
+  color: #a7e8d6;
+}
+
+.copyButton:hover { border-color: rgba(108, 215, 189, 0.7); color: #ffffff; }
+
 .responseTime {
   margin-top: 8px;
   color: #71807d;
@@ -372,4 +382,6 @@
   .sent p { color: #2b3a32; }
   .emailAddress { color: #08261b; text-decoration-color: rgba(11, 107, 83, 0.45); }
   .responseTime { color: #56665d; }
+  .copyButton { border-color: rgba(11, 107, 83, 0.35); color: #0b6b53; }
+  .copyButton:hover { border-color: #0b6b53; color: #08261b; }
 }

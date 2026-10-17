@@ -8,6 +8,7 @@ import { useMemo, useRef, useState } from 'react'
 
 import { MODELS, money, startingPrice, type M2Model } from '@/components/m2/models'
 import { PhotoThumb, StagePhoto } from '@/components/m2/Photo'
+import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 
 type Filter = 'All loupes' | 'Ergonomic' | 'Everyday' | 'Fine detail'
 
@@ -252,9 +253,9 @@ export default function MobileHomeExperience() {
           ))}
         </div>
         <p className="mt-6 text-[14px] text-[#26352d]">Still deciding? Talk to a person.</p>
-        <a href="mailto:heliosxloupes@gmail.com" className="mt-0.5 flex min-h-11 items-center gap-2 text-[14px] font-bold text-[#0b6b53]">
+        <AskSpecialistButton source="mobile_home_faq" className="mt-0.5 flex min-h-11 items-center gap-2 text-[14px] font-bold text-[#0b6b53]">
           Ask the HeliosX team <ArrowUpRight size={16} />
-        </a>
+        </AskSpecialistButton>
       </section>
 
       {/* CLOSE */}

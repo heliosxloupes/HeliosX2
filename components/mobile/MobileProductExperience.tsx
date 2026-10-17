@@ -277,9 +277,9 @@ export default function MobileProductExperience({
 
         <p className="m2-lede mt-6">{config.description}</p>
         {rating?.reviewCount ? (
-          <p className="mt-2 text-[13px] text-[#4d5f54]">
+          <a href="#reviews-mobile" className="mt-2 inline-flex min-h-9 items-center gap-1 text-[13px] text-[#4d5f54] underline decoration-[#4d5f54]/30 underline-offset-4">
             <span className="text-[#a8650f]" aria-hidden="true">★★★★★</span> {rating.ratingValue.toFixed(1)} from {rating.reviewCount} verified review{rating.reviewCount === 1 ? '' : 's'}
-          </p>
+          </a>
         ) : null}
       </section>
 
@@ -332,7 +332,7 @@ export default function MobileProductExperience({
           }}
           className="mt-3 flex min-h-[56px] w-full items-center justify-between rounded-[18px] bg-[#f7f9f7] px-4 text-left text-[14px] text-[#26352d] transition-transform active:scale-[0.98]"
         >
-          <span>Questions before ordering? <span className="font-extrabold text-[#0b6b53]">Email a loupe specialist</span></span>
+          <span>Questions before ordering? <span className="font-extrabold text-[#0b6b53]">Ask a loupe specialist</span></span>
           <ChevronRight size={18} className="shrink-0 text-[#0b6b53]" />
         </button>
 

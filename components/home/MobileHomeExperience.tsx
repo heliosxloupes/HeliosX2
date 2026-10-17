@@ -63,7 +63,7 @@ function StageCarousel() {
             <span className="m2-kicker absolute inset-x-0 top-1 text-center">{model.category}</span>
             <span aria-hidden="true" className={`m2-giant absolute inset-x-0 top-8 text-center ${index === 0 ? 'm2-rise' : ''}`}>{model.name}</span>
             <span
-              className={`absolute inset-x-[5%] top-[118px] h-[180px] ${index === 0 ? 'm2-drift' : ''}`}
+              className={`absolute inset-x-[4%] top-[92px] h-[196px] ${index === 0 ? 'm2-drift' : ''}`}
               style={{ transform: 'rotate(-6deg)' }}
             >
               <Image src={model.cutout} alt="" fill priority={index === 0} sizes="(max-width: 767px) 90vw, 1px" className="object-contain" />

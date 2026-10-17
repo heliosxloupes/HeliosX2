@@ -161,7 +161,7 @@ export default function MobileProductExperience({
             {config.shortName}
           </p>
         </div>
-        <div className="m2-drift absolute inset-x-[2%] top-[196px] z-[2] h-[216px]" style={{ transform: 'rotate(-6deg)' }}>
+        <div className="m2-drift absolute inset-x-[2%] top-[170px] z-[2] h-[230px]" style={{ transform: 'rotate(-6deg)' }}>
           <Image
             src={model?.cutout ?? config.heroImages[0]}
             alt={`${config.shortName} surgical loupes`}

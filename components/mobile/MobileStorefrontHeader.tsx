@@ -132,15 +132,16 @@ export default function MobileStorefrontHeader() {
               key={model.slug}
               href={`/product/${model.slug}`}
               className="relative block h-[104px] overflow-hidden rounded-[22px] transition-transform active:scale-[0.98]"
-              style={{ background: '#2a211c', animation: `m2-rise 0.6s ${80 + index * 50}ms var(--ease-out) both` }}
+              style={{ background: model.photo.tone, animation: `m2-rise 0.6s ${80 + index * 50}ms var(--ease-out) both` }}
             >
-              <span className="absolute left-4 top-3.5 z-[1] max-w-[54%]">
+              <span className="absolute left-4 top-3.5 z-[1] max-w-[46%]">
                 <span className="block text-[2rem] font-extrabold uppercase leading-none tracking-[-0.05em] text-[#f1f4f1]">{model.name}</span>
                 <span className="mt-1.5 block text-[12.5px] font-semibold leading-[1.35] text-[rgba(241,244,241,0.8)]">{model.category}<br />from <span className="tab text-[#f1f4f1]">{money(startingPrice(model.slug))}</span></span>
               </span>
-              <span className="absolute inset-y-0 right-0 w-[60%]" style={{ WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, #000 46%)', maskImage: 'linear-gradient(90deg, transparent 0%, #000 46%)' }}>
-                <PhotoThumb model={model} sizes="(max-width: 767px) 64vw, 1px" />
+              <span className="absolute inset-y-0 left-[34%] right-0" style={{ WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, #000 24%)', maskImage: 'linear-gradient(90deg, transparent 0%, #000 24%)' }}>
+                <PhotoThumb model={model} sizes="(max-width: 767px) 62vw, 1px" />
               </span>
+              <span className="absolute inset-0" aria-hidden="true" style={{ background: 'linear-gradient(90deg, rgba(58,46,38,0.6) 0%, rgba(58,46,38,0.42) 36%, rgba(58,46,38,0.08) 52%, rgba(58,46,38,0) 64%)' }} />
             </Link>
           ))}
         </nav>

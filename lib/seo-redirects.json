@@ -1,15 +1,85 @@
 {
-  "_comment": "Pages merged into a stronger sibling. next.config.js turns these into 301s, and lib/seo-content.ts drops the source slugs so they leave the sitemap, llms-full.txt and static params. Added 2026-10-02: each pair below was 78-96% identical text and the source page had little or no search data.",
+  "_comment": "Pages merged into a stronger sibling. next.config.js turns these into 301s, and lib/seo-content.ts drops the source slugs so they leave the sitemap, llms-full.txt and static params. Added 2026-10-02: each pair below was 78-96% identical text and the source page had little or no search data. Added 2026-10-17: four more pairs where the source page had under 25 impressions in 90 days and Google had never crawled it (GSC 'Discovered - currently not indexed'); the destination is the sibling with the search data. Also 2026-10-17: GSC 'Not found (404)' URLs (education guides linked without the /education/ prefix, and bare /dental) now 301 to the live page.",
   "redirects": [
-    { "source": "/prismatic-loupes", "destination": "/prismatic-loupe-comparison" },
-    { "source": "/ergonomic-loupes", "destination": "/ergonomic-loupe-comparison" },
-    { "source": "/cheap-loupes", "destination": "/affordable-loupes" },
-    { "source": "/student-loupes-discount", "destination": "/student-loupe-comparison" },
-    { "source": "/lumadent-alternatives", "destination": "/heliosx-vs-lumadent" },
-    { "source": "/surgitel-alternatives", "destination": "/heliosx-vs-surgitel" },
-    { "source": "/q-optics-alternatives", "destination": "/heliosx-vs-q-optics" },
-    { "source": "/admetec-alternatives", "destination": "/heliosx-vs-admetec" },
-    { "source": "/heliosx-vs-examvision", "destination": "/examvision-alternatives" },
-    { "source": "/heliosx-vs-orascoptic", "destination": "/orascoptic-alternatives" }
+    {
+      "source": "/prismatic-loupes",
+      "destination": "/prismatic-loupe-comparison"
+    },
+    {
+      "source": "/ergonomic-loupes",
+      "destination": "/ergonomic-loupe-comparison"
+    },
+    {
+      "source": "/cheap-loupes",
+      "destination": "/affordable-loupes"
+    },
+    {
+      "source": "/student-loupes-discount",
+      "destination": "/student-loupe-comparison"
+    },
+    {
+      "source": "/lumadent-alternatives",
+      "destination": "/heliosx-vs-lumadent"
+    },
+    {
+      "source": "/surgitel-alternatives",
+      "destination": "/heliosx-vs-surgitel"
+    },
+    {
+      "source": "/q-optics-alternatives",
+      "destination": "/heliosx-vs-q-optics"
+    },
+    {
+      "source": "/admetec-alternatives",
+      "destination": "/heliosx-vs-admetec"
+    },
+    {
+      "source": "/heliosx-vs-examvision",
+      "destination": "/examvision-alternatives"
+    },
+    {
+      "source": "/heliosx-vs-orascoptic",
+      "destination": "/orascoptic-alternatives"
+    },
+    {
+      "source": "/loupes-for-dental-students",
+      "destination": "/education/best-loupes-for-dental-students"
+    },
+    {
+      "source": "/loupes-for-plastic-surgery",
+      "destination": "/education/best-loupes-for-plastic-surgery"
+    },
+    {
+      "source": "/loupes-for-residents",
+      "destination": "/education/best-loupes-for-residents"
+    },
+    {
+      "source": "/education/how-to-choose-surgical-loupes",
+      "destination": "/which-surgical-loupes-should-i-get"
+    },
+    {
+      "source": "/ergonomic-loupes-neck-pain",
+      "destination": "/education/ergonomic-loupes-neck-pain"
+    },
+    {
+      "source": "/best-loupes-for-dental-students",
+      "destination": "/education/best-loupes-for-dental-students"
+    },
+    {
+      "source": "/best-loupes-for-residents",
+      "destination": "/education/best-loupes-for-residents"
+    },
+    {
+      "source": "/how-to-measure-pupillary-distance",
+      "destination": "/education/how-to-measure-pupillary-distance"
+    },
+    {
+      "source": "/dental",
+      "destination": "/dental-loupes"
+    },
+    {
+      "source": "/surgical",
+      "destination": "/surgical-loupes"
+    }
   ]
 }

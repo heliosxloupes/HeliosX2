@@ -3013,16 +3013,16 @@ const competitorPages: SeoLandingPage[] = [
           'Specialty matters more than brand. A 6.0x microsurgery setup and a 2.5x hygiene setup are different products, even from the same brand. These specialty pages have the magnification ranges and ergonomic priorities by specialty:',
         bullets: [
           'Cardiac surgery: /cardiac-surgery-loupes.',
-          'Plastic surgery: /loupes-for-plastic-surgery.',
+          'Plastic surgery: /education/best-loupes-for-plastic-surgery.',
           'Microsurgery: /loupes-for-microsurgery.',
           'ENT and otolaryngology: /ent-otolaryngology-loupes.',
           'Maxillofacial surgery (OMFS): /maxillofacial-surgery-loupes.',
           'Pediatric surgery: /pediatric-surgery-loupes.',
           'Ophthalmic surgery: /ophthalmic-surgery-loupes.',
           'Hygienists and dental hygiene workflows: /loupes-for-dental-hygiene.',
-          'Dental students: /loupes-for-dental-students.',
+          'Dental students: /education/best-loupes-for-dental-students.',
           'Medical students: /loupes-for-medical-students.',
-          'Residents: /loupes-for-residents.',
+          'Residents: /education/best-loupes-for-residents.',
         ],
       },
       {
@@ -4345,7 +4345,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
         bullets: [
           'OMFS and surgical crossover: see /maxillofacial-surgery-loupes.',
           'Hygienist workflows: see /loupes-for-dental-hygiene.',
-          'Dental students: see /loupes-for-dental-students.',
+          'Dental students: see /education/best-loupes-for-dental-students.',
           'Magnification selection by specialty: see /education/loupe-magnification-guide.',
           'Posture and neck strain in dental work: see /education/ergonomic-loupes-neck-pain.',
         ],
@@ -4469,7 +4469,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
           'Surgical specialties have very different magnification, posture, and adaptation profiles. These specialty pages drill into the magnification ranges and ergonomic priorities by specialty — read the relevant ones before you commit to a brand:',
         bullets: [
           'Cardiac surgery: see /cardiac-surgery-loupes.',
-          'Plastic surgery: see /loupes-for-plastic-surgery.',
+          'Plastic surgery: see /education/best-loupes-for-plastic-surgery.',
           'Microsurgery: see /loupes-for-microsurgery.',
           'ENT and otolaryngology: see /ent-otolaryngology-loupes.',
           'Maxillofacial surgery (OMFS): see /maxillofacial-surgery-loupes.',
@@ -7073,6 +7073,9 @@ applyEditorialRevisions(allSeoLandingPages, educationGuides)
   for (let index = allSeoLandingPages.length - 1; index >= 0; index -= 1) {
     if (merged.has(allSeoLandingPages[index].slug)) allSeoLandingPages.splice(index, 1)
   }
+  for (let index = educationGuides.length - 1; index >= 0; index -= 1) {
+    if (merged.has(`education/${educationGuides[index].slug}`)) educationGuides.splice(index, 1)
+  }
 }
 
 export function getSeoLandingPage(slug: string) {
@@ -7415,18 +7418,18 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
 // Contextual paths keep specialty and brand guides reachable without repeating
 // a site-wide keyword list on every article.
 const editorialLinks: Record<string, string[]> = {
-  'best-surgical-loupe-brands': ['best-surgical-loupes-reddit', 'heliosx-vs-lumadent', 'orascoptic-alternatives', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'examvision-alternatives', 'heliosx-vs-admetec'],
-  'best-loupes': ['best-surgical-loupes-reddit', 'affordable-surgical-loupes-reddit'],
+  'best-surgical-loupe-brands': ['education/intraoperative-magnification-by-specialty', 'best-surgical-loupes-reddit', 'heliosx-vs-lumadent', 'orascoptic-alternatives', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'examvision-alternatives', 'heliosx-vs-admetec'],
+  'best-loupes': ['best-surgical-loupes-reddit', 'affordable-surgical-loupes-reddit', 'loupes-for-medical-students', 'education/intraoperative-magnification-by-specialty'],
   'affordable-loupes': ['affordable-surgical-loupes-reddit', 'how-much-do-surgical-loupes-cost'],
-  'how-much-do-surgical-loupes-cost': ['affordable-surgical-loupes-reddit', 'student-loupe-comparison'],
+  'how-much-do-surgical-loupes-cost': ['affordable-surgical-loupes-reddit', 'student-loupe-comparison', 'education/prescription-loupes-guide'],
   'best-surgical-loupes-reddit': ['affordable-surgical-loupes-reddit'],
-  'best-dental-loupe-brands': ['heliosx-vs-lumadent', 'orascoptic-alternatives', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'examvision-alternatives', 'heliosx-vs-admetec'],
+  'best-dental-loupe-brands': ['education/ergonomic-loupes-neck-pain', 'education/prescription-loupes-guide', 'heliosx-vs-lumadent', 'orascoptic-alternatives', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'examvision-alternatives', 'heliosx-vs-admetec'],
   'loupe-comparisons': ['best-surgical-loupe-brands', 'best-dental-loupe-brands', 'student-loupe-comparison', 'ergonomic-loupe-comparison', 'prismatic-loupe-comparison'],
-  'surgical-loupes': ['neurosurgery-loupes', 'cardiac-surgery-loupes', 'pediatric-surgery-loupes', 'maxillofacial-surgery-loupes', 'ent-otolaryngology-loupes', 'ophthalmic-surgery-loupes', 'loupes-for-plastic-surgery'],
-  'student-loupe-comparison': ['loupes-for-dental-students', 'loupes-for-medical-students', 'loupes-for-residents', 'student-loupe-comparison'],
+  'surgical-loupes': ['neurosurgery-loupes', 'cardiac-surgery-loupes', 'pediatric-surgery-loupes', 'maxillofacial-surgery-loupes', 'ent-otolaryngology-loupes', 'ophthalmic-surgery-loupes', 'education/best-loupes-for-plastic-surgery'],
+  'student-loupe-comparison': ['education/best-loupes-for-dental-students', 'loupes-for-medical-students', 'education/best-loupes-for-residents'],
   'loupes-for-residents': ['loupes-for-medical-students', 'loupes-for-dental-students'],
-  'best-loupes-for-residents': ['loupes-for-residents', 'loupes-for-plastic-surgery', 'loupes-for-medical-students'],
-  'loupes-for-dental-hygiene': ['dental-loupes-with-light', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'loupes-for-dental-students'],
+  'best-loupes-for-residents': ['education/best-loupes-for-plastic-surgery', 'loupes-for-medical-students', 'education/ergonomic-loupes-neck-pain'],
+  'loupes-for-dental-hygiene': ['dental-loupes-with-light', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'education/best-loupes-for-dental-students', 'education/ergonomic-loupes-neck-pain'],
   'dental-loupes-with-light': ['loupes-for-dental-hygiene', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'dental-loupes'],
   'loupes-for-dental-assistants': ['loupes-for-dental-hygiene', 'dental-loupes-with-light', 'dental-loupes'],
   'neurosurgery-loupes': ['spine-surgery-loupes', 'loupes-for-microsurgery', 'best-surgical-loupe-brands', 'surgical-loupes'],
@@ -7438,7 +7441,10 @@ export function getRelatedPages(slug: string): RelatedPage[] {
   if (slug.startsWith('heliosx-vs-')) targets.push(`${slug.replace('heliosx-vs-', '')}-alternatives`)
   if (slug.endsWith('-alternatives')) targets.push(`heliosx-vs-${slug.replace('-alternatives', '')}`)
   for (const target of targets) {
-    const page = getSeoLandingPage(target)
+    // Targets are landing slugs, or `education/<slug>` for a guide.
+    const page = target.startsWith('education/')
+      ? getEducationGuide(target.slice('education/'.length))
+      : getSeoLandingPage(target)
     if (page && !links.some(link => link.href === `/${target}`)) {
       links.push({href:`/${target}`,label:page.title,blurb:page.description})
     }

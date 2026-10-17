@@ -369,7 +369,7 @@ for (const [slug, title, context] of [
         'Moving between sitting and standing: adjustable working distance. HeliosX Medusa (3.0x–8.5x, 300–600 mm) from $1,695.',
         'Microvascular anastomosis: many services use an operating microscope; loupes do not replace one where it is required.',
       ],
-      '/education/how-to-choose-surgical-loupes',
+      '/which-surgical-loupes-should-i-get',
       'Step-by-step guide to choosing surgical loupes',
     ),
     section(
@@ -784,8 +784,8 @@ revisions['loupes-for-medical-students'] = {
 }
 
 revisions['loupes-for-dental-hygiene'] = {
-  title: 'Dental hygiene loupes: how to choose your pair',
-  metaTitle: 'Dental Hygiene Loupes: Magnification, Light & Price | HeliosX',
+  title: 'Loupes for dental hygienists: how to choose your pair',
+  metaTitle: 'Loupes for Dental Hygienists: Best Picks, Light & Price | HeliosX',
   description:
     'Choose dental hygienist loupes by seated posture, field of view, weight, and lighting. Compare six brands, then see Newton, Galileo, and Apollo with published prices.',
   intro:
@@ -1063,7 +1063,7 @@ for (const [slug, title] of [
       [
         'Hygiene, where weight and a full day of recalls decide the choice: /loupes-for-dental-hygiene.',
         'Adding a light, which has to be settled before the loupe is made: /dental-loupes-with-light.',
-        'Choosing a first pair in dental school: /loupes-for-dental-students.',
+        'Choosing a first pair in dental school: /education/best-loupes-for-dental-students.',
         'Canal location and access at higher magnification: /loupes-for-endodontics.',
         'Brand-by-brand comparison with published prices: /best-dental-loupe-brands.',
       ],
@@ -1211,7 +1211,7 @@ revisions['dental-loupes'] = {
       'Start from the most detailed task you do every day, then pick the lowest magnification that shows it. More magnification narrows the field, so a hygienist who wants a full quadrant in view needs a different pair from an endodontist locating a canal.',
       [
         'Hygiene: 2.5x–3.0x for scaling, probing and calculus detection across a full day. /loupes-for-dental-hygiene.',
-        'Dental school: 2.5x is the usual first pair, but check your program’s requirements. /loupes-for-dental-students.',
+        'Dental school: 2.5x is the usual first pair, but check your program’s requirements. /education/best-loupes-for-dental-students.',
         'General and restorative dentistry: 2.5x–3.5x for preparations, margins and caries.',
         'Endodontics: 4.5x–6.0x for canal location and access, alongside the microscope. /loupes-for-endodontics.',
         'Periodontics and implants: 3.0x–5.0x for surgery and placement. /loupes-for-periodontics and /loupes-for-dental-implants.',
@@ -1543,9 +1543,9 @@ revisions['best-loupes'] = {
       'Best loupes for students and residents',
       `A first pair should be forgiving: wide field, generous depth and a price that does not need a loan. Verified students, residents and fellows get ${TRAINEE_PERCENT_OFF}% off any HeliosX model.`,
       [
-        'Dental students: Newton or Galileo at 2.5x. /loupes-for-dental-students.',
+        'Dental students: Newton or Galileo at 2.5x. /education/best-loupes-for-dental-students.',
         'Medical students and junior residents: Galileo at 2.5x–3.0x. /loupes-for-medical-students.',
-        'Surgical residents moving into finer work: Kepler at 4.0x. /loupes-for-residents.',
+        'Surgical residents moving into finer work: Kepler at 4.0x. /education/best-loupes-for-residents.',
       ],
     ),
     section(
@@ -1580,8 +1580,8 @@ revisions['best-loupes'] = {
 }
 
 revisions['affordable-loupes'] = {
-  title: 'Affordable loupes: what you get at each price',
-  metaTitle: 'Affordable Loupes: Prices & What You Get from $695 | HeliosX',
+  title: 'Affordable dental and surgical loupes: what you get at each price',
+  metaTitle: 'Affordable Dental & Surgical Loupes from $695 | HeliosX',
   description:
     'What cheap and affordable loupes give up, what they should not, and HeliosX prices from $695 with shipping, a two-year warranty and trainee pricing included.',
   intro:

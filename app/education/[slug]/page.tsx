@@ -36,7 +36,7 @@ const shopByLinks: ShopByLink[] = [
   },
   {
     label: 'Loupes for residents',
-    href: '/loupes-for-residents',
+    href: '/education/best-loupes-for-residents',
     description: 'Trainee-budget options that still deliver attending-grade optical performance.',
   },
   {

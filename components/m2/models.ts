@@ -16,9 +16,9 @@ export type M2Model = {
   chip: string
   focus: string
   group: 'Ergonomic' | 'Everyday' | 'Fine detail'
-  cutout: string
-  /** Full studio photo used as the stage, with the wall tone it fades into. */
-  photo?: { src: string; tone: string; shift: string; width: string }
+  /** Full studio photo used as the stage, with the wall tone it fades into.
+   * `focus` is the object-position that keeps the pair in frame in small crops. */
+  photo: { src: string; tone: string; shift: string; width: string; focus: string }
   /** Studio photos and the product film, newest shoots first. Empty means use the CMS hero images. */
   gallery: string[]
   film?: string
@@ -35,8 +35,7 @@ export const MODELS: M2Model[] = [
     chip: '300 to 600 mm adjustable',
     focus: 'Adjustable working distance, 300 to 600 mm',
     group: 'Ergonomic',
-    cutout: '/m2/medusa/cut.webp',
-    photo: { src: '/m2/medusa/stage.webp', tone: '#8a786c', shift: '-50%', width: '124%' },
+    photo: { src: '/m2/medusa/stage.webp', tone: '#8a786c', shift: '-50%', width: '124%', focus: '50% 62%' },
     gallery: ['/m2/medusa/g1.webp', '/m2/medusa/g2.webp', '/m2/medusa/g3.webp', '/m2/medusa/g4.webp', '/m2/medusa/g5.webp', '/m2/medusa/g6.webp'],
     film: '/m2/medusa/film.mp4',
     facts: [
@@ -61,8 +60,9 @@ export const MODELS: M2Model[] = [
     chip: 'Fixed working distance',
     focus: 'Fixed working distance, fitted to you',
     group: 'Ergonomic',
-    cutout: '/m2/apollo/cut.webp',
-    gallery: [],
+    photo: { src: '/m2/apollo/stage.webp', tone: '#977e71', shift: '-44%', width: '150%', focus: '40% 58%' },
+    gallery: ['/m2/apollo/g1.webp', '/m2/apollo/g2.webp', '/m2/apollo/g3.webp', '/m2/apollo/g4.webp', '/m2/apollo/g5.webp'],
+    film: '/m2/apollo/film.mp4',
     facts: [
       ['Working distance', '420, 450, 500 or 550 mm'],
       ['Field of view', '50 to 105 mm'],
@@ -78,8 +78,7 @@ export const MODELS: M2Model[] = [
     chip: 'Up to 6.0x',
     focus: 'High magnification for fine-detail work',
     group: 'Fine detail',
-    cutout: '/m2/kepler/cut.webp',
-    photo: { src: '/m2/kepler/stage.webp', tone: '#a69489', shift: '-47%', width: '150%' },
+    photo: { src: '/m2/kepler/stage.webp', tone: '#a69489', shift: '-47%', width: '150%', focus: '45% 58%' },
     gallery: ['/m2/kepler/g1.webp', '/m2/kepler/g2.webp', '/m2/kepler/g3.webp', '/m2/kepler/g4.webp', '/m2/kepler/g5.webp'],
     film: '/m2/kepler/film.mp4',
     facts: [
@@ -101,8 +100,7 @@ export const MODELS: M2Model[] = [
     chip: '110 to 170 mm field',
     focus: 'Wide field for daily precision work',
     group: 'Everyday',
-    cutout: '/m2/galileo/cut.webp',
-    photo: { src: '/m2/galileo/stage.webp', tone: '#ae9c8f', shift: '-49%', width: '150%' },
+    photo: { src: '/m2/galileo/stage.webp', tone: '#ae9c8f', shift: '-49%', width: '150%', focus: '48% 60%' },
     gallery: ['/m2/galileo/g1.webp', '/m2/galileo/g2.webp', '/m2/galileo/g3.webp', '/m2/galileo/g4.webp', '/m2/galileo/g5.webp', '/m2/galileo/g6.webp'],
     film: '/m2/galileo/film.mp4',
     facts: [
@@ -124,7 +122,7 @@ export const MODELS: M2Model[] = [
     chip: 'From 40 g',
     focus: 'Ultra-light comfort for long clinical days',
     group: 'Everyday',
-    cutout: '/m2/newton/cut.webp',
+    photo: { src: '/m2/newton/stage.webp', tone: '#fdfffc', shift: '-50%', width: '140%', focus: '52% 58%' },
     gallery: [],
     facts: [
       ['Working distance', '300 to 550 mm'],

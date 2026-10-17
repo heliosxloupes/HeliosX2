@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react'
 import ProductReviews from '@/components/ProductReviews'
 import { useContact } from '@/components/Contact/ContactProvider'
 import Sheet from '@/components/m2/Sheet'
+import { StagePhoto } from '@/components/m2/Photo'
 import { modelBySlug, money, swatchHex } from '@/components/m2/models'
 import { addToCart, getCartEditTarget, replaceCartItem } from '@/lib/cart'
 import TraineePricing from '@/components/product/TraineePricing'
@@ -154,43 +155,23 @@ export default function MobileProductExperience({
       {/* STAGE: the name set huge, the pair floating across the letters */}
       <section
         className="m2-stage h-[500px]"
-        style={model?.photo ? { background: model.photo.tone } : undefined}
+        style={model ? { background: model.photo.tone } : undefined}
         aria-label={`${config.shortName} surgical loupes`}
       >
-        {model?.photo ? (
-          // Whole studio photograph: the pair on its block, the wall above it carries the name.
-          <div
-            className="absolute bottom-0 left-1/2 z-0 aspect-[1800/1005]"
-            style={{ width: model.photo.width, transform: `translateX(${model.photo.shift})`, WebkitMaskImage: 'linear-gradient(180deg, transparent 0%, #000 30%)', maskImage: 'linear-gradient(180deg, transparent 0%, #000 30%)' }}
-          >
-            <div className="m2-rise relative h-full w-full">
-              <Image src={model.photo.src} alt={`${config.shortName} surgical loupes on a frosted acrylic block`} fill priority sizes="(max-width: 767px) 150vw, 1px" className="object-cover" />
-            </div>
-          </div>
-        ) : null}
+        {/* The whole studio photograph: the pair on its block, the wall above carries the name. */}
+        {model ? (
+          <StagePhoto model={model} priority alt={`${config.shortName} surgical loupes on a studio block`} />
+        ) : (
+          <Image src={config.heroImages[0]} alt={`${config.shortName} surgical loupes`} fill priority sizes="100vw" className="object-cover" />
+        )}
         <div className="absolute inset-x-0 top-[92px] z-[1] text-center">
-          <span className="m2-kicker m2-rise" style={model?.photo ? { color: 'rgba(8,38,27,0.72)' } : undefined}>{model?.category ?? 'Surgical loupes'}</span>
+          <span className="m2-kicker m2-rise" style={{ color: 'rgba(8,38,27,0.72)' }}>{model?.category ?? 'Surgical loupes'}</span>
           {/* The desktop template renders the page's single <h1>; both layouts are in the
               DOM, so this one is a level-1 heading for assistive tech only. */}
-          <p role="heading" aria-level={1} className="m2-giant m2-rise mt-3.5" style={{ animationDelay: '40ms' }}>
+          <p role="heading" aria-level={1} className="m2-giant m2-rise mt-3.5" style={{ animationDelay: '40ms', fontSize: 'min(22vw, 6.6rem)' }}>
             {config.shortName}
           </p>
         </div>
-        {model?.photo ? null : (
-          <>
-            <div className="m2-drift absolute inset-x-[2%] top-[170px] z-[2] h-[230px]" style={{ transform: 'rotate(-6deg)' }}>
-              <Image
-                src={model?.cutout ?? config.heroImages[0]}
-                alt={`${config.shortName} surgical loupes`}
-                fill
-                priority
-                sizes="(max-width: 767px) 108vw, 1px"
-                className="object-contain"
-              />
-            </div>
-            <span className="m2-floor bottom-[58px]" aria-hidden="true" />
-          </>
-        )}
         {model ? <span className="m2-chip m2-fade bottom-[52px] right-4">{model.chip}</span> : null}
       </section>
 

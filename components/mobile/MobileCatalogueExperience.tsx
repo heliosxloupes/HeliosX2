@@ -5,7 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 
-import { MODELS, money, startingPrice } from '@/components/m2/models'
+import { MODELS, modelBySlug, money, startingPrice } from '@/components/m2/models'
+import { PhotoThumb, StagePhoto } from '@/components/m2/Photo'
 import { magnificationPriceByProduct, TRAINEE_PERCENT_OFF } from '@/lib/pricing'
 
 type Filter = 'all' | 'ergonomic' | 'lightweight' | 'high-mag'
@@ -70,8 +71,8 @@ export default function MobileCatalogueExperience() {
           {finder.map((row) => (
             <Link key={row.slug} href={`/product/${row.slug}`} className="flex w-[168px] shrink-0 snap-start flex-col justify-between rounded-[20px] bg-[#f7f9f7] p-3.5 transition-transform active:scale-[0.97]">
               <span className="text-[14px] font-bold leading-[1.3]">{row.need}</span>
-              <span className="m2-stage relative mt-3 block h-[58px] overflow-hidden rounded-[12px]">
-                <Image src={`/m2/${row.slug}/cut.webp`} alt="" fill sizes="168px" className="object-contain p-1" />
+              <span className="relative mt-3 block h-[78px] overflow-hidden rounded-[12px] bg-[#d9d0c7]">
+                {modelBySlug(row.slug) ? <PhotoThumb model={modelBySlug(row.slug)!} sizes="168px" /> : null}
               </span>
               <span className="mt-2.5 flex items-baseline justify-between">
                 <span className="text-[14px] font-extrabold">{row.name}</span>
@@ -95,15 +96,12 @@ export default function MobileCatalogueExperience() {
         {visible.map((model) => (
           <article key={model.slug} className="m2-reveal overflow-hidden rounded-[28px] bg-[#f7f9f7]">
             <Link href={`/product/${model.slug}`} className="group block">
-              <div className="m2-stage h-[268px]">
-                <span className="m2-kicker absolute inset-x-0 top-5 text-center">{model.category}</span>
-                <span aria-hidden="true" className="m2-giant absolute inset-x-0 top-11 text-center" style={{ fontSize: 'min(22vw, 6.5rem)' }}>
+              <div className="relative h-[300px] overflow-hidden" style={{ background: model.photo.tone }}>
+                <StagePhoto model={model} scale={1.04} animate={false} alt={`${model.name} surgical loupes`} />
+                <span className="m2-kicker absolute inset-x-0 top-5 z-[1] text-center" style={{ color: 'rgba(8,38,27,0.72)' }}>{model.category}</span>
+                <span aria-hidden="true" className="m2-giant absolute inset-x-0 top-11 z-[1] text-center" style={{ fontSize: 'min(21vw, 6.2rem)' }}>
                   {model.name}
                 </span>
-                <span className="absolute inset-x-[2%] top-[104px] h-[150px] transition-transform duration-500 group-active:scale-[0.97]" style={{ transform: 'rotate(-5deg)' }}>
-                  <Image src={model.cutout} alt={`${model.name} surgical loupes`} fill sizes="(max-width: 767px) 96vw, 1px" className="object-contain" />
-                </span>
-                <span className="m2-floor bottom-[22px]" aria-hidden="true" />
               </div>
               <div className="relative -mt-5 rounded-t-[22px] bg-[#f7f9f7] px-5 pb-5 pt-5">
                 <div className="flex items-start justify-between gap-4">

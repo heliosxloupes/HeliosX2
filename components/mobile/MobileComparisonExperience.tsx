@@ -29,8 +29,8 @@ export default function MobileComparisonExperience() {
           const prices = Object.values(magnificationPriceByProduct[model.slug])
           return (
             <article key={model.slug} className="overflow-hidden rounded-[24px] bg-[#f8f9f6]">
-              <div className="mv2-plane relative h-[150px]">
-                <Image src={`/mobile/${model.slug}.webp`} alt="" fill sizes="(max-width: 767px) 94vw, 1px" className="object-contain px-6 py-4 drop-shadow-[0_14px_14px_rgba(55,40,28,0.25)]" />
+              <div className="relative h-[170px] bg-[#d9d0c7]">
+                <Image src={`/m2/${model.slug}/stage.webp`} alt="" fill sizes="(max-width: 767px) 94vw, 1px" className="object-cover" />
               </div>
               <div className="px-5 pb-6 pt-5">
                 <div className="flex items-start justify-between gap-4">

@@ -10,7 +10,8 @@ import { cartEditHref } from '@/lib/cart'
 import AfterCheckoutSteps from '@/components/cart/AfterCheckoutSteps'
 import type { CartItem } from '@/lib/cart'
 import { PRESCRIPTION_PRICE, WARRANTY_PRICE } from '@/lib/pricing'
-import { MODELS } from '@/components/m2/models'
+import { modelBySlug } from '@/components/m2/models'
+import { PhotoThumb } from '@/components/m2/Photo'
 import { useStickyBarOffset } from './useStickyBarOffset'
 
 type Props = {
@@ -29,7 +30,6 @@ type Props = {
 const money = (value: number) =>
   new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
 
-const cutouts = new Set(MODELS.map((model) => model.slug as string))
 
 export default function MobileCartExperience({
   items,
@@ -63,11 +63,8 @@ export default function MobileCartExperience({
 
       {!items.length ? (
         <section className="px-3 pb-10">
-          <div className="m2-stage h-[300px] rounded-[28px]">
-            <span className="m2-drift absolute inset-x-[4%] top-[60px] h-[190px]" style={{ transform: 'rotate(-6deg)' }}>
-              <Image src="/m2/galileo/cut.webp" alt="" fill sizes="(max-width: 767px) 92vw, 1px" className="object-contain" />
-            </span>
-            <span className="m2-floor bottom-[26px]" aria-hidden="true" />
+          <div className="relative h-[300px] overflow-hidden rounded-[28px] bg-[#ae9c8f]">
+            <Image src="/m2/galileo/stage.webp" alt="" fill sizes="(max-width: 767px) 94vw, 1px" className="m2-rise object-cover" style={{ objectPosition: '48% 62%' }} />
           </div>
           <div className="px-2">
             <p className="mt-6 text-[1.4rem] font-extrabold tracking-[-0.03em]">Your bag is empty.</p>
@@ -82,17 +79,12 @@ export default function MobileCartExperience({
               <article key={`${item.productSlug}-${item.selectedFrameId}-${item.selectedMagnification}-${index}`} className="overflow-hidden rounded-[24px] bg-[#f7f9f7]">
                 {/* Main image is the loupe system itself; the chosen frame is a small inset, so the
                     bag never shows bare frames that look like a different product. */}
-                <div className="m2-stage relative h-[150px]">
-                  <span aria-hidden="true" className="m2-giant absolute inset-x-0 top-3 text-center opacity-90" style={{ fontSize: 'min(17vw, 4.6rem)' }}>
-                    {item.shortName ?? item.name}
-                  </span>
-                  <span className="absolute inset-x-[8%] bottom-3 top-[44px]" style={{ transform: 'rotate(-5deg)' }}>
-                    {cutouts.has(item.productSlug) ? (
-                      <Image src={`/m2/${item.productSlug}/cut.webp`} alt={`${item.shortName ?? item.name} loupes`} fill sizes="(max-width: 767px) 84vw, 1px" className="object-contain" />
-                    ) : item.image ? (
-                      <Image src={item.image} alt={`${item.shortName ?? item.name} loupes`} fill sizes="84vw" className="object-cover" />
-                    ) : null}
-                  </span>
+                <div className="relative h-[190px] overflow-hidden" style={{ background: modelBySlug(item.productSlug)?.photo.tone ?? '#d9d0c7' }}>
+                  {modelBySlug(item.productSlug) ? (
+                    <PhotoThumb model={modelBySlug(item.productSlug)!} sizes="(max-width: 767px) 94vw, 1px" alt={`${item.shortName ?? item.name} loupes`} />
+                  ) : item.image ? (
+                    <Image src={item.image} alt={`${item.shortName ?? item.name} loupes`} fill sizes="94vw" className="object-cover" />
+                  ) : null}
                   {item.selectedFrameImage ? (
                     <span className="absolute bottom-3 right-3 z-[3] h-[42px] w-[64px] overflow-hidden rounded-[10px] bg-white shadow-[0_6px_16px_rgba(40,30,22,0.16)]">
                       <Image src={item.selectedFrameImage} alt={`${item.selectedFrameName ?? 'Selected'} frame`} fill sizes="64px" className="object-contain p-0.5" />

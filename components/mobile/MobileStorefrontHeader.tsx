@@ -8,7 +8,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
 import Sheet from '@/components/m2/Sheet'
-import { MODELS, money, startingPrice } from '@/components/m2/models'
+import { MODELS, modelBySlug, money, startingPrice } from '@/components/m2/models'
+import { PhotoThumb } from '@/components/m2/Photo'
 import { useContact } from '@/components/Contact/ContactProvider'
 import { getCart, type CartItem } from '@/lib/cart'
 import pricing from '@/lib/pricing.json'
@@ -22,7 +23,6 @@ const menuLinks = [
   ['Questions & answers', '/faq'],
 ] as const
 
-const cutouts = new Set(MODELS.map((model) => model.slug as string))
 
 export default function MobileStorefrontHeader() {
   const pathname = usePathname() ?? '/'
@@ -131,15 +131,15 @@ export default function MobileStorefrontHeader() {
             <Link
               key={model.slug}
               href={`/product/${model.slug}`}
-              className="m2-stage relative block h-[96px] overflow-hidden rounded-[22px] transition-transform active:scale-[0.98]"
-              style={{ animation: `m2-rise 0.6s ${80 + index * 50}ms var(--ease-out) both` }}
+              className="relative block h-[104px] overflow-hidden rounded-[22px] transition-transform active:scale-[0.98]"
+              style={{ background: model.photo.tone, animation: `m2-rise 0.6s ${80 + index * 50}ms var(--ease-out) both` }}
             >
-              <span className="absolute left-4 top-3 z-[1]">
+              <span className="absolute left-4 top-3.5 z-[1]">
                 <span className="block text-[2rem] font-extrabold uppercase leading-none tracking-[-0.05em]">{model.name}</span>
                 <span className="mt-1.5 block text-[12px] font-semibold text-[#4d5f54]">{model.category}, from {money(startingPrice(model.slug))}</span>
               </span>
-              <span className="absolute -right-6 bottom-1 top-1 w-[58%]">
-                <Image src={model.cutout} alt="" fill sizes="(max-width: 767px) 58vw, 1px" className="object-contain object-right" />
+              <span className="absolute inset-y-0 right-0 w-[64%]" style={{ WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, #000 38%)', maskImage: 'linear-gradient(90deg, transparent 0%, #000 38%)' }}>
+                <PhotoThumb model={model} sizes="(max-width: 767px) 64vw, 1px" />
               </span>
             </Link>
           ))}
@@ -183,8 +183,8 @@ export default function MobileStorefrontHeader() {
       >
         {items.length === 0 ? (
           <div className="pb-2 pt-2">
-            <div className="m2-stage relative h-[150px] rounded-[22px]">
-              <Image src="/m2/galileo/cut.webp" alt="" fill sizes="(max-width: 767px) 90vw, 1px" className="object-contain p-5" />
+            <div className="relative h-[170px] overflow-hidden rounded-[22px] bg-[#ae9c8f]">
+              <Image src="/m2/galileo/stage.webp" alt="" fill sizes="(max-width: 767px) 90vw, 1px" className="object-cover" style={{ objectPosition: '48% 60%' }} />
             </div>
             <h2 className="mt-5 text-[1.6rem] font-extrabold leading-[1.05] tracking-[-0.045em]">Your next pair starts here.</h2>
             <p className="mt-2 text-sm leading-6 text-[#4d5f54]">Explore five systems, each configured around your work and measurements.</p>
@@ -197,9 +197,9 @@ export default function MobileStorefrontHeader() {
             <div className="grid gap-2">
               {items.map((item, index) => (
                 <article key={`${item.productSlug}-${item.selectedMagnification}-${item.selectedFrameId}-${index}`} className="flex gap-3 rounded-[18px] bg-[#f7f9f7] p-2.5">
-                  <div className="m2-stage relative h-[76px] w-[86px] shrink-0 overflow-hidden rounded-[14px]">
-                    {cutouts.has(item.productSlug) ? (
-                      <Image src={`/m2/${item.productSlug}/cut.webp`} alt={item.shortName || item.name} fill sizes="86px" className="object-contain p-1.5" />
+                  <div className="relative h-[76px] w-[86px] shrink-0 overflow-hidden rounded-[14px] bg-[#d9d0c7]">
+                    {modelBySlug(item.productSlug) ? (
+                      <PhotoThumb model={modelBySlug(item.productSlug)!} sizes="86px" alt={item.shortName || item.name} />
                     ) : item.image ? (
                       <Image src={item.image} alt={item.shortName || item.name} fill sizes="86px" className="object-cover" />
                     ) : null}

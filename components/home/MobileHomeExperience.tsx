@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUpRight, Check, Globe2, GraduationCap, Plus, Ruler, Sh
 import { useMemo, useRef, useState } from 'react'
 
 import { MODELS, money, startingPrice, type M2Model } from '@/components/m2/models'
+import { PhotoThumb, StagePhoto } from '@/components/m2/Photo'
 
 type Filter = 'All loupes' | 'Ergonomic' | 'Everyday' | 'Fine detail'
 
@@ -57,21 +58,17 @@ function StageCarousel() {
           <Link
             key={model.slug}
             href={`/product/${model.slug}`}
-            className="relative block h-[372px] w-full shrink-0 snap-center"
+            className="block w-full shrink-0 snap-center px-3"
             aria-label={`${model.name}, ${model.category}, from ${money(startingPrice(model.slug))}`}
           >
-            <span className="m2-kicker absolute inset-x-0 top-1 text-center">{model.category}</span>
-            <span aria-hidden="true" className={`m2-giant absolute inset-x-0 top-8 text-center ${index === 0 ? 'm2-rise' : ''}`}>{model.name}</span>
-            <span
-              className={`absolute inset-x-[4%] top-[92px] h-[196px] ${index === 0 ? 'm2-drift' : ''}`}
-              style={{ transform: 'rotate(-6deg)' }}
-            >
-              <Image src={model.cutout} alt="" fill priority={index === 0} sizes="(max-width: 767px) 90vw, 1px" className="object-contain" />
-            </span>
-            <span className="m2-floor bottom-[38px]" aria-hidden="true" />
-            <span className="m2-chip bottom-3 left-5 tab">From {money(startingPrice(model.slug))}</span>
-            <span className="m2-icon m2-icon--ink absolute bottom-2.5 right-5 z-[4]" aria-hidden="true">
-              <ArrowUpRight size={19} />
+            <span className="relative block h-[420px] overflow-hidden rounded-[28px]" style={{ background: model.photo.tone }}>
+              <StagePhoto model={model} scale={1.02} priority={index === 0} animate={index === 0} />
+              <span className="m2-kicker absolute inset-x-0 top-6 z-[1] text-center" style={{ color: 'rgba(8,38,27,0.72)' }}>{model.category}</span>
+              <span aria-hidden="true" className={`m2-giant absolute inset-x-0 top-[52px] z-[1] text-center ${index === 0 ? 'm2-rise' : ''}`} style={{ fontSize: 'min(23vw, 6.8rem)' }}>{model.name}</span>
+              <span className="m2-chip bottom-4 left-4 tab">From {money(startingPrice(model.slug))}</span>
+              <span className="m2-icon m2-icon--ink absolute bottom-3.5 right-4 z-[4]" aria-hidden="true">
+                <ArrowUpRight size={19} />
+              </span>
             </span>
           </Link>
         ))}
@@ -98,8 +95,8 @@ function StageCarousel() {
 function CollectionRow({ model }: { model: M2Model }) {
   return (
     <Link href={`/product/${model.slug}`} className="m2-row items-stretch p-2 pr-4">
-      <span className="m2-stage relative block h-[84px] w-[112px] shrink-0 overflow-hidden rounded-[14px]">
-        <Image src={model.cutout} alt={`${model.name} surgical loupes`} fill sizes="112px" className="object-contain p-1.5" />
+      <span className="relative block h-[84px] w-[112px] shrink-0 overflow-hidden rounded-[14px]" style={{ background: model.photo.tone }}>
+        <PhotoThumb model={model} sizes="112px" alt={`${model.name} surgical loupes`} />
       </span>
       <span className="flex min-w-0 flex-1 flex-col justify-center py-1">
         <span className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#4d5f54]">{model.category}</span>
@@ -267,8 +264,8 @@ export default function MobileHomeExperience() {
       <section className="m2-stage mx-3 mt-12 rounded-[28px] px-6 pb-8 pt-11 text-center">
         <p className="m2-kicker">No gatekeeping. Just fair pricing.</p>
         <h2 className="mt-4 text-[2.3rem] font-extrabold leading-[0.98] tracking-[-0.055em]">Focus on what<br />you came here to do.</h2>
-        <div className="relative mx-auto mt-4 h-[120px] w-full">
-          <Image src="/m2/galileo/cut.webp" alt="" fill sizes="(max-width: 767px) 90vw, 1px" className="object-contain" />
+        <div className="relative mx-auto mt-5 h-[150px] w-full overflow-hidden rounded-[20px]">
+          <Image src="/m2/galileo/stage.webp" alt="" fill sizes="(max-width: 767px) 90vw, 1px" className="object-cover" style={{ objectPosition: '48% 60%' }} />
         </div>
         <Link href="#mobile-collection" className="m2-btn m2-btn--ink mt-4 w-full justify-between">
           Find your loupes <ArrowRight size={18} />

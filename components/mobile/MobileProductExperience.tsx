@@ -95,6 +95,15 @@ export default function MobileProductExperience({
 
   const chosenFrame = frames.find((frame) => frame.id === frameId) ?? frames[0]
   const chosenColor = chosenFrame?.colors.find((entry) => entry.value === color) ?? chosenFrame?.colors[0]
+
+  // Questions asked from the header's Ask button carry the pair being configured.
+  // Deferred a tick so it lands after the (hidden) desktop template's own context.
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setProductContext({ slug: config.slug, name: config.shortName, magnification: mag, frame: chosenFrame?.label, color: chosenColor?.name })
+    }, 0)
+    return () => window.clearTimeout(timer)
+  }, [config.slug, config.shortName, mag, chosenFrame?.label, chosenColor?.name, setProductContext])
   const basePrice = magnificationPriceByProduct[config.slug]?.[mag] ?? config.basePrice ?? 0
   const total = basePrice + (prescription ? PRESCRIPTION_PRICE : 0)
   const available = config.isAvailable ?? basePrice > 0

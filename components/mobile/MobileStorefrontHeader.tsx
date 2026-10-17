@@ -1,7 +1,7 @@
 'use client'
 
 import { useMotionValueEvent, useScroll } from 'framer-motion'
-import { ArrowRight, ArrowUpRight, ChevronLeft, Mail, Menu, Minus, Plus, ShoppingBag } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, ChevronLeft, Mail, Menu, MessageCircle, Minus, Plus, ShoppingBag } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -95,16 +95,20 @@ export default function MobileStorefrontHeader() {
             <button type="button" className="m2-icon" aria-label="Back" onClick={() => (window.history.length > 1 ? router.back() : router.push(backHref))}>
               <ChevronLeft size={20} />
             </button>
-          ) : (
-            <button type="button" className="m2-icon" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
-              <Menu size={19} />
-            </button>
-          )}
+          ) : null}
+          <button type="button" className="m2-icon" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
+            <Menu size={19} />
+          </button>
         </div>
         <Link href="/" className="m2-brand flex min-h-11 items-center" aria-label="HeliosX home">
           HELIOSX
         </Link>
         <div className="m2-chrome__side m2-chrome__side--end">
+          {/* Always on screen: a person to ask before a high-value purchase. */}
+          <button type="button" className="m2-ask" onClick={() => openContact(`mobile_header${pathname === '/' ? '_home' : pathname.replace(/\//g, '_')}`)}>
+            <MessageCircle size={17} strokeWidth={2.2} aria-hidden="true" />
+            Ask
+          </button>
           <button
             type="button"
             className="m2-icon"
@@ -117,11 +121,6 @@ export default function MobileStorefrontHeader() {
             <ShoppingBag size={19} />
             {count > 0 ? <span className="m2-badge tab" data-bump={bump}>{count}</span> : null}
           </button>
-          {inner ? (
-            <button type="button" className="m2-icon" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
-              <Menu size={19} />
-            </button>
-          ) : null}
         </div>
       </header>
 

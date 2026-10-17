@@ -681,3 +681,31 @@
 .m2-chrome[data-on-photo='true'] .m2-brand {
   color: #f1f4f1;
 }
+
+/* Header contact pill: always visible, reads on photos and on paper. */
+.m2-ask {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 42px;
+  padding: 0 14px 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--mint);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(8, 38, 27, 0.14);
+  transition: transform 140ms var(--ease-out);
+}
+
+.m2-ask:active {
+  transform: scale(0.95);
+}
+
+.m2-brand {
+  font-size: 11.5px;
+  letter-spacing: 0.3em;
+  padding-left: 0.3em;
+}

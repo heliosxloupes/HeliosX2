@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Syne, Manrope } from 'next/font/google'
 import './globals.css'
+import './mobile-v2.css'
 import SmoothScroll from '@/components/SmoothScroll/SmoothScroll'
 import AmbientBackground from '@/components/AmbientBackground'
 import AnalyticsScripts from '@/components/AnalyticsScripts'
@@ -43,6 +44,11 @@ export const viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
+  viewportFit: 'cover',
+  themeColor: [
+    { media: '(max-width: 767px)', color: '#eef0ec' },
+    { media: '(min-width: 768px)', color: '#030508' },
+  ],
 }
 
 export default function RootLayout({

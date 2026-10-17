@@ -66,7 +66,7 @@ function Hero() {
   const cardY = useTransform(scrollYProgress, [0, 1], [0, -150])
 
   return (
-    <section ref={ref} className="relative min-h-[92svh] overflow-hidden bg-black">
+    <section ref={ref} data-tone="dark" className="relative min-h-[92svh] overflow-hidden bg-black">
       <motion.div
         className="absolute inset-0 md:left-auto md:w-[58%]"
         initial={{ opacity: 0, clipPath: 'inset(6% 0% 6% 12% round 28px)' }}

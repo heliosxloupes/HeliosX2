@@ -1,4 +1,5 @@
 import { ArrowRight, Check } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { magnificationPriceByProduct } from '@/lib/pricing'
@@ -16,39 +17,44 @@ const money = (value: number) =>
 
 export default function MobileComparisonExperience() {
   return (
-    <div className="bg-[#06090b] pb-16 pt-14 text-white">
-      <section className="border-b border-white/10 px-5 pb-9 pt-12">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-200/70">Compare / decide with clarity</p>
-        <h1 className="mt-4 font-display text-[3.25rem] font-medium leading-[0.94] tracking-[-0.06em]">The right loupe is the one that fits the work.</h1>
-        <p className="mt-6 text-sm leading-6 text-neutral-400">Start with posture and magnification. Price and frame come after.</p>
+    <div className="bg-[#eef0ec] pb-16 pt-14 text-[#08261b]">
+      <section className="px-5 pb-8 pt-10">
+        <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#56665d]">Compare / decide with clarity</p>
+        <h1 className="mt-4 text-[2.9rem] leading-[0.96] tracking-[-0.055em]">The right loupe is the one that fits the work.</h1>
+        <p className="mt-5 text-[15px] leading-6 text-[#2b3a32]">Start with posture and magnification. Price and frame come after.</p>
       </section>
 
-      <section>
-        {models.map((model, index) => {
+      <section className="grid gap-3 px-3">
+        {models.map((model) => {
           const prices = Object.values(magnificationPriceByProduct[model.slug])
           return (
-            <article key={model.slug} className="border-b border-white/10 px-5 py-7">
-              <div className="flex items-start justify-between gap-4">
-                <div><span className="text-[10px] text-emerald-200/70">0{index + 1}</span><h2 className="mt-2 font-display text-[2.3rem] leading-none">{model.name}</h2></div>
-                <div className="text-right"><small className="block text-[10px] uppercase tracking-wider text-neutral-500">From</small><strong className="text-lg font-medium">{money(Math.min(...prices))}</strong></div>
+            <article key={model.slug} className="overflow-hidden rounded-[24px] bg-[#f8f9f6]">
+              <div className="mv2-plane relative h-[150px]">
+                <Image src={`/mobile/${model.slug}.webp`} alt="" fill sizes="(max-width: 767px) 94vw, 1px" className="object-contain px-6 py-4 drop-shadow-[0_14px_14px_rgba(55,40,28,0.25)]" />
               </div>
-              <dl className="mt-6 divide-y divide-white/10 border-y border-white/10 text-xs">
-                <div className="flex justify-between gap-5 py-3"><dt className="text-neutral-500">Optical design</dt><dd className="text-right">{model.optics}</dd></div>
-                <div className="flex justify-between gap-5 py-3"><dt className="text-neutral-500">Magnification</dt><dd>{model.range}</dd></div>
-                <div className="flex justify-between gap-5 py-3"><dt className="text-neutral-500">Working distance</dt><dd>{model.distance}</dd></div>
-              </dl>
-              <p className="mt-4 flex gap-2 text-sm leading-6 text-neutral-300"><Check size={16} className="mt-1 shrink-0 text-emerald-200" />{model.forWhom}</p>
-              <Link href={`/product/${model.slug}`} className="mt-5 flex min-h-12 items-center justify-between border border-white/20 px-4 text-sm">Configure {model.name} <ArrowRight size={17} /></Link>
+              <div className="px-5 pb-6 pt-5">
+                <div className="flex items-start justify-between gap-4">
+                  <h2 className="text-[2rem] leading-none tracking-[-0.045em]">{model.name}</h2>
+                  <div className="text-right"><small className="block text-[10px] font-bold uppercase tracking-wider text-[#56665d]">From</small><strong className="text-xl font-extrabold tabular-nums">{money(Math.min(...prices))}</strong></div>
+                </div>
+                <dl className="mt-5 grid grid-cols-3 gap-2 text-[12px]">
+                  <div className="rounded-[12px] bg-[#e5e8e2] px-3 py-2.5"><dt className="text-[#56665d]">Optical design</dt><dd className="mt-0.5 font-bold leading-4">{model.optics}</dd></div>
+                  <div className="rounded-[12px] bg-[#e5e8e2] px-3 py-2.5"><dt className="text-[#56665d]">Magnification</dt><dd className="mt-0.5 font-bold">{model.range}</dd></div>
+                  <div className="rounded-[12px] bg-[#e5e8e2] px-3 py-2.5"><dt className="text-[#56665d]">Working distance</dt><dd className="mt-0.5 font-bold">{model.distance}</dd></div>
+                </dl>
+                <p className="mt-4 flex gap-2 text-[14px] leading-6 text-[#2b3a32]"><Check size={16} className="mt-1 shrink-0 text-[#0b6b53]" />{model.forWhom}</p>
+                <Link href={`/product/${model.slug}`} className="mt-4 flex min-h-[52px] items-center justify-between rounded-[16px] bg-[#14231d] px-5 text-[15px] font-bold text-[#eef0ec]">Configure {model.name} <ArrowRight size={17} /></Link>
+              </div>
             </article>
           )
         })}
       </section>
 
-      <section className="bg-emerald-100 px-5 py-12 text-[#10241a]">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-900/60">One important distinction</p>
-        <h2 className="mt-3 font-display text-[2.5rem] leading-[.98] tracking-[-.055em]">Only Medusa adjusts its working distance.</h2>
-        <p className="mt-5 text-sm leading-6 text-[#355044]">Apollo, Kepler, Galileo, and Newton are built to one fixed working distance from the measurements you submit.</p>
-        <Link href="/measurements" className="mt-7 flex min-h-[52px] items-center justify-between rounded-md bg-[#0b2a1d] px-5 text-sm font-semibold text-white">Understand your measurements <ArrowRight size={17} /></Link>
+      <section className="mx-3 mt-6 rounded-[26px] bg-[#d1fae5] px-5 py-11 text-[#08261b]">
+        <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#0b6b53]">One important distinction</p>
+        <h2 className="mt-3 text-[2.3rem] leading-[.98] tracking-[-.055em]">Only Medusa adjusts its working distance.</h2>
+        <p className="mt-4 text-[14px] leading-6 text-[#2b3a32]">Apollo, Kepler, Galileo, and Newton are built to one fixed working distance from the measurements you submit.</p>
+        <Link href="/measurements" className="mt-7 flex min-h-[54px] items-center justify-between rounded-[16px] bg-[#14231d] px-5 text-[15px] font-bold text-[#eef0ec]">Understand your measurements <ArrowRight size={17} /></Link>
       </section>
     </div>
   )

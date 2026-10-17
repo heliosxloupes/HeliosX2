@@ -1,0 +1,522 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   HeliosX mobile v2: the light "studio" system.
+
+   Everything in this file sits inside one max-width: 767px query, so the
+   desktop site is untouched. It works on top of the existing markup: no copy,
+   heading, link or structured-data changes. Two layers:
+
+   1. Tokens and a light remap of the dark utility classes the templates use
+      (text-white, bg-neutral-950, border-white/10 ...). Attribute selectors
+      ([class~="..."]) match one class token exactly, so opacity variants like
+      bg-black/70 can be targeted without escaping.
+   2. Template refinements for the shared mobile shells (hx-mobile-*).
+
+   Opt-out: anything inside [data-tone="dark"] keeps light-on-dark colours
+   (photo overlays, the deep green brand panels).
+   ─────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  :root {
+    --m-paper: #eef0ec;
+    --m-paper-2: #e5e8e2;
+    --m-card: #f8f9f6;
+    --m-greige: #d9d0c7;
+    --m-greige-2: #cbc0b5;
+    --m-ink: #08261b;
+    --m-ink-2: #2b3a32;
+    --m-mut: #56665d;
+    --m-hair: rgba(8, 38, 27, 0.12);
+    --m-hair-2: rgba(8, 38, 27, 0.22);
+    --m-green: #14231d;
+    --m-green-2: #1c3128;
+    --m-mint: #d1fae5;
+    --m-mint-wash: #e2f3ea;
+    --m-teal: #0b6b53;
+    --m-r-box: 22px;
+    --m-r-ctl: 14px;
+    --m-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--m-paper) !important;
+    color: var(--m-ink) !important;
+  }
+
+  .site-ambient {
+    display: none !important;
+  }
+
+  ::selection {
+    background: var(--m-mint);
+    color: var(--m-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--m-teal);
+    outline-offset: 3px;
+  }
+
+  button,
+  a,
+  summary,
+  [role='button'] {
+    touch-action: manipulation;
+  }
+
+  button,
+  summary,
+  [role='button'] {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+
+  /* Type: Manrope throughout, heavier display weights, no Syne on phones. */
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-family: var(--font-manrope), system-ui, sans-serif !important;
+    letter-spacing: -0.03em;
+  }
+
+  h1,
+  h2 {
+    font-weight: 800 !important;
+  }
+
+  h3 {
+    font-weight: 700 !important;
+  }
+
+  /* Gradient text reads as decoration on paper: solid ink instead. */
+  html body :not([data-tone='dark'] *)[class~='bg-clip-text'] {
+    background: none !important;
+    -webkit-text-fill-color: currentColor;
+    color: var(--m-ink) !important;
+  }
+
+  /* ── Text ────────────────────────────────────────────────────────────── */
+  html body :not([data-tone='dark'] *):is(
+      [class~='text-white'],
+      [class~='text-neutral-50'],
+      [class~='text-neutral-100'],
+      [class~='text-slate-100'],
+      [class~='text-gray-100'],
+      [class~='text-emerald-50']
+    ) {
+    color: var(--m-ink);
+  }
+
+  html body :not([data-tone='dark'] *):is(
+      [class~='text-neutral-200'],
+      [class~='text-neutral-300'],
+      [class~='text-slate-200'],
+      [class~='text-slate-300'],
+      [class~='text-gray-200'],
+      [class~='text-gray-300'],
+      [class~='text-white/80'],
+      [class~='text-white/90'],
+      [class~='text-white/85']
+    ) {
+    color: var(--m-ink-2);
+  }
+
+  html body :not([data-tone='dark'] *):is(
+      [class~='text-neutral-400'],
+      [class~='text-neutral-500'],
+      [class~='text-neutral-600'],
+      [class~='text-slate-400'],
+      [class~='text-slate-500'],
+      [class~='text-gray-400'],
+      [class~='text-gray-500'],
+      [class~='text-white/40'],
+      [class~='text-white/50'],
+      [class~='text-white/60'],
+      [class~='text-white/70'],
+      [class~='text-[#a8bdae]']
+    ) {
+    color: var(--m-mut);
+  }
+
+  html body :not([data-tone='dark'] *):is(
+      [class~='text-emerald-100'],
+      [class~='text-emerald-200'],
+      [class~='text-emerald-300'],
+      [class~='text-emerald-400'],
+      [class~='text-emerald-200/60'],
+      [class~='text-emerald-200/65'],
+      [class~='text-emerald-200/70'],
+      [class~='text-emerald-200/75'],
+      [class~='text-emerald-200/80'],
+      [class~='text-emerald-300/80'],
+      [class~='text-emerald-300/70'],
+      [class~='text-sky-200'],
+      [class~='text-sky-300']
+    ) {
+    color: var(--m-teal);
+  }
+
+  /* Warm highlight text (prices, figures) needs a darker amber on paper. */
+  html body :not([data-tone='dark'] *):is([class~='text-orange-200'], [class~='text-orange-300'], [class~='text-orange-400'], [class~='text-amber-200'], [class~='text-amber-300']) {
+    color: #9a4a12;
+  }
+
+  html body [class~='decoration-emerald-200/40'] {
+    text-decoration-color: rgba(11, 107, 83, 0.45);
+  }
+
+  /* ── Surfaces ────────────────────────────────────────────────────────── */
+  html body :not([data-tone='dark'] *):is(
+      [class~='bg-black'],
+      [class~='bg-neutral-950'],
+      [class~='bg-neutral-950/70'],
+      [class~='bg-neutral-950/80'],
+      [class~='bg-neutral-950/90'],
+      [class~='bg-[#06090b]'],
+      [class~='bg-[#03050a]'],
+      [class~='bg-[#050b16]'],
+      [class~='bg-[#030609]'],
+      [class~='bg-[#030609]/80'],
+      [class~='bg-[#0a1210]'],
+      [class~='bg-[#0b100d]'],
+      [class~='bg-[#030508]'],
+      [class~='bg-[#030507]'],
+      [class~='bg-[#030507]/92'],
+      [class~='bg-[#030507]/78'],
+      [class~='bg-[#060A12]/70'],
+      [class~='bg-[#050b16]/85']
+    ) {
+    background-color: var(--m-paper);
+  }
+
+  html body :not([data-tone='dark'] *):is(
+      [class~='bg-neutral-900'],
+      [class~='bg-neutral-900/60'],
+      [class~='bg-neutral-900/70'],
+      [class~='bg-neutral-900/80'],
+      [class~='bg-neutral-900/90'],
+      [class~='bg-neutral-900/95'],
+      [class~='bg-neutral-800'],
+      [class~='bg-[#0c1310]'],
+      [class~='bg-[#0d1512]'],
+      [class~='bg-[#121a1f]'],
+      [class~='bg-[#080c0c]/85'],
+      [class~='bg-[#0c1710]/95'],
+      [class~='bg-white/5'],
+      [class~='bg-white/6'],
+      [class~='bg-white/8'],
+      [class~='bg-white/10'],
+      [class~='bg-white/[0.03]'],
+      [class~='bg-white/[0.04]'],
+      [class~='bg-white/[0.06]']
+    ) {
+    background-color: var(--m-card);
+  }
+
+  html body :not([data-tone='dark'] *):is(
+      [class~='bg-[#203b2b]'],
+      [class~='bg-[#1b3024]'],
+      [class~='bg-emerald-500/10'],
+      [class~='bg-emerald-950/25'],
+      [class~='bg-emerald-950/30'],
+      [class~='bg-emerald-950/40']
+    ) {
+    background-color: var(--m-mint-wash);
+  }
+
+  /* Ambient gradients fade to paper instead of black. */
+  html body :not([data-tone='dark'] *):is([class~='from-black'], [class~='from-neutral-950'], [class~='from-neutral-900'], [class~='from-neutral-900/90'], [class~='from-[#03050a]']) {
+    --tw-gradient-from: var(--m-paper) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(238 240 236 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+
+  html body :not([data-tone='dark'] *):is([class~='via-black/70'], [class~='via-black/25'], [class~='via-neutral-900/90'], [class~='via-[#03050ae8]']) {
+    --tw-gradient-to: rgb(238 240 236 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), rgb(238 240 236 / 0.85) var(--tw-gradient-via-position), var(--tw-gradient-to);
+  }
+
+  html body :not([data-tone='dark'] *):is([class~='to-black'], [class~='to-neutral-950'], [class~='to-black/90']) {
+    --tw-gradient-to: var(--m-paper) var(--tw-gradient-to-position);
+  }
+
+  /* ── Lines ───────────────────────────────────────────────────────────── */
+  html body :not([data-tone='dark'] *):is(
+      [class~='border-white/5'],
+      [class~='border-white/8'],
+      [class~='border-white/10'],
+      [class~='border-white/12'],
+      [class~='border-white/15'],
+      [class~='border-neutral-800'],
+      [class~='border-neutral-700/70']
+    ) {
+    border-color: var(--m-hair);
+  }
+
+  html body :not([data-tone='dark'] *):is(
+      [class~='border-white/20'],
+      [class~='border-white/25'],
+      [class~='border-white/30'],
+      [class~='border-white/35'],
+      [class~='border-white/40']
+    ) {
+    border-color: var(--m-hair-2);
+  }
+
+  html body :not([data-tone='dark'] *):is([class~='divide-white/10'], [class~='divide-white/15']) > * + * {
+    border-color: var(--m-hair);
+  }
+
+  html body :not([data-tone='dark'] *):is(
+      [class~='border-emerald-200'],
+      [class~='border-emerald-300'],
+      [class~='border-emerald-400'],
+      [class~='border-emerald-300/25'],
+      [class~='border-emerald-300/30'],
+      [class~='border-emerald-300/50'],
+      [class~='border-emerald-400/25'],
+      [class~='border-emerald-400/30'],
+      [class~='border-emerald-200/20']
+    ) {
+    border-color: rgba(11, 107, 83, 0.42);
+  }
+
+  /* Heavy dark glows and drop shadows belong to the dark site. */
+  html body :not([data-tone='dark'] *):is([class^='shadow-[0_'], [class*=' shadow-[0_']):not([data-keep-shadow]) {
+    box-shadow: 0 10px 30px rgba(8, 38, 27, 0.08) !important;
+  }
+
+  /* White "glow" buttons become the deep green primary on paper. */
+  html body [class~='bg-white'][class~='text-black'] {
+    background-color: var(--m-green);
+    color: var(--m-paper);
+  }
+
+  /* ── Dark opt-out: photo overlays and brand panels keep light text ───── */
+  html body [data-tone='dark'] {
+    color: #f3f5f2;
+  }
+
+  html body [data-tone='dark']:is(
+      [class~='bg-[#0a1210]'],
+      [class~='bg-black'],
+      [class~='bg-neutral-950']
+    ) {
+    background-color: var(--m-green);
+  }
+
+  html body [data-tone='dark'] :is(
+      [class~='text-white'],
+      [class~='text-neutral-50'],
+      [class~='text-neutral-100'],
+      [class~='text-neutral-200'],
+      [class~='text-neutral-300']
+    ) {
+    color: #f3f5f2;
+  }
+
+  html body [data-tone='dark'] :is([class~='text-neutral-400'], [class~='text-neutral-500']) {
+    color: rgba(243, 245, 242, 0.72);
+  }
+
+  html body [data-tone='dark'] :is(
+      [class~='text-emerald-100'],
+      [class~='text-emerald-200'],
+      [class~='text-emerald-300'],
+      [class~='text-emerald-200/70'],
+      [class~='text-emerald-200/75'],
+      [class~='text-emerald-200/80'],
+      [class~='text-emerald-300/70'],
+      [class~='text-emerald-300/80']
+    ) {
+    color: var(--m-mint);
+  }
+
+  /* The footer closes every page as the one deep green brand panel. */
+  html body footer[data-tone='dark'] {
+    background: var(--m-green) !important;
+    border-top: 0 !important;
+  }
+
+  html body [data-tone='dark'] :is([class~='border-white/10'], [class~='border-white/15']) {
+    border-color: rgba(238, 240, 236, 0.14);
+  }
+
+  html body [data-tone='dark'] :is([class~='text-neutral-600'], [class~='text-neutral-500']) {
+    color: rgba(238, 240, 236, 0.62);
+  }
+
+  /* Review cards and the consent banner. */
+  html body :not([data-tone='dark'] *):is([class~='bg-[#070b14]/85'], [class~='bg-neutral-950/95']) {
+    background-color: var(--m-card);
+    backdrop-filter: none;
+  }
+
+  html body [class~='[&>article]:bg-[#0c1310]'] > article {
+    background-color: var(--m-card);
+    border-color: var(--m-hair);
+  }
+
+  html body [class~='text-white/15'] {
+    color: var(--m-hair-2);
+  }
+
+  /* Scrim pills on photos (bg-black/xx) stay dark with light text. */
+  html body [class*='bg-black/'] {
+    color: #f3f5f2;
+  }
+
+  html body [class*='bg-black/'] :is([class~='text-white'], [class~='text-neutral-100'], [class~='text-neutral-200'], [class~='text-neutral-300']) {
+    color: #f3f5f2;
+  }
+
+  /* Translucent black used as a card on plain surfaces (checkout summary rows). */
+  html body :not([data-tone='dark'] *)[class~='bg-black/35'] {
+    background-color: var(--m-card);
+    color: var(--m-ink);
+    backdrop-filter: none;
+  }
+
+  html body :not([data-tone='dark'] *)[class~='bg-black/35'] :is([class~='text-white'], [class~='text-neutral-100'], [class~='text-neutral-200'], [class~='text-neutral-300']) {
+    color: var(--m-ink);
+  }
+
+  /* ── Shared mobile shells (were dark in globals.css) ──────────────────── */
+  html body :not([data-tone='dark'] *):is(
+      .hx-mobile-editorial,
+      .hx-mobile-checkout,
+      .hx-mobile-policy,
+      .hx-mobile-form,
+      .hx-mobile-confirmation
+    ) {
+    background: var(--m-paper) !important;
+    color: var(--m-ink);
+  }
+
+  html body .hx-mobile-editorial > section:first-of-type h1,
+  html body .hx-mobile-policy article > h1,
+  html body .hx-mobile-form h1,
+  html body .hx-mobile-checkout h1 {
+    font-weight: 800 !important;
+    letter-spacing: -0.045em;
+  }
+
+  html body :is(.hx-mobile-policy article > h1, .hx-mobile-form h1, .hx-mobile-checkout h1):not([data-tone='dark'] *) {
+    color: var(--m-ink);
+  }
+
+  /* Photo heroes keep white display type over the image. */
+  html body [data-tone='dark'] :is(h1, h2, p[role='heading']) {
+    color: #f3f5f2;
+  }
+
+  html body .hx-mobile-editorial [class*='rounded-['],
+  html body .hx-mobile-checkout [class*='rounded-['] {
+    border-radius: var(--m-r-ctl) !important;
+  }
+
+  html body .hx-mobile-checkout > section > div:first-child,
+  html body .hx-mobile-checkout > section > aside {
+    background: var(--m-card) !important;
+  }
+
+  html body .hx-mobile-checkout > section > aside {
+    border-top: 1px solid var(--m-hair) !important;
+  }
+
+  html body .hx-mobile-policy article > section {
+    border-top: 1px solid var(--m-hair);
+  }
+
+  html body .hx-mobile-policy p {
+    color: var(--m-ink-2);
+  }
+
+  html body .hx-mobile-form input,
+  html body .hx-mobile-form textarea,
+  html body .hx-mobile-form select {
+    background: var(--m-card) !important;
+    color: var(--m-ink) !important;
+    border: 1px solid var(--m-hair-2) !important;
+    border-radius: var(--m-r-ctl) !important;
+  }
+
+  html body .hx-mobile-form button,
+  html body .hx-mobile-checkout button[type='submit'] {
+    border-radius: var(--m-r-ctl) !important;
+  }
+
+  /* Native disclosure rows: clear tap targets and a calm open state. */
+  html body details > summary {
+    min-height: 48px;
+  }
+
+  /* Form fields on paper. */
+  html body :not([data-tone='dark'] *):is(input, textarea, select):not([type='checkbox']):not([type='radio']):not([type='range']) {
+    color: var(--m-ink);
+  }
+
+  html body :not([data-tone='dark'] *):is(input, textarea)::placeholder {
+    color: #6b7a71;
+  }
+
+  /* ── Studio hero (product pages, home spotlight) ─────────────────────── */
+  .mv2-plane {
+    background: linear-gradient(180deg, #e0d8cf 0%, var(--m-greige) 46%, var(--m-greige-2) 100%);
+  }
+
+  .mv2-giant {
+    font-family: var(--font-manrope), system-ui, sans-serif;
+    font-weight: 800;
+    font-size: min(23.5vw, 7.5rem);
+    line-height: 0.84;
+    letter-spacing: -0.055em;
+    color: var(--m-ink);
+    white-space: nowrap;
+  }
+
+  .mv2-rise {
+    animation: mv2-rise 0.9s var(--m-ease-out) both;
+  }
+
+  @keyframes mv2-rise {
+    from {
+      opacity: 0;
+      transform: translateY(26px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mv2-rise {
+      animation: mv2-fade 0.4s ease both;
+    }
+  }
+
+  @keyframes mv2-fade {
+    from {
+      opacity: 0;
+    }
+  }
+
+  /* Every pressable thing answers the finger. */
+  html body :not([data-tone='dark'] *):is(button, [role='button'], a[class*='rounded']):active {
+    transform: scale(0.98);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html body :not([data-tone='dark'] *):is(button, [role='button'], a[class*='rounded']):active {
+      transform: none;
+    }
+  }
+}

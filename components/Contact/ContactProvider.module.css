@@ -344,3 +344,32 @@
     transition: none;
   }
 }
+
+/* Mobile v2 (light studio system, see app/mobile-v2.css). Colours only. */
+@media (max-width: 767px) {
+  .backdrop { background: rgba(8, 38, 27, 0.32); }
+  .panel { background: #eef0ec !important; color: #08261b; }
+  .mark span { border-color: rgba(11, 107, 83, 0.5); }
+  .closeButton { background: #08261b; border-color: #08261b; color: #eef0ec; }
+  .eyebrow { color: #0b6b53; }
+  .panel h2 { color: #08261b; }
+  .intro { color: #2b3a32; }
+  .contextCard { background: #e2f3ea; border-color: transparent; border-radius: 16px; }
+  .contextCard span { color: #0b6b53; }
+  .contextCard strong { color: #08261b; }
+  .contextCard small { color: #56665d; }
+  .topicGroup legend { color: #08261b; }
+  .topicGroup button { background: transparent; border: 1.5px solid rgba(8, 38, 27, 0.14); border-radius: 12px; color: #2b3a32; min-height: 44px; }
+  .topicGroup button[aria-pressed='true'] { background: #08261b; border-color: #08261b; color: #eef0ec; }
+  .emailButton { background: #14231d; color: #eef0ec; border-radius: 14px; }
+  .field { color: #08261b; }
+  .field em { color: #56665d; }
+  .field input, .field textarea { background: #f8f9f6; border: 1.5px solid rgba(8, 38, 27, 0.16); border-radius: 14px; color: #08261b; font-size: 16px; }
+  .field input:focus, .field textarea:focus { border-color: #0b6b53; }
+  .formError { color: #b42318; }
+  .sent { background: #e2f3ea; border-color: transparent; color: #08261b; border-radius: 16px; }
+  .sent svg { color: #0b6b53; }
+  .sent p { color: #2b3a32; }
+  .emailAddress { color: #08261b; text-decoration-color: rgba(11, 107, 83, 0.45); }
+  .responseTime { color: #56665d; }
+}

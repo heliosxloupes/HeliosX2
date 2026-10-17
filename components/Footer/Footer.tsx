@@ -89,7 +89,7 @@ export default function Footer() {
   const contactSubject = encodeURIComponent('Question for HeliosX')
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-[#030508] text-neutral-300">
+    <footer data-tone="dark" className="relative overflow-hidden border-t border-white/10 bg-[#030508] text-neutral-300">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(23,176,143,0.13),transparent_28%),radial-gradient(circle_at_88%_12%,rgba(72,136,255,0.08),transparent_24%)]" />
 
       <div className="relative mx-auto max-w-[1400px] px-5 pb-8 pt-12 md:px-12 md:pt-16">

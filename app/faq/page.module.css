@@ -315,3 +315,24 @@
     padding-left: 0;
   }
 }
+
+/* Mobile v2 (light studio system, see app/mobile-v2.css). Colours only. */
+@media (max-width: 767px) {
+  .main { background: #eef0ec !important; color: #08261b; }
+  .hero { border-color: rgba(8, 38, 27, 0.12) !important; }
+  .kicker { color: #56665d !important; }
+  .title { color: #08261b; font-weight: 800; letter-spacing: -0.05em; }
+  .subtitle { color: #2b3a32; }
+  .searchBar input { background: #f8f9f6; border: 1.5px solid rgba(8, 38, 27, 0.16); border-radius: 14px !important; color: #08261b; min-height: 52px; }
+  .searchBar input:focus { background: #f8f9f6; border-color: #0b6b53; }
+  .searchBar input::placeholder { color: #6b7a71; }
+  .contactButton { background: #14231d; border-color: #14231d; border-radius: 14px !important; color: #eef0ec; min-height: 52px; font-weight: 700; }
+  .card { background: transparent !important; border-color: rgba(8, 38, 27, 0.12) !important; }
+  .card h2 { color: #56665d !important; }
+  .qaList details { border-color: rgba(8, 38, 27, 0.12) !important; }
+  .qaList summary { color: #08261b; font-weight: 600; }
+  .qaList summary::before { color: #0b6b53 !important; }
+  .qaList p, .answer p, .answer li, .answer div { color: #2b3a32; }
+  .answer strong { color: #08261b; }
+  .empty { color: #56665d; }
+}

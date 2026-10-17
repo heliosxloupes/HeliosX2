@@ -149,7 +149,7 @@ export default function EducationPage() {
       <Header />
       <main className="hx-mobile-editorial min-h-screen bg-black text-neutral-100">
         {/* HERO / INTRO */}
-        <section className="relative min-h-[82svh] overflow-hidden">
+        <section data-tone="dark" className="relative min-h-[82svh] overflow-hidden">
           <Image
             src="/Apollo/Apollo3xFemale2.png"
             alt="Clinician wearing HeliosX loupes"

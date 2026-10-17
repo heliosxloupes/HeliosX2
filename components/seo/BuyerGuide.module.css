@@ -487,3 +487,37 @@
     aspect-ratio: 4/3;
   }
 }
+
+/* Mobile v2 (light studio system, see app/mobile-v2.css). Colours only; the
+   layout rules above are unchanged. */
+@media (max-width: 767px) {
+  .page { background: #eef0ec; color: #08261b; }
+  .crumbs, .meta, .fineprint, .article .source, .article figcaption { color: #56665d; }
+  .kicker { color: #0b6b53; }
+  .page h1, .page h2, .page h3 { color: #08261b; }
+  .intro, .lead, .card p, .article p, .article li, .aside p, .faq p { color: #2b3a32; }
+  .heroImage, .cardImage { background: #d9d0c7; border-color: rgba(8, 38, 27, 0.1); border-radius: 22px; overflow: hidden; }
+  .primary, .secondary { border-radius: 14px; min-height: 52px; }
+  .primary { background: #14231d; color: #eef0ec; border-color: #14231d; }
+  .secondary { border-color: rgba(8, 38, 27, 0.25); color: #08261b; }
+  .nav { border-color: rgba(8, 38, 27, 0.12); }
+  .section + .section { border-color: rgba(8, 38, 27, 0.12); }
+  .card { background: #f8f9f6; border-color: transparent; border-radius: 22px; overflow: hidden; }
+  .card .tradeoff { color: #56665d; border-color: rgba(8, 38, 27, 0.1); }
+  .price { color: #0b6b53; }
+  .comparison { background: rgba(8, 38, 27, 0.1); border-color: rgba(8, 38, 27, 0.1); border-radius: 18px; overflow: hidden; }
+  .compareRow { background: #f8f9f6; }
+  .compareRow strong { color: #56665d; }
+  .compareRow .ours { color: #0b6b53; }
+  .verdict { background: #e2f3ea; border-left: 0; border-radius: 16px; color: #08261b; }
+  .article { border-color: rgba(8, 38, 27, 0.12); }
+  .article a, .fineprint a, .aside a { color: #0b6b53; }
+  .article figure img { border-radius: 18px; }
+  .aside { background: #14231d; border-color: transparent; border-radius: 22px; color: #eef0ec; }
+  .aside h2 { color: #eef0ec; }
+  .aside p { color: rgba(238, 240, 236, 0.78); }
+  .aside a { color: #d1fae5; }
+  .faq, .faq details { border-color: rgba(8, 38, 27, 0.12); }
+  .related a { border-color: rgba(8, 38, 27, 0.12); color: #08261b; }
+  .closing { background: #d1fae5; border-color: transparent; border-radius: 24px; color: #08261b; }
+}

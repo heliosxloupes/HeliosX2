@@ -356,7 +356,7 @@ for (const [slug, title, context] of [
   surgical.description =
     'The best surgical loupes (surgical magnifying glasses) depend on your procedures, magnification, and posture. Compare HeliosX, LumaDent, Orascoptic, SurgiTel, Q-Optics, ExamVision, and Admetec by fit, features, and price.'
   surgical.intro =
-    'The best surgical loupes show the detail your procedures need, at your working distance, in a posture you can hold for a full list. Surgical loupes are also called surgical magnifying glasses or surgical telescopes. There is no single best brand for every surgeon, so below you can match a type of loupe to your work, then compare seven brands by the features and buying terms that change the decision.'
+    'The best surgical loupes show the detail your procedures need, at your working distance, in a posture you can hold for a full list. Surgical loupes are also called surgical magnifying glasses, medical loupes or surgical telescopes. There is no single best brand for every surgeon, so below you can match a type of loupe to your work, then compare seven brands by the features and buying terms that change the decision.'
   surgical.sections = [
     ...(surgical.sections ?? []).slice(0, 1),
     section(
@@ -371,6 +371,21 @@ for (const [slug, title, context] of [
       ],
       '/which-surgical-loupes-should-i-get',
       'Step-by-step guide to choosing surgical loupes',
+    ),
+    // Oct 17 2026: in the last four weeks this page ranked 11.5 for "best
+    // surgical loupes for neurosurgery" and around 34 for "plastic surgery
+    // loupes", ahead of the dedicated pages. Answer both here in a few lines
+    // and send the reader on, so the page can win the query and pass it down.
+    section(
+      'Best surgical loupes by specialty',
+      'The specialty changes the working distance, the magnification and how long you hold one posture. These are the short answers; each specialty page covers the procedures behind them.',
+      [
+        'Neurosurgery: conventional prismatic 4.0x–6.0x (Kepler, from $1,195) for detail within loupe range, or ergonomic prismatic Apollo or Medusa (from $1,695) for long standing cases. Loupes cover exposure, closure, spine and peripheral nerve work; they do not replace the operating microscope. /neurosurgery-loupes.',
+        'Plastic surgery: 3.0x–3.5x for most aesthetic and reconstructive work, 4.0x and above for hand and nerve repair. Galileo from $795 or Apollo from $1,695. /education/best-loupes-for-plastic-surgery.',
+        'Orthopedics and spine: 2.5x–3.5x for joints, 3.0x–4.5x for spine decompression. /orthopedic-surgery-loupes and /spine-surgery-loupes.',
+        'Vascular and hand surgery: 3.5x–5.0x for anastomosis and tendon repair. /vascular-surgery-loupes and /hand-surgery-loupes.',
+        `Residents in any specialty: start at 2.5x–3.5x Galilean, with ${TRAINEE_PERCENT_OFF}% off for verified trainees. /education/best-loupes-for-residents.`,
+      ],
     ),
     section(
       'Surgical magnifying glasses, loupes, and telescopes',
@@ -394,6 +409,14 @@ for (const [slug, title, context] of [
       'What magnification is best for surgery?',
       'Many surgeons start at 2.5x–3.5x for a wide field of view, and move to 4.0x–6.0x for fine structures. The best magnification is the lowest one that shows the detail your procedures need.',
     ),
+    faq(
+      'What are the best surgical loupes for neurosurgery?',
+      'For the work loupes cover in neurosurgery (exposure, closure, much spine and peripheral nerve surgery), most surgeons choose prismatic loupes between 3.5x and 6.0x with a headlight. HeliosX Kepler covers 4.0x–6.0x from $1,195; Apollo and Medusa add ergonomic viewing from $1,695. Where the operating microscope is indicated, loupes do not replace it.',
+    ),
+    faq(
+      'What are the best loupes for plastic surgery?',
+      'Most plastic surgeons work at 3.0x–3.5x for aesthetic and reconstructive cases and step up to 4.0x or more for hand and nerve repair. Choose a working distance measured at your own table, and an ergonomic prismatic design if long cases strain your neck.',
+    ),
     ...(surgical.faqs ?? []),
   ]
 }
@@ -411,6 +434,35 @@ for (const [slug, title, context] of [
       'Buying a light at the same time: compare mounts and runtime on /dental-loupes-with-light.',
     ]
   }
+  // Oct 17 2026: "best loupes for dental students" (37–42), "dental loupes"
+  // and "loupes" (46–50) land here rather than on the dedicated pages. Give
+  // each role a direct answer and a link down, near the top of the page.
+  dental.sections?.splice(
+    1,
+    0,
+    section(
+      'Best dental loupes by role',
+      'Dentists, hygienists and students sit differently, see different detail and buy on different budgets. Start from your role, then compare brands below.',
+      [
+        'Dental students: 3.0x–3.5x Galilean covers preclinical lab and clinic. Many students who start at 2.5x say they outgrow it within a year. Newton from $695, Galileo from $795, with ' +
+          TRAINEE_PERCENT_OFF +
+          '% off for verified students. /education/best-loupes-for-dental-students.',
+        'Dental hygienists: 3.0x–3.5x for scaling and calculus detection, light enough for a full day of recalls. /loupes-for-dental-hygiene.',
+        'General and restorative dentists: 3.0x–4.0x; ergonomic prismatic Apollo or Medusa from $1,695 if posture is the problem. /dental-loupes.',
+        'Endodontics and implants: 4.0x–6.0x prismatic, Kepler from $1,195. /loupes-for-endodontics.',
+        'Dental loupes with a light: decide the light before the loupe is made, because the mount is fitted to it. /dental-loupes-with-light.',
+      ],
+    ),
+  )
+  dental.faqs = [
+    faq(
+      'What are the best loupes for dental students?',
+      'A Galilean pair at 3.0x–3.5x from a supplier your program allows. It keeps a wide field for preclinical lab work and enough detail for clinic. HeliosX Newton starts at $695 and Galileo at $795, and verified students get ' +
+        TRAINEE_PERCENT_OFF +
+        '% off.',
+    ),
+    ...(dental.faqs ?? []),
+  ]
 }
 
 revisions['how-much-do-surgical-loupes-cost'] = {
@@ -553,7 +605,7 @@ revisions['loupe-comparisons'] = {
 
 revisions['student-loupe-comparison'] = {
   title: 'Student loupes compared: what to buy first',
-  metaTitle: 'Student Loupes: Compare Brands & Prices | HeliosX',
+  metaTitle: 'Student Loupes 2026: Best Picks & Prices Compared | HeliosX',
   description:
     `Compare student loupes across six brands by price, magnification, and what you actually get. Newton starts at $695, and verified students get ${TRAINEE_PERCENT_OFF}% off.`,
   intro:
@@ -569,6 +621,17 @@ revisions['student-loupe-comparison'] = {
         'Lowest published entry price: HeliosX Newton from $695 at 2.5x, no code needed.',
         'You want a trial and an in-person fitting: look at the Orascoptic student program and confirm your eligibility.',
         'You will keep this pair into practice: compare ergonomic prismatic viewing from $1,695 before buying twice.',
+        'Dental students specifically: /education/best-loupes-for-dental-students. Medical students: /loupes-for-medical-students.',
+      ],
+    ),
+    section(
+      'What students say after their first year',
+      'Student forums repeat the same few lessons, and they are worth hearing before a rep fair sets the terms. School fair packages commonly run $1,500–2,000 for a Galilean pair, often with a payment plan. The regrets people post are mostly about magnification and fit, not brand.',
+      [
+        'Buying too low. Students who start at 2.5x–3.0x often say they wanted 3.5x within a year, and few people step back down.',
+        'A fit measured in a hurry. Bad declination or working distance is blamed on rushed rep measurements more than on the optics.',
+        'Paying for range you do not use. Zoom and very high magnification add weight and cost that most student work does not need.',
+        'Service matters. Ask who answers when a pair needs adjusting, and how long it takes.',
       ],
     ),
     section(
@@ -582,7 +645,7 @@ revisions['student-loupe-comparison'] = {
     ),
     section(
       'Choose a first pair you can actually adapt to',
-      'Higher magnification is the most common first-pair mistake. A narrower field and shorter depth of focus are harder to learn on, and the pair a classmate recommends was chosen for their work and their eyes. Newton and Galileo cover 2.5x to 3.5x as Galilean systems, which is where most students start. Apollo is the ergonomic prismatic option if you already know you want a redirected line of sight.',
+      'Going too high is a real first-pair mistake: above 4.0x the narrower field and shorter depth of focus are harder to learn on, and the pair a classmate recommends was chosen for their work and their eyes. Going too low is the more common regret. Newton and Galileo cover 2.5x to 3.5x as Galilean systems, and 3.0x–3.5x is where many students end up. Apollo is the ergonomic prismatic option if you already know you want a redirected line of sight.',
       [
         'Newton: ' + range('newton') + '. Galileo: ' + range('galileo') + '.',
         'Leave room in the budget for prescription lenses and a light.',
@@ -611,7 +674,7 @@ revisions['student-loupe-comparison'] = {
     ),
     faq(
       'What magnification should a student buy first?',
-      'Most students are best served between 2.5x and 3.5x. Lower magnification gives a wider field and more depth of focus, which makes it easier to learn on. Check whether your program specifies a figure before deciding.',
+      'Most students are best served between 3.0x and 3.5x. Lower magnification gives a wider field and more depth of focus, which makes it easier to learn on, but many students who start at 2.5x outgrow it within a year. Check whether your program specifies a figure before deciding.',
     ),
     faq(
       'Is it worth buying loupes as a student, or waiting?',
@@ -815,8 +878,8 @@ revisions['loupes-for-dental-hygiene'] = {
       'The shortlist in one minute',
       'If you want the short version, start here and read the rest only where it applies to you. This compares published products and buying terms. It is not a hands-on ranking of optical quality.',
       [
-        'First pair on a budget: Newton from $695 at 2.5x.',
-        'A wider starting view with a bit more room: Galileo from $795.',
+        'The common choice: 3.0x–3.5x Galilean. Many hygienists who start lower say they wanted 3.5x within a year.',
+        'First pair on a budget: Newton from $695 at 2.5x, or Galileo from $795.',
         'Ergonomic prismatic viewing, for a more upright head position: Apollo from $1,695.',
         'Already know you want a light: read /dental-loupes-with-light before you choose the loupe, because the mount comes with it.',
       ],
@@ -827,7 +890,7 @@ revisions['loupes-for-dental-hygiene'] = {
       [
         'Check that you can see the tooth, the margin, and the surrounding tissue at the same time.',
         'Scaling and calculus detection reward field of view more than raw magnification.',
-        'If you are new to loupes, 2.5x is easier to adapt to than 3.5x.',
+        'If you are new to loupes, 2.5x is easier to adapt to, but 3.0x–3.5x is where many hygienists settle and few step back down.',
         'Ask your employer or program whether a magnification or supplier is specified before you order.',
       ],
     ),
@@ -860,6 +923,8 @@ revisions['loupes-for-dental-hygiene'] = {
         'Newton: ' + range('newton') + '. Galileo: ' + range('galileo') + '.',
         'Apollo is the ergonomic prismatic option from $1,695. Medusa adds adjustable working distance.',
         'Prescription lenses are a separate line on the order. Factor them in before comparing totals.',
+        'For scale: rep and school-fair Galilean packages commonly run $1,500–2,000, and ergonomic pairs $2,000 or more.',
+        'Your measurements are reviewed by our team before production, and we correct the fit if it is wrong.',
       ],
     ),
     ...hygienistBrandProfiles,
@@ -869,7 +934,11 @@ revisions['loupes-for-dental-hygiene'] = {
   faqs: [
     faq(
       'What magnification do dental hygienists use?',
-      'Most hygienists work between 2.5x and 4.0x. Lower magnification gives a wider field, which suits moving along an arch and detecting calculus. Higher magnification narrows the field and the depth of focus. If this is your first pair, 2.5x is the easier place to start.',
+      'Most hygienists work between 2.5x and 4.0x, and 3.0x–3.5x is the most common choice. Lower magnification gives a wider field, which suits moving along an arch and detecting calculus. Higher magnification narrows the field and the depth of focus. 2.5x is the easiest to adapt to, though many hygienists move up to 3.5x within a year.',
+    ),
+    faq(
+      'What are the best loupes for dental hygienists?',
+      'A light pair at 3.0x–3.5x with a declination angle measured to your seated posture, plus a light if you do posterior and sub-gingival work. Galilean Newton ($695) and Galileo ($795) suit most hygienists; Apollo ($1,695) adds ergonomic prismatic viewing for a more upright head position.',
     ),
     faq(
       'Which HeliosX model is the lowest-cost hygiene option?',
@@ -1843,7 +1912,7 @@ function expandThinGuides(guides: EducationGuide[]) {
   if (dentalStudents)
     Object.assign(dentalStudents, {
       dateModified: expanded,
-      metaTitle: 'Best Loupes for Dental Students | Magnification, Fit & Budget',
+      metaTitle: 'Best Loupes for Dental Students 2026: Picks & Prices | HeliosX',
       description:
         'How dental students can choose a first pair of loupes: program requirements, magnification, working distance, Galilean vs prismatic, prescription, lights, and total cost.',
       intro:

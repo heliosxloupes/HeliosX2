@@ -55,10 +55,10 @@
   line-height: 1.7;
   max-width: 66ch;
   margin-bottom: 14px;
-  padding: 14px 18px;
-  border-left: 3px solid #34d399;
-  border-radius: 0 12px 12px 0;
-  background: rgba(52, 211, 153, 0.08);
+  padding: 16px 20px;
+  border: 1px solid rgba(167, 237, 207, 0.22);
+  border-radius: 14px;
+  background: rgba(52, 211, 153, 0.07);
   color: #eef4f0;
 }
 .answer strong {
@@ -267,6 +267,45 @@
 }
 .compareRow .ours {
   color: #d0f2df;
+}
+/* Specialty pages: magnification by procedure. A real table on desktop,
+   stacked label/value rows on phones. */
+.procedureTable {
+  width: 100%;
+  margin-top: 24px;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.procedureTable th,
+.procedureTable td {
+  padding: 16px 18px 16px 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #29372f;
+}
+.procedureTable thead th {
+  padding-top: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #afc2b6;
+  border-bottom-color: #3c4d44;
+}
+.procedureTable tbody th {
+  width: 34%;
+  font-weight: 600;
+  color: #f2f7f4;
+}
+.procedureTable td {
+  color: #d0d9d4;
+}
+.procedureTable .mag {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: #a7edcf;
+  white-space: nowrap;
 }
 .verdict {
   padding: 22px;
@@ -511,7 +550,7 @@
   .kicker { color: #0b6b53; }
   .page h1, .page h2, .page h3 { color: #08261b; }
   .intro, .lead, .card p, .article p, .article li, .aside p, .faq p { color: #2b3a32; }
-  .answer { background: rgba(11, 107, 83, 0.08); border-left-color: #0b6b53; color: #14231d; }
+  .answer { background: rgba(11, 107, 83, 0.07); border-color: rgba(11, 107, 83, 0.18); color: #14231d; }
   .answer strong { color: #0b6b53; }
   .heroImage, .cardImage { background: #d9d0c7; border-color: rgba(8, 38, 27, 0.1); border-radius: 22px; overflow: hidden; }
   .primary, .secondary { border-radius: 14px; min-height: 52px; }
@@ -524,6 +563,14 @@
   .price { color: #0b6b53; }
   .comparison { background: rgba(8, 38, 27, 0.1); border-color: rgba(8, 38, 27, 0.1); border-radius: 18px; overflow: hidden; }
   .compareRow { background: #f8f9f6; }
+  .procedureTable thead { display: none; }
+  .procedureTable, .procedureTable tbody, .procedureTable tr { display: block; }
+  .procedureTable tr { padding: 16px 0; border-bottom: 1px solid rgba(8, 38, 27, 0.12); }
+  .procedureTable th, .procedureTable td { display: grid; grid-template-columns: 9.5em 1fr; gap: 12px; padding: 3px 0; border: 0; width: auto; }
+  .procedureTable tbody th { display: block; margin-bottom: 6px; color: #08261b; font-size: 15px; }
+  .procedureTable td { color: #2b3a32; }
+  .procedureTable td::before { content: attr(data-label); color: #56665d; font-size: 12px; }
+  .procedureTable .mag { color: #0b6b53; white-space: normal; }
   .compareRow strong { color: #56665d; }
   .compareRow .ours { color: #0b6b53; }
   .verdict { background: #e2f3ea; border-left: 0; border-radius: 16px; color: #08261b; }

@@ -34,6 +34,8 @@ export type SeoLandingPage = {
   intro: string
   /** Two or three quotable sentences: the direct answer, shown under the H1. */
   answer?: string
+  /** Specialty pages: the common procedures and the setup each one usually needs. */
+  procedureRows?: { procedure: string; magnification: string; distance: string; pick: string }[]
   proofPoints: string[]
   sections: ContentSection[]
   recommendedProducts: string[]
@@ -6987,6 +6989,345 @@ const specialtyPages: SeoLandingPage[] = [
 ]
 
 allSeoLandingPages.push(...specialtyPages)
+
+// Oct 2026: specialty gaps found in an audit of the page set. Each page is
+// written for its own procedures, posture and working distance, with a
+// magnification-by-procedure table, so none of them repeats a sibling.
+const specialtyPagesOct2026: SeoLandingPage[] = [
+  {
+    slug: 'dermatology-mohs-surgery-loupes',
+    title: 'Loupes for dermatologic and Mohs surgery',
+    metaTitle: 'Loupes for Mohs & Dermatologic Surgery: Magnification Guide | HeliosX',
+    description:
+      'Choosing loupes for Mohs surgery, excisions and reconstruction: magnification by procedure, seated working distance, neck posture and published prices from $695.',
+    heroKicker: 'Dermatologic surgery',
+    primaryKeyword: 'loupes for mohs surgery',
+    relatedKeywords: [
+      'dermatology loupes',
+      'dermatologic surgery loupes',
+      'mohs surgeon loupes',
+      'loupes for dermatologists',
+      'surgical loupes for skin surgery',
+      'mohs reconstruction magnification',
+    ],
+    audience: 'Mohs surgeons, dermatologic surgeons, dermatology residents and procedural dermatologists',
+    intro:
+      'Dermatologic surgery happens close to the patient, often seated, in short repeated cases that add up to a long day. That makes it a different loupe decision from operating-room surgery. Magnification matters most for reconstruction and fine closure, and the working distance and head angle matter more than in almost any other specialty, because you repeat the same posture fifteen or twenty times a day.',
+    answer: `Most dermatologic and Mohs surgeons do best with 2.5x–3.5x loupes set to a short, seated working distance, usually around 35–50 cm, with enough downward angle to keep the neck near neutral. Galilean loupes suit excisions and most closures; prismatic 4.0x helps with fine flap and graft work. HeliosX Galileo starts at ${usd(productStartingPrices.Galileo)} and ergonomic Apollo at ${usd(productStartingPrices.Apollo)}, with a lifetime warranty and 30-day returns.`,
+    procedureRows: [
+      { procedure: 'Mohs stages: excision and debulking', magnification: '2.5x', distance: 'Short, seated (35–45 cm)', pick: `Galileo 2.5x, from ${usd(productStartingPrices.Galileo)}` },
+      { procedure: 'Linear and layered closures', magnification: '2.5x–3.0x', distance: 'Short, seated', pick: 'Galileo 2.5x–3.0x' },
+      { procedure: 'Local flaps on the face (nasal, periocular, lip)', magnification: '3.0x–3.5x', distance: 'Short, seated or standing', pick: 'Galileo 3.5x, or Apollo if posture is the problem' },
+      { procedure: 'Full-thickness grafts, fine eyelid and ear work', magnification: '3.5x–4.0x', distance: 'Short', pick: `Apollo 4.0x, from ${usd(productStartingPrices.Apollo)}` },
+      { procedure: 'Reading frozen sections', magnification: 'Microscope', distance: 'Not applicable', pick: 'Loupes are not used for histology' },
+    ],
+    proofPoints: [
+      'Built to your seated working distance, not a standing operating-room default.',
+      `Galileo from ${usd(productStartingPrices.Galileo)}, ergonomic prismatic from ${usd(productStartingPrices.Apollo)}.`,
+      'Limited lifetime warranty and 30-day returns on non-prescription pairs.',
+    ],
+    sections: [
+      {
+        title: 'Why dermatologic surgery is its own fit problem',
+        body:
+          'Most loupe advice is written for the operating room: standing, a longer working distance, and a few long cases. A dermatologic surgery day is the opposite. You sit close to the patient, often leaning toward the face or scalp, and you repeat the same short procedure many times. A loupe measured for an operating table is focused too far away, so you lean in to find focus, which is exactly the posture that causes the trouble.',
+        bullets: [
+          'Measure your working distance seated, at the chair or table height you actually use, with your elbows where they sit during closure.',
+          'Seated distances are usually shorter than surgical defaults. If yours is long because you stand, measure standing.',
+          'If you split the day between seated Mohs stages and standing cases, Medusa adjusts from 300 to 600 mm in one pair.',
+        ],
+      },
+      {
+        title: 'What the ergonomics research shows',
+        body:
+          'Musculoskeletal pain is common in this specialty. A 2010 survey of American College of Mohs Surgery members found that a large majority reported musculoskeletal symptoms, most often in the neck, lower back and shoulders, and that most were not using ergonomic changes in their practice. An earlier Mayo Clinic study of 17 dermatologic surgeons found neck pain was the most common complaint, more often in surgeons who worked seated, while low back pain was more common in those who stood.',
+        bullets: [
+          'The practical lesson is the gaze angle. Ergonomic guidance from that work suggests keeping your line of sight roughly 15–30° below horizontal rather than bending the neck to look down.',
+          'A loupe with a steeper declination angle lets the eyes look down while the head stays closer to upright.',
+          'Loupes are not a treatment for neck pain. Chair height, patient positioning and breaks between stages matter as much as the optics.',
+        ],
+        sourceLabel:
+          'Liang CA et al. Musculoskeletal disorders and ergonomics in dermatologic surgery: a survey of Mohs surgeons in 2010. Dermatologic Surgery, 2012. See also Esser AC et al., Dermatologic Surgery, 2007.',
+        sourceHref: 'https://pubmed.ncbi.nlm.nih.gov/22212027/',
+      },
+      {
+        title: 'Magnification: lower than you might think',
+        body:
+          'Skin surgery rarely needs the 4.0x–6.0x that vascular or hand surgeons use. A wide field matters more, because you judge tissue movement, tension lines and the whole defect at once while you plan a repair. Most dermatologic surgeons work comfortably between 2.5x and 3.5x, and step up only for fine periocular, ear or graft work.',
+        bullets: [
+          '2.5x keeps the whole of a nasal defect in view while you design the repair.',
+          '3.5x is the common upgrade for fine closure and small flaps.',
+          'Above 4.0x the field narrows enough that planning a flap gets harder, not easier.',
+        ],
+      },
+      {
+        title: 'Light, or the room light?',
+        body:
+          'Procedure room lights are usually enough for excisions, but your own head blocks them once you lean over a small facial defect. A loupe-mounted light keeps the field lit along your line of sight. It also adds weight to the frame, which you feel over a full day of stages.',
+        bullets: [
+          'Decide on a light before the loupes are built, because the mount is fitted to the frame.',
+          'Corded lights keep weight off the nose; cordless lights are simpler when you move between rooms.',
+          'Choosing a light: /dental-loupes-with-light.',
+        ],
+      },
+      {
+        title: 'Where HeliosX fits',
+        body:
+          'Every HeliosX pair is built to the pupillary distance and working distance you measure, and we review the measurements before production. Prices are published, so you can price a complete order before you speak to anyone.',
+        bullets: [
+          `Galileo: Galilean 2.5x–3.5x, six frame styles in metal and other materials, in finishes from black to gold, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
+          `Apollo: ergonomic prismatic 3.0x–6.0x for a more upright head, ${priceRange('apollo')}.`,
+          'Reconstructive surgery in more depth: /education/best-loupes-for-plastic-surgery.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Galileo', 'Apollo', 'Medusa'],
+    faqs: [
+      {
+        question: 'What magnification do Mohs surgeons use?',
+        answer:
+          'Most Mohs and dermatologic surgeons work at 2.5x–3.5x. That range keeps the whole defect in view while you plan and close it. Fine periocular, ear and graft work can justify 4.0x. Frozen sections are read under a microscope, not loupes.',
+      },
+      {
+        question: 'What working distance should a dermatologic surgeon choose?',
+        answer:
+          'Measure it yourself, seated at your usual chair height and in the posture you hold during closure. Seated dermatologic surgery usually lands shorter than standing operating-room work, often around 35–50 cm. A loupe built for the wrong distance makes you lean in to find focus.',
+      },
+      {
+        question: 'Do loupes help with neck pain in dermatologic surgery?',
+        answer:
+          'They can help posture when the working distance and declination angle are set to you, because your eyes look down instead of your neck bending. They are not a treatment. Surveys of Mohs surgeons show neck and back pain are common, and chair height, positioning and breaks matter too.',
+      },
+      {
+        question: 'Which HeliosX loupe suits a dermatology resident?',
+        answer: `Most residents start with Galileo (${priceRange('galileo')}) at 2.5x–3.0x, and verified residents get ${TRAINEE_PERCENT_OFF}% off. If neck strain is already a problem, compare ergonomic Apollo from ${usd(productStartingPrices.Apollo)}.`,
+      },
+    ],
+    datePublished: '2026-10-18',
+    dateModified: '2026-10-18',
+  },
+  {
+    slug: 'podiatry-foot-ankle-surgery-loupes',
+    title: 'Loupes for podiatric and foot and ankle surgery',
+    metaTitle: 'Podiatry & Foot and Ankle Surgery Loupes: Fit & Magnification | HeliosX',
+    description:
+      'Loupes for podiatric surgeons: forefoot, rearfoot and ankle work, office nail and wound procedures, magnification by procedure and working distance at the end of the table.',
+    heroKicker: 'Podiatric surgery',
+    primaryKeyword: 'podiatry loupes',
+    relatedKeywords: [
+      'podiatric surgery loupes',
+      'foot and ankle surgery loupes',
+      'loupes for podiatrists',
+      'podiatrist magnification glasses',
+      'bunion surgery loupes',
+    ],
+    audience: 'podiatric surgeons, DPM residents, foot and ankle orthopedic surgeons and wound-care podiatrists',
+    intro:
+      'Foot and ankle work moves you around the table more than most specialties. Forefoot cases are often done seated at the end of the table, rearfoot and ankle work standing at the side, and clinic procedures happen with the patient in a chair at whatever height it sits. The loupe decision is mostly about that changing working distance, and much less about high magnification.',
+    answer: `Most podiatric surgeons do best with 2.5x–3.5x loupes. 2.5x covers forefoot reconstruction, nail and wound procedures; 3.5x helps with nerve, tendon and small-joint work. Because you work seated at the end of the table and standing at the side, the working distance changes through the day, which is what HeliosX Medusa's adjustable 300–600 mm range is for. Galileo starts at ${usd(productStartingPrices.Galileo)}, Medusa at ${usd(productStartingPrices.Medusa)}.`,
+    procedureRows: [
+      { procedure: 'Nail avulsion, matrixectomy, office procedures', magnification: '2.5x', distance: 'Short, seated at the chair', pick: `Galileo 2.5x, from ${usd(productStartingPrices.Galileo)}` },
+      { procedure: 'Bunion, hammertoe and forefoot reconstruction', magnification: '2.5x–3.0x', distance: 'Seated at the end of the table', pick: 'Galileo, for its wide field' },
+      { procedure: 'Wound debridement and limb salvage', magnification: '2.5x', distance: 'Variable, often low', pick: 'Galileo, or Medusa for changing heights' },
+      { procedure: 'Tendon repair and transfers', magnification: '3.0x–3.5x', distance: 'Standing at the side', pick: 'Galileo 3.5x or Apollo' },
+      { procedure: 'Nerve decompression (tarsal tunnel, neuroma)', magnification: '3.5x–4.0x', distance: 'Seated or standing', pick: `Apollo or Medusa, from ${usd(productStartingPrices.Apollo)}` },
+    ],
+    proofPoints: [
+      'Built to the working distance you measure, seated or standing.',
+      'Medusa adjusts working distance from 300 to 600 mm for mixed seated and standing days.',
+      'Limited lifetime warranty and 30-day returns on non-prescription pairs.',
+    ],
+    sections: [
+      {
+        title: 'The end of the table changes everything',
+        body:
+          'In forefoot surgery you often sit facing the sole, with the foot raised on the table. In ankle and rearfoot cases you stand at the side. In clinic, the patient sits in a chair and the foot is low. Those three positions can put your eyes at very different distances from the field. A loupe is sharp at one working distance, so a pair measured for one of them will make you lean in or pull back in the other two.',
+        bullets: [
+          'Measure the position you use most, and note the others.',
+          'If most of your volume is forefoot and office work, measure seated at the end of the table.',
+          'If your day genuinely mixes seated and standing work, Medusa adjusts from 300 to 600 mm in one pair.',
+        ],
+      },
+      {
+        title: 'Magnification for foot and ankle work',
+        body:
+          'Most of foot and ankle surgery is bone, joint and soft-tissue work where a wide field matters more than detail. 2.5x keeps the whole first ray or the full incision in view. Step up when the structures get small: nerves, tendon repairs and the digital work where you want to see suture placement clearly.',
+        bullets: [
+          '2.5x: forefoot reconstruction, nail and wound procedures, most office work.',
+          '3.0x–3.5x: tendon repair, small-joint fusion and fine closure.',
+          '3.5x–4.0x: nerve decompression and neuroma excision, where finer structures matter.',
+          'Higher magnification narrows the field and depth of focus, which is a cost when the foot moves during the case.',
+        ],
+      },
+      {
+        title: 'Posture and the evidence on ergonomic loupes',
+        body:
+          'Leaning over a raised foot for a long reconstruction loads the neck in the same way it does for other open surgery. Ergonomic prismatic loupes angle the line of sight so the eyes look down while the head stays more upright. In a 2024 randomized crossover trial of 19 surgeons doing simulated tasks, prismatic loupes reduced head inclination and neck muscle activity compared with the surgeons’ own loupes, with no difference in errors. The tested products were not HeliosX loupes, and the study was not in foot and ankle surgery.',
+        bullets: [
+          'Apollo and Medusa are the HeliosX ergonomic prismatic designs.',
+          'Loupes are not a treatment for neck pain. Table height and positioning still matter.',
+          'Neck strain and loupes in more detail: /education/ergonomic-loupes-neck-pain.',
+        ],
+        sourceLabel:
+          'Fan et al. Ergonomics and performance of using prismatic loupes in simulated surgical tasks among surgeons. Frontiers in Public Health, 2024.',
+        sourceHref: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC10803506/',
+      },
+      {
+        title: 'Clinic, wound care and infection control',
+        body:
+          'Office procedures and wound clinics put loupes through more cleaning and more on-and-off than the operating room. Through-the-lens loupes stay fixed in the frame and are simpler to wipe down. A light helps in wound care, where you are judging tissue color and depth in a small, often shadowed field.',
+        bullets: [
+          'Clean the frame and lenses with products your optics supplier approves; harsh solvents can damage coatings.',
+          'Decide on a light before ordering, because the mount is fitted to the frame.',
+          'Prescription lenses can be built into the carrier lenses for $200.',
+        ],
+      },
+      {
+        title: 'Where HeliosX fits',
+        body:
+          'HeliosX builds every pair to your measured pupillary and working distance and reviews the numbers before production. Prices are published, and DPM residents get trainee pricing.',
+        bullets: [
+          `Galileo: Galilean 2.5x–3.5x, six frame styles in metal and other materials, in finishes from black to gold, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
+          `Medusa: ergonomic prismatic with adjustable working distance, ${priceRange('medusa')}.`,
+          'Orthopedic foot and ankle comparison: /orthopedic-surgery-loupes.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Galileo', 'Medusa', 'Apollo'],
+    faqs: [
+      {
+        question: 'What magnification do podiatrists use for surgery?',
+        answer:
+          'Most podiatric surgeons work at 2.5x for forefoot, nail and wound procedures and 3.0x–3.5x for tendon and small-joint work. Nerve decompression can justify 3.5x–4.0x. Higher magnification narrows the field, which matters when the foot moves during a case.',
+      },
+      {
+        question: 'What working distance should a podiatric surgeon choose?',
+        answer:
+          'The one you use most. Forefoot and office work is usually seated and shorter; ankle and rearfoot work is standing and longer. If your day mixes both, an adjustable working distance avoids leaning in or pulling back to stay in focus.',
+      },
+      {
+        question: 'Are loupes useful in a podiatry clinic, not just surgery?',
+        answer:
+          'Yes. Nail procedures, debridement and wound assessment all benefit from 2.5x magnification and a light. Clinic work is usually seated with the foot low, so measure your working distance in that position.',
+      },
+      {
+        question: 'Do podiatry residents get a discount?',
+        answer: `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email proof of training status and we send a code to use at checkout.`,
+      },
+    ],
+    datePublished: '2026-10-18',
+    dateModified: '2026-10-18',
+  },
+  {
+    slug: 'colorectal-surgery-loupes',
+    title: 'Loupes for colorectal and anorectal surgery',
+    metaTitle: 'Colorectal Surgery Loupes: When They Help, What to Choose | HeliosX',
+    description:
+      'Where loupes earn their place in colorectal surgery: anorectal and transanal work, hand-sewn anastomoses and the light you need in a deep, narrow field. Magnification by procedure.',
+    heroKicker: 'Colorectal surgery',
+    primaryKeyword: 'colorectal surgery loupes',
+    relatedKeywords: [
+      'loupes for colorectal surgeons',
+      'anorectal surgery loupes',
+      'fistula surgery magnification',
+      'surgical headlight colorectal',
+      'loupes for general surgery residents',
+    ],
+    audience: 'colorectal surgeons, colorectal fellows and general surgeons with an anorectal practice',
+    intro:
+      'Colorectal surgeons do not wear loupes for most of their caseload. Laparoscopic and robotic resections are done on a screen, and open abdominal work is usually comfortable without magnification. Where loupes and a headlight do earn their place is anorectal and transanal surgery: a deep, narrow field, awkward positioning, and small structures such as fistula tracts and the sphincter complex.',
+    answer: `Colorectal surgeons mainly use loupes for anorectal and transanal work, at 2.5x–3.5x, with a loupe-mounted headlight, because the field is deep, narrow and hard to light from above. Laparoscopic and robotic cases need no loupes. Choose a working distance for your seated position at the perineum. HeliosX Galileo starts at ${usd(productStartingPrices.Galileo)}; ergonomic Apollo starts at ${usd(productStartingPrices.Apollo)}.`,
+    procedureRows: [
+      { procedure: 'Fistula-in-ano, seton placement, LIFT', magnification: '2.5x–3.5x', distance: 'Short, seated at the perineum', pick: 'Galileo 3.5x with a headlight' },
+      { procedure: 'Fissure, hemorrhoid and pilonidal surgery', magnification: '2.5x', distance: 'Short, seated', pick: `Galileo 2.5x, from ${usd(productStartingPrices.Galileo)}` },
+      { procedure: 'Sphincter repair, advancement flaps', magnification: '3.0x–3.5x', distance: 'Short, seated', pick: 'Galileo 3.5x or Apollo' },
+      { procedure: 'Hand-sewn colorectal or coloanal anastomosis', magnification: '2.5x–3.5x', distance: 'Standing or seated', pick: 'Galileo, or Medusa for both positions' },
+      { procedure: 'Laparoscopic and robotic resection', magnification: 'None', distance: 'Not applicable', pick: 'Loupes are not used on a screen' },
+    ],
+    proofPoints: [
+      'Built for a short, seated working distance at the perineum.',
+      'Light and weight planned together, because a headlight is part of this setup.',
+      'Limited lifetime warranty and 30-day returns on non-prescription pairs.',
+    ],
+    sections: [
+      {
+        title: 'Where loupes actually help in colorectal surgery',
+        body:
+          'Be honest about how often you will wear them. If your practice is mostly minimally invasive resection, loupes will spend a lot of time in the case. They matter for anorectal work, transanal procedures and the occasional hand-sewn anastomosis low in the pelvis, where you are working in a small, deep field and identifying fine structures such as an internal fistula opening or the edge of the sphincter.',
+        bullets: [
+          'Anorectal surgery: the main reason colorectal surgeons buy loupes.',
+          'Low pelvic and coloanal anastomoses: helpful when sewing by hand.',
+          'Minimally invasive resection: no loupes; the camera is your magnification.',
+        ],
+      },
+      {
+        title: 'Light first, then magnification',
+        body:
+          'In a deep anal canal the limiting factor is usually light, not magnification. Overhead theatre lights are blocked by your own head and the retractor, and they do not reach down a narrow canal. A headlight mounted on the loupe sends light along your line of sight, which is exactly where you are looking. If you buy loupes for anorectal work, plan the light at the same time.',
+        bullets: [
+          'The light mount is fitted to the frame, so decide before the loupes are built.',
+          'A corded light keeps weight off the nose for longer lists; cordless is simpler between rooms.',
+          'Choosing a light: /dental-loupes-with-light.',
+        ],
+      },
+      {
+        title: 'Magnification and working distance',
+        body:
+          'You usually sit at the perineum with the patient in prone jackknife or lithotomy, so the working distance is short and fixed for the case. 2.5x gives the widest view of the canal; 3.5x helps you identify a fistula tract or place fine sutures in a flap. Going higher narrows the field in a space that is already narrow.',
+        bullets: [
+          'Measure your working distance seated, in the position you use for anorectal cases.',
+          'If you also sew low anastomoses standing, that distance is longer. Medusa adjusts from 300 to 600 mm.',
+          'Most colorectal surgeons stay at or below 3.5x.',
+        ],
+      },
+      {
+        title: 'Weight over a list of short cases',
+        body:
+          'An anorectal list is many short cases, with a headlight on for most of them. The combined front weight is what you feel by the end of the list, so weigh the loupe and light together, not the frame alone. Galilean loupes are the lightest option at this magnification.',
+        bullets: [
+          'Galileo is a Galilean design, so it stays light even with a headlight added.',
+          'Prismatic loupes are heavier; choose them for posture, not for magnification you do not need.',
+        ],
+      },
+      {
+        title: 'Where HeliosX fits',
+        body:
+          'HeliosX builds every pair to your measured pupillary and working distance and reviews the measurements before production. HeliosX does not sell headlights, so choose a compatible light and confirm the mount before ordering.',
+        bullets: [
+          `Galileo: Galilean 2.5x–3.5x, six frame styles in metal and other materials, in finishes from black to gold, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
+          `Apollo: ergonomic prismatic for a more upright head, ${priceRange('apollo')}.`,
+          'General surgery loupes, including open abdominal work: /general-surgery-loupes.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Galileo', 'Apollo', 'Medusa'],
+    faqs: [
+      {
+        question: 'Do colorectal surgeons use loupes?',
+        answer:
+          'For anorectal and transanal surgery, and for some hand-sewn low anastomoses, many do. Most laparoscopic and robotic resections need no loupes, because the camera provides magnification.',
+      },
+      {
+        question: 'What magnification is best for anorectal surgery?',
+        answer:
+          'Usually 2.5x–3.5x. 2.5x gives the widest view of the canal, and 3.5x helps with fistula tracts, flaps and fine suturing. A headlight matters at least as much as the magnification.',
+      },
+      {
+        question: 'Do I need a headlight with loupes for colorectal work?',
+        answer:
+          'For anorectal surgery, usually yes. Overhead lights do not reach well into a deep, narrow canal, and your head blocks them. Plan the light with the loupe, because the mount is fitted to the frame.',
+      },
+      {
+        question: 'Is there a discount for surgical residents?',
+        answer: `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model.`,
+      },
+    ],
+    datePublished: '2026-10-18',
+    dateModified: '2026-10-18',
+  },
+]
+
+allSeoLandingPages.push(...specialtyPagesOct2026)
 
 // Per-page hero tails replace the audit-flagged 'without the guesswork.'
 // suffix that was hardcoded as the second H1 line across 30+ pages.

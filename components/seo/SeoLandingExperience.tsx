@@ -11,6 +11,12 @@ import {
 } from '@/lib/seo-content'
 import type { SeoLandingPage } from '@/lib/seo-content'
 import styles from './BuyerGuide.module.css'
+import { modelBySlug } from '@/components/m2/models'
+
+// Guide pages use the current studio photography (the phone storefront set);
+// the older cut-out renders stay as a fallback.
+const guideImage = (name: keyof typeof productImages) =>
+  modelBySlug(name.toLowerCase())?.photo.src ?? productImages[name]
 
 type ModelRow = { name: string; href: string; positioning: string }
 const tradeoffs: Record<string, string> = {
@@ -118,7 +124,7 @@ export default function SeoLandingExperience({
             </div>
             <div className={styles.heroImage}>
               <Image
-                src={productImages[imageKey]}
+                src={guideImage(imageKey)}
                 alt={`HeliosX ${imageKey} loupes`}
                 fill
                 priority
@@ -133,11 +139,43 @@ export default function SeoLandingExperience({
             {page.comparisonRows?.length ? (
               <a href="#comparison">Comparison</a>
             ) : null}
+            {page.procedureRows?.length ? (
+              <a href="#by-procedure">By procedure</a>
+            ) : null}
             <a href="#model-shortlist">HeliosX options</a>
             <a href="#buying-advice">What to look for</a>
             <a href="#questions">Questions</a>
             <a href="#help-choosing">Ask for help</a>
           </nav>
+          {page.procedureRows?.length ? (
+            <section id="by-procedure" className={styles.section}>
+              <h2>Magnification by procedure</h2>
+              <p className={styles.lead}>
+                Common starting points. Choose for the work you do most often,
+                then confirm the view at your own working distance.
+              </p>
+              <table className={styles.procedureTable}>
+                <thead>
+                  <tr>
+                    <th scope="col">Procedure</th>
+                    <th scope="col">Magnification</th>
+                    <th scope="col">Working distance</th>
+                    <th scope="col">HeliosX starting point</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {page.procedureRows.map((row) => (
+                    <tr key={row.procedure}>
+                      <th scope="row">{row.procedure}</th>
+                      <td data-label="Magnification" className={styles.mag}><span>{row.magnification}</span></td>
+                      <td data-label="Working distance"><span>{row.distance}</span></td>
+                      <td data-label="HeliosX starting point"><span>{linkifyText(row.pick)}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+          ) : null}
           {page.comparisonRows?.length ? (
             <section id="comparison" className={styles.section}>
               <p className={styles.kicker}>The differences that matter</p>
@@ -181,7 +219,7 @@ export default function SeoLandingExperience({
                       aria-hidden="true"
                     >
                       <Image
-                        src={productImages[key]}
+                        src={guideImage(key)}
                         alt={`HeliosX ${row.name} loupes`}
                         fill
                         sizes="(max-width: 767px) calc(100vw - 40px), 355px"

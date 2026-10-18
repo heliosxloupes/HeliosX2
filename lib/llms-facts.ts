@@ -22,8 +22,8 @@ function priceRange(slug: string) {
 }
 
 const models = [
-  { slug: 'newton', name: 'Newton', type: 'Galilean', weight: '40–50 g with frame', note: 'lightest entry pair for hygienists, students and long days' },
-  { slug: 'galileo', name: 'Galileo', type: 'Galilean', weight: null, note: 'wide 110–170 mm field and 200 mm depth of field for everyday clinical work' },
+  { slug: 'newton', name: 'Newton', type: 'Galilean', weight: '40–50 g with frame', note: 'lowest-priced Galilean pair' },
+  { slug: 'galileo', name: 'Galileo', type: 'Galilean', weight: null, note: 'recommended Galilean pair: six frame styles in metal and other materials, wide 110–170 mm field and 200 mm depth of field for everyday clinical work' },
   { slug: 'kepler', name: 'Kepler', type: 'conventional prismatic', weight: '68–85 g with frame', note: 'higher magnification for fine surgical detail' },
   { slug: 'apollo', name: 'Apollo', type: 'ergonomic prismatic', weight: '55–58.2 g with frame', note: 'angled optics for a more upright head, fixed working distance of 420, 450, 500 or 550 mm' },
   { slug: 'medusa', name: 'Medusa', type: 'ergonomic prismatic', weight: '56–65 g with frame', note: 'adjustable working distance from 300 to 600 mm for clinicians who sit and stand' },
@@ -54,7 +54,7 @@ export function llmsFactsBlock(siteUrl: string) {
     '',
     '## Quick answers by buyer',
     '',
-    `- Dental hygienists: most choose 3.0x–3.5x Galilean loupes measured to their seated posture. HeliosX Newton (from ${priceRange('newton').from}) and Galileo (from ${priceRange('galileo').from}) suit hygiene work; Apollo (from ${priceRange('apollo').from}) adds ergonomic prismatic viewing. ${siteUrl}/loupes-for-dental-hygiene`,
+    `- Dental hygienists: most choose 3.0x–3.5x Galilean loupes measured to their seated posture. HeliosX Galileo (from ${priceRange('galileo').from}) suits most hygiene work, with Newton (from ${priceRange('newton').from}) as the lower-priced option; Apollo (from ${priceRange('apollo').from}) adds ergonomic prismatic viewing. ${siteUrl}/loupes-for-dental-hygiene`,
     `- Dental students: a 3.0x–3.5x Galilean first pair is typical. School-fair packages often cost $1,500–2,000; HeliosX starts at ${priceRange('newton').from} with ${TRAINEE_PERCENT_OFF}% off for verified students. ${siteUrl}/education/best-loupes-for-dental-students`,
     `- Dental loupes with a light: choose the light before the loupe is built, because the mount is fitted to the frame. ${siteUrl}/dental-loupes-with-light`,
     `- Ergonomic loupes and neck strain: Apollo and Medusa are ergonomic prismatic designs from ${priceRange('apollo').from} that let the head stay closer to upright. ${siteUrl}/ergonomic-loupe-comparison`,

@@ -635,6 +635,194 @@
   from { opacity: 0; transform: translateY(24px); }
 }
 
+/* Scroll-driven motion layer. CSS only: runs off the main thread, no JS cost.
+   Browsers without animation-timeline (older iOS) simply show static content.
+   Each child of .m2-stagger has its own view timeline, so rows/cards enter one
+   after another as they scroll in, with no JS-timed delays. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .m2-stagger > *,
+    .m2-in {
+      animation: m2-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 60%;
+    }
+
+    /* Photo drifts against the scroll inside its fixed frame. */
+    .m2-parallax {
+      animation: m2-parallax linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+
+    /* Media frame settles from slightly small to full size as it arrives. */
+    .m2-settle {
+      animation: m2-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+
+    /* Word-by-word headline: each word gets its own range offset inline. */
+    .m2-word {
+      display: inline-block;
+      animation: m2-word linear both;
+      animation-timeline: view();
+    }
+
+    /* Horizontal strips: slides tilt in and out around the centre (3D). */
+    .m2-coverflow {
+      perspective: 1100px;
+    }
+
+    .m2-coverflow > * {
+      animation: m2-coverflow linear both;
+      animation-timeline: view(inline);
+    }
+
+    /* Swipe cards: the one in view is full size, neighbours recede. */
+    .m2-focus-strip > * {
+      animation: m2-focus linear both;
+      animation-timeline: view(inline);
+    }
+
+    /* Hero: the model name slides slower than the photo on swipe. */
+    .m2-name-drift {
+      animation: m2-name-drift linear both;
+      animation-timeline: view(inline);
+    }
+  }
+}
+
+@keyframes m2-parallax {
+  from { transform: translateY(-6%) scale(1.14); }
+  to { transform: translateY(6%) scale(1.14); }
+}
+
+@keyframes m2-settle {
+  from { opacity: 0.4; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes m2-word {
+  from { opacity: 0.12; transform: translateY(0.18em); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes m2-coverflow {
+  0% { transform: rotateY(32deg) scale(0.86); opacity: 0.55; }
+  50% { transform: none; opacity: 1; }
+  100% { transform: rotateY(-32deg) scale(0.86); opacity: 0.55; }
+}
+
+@keyframes m2-focus {
+  0% { transform: scale(0.92); opacity: 0.55; }
+  40%, 60% { transform: none; opacity: 1; }
+  100% { transform: scale(0.92); opacity: 0.55; }
+}
+
+@keyframes m2-name-drift {
+  0% { transform: translateX(42%); opacity: 0; }
+  50% { transform: none; opacity: 1; }
+  100% { transform: translateX(-42%); opacity: 0; }
+}
+
+/* Hairline line figures, tinted to the surface they sit on (plate = surface). */
+.m2-hairline {
+  --hairline-hi: var(--ink);
+  --hairline-edge: var(--teal);
+  --hairline-stroke: 1.1;
+}
+
+.m2-hairline--paper {
+  --hairline-plate: var(--paper);
+  --hairline-mid: #7a948a;
+  --hairline-lo: #cfdad3;
+}
+
+.m2-hairline--card {
+  --hairline-plate: var(--card);
+  --hairline-mid: #7a948a;
+  --hairline-lo: #d8e2dc;
+}
+
+.m2-hairline--mint {
+  --hairline-plate: var(--mint);
+  --hairline-mid: #4d8a72;
+  --hairline-lo: #a7dcc4;
+}
+
+/* Fallback for browsers without scroll timelines (iOS < 26): MobileHomeExperience
+   adds .m2-io and an IntersectionObserver toggles .is-in, so entrances still
+   play (time-based instead of scroll-linked). */
+.m2-io .m2-reveal,
+.m2-io .m2-stagger > *,
+.m2-io .m2-in,
+.m2-io .m2-word {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms var(--ease-out), transform 700ms var(--ease-out);
+}
+
+.m2-io .m2-word {
+  display: inline-block;
+  transform: translateY(0.18em);
+}
+
+.m2-io .m2-settle {
+  opacity: 0.4;
+  transform: scale(0.92);
+  transition: opacity 600ms var(--ease-out), transform 800ms var(--ease-out);
+}
+
+.m2-io .is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.m2-io .m2-stagger > :nth-child(2) { transition-delay: 70ms; }
+.m2-io .m2-stagger > :nth-child(3) { transition-delay: 140ms; }
+.m2-io .m2-stagger > :nth-child(4) { transition-delay: 210ms; }
+.m2-io .m2-stagger > :nth-child(5) { transition-delay: 280ms; }
+.m2-io .m2-stagger > :nth-child(n + 6) { transition-delay: 350ms; }
+
+/* Hero photo: a slow, constant push-in so the opening frame breathes. */
+@media (prefers-reduced-motion: no-preference) {
+  .m2-kenburns {
+    animation: m2-kenburns 14s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes m2-kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.06); }
+}
+
+/* Disclosures open and close smoothly where height:auto can interpolate;
+   elsewhere they snap open as before. */
+@supports (interpolate-size: allow-keywords) {
+  .m2-details {
+    interpolate-size: allow-keywords;
+  }
+
+  .m2-details::details-content {
+    height: 0;
+    overflow: clip;
+    opacity: 0;
+    transition: height 260ms var(--ease-out), opacity 200ms ease, content-visibility 260ms allow-discrete;
+  }
+
+  .m2-details[open]::details-content {
+    height: auto;
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .m2-details::details-content {
+      transition: opacity 160ms ease, content-visibility 160ms allow-discrete;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .m2-rise,
   .m2-drift,

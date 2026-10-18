@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { ArrowUpRight, Plus } from 'lucide-react'
 
+import CustomHairline from '@/components/m2/CustomHairline'
+
 // Homepage links into the specialty landing pages. Groups use <details> so the
 // list stays short on screen while every link is in the HTML Google indexes
 // (a select menu or tap-to-render dropdown would hide them from crawlers).
@@ -66,10 +68,15 @@ export default function SpecialtySection({ variant }: { variant: 'mobile' | 'des
   if (variant === 'mobile') {
     return (
       <section className="px-5 pt-14" aria-labelledby="mobile-specialty-heading">
-        <p className="text-[12px] font-bold uppercase tracking-[0.28em] text-[#4d5f54]">Who it&apos;s for</p>
-        <h2 id="mobile-specialty-heading" className="m2-h2 mt-3 text-[2.1rem]">Made for your<br />specialty.</h2>
+        <div className="flex items-end justify-between gap-3">
+          <div>
+            <p className="text-[12px] font-bold uppercase tracking-[0.28em] text-[#4d5f54]">Who it&apos;s for</p>
+            <h2 id="mobile-specialty-heading" className="m2-h2 m2-reveal mt-3 text-[2.1rem]">Made for your<br />specialty.</h2>
+          </div>
+          <CustomHairline name="tray" className="-mr-2 w-[112px] shrink-0" />
+        </div>
         <p className="m2-lede mt-3">{AUDIENCE}</p>
-        <ul className="mt-5 flex flex-wrap gap-2">
+        <ul className="m2-stagger mt-5 flex flex-wrap gap-2">
           {STAGES.map(([href, label]) => (
             <li key={label}>
               <Link href={href} className="flex min-h-10 items-center rounded-full bg-[#f7f9f7] px-3.5 text-[13px] font-bold">

@@ -4,14 +4,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, ArrowUpRight, Check, Globe2, GraduationCap, Plus, Ruler, ShieldCheck, SlidersHorizontal } from 'lucide-react'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type RefObject } from 'react'
 
 import { MODELS, money, startingPrice, type M2Model } from '@/components/m2/models'
 import { PhotoThumb, StagePhoto } from '@/components/m2/Photo'
 import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 import SpecialtySection from '@/components/home/SpecialtySection'
+import HairlineFigure from '@/components/m2/HairlineFigure'
+import CustomHairline, { type CustomHairlineName } from '@/components/m2/CustomHairline'
 
-type Filter = 'All loupes' | 'Ergonomic' | 'Everyday' | 'Fine detail'
+type Filter ='All loupes' | 'Ergonomic' | 'Everyday' | 'Fine detail'
 
 const FILTERS: Filter[] = ['All loupes', 'Ergonomic', 'Everyday', 'Fine detail']
 
@@ -38,11 +40,11 @@ const GUIDES = [
   ['/student-loupe-comparison', 'Loupes for students and residents'],
 ] as const
 
-const STEPS = [
-  ['01', 'Choose your optics', 'Pick your model, magnification, and frame. Your price stays clear while you configure.'],
-  ['02', 'Send your measurements', 'After checkout, share your pupillary distance, working distance, and prescription if needed.'],
-  ['03', 'Made for your work', 'We review your fit before production. Custom production usually takes 1–2 weeks after approval.'],
-] as const
+const STEPS: ReadonlyArray<readonly [string, string, string, CustomHairlineName]> = [
+  ['01', 'Choose your optics', 'Pick your model, magnification, and frame. Your price stays clear while you configure.', 'optics'],
+  ['02', 'Send your measurements', 'After checkout, share your pupillary distance, working distance, and prescription if needed.', 'caliper'],
+  ['03', 'Made for your work', 'We review your fit before production. Custom production usually takes 1–2 weeks after approval.', 'case'],
+]
 
 const FAQS = [
   ['Why is HeliosX more accessible?', 'Our direct-to-clinician model and online fitting process reduce traditional dealer overhead while keeping pricing published and clear.'],
@@ -88,11 +90,11 @@ function StageCarousel() {
             style={{ background: model.photo.tone }}
             aria-label={`${model.name}, ${model.category}, from ${money(startingPrice(model.slug))}`}
           >
-            <span className="absolute inset-x-0 bottom-[150px] top-[150px]">
+            <span className="m2-kenburns absolute inset-x-0 bottom-[150px] top-[150px]">
               <StagePhoto model={model} scale={1.12} priority={index === 0} animate={index === 0} fadeBottom />
             </span>
             <span className="m2-shade" aria-hidden="true" />
-            <span className="absolute inset-x-0 top-[88px] z-[2] text-center">
+            <span className="m2-name-drift absolute inset-x-0 top-[88px] z-[2] text-center">
               <span aria-hidden="true" className={`m2-giant m2-giant--light ${index === 0 ? 'm2-rise' : ''}`} style={{ fontSize: 'min(24vw, 7rem)' }}>{model.name}</span>
               <span className="m2-sub mt-3">{model.category} loupes</span>
             </span>
@@ -128,6 +130,57 @@ function StageCarousel() {
   )
 }
 
+// Brand film: a 480p silent cut (~390 KB vs 1.7 MB). preload="none" keeps it
+// off the network until it scrolls into view; it then plays muted and pauses
+// again when it leaves. Reduced motion or Data Saver get tap-to-play instead.
+function InViewFilm() {
+  const ref = useRef<HTMLVideoElement>(null)
+  const [manual, setManual] = useState(false)
+
+  useEffect(() => {
+    const video = ref.current
+    if (!video) return
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData
+    if (saveData || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setManual(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => setManual(true))
+        else video.pause()
+      },
+      { threshold: 0.4 },
+    )
+    observer.observe(video)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <video
+      ref={ref}
+      src="/mainpagevideo2-mobile.mp4"
+      poster="/mainpagevideo2-poster.jpg"
+      muted
+      loop
+      playsInline
+      preload="none"
+      controls={manual}
+      aria-label="HeliosX loupes brand film"
+      className="h-full w-full object-cover"
+    />
+  )
+}
+
+const MISSION_WORDS = [
+  ['Skill', false],
+  ['thrives', false],
+  ['where', false],
+  ['access', true],
+  ['exists.', true],
+] as const
+
 const MISSION_PHOTOS = [
   ['/m2/mission-surgeon.webp', 'Clinician focused on detailed work wearing HeliosX Medusa loupes', '50% 35%'],
   ['/m2/mission-2.webp', 'Surgeon operating in the OR wearing HeliosX Medusa loupes', '50% 30%'],
@@ -157,7 +210,7 @@ function MissionCarousel() {
       <div
         ref={trackRef}
         onScroll={onScroll}
-        className="flex h-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="m2-coverflow flex h-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {MISSION_PHOTOS.map(([src, alt, position]) => (
           <div key={src} className="relative h-full w-full shrink-0 snap-center">
@@ -180,7 +233,9 @@ function CollectionRow({ model }: { model: M2Model }) {
   return (
     <Link href={`/product/${model.slug}`} className="m2-row items-stretch p-2 pr-4">
       <span className="relative block h-[84px] w-[112px] shrink-0 overflow-hidden rounded-[14px]" style={{ background: model.photo.tone }}>
-        <PhotoThumb model={model} sizes="112px" alt={`${model.name} surgical loupes`} />
+        <span className="m2-parallax absolute inset-0">
+          <PhotoThumb model={model} sizes="112px" alt={`${model.name} surgical loupes`} />
+        </span>
       </span>
       <span className="flex min-w-0 flex-1 flex-col justify-center py-1">
         <span className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#4d5f54]">{model.category}</span>
@@ -194,13 +249,39 @@ function CollectionRow({ model }: { model: M2Model }) {
   )
 }
 
+// Where CSS scroll timelines are missing, play the same entrances on visibility.
+function useRevealFallback(rootRef: RefObject<HTMLElement>) {
+  useEffect(() => {
+    const root = rootRef.current
+    if (!root || CSS.supports('animation-timeline: view()')) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    root.classList.add('m2-io')
+    const targets = root.querySelectorAll('.m2-reveal, .m2-stagger > *, .m2-in, .m2-word, .m2-settle')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          entry.target.classList.add('is-in')
+          observer.unobserve(entry.target)
+        }
+      },
+      { rootMargin: '0px 0px -12% 0px' },
+    )
+    targets.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [rootRef])
+}
+
 export default function MobileHomeExperience() {
   const [filter, setFilter] = useState<Filter>('All loupes')
   const reduceMotion = useReducedMotion()
+  const mainRef = useRef<HTMLElement>(null)
+  useRevealFallback(mainRef)
   const visible = useMemo(() => MODELS.filter((model) => filter === 'All loupes' || model.group === filter), [filter])
 
   return (
-    <main className="m2 overflow-x-clip pb-6">
+    <main ref={mainRef} className="m2 overflow-x-clip pb-6">
       <StageCarousel />
 
       {/* SHEET */}
@@ -226,7 +307,7 @@ export default function MobileHomeExperience() {
       {/* COLLECTION */}
       <section id="mobile-collection" className="scroll-mt-20 px-5 pt-14">
         <div className="flex items-end justify-between gap-4">
-          <h2 className="m2-h2 text-[2.1rem]">Five loupe systems.<br />One fitting standard.</h2>
+          <h2 className="m2-h2 m2-reveal text-[2.1rem]">Five loupe systems.<br />One fitting standard.</h2>
           <Link href="/loupe-comparisons" className="flex min-h-11 shrink-0 items-center gap-1.5 text-[13px] font-bold text-[#0b6b53]">
             Compare <SlidersHorizontal size={14} />
           </Link>
@@ -256,18 +337,21 @@ export default function MobileHomeExperience() {
                 exit={reduceMotion ? undefined : { opacity: 0, transform: 'scale(0.97)' }}
                 transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
               >
-                <CollectionRow model={model} />
+                <div className="m2-in">
+                  <CollectionRow model={model} />
+                </div>
               </motion.div>
             ))}
           </AnimatePresence>
         </motion.div>
 
-        <Link href="/education/loupe-magnification-guide" className="mt-3 flex min-h-[88px] items-center justify-between gap-4 rounded-[22px] bg-[#d1fae5] px-5 transition-transform active:scale-[0.98]">
+        <Link href="/education/loupe-magnification-guide" className="mt-3 flex min-h-[88px] items-center justify-between gap-3 rounded-[22px] bg-[#d1fae5] py-3 pl-5 pr-3 transition-transform active:scale-[0.98]">
           <span>
             <strong className="block text-[19px] font-extrabold tracking-[-0.03em]">First pair? Start here.</strong>
             <small className="mt-0.5 block text-[13px] text-[#26352d]">Find your starting point in magnification.</small>
+            <span className="mt-2 inline-flex items-center gap-1 text-[13px] font-bold text-[#0b6b53]">Magnification guide <ArrowUpRight size={14} /></span>
           </span>
-          <span className="m2-icon m2-icon--ink shrink-0"><ArrowUpRight size={19} /></span>
+          <HairlineFigure name="Loupe" tone="mint" className="w-[132px] shrink-0" />
         </Link>
       </section>
 
@@ -277,23 +361,14 @@ export default function MobileHomeExperience() {
           structured data points at a video that exists on mobile too. */}
       <section className="px-5 pt-14">
         <p className="text-[12px] font-bold uppercase tracking-[0.28em] text-[#4d5f54]">Optical clarity</p>
-        <h2 className="m2-h2 mt-3 text-[2.1rem]">Optical clarity.<br />Honest price.</h2>
+        <h2 className="m2-h2 m2-reveal mt-3 text-[2.1rem]">Optical clarity.<br />Honest price.</h2>
         <p className="m2-lede mt-3">
           Built for those who pursue mastery: a clear, stable view of the field, ergonomic comfort, and elite quality at a fair price.
         </p>
-        <div className="relative mt-5 aspect-video overflow-hidden rounded-[22px] bg-[#14231d]">
-          <video
-            src="/mainpagevideo2.mp4"
-            poster="/mainpagevideo2-poster.jpg"
-            controls
-            muted
-            playsInline
-            preload="none"
-            aria-label="HeliosX loupes brand film"
-            className="h-full w-full object-cover"
-          />
+        <div className="m2-settle relative mt-5 aspect-video overflow-hidden rounded-[22px] bg-[#14231d]">
+          <InViewFilm />
         </div>
-        <dl className="mt-3 grid gap-2">
+        <dl className="m2-stagger mt-3 grid gap-2">
           {OPTICS.map(([label, body]) => (
             <div key={label} className="rounded-[18px] bg-[#f7f9f7] p-4">
               <dt className="text-[15px] font-extrabold tracking-[-0.02em]">{label}</dt>
@@ -305,12 +380,17 @@ export default function MobileHomeExperience() {
 
       {/* FIT */}
       <section className="px-5 pt-14">
-        <p className="text-[12px] font-bold uppercase tracking-[0.28em] text-[#4d5f54]">Customization</p>
-        <h2 className="m2-h2 mt-3 text-[2.1rem]">Built for every specialty.<br />Tailored to you.</h2>
+        <div className="flex items-end justify-between gap-3">
+          <div>
+            <p className="text-[12px] font-bold uppercase tracking-[0.28em] text-[#4d5f54]">Customization</p>
+            <h2 className="m2-h2 m2-reveal mt-3 text-[2.1rem]">Built for every specialty.<br />Tailored to you.</h2>
+          </div>
+          <CustomHairline name="frames" className="-mr-2 w-[112px] shrink-0" />
+        </div>
         <p className="m2-lede mt-3">
           No two clinicians operate the same way. Choose your frame, material, and magnification, and we tailor the system to your anatomy and workflow.
         </p>
-        <ul className="mt-5 grid gap-2.5">
+        <ul className="m2-stagger mt-5 grid gap-2.5">
           {FIT.map((line) => (
             <li key={line} className="flex items-start gap-2.5 text-[14px] leading-6 text-[#26352d]">
               <Check size={16} className="mt-1 shrink-0 text-[#0b6b53]" /> {line}
@@ -324,7 +404,16 @@ export default function MobileHomeExperience() {
         <div className="m2-reveal px-5 pb-10 pt-14">
           <p className="text-[12px] font-bold uppercase tracking-[0.28em] text-[rgba(238,242,238,0.62)]">Why we exist</p>
           <h2 className="mt-4 text-[2.85rem] font-extrabold leading-[0.94] tracking-[-0.06em]">
-            Skill thrives where <span className="text-[#d1fae5]">access exists.</span>
+            {MISSION_WORDS.map(([word, accent], i) => (
+              <span key={i}>
+                <span
+                  className={`m2-word ${accent ? 'text-[#d1fae5]' : ''}`}
+                  style={{ animationRange: `entry ${20 + i * 9}% cover ${38 + i * 9}%`, transitionDelay: `${i * 90}ms` }}
+                >
+                  {word}
+                </span>{' '}
+              </span>
+            ))}
           </h2>
           <p className="mt-6 text-[19px] font-bold leading-7">Your ambition should set the limit. The price of your loupes shouldn&apos;t.</p>
           <p className="mt-4 text-[15px] leading-6 text-[rgba(238,242,238,0.74)]">
@@ -346,13 +435,16 @@ export default function MobileHomeExperience() {
       {/* HOW IT WORKS */}
       <section className="pt-14">
         <div className="px-5">
-          <h2 className="m2-h2 text-[2.1rem]">Custom fitted to<br />your measurements.</h2>
+          <h2 className="m2-h2 m2-reveal text-[2.1rem]">Custom fitted to<br />your measurements.</h2>
           <p className="m2-lede mt-3">You choose the system. We help make it yours.</p>
         </div>
-        <ol className="mt-6 flex snap-x snap-mandatory gap-2.5 overflow-x-auto scroll-pl-5 px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {STEPS.map(([number, heading, body]) => (
+        <ol className="m2-focus-strip mt-6 flex snap-x snap-mandatory gap-2.5 overflow-x-auto scroll-pl-5 px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {STEPS.map(([number, heading, body, figure]) => (
             <li key={number} className="flex min-h-[220px] w-[78%] shrink-0 snap-start flex-col justify-between rounded-[22px] bg-[#f7f9f7] p-5">
-              <span className="tab text-[3.4rem] font-extrabold leading-none tracking-[-0.06em] text-[#cfc5bb]">{number}</span>
+              <span className="flex items-start justify-between gap-3">
+                <span className="tab text-[3.4rem] font-extrabold leading-none tracking-[-0.06em] text-[#cfc5bb]">{number}</span>
+                <CustomHairline name={figure} tone="card" className="-mr-1 -mt-1 w-[120px]" />
+              </span>
               <span>
                 <h3 className="text-[19px] font-extrabold tracking-[-0.03em]">{heading}</h3>
                 <p className="mt-1.5 text-[14px] leading-6 text-[#26352d]">{body}</p>
@@ -367,8 +459,11 @@ export default function MobileHomeExperience() {
 
       {/* GUIDES */}
       <section className="px-5 pt-12">
-        <h2 className="m2-h2 text-[2.1rem]">Loupe guides<br />before you buy.</h2>
-        <ul className="mt-5">
+        <div className="flex items-end justify-between gap-3">
+          <h2 className="m2-h2 m2-reveal text-[2.1rem]">Loupe guides<br />before you buy.</h2>
+          <CustomHairline name="shelf" className="-mr-2 w-[104px] shrink-0" />
+        </div>
+        <ul className="m2-stagger mt-5">
           {GUIDES.map(([href, label]) => (
             <li key={href} className="border-b border-[rgba(8,38,27,0.1)]">
               <Link href={href} className="flex min-h-[52px] items-center justify-between gap-3 text-[15px] font-bold">
@@ -381,7 +476,10 @@ export default function MobileHomeExperience() {
 
       {/* FAQ */}
       <section className="px-5 pt-12">
-        <h2 className="m2-h2 text-[2.1rem]">Loupe questions,<br />answered.</h2>
+        <div className="flex items-end justify-between gap-3">
+          <h2 className="m2-h2 m2-reveal text-[2.1rem]">Loupe questions,<br />answered.</h2>
+          <HairlineFigure name="Query" className="-mr-2 w-[96px] shrink-0" />
+        </div>
         <div className="mt-5">
           {FAQS.map(([question, answer]) => (
             <details key={question} className="m2-details">
@@ -401,7 +499,9 @@ export default function MobileHomeExperience() {
         <p className="m2-kicker">No gatekeeping. Just fair pricing.</p>
         <h2 className="mt-4 text-[2.3rem] font-extrabold leading-[0.98] tracking-[-0.055em]">Focus on what<br />you came here to do.</h2>
         <div className="relative mx-auto mt-5 h-[150px] w-full overflow-hidden rounded-[20px]">
-          <Image src="/m2/galileo/stage.webp" alt="Galileo surgical loupes" fill sizes="(max-width: 767px) 90vw, 1px" className="object-cover" style={{ objectPosition: '48% 60%' }} />
+          <span className="m2-parallax absolute inset-0">
+            <Image src="/m2/galileo/stage.webp" alt="Galileo surgical loupes" fill sizes="(max-width: 767px) 90vw, 1px" className="object-cover" style={{ objectPosition: '48% 60%' }} />
+          </span>
         </div>
         <Link href="#mobile-collection" className="m2-btn m2-btn--ink mt-4 w-full justify-between">
           Find your loupes <ArrowRight size={18} />

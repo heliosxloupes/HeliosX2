@@ -60,7 +60,7 @@ export function GET() {
     'How to use this site as an agent:',
     '',
     '- Any page is available as Markdown: request it with `Accept: text/markdown`.',
-    '- Prices per magnification are on each product page and in its Product JSON-LD (`AggregateOffer`).',
+    '- Prices per magnification are on each product page; its Product JSON-LD carries the starting price.',
     '- To buy, send the user to the product page; checkout runs on Stripe. Questions go to heliosxloupes@gmail.com.',
     '',
     llmsFactsBlock(siteUrl),

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { modelBySlug } from '@/components/m2/models'
 import { getProduct } from '@/lib/commerce'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productPositioning } from '@/lib/seo-content'
@@ -126,8 +127,12 @@ export async function getProductJsonLd(slug: string) {
       name: product.name,
       description,
       slug: product.slug,
-      image: product.cardImageSrc || product.heroImages[0]?.src,
+      // The current studio photography (the phone storefront's set) leads, so
+      // Google Shopping and rich results show the product, not a portrait.
+      image: modelBySlug(slug)?.photo.src || product.cardImageSrc || product.heroImages[0]?.src,
       images: [
+        modelBySlug(slug)?.photo.src,
+        ...(modelBySlug(slug)?.gallery ?? []),
         product.cardImageSrc,
         ...product.heroImages.map((image) => image.src),
         ...product.specImages.map((image) => image.src),

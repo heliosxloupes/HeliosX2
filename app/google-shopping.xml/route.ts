@@ -1,5 +1,20 @@
 import { absoluteUrl, siteName } from '@/lib/seo'
 import { productImages, productPositioning, productStartingPrices } from '@/lib/seo-content'
+import { magnificationPriceByProduct } from '@/lib/pricing'
+import { modelBySlug } from '@/components/m2/models'
+
+// Titles carry the words people search ("surgical loupes", "dental loupes",
+// the optical type and magnification), which drive Shopping matching far
+// more than the model name alone.
+const opticalType: Record<keyof typeof productPositioning, string> = {
+  Medusa: 'Ergonomic Prismatic',
+  Apollo: 'Ergonomic Prismatic',
+  Kepler: 'Prismatic',
+  Galileo: 'Galilean',
+  Newton: 'Galilean',
+}
+// Free worldwide shipping; list the countries we target in Merchant Center.
+const shippingCountries = ['US', 'CA', 'GB', 'AU']
 
 export const dynamic = 'force-static'
 
@@ -16,25 +31,39 @@ export function GET() {
   const products = (Object.keys(productPositioning) as Array<keyof typeof productPositioning>).map(
     (shortName) => {
       const slug = shortName.toLowerCase()
+      const mags = Object.keys(magnificationPriceByProduct[slug])
+      const range = `${mags[0]}–${mags[mags.length - 1]}`
       return `
     <item>
       <g:id>${escapeXml(`heliosx-${slug}`)}</g:id>
-      <title>${escapeXml(`${shortName} Loupes`)}</title>
+      <title>${escapeXml(`HeliosX ${shortName} ${opticalType[shortName]} Surgical & Dental Loupes ${range}, Custom Fit`)}</title>
       <description>${escapeXml(productPositioning[shortName])}</description>
       <link>${escapeXml(absoluteUrl(`/product/${slug}`))}</link>
-      <g:image_link>${escapeXml(absoluteUrl(productImages[shortName]))}</g:image_link>
+      <g:image_link>${escapeXml(absoluteUrl(modelBySlug(slug)?.photo.src ?? productImages[shortName]))}</g:image_link>${(modelBySlug(slug)?.gallery ?? [])
+        .slice(0, 10)
+        .map((src) => `
+      <g:additional_image_link>${escapeXml(absoluteUrl(src))}</g:additional_image_link>`)
+        .join('')}
       <g:availability>in_stock</g:availability>
       <g:price>${escapeXml(`${productStartingPrices[shortName].toFixed(2)} USD`)}</g:price>
       <g:condition>new</g:condition>
       <g:brand>${escapeXml(siteName)}</g:brand>
       <g:mpn>${escapeXml(`heliosx-${slug}`)}</g:mpn>
-      <g:identifier_exists>yes</g:identifier_exists>
-      <g:product_type>Surgical and dental loupes</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Medical &gt; Medical Instruments</g:google_product_category>
+      <g:product_type>Surgical and dental loupes &gt; ${escapeXml(opticalType[shortName])}</g:product_type>
+      <g:product_highlight>Custom built to your pupillary and working distance</g:product_highlight>
+      <g:product_highlight>Limited lifetime warranty and free worldwide shipping</g:product_highlight>
+      <g:product_highlight>30-day returns on non-prescription pairs</g:product_highlight>${shippingCountries
+        .map(
+          (country) => `
       <g:shipping>
-        <g:country>US</g:country>
+        <g:country>${country}</g:country>
         <g:service>Standard</g:service>
         <g:price>0.00 USD</g:price>
-      </g:shipping>
+      </g:shipping>`,
+        )
+        .join('')}
       <!--
         Every pair is built to the buyer's measurements after checkout, so
         "in_stock" only holds alongside an honest handling time. Without these

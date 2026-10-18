@@ -516,61 +516,27 @@ export function productJsonLd(product: {
   const productUrl = absoluteUrl(`/product/${product.slug}`)
   const sku = `heliosx-${product.slug}`
   const priceValidUntil = oneYearFromTodayISO()
-  const { low: parsedLow, high: parsedHigh } = parsePriceLabelRange(product.priceLabel)
-  const offerCount = product.magnifications?.length ?? 0
+  const { low: parsedLow } = parsePriceLabelRange(product.priceLabel)
 
   const lowPrice = parsedLow ?? product.price
-  const highPrice = parsedHigh ?? product.price
 
-  let offers: Record<string, unknown>
-
-  if (
-    typeof lowPrice === 'number' &&
-    typeof highPrice === 'number' &&
-    highPrice > lowPrice &&
-    offerCount > 1
-  ) {
-    offers = {
-      '@type': 'AggregateOffer',
-      priceCurrency: 'USD',
-      lowPrice,
-      highPrice,
-      offerCount,
-      availability: 'https://schema.org/InStock',
-      itemCondition: 'https://schema.org/NewCondition',
-      url: productUrl,
-      priceValidUntil,
-      validFrom: '2026-05-24T00:00:00Z',
-      hasMerchantReturnPolicy: defaultMerchantReturnPolicy,
-      shippingDetails: defaultShippingDetails,
-      // One Offer per magnification, each with its exact price, so agents
-      // don't have to infer prices from the range.
-      offers: Object.entries(magnificationPriceByProduct[product.slug] ?? {}).map(([magnification, price]) => ({
-        '@type': 'Offer',
-        name: `${product.name}, ${magnification}`,
-        sku: `${sku}-${magnification.replace('.', '')}`,
-        price,
-        priceCurrency: 'USD',
-        availability: 'https://schema.org/InStock',
-        itemCondition: 'https://schema.org/NewCondition',
-        url: productUrl,
-        priceValidUntil,
-      })),
-    }
-  } else {
-    offers = {
-      '@type': 'Offer',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      itemCondition: 'https://schema.org/NewCondition',
-      url: productUrl,
-      priceValidUntil,
-      validFrom: '2026-05-24T00:00:00Z',
-      hasMerchantReturnPolicy: defaultMerchantReturnPolicy,
-      shippingDetails: defaultShippingDetails,
-    }
-    if (typeof lowPrice === 'number') offers.price = lowPrice
+  // A single Offer at the starting price, which is what the product page
+  // shows by default. Google merchant listings (and Merchant Center's
+  // website crawl) reject AggregateOffer as "missing price", which kept every
+  // HeliosX product out of free Shopping listings until Oct 2026. Per-
+  // magnification prices stay in llms.txt and the product page itself.
+  const offers: Record<string, unknown> = {
+    '@type': 'Offer',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    itemCondition: 'https://schema.org/NewCondition',
+    url: productUrl,
+    priceValidUntil,
+    validFrom: '2026-05-24T00:00:00Z',
+    hasMerchantReturnPolicy: defaultMerchantReturnPolicy,
+    shippingDetails: defaultShippingDetails,
   }
+  if (typeof lowPrice === 'number') offers.price = lowPrice
 
   const imageUrls = Array.from(
     new Set((product.images?.length ? product.images : [product.image ?? '/HeliosXNew.png']).map(absoluteUrl)),

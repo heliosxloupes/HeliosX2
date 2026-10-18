@@ -9,10 +9,34 @@ import { useMemo, useRef, useState } from 'react'
 import { MODELS, money, startingPrice, type M2Model } from '@/components/m2/models'
 import { PhotoThumb, StagePhoto } from '@/components/m2/Photo'
 import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
+import SpecialtySection from '@/components/home/SpecialtySection'
 
 type Filter = 'All loupes' | 'Ergonomic' | 'Everyday' | 'Fine detail'
 
 const FILTERS: Filter[] = ['All loupes', 'Ergonomic', 'Everyday', 'Fine detail']
+
+// Mirrors the desktop homepage's clarity and customization sections so the
+// mobile page Google indexes carries the same content.
+const OPTICS = [
+  ['Magnification', 'Configurable magnification ranges tuned for plastics, hand, microsurgery, dentistry, and general precision work.'],
+  ['Depth and field', 'Balanced depth of field that supports steady visualization without constant micro-adjustments.'],
+  ['Coatings and contrast', 'Anti-reflective coatings and high-quality glass help maintain contrast under OR lighting and headlights.'],
+] as const
+
+const FIT = [
+  'Multiple frame styles: modern, hipster, vintage, classic.',
+  'Material choices: ultra-light polymer or premium alloy metal.',
+  'Magnification options from 2.5x to 8.5x for any procedure type.',
+] as const
+
+const GUIDES = [
+  ['/education/loupe-magnification-guide', 'Which magnification do I need?'],
+  ['/education/galilean-vs-prismatic-loupes', 'Galilean vs prismatic loupes'],
+  ['/education/working-distance-for-loupes', 'How to measure working distance'],
+  ['/ergonomic-loupe-comparison', 'Ergonomic loupes compared'],
+  ['/how-much-do-surgical-loupes-cost', 'What surgical loupes cost'],
+  ['/student-loupe-comparison', 'Loupes for students and residents'],
+] as const
 
 const STEPS = [
   ['01', 'Choose your optics', 'Pick your model, magnification, and frame. Your price stays clear while you configure.'],
@@ -104,6 +128,54 @@ function StageCarousel() {
   )
 }
 
+const MISSION_PHOTOS = [
+  ['/m2/mission-surgeon.webp', 'Clinician focused on detailed work wearing HeliosX Medusa loupes', '50% 35%'],
+  ['/m2/mission-2.webp', 'Surgeon operating in the OR wearing HeliosX Medusa loupes', '50% 30%'],
+  ['/m2/mission-3.webp', 'Close-up of a surgeon wearing HeliosX Medusa loupes during a procedure', '50% 30%'],
+] as const
+
+// Swipeable photo strip; every photo stays in the HTML so all are indexable.
+function MissionCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [active, setActive] = useState(0)
+
+  const onScroll = () => {
+    const el = trackRef.current
+    if (!el || !el.clientWidth) return
+    const next = Math.round(el.scrollLeft / el.clientWidth)
+    setActive((prev) => (prev === next ? prev : next))
+  }
+
+  const goTo = (index: number) => {
+    const el = trackRef.current
+    if (!el) return
+    el.scrollTo({ left: index * el.clientWidth, behavior: 'smooth' })
+  }
+
+  return (
+    <div className="relative mx-3 h-[440px] overflow-hidden rounded-[24px]" aria-roledescription="carousel" aria-label="HeliosX loupes in use">
+      <div
+        ref={trackRef}
+        onScroll={onScroll}
+        className="flex h-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {MISSION_PHOTOS.map(([src, alt, position]) => (
+          <div key={src} className="relative h-full w-full shrink-0 snap-center">
+            <Image src={src} alt={alt} fill sizes="100vw" className="object-cover" style={{ objectPosition: position }} />
+          </div>
+        ))}
+      </div>
+      <div className="absolute inset-x-0 bottom-3 flex justify-center gap-1">
+        {MISSION_PHOTOS.map(([src], index) => (
+          <button key={src} type="button" aria-label={`Show photo ${index + 1}`} aria-current={active === index} onClick={() => goTo(index)} className="flex h-9 items-center px-0.5">
+            <span className={`block h-[5px] rounded-full transition-[width,background-color] duration-300 ${active === index ? 'w-6 bg-[#f1f4f1]' : 'w-[5px] bg-[rgba(241,244,241,0.55)]'}`} />
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function CollectionRow({ model }: { model: M2Model }) {
   return (
     <Link href={`/product/${model.slug}`} className="m2-row items-stretch p-2 pr-4">
@@ -116,7 +188,7 @@ function CollectionRow({ model }: { model: M2Model }) {
           <span className="text-[19px] font-extrabold tracking-[-0.03em]">{model.name}</span>
           <span className="tab text-[14px] font-extrabold">{money(startingPrice(model.slug))}</span>
         </span>
-        <span className="mt-0.5 line-clamp-2 text-[12.5px] leading-[1.35] text-[#26352d]">{model.focus}</span>
+        <span className="mt-0.5 line-clamp-2 text-[12.5px] leading-[1.35] text-[#26352d]"><span className="tab font-bold">{model.range.replace('-', '–')}</span> · {model.focus}</span>
       </span>
     </Link>
   )
@@ -154,12 +226,12 @@ export default function MobileHomeExperience() {
       {/* COLLECTION */}
       <section id="mobile-collection" className="scroll-mt-20 px-5 pt-14">
         <div className="flex items-end justify-between gap-4">
-          <h2 className="m2-h2 text-[2.1rem]">Your work.<br />Your focus.</h2>
+          <h2 className="m2-h2 text-[2.1rem]">Five loupe systems.<br />One fitting standard.</h2>
           <Link href="/loupe-comparisons" className="flex min-h-11 shrink-0 items-center gap-1.5 text-[13px] font-bold text-[#0b6b53]">
             Compare <SlidersHorizontal size={14} />
           </Link>
         </div>
-        <p className="m2-lede mt-3">Five loupe systems. One belief: precision belongs to everyone who pursues it.</p>
+        <p className="m2-lede mt-3">Ergonomic prismatic and Galilean loupes for surgery and dentistry, 2.5x to 8.5x. Precision belongs to everyone who pursues it.</p>
 
         <div className="m2-pills mt-5" role="group" aria-label="Filter loupes">
           {FILTERS.map((item) => (
@@ -199,6 +271,54 @@ export default function MobileHomeExperience() {
         </Link>
       </section>
 
+      <SpecialtySection variant="mobile" />
+
+      {/* OPTICS: the brand film lives here so the VideoObject in the homepage
+          structured data points at a video that exists on mobile too. */}
+      <section className="px-5 pt-14">
+        <p className="text-[12px] font-bold uppercase tracking-[0.28em] text-[#4d5f54]">Optical clarity</p>
+        <h2 className="m2-h2 mt-3 text-[2.1rem]">Optical clarity.<br />Honest price.</h2>
+        <p className="m2-lede mt-3">
+          Built for those who pursue mastery: a clear, stable view of the field, ergonomic comfort, and elite quality at a fair price.
+        </p>
+        <div className="relative mt-5 aspect-video overflow-hidden rounded-[22px] bg-[#14231d]">
+          <video
+            src="/mainpagevideo2.mp4"
+            poster="/mainpagevideo2-poster.jpg"
+            controls
+            muted
+            playsInline
+            preload="none"
+            aria-label="HeliosX loupes brand film"
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <dl className="mt-3 grid gap-2">
+          {OPTICS.map(([label, body]) => (
+            <div key={label} className="rounded-[18px] bg-[#f7f9f7] p-4">
+              <dt className="text-[15px] font-extrabold tracking-[-0.02em]">{label}</dt>
+              <dd className="mt-1 text-[14px] leading-6 text-[#26352d]">{body}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      {/* FIT */}
+      <section className="px-5 pt-14">
+        <p className="text-[12px] font-bold uppercase tracking-[0.28em] text-[#4d5f54]">Customization</p>
+        <h2 className="m2-h2 mt-3 text-[2.1rem]">Built for every specialty.<br />Tailored to you.</h2>
+        <p className="m2-lede mt-3">
+          No two clinicians operate the same way. Choose your frame, material, and magnification, and we tailor the system to your anatomy and workflow.
+        </p>
+        <ul className="mt-5 grid gap-2.5">
+          {FIT.map((line) => (
+            <li key={line} className="flex items-start gap-2.5 text-[14px] leading-6 text-[#26352d]">
+              <Check size={16} className="mt-1 shrink-0 text-[#0b6b53]" /> {line}
+            </li>
+          ))}
+        </ul>
+      </section>
+
       {/* MISSION */}
       <section id="mission" className="mt-14 scroll-mt-20 bg-[#14231d] pb-3 text-[#eef2ee]">
         <div className="m2-reveal px-5 pb-10 pt-14">
@@ -210,19 +330,23 @@ export default function MobileHomeExperience() {
           <p className="mt-4 text-[15px] leading-6 text-[rgba(238,242,238,0.74)]">
             HeliosX brings premium optics and honest pricing directly to clinicians—for the student building a foundation, the resident finding their rhythm, and the surgeon pursuing mastery.
           </p>
+          <p className="mt-4 text-[15px] leading-6 text-[rgba(238,242,238,0.74)]">
+            We watched residents delay buying loupes because rent mattered more, and students borrow gear because their budget had limits. The problem was never the craftsmanship. It was the gatekeeping. So we built an alternative.
+          </p>
+          <p className="mt-4 text-[13px] leading-5 text-[rgba(238,242,238,0.6)]">
+            A note on the name: HeliosX Loupes is a direct-to-clinician medical-device brand for surgical and dental loupes. We are not affiliated with the UK healthtech company also called HeliosX.
+          </p>
           <Link href="/how-much-do-surgical-loupes-cost" className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#d1fae5] px-4 text-[14px] font-extrabold text-[#08261b]">
             Why loupes cost what they do <ArrowRight size={16} />
           </Link>
         </div>
-        <div className="relative mx-3 h-[380px] overflow-hidden rounded-[24px]">
-          <Image src="/m2/mission.webp" alt="Clinician wearing HeliosX loupes" fill sizes="100vw" className="object-cover" style={{ objectPosition: "42% 35%" }} />
-        </div>
+        <MissionCarousel />
       </section>
 
       {/* HOW IT WORKS */}
       <section className="pt-14">
         <div className="px-5">
-          <h2 className="m2-h2 text-[2.1rem]">Your loupes.<br />Your measurements.</h2>
+          <h2 className="m2-h2 text-[2.1rem]">Custom fitted to<br />your measurements.</h2>
           <p className="m2-lede mt-3">You choose the system. We help make it yours.</p>
         </div>
         <ol className="mt-6 flex snap-x snap-mandatory gap-2.5 overflow-x-auto scroll-pl-5 px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -241,9 +365,23 @@ export default function MobileHomeExperience() {
         </Link>
       </section>
 
+      {/* GUIDES */}
+      <section className="px-5 pt-12">
+        <h2 className="m2-h2 text-[2.1rem]">Loupe guides<br />before you buy.</h2>
+        <ul className="mt-5">
+          {GUIDES.map(([href, label]) => (
+            <li key={href} className="border-b border-[rgba(8,38,27,0.1)]">
+              <Link href={href} className="flex min-h-[52px] items-center justify-between gap-3 text-[15px] font-bold">
+                {label} <ArrowUpRight size={16} className="shrink-0 text-[#0b6b53]" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       {/* FAQ */}
       <section className="px-5 pt-12">
-        <h2 className="m2-h2 text-[2.1rem]">Good questions.<br />Clear answers.</h2>
+        <h2 className="m2-h2 text-[2.1rem]">Loupe questions,<br />answered.</h2>
         <div className="mt-5">
           {FAQS.map(([question, answer]) => (
             <details key={question} className="m2-details">
@@ -263,7 +401,7 @@ export default function MobileHomeExperience() {
         <p className="m2-kicker">No gatekeeping. Just fair pricing.</p>
         <h2 className="mt-4 text-[2.3rem] font-extrabold leading-[0.98] tracking-[-0.055em]">Focus on what<br />you came here to do.</h2>
         <div className="relative mx-auto mt-5 h-[150px] w-full overflow-hidden rounded-[20px]">
-          <Image src="/m2/galileo/stage.webp" alt="" fill sizes="(max-width: 767px) 90vw, 1px" className="object-cover" style={{ objectPosition: '48% 60%' }} />
+          <Image src="/m2/galileo/stage.webp" alt="Galileo surgical loupes" fill sizes="(max-width: 767px) 90vw, 1px" className="object-cover" style={{ objectPosition: '48% 60%' }} />
         </div>
         <Link href="#mobile-collection" className="m2-btn m2-btn--ink mt-4 w-full justify-between">
           Find your loupes <ArrowRight size={18} />

@@ -17,6 +17,7 @@ import Header from "@/components/Header";
 import ResidentDiscountBadge from "@/components/home/ResidentDiscountBadge";
 import LazyVideo from "@/components/LazyVideo";
 import MobileHomeExperience from "@/components/home/MobileHomeExperience";
+import SpecialtySection from "@/components/home/SpecialtySection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -156,6 +157,7 @@ export default function HomePage() {
         <main className={`space-y-20 pb-16 md:space-y-28 md:pb-24 ${isMobile === null ? "max-md:hidden" : ""}`}>
           <HeroSection />
           <LineupSection />
+          <SpecialtySection variant="desktop" />
           <ManifestoSection />
           <HorizontalStorySection />
 

@@ -448,10 +448,11 @@ const defaultMerchantReturnPolicy = {
   '@type': 'MerchantReturnPolicy',
   applicableCountry: ['US', 'CA', 'GB', 'AU', 'IE', 'NZ'],
   // 30-day returns on non-prescription pairs (prescription pairs: refundable
-  // until production). Add returnFees once return shipping cost is decided.
+  // until production). HeliosX pays return shipping (decided 2026-10-17).
   returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
   merchantReturnDays: 30,
   returnMethod: 'https://schema.org/ReturnByMail',
+  returnFees: 'https://schema.org/FreeReturn',
   merchantReturnLink: absoluteUrl('/returns'),
 }
 

@@ -22,7 +22,7 @@ export default function ReturnsPage() {
           <h1 className="text-3xl font-semibold md:text-4xl">Returns and refunds</h1>
 
           <div className="rounded-2xl border border-emerald-300/25 bg-emerald-300/[0.06] p-5 text-sm leading-7 text-neutral-200">
-            <p><strong className="text-white">30-day returns:</strong> Return any non-prescription pair within 30 days of delivery for a full refund.</p>
+            <p><strong className="text-white">30-day returns:</strong> Return any non-prescription pair within 30 days of delivery for a full refund. Return shipping is on us.</p>
             <p><strong className="text-white">Prescription pairs:</strong> Cancel for a full refund any time before production starts. After that, we cover defects and fit corrections.</p>
             <p><strong className="text-white">Warranty:</strong> Every pair has a limited lifetime warranty.</p>
           </div>
@@ -33,7 +33,7 @@ export default function ReturnsPage() {
               30-day returns on non-prescription pairs
             </h2>
             <p className="text-neutral-300">
-              Buying loupes you have never tried on is a leap, so try them where it counts: in your own clinic or operating room. If the pair is not right for you, email us within 30 days of delivery, send the loupes back in their original condition with the case, and we refund the full price of the loupes.
+              Buying loupes you have never tried on is a leap, so try them where it counts: in your own clinic or operating room. If the pair is not right for you, email us within 30 days of delivery, send the loupes back in their original condition with the case, and we refund the full price of the loupes. We cover the return shipping with a prepaid label or by refunding your postage.
             </p>
           </section>
 

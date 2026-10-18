@@ -48,7 +48,7 @@ export function llmsFactsBlock(siteUrl: string) {
     `- Prescription lenses: ${usd(PRESCRIPTION_PRICE)} per pair.`,
     '- Payment: card, Affirm or Klarna through Stripe checkout.',
     '- Timing: production usually takes 1–2 weeks after measurements are approved, then shipping time depends on the destination.',
-    '- Returns: non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs can be cancelled for a full refund until production starts; after that, defects and fit corrections are covered.',
+    '- Returns: non-prescription pairs can be returned within 30 days of delivery for a full refund, with free return shipping. Prescription pairs can be cancelled for a full refund until production starts; after that, defects and fit corrections are covered.',
     '- Fitting: no in-person fitting. Buyers send their pupillary distance (phone app or optician) and working distance (tape measure in operating posture).',
     '- Contact: heliosxloupes@gmail.com, usually answered within one business day.',
     '',

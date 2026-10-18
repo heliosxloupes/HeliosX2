@@ -191,6 +191,21 @@ const brands: Brand[] = [
       'Admetec publishes a hygienist buying guide and recommends 3.0x, 4.0x, and 5.0x for hygiene work. Its Ergo V puts three magnification settings in one ergonomic loupe, which is a different proposition from choosing one HeliosX magnification at purchase.',
     hygieneSource: 'https://www.admetec.com/loupes-for-hygienists/',
   },
+  {
+    name: 'Designs for Vision',
+    slug: 'designs-for-vision',
+    source: 'https://www.designsforvision.com/DentHtml/D-Infinity.htm',
+    detail:
+      'Designs for Vision builds loupes to each buyer’s measurements at its New York facility and offers a 45-day free trial. Its range runs from 1.7x to 6.0x, including standard and expanded field telescopes and the Infinity VUE ergonomic loupes at 3.0x, 3.5x and 4.5x. Prices are not published; you request a quote or a demonstration.',
+    check:
+      'If a long trial and an in-person demonstration matter to you, Designs for Vision offers both. If you want to see the price before you talk to anyone, compare a written quote at the same magnification with a complete HeliosX order.',
+    price: 'Request a quote; prices are not published. Student program discounts are offered.',
+    distinction: 'Custom-built telescopes with a 45-day free trial; Infinity VUE ergonomic loupes at 3.0x–4.5x.',
+    products: ['Galileo', 'Apollo', 'Kepler'],
+    hygieneNote:
+      'Designs for Vision runs a hygienist section with 2.5x Designer telescopes, Micro2.5x scopes and Infinity VUE ergonomic loupes, plus LED DayLite headlights. Its 45-day free trial lets you test the declination in your own operatory, which is the fit detail that matters most in hygiene.',
+    hygieneSource: 'https://www.designsforvision.com/DentHtml/HygDes.htm',
+  },
 ]
 
 type Revision = Partial<SeoLandingPage>
@@ -300,10 +315,10 @@ for (const [slug, title, context] of [
 ]) {
   revisions[slug] = {
     title,
-    metaTitle: `${slug.includes('surgical') ? 'Best Surgical' : 'Best Dental'} Loupe Brands: Compare 7 Options`,
+    metaTitle: `${slug.includes('surgical') ? 'Best Surgical' : 'Best Dental'} Loupe Brands: Compare 8 Options`,
     description:
-      'Compare HeliosX, LumaDent, Orascoptic, SurgiTel, Q-Optics, ExamVision, and Admetec by fit, features, and buying costs. A brand-authored guide.',
-    intro: `${context} There is no single best brand for every clinician. Below, compare seven brands by the features and buying terms that can change your decision.`,
+      'Compare HeliosX, LumaDent, Orascoptic, SurgiTel, Q-Optics, ExamVision, Admetec, and Designs for Vision by fit, features, and buying costs. A brand-authored guide.',
+    intro: `${context} There is no single best brand for every clinician. Below, compare eight brands by the features and buying terms that can change your decision.`,
     recommendedProducts: ['Newton', 'Apollo', 'Medusa'],
     comparisonRows: undefined,
     verdict: undefined,
@@ -351,12 +366,12 @@ for (const [slug, title, context] of [
 // those searches outright; the competing pages now link here instead.
 {
   const surgical = revisions['best-surgical-loupe-brands']
-  surgical.title = 'Best surgical loupes: 7 brands compared'
-  surgical.metaTitle = 'Best Surgical Loupes 2026: 7 Brands Compared | HeliosX'
+  surgical.title = 'Best surgical loupes: 8 brands compared'
+  surgical.metaTitle = 'Best Surgical Loupes 2026: 8 Brands Compared | HeliosX'
   surgical.description =
-    'The best surgical loupes (surgical magnifying glasses) depend on your procedures, magnification, and posture. Compare HeliosX, LumaDent, Orascoptic, SurgiTel, Q-Optics, ExamVision, and Admetec by fit, features, and price.'
+    'The best surgical loupes (surgical magnifying glasses) depend on your procedures, magnification, and posture. Compare HeliosX, LumaDent, Orascoptic, SurgiTel, Q-Optics, ExamVision, Admetec, and Designs for Vision by fit, features, and price.'
   surgical.intro =
-    'The best surgical loupes show the detail your procedures need, at your working distance, in a posture you can hold for a full list. Surgical loupes are also called surgical magnifying glasses, medical loupes or surgical telescopes. There is no single best brand for every surgeon, so below you can match a type of loupe to your work, then compare seven brands by the features and buying terms that change the decision.'
+    'The best surgical loupes show the detail your procedures need, at your working distance, in a posture you can hold for a full list. Surgical loupes are also called surgical magnifying glasses, medical loupes or surgical telescopes. There is no single best brand for every surgeon, so below you can match a type of loupe to your work, then compare eight brands by the features and buying terms that change the decision.'
   surgical.sections = [
     ...(surgical.sections ?? []).slice(0, 1),
     section(
@@ -1734,9 +1749,48 @@ const answers: Record<string, string> = {
   'ergonomic-loupe-comparison': `Ergonomic loupes use angled prismatic optics so you look down into the field with your head closer to upright. Established options include Orascoptic, SurgiTel ErgoDeflection, Q-Optics ErgoAngle, LumaDent Ergo Air Ti (from $1,995) and Admetec Ergo V. HeliosX Apollo and Medusa are ergonomic prismatic loupes from ${from('apollo')} with published prices and ${terms}.`,
   'how-much-do-surgical-loupes-cost': `Surgical loupes cost from about $700 to more than $5,500. Pairs from representative-sold brands usually run $2,000–5,500, depending on optics and whether a light is bundled. HeliosX publishes its prices: Newton from ${from('newton')}, Galileo ${from('galileo')}, Kepler ${from('kepler')}, Apollo and Medusa ${from('apollo')}, with worldwide shipping and a lifetime warranty included.`,
   'best-dental-loupe-brands': `The leading dental loupe brands are Orascoptic, SurgiTel, Designs for Vision, Q-Optics, LumaDent, ExamVision and Admetec, mostly sold through representatives. HeliosX is the published-price alternative: custom-fit Galilean pairs from ${from('newton')} and ergonomic prismatic pairs from ${from('apollo')}, with ${terms}.`,
+  'heliosx-vs-designs-for-vision': `Designs for Vision builds custom loupes in New York, sells them through quotes and demonstrations, and offers a 45-day free trial. HeliosX also builds every pair to your measurements but publishes its prices: Galilean from ${from('newton')} and ergonomic prismatic from ${from('apollo')}, with ${terms}. Choose Designs for Vision for a long in-person trial; choose HeliosX to see the full price up front.`,
+  'which-surgical-loupes-should-i-get': `Most students and residents should get 2.5x–3.5x Galilean loupes built to their measured working distance, move to prismatic loupes only when routine cases need 4.0x or more, and choose ergonomic prismatic loupes when neck strain is the problem. HeliosX Newton starts at ${from('newton')}, Kepler at ${from('kepler')} and Apollo at ${from('apollo')}, with ${terms}.`,
+  'are-cheap-surgical-loupes-good': `Cheap marketplace loupes are fine for trying magnification, but they usually come at a standard working distance with unstated optics and no usable warranty. For daily clinical work, the fit matters more than the price: buy a pair measured to your posture, with a named optical design and written warranty and return terms. HeliosX Newton is custom-measured from ${from('newton')} with ${terms}.`,
+  'surgical-loupes-international-shipping': `Yes. HeliosX ships custom surgical and dental loupes worldwide with standard shipping included in the published USD price, from ${from('newton')}. You measure at home, we review the measurements before production (about 1–2 weeks), and the same lifetime warranty and 30-day returns apply in every country. Import duties depend on your country.`,
   'best-surgical-loupe-brands': `The best surgical loupes match your procedures, working distance and posture: Galilean 2.5x–3.5x for general work and training, prismatic 4.0x–6.0x for fine detail, ergonomic prismatic for long cases. Established brands include SurgiTel, Orascoptic, Designs for Vision, Zeiss and LumaDent; HeliosX sells custom-fit pairs online from ${from('newton')} with ${terms}.`,
 }
+const answerTables: Record<string, Pick<SeoLandingPage, 'competitorName' | 'comparisonRows'>> = {
+  'which-surgical-loupes-should-i-get': {
+    competitorName: 'Also compare',
+    comparisonRows: [
+      { feature: 'First pair, tight budget', heliosx: `Newton 2.5x–3.5x Galilean, from ${from('newton')}`, other: 'Orascoptic or SurgiTel student programs, by quote' },
+      { feature: 'Wider view, everyday work', heliosx: `Galileo 2.5x–3.5x Galilean, from ${from('galileo')}`, other: 'LumaDent, Q-Optics Galilean models' },
+      { feature: 'Fine detail, 4.0x–6.0x', heliosx: `Kepler conventional prismatic, from ${from('kepler')}`, other: 'Designs for Vision, Zeiss prismatic' },
+      { feature: 'Long cases, neck strain', heliosx: `Apollo ergonomic prismatic, from ${from('apollo')}`, other: 'SurgiTel ErgoDeflection, Q-Optics ErgoAngle, LumaDent Ergo Air Ti ($1,995)' },
+      { feature: 'Sit and stand in one day', heliosx: `Medusa, working distance 300–600 mm, from ${from('medusa')}`, other: 'Variable working distance models from LumaDent' },
+      { feature: 'Several magnifications in one loupe', heliosx: 'Not offered', other: 'ExamVision Kepler Advanced, Admetec Ergo V' },
+    ],
+  },
+  'are-cheap-surgical-loupes-good': {
+    competitorName: 'Typical marketplace loupe',
+    comparisonRows: [
+      { feature: 'Working distance', heliosx: 'Built to the distance you measure in your own posture', other: 'One standard distance for everyone' },
+      { feature: 'Pupillary distance', heliosx: 'Set to your measurement and reviewed before production', other: 'Adjustable or fixed, rarely matched to you' },
+      { feature: 'Optics stated', heliosx: 'Galilean or prismatic, magnification and field of view published', other: 'Often unstated or unverifiable' },
+      { feature: 'Warranty', heliosx: 'Limited lifetime warranty against manufacturer defects', other: 'Marketplace return window, rarely a warranty' },
+      { feature: 'Returns', heliosx: '30 days for any reason on non-prescription pairs, return shipping paid', other: 'Varies by seller' },
+      { feature: 'Price', heliosx: `From ${from('newton')}`, other: 'About $100–400' },
+    ],
+  },
+  'surgical-loupes-international-shipping': {
+    competitorName: 'Dealer-sold brands',
+    comparisonRows: [
+      { feature: 'Price', heliosx: `One published USD price list, from ${from('newton')}`, other: 'Quoted by country and dealer' },
+      { feature: 'Shipping', heliosx: 'Standard worldwide shipping included', other: 'Depends on the regional dealer' },
+      { feature: 'Fitting', heliosx: 'Measure at home; we review before production', other: 'Local rep visit where available' },
+      { feature: 'Warranty and returns', heliosx: 'Lifetime warranty and 30-day returns in every country', other: 'Set by the regional distributor' },
+      { feature: 'Import duties', heliosx: 'Paid by the buyer where charged', other: 'Often included in the local price' },
+    ],
+  },
+}
 const guideAnswers: Record<string, string> = {
+  'galilean-vs-prismatic-loupes': `Choose Galilean loupes for 2.5x–3.5x: they are lighter, simpler, cheaper and give a wider, deeper view. Choose prismatic loupes for 4.0x and above, where they give a sharper, flatter image at the cost of weight. Choose ergonomic prismatic loupes if neck posture is the main problem. HeliosX Galilean pairs start at ${from('newton')} and prismatic at ${from('kepler')}.`,
   'best-loupes-for-dental-students': `Most dental students do best with 3.0x–3.5x Galilean loupes: wide enough for preclinical lab work and detailed enough for clinic, and many who start at 2.5x outgrow it within a year. HeliosX Newton starts at ${from('newton')} and Galileo at ${from('galileo')}, against $1,500–2,000 for a typical school-fair package, with ${TRAINEE_PERCENT_OFF}% off for verified students and ${terms}.`,
 }
 
@@ -1755,7 +1809,10 @@ export function applyEditorialRevisions(
       page.dateModified = reviewed
     }
   }
-  for (const page of pages) if (answers[page.slug]) page.answer = answers[page.slug]
+  for (const page of pages) {
+    if (answers[page.slug]) page.answer = answers[page.slug]
+    if (answerTables[page.slug]) Object.assign(page, answerTables[page.slug])
+  }
   for (const guide of guides) if (guideAnswers[guide.slug]) guide.answer = guideAnswers[guide.slug]
   // Targeted education revisions are applied after publication metadata.
   const ergonomics = guides.find((g) => g.slug === 'ergonomic-loupes-neck-pain')

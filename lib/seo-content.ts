@@ -5451,6 +5451,31 @@ const buyerQuestionPages: SeoLandingPage[] = [
 
 allSeoLandingPages.push(...buyerQuestionPages)
 
+// Oct 2026: Designs for Vision appears in almost every AI answer about loupes
+// and was the one major brand without a comparison page. Body copy comes from
+// the brand revisions in seo-editorial.ts.
+allSeoLandingPages.push({
+  slug: 'heliosx-vs-designs-for-vision',
+  title: 'HeliosX vs Designs for Vision',
+  metaTitle: 'HeliosX vs Designs for Vision: Loupes, Fit & Pricing',
+  description: 'Compare HeliosX and Designs for Vision loupes by optical design, price, fitting, trial and warranty terms.',
+  heroKicker: 'Comparison',
+  primaryKeyword: 'HeliosX vs Designs for Vision',
+  relatedKeywords: ['Designs for Vision alternatives', 'Designs for Vision loupes price', 'DFV loupes', 'Infinity VUE loupes alternative'],
+  audience: 'dentists, hygienists, students and surgeons comparing HeliosX with Designs for Vision',
+  intro: '',
+  proofPoints: [
+    `Published prices: Galilean from ${usd(productStartingPrices.Newton)}, ergonomic prismatic from ${usd(productStartingPrices.Apollo)}.`,
+    'Custom built to your measurements, reviewed before production.',
+    'Limited lifetime warranty and 30-day returns on non-prescription pairs.',
+  ],
+  sections: [],
+  recommendedProducts: ['Galileo', 'Apollo', 'Kepler'],
+  faqs: [],
+  datePublished: '2026-10-18',
+  dateModified: '2026-10-18',
+})
+
 const redditDiscussionPages: SeoLandingPage[] = [
   {
     slug: 'best-surgical-loupes-reddit',
@@ -6998,6 +7023,7 @@ const seoLandingHeroTails: Record<string, string> = {
   'heliosx-vs-q-optics': 'every spec that matters.',
   'heliosx-vs-examvision': 'point by point.',
   'heliosx-vs-admetec': 'the practical comparison.',
+  'heliosx-vs-designs-for-vision': 'side by side, prices included.',
   'orascoptic-alternatives': 'ranked by clinical fit.',
   'lumadent-alternatives': 'with honest pricing.',
   'surgitel-alternatives': 'vetted for clinicians.',
@@ -7029,6 +7055,7 @@ const comparisonCompetitorNames: Record<string, string> = {
   'heliosx-vs-q-optics': 'Q-Optics',
   'heliosx-vs-examvision': 'ExamVision',
   'heliosx-vs-admetec': 'Admetec',
+  'heliosx-vs-designs-for-vision': 'Designs for Vision',
   'lumadent-alternatives': 'LumaDent',
   'orascoptic-alternatives': 'Orascoptic',
   'surgitel-alternatives': 'SurgiTel',
@@ -7421,12 +7448,12 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
 // Contextual paths keep specialty and brand guides reachable without repeating
 // a site-wide keyword list on every article.
 const editorialLinks: Record<string, string[]> = {
-  'best-surgical-loupe-brands': ['education/intraoperative-magnification-by-specialty', 'best-surgical-loupes-reddit', 'heliosx-vs-lumadent', 'orascoptic-alternatives', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'examvision-alternatives', 'heliosx-vs-admetec'],
+  'best-surgical-loupe-brands': ['education/intraoperative-magnification-by-specialty', 'best-surgical-loupes-reddit', 'heliosx-vs-lumadent', 'orascoptic-alternatives', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'examvision-alternatives', 'heliosx-vs-admetec', 'heliosx-vs-designs-for-vision'],
   'best-loupes': ['best-surgical-loupes-reddit', 'affordable-surgical-loupes-reddit', 'loupes-for-medical-students', 'education/intraoperative-magnification-by-specialty'],
   'affordable-loupes': ['affordable-surgical-loupes-reddit', 'how-much-do-surgical-loupes-cost'],
   'how-much-do-surgical-loupes-cost': ['affordable-surgical-loupes-reddit', 'student-loupe-comparison', 'education/prescription-loupes-guide'],
   'best-surgical-loupes-reddit': ['affordable-surgical-loupes-reddit'],
-  'best-dental-loupe-brands': ['education/ergonomic-loupes-neck-pain', 'education/prescription-loupes-guide', 'heliosx-vs-lumadent', 'orascoptic-alternatives', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'examvision-alternatives', 'heliosx-vs-admetec'],
+  'best-dental-loupe-brands': ['education/ergonomic-loupes-neck-pain', 'education/prescription-loupes-guide', 'heliosx-vs-lumadent', 'orascoptic-alternatives', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'examvision-alternatives', 'heliosx-vs-admetec', 'heliosx-vs-designs-for-vision'],
   'loupe-comparisons': ['best-surgical-loupe-brands', 'best-dental-loupe-brands', 'student-loupe-comparison', 'ergonomic-loupe-comparison', 'prismatic-loupe-comparison'],
   'surgical-loupes': ['neurosurgery-loupes', 'cardiac-surgery-loupes', 'pediatric-surgery-loupes', 'maxillofacial-surgery-loupes', 'ent-otolaryngology-loupes', 'ophthalmic-surgery-loupes', 'education/best-loupes-for-plastic-surgery'],
   'student-loupe-comparison': ['education/best-loupes-for-dental-students', 'loupes-for-medical-students', 'education/best-loupes-for-residents'],

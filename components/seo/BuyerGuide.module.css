@@ -49,6 +49,21 @@
   margin: 16px 0 22px;
   color: #f7faf8;
 }
+/* Direct answer under the H1, phrased so AI answers and snippets can quote it. */
+.answer {
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 66ch;
+  margin-bottom: 14px;
+  padding: 14px 18px;
+  border-left: 3px solid #34d399;
+  border-radius: 0 12px 12px 0;
+  background: rgba(52, 211, 153, 0.08);
+  color: #eef4f0;
+}
+.answer strong {
+  color: #a7f3d0;
+}
 .intro {
   font-size: 17px;
   line-height: 1.75;
@@ -496,6 +511,8 @@
   .kicker { color: #0b6b53; }
   .page h1, .page h2, .page h3 { color: #08261b; }
   .intro, .lead, .card p, .article p, .article li, .aside p, .faq p { color: #2b3a32; }
+  .answer { background: rgba(11, 107, 83, 0.08); border-left-color: #0b6b53; color: #14231d; }
+  .answer strong { color: #0b6b53; }
   .heroImage, .cardImage { background: #d9d0c7; border-color: rgba(8, 38, 27, 0.1); border-radius: 22px; overflow: hidden; }
   .primary, .secondary { border-radius: 14px; min-height: 52px; }
   .primary { background: #14231d; color: #eef0ec; border-color: #14231d; }

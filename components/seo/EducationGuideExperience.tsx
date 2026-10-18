@@ -71,6 +71,11 @@ export default function EducationGuideExperience({
               <MaskedLines lines={[{ text: guide.title }]} />
             </h1>
             <Reveal delay={0.25}>
+            {guide.answer ? (
+              <p className={styles.answer}>
+                <strong>Short answer:</strong> {linkifyText(guide.answer)}
+              </p>
+            ) : null}
             <p className={styles.intro}>{linkifyText(guide.intro)}</p>
             <p className={styles.meta}>
               By HeliosX

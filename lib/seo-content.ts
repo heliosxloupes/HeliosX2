@@ -32,6 +32,8 @@ export type SeoLandingPage = {
   relatedKeywords: string[]
   audience: string
   intro: string
+  /** Two or three quotable sentences: the direct answer, shown under the H1. */
+  answer?: string
   proofPoints: string[]
   sections: ContentSection[]
   recommendedProducts: string[]
@@ -62,6 +64,7 @@ export type EducationGuide = {
   kicker: string
   audience: string
   intro: string
+  answer?: string
   sections: ContentSection[]
   faqs: ContentFaq[]
   citations?: { label: string; href: string }[]

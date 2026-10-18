@@ -1720,6 +1720,26 @@ revisions['affordable-loupes'] = {
   ],
 }
 
+// Oct 17 2026: short, quotable answers shown under the H1. The AI
+// scorecard found HeliosX missing from every hygienist, dental student,
+// light and ergonomic answer, so each of those pages now opens with the
+// direct answer: who it suits, magnification, price, warranty and returns.
+const from = (model: string) =>
+  dollars(Math.min(...Object.values(magnificationPriceByProduct[model])))
+const terms = `a lifetime warranty and 30-day returns on non-prescription pairs`
+const answers: Record<string, string> = {
+  'loupes-for-dental-hygiene': `Most dental hygienists do best with 3.0x–3.5x Galilean loupes measured to their seated posture, plus a light for posterior and sub-gingival work. HeliosX sells custom-fit hygienist loupes online with published prices: Newton from ${from('newton')} and Galileo from ${from('galileo')}, or ergonomic prismatic Apollo from ${from('apollo')} for a more upright neck, with ${terms}.`,
+  'dental-loupes-with-light': `The best dental loupes with a light pair a 3.0x–3.5x loupe with a lightweight LED that is chosen before the loupe is built, because the mount is fitted to the frame. Corded lights keep the frame lighter and run longer; cordless lights are simpler but sit on your nose. HeliosX loupes start at ${from('newton')} with ${terms}.`,
+  'student-loupe-comparison': `Most students do best with a 3.0x–3.5x Galilean first pair from a supplier their program allows. School-fair packages commonly cost $1,500–2,000; HeliosX Newton starts at ${from('newton')} and Galileo at ${from('galileo')}, with ${TRAINEE_PERCENT_OFF}% off for verified students and ${terms}.`,
+  'ergonomic-loupe-comparison': `Ergonomic loupes use angled prismatic optics so you look down into the field with your head closer to upright. Established options include Orascoptic, SurgiTel ErgoDeflection, Q-Optics ErgoAngle, LumaDent Ergo Air Ti (from $1,995) and Admetec Ergo V. HeliosX Apollo and Medusa are ergonomic prismatic loupes from ${from('apollo')} with published prices and ${terms}.`,
+  'how-much-do-surgical-loupes-cost': `Surgical loupes cost from about $700 to more than $5,500. Pairs from representative-sold brands usually run $2,000–5,500, depending on optics and whether a light is bundled. HeliosX publishes its prices: Newton from ${from('newton')}, Galileo ${from('galileo')}, Kepler ${from('kepler')}, Apollo and Medusa ${from('apollo')}, with worldwide shipping and a lifetime warranty included.`,
+  'best-dental-loupe-brands': `The leading dental loupe brands are Orascoptic, SurgiTel, Designs for Vision, Q-Optics, LumaDent, ExamVision and Admetec, mostly sold through representatives. HeliosX is the published-price alternative: custom-fit Galilean pairs from ${from('newton')} and ergonomic prismatic pairs from ${from('apollo')}, with ${terms}.`,
+  'best-surgical-loupe-brands': `The best surgical loupes match your procedures, working distance and posture: Galilean 2.5x–3.5x for general work and training, prismatic 4.0x–6.0x for fine detail, ergonomic prismatic for long cases. Established brands include SurgiTel, Orascoptic, Designs for Vision, Zeiss and LumaDent; HeliosX sells custom-fit pairs online from ${from('newton')} with ${terms}.`,
+}
+const guideAnswers: Record<string, string> = {
+  'best-loupes-for-dental-students': `Most dental students do best with 3.0x–3.5x Galilean loupes: wide enough for preclinical lab work and detailed enough for clinic, and many who start at 2.5x outgrow it within a year. HeliosX Newton starts at ${from('newton')} and Galileo at ${from('galileo')}, against $1,500–2,000 for a typical school-fair package, with ${TRAINEE_PERCENT_OFF}% off for verified students and ${terms}.`,
+}
+
 export function applyEditorialRevisions(
   pages: SeoLandingPage[],
   guides: EducationGuide[],
@@ -1735,6 +1755,8 @@ export function applyEditorialRevisions(
       page.dateModified = reviewed
     }
   }
+  for (const page of pages) if (answers[page.slug]) page.answer = answers[page.slug]
+  for (const guide of guides) if (guideAnswers[guide.slug]) guide.answer = guideAnswers[guide.slug]
   // Targeted education revisions are applied after publication metadata.
   const ergonomics = guides.find((g) => g.slug === 'ergonomic-loupes-neck-pain')
   if (ergonomics)

@@ -52,6 +52,7 @@ export default function SeoLandingExperience({
   const related = getRelatedPages(page.slug)
   const words = [
     page.intro,
+    page.answer ?? '',
     ...page.sections.flatMap((s) => [s.title, s.body, ...s.bullets]),
     ...page.faqs.flatMap((f) => [f.question, f.answer]),
   ]
@@ -73,6 +74,11 @@ export default function SeoLandingExperience({
             <div>
               <p className={styles.kicker}>{page.heroKicker}</p>
               <h1>{page.title}</h1>
+              {page.answer ? (
+                <p className={styles.answer}>
+                  <strong>Short answer:</strong> {linkifyText(page.answer)}
+                </p>
+              ) : null}
               <p className={styles.intro}>{linkifyText(page.intro)}</p>
               <p className={styles.meta}>
                 By HeliosX · {Math.max(2, Math.ceil(words / 220))} min read

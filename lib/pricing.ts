@@ -24,7 +24,6 @@ export const addOnCatalogue: Record<string, { name: string; price: number }> =
   pricingData.addOns
 
 export const PRESCRIPTION_PRICE = pricingData.addOns['prescription-lenses'].price
-export const WARRANTY_PRICE = pricingData.addOns['extended-warranty'].price
 
 export const TRAINEE_PERCENT_OFF = pricingData.trainee.percentOff
 

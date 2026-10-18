@@ -31,7 +31,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'What happens if my Medusa loupes get damaged?',
       answer:
-        'Every order is covered by a warranty that includes replacement and lens-update paths. Optional protection coverage for loss, damage, and accidental drops is available at order. See /warranty for the full policy.',
+        'Every pair has a limited lifetime warranty against manufacturer defects in the optics, frame and hinges, for as long as you own it. Accidental damage and wear parts are not covered, but we always help with repair options. See /warranty for the full policy.',
     },
   ],
   apollo: [

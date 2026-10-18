@@ -45,7 +45,7 @@ export default function TraineePricing({ model, magnification, price }: Props) {
         <ol className="list-decimal space-y-1.5 pl-5">
           <li>Email proof of your training status: a program ID, enrollment or residency letter, or a schedule showing your training year.</li>
           <li>Our team checks it and replies with a personal discount code, usually within one business day.</li>
-          <li>Enter the code at checkout. Shipping and the two-year warranty stay included.</li>
+          <li>Enter the code at checkout. Shipping and the lifetime warranty stay included.</li>
         </ol>
         <a
           href={mailto}

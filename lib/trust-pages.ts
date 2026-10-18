@@ -46,7 +46,7 @@ export const aboutPage: TrustPage = {
     },
     {
       title: 'What every pair includes',
-      body: 'Worldwide shipping, a two-year limited warranty against manufacturer defects, and a review of your measurements before we build. Non-prescription pairs can be returned within 30 days of delivery for a full refund.',
+      body: 'Worldwide shipping, a limited lifetime warranty against manufacturer defects, and a review of your measurements before we build. Non-prescription pairs can be returned within 30 days of delivery for a full refund.',
       bullets: [
         `Residents, fellows and students receive ${TRAINEE_PERCENT_OFF}% off with verified training status.`,
         'Payment by card, Affirm or Klarna through Stripe checkout.',
@@ -83,7 +83,7 @@ export const contactPage: TrustPage = {
     },
     {
       title: 'Before you write',
-      body: 'Many answers are already on the site: the measuring guide explains pupillary and working distance, and the shipping, returns and warranty pages cover delivery times, the 30-day return window and the two-year limited warranty.',
+      body: 'Many answers are already on the site: the measuring guide explains pupillary and working distance, and the shipping, returns and warranty pages cover delivery times, the 30-day return window and the limited lifetime warranty.',
     },
   ],
 }

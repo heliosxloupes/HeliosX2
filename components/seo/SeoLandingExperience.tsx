@@ -324,7 +324,7 @@ export default function SeoLandingExperience({
             </div>
             <p className={styles.fineprint}>
               Email opens in your mail app: heliosxloupes@gmail.com ·{' '}
-              <Link href="/warranty">Two-year limited warranty</Link>
+              <Link href="/warranty">Limited lifetime warranty</Link>
             </p>
           </section>
           {related.length > 0 ? (

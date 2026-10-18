@@ -6,7 +6,7 @@ import { buildMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Returns & Refunds | HeliosX Loupes',
-  description: 'Return any non-prescription HeliosX loupes within 30 days of delivery for a full refund. Prescription pairs are refundable until production starts. Two-year warranty on every pair.',
+  description: 'Return any non-prescription HeliosX loupes within 30 days of delivery for a full refund. Prescription pairs are refundable until production starts. Limited lifetime warranty on every pair.',
   path: '/returns',
 })
 
@@ -24,7 +24,7 @@ export default function ReturnsPage() {
           <div className="rounded-2xl border border-emerald-300/25 bg-emerald-300/[0.06] p-5 text-sm leading-7 text-neutral-200">
             <p><strong className="text-white">30-day returns:</strong> Return any non-prescription pair within 30 days of delivery for a full refund.</p>
             <p><strong className="text-white">Prescription pairs:</strong> Cancel for a full refund any time before production starts. After that, we cover defects and fit corrections.</p>
-            <p><strong className="text-white">Warranty:</strong> Every pair has a two-year limited warranty.</p>
+            <p><strong className="text-white">Warranty:</strong> Every pair has a limited lifetime warranty.</p>
           </div>
 
           <section className="space-y-3">
@@ -53,7 +53,7 @@ export default function ReturnsPage() {
               Defects and warranty
             </h2>
             <p className="text-neutral-300">
-              Every pair is covered by a two-year limited warranty against manufacturer defects in materials and workmanship. Confirmed defects are eligible for repair, replacement or exchange. Reach out to{' '}
+              Every pair is covered by a limited lifetime warranty against manufacturer defects in materials and workmanship. Confirmed defects are eligible for repair, replacement or exchange. Reach out to{' '}
               <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
                 heliosxloupes@gmail.com
               </a>{' '}

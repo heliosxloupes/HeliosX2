@@ -139,7 +139,7 @@ Most people who pause at this point have the same worry: you cannot try loupes o
 
 1. Try them in your own work. Non-prescription pairs come with 30-day returns, so if they are not right, send them back for a full refund.
 2. You send two measurements: your pupillary distance (a phone app or an optician) and your working distance (a tape measure, in the posture you work in).
-3. We review them and confirm your build with you before anything is made. A two-year limited warranty covers manufacturer defects after delivery.
+3. We review them and confirm your build with you before anything is made. A limited lifetime warranty covers manufacturer defects after delivery.
 
 If you are a resident, fellow or student, we are running ${TRAINEE_PERCENT_OFF}% off right now. Reply with proof of your training status and, once we have checked it, we will send you a code. Affirm and Klarna are also available at checkout if you would rather spread the cost.
 

@@ -165,7 +165,7 @@ function renderRecoveryEmail({
           </td></tr>
           ${cta ? `<tr><td style="padding:22px 28px 8px;"><a href="${escapeHtml(cta.url)}" style="display:block;background:#78e8bd;color:#06100b;padding:17px 20px;text-align:center;text-decoration:none;font-size:13px;font-weight:800;letter-spacing:.05em;">${escapeHtml(cta.label.toUpperCase())} &nbsp;→</a></td></tr>` : ''}
           <tr><td style="padding:18px 28px 25px;color:#98a49d;font-size:12px;line-height:1.65;text-align:center;">Questions about fit or magnification? Reply directly to this email.</td></tr>
-          <tr><td style="padding:20px 28px;border-top:1px solid #1b2822;background:#030504;color:#68736d;font-size:10px;line-height:1.7;">Secure Stripe checkout &nbsp;·&nbsp; Measurements reviewed before production &nbsp;·&nbsp; Two-year limited warranty<br /><a href="${HELIOSX_SITE_URL}" style="color:#8d9992;text-decoration:none;">heliosxvision.com</a> &nbsp;·&nbsp; <a href="${HELIOSX_SITE_URL}/returns" style="color:#8d9992;text-decoration:none;">Returns</a> &nbsp;·&nbsp; <a href="${HELIOSX_SITE_URL}/warranty" style="color:#8d9992;text-decoration:none;">Warranty</a></td></tr>
+          <tr><td style="padding:20px 28px;border-top:1px solid #1b2822;background:#030504;color:#68736d;font-size:10px;line-height:1.7;">Secure Stripe checkout &nbsp;·&nbsp; Measurements reviewed before production &nbsp;·&nbsp; Limited lifetime warranty<br /><a href="${HELIOSX_SITE_URL}" style="color:#8d9992;text-decoration:none;">heliosxvision.com</a> &nbsp;·&nbsp; <a href="${HELIOSX_SITE_URL}/returns" style="color:#8d9992;text-decoration:none;">Returns</a> &nbsp;·&nbsp; <a href="${HELIOSX_SITE_URL}/warranty" style="color:#8d9992;text-decoration:none;">Warranty</a></td></tr>
         </table>
       </td></tr>
     </table>
@@ -444,7 +444,7 @@ function renderHeliosEmail({
             <div style="color:${BRAND.heading};font-size:14px;font-weight:700;">Team HeliosX</div>
             <div style="margin-top:4px;color:${BRAND.muted};font-size:12px;line-height:1.6;">Questions about fit, magnification or your order? Reply directly to this email.</div>
           </td></tr>
-          <tr><td style="padding:22px 28px;border-top:1px solid ${BRAND.line};background:#030504;color:#68736d;font-size:10px;line-height:1.7;">Secure Stripe checkout &nbsp;·&nbsp; Measurements reviewed before production &nbsp;·&nbsp; Two-year limited warranty<br /><a href="${HELIOSX_SITE_URL}" style="color:#8d9992;text-decoration:none;">heliosxvision.com</a> &nbsp;·&nbsp; <a href="${HELIOSX_SITE_URL}/returns" style="color:#8d9992;text-decoration:none;">Returns</a> &nbsp;·&nbsp; <a href="${HELIOSX_SITE_URL}/warranty" style="color:#8d9992;text-decoration:none;">Warranty</a></td></tr>
+          <tr><td style="padding:22px 28px;border-top:1px solid ${BRAND.line};background:#030504;color:#68736d;font-size:10px;line-height:1.7;">Secure Stripe checkout &nbsp;·&nbsp; Measurements reviewed before production &nbsp;·&nbsp; Limited lifetime warranty<br /><a href="${HELIOSX_SITE_URL}" style="color:#8d9992;text-decoration:none;">heliosxvision.com</a> &nbsp;·&nbsp; <a href="${HELIOSX_SITE_URL}/returns" style="color:#8d9992;text-decoration:none;">Returns</a> &nbsp;·&nbsp; <a href="${HELIOSX_SITE_URL}/warranty" style="color:#8d9992;text-decoration:none;">Warranty</a></td></tr>
         </table>
       </td></tr>
     </table>

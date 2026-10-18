@@ -173,11 +173,11 @@ const faqSections = [
     items: [
       {
         q: 'What is the warranty on HeliosX loupes?',
-        a: 'All HeliosX loupes include a two-year limited warranty covering manufacturer-related defects in materials and workmanship from the delivery date. Normal wear, accidental damage, misuse, prescription changes, and unauthorized modifications are not covered.',
+        a: 'All HeliosX loupes include a limited lifetime warranty covering manufacturer-related defects in materials and workmanship from the delivery date. Normal wear, accidental damage, misuse, prescription changes, and unauthorized modifications are not covered.',
       },
       {
         q: 'What is your return policy?',
-        a: 'Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs can be cancelled for a full refund any time before production starts; after that, we cover defects and fit corrections. Every pair has a two-year limited warranty. See our Returns and Refunds page for full terms.',
+        a: 'Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs can be cancelled for a full refund any time before production starts; after that, we cover defects and fit corrections. Every pair has a limited lifetime warranty. See our Returns and Refunds page for full terms.',
       },
       {
         q: 'Where do you ship?',

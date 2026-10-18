@@ -491,7 +491,7 @@ revisions['how-much-do-surgical-loupes-cost'] = {
       `Prescription lenses add ${dollars(PRESCRIPTION_PRICE)}. Shipping and taxes depend on the order and destination and are shown at checkout. If you need illumination, price the light, battery, and compatible mounting hardware separately.`,
       [
         'Do not assume a loupe-only price includes a headlight.',
-        'Check any optional warranty upgrade against the included two-year limited warranty.',
+        'Check any optional warranty upgrade against the included limited lifetime warranty.',
         'Confirm the required magnification before comparing prices.',
       ],
     ),
@@ -1220,7 +1220,7 @@ revisions['surgical-loupes'] = {
     ),
     section(
       'What surgical loupes cost',
-      `HeliosX publishes every price: Newton ${range('newton')}, Galileo ${range('galileo')}, Kepler ${range('kepler')}, Apollo ${range('apollo')} and Medusa ${range('medusa')}. Each includes worldwide shipping and a two-year limited warranty, and verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off. Brands that sell through representatives usually quote individually, so compare a finished quote at the same magnification and optical design.`,
+      `HeliosX publishes every price: Newton ${range('newton')}, Galileo ${range('galileo')}, Kepler ${range('kepler')}, Apollo ${range('apollo')} and Medusa ${range('medusa')}. Each includes worldwide shipping and a limited lifetime warranty, and verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off. Brands that sell through representatives usually quote individually, so compare a finished quote at the same magnification and optical design.`,
       [
         'Prices across the category and what they include: /how-much-do-surgical-loupes-cost.',
         'Seven brands compared: /best-surgical-loupe-brands.',
@@ -1321,7 +1321,7 @@ revisions['dental-loupes'] = {
     ),
     section(
       'What dental loupes cost',
-      `HeliosX publishes every price: Newton ${range('newton')}, Galileo ${range('galileo')}, Apollo ${range('apollo')} and Medusa ${range('medusa')}, with shipping and a two-year limited warranty included. Prescription lenses add ${dollars(PRESCRIPTION_PRICE)}. Verified dental students and residents get ${TRAINEE_PERCENT_OFF}% off.`,
+      `HeliosX publishes every price: Newton ${range('newton')}, Galileo ${range('galileo')}, Apollo ${range('apollo')} and Medusa ${range('medusa')}, with shipping and a limited lifetime warranty included. Prescription lenses add ${dollars(PRESCRIPTION_PRICE)}. Verified dental students and residents get ${TRAINEE_PERCENT_OFF}% off.`,
       [
         'Dental brands compared with published prices: /best-dental-loupe-brands.',
         'What else to budget for: /how-much-do-surgical-loupes-cost.',
@@ -1409,7 +1409,7 @@ revisions['prismatic-loupe-comparison'] = {
     ),
     section(
       'What prismatic loupes cost',
-      `HeliosX prismatic loupes cost ${range('kepler')} for Kepler, ${range('apollo')} for Apollo and ${range('medusa')} for Medusa, with worldwide shipping and a two-year limited warranty. Verified trainees get ${TRAINEE_PERCENT_OFF}% off.`,
+      `HeliosX prismatic loupes cost ${range('kepler')} for Kepler, ${range('apollo')} for Apollo and ${range('medusa')} for Medusa, with worldwide shipping and a limited lifetime warranty. Verified trainees get ${TRAINEE_PERCENT_OFF}% off.`,
       ['How these prices compare across brands: /how-much-do-surgical-loupes-cost.'],
     ),
   ],
@@ -1483,7 +1483,7 @@ revisions['ergonomic-loupe-comparison'] = {
     ),
     section(
       'What ergonomic loupes cost',
-      `HeliosX ergonomic prismatic loupes start at $1,695: Apollo ${range('apollo')} and Medusa ${range('medusa')}, with worldwide shipping and a two-year limited warranty. Verified trainees get ${TRAINEE_PERCENT_OFF}% off.`,
+      `HeliosX ergonomic prismatic loupes start at $1,695: Apollo ${range('apollo')} and Medusa ${range('medusa')}, with worldwide shipping and a limited lifetime warranty. Verified trainees get ${TRAINEE_PERCENT_OFF}% off.`,
       ['Ergonomic options from other brands, with their published prices: /best-dental-loupe-brands.'],
     ),
   ],
@@ -1531,7 +1531,7 @@ revisions['heliosx-loupes-review'] = {
     ),
     section(
       'What is included',
-      `Every order includes worldwide shipping and a two-year limited warranty against manufacturer defects. Prescription lenses add ${dollars(PRESCRIPTION_PRICE)}, and verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off.`,
+      `Every order includes worldwide shipping and a limited lifetime warranty against manufacturer defects. Prescription lenses add ${dollars(PRESCRIPTION_PRICE)}, and verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off.`,
       ['Warranty terms: /warranty.', 'Production and shipping times: /shipping.'],
     ),
     section(
@@ -1557,7 +1557,7 @@ revisions['heliosx-loupes-review'] = {
   faqs: [
     faq(
       'How much do HeliosX loupes cost?',
-      `From ${range('newton').split('–')[0]} for Newton to ${range('medusa').split('–')[1]} for Medusa at 8.5x, with shipping and a two-year limited warranty included.`,
+      `From ${range('newton').split('–')[0]} for Newton to ${range('medusa').split('–')[1]} for Medusa at 8.5x, with shipping and a limited lifetime warranty included.`,
     ),
     faq(
       'Does HeliosX offer a student or resident discount?',
@@ -1652,7 +1652,7 @@ revisions['affordable-loupes'] = {
   title: 'Affordable dental and surgical loupes: what you get at each price',
   metaTitle: 'Affordable Dental & Surgical Loupes from $695 | HeliosX',
   description:
-    'What cheap and affordable loupes give up, what they should not, and HeliosX prices from $695 with shipping, a two-year warranty and trainee pricing included.',
+    'What cheap and affordable loupes give up, what they should not, and HeliosX prices from $695 with shipping, a lifetime warranty and trainee pricing included.',
   intro:
     'Loupes are sold at roughly three price levels: budget pairs sold online, direct-to-clinician brands like HeliosX, and brands sold through representatives. A lower price is only a good deal if the optics, the fit and the support still meet your needs. Here is what to check at each level.',
   recommendedProducts: ['Newton', 'Galileo', 'Kepler'],
@@ -1671,7 +1671,7 @@ revisions['affordable-loupes'] = {
     ),
     section(
       'Where HeliosX sits',
-      `HeliosX sells direct to clinicians with published prices: Newton ${range('newton')}, Galileo ${range('galileo')}, Kepler ${range('kepler')}, Apollo ${range('apollo')} and Medusa ${range('medusa')}. Every pair is built to your measurements and includes worldwide shipping and a two-year limited warranty.`,
+      `HeliosX sells direct to clinicians with published prices: Newton ${range('newton')}, Galileo ${range('galileo')}, Kepler ${range('kepler')}, Apollo ${range('apollo')} and Medusa ${range('medusa')}. Every pair is built to your measurements and includes worldwide shipping and a limited lifetime warranty.`,
       ['Newton at 2.5x is our most affordable pair, at $695.'],
     ),
     section(
@@ -1707,7 +1707,7 @@ revisions['affordable-loupes'] = {
     ),
     faq(
       'What is the cheapest HeliosX loupe?',
-      'Newton at 2.5x, at $695 with shipping and a two-year limited warranty included.',
+      'Newton at 2.5x, at $695 with shipping and a limited lifetime warranty included.',
     ),
     faq(
       'Can I pay for loupes in installments?',
@@ -2125,7 +2125,7 @@ function expandThinGuides(guides: EducationGuide[]) {
           'Step 5: Read the terms before you pay',
           'Custom loupes are made to your measurements, so return terms matter more than for off-the-shelf products. Read the warranty and return policy of every brand you compare, and ask what happens if the fit needs correcting.',
           [
-            'HeliosX: 30-day returns on non-prescription pairs, prescription pairs refundable until production begins, two-year limited warranty.',
+            'HeliosX: 30-day returns on non-prescription pairs, prescription pairs refundable until production begins, limited lifetime warranty.',
             'Returns policy: /returns. Warranty: /warranty.',
           ],
         ),

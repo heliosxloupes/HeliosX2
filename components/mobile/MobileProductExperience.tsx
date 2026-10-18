@@ -309,7 +309,7 @@ export default function MobileProductExperience({
           {(model?.facts ?? []).map(([label, value]) => (
             <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
           ))}
-          <div><dt>Warranty</dt><dd>2-year limited</dd></div>
+          <div><dt>Warranty</dt><dd>Limited lifetime</dd></div>
           <div><dt>Returns</dt><dd>30 days, non-prescription</dd></div>
           <div><dt>Residents and students</dt><dd>{TRAINEE_PERCENT_OFF}% off, verified</dd></div>
           <div><dt>Shipping</dt><dd>Included, worldwide</dd></div>
@@ -353,7 +353,7 @@ export default function MobileProductExperience({
             <summary>Shipping, fit &amp; warranty <Plus size={18} /></summary>
             <div className="space-y-3 pb-6 text-[14px] leading-6 text-[#26352d]">
               <p>Custom production usually takes 1-2 weeks after your measurements are approved. Standard worldwide shipping is included.</p>
-              <p>The two-year limited warranty covers manufacturer-related defects.</p>
+              <p>The limited lifetime warranty covers manufacturer-related defects.</p>
               <p>Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs are fully refundable until custom production begins.</p>
             </div>
           </details>

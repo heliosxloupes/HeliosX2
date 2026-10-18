@@ -143,8 +143,8 @@ const summaryPages: Record<string, { title: string; summary: string }> = {
     summary: 'Non-prescription pairs can be returned within 30 days of delivery for a full refund of the loupes. Prescription pairs can be cancelled for a full refund until production starts; after that, defects and fit corrections are covered.',
   },
   '/warranty': {
-    title: 'Two-year limited warranty',
-    summary: 'All HeliosX loupes include a two-year limited warranty covering manufacturer-related defects in materials and workmanship, starting on the delivery date. Email heliosxloupes@gmail.com with your order number to start a claim.',
+    title: 'Limited lifetime warranty',
+    summary: 'All HeliosX loupes include a limited lifetime warranty covering manufacturer-related defects in materials and workmanship, starting on the delivery date. Email heliosxloupes@gmail.com with your order number to start a claim.',
   },
   '/privacy': {
     title: 'Privacy policy',

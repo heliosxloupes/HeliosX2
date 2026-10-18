@@ -6,7 +6,7 @@ import { buildMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Warranty | HeliosX Loupes',
-  description: 'Two-year HeliosX limited warranty covering manufacturer-related defects in surgical and dental loupes.',
+  description: 'Every HeliosX loupe has a limited lifetime warranty against manufacturer defects in the optics, frame and hinges, for as long as the original buyer owns them.',
   path: '/warranty',
 })
 
@@ -19,7 +19,7 @@ export default function WarrantyPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.26em] text-emerald-200/80">
             Support
           </p>
-          <h1 className="text-3xl font-semibold md:text-4xl">Two-year limited warranty</h1>
+          <h1 className="text-3xl font-semibold md:text-4xl">Limited lifetime warranty</h1>
 
           <section className="space-y-3">
             <h2 className="flex items-center gap-2.5 text-lg font-semibold text-white">
@@ -27,7 +27,7 @@ export default function WarrantyPage() {
               What is covered
             </h2>
             <p className="text-neutral-300">
-              All HeliosX loupes include a two-year limited warranty covering manufacturer-related defects in materials and workmanship. Coverage begins on the delivery date. If you believe your loupes have a covered issue, contact us with your order information and photos when relevant.
+              All HeliosX loupes include a limited lifetime warranty covering manufacturer-related defects in materials and workmanship of the optics, frame and hinges. Coverage begins on the delivery date and lasts for as long as the original purchaser owns the loupes. It is not transferable. If you believe your loupes have a covered issue, contact us with your order information and photos when relevant.
             </p>
           </section>
 
@@ -61,7 +61,7 @@ export default function WarrantyPage() {
               Outside of warranty
             </h2>
             <p className="text-neutral-300">
-              Normal wear, accidental damage, misuse, prescription changes, and unauthorized modifications fall outside the two-year limited warranty. We still try to help. Email{' '}
+              Normal wear, wear parts such as nose pads, straps and side shields, batteries and lights, accidental damage, misuse, prescription changes, and unauthorized modifications fall outside the limited lifetime warranty. We still try to help. Email{' '}
               <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
                 heliosxloupes@gmail.com
               </a>{' '}

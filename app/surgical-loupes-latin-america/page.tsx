@@ -64,7 +64,7 @@ const faqs = [
   },
   {
     question: 'How much do HeliosX loupes cost?',
-    answer: `From ${from('newton')} USD for Newton to ${usd(Math.max(...Object.values(magnificationPriceByProduct.medusa)))} USD for Medusa at 8.5x, with shipping and a two-year limited warranty included. Prescription lenses add ${usd(PRESCRIPTION_PRICE)} USD.`,
+    answer: `From ${from('newton')} USD for Newton to ${usd(Math.max(...Object.values(magnificationPriceByProduct.medusa)))} USD for Medusa at 8.5x, with shipping and a limited lifetime warranty included. Prescription lenses add ${usd(PRESCRIPTION_PRICE)} USD.`,
   },
   {
     question: 'Will I pay import taxes?',
@@ -83,7 +83,7 @@ const faqs = [
   {
     question: 'Can I return the loupes from Latin America?',
     answer:
-      'Yes. Non-prescription pairs come with 30-day returns from delivery for a full refund. Prescription pairs can be cancelled for a full refund until production starts. Every pair has a two-year limited warranty.',
+      'Yes. Non-prescription pairs come with 30-day returns from delivery for a full refund. Prescription pairs can be cancelled for a full refund until production starts. Every pair has a limited lifetime warranty.',
   },
   {
     question: 'How do I get measured without a sales rep?',
@@ -127,7 +127,7 @@ export default function LatinAmericaPage() {
               {[
                 'International shipping included',
                 '30-day returns (non-prescription pairs)',
-                'Two-year limited warranty',
+                'Limited lifetime warranty',
                 `${TRAINEE_PERCENT_OFF}% off for residents and students`,
               ].map((item) => (
                 <li key={item} className="flex items-center gap-2">

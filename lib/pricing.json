@@ -23,8 +23,7 @@
     }
   },
   "addOns": {
-    "prescription-lenses": { "name": "Prescription Lenses", "price": 200 },
-    "extended-warranty": { "name": "Extended Warranty", "price": 99 }
+    "prescription-lenses": { "name": "Prescription Lenses", "price": 200 }
   },
   "limits": { "maxQuantityPerLine": 10, "maxLineItems": 20 },
   "trainee": {

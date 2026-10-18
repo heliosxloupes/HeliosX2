@@ -10,7 +10,7 @@ import CopyEmail from '@/components/Contact/CopyEmail'
 import Header from '@/components/Header'
 import { getCart } from '@/lib/cart'
 import { getEffectiveConsent } from '@/lib/consent'
-import { PRESCRIPTION_PRICE, WARRANTY_PRICE } from '@/lib/pricing'
+import { PRESCRIPTION_PRICE } from '@/lib/pricing'
 
 type CartItem = {
   productSlug: string
@@ -93,15 +93,6 @@ export default function CheckoutPage() {
             }
           }
 
-          if (flags.warranty) {
-            mergedItems.push({
-              productSlug: 'extended-warranty',
-              name: 'Extended Warranty',
-              price: WARRANTY_PRICE,
-              quantity: 1,
-              isAddon: true,
-            })
-          }
         } catch (e) {
           console.error('Failed to parse add-on flags', e)
         }

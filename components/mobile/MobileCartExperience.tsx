@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowRight, Minus, Plus, ShieldCheck, Trash2 } from 'lucide-react'
+import { ArrowRight, Minus, Plus, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -10,7 +10,7 @@ import { cartEditHref } from '@/lib/cart'
 import AfterCheckoutSteps from '@/components/cart/AfterCheckoutSteps'
 import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 import type { CartItem } from '@/lib/cart'
-import { PRESCRIPTION_PRICE, WARRANTY_PRICE } from '@/lib/pricing'
+import { PRESCRIPTION_PRICE } from '@/lib/pricing'
 import { modelBySlug } from '@/components/m2/models'
 import { PhotoThumb } from '@/components/m2/Photo'
 import { useStickyBarOffset } from './useStickyBarOffset'
@@ -19,9 +19,7 @@ type Props = {
   items: CartItem[]
   email: string
   emailError: string
-  warranty: boolean
   onEmailChange: (value: string) => void
-  onWarrantyChange: (value: boolean) => void
   onRemove: (index: number) => void
   onQuantity: (index: number, quantity: number) => void
   onPrescription: (index: number, value: boolean) => void
@@ -36,9 +34,7 @@ export default function MobileCartExperience({
   items,
   email,
   emailError,
-  warranty,
   onEmailChange,
-  onWarrantyChange,
   onRemove,
   onQuantity,
   onPrescription,
@@ -46,7 +42,7 @@ export default function MobileCartExperience({
 }: Props) {
   const loupeSubtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const rxPairs = items.reduce((sum, item) => sum + (item.hasPrescriptionLenses ? item.quantity : 0), 0)
-  const addOns = rxPairs * PRESCRIPTION_PRICE + (warranty ? WARRANTY_PRICE : 0)
+  const addOns = rxPairs * PRESCRIPTION_PRICE
   const total = loupeSubtotal + addOns
   const pairs = items.reduce((sum, item) => sum + item.quantity, 0)
   const checkoutBarRef = useRef<HTMLDivElement>(null)
@@ -120,17 +116,6 @@ export default function MobileCartExperience({
             ))}
           </section>
 
-          <section className="px-3 pt-3">
-            <button type="button" role="switch" aria-checked={warranty} onClick={() => onWarrantyChange(!warranty)} className="m2-row min-h-[78px] rounded-[24px] pl-4">
-              <ShieldCheck className="shrink-0 text-[#0b6b53]" size={22} />
-              <span className="min-w-0 flex-1">
-                <strong className="block text-[15px] font-extrabold">Extended warranty <span className="tab font-semibold text-[#4d5f54]">+{money(WARRANTY_PRICE)}</span></strong>
-                <small className="block text-[12.5px] leading-5 text-[#4d5f54]">Additional coverage beyond the included two-year limited warranty.</small>
-              </span>
-              <span className="m2-switch" aria-hidden="true" />
-            </button>
-          </section>
-
           <section className="px-5 pt-8">
             <label htmlFor="mobile-cart-email" className="block text-[15px] font-extrabold">Email address <span className="font-semibold text-[#4d5f54]">(optional)</span></label>
             <input
@@ -153,7 +138,6 @@ export default function MobileCartExperience({
             <dl className="m2-facts mt-7 border-y border-[rgba(8,38,27,0.12)]">
               <div><dt>Loupes</dt><dd className="tab">{money(loupeSubtotal)}</dd></div>
               {rxPairs ? <div><dt>Prescription lenses x {rxPairs}</dt><dd className="tab">{money(rxPairs * PRESCRIPTION_PRICE)}</dd></div> : null}
-              {warranty ? <div><dt>Extended warranty</dt><dd className="tab">{money(WARRANTY_PRICE)}</dd></div> : null}
               <div><dt>Worldwide shipping</dt><dd className="text-[#0b6b53]">Included</dd></div>
               <div className="text-[17px]"><dt className="font-extrabold text-[#08261b]">Total</dt><dd className="tab font-extrabold">{money(total)}</dd></div>
             </dl>

@@ -25,7 +25,7 @@ const FAQS = [
   ['Are these customized to me?', 'Yes. Your frame, pupillary distance, working distance, and prescription information—when applicable—are reviewed before custom production.'],
   ['Which model has adjustable working distance?', 'Medusa is the only adjustable-working-distance model. Apollo, Galileo, Kepler, and Newton use a fixed working distance customized from your measurements.'],
   ['When will my loupes arrive?', 'Custom production usually takes 1–2 weeks after your measurements are approved. Standard worldwide shipping is included; transit time varies by destination.'],
-  ['What does the warranty cover?', 'A two-year limited warranty covers manufacturer-related defects in materials and workmanship. Normal wear, accidental damage, misuse, and unauthorized modifications are excluded.'],
+  ['What does the warranty cover?', 'A limited lifetime warranty covers manufacturer-related defects in materials and workmanship. Normal wear, accidental damage, misuse, and unauthorized modifications are excluded.'],
 ] as const
 
 // The collection opens the page full screen: one studio photograph per model,
@@ -147,7 +147,7 @@ export default function MobileHomeExperience() {
         </p>
         <div className="mt-6 grid grid-cols-2 gap-2 text-[12.5px] font-bold">
           <span className="flex min-h-[52px] items-center gap-2 rounded-[16px] bg-[#f7f9f7] px-3.5"><Globe2 size={16} className="shrink-0 text-[#0b6b53]" /> Shipping included</span>
-          <span className="flex min-h-[52px] items-center gap-2 rounded-[16px] bg-[#f7f9f7] px-3.5"><ShieldCheck size={16} className="shrink-0 text-[#0b6b53]" /> 2-year warranty</span>
+          <span className="flex min-h-[52px] items-center gap-2 rounded-[16px] bg-[#f7f9f7] px-3.5"><ShieldCheck size={16} className="shrink-0 text-[#0b6b53]" /> Lifetime warranty</span>
         </div>
       </section>
 
@@ -269,7 +269,7 @@ export default function MobileHomeExperience() {
           Find your loupes <ArrowRight size={18} />
         </Link>
         <ul className="mt-5 grid gap-1.5 text-left">
-          {['Custom fit from your measurements', 'Standard worldwide shipping included', 'Two-year limited warranty'].map((line) => (
+          {['Custom fit from your measurements', 'Standard worldwide shipping included', 'Limited lifetime warranty'].map((line) => (
             <li key={line} className="flex items-center gap-2.5 text-[13.5px] font-semibold text-[#26352d]">
               <Check size={15} className="shrink-0 text-[#0b6b53]" /> {line}
             </li>

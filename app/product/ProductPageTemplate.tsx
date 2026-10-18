@@ -863,7 +863,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 </button>
                 <p className="mt-2 text-[0.65rem] leading-relaxed text-neutral-500">
                   {isAvailable
-                    ? `Custom measurement review included. Typical production time is 1–2 weeks. Two-year limited warranty. Pay over time with Affirm or Klarna at checkout. ${riskFreeCopy}`
+                    ? `Custom measurement review included. Typical production time is 1–2 weeks. Limited lifetime warranty. Pay over time with Affirm or Klarna at checkout. ${riskFreeCopy}`
                     : 'Medusa is live in the catalogue. Add-to-cart will be enabled once final pricing is set.'}
                 </p>
                 <button

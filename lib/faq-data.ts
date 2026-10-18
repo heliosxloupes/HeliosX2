@@ -7,7 +7,7 @@ export const faqSchemaItems: { question: string; answer: string }[] = [
   {
     question: 'What is your return policy?',
     answer:
-      'Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs can be cancelled for a full refund any time before production starts; after that, we cover defects and fit corrections. Every pair has a two-year limited warranty.',
+      'Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs can be cancelled for a full refund any time before production starts; after that, we cover defects and fit corrections. Every pair has a limited lifetime warranty.',
   },
   {
     question: 'Where do you ship?',
@@ -37,7 +37,7 @@ export const faqSchemaItems: { question: string; answer: string }[] = [
   {
     question: 'What is the warranty on HeliosX loupes?',
     answer:
-      'All HeliosX loupes include a two-year limited warranty covering manufacturer-related defects in materials and workmanship from the delivery date. Normal wear, accidental damage, misuse, prescription changes, and unauthorized modifications are not covered.',
+      'All HeliosX loupes include a limited lifetime warranty covering manufacturer-related defects in materials and workmanship from the delivery date. Normal wear, accidental damage, misuse, prescription changes, and unauthorized modifications are not covered.',
   },
   {
     question: 'Are the lenses multi-layer coated?',

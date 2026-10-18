@@ -7325,6 +7325,631 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
     datePublished: '2026-10-18',
     dateModified: '2026-10-18',
   },
+  {
+    slug: 'trauma-surgery-loupes',
+    title: 'Loupes for trauma surgery',
+    metaTitle: 'Trauma Surgery Loupes: What to Choose for On-Call Work | HeliosX',
+    description:
+      'Loupes for trauma and acute care surgeons: hand, nerve and vessel repair, facial lacerations and on-call cases at any hour. Magnification by procedure and what matters at 3 a.m.',
+    heroKicker: 'Trauma surgery',
+    primaryKeyword: 'trauma surgery loupes',
+    relatedKeywords: [
+      'loupes for trauma surgeons',
+      'acute care surgery loupes',
+      'orthopedic trauma loupes',
+      'loupes for vessel repair',
+      'on call surgeon loupes',
+    ],
+    audience: 'trauma and acute care surgeons, orthopedic trauma surgeons and surgical residents on call',
+    intro:
+      'Trauma surgery is unpredictable. The next case could be a laparotomy that needs no magnification at all, or a lacerated digital nerve that needs plenty. Loupes for trauma work have to be fast to put on, comfortable when you are tired, and wide enough in field that they never slow you down in a case where time matters more than detail.',
+    answer: `For trauma surgery, most surgeons choose 2.5x–3.5x Galilean loupes: wide enough to stay oriented in a bleeding field, detailed enough for vessel, nerve and tendon repair, and light enough to wear through a night on call. Emergency laparotomy needs no loupes. HeliosX Galileo starts at ${usd(productStartingPrices.Galileo)} with six lightweight frame styles included in the price, and Kepler adds 4.0x–6.0x for microvascular repair.`,
+    procedureRows: [
+      { procedure: 'Damage control and emergency laparotomy', magnification: 'None', distance: 'Not applicable', pick: 'Speed and exposure matter more than magnification' },
+      { procedure: 'Vascular injury and arterial repair', magnification: '3.0x–4.0x', distance: 'Standing', pick: 'Galileo 3.5x, or Kepler 4.0x' },
+      { procedure: 'Hand trauma: tendon and nerve repair', magnification: '3.5x–4.5x', distance: 'Seated at a hand table', pick: `Kepler, from ${usd(productStartingPrices.Kepler)}` },
+      { procedure: 'Facial lacerations and soft-tissue closure', magnification: '2.5x–3.0x', distance: 'Short, often seated', pick: `Galileo 2.5x, from ${usd(productStartingPrices.Galileo)}` },
+      { procedure: 'Digital replantation and microvascular repair', magnification: '4.0x–6.0x or microscope', distance: 'Seated', pick: 'Kepler 6.0x; many services use a microscope' },
+    ],
+    proofPoints: [
+      'Wide-field Galilean optics for unpredictable cases.',
+      'Six lightweight frame styles on Galileo, all included in the price.',
+      'Limited lifetime warranty and 30-day returns on non-prescription pairs.',
+    ],
+    sections: [
+      {
+        title: 'Where loupes help in trauma, and where they do not',
+        body:
+          'In a damage-control laparotomy or a crash thoracotomy, magnification gets in the way: you need the whole field, fast. Loupes earn their place once the patient is controlled and the work becomes reconstruction: repairing an injured artery, coapting a nerve, closing a facial laceration so it heals well. Plan your loupes around that second half of the job.',
+        bullets: [
+          'No loupes: emergency laparotomy, thoracotomy, packing and initial control.',
+          'Loupes help: vascular, nerve and tendon repair, facial and hand closures.',
+          'Microscope territory: digital replantation and small-vessel free flaps on many services.',
+        ],
+      },
+      {
+        title: 'Why field of view matters more in trauma',
+        body:
+          'Trauma fields bleed, move and change. A narrow field forces you to hunt for landmarks every time you look up. That is why most trauma surgeons stay at 2.5x–3.5x for general work and keep higher magnification for planned microsurgical repair. A Galilean loupe also has a deeper depth of field, which helps when the field is not flat.',
+        bullets: [
+          '2.5x: the widest field, for closure and general reconstruction.',
+          '3.5x: the common choice for vessel and nerve repair under loupes.',
+          '4.0x and above: planned microsurgical repair, ideally seated.',
+        ],
+      },
+      {
+        title: 'Built for 3 a.m.',
+        body:
+          'On-call loupes go on and off many times a night, often in a hurry, and they are worn when you are tired. Comfort and reliability matter more than features. A lighter frame, a secure fit behind the ears and a working distance that matches how you stand at the table are worth more than a higher magnification you will rarely use.',
+        bullets: [
+          'Keep them in a hard case in your call bag; most damage happens between cases.',
+          'Measure your working distance standing at a table at your usual height.',
+          'If you also do seated hand work, Medusa adjusts from 300 to 600 mm in one pair.',
+        ],
+      },
+      {
+        title: 'Light in an emergency OR',
+        body:
+          'Overhead lights are adequate for most trauma work until you are deep in a wound or working in a corner the lights cannot reach. A loupe-mounted light helps there, and it adds weight. If you take a lot of night call and do your own vascular repairs, plan the light with the loupe, because the mount is fitted to the frame.',
+        bullets: [
+          'Corded lights keep weight off the nose; cordless lights are faster between rooms.',
+          'Choosing a light: /dental-loupes-with-light.',
+        ],
+      },
+      {
+        title: 'Where HeliosX fits',
+        body:
+          'HeliosX builds every pair to your measured pupillary and working distance and reviews the numbers before production. Prices are published, residents get trainee pricing, and every model’s frame choices are included in the price.',
+        bullets: [
+          `Galileo: Galilean 2.5x–3.5x, six lightweight frame styles, ${priceRange('galileo')}.`,
+          `Kepler: prismatic 4.0x–6.0x for microvascular and hand repair, ${priceRange('kepler')}.`,
+          `Medusa: ergonomic prismatic with adjustable working distance, ${priceRange('medusa')}.`,
+          'Hand surgery in more depth: /hand-surgery-loupes. Vascular: /vascular-surgery-loupes.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Galileo', 'Kepler', 'Medusa'],
+    faqs: [
+      {
+        question: 'Do trauma surgeons wear loupes?',
+        answer:
+          'For reconstruction after the patient is controlled, many do: vascular, nerve and tendon repair, and facial closures. For emergency laparotomy and initial hemorrhage control, loupes get in the way.',
+      },
+      {
+        question: 'What magnification is best for trauma surgery?',
+        answer:
+          '2.5x–3.5x for most trauma work, because the field is unpredictable and a wider view keeps you oriented. Step up to 4.0x–6.0x for planned microvascular or nerve repair, or use a microscope where your service does.',
+      },
+      {
+        question: 'Which loupes are best for a surgical resident on trauma call?',
+        answer: `A Galilean pair at 2.5x–3.5x. Galileo starts at ${usd(productStartingPrices.Galileo)} with six frame styles included in the price, and verified residents get ${TRAINEE_PERCENT_OFF}% off.`,
+      },
+    ],
+    datePublished: '2026-10-18',
+    dateModified: '2026-10-18',
+  },
+  {
+    slug: 'veterinary-surgery-loupes',
+    title: 'Loupes for veterinary surgeons',
+    metaTitle: 'Veterinary Surgical Loupes: Magnification for Small Animal Surgery | HeliosX',
+    description:
+      'Loupes for veterinary surgeons and vets: small animal soft tissue and orthopedic surgery, ophthalmic and dental work, magnification by procedure and neck strain research.',
+    heroKicker: 'Veterinary surgery',
+    primaryKeyword: 'veterinary surgical loupes',
+    relatedKeywords: [
+      'vet loupes',
+      'loupes for veterinarians',
+      'veterinary surgery magnification',
+      'small animal surgery loupes',
+      'veterinary dental loupes',
+    ],
+    audience: 'veterinary surgeons, general practice veterinarians, veterinary dentists and veterinary students',
+    intro:
+      'Veterinary surgery covers a wider size range than any human specialty. The same surgeon may repair a cat’s urethra in the morning and plate a large dog’s tibia in the afternoon. Small patients make magnification more useful, and the posture problems are the same ones human surgeons have: leaning over a table that is often too low, for long cases, with no one adjusting it for you.',
+    answer: `Most veterinary surgeons do best with 2.5x–3.5x loupes, measured standing at their usual table height: 2.5x for orthopedic and large-animal soft tissue, 3.5x for small patients, ureteral and urethral work, and fine closures. Ophthalmic and microvascular work moves to 4.0x–6.0x or a microscope. HeliosX Galileo starts at ${usd(productStartingPrices.Galileo)} with six frame styles included in the price; ergonomic Apollo starts at ${usd(productStartingPrices.Apollo)}.`,
+    procedureRows: [
+      { procedure: 'Spays, neuters and routine soft tissue', magnification: '2.5x', distance: 'Standing', pick: `Galileo 2.5x, from ${usd(productStartingPrices.Galileo)}` },
+      { procedure: 'Orthopedics: TPLO, fracture repair', magnification: '2.5x', distance: 'Standing, longer', pick: 'Galileo 2.5x, or Medusa for mixed heights' },
+      { procedure: 'Cats and toy breeds: urethrostomy, gut, ureter', magnification: '3.0x–3.5x', distance: 'Standing or seated', pick: 'Galileo 3.5x' },
+      { procedure: 'Veterinary dentistry and oral surgery', magnification: '3.0x–4.0x', distance: 'Seated', pick: 'Galileo 3.5x or Apollo 4.0x, with a light' },
+      { procedure: 'Ophthalmic and microvascular surgery', magnification: '4.0x–6.0x or microscope', distance: 'Seated', pick: `Kepler, from ${usd(productStartingPrices.Kepler)}` },
+    ],
+    proofPoints: [
+      'Built to your own table height and working posture.',
+      'Galileo: six lightweight frame styles, all included in the price.',
+      'Limited lifetime warranty and 30-day returns on non-prescription pairs.',
+    ],
+    sections: [
+      {
+        title: 'Small patients, big range',
+        body:
+          'In small animal work the structures get small fast. A feline urethra, a toy-breed intestine or a ureter is a different visual task from a large-breed stifle. Many veterinary surgeons settle on 3.0x–3.5x as an everyday compromise, and keep the wider 2.5x field for orthopedics and large patients.',
+        bullets: [
+          'Choose for the patients you see most, not the smallest one you might see.',
+          'Higher magnification narrows the field and depth of focus, which matters with a breathing patient.',
+          'Ophthalmic and microvascular procedures often use an operating microscope.',
+        ],
+      },
+      {
+        title: 'What the research says about veterinary surgeons’ necks',
+        body:
+          'Posture problems are near universal in the profession. A 2021 survey of 212 board-certified veterinary surgeons in the American College of Veterinary Surgeons found that 93% had experienced musculoskeletal symptoms associated with surgery, most often in the neck, lower back and upper back, that discomfort worsened with longer surgical hours, and that 42% had pain lasting more than 24 hours after surgery.',
+        bullets: [
+          'Table height is the first fix: many veterinary tables sit lower than human operating tables.',
+          'Ergonomic prismatic loupes angle the line of sight so the eyes look down while the head stays more upright.',
+          'Loupes are not a treatment for pain; positioning, table height and breaks matter as much.',
+        ],
+        sourceLabel:
+          'Kim SY, Yu D, Simons MC, Breur GJ. Prevalence of work-related musculoskeletal symptoms in veterinary surgeons: a cross-sectional survey. Veterinary and Comparative Orthopaedics and Traumatology, 2023.',
+        sourceHref: 'https://pubmed.ncbi.nlm.nih.gov/36796428/',
+      },
+      {
+        title: 'Working distance at a veterinary table',
+        body:
+          'Measure standing at the height you actually operate, which is often lower than you would like. If you are tall and your table does not rise far, your working distance will be longer than average, and a loupe built to a standard setting will make you stoop. Veterinary dentistry is usually seated, with a shorter distance again.',
+        bullets: [
+          'Measure from the bridge of your nose to the surgical site in your real posture.',
+          'If you split time between standing surgery and seated dentistry, Medusa adjusts from 300 to 600 mm.',
+          'How to measure: /measurements.',
+        ],
+      },
+      {
+        title: 'Light for dentistry and deep cavities',
+        body:
+          'Veterinary dental work and deep abdominal or thoracic cases are where a loupe-mounted light earns its weight. The mouth of a small dog or cat is hard to light from above, and your head blocks the overhead light. Plan the light at the same time as the loupe, because the mount is fitted to the frame.',
+        bullets: [
+          'Choosing a light: /dental-loupes-with-light.',
+        ],
+      },
+      {
+        title: 'Where HeliosX fits',
+        body:
+          'HeliosX builds every pair to your measured pupillary and working distance, reviews the numbers before production, and publishes every price. Every model’s frame choices are included in the price.',
+        bullets: [
+          `Galileo: Galilean 2.5x–3.5x, six lightweight frame styles, ${priceRange('galileo')}.`,
+          `Apollo: ergonomic prismatic 3.0x–6.0x for a more upright head, ${priceRange('apollo')}.`,
+          `Kepler: prismatic 4.0x–6.0x for ophthalmic and fine work, ${priceRange('kepler')}.`,
+          'Veterinary students get trainee pricing with proof of enrollment.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Galileo', 'Apollo', 'Kepler'],
+    faqs: [
+      {
+        question: 'What magnification do veterinary surgeons use?',
+        answer:
+          'Most use 2.5x–3.5x: 2.5x for orthopedics and large patients, 3.0x–3.5x for cats, toy breeds and fine soft tissue. Ophthalmic and microvascular work needs 4.0x–6.0x or a microscope.',
+      },
+      {
+        question: 'Are human surgical loupes suitable for veterinary surgery?',
+        answer:
+          'Yes. The optics are the same; what changes is the working distance and magnification you choose. Measure in your own posture at your own table height.',
+      },
+      {
+        question: 'Do veterinary students get a discount?',
+        answer: `Yes. Verified students, residents and interns get ${TRAINEE_PERCENT_OFF}% off any HeliosX model.`,
+      },
+    ],
+    datePublished: '2026-10-18',
+    dateModified: '2026-10-18',
+  },
+  {
+    slug: 'loupes-for-prosthodontics',
+    title: 'Loupes for prosthodontics and crown and bridge work',
+    metaTitle: 'Loupes for Prosthodontists: Margins, Veneers & Magnification | HeliosX',
+    description:
+      'Loupes for prosthodontists and restorative dentists: crown margins, veneer preparation, implant prosthetics and shade taking. Magnification by procedure and ergonomic options.',
+    heroKicker: 'Prosthodontics',
+    primaryKeyword: 'loupes for prosthodontics',
+    relatedKeywords: [
+      'prosthodontist loupes',
+      'loupes for crown preparation',
+      'veneer preparation magnification',
+      'best loupes for restorative dentistry',
+      'crown margin magnification',
+    ],
+    audience: 'prosthodontists, prosthodontic residents and restorative dentists who do a lot of fixed work',
+    intro:
+      'Prosthodontics is margin work. The difference between a crown that seats and one that does not is often a fraction of a millimetre at the finish line, and that is where magnification earns its keep. It is also seated, precise, repetitive work in one posture, which makes the ergonomic side of the loupe as important as the optics.',
+    answer: `Most prosthodontists work at 3.5x–4.5x: enough to read a finish line, assess a veneer preparation and check an impression, while keeping a usable field. Many start at 3.5x Galilean and move to prismatic 4.0x–5.0x for fixed work. HeliosX Galileo starts at ${usd(productStartingPrices.Galileo)}; ergonomic prismatic Apollo starts at ${usd(productStartingPrices.Apollo)} and Kepler at ${usd(productStartingPrices.Kepler)}. Every model’s frames are included in the price.`,
+    procedureRows: [
+      { procedure: 'Crown and bridge preparation, finish lines', magnification: '3.5x–4.5x', distance: 'Seated', pick: 'Apollo 4.0x, or Galileo 3.5x' },
+      { procedure: 'Veneer preparation and depth control', magnification: '3.5x–4.0x', distance: 'Seated', pick: `Apollo 4.0x, from ${usd(productStartingPrices.Apollo)}` },
+      { procedure: 'Checking impressions and scans, try-in', magnification: '3.5x', distance: 'Seated', pick: `Galileo 3.5x, from ${usd(productStartingPrices.Galileo)}` },
+      { procedure: 'Implant prosthetics and abutment seating', magnification: '3.5x–4.0x', distance: 'Seated', pick: 'Galileo 3.5x or Apollo 4.0x' },
+      { procedure: 'Shade selection', magnification: 'None', distance: 'Not applicable', pick: 'Lift the loupes and use neutral daylight' },
+    ],
+    proofPoints: [
+      'Prismatic 4.0x–6.0x for margin work, ergonomic options for long fixed appointments.',
+      'Every model’s frame choices included in the price.',
+      'Limited lifetime warranty and 30-day returns on non-prescription pairs.',
+    ],
+    sections: [
+      {
+        title: 'Why prosthodontists sit higher on the magnification scale',
+        body:
+          'General dentists often work at 2.5x–3.5x because their day mixes diagnosis, hygiene checks and restorations. A prosthodontic day is concentrated on finish lines, contacts and fit, so the work rewards more magnification. The trade-off is a narrower field and shorter depth of focus, which a seated, steady posture handles well.',
+        bullets: [
+          '3.5x: a strong all-round choice if you also do a lot of general work.',
+          '4.0x–4.5x: the common choice for heavy fixed and veneer work.',
+          '5.0x and above: very fine margin work; some move to a microscope at this point.',
+        ],
+      },
+      {
+        title: 'Galilean or prismatic for fixed work',
+        body:
+          'Galilean loupes are light and simple and work well to 3.5x. Above that, prismatic optics give a flatter, sharper image across the field, which helps when you are reading a margin from edge to edge. Prismatic loupes weigh more, so frame fit and balance matter more.',
+        bullets: [
+          `Galileo: Galilean 2.5x–3.5x, six lightweight frame styles, ${priceRange('galileo')}.`,
+          `Kepler: conventional prismatic 4.0x–6.0x, ${priceRange('kepler')}.`,
+          `Apollo: ergonomic prismatic 3.0x–6.0x, ${priceRange('apollo')}.`,
+          'The difference explained: /education/galilean-vs-prismatic-loupes.',
+        ],
+      },
+      {
+        title: 'Posture through a long fixed appointment',
+        body:
+          'Full-arch preparations and veneer cases keep you in one position for a long time. Ergonomic prismatic loupes angle the line of sight, so you look down into the mouth while the head stays closer to upright. The declination angle should be measured to you, seated at your own chair, because a standard angle may not match how you sit.',
+        bullets: [
+          'Measure seated, with the patient positioned the way you normally work.',
+          'Weigh the finished setup, including any light, not the frame alone.',
+          'Loupes are not a treatment for neck pain; chair and patient position matter too.',
+        ],
+      },
+      {
+        title: 'Take shade without the loupes',
+        body:
+          'Magnification and a loupe light both change how color reads. Most clinicians lift or remove their loupes and take shade under neutral light, then go back to magnification for the preparation. If you use a loupe light, a filter or a neutral color temperature helps for everything except shade selection.',
+        bullets: [
+          'Choose a light with a neutral color temperature: /dental-loupes-with-light.',
+          'An orange filter stops a white light from curing composite early.',
+        ],
+      },
+      {
+        title: 'Where HeliosX fits',
+        body:
+          'HeliosX builds every pair to your measured pupillary and working distance and reviews the numbers before production. Prices are published, prosthodontic residents get trainee pricing, and every model’s frame choices are included in the price.',
+        bullets: [
+          'Implant prosthetics and surgical placement: /loupes-for-dental-implants.',
+          'Endodontic magnification for comparison: /loupes-for-endodontics.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Apollo', 'Galileo', 'Kepler'],
+    faqs: [
+      {
+        question: 'What magnification do prosthodontists use?',
+        answer:
+          'Most use 3.5x–4.5x. 3.5x suits a mixed practice; 4.0x–4.5x prismatic suits heavy crown, bridge and veneer work. Above 5.0x, many clinicians prefer a microscope.',
+      },
+      {
+        question: 'Are prismatic loupes better for crown preparation?',
+        answer:
+          'Above 3.5x, usually yes. Prismatic optics give a flatter, sharper image across the field, which helps when reading a finish line. They are heavier, so frame fit matters.',
+      },
+      {
+        question: 'Should I take shade with loupes on?',
+        answer:
+          'Generally no. Magnification and loupe lights change how color reads. Take shade under neutral light without loupes, then return to magnification for the preparation.',
+      },
+      {
+        question: 'Is there a discount for prosthodontic residents?',
+        answer: `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model.`,
+      },
+    ],
+    datePublished: '2026-10-18',
+    dateModified: '2026-10-18',
+  },
+  {
+    slug: 'loupes-for-pediatric-dentistry',
+    title: 'Loupes for pediatric dentistry',
+    metaTitle: 'Loupes for Pediatric Dentists: Wide Field, Light Weight | HeliosX',
+    description:
+      'Loupes for pediatric dentists: small mouths, short appointments and moving patients. Why a wide field and low weight matter more than high magnification, with picks by procedure.',
+    heroKicker: 'Pediatric dentistry',
+    primaryKeyword: 'loupes for pediatric dentistry',
+    relatedKeywords: [
+      'pediatric dentist loupes',
+      'loupes for pedo',
+      'pediatric dental magnification',
+      'best loupes for pediatric dentists',
+      'loupes for kids dentistry',
+    ],
+    audience: 'pediatric dentists, pediatric dental residents and general dentists who see many children',
+    intro:
+      'Pediatric dentistry is fast and it moves. Appointments are short, mouths are small, patients turn their heads, and you often work from positions you would never choose with an adult: knee to knee, leaning over a parent’s lap, or around a papoose. That changes the loupe decision. A wide field and a forgiving depth of focus matter more here than high magnification.',
+    answer: `Most pediatric dentists do best with 2.5x–3.0x Galilean loupes: a wide field and deep focus keep a moving child in view, while still showing early caries and margins on primary teeth. Choose a light, comfortable frame, because you will wear them through many short appointments. HeliosX Galileo starts at ${usd(productStartingPrices.Galileo)}, with six lightweight frame styles included in the price.`,
+    procedureRows: [
+      { procedure: 'Exams, sealants and fluoride', magnification: '2.5x', distance: 'Seated, varied positions', pick: `Galileo 2.5x, from ${usd(productStartingPrices.Galileo)}` },
+      { procedure: 'Restorations on primary teeth', magnification: '2.5x–3.0x', distance: 'Seated', pick: 'Galileo 2.5x–3.0x' },
+      { procedure: 'Pulpotomy and stainless steel crowns', magnification: '3.0x', distance: 'Seated', pick: 'Galileo 3.0x' },
+      { procedure: 'Knee-to-knee and lap exams', magnification: '2.5x', distance: 'Short and changing', pick: 'Galileo 2.5x, for the deepest focus' },
+      { procedure: 'Cases under general anesthesia', magnification: '3.0x–3.5x', distance: 'Seated, stable', pick: 'Galileo 3.5x, or Apollo for long lists' },
+    ],
+    proofPoints: [
+      'Wide-field Galilean optics for patients who move.',
+      'Six lightweight frame styles on Galileo, all included in the price.',
+      'Limited lifetime warranty and 30-day returns on non-prescription pairs.',
+    ],
+    sections: [
+      {
+        title: 'Why lower magnification suits children',
+        body:
+          'Higher magnification shrinks your field and depth of focus. That is a fair trade with a still adult patient. With a child who moves, it means the tooth keeps leaving the view and you keep refocusing. Most pediatric dentists find 2.5x–3.0x is the sweet spot: enough to see early lesions and margins on primary teeth, wide enough to keep the whole quadrant and the child’s movements in view.',
+        bullets: [
+          '2.5x: exams, sealants and most restorative work.',
+          '3.0x: pulpotomies and crowns where you want a little more detail.',
+          '3.5x and above: mainly for stable cases, such as treatment under general anesthesia.',
+        ],
+      },
+      {
+        title: 'Working from awkward positions',
+        body:
+          'Pediatric dentistry asks you to work from positions that change between patients: knee to knee with a toddler, seated beside a parent, or standing to reach a child who will not lie back. A loupe is sharp at one working distance, so measure the position you use most and accept that the others will be slightly off. A deep-focus Galilean loupe is more forgiving of that than a high-magnification prismatic one.',
+        bullets: [
+          'Measure seated in your most common chair position.',
+          'If your positions vary a lot, choose a lower magnification for a deeper focus range.',
+          'How to measure: /measurements.',
+        ],
+      },
+      {
+        title: 'Light, filters and a calm patient',
+        body:
+          'A loupe-mounted light helps you see into small mouths without shining the overhead light into a child’s eyes. Choose a light you can dim, and use an orange filter when placing composite so the light does not cure it early. Some children are wary of the light at first; letting them look at it before you start helps.',
+        bullets: [
+          'Choosing a light: /dental-loupes-with-light.',
+          'The mount is fitted to the frame, so decide on a light before ordering.',
+        ],
+      },
+      {
+        title: 'Comfort over a full day',
+        body:
+          'A pediatric schedule is many short appointments, and your loupes go on and off between them. Weight on the nose and pressure behind the ears are what you notice by the afternoon. A light Galilean loupe in a frame that fits your face well is the most comfortable setup.',
+        bullets: [
+          'Try more than one frame style if you can; fit varies by face shape.',
+          'Weigh the finished setup with any light, not the frame alone.',
+        ],
+      },
+      {
+        title: 'Where HeliosX fits',
+        body:
+          'HeliosX builds every pair to your measured pupillary and working distance, reviews the numbers before production and publishes every price. Every model’s frame choices are included in the price, and pediatric residents get trainee pricing.',
+        bullets: [
+          `Galileo: Galilean 2.5x–3.5x, six lightweight frame styles, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
+          `Apollo: ergonomic prismatic, for long lists under general anesthesia, ${priceRange('apollo')}.`,
+          'General dental loupes: /dental-loupes. Students: /education/best-loupes-for-dental-students.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Galileo', 'Apollo', 'Medusa'],
+    faqs: [
+      {
+        question: 'What magnification do pediatric dentists use?',
+        answer:
+          'Most use 2.5x–3.0x. Children move, and a lower magnification keeps a wider field and deeper focus while still showing early caries and margins on primary teeth.',
+      },
+      {
+        question: 'Do pediatric dentists need a loupe light?',
+        answer:
+          'It helps in small mouths and avoids shining the overhead light in a child’s eyes. Choose one you can dim, with an orange filter for composite.',
+      },
+      {
+        question: 'Is there a discount for pediatric dental residents?',
+        answer: `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model.`,
+      },
+    ],
+    datePublished: '2026-10-18',
+    dateModified: '2026-10-18',
+  },
+  {
+    slug: 'loupes-for-oral-surgery',
+    title: 'Loupes for oral surgery in the dental office',
+    metaTitle: 'Loupes for Oral Surgery: Extractions, Grafts & Implants | HeliosX',
+    description:
+      'Loupes for oral surgeons and dentists who do surgery: third molars, bone grafting, implant placement and biopsies. Magnification by procedure, light and posture research.',
+    heroKicker: 'Office oral surgery',
+    primaryKeyword: 'loupes for oral surgery',
+    relatedKeywords: [
+      'oral surgeon loupes',
+      'loupes for extractions',
+      'third molar extraction magnification',
+      'bone graft loupes',
+      'loupes for dental surgery',
+    ],
+    audience: 'oral surgeons and general dentists who do extractions, grafting and implant surgery in the office',
+    intro:
+      'Office oral surgery is a different job from hospital maxillofacial surgery. It is a day of extractions, grafts, implants and biopsies in a dental chair, often standing, with a lot of force applied in a small space. Magnification helps with root tips, membranes and suturing, but the field has to stay wide enough to keep the instruments, the flap and the patient’s airway in view.',
+    answer: `Most office oral surgeons work at 2.5x–3.5x: 2.5x for extractions, where you need the whole field, and 3.5x for grafting, membranes, implant site preparation and fine suturing. A loupe-mounted light matters as much as magnification for posterior work. HeliosX Galileo starts at ${usd(productStartingPrices.Galileo)} with six frame styles included in the price; ergonomic Apollo starts at ${usd(productStartingPrices.Apollo)}.`,
+    procedureRows: [
+      { procedure: 'Routine and surgical extractions', magnification: '2.5x', distance: 'Standing or seated', pick: `Galileo 2.5x, from ${usd(productStartingPrices.Galileo)}` },
+      { procedure: 'Third molars and root tip retrieval', magnification: '2.5x–3.5x', distance: 'Standing', pick: 'Galileo 3.5x with a light' },
+      { procedure: 'Bone grafting, membranes, sinus lifts', magnification: '3.5x', distance: 'Seated or standing', pick: 'Galileo 3.5x, or Apollo for long cases' },
+      { procedure: 'Implant site preparation and placement', magnification: '3.0x–3.5x', distance: 'Seated or standing', pick: 'Galileo 3.5x, or Medusa for both positions' },
+      { procedure: 'Biopsies and fine suturing', magnification: '3.5x–4.0x', distance: 'Seated', pick: `Apollo 4.0x, from ${usd(productStartingPrices.Apollo)}` },
+    ],
+    proofPoints: [
+      'Wide-field Galilean optics for extraction days.',
+      'Every model’s frame choices included in the price.',
+      'Limited lifetime warranty and 30-day returns on non-prescription pairs.',
+    ],
+    sections: [
+      {
+        title: 'Office oral surgery versus hospital maxillofacial work',
+        body:
+          'Hospital maxillofacial surgery includes trauma, orthognathic and reconstructive cases in an operating room. Office oral surgery is extraction, grafting and implant work in a dental chair. The office day is shorter cases at a higher pace, often standing at the chair, with posterior access the main challenge. Choose loupes for that day.',
+        bullets: [
+          'Hospital maxillofacial surgery: /maxillofacial-surgery-loupes.',
+          'Implant dentistry in more depth: /loupes-for-dental-implants.',
+        ],
+      },
+      {
+        title: 'Posture research in oral surgeons',
+        body:
+          'Oral and maxillofacial surgeons report high rates of work-related pain. In a cross-sectional study of 153 oral and maxillofacial surgeons, 32% had pain attributable to their practice lasting longer than two weeks, most often in the neck and back. Standing to gain access to posterior teeth, and twisting to see past the patient’s cheek, are part of why.',
+        bullets: [
+          'Measure your working distance in the position you use most, standing or seated.',
+          'Ergonomic prismatic loupes angle the line of sight so the head can stay closer to upright.',
+          'Loupes are not a treatment for pain; chair height and patient positioning matter too.',
+        ],
+        sourceLabel:
+          'Taylor CA, Strauss RA, Best AM. Postural preference and musculoskeletal complaints in oral and maxillofacial surgeons. Journal of Oral and Maxillofacial Surgery, 2018.',
+        sourceHref: 'https://pubmed.ncbi.nlm.nih.gov/28529148/',
+      },
+      {
+        title: 'Light is half the job in posterior surgery',
+        body:
+          'Third molars and posterior grafts sit where the overhead light does not reach, and your own head blocks it. A loupe-mounted light sends light along your line of sight, straight into the socket. Plan it together with the loupe, because the mount is fitted to the frame.',
+        bullets: [
+          'Corded lights keep weight off the nose; cordless lights move easily between operatories.',
+          'Choosing a light: /dental-loupes-with-light.',
+        ],
+      },
+      {
+        title: 'Magnification without losing the field',
+        body:
+          'Extraction work needs the whole field: the elevator, the tooth, the adjacent teeth and the soft tissue. 2.5x keeps that in view. Step up to 3.5x for the steps where detail decides the outcome: membrane placement, graft containment, implant osteotomy and suturing.',
+        bullets: [
+          'One pair at 3.0x–3.5x is a common compromise for a mixed surgical day.',
+          'Above 4.0x, the field gets too narrow for most extraction work.',
+        ],
+      },
+      {
+        title: 'Where HeliosX fits',
+        body:
+          'HeliosX builds every pair to your measured pupillary and working distance, reviews the numbers before production and publishes every price. Every model’s frame choices are included in the price.',
+        bullets: [
+          `Galileo: Galilean 2.5x–3.5x, six lightweight frame styles, ${priceRange('galileo')}.`,
+          `Apollo: ergonomic prismatic 3.0x–6.0x, ${priceRange('apollo')}.`,
+          `Medusa: adjustable working distance for standing and seated work, ${priceRange('medusa')}.`,
+        ],
+      },
+    ],
+    recommendedProducts: ['Galileo', 'Apollo', 'Medusa'],
+    faqs: [
+      {
+        question: 'What magnification is best for oral surgery?',
+        answer:
+          '2.5x–3.5x for most office oral surgery. 2.5x keeps the full field for extractions; 3.5x helps with grafting, membranes, implant placement and suturing.',
+      },
+      {
+        question: 'Do I need a light for extractions with loupes?',
+        answer:
+          'For posterior work, usually yes. The overhead light rarely reaches into a third molar socket once your head is in the way. Plan the light with the loupe.',
+      },
+      {
+        question: 'Is there a discount for oral surgery residents?',
+        answer: `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model.`,
+      },
+    ],
+    datePublished: '2026-10-18',
+    dateModified: '2026-10-18',
+  },
+  {
+    slug: 'loupes-for-general-dentists',
+    title: 'Loupes for general dentists',
+    metaTitle: 'Loupes for General Dentists: Restorative Magnification Guide | HeliosX',
+    description:
+      'Loupes for general dentists: restorative work, crown preparation, caries diagnosis and hygiene checks in one day. Magnification by procedure and what the caries detection research shows.',
+    heroKicker: 'General dentistry',
+    primaryKeyword: 'loupes for general dentists',
+    relatedKeywords: [
+      'general dentist loupes',
+      'best loupes for general dentistry',
+      'restorative dentistry loupes',
+      'loupes for crown preps',
+      'what magnification for general dentist',
+    ],
+    audience: 'general dentists, associates and dentists moving up from their school loupes',
+    intro:
+      'A general dentist’s day is the widest in dentistry: exams, fillings, crowns, a root canal access, an extraction and a hygiene check, often all before lunch. One pair of loupes has to cover all of it. That usually means a middle magnification, a comfortable seated working distance, and enough field to move from tooth to tooth without hunting.',
+    answer: `Most general dentists work at 3.0x–3.5x: detailed enough for crown margins and composite contacts, wide enough for exams and quadrant work. Many who started at 2.5x in school move up to 3.5x in practice. HeliosX Galileo starts at ${usd(productStartingPrices.Galileo)} with six lightweight frame styles included in the price; ergonomic prismatic Apollo starts at ${usd(productStartingPrices.Apollo)} for long restorative days.`,
+    procedureRows: [
+      { procedure: 'Exams and hygiene checks', magnification: '2.5x–3.0x', distance: 'Seated', pick: `Galileo, from ${usd(productStartingPrices.Galileo)}` },
+      { procedure: 'Composite restorations and contacts', magnification: '3.0x–3.5x', distance: 'Seated', pick: 'Galileo 3.5x' },
+      { procedure: 'Crown preparation and margins', magnification: '3.5x–4.0x', distance: 'Seated', pick: `Galileo 3.5x or Apollo 4.0x` },
+      { procedure: 'Endodontic access and canal location', magnification: '3.5x–4.5x', distance: 'Seated', pick: `Apollo 4.0x, from ${usd(productStartingPrices.Apollo)}` },
+      { procedure: 'Extractions', magnification: '2.5x–3.0x', distance: 'Standing or seated', pick: 'Galileo 2.5x–3.0x' },
+    ],
+    proofPoints: [
+      'One pair for a mixed restorative day.',
+      'Galileo: six lightweight frame styles, all included in the price.',
+      'Limited lifetime warranty and 30-day returns on non-prescription pairs.',
+    ],
+    sections: [
+      {
+        title: 'The school pair versus the practice pair',
+        body:
+          'Many dentists bought 2.5x loupes in school because that was the program default. In practice, with more crown and restorative work, a common complaint is that 2.5x no longer shows margins clearly enough. Moving up to 3.5x is the most common upgrade, and few dentists go back down.',
+        bullets: [
+          'If your school pair still fits and works, 3.5x is a reasonable second pair.',
+          'If neck strain has started, consider ergonomic prismatic viewing at the same time.',
+          'Remeasure your working distance; your posture in practice may differ from school.',
+        ],
+      },
+      {
+        title: 'Magnification helps detection, and needs judgment',
+        body:
+          'Magnification makes you see more, which is not the same as diagnosing better. In an in vitro study of 100 extracted molars, examiners using 2.5x and 4.5x loupes and a microscope found more lesions as magnification rose, and sensitivity improved, but specificity fell to a level the authors called unacceptably low. In other words, magnification can lead to over-calling early lesions. Use it to see, and keep your diagnostic criteria the same.',
+        bullets: [
+          'Magnification is most valuable for margins, contacts and preparation quality.',
+          'For caries diagnosis, keep using the same visual criteria you would without loupes.',
+          'Radiographs and clinical judgment still decide treatment.',
+        ],
+        sourceLabel:
+          'Neuhaus KW, Jost F, Perrin P, Lussi A. Impact of different magnification levels on visual caries detection with ICDAS. Journal of Dentistry, 2015.',
+        sourceHref: 'https://pubmed.ncbi.nlm.nih.gov/26366524/',
+      },
+      {
+        title: 'Galilean or ergonomic prismatic',
+        body:
+          'A Galilean loupe is light, simple and works well to 3.5x, which covers most general dentistry. Ergonomic prismatic loupes angle the line of sight so you can look into the mouth with your head more upright, which helps on long restorative days. They are heavier, so frame fit matters more.',
+        bullets: [
+          `Galileo: Galilean 2.5x–3.5x, six lightweight frame styles, ${priceRange('galileo')}.`,
+          `Apollo: ergonomic prismatic 3.0x–6.0x, ${priceRange('apollo')}.`,
+          `Medusa: ergonomic prismatic with adjustable working distance, ${priceRange('medusa')}.`,
+        ],
+      },
+      {
+        title: 'Light and composite',
+        body:
+          'A loupe-mounted light helps in posterior work and in any preparation where your head blocks the operatory light. Use an orange filter when placing composite, so the white light does not start curing it before you are ready.',
+        bullets: [
+          'Choosing a light: /dental-loupes-with-light.',
+          'The mount is fitted to the frame, so decide on a light before ordering.',
+        ],
+      },
+      {
+        title: 'Where HeliosX fits',
+        body:
+          'HeliosX builds every pair to your measured pupillary and working distance, reviews the numbers before production and publishes every price. Every model’s frame choices are included in the price.',
+        bullets: [
+          'All dental loupes, compared: /dental-loupes.',
+          'Brand by brand: /best-dental-loupe-brands.',
+          'Fixed and veneer work in more depth: /loupes-for-prosthodontics.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Galileo', 'Apollo', 'Medusa'],
+    faqs: [
+      {
+        question: 'What magnification should a general dentist use?',
+        answer:
+          'Most general dentists use 3.0x–3.5x. It shows margins and contacts clearly and keeps a wide enough field for exams and quadrant work. Many who start at 2.5x move up to 3.5x in practice.',
+      },
+      {
+        question: 'Do loupes improve caries detection?',
+        answer:
+          'They help you see more, but research shows magnification can also lead to over-calling early lesions. Use the same diagnostic criteria with loupes as without.',
+      },
+      {
+        question: 'Should my second pair of loupes be ergonomic?',
+        answer:
+          'If you have neck strain or long restorative days, it is worth comparing. Ergonomic prismatic loupes let you look down with your head more upright. Measure the declination angle to your own chair position.',
+      },
+    ],
+    datePublished: '2026-10-18',
+    dateModified: '2026-10-18',
+  },
 ]
 
 allSeoLandingPages.push(...specialtyPagesOct2026)

@@ -12,7 +12,7 @@ import { useContact } from '@/components/Contact/ContactProvider'
 import Sheet from '@/components/m2/Sheet'
 import { StagePhoto } from '@/components/m2/Photo'
 import { modelBySlug, money, swatchHex } from '@/components/m2/models'
-import { addToCart, getCartEditTarget, replaceCartItem } from '@/lib/cart'
+import { addToCart, getCartEditTarget, getLinkedMagnification, replaceCartItem } from '@/lib/cart'
 import TraineePricing from '@/components/product/TraineePricing'
 import { magnificationPriceByProduct, PRESCRIPTION_PRICE, TRAINEE_PERCENT_OFF } from '@/lib/pricing'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
@@ -66,6 +66,11 @@ export default function MobileProductExperience({
   // Index of the bagged line being edited (opened from the cart with ?edit=N).
   const [editIndex, setEditIndex] = useState<number | null>(null)
   const [editQuantity, setEditQuantity] = useState(1)
+
+  useEffect(() => {
+    const linked = getLinkedMagnification(config.magnifications)
+    if (linked) setMag(linked)
+  }, [config.magnifications])
 
   useEffect(() => {
     const target = getCartEditTarget(config.slug)

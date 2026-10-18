@@ -65,6 +65,14 @@ export function cartEditHref(item: CartItem, index: number): string {
   return `/product/${item.productSlug}?edit=${index}`
 }
 
+// Shopping listings link to /product/<slug>?mag=3.5x, one listing per
+// magnification, so the page must open on that magnification and price.
+export function getLinkedMagnification(options: string[]): string | null {
+  if (typeof window === 'undefined') return null
+  const mag = new URLSearchParams(window.location.search).get('mag')
+  return mag && options.includes(mag) ? mag : null
+}
+
 // The bagged line a product page was opened to edit (via ?edit=N), if it
 // belongs to this product.
 export function getCartEditTarget(productSlug: string): { index: number; item: CartItem } | null {

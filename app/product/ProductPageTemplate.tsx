@@ -13,7 +13,7 @@ import Noise from '@/components/Noise'
 import ProductReviews from '@/components/ProductReviews'
 import MobileProductExperience from '@/components/mobile/MobileProductExperience'
 import { useContact } from '@/components/Contact/ContactProvider'
-import { addToCart, getCartEditTarget, replaceCartItem } from '@/lib/cart'
+import { addToCart, getCartEditTarget, getLinkedMagnification, replaceCartItem } from '@/lib/cart'
 import { trackViewItem } from '@/lib/analytics'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productFaqs } from '@/lib/product-faqs'
@@ -366,6 +366,11 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   // Index of the bagged line being edited (opened from the cart with ?edit=N).
   const [editIndex, setEditIndex] = useState<number | null>(null)
   const [editPrescription, setEditPrescription] = useState(false)
+
+  useEffect(() => {
+    const linked = getLinkedMagnification(config.magnifications)
+    if (linked) setSelectedMag(linked)
+  }, [config.magnifications])
 
   useEffect(() => {
     const target = getCartEditTarget(config.slug)

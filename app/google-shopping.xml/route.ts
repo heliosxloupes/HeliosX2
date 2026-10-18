@@ -1,5 +1,5 @@
 import { absoluteUrl, siteName } from '@/lib/seo'
-import { productImages, productPositioning, productStartingPrices } from '@/lib/seo-content'
+import { productImages, productPositioning } from '@/lib/seo-content'
 import { magnificationPriceByProduct } from '@/lib/pricing'
 import { modelBySlug } from '@/components/m2/models'
 
@@ -28,27 +28,30 @@ function escapeXml(value: string | number) {
 }
 
 export function GET() {
-  const products = (Object.keys(productPositioning) as Array<keyof typeof productPositioning>).map(
+  // One item per model and magnification, because each magnification has its
+  // own price. Items share an item_group_id per model, and each links to the
+  // product page with ?mag= so the page opens on that price. IDs match the
+  // per-magnification SKUs Google already crawled (e.g. heliosx-newton-25x).
+  const products = (Object.keys(productPositioning) as Array<keyof typeof productPositioning>).flatMap(
     (shortName) => {
       const slug = shortName.toLowerCase()
-      const mags = Object.keys(magnificationPriceByProduct[slug])
-      const range = `${mags[0]}–${mags[mags.length - 1]}`
-      return `
+      return Object.entries(magnificationPriceByProduct[slug]).map(([mag, price]) => `
     <item>
-      <g:id>${escapeXml(`heliosx-${slug}`)}</g:id>
-      <title>${escapeXml(`HeliosX ${shortName} ${opticalType[shortName]} Surgical & Dental Loupes ${range}, Custom Fit`)}</title>
-      <description>${escapeXml(productPositioning[shortName])}</description>
-      <link>${escapeXml(absoluteUrl(`/product/${slug}`))}</link>
+      <g:id>${escapeXml(`heliosx-${slug}-${mag.replace('.', '')}`)}</g:id>
+      <g:item_group_id>${escapeXml(`heliosx-${slug}`)}</g:item_group_id>
+      <title>${escapeXml(`HeliosX ${shortName} ${mag} ${opticalType[shortName]} Surgical & Dental Loupes, Custom Fit`)}</title>
+      <description>${escapeXml(`${productPositioning[shortName]} ${mag} magnification, built to your pupillary and working distance.`)}</description>
+      <link>${escapeXml(absoluteUrl(`/product/${slug}?mag=${mag}`))}</link>
       <g:image_link>${escapeXml(absoluteUrl(modelBySlug(slug)?.photo.src ?? productImages[shortName]))}</g:image_link>${(modelBySlug(slug)?.gallery ?? [])
         .slice(0, 10)
         .map((src) => `
       <g:additional_image_link>${escapeXml(absoluteUrl(src))}</g:additional_image_link>`)
         .join('')}
       <g:availability>in_stock</g:availability>
-      <g:price>${escapeXml(`${productStartingPrices[shortName].toFixed(2)} USD`)}</g:price>
+      <g:price>${escapeXml(`${price.toFixed(2)} USD`)}</g:price>
       <g:condition>new</g:condition>
       <g:brand>${escapeXml(siteName)}</g:brand>
-      <g:mpn>${escapeXml(`heliosx-${slug}`)}</g:mpn>
+      <g:mpn>${escapeXml(`heliosx-${slug}-${mag.replace('.', '')}`)}</g:mpn>
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Medical &gt; Medical Instruments</g:google_product_category>
       <g:product_type>Surgical and dental loupes &gt; ${escapeXml(opticalType[shortName])}</g:product_type>
@@ -74,7 +77,7 @@ export function GET() {
       -->
       <g:min_handling_time>7</g:min_handling_time>
       <g:max_handling_time>14</g:max_handling_time>
-    </item>`
+    </item>`)
     },
   )
 

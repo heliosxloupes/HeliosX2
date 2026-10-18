@@ -7075,7 +7075,7 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
         body:
           'Every HeliosX pair is built to the pupillary distance and working distance you measure, and we review the measurements before production. Prices are published, so you can price a complete order before you speak to anyone.',
         bullets: [
-          `Galileo: Galilean 2.5x–3.5x, six frame styles in metal and other materials, in finishes from black to gold, every one included in the price, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
+          `Galileo: Galilean 2.5x–3.5x, six lightweight, comfortable frame styles in metal and other materials, in finishes from black to gold, every one included in the price, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
           `Apollo: ergonomic prismatic 3.0x–6.0x for a more upright head, ${priceRange('apollo')}.`,
           'Reconstructive surgery in more depth: /education/best-loupes-for-plastic-surgery.',
         ],
@@ -7187,7 +7187,7 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
         body:
           'HeliosX builds every pair to your measured pupillary and working distance and reviews the numbers before production. Prices are published, and DPM residents get trainee pricing.',
         bullets: [
-          `Galileo: Galilean 2.5x–3.5x, six frame styles in metal and other materials, in finishes from black to gold, every one included in the price, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
+          `Galileo: Galilean 2.5x–3.5x, six lightweight, comfortable frame styles in metal and other materials, in finishes from black to gold, every one included in the price, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
           `Medusa: ergonomic prismatic with adjustable working distance, ${priceRange('medusa')}.`,
           'Orthopedic foot and ankle comparison: /orthopedic-surgery-loupes.',
         ],
@@ -7294,7 +7294,7 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
         body:
           'HeliosX builds every pair to your measured pupillary and working distance and reviews the measurements before production. HeliosX does not sell headlights, so choose a compatible light and confirm the mount before ordering.',
         bullets: [
-          `Galileo: Galilean 2.5x–3.5x, six frame styles in metal and other materials, in finishes from black to gold, every one included in the price, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
+          `Galileo: Galilean 2.5x–3.5x, six lightweight, comfortable frame styles in metal and other materials, in finishes from black to gold, every one included in the price, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
           `Apollo: ergonomic prismatic for a more upright head, ${priceRange('apollo')}.`,
           'General surgery loupes, including open abdominal work: /general-surgery-loupes.',
         ],

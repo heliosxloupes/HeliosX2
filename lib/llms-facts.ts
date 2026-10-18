@@ -23,7 +23,7 @@ function priceRange(slug: string) {
 
 const models = [
   { slug: 'newton', name: 'Newton', type: 'Galilean', weight: '40–50 g with frame', note: 'lowest-priced Galilean pair' },
-  { slug: 'galileo', name: 'Galileo', type: 'Galilean', weight: null, note: 'recommended Galilean pair: six frame styles in metal and other materials, all included in the price, wide 110–170 mm field and 200 mm depth of field for everyday clinical work' },
+  { slug: 'galileo', name: 'Galileo', type: 'Galilean', weight: null, note: 'recommended Galilean pair: six lightweight frame styles in metal and other materials, all included in the price, wide 110–170 mm field and 200 mm depth of field for everyday clinical work' },
   { slug: 'kepler', name: 'Kepler', type: 'conventional prismatic', weight: '68–85 g with frame', note: 'higher magnification for fine surgical detail' },
   { slug: 'apollo', name: 'Apollo', type: 'ergonomic prismatic', weight: '55–58.2 g with frame', note: 'angled optics for a more upright head, fixed working distance of 420, 450, 500 or 550 mm' },
   { slug: 'medusa', name: 'Medusa', type: 'ergonomic prismatic', weight: '56–65 g with frame', note: 'adjustable working distance from 300 to 600 mm for clinicians who sit and stand' },

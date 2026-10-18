@@ -7073,7 +7073,7 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
       {
         title: 'Where HeliosX fits',
         body:
-          'Every HeliosX pair is built to the pupillary distance and working distance you measure, and we review the measurements before production. Prices are published, so you can price a complete order before you speak to anyone.',
+          'Every HeliosX pair is built to the pupillary distance and working distance you measure, and we review the measurements before production. Prices are published, so you can price a complete order before you speak to anyone. Every model’s frame choices are included in the price.',
         bullets: [
           `Galileo: Galilean 2.5x–3.5x, six lightweight, comfortable frame styles in metal and other materials, in finishes from black to gold, every one included in the price, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
           `Apollo: ergonomic prismatic 3.0x–6.0x for a more upright head, ${priceRange('apollo')}.`,
@@ -7185,7 +7185,7 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
       {
         title: 'Where HeliosX fits',
         body:
-          'HeliosX builds every pair to your measured pupillary and working distance and reviews the numbers before production. Prices are published, and DPM residents get trainee pricing.',
+          'HeliosX builds every pair to your measured pupillary and working distance and reviews the numbers before production. Prices are published, and DPM residents get trainee pricing. Every model’s frame choices are included in the price.',
         bullets: [
           `Galileo: Galilean 2.5x–3.5x, six lightweight, comfortable frame styles in metal and other materials, in finishes from black to gold, every one included in the price, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
           `Medusa: ergonomic prismatic with adjustable working distance, ${priceRange('medusa')}.`,
@@ -7292,7 +7292,7 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
       {
         title: 'Where HeliosX fits',
         body:
-          'HeliosX builds every pair to your measured pupillary and working distance and reviews the measurements before production. HeliosX does not sell headlights, so choose a compatible light and confirm the mount before ordering.',
+          'HeliosX builds every pair to your measured pupillary and working distance and reviews the measurements before production. HeliosX does not sell headlights, so choose a compatible light and confirm the mount before ordering. Every model’s frame choices are included in the price.',
         bullets: [
           `Galileo: Galilean 2.5x–3.5x, six lightweight, comfortable frame styles in metal and other materials, in finishes from black to gold, every one included in the price, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
           `Apollo: ergonomic prismatic for a more upright head, ${priceRange('apollo')}.`,

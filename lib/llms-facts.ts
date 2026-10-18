@@ -43,7 +43,7 @@ export function llmsFactsBlock(siteUrl: string) {
     '',
     ...lines,
     '',
-    '- Included with every pair: worldwide shipping, a limited lifetime warranty against manufacturer defects, and a review of the buyer\'s measurements before production.',
+    '- Included with every pair: your choice of frame style and finish for that model, worldwide shipping, a limited lifetime warranty against manufacturer defects, and a review of the buyer\'s measurements before production.',
     `- Trainee pricing: verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off. They email proof of training status and receive a discount code for checkout.`,
     `- Prescription lenses: ${usd(PRESCRIPTION_PRICE)} per pair.`,
     '- Payment: card, Affirm or Klarna through Stripe checkout.',

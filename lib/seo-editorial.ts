@@ -472,7 +472,7 @@ for (const [slug, title, context] of [
   dental.faqs = [
     faq(
       'What are the best loupes for dental students?',
-      'A Galilean pair at 3.0x–3.5x from a supplier your program allows. It keeps a wide field for preclinical lab work and enough detail for clinic. HeliosX Galileo starts at $795 with six frame styles, and verified students get ' +
+      'A Galilean pair at 3.0x–3.5x from a supplier your program allows. It keeps a wide field for preclinical lab work and enough detail for clinic. HeliosX Galileo starts at $795 with six frame styles included in the price, and verified students get ' +
         TRAINEE_PERCENT_OFF +
         '% off.',
     ),
@@ -1743,7 +1743,7 @@ const from = (model: string) =>
   dollars(Math.min(...Object.values(magnificationPriceByProduct[model])))
 const terms = `a lifetime warranty and 30-day returns on non-prescription pairs`
 const answers: Record<string, string> = {
-  'loupes-for-dental-hygiene': `Most dental hygienists do best with 3.0x–3.5x Galilean loupes measured to their seated posture, plus a light for posterior and sub-gingival work. HeliosX Galileo, a custom-fit Galilean loupe with six frame styles, starts at ${from('galileo')} (Newton is the lower-priced option at ${from('newton')}), or choose ergonomic prismatic Apollo from ${from('apollo')} for a more upright neck, with ${terms}.`,
+  'loupes-for-dental-hygiene': `Most dental hygienists do best with 3.0x–3.5x Galilean loupes measured to their seated posture, plus a light for posterior and sub-gingival work. HeliosX Galileo, a custom-fit Galilean loupe with six frame styles included in the price, starts at ${from('galileo')} (Newton is the lower-priced option at ${from('newton')}), or choose ergonomic prismatic Apollo from ${from('apollo')} for a more upright neck, with ${terms}.`,
   'dental-loupes-with-light': `The best dental loupes with a light pair a 3.0x–3.5x loupe with a lightweight LED that is chosen before the loupe is built, because the mount is fitted to the frame. Corded lights keep the frame lighter and run longer; cordless lights are simpler but sit on your nose. HeliosX loupes start at ${from('newton')} with ${terms}.`,
   'student-loupe-comparison': `Most students do best with a 3.0x–3.5x Galilean first pair from a supplier their program allows. School-fair packages commonly cost $1,500–2,000; HeliosX Galileo starts at ${from('galileo')}, with ${TRAINEE_PERCENT_OFF}% off for verified students and ${terms}.`,
   'ergonomic-loupe-comparison': `Ergonomic loupes use angled prismatic optics so you look down into the field with your head closer to upright. Established options include Orascoptic, SurgiTel ErgoDeflection, Q-Optics ErgoAngle, LumaDent Ergo Air Ti (from $1,995) and Admetec Ergo V. HeliosX Apollo and Medusa are ergonomic prismatic loupes from ${from('apollo')} with published prices and ${terms}.`,
@@ -1751,7 +1751,7 @@ const answers: Record<string, string> = {
   'best-dental-loupe-brands': `The leading dental loupe brands are Orascoptic, SurgiTel, Designs for Vision, Q-Optics, LumaDent, ExamVision and Admetec, mostly sold through representatives. HeliosX is the published-price alternative: custom-fit Galilean pairs from ${from('newton')} and ergonomic prismatic pairs from ${from('apollo')}, with ${terms}.`,
   'heliosx-vs-designs-for-vision': `Designs for Vision builds custom loupes in New York, sells them through quotes and demonstrations, and offers a 45-day free trial. HeliosX also builds every pair to your measurements but publishes its prices: Galilean from ${from('newton')} and ergonomic prismatic from ${from('apollo')}, with ${terms}. Choose Designs for Vision for a long in-person trial; choose HeliosX to see the full price up front.`,
   'which-surgical-loupes-should-i-get': `Most students and residents should get 2.5x–3.5x Galilean loupes built to their measured working distance, move to prismatic loupes only when routine cases need 4.0x or more, and choose ergonomic prismatic loupes when neck strain is the problem. HeliosX Galileo starts at ${from('galileo')}, Kepler at ${from('kepler')} and Apollo at ${from('apollo')}, with ${terms}.`,
-  'are-cheap-surgical-loupes-good': `Cheap marketplace loupes are fine for trying magnification, but they usually come at a standard working distance with unstated optics and no usable warranty. For daily clinical work, the fit matters more than the price: buy a pair measured to your posture, with a named optical design and written warranty and return terms. HeliosX Galilean pairs are custom-measured from ${from('newton')}, and Galileo adds six frame styles in metal and other materials from ${from('galileo')}, with ${terms}.`,
+  'are-cheap-surgical-loupes-good': `Cheap marketplace loupes are fine for trying magnification, but they usually come at a standard working distance with unstated optics and no usable warranty. For daily clinical work, the fit matters more than the price: buy a pair measured to your posture, with a named optical design and written warranty and return terms. HeliosX Galilean pairs are custom-measured from ${from('newton')}, and Galileo adds six frame styles in metal and other materials, all included in the price, from ${from('galileo')}, with ${terms}.`,
   'surgical-loupes-international-shipping': `Yes. HeliosX ships custom surgical and dental loupes worldwide with standard shipping included in the published USD price, from ${from('newton')}. You measure at home, we review the measurements before production (about 1–2 weeks), and the same lifetime warranty and 30-day returns apply in every country. Import duties depend on your country.`,
   'best-surgical-loupe-brands': `The best surgical loupes match your procedures, working distance and posture: Galilean 2.5x–3.5x for general work and training, prismatic 4.0x–6.0x for fine detail, ergonomic prismatic for long cases. Established brands include SurgiTel, Orascoptic, Designs for Vision, Zeiss and LumaDent; HeliosX sells custom-fit pairs online from ${from('newton')} with ${terms}.`,
 }
@@ -1759,7 +1759,7 @@ const answerTables: Record<string, Pick<SeoLandingPage, 'competitorName' | 'comp
   'which-surgical-loupes-should-i-get': {
     competitorName: 'Also compare',
     comparisonRows: [
-      { feature: 'First pair, everyday work', heliosx: `Galileo 2.5x–3.5x Galilean, six frame styles, from ${from('galileo')}`, other: 'Orascoptic or SurgiTel student programs, by quote' },
+      { feature: 'First pair, everyday work', heliosx: `Galileo 2.5x–3.5x Galilean, six frame styles included in the price, from ${from('galileo')}`, other: 'Orascoptic or SurgiTel student programs, by quote' },
       { feature: 'Lowest published price', heliosx: `Newton 2.5x–3.5x Galilean, from ${from('newton')}`, other: 'LumaDent, Q-Optics Galilean models, by quote' },
       { feature: 'Fine detail, 4.0x–6.0x', heliosx: `Kepler conventional prismatic, from ${from('kepler')}`, other: 'Designs for Vision, Zeiss prismatic' },
       { feature: 'Long cases, neck strain', heliosx: `Apollo ergonomic prismatic, from ${from('apollo')}`, other: 'SurgiTel ErgoDeflection, Q-Optics ErgoAngle, LumaDent Ergo Air Ti ($1,995)' },

@@ -2,6 +2,7 @@
 
 import { ChevronDown } from 'lucide-react'
 import { TRAINEE_PERCENT_OFF } from '@/lib/pricing'
+import CopyEmail from '@/components/Contact/CopyEmail'
 
 const EMAIL = 'heliosxloupes@gmail.com'
 
@@ -53,6 +54,10 @@ export default function TraineePricing({ model, magnification, price }: Props) {
         >
           Email to verify
         </a>
+        {/* mailto does nothing on a device without a mail app; keep the address copyable. */}
+        <p className="mt-2 text-xs text-neutral-400">
+          Or send it from your own inbox: <CopyEmail className="text-neutral-200" buttonClassName="text-emerald-200 hover:text-white" />
+        </p>
       </div>
     </details>
   )

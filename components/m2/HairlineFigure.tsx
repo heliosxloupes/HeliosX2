@@ -9,7 +9,6 @@ const load = (name: keyof typeof import('./hairline-figures')) =>
   dynamic(() => import('./hairline-figures').then((m) => m[name]), { ssr: false })
 
 const FIGURES = {
-  Loupe: load('Loupe'),
   Query: load('Query'),
 }
 

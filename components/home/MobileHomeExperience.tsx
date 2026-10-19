@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ArrowRight, ArrowUpRight, Check, Globe2, GraduationCap, Plus, Ruler, ShieldCheck, SlidersHorizontal } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Check, Globe2, Plus, Ruler, ShieldCheck, SlidersHorizontal } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState, type RefObject } from 'react'
 
 import { MODELS, money, startingPrice, type M2Model } from '@/components/m2/models'
@@ -114,7 +114,7 @@ function StageCarousel() {
         </p>
         <div className="mt-5 flex items-center justify-between gap-3">
           <Link href={`/product/${current.slug}`} className="flex min-h-[48px] items-center gap-3 rounded-full bg-[#f1f4f1] py-1.5 pl-4 pr-1.5 text-[14px] font-extrabold text-[#08261b] transition-transform active:scale-[0.97]">
-            <span className="tab">{current.name} from {money(startingPrice(current.slug))}</span>
+            <span key={current.slug} className="tab m2-swap">{current.name} from {money(startingPrice(current.slug))}</span>
             <span className="grid h-9 w-9 place-items-center rounded-full bg-[#08261b] text-[#f1f4f1]"><ArrowUpRight size={17} /></span>
           </Link>
           <div className="flex gap-1" role="tablist" aria-label="Choose a model">
@@ -287,21 +287,16 @@ export default function MobileHomeExperience() {
       {/* SHEET */}
       <section className="m2-sheet pb-2" style={{ marginTop: -24 }}>
         <p className="m2-lede text-[16px]">Premium optics for the work that matters. No gatekeeping. Just fair pricing.</p>
-        <div className="mt-5 flex gap-2">
-          <Link href="#mobile-collection" className="m2-btn m2-btn--ink flex-[1.4] justify-between">
-            Explore the loupes <ArrowRight size={18} />
-          </Link>
-          <Link href="/student-loupe-comparison" className="m2-btn m2-btn--mint">
-            <GraduationCap size={17} /> Students
-          </Link>
+        <Link href="#mobile-collection" className="m2-btn m2-btn--ink mt-5 w-full justify-between">
+          Explore the loupes <ArrowRight size={18} />
+        </Link>
+        <div className="mt-2 grid grid-cols-2 gap-2 text-[12.5px] font-bold">
+          <span className="flex min-h-[52px] items-center gap-2 rounded-[16px] bg-[#f7f9f7] px-3.5"><Globe2 size={16} className="shrink-0 text-[#0b6b53]" /> Shipping included</span>
+          <span className="flex min-h-[52px] items-center gap-2 rounded-[16px] bg-[#f7f9f7] px-3.5"><ShieldCheck size={16} className="shrink-0 text-[#0b6b53]" /> Lifetime warranty</span>
         </div>
         <p className="mt-3 text-[13px] text-[#4d5f54]">
           Custom loupes from <strong className="tab font-extrabold text-[#08261b]">{money(startingPrice('newton'))}</strong> USD
         </p>
-        <div className="mt-6 grid grid-cols-2 gap-2 text-[12.5px] font-bold">
-          <span className="flex min-h-[52px] items-center gap-2 rounded-[16px] bg-[#f7f9f7] px-3.5"><Globe2 size={16} className="shrink-0 text-[#0b6b53]" /> Shipping included</span>
-          <span className="flex min-h-[52px] items-center gap-2 rounded-[16px] bg-[#f7f9f7] px-3.5"><ShieldCheck size={16} className="shrink-0 text-[#0b6b53]" /> Lifetime warranty</span>
-        </div>
       </section>
 
       {/* COLLECTION */}
@@ -351,7 +346,7 @@ export default function MobileHomeExperience() {
             <small className="mt-0.5 block text-[13px] text-[#26352d]">Find your starting point in magnification.</small>
             <span className="mt-2 inline-flex items-center gap-1 text-[13px] font-bold text-[#0b6b53]">Magnification guide <ArrowUpRight size={14} /></span>
           </span>
-          <HairlineFigure name="Loupe" tone="mint" className="w-[132px] shrink-0" />
+          <CustomHairline name="magnifier" tone="mint" className="w-[132px] shrink-0" />
         </Link>
       </section>
 

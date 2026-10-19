@@ -125,7 +125,8 @@ export default function SpecialtySection({ variant }: { variant: 'mobile' | 'des
             </li>
           ))}
         </ul>
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        {/* items-start: opening one group must not stretch its row-mates open with it */}
+        <div className="mt-8 grid items-start gap-4 md:grid-cols-3">
           {GROUPS.map((group) => (
             <details key={group.title} className="group rounded-2xl border border-white/10 bg-neutral-950/70 p-5">
               <summary className="flex cursor-pointer list-none items-center justify-between text-base font-semibold text-white [&::-webkit-details-marker]:hidden">

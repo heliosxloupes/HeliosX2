@@ -785,6 +785,19 @@
 .m2-io .m2-stagger > :nth-child(5) { transition-delay: 280ms; }
 .m2-io .m2-stagger > :nth-child(n + 6) { transition-delay: 350ms; }
 
+/* Hero pill: the model name and price slide in when the photo changes. */
+.m2-swap {
+  animation: m2-swap 240ms var(--ease-out) both;
+}
+
+@keyframes m2-swap {
+  from { opacity: 0; transform: translateY(6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m2-swap { animation: m2-fadein 0.2s ease both; }
+}
+
 /* Hero photo: a slow, constant push-in so the opening frame breathes. */
 @media (prefers-reduced-motion: no-preference) {
   .m2-kenburns {

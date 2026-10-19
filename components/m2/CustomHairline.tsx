@@ -10,6 +10,7 @@ const FIGURES = {
   caliper: () => import('./hairline/caliper'),
   case: () => import('./hairline/case'),
   frames: () => import('./hairline/frames'),
+  magnifier: () => import('./hairline/magnifier'),
   optics: () => import('./hairline/optics'),
   shelf: () => import('./hairline/shelf'),
   tray: () => import('./hairline/tray'),

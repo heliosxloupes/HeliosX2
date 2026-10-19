@@ -157,7 +157,6 @@ export default function HomePage() {
         <main className={`space-y-20 pb-16 md:space-y-28 md:pb-24 ${isMobile === null ? "max-md:hidden" : ""}`}>
           <HeroSection />
           <LineupSection />
-          <SpecialtySection variant="desktop" />
           <ManifestoSection />
           <HorizontalStorySection />
 
@@ -171,6 +170,7 @@ export default function HomePage() {
             <ClaritySection />
             <FitSection />
             <StorySection />
+            <SpecialtySection variant="desktop" />
             <CtaSection />
           </section>
         </main>

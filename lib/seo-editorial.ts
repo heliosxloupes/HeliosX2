@@ -1170,7 +1170,7 @@ const posturePaper =
 
 revisions['surgical-loupes'] = {
   title: 'Surgical loupes',
-  metaTitle: 'Surgical Loupes: Types, Magnification & Prices | HeliosX',
+  metaTitle: 'Surgical Loupes: Prices from $695, Types & Magnification | HeliosX',
   description:
     'How to choose surgical loupes: Galilean or prismatic optics, magnification by specialty, working distance, weight and price. Five custom-fit models from $695.',
   intro:
@@ -1287,7 +1287,7 @@ revisions['surgical-loupes'] = {
 
 revisions['dental-loupes'] = {
   title: 'Dental loupes',
-  metaTitle: 'Dental Loupes: Magnification, Posture & Prices | HeliosX',
+  metaTitle: 'Dental Loupes: Prices from $695, Magnification & Posture | HeliosX',
   description:
     'Choose dental loupes by role: magnification for hygiene, restorative, endo and implant work, seated posture, lights and weight. Five models from $695.',
   intro:

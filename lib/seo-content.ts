@@ -7499,6 +7499,7 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
           'Veterinary dental work and deep abdominal or thoracic cases are where a loupe-mounted light earns its weight. The mouth of a small dog or cat is hard to light from above, and your head blocks the overhead light. Plan the light at the same time as the loupe, because the mount is fitted to the frame.',
         bullets: [
           'Choosing a light: /dental-loupes-with-light.',
+          'Veterinary dentistry guide: /veterinary-dental-loupes.',
         ],
       },
       {
@@ -7954,6 +7955,376 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
 
 allSeoLandingPages.push(...specialtyPagesOct2026)
 
+// Oct 2026: pages for the Google autocomplete gaps on "dental loupes",
+// "surgical loupes" and "veterinary loupes" (price, Zeiss, veterinary
+// dentistry, accessories, Amazon). Zeiss facts are from zeiss.com and the
+// ZEISS India med-shop (22 Oct 2026); ZEISS publishes no US prices.
+const autocompleteGapDate = '2026-10-22'
+
+const autocompleteGapPages: SeoLandingPage[] = [
+  {
+    slug: 'dental-loupes-price',
+    title: 'Dental loupes price guide',
+    metaTitle: `Dental Loupes Price: From ${usd(productStartingPrices.Newton)} | 2026 Price Guide`,
+    description:
+      'What dental loupes cost in 2026: every HeliosX price by model and magnification, what other brands charge, and what to add for prescription lenses and a light.',
+    heroKicker: 'Price guide',
+    primaryKeyword: 'dental loupes price',
+    relatedKeywords: ['dental loupes for sale', 'how much are dental loupes', 'dental loupes cost', 'hygienist loupes price', 'loupes near me'],
+    audience: 'dentists, hygienists, dental assistants and dental students comparing loupe prices',
+    intro:
+      'Dental loupes range from under $150 for generic online pairs to several thousand dollars for fitted loupes from the large brands, often before a light. Most of the gap comes from three things: whether the pair is built to your measurements, the optical design, and how much of the price goes to dealers and sales reps. HeliosX publishes every price so you can compare a complete order line by line.',
+    answer: `HeliosX dental loupes cost ${priceRange('newton')} for Newton and ${priceRange('galileo')} for Galileo (Galilean, 2.5x–3.5x), ${priceRange('kepler')} for Kepler (prismatic, 4.0x–6.0x), and ${priceRange('apollo')} to ${priceRange('medusa')} for the ergonomic Apollo and Medusa. Prescription lenses add $200. Shipping is free, and verified students get ${TRAINEE_PERCENT_OFF}% off.`,
+    competitorName: 'Typical market price',
+    comparisonRows: [
+      { feature: 'Custom-fit loupes sold online', heliosx: `Newton ${priceRange('newton')}, Galileo ${priceRange('galileo')}`, other: 'The Loupes Company lists $766–$1,890' },
+      { feature: 'Ergonomic prismatic', heliosx: `Apollo ${priceRange('apollo')}, Medusa ${priceRange('medusa')}`, other: 'Hero lists its ergonomic pairs at $1,645–$2,699' },
+      { feature: 'Large legacy brands', heliosx: `Kepler (prismatic 4.0x–6.0x) ${priceRange('kepler')}`, other: 'Often quote-only; clinicians on Reddit expect to pay $1,500–$4,300' },
+      { feature: 'Generic online loupes', heliosx: 'Not offered: every pair is built to your measurements', other: 'About $40–$150, with adjustable eyepieces and a fixed working distance' },
+      { feature: 'Prescription lenses', heliosx: '$200 added to any model', other: 'Usually extra, priced by quote' },
+      { feature: 'Shipping and returns', heliosx: 'Free shipping; 30-day returns with free return shipping on non-prescription pairs', other: 'Varies; several brands offer 30–60 day trials' },
+    ],
+    verdict:
+      'Compare a complete order at the same magnification and optical design: frame, prescription, shipping, warranty and light. The headline price alone does not tell you much.',
+    proofPoints: [
+      'Every price published, no quote or rep visit needed.',
+      'Built to your pupillary and working distance, reviewed before production.',
+      'Limited lifetime warranty and free shipping.',
+    ],
+    sections: [
+      {
+        title: 'HeliosX dental loupe prices by model',
+        body:
+          'Prices depend on the optical design and the magnification. Each model’s frame choices are included in the price.',
+        bullets: [
+          `Newton (Galilean, 2.5x–3.5x, from 40 g): ${priceRange('newton')}. Our lowest price.`,
+          `Galileo (Galilean, 2.5x–3.5x, wide field): ${priceRange('galileo')}. Our recommended everyday dental loupe.`,
+          `Kepler (prismatic, 4.0x–6.0x): ${priceRange('kepler')}. For endodontics and fine restorative detail.`,
+          `Apollo (ergonomic prismatic, 3.0x–6.0x): ${priceRange('apollo')}. Keeps your head more upright.`,
+          `Medusa (ergonomic prismatic, 3.0x–8.5x, adjustable 300–600 mm): ${priceRange('medusa')}.`,
+        ],
+        sourceLabel: 'See all models',
+        sourceHref: '/dental-loupes',
+      },
+      {
+        title: 'What changes the price',
+        body:
+          'Two pairs at the same magnification can differ by more than $1,000. These are the factors that usually explain it.',
+        bullets: [
+          'Optical design: Galilean pairs cost least; prismatic and ergonomic prismatic optics cost more.',
+          'Custom fit: pairs built to your pupillary and working distance cost more than adjustable generic pairs, and are what most clinicians keep using.',
+          'Sales model: rep visits and dealer margins add to the price of many legacy brands.',
+          'Extras: prescription lenses, a light, spare frames and extended trials are often priced separately.',
+        ],
+      },
+      {
+        title: 'Hygienists and students',
+        body:
+          'Hygienists and students usually start at 2.5x–3.5x, where Galilean loupes give a wide field and deep focus at the lowest price. If you work long days and want a more upright posture, compare an ergonomic pair before you commit.',
+        bullets: [
+          `Galileo 3.5x: ${usd(magnificationPriceByProduct.galileo['3.5x'])}.`,
+          `Verified dental, hygiene and medical students and residents get ${TRAINEE_PERCENT_OFF}% off.`,
+          'Hygienist guide: /loupes-for-dental-hygiene.',
+        ],
+      },
+      {
+        title: 'Buying without a local dealer',
+        body:
+          'Search results for "dental loupes near me" mostly lead to a rep visit or a trade show. HeliosX fits you remotely instead: you take your pupillary distance and working distance at home, we check the numbers with you, and we build and ship the pair in 7 to 14 days.',
+        bullets: ['How to measure: /measurements.', 'Shipping details: /shipping.'],
+      },
+    ],
+    recommendedProducts: ['Galileo', 'Newton', 'Apollo', 'Kepler'],
+    faqs: [
+      { question: 'How much do dental loupes cost?', answer: `Generic online pairs cost about $40–$150. Custom-fit pairs from online brands run from about $766 (The Loupes Company) to $2,699 (Hero's ergonomic pairs), and many legacy brands only quote. HeliosX runs from ${usd(productStartingPrices.Newton)} to ${usd(magnificationPriceByProduct.medusa['8.5x'])}.` },
+      { question: 'Are cheaper dental loupes worth it?', answer: 'A low price is fine if the pair fits your pupillary distance and working distance. The problem with very cheap pairs is usually fit, not glass: a generic working distance makes you lean in or pull back to stay in focus.' },
+      { question: 'Can I buy dental loupes near me?', answer: 'You do not need a local dealer. HeliosX ships across the US, and you measure your pupillary and working distance at home with our guide. We review your numbers before we build the pair.' },
+      { question: 'Does the price include a light?', answer: 'No. HeliosX loupes are compatible with LED headlights and battery packs, which are bought separately. Plan the light when you order, because the mount is fitted to the frame.' },
+      { question: 'Do students get a discount?', answer: `Yes. Verified dental, hygiene and medical students and residents get ${TRAINEE_PERCENT_OFF}% off. Email us proof of enrollment and we send a code.` },
+    ],
+    datePublished: autocompleteGapDate,
+    dateModified: autocompleteGapDate,
+  },
+  {
+    slug: 'heliosx-vs-zeiss',
+    title: 'HeliosX vs ZEISS loupes',
+    metaTitle: 'HeliosX vs ZEISS EyeMag Loupes: Optics, Fit & Price',
+    description:
+      'Compare HeliosX and ZEISS EyeMag surgical and dental loupes: Galilean and Keplerian optics, working distance, frames, lights, warranty and price.',
+    heroKicker: 'Comparison',
+    primaryKeyword: 'surgical loupes zeiss',
+    relatedKeywords: ['ZEISS loupes', 'ZEISS EyeMag Pro', 'ZEISS EyeMag Smart', 'ZEISS loupes price', 'ZEISS loupes alternative', 'surgical loupes with light zeiss'],
+    audience: 'surgeons, dentists and residents comparing HeliosX with ZEISS EyeMag loupes',
+    intro:
+      'ZEISS makes the EyeMag range: EyeMag Smart and Classic with Galilean optics, and EyeMag Pro with Keplerian (prismatic) optics, on a titanium spectacle frame or a headband. It is sold through dealers, and US prices are not published. HeliosX builds Galilean, prismatic and ergonomic prismatic loupes to your measurements and lists every price on the site.',
+    answer: `Choose ZEISS if you want ZEISS glass and dealer support, and you are happy to get a quote. Choose HeliosX if you want a published price, a custom-fit pair built to your own working distance, or ergonomic prismatic optics: Galileo starts at ${usd(productStartingPrices.Galileo)}, Kepler at ${usd(productStartingPrices.Kepler)} and Apollo at ${usd(productStartingPrices.Apollo)}.`,
+    competitorName: 'ZEISS EyeMag',
+    comparisonRows: [
+      { feature: 'Galilean optics', heliosx: `Newton and Galileo, 2.5x–3.5x, from ${usd(productStartingPrices.Newton)}`, other: 'EyeMag Smart, 2.5x, for a large field of view and depth of field' },
+      { feature: 'Prismatic optics', heliosx: `Kepler 4.0x–6.0x, from ${usd(productStartingPrices.Kepler)}`, other: 'EyeMag Pro (Keplerian), listed at 3.2x–6.0x' },
+      { feature: 'Ergonomic prismatic', heliosx: `Apollo 3.0x–6.0x and Medusa 3.0x–8.5x, from ${usd(productStartingPrices.Apollo)}`, other: 'Not a separate ergonomic line' },
+      { feature: 'Working distance', heliosx: 'Built to your measured distance; Medusa adjusts from 300 to 600 mm', other: 'EyeMag Pro: fixed options from 300 to 500 mm, paired with the magnification' },
+      { feature: 'Frames', heliosx: 'Frame choices included in the price', other: 'Titanium spectacle frame (Pro F) or headband (Pro S)' },
+      { feature: 'Price', heliosx: 'Published on every product page', other: 'No US prices; the ZEISS India store lists EyeMag Pro F 3.2x at ₹1,97,000' },
+      { feature: 'Light', heliosx: 'Compatible with LED headlights and battery packs', other: 'EyeMag Light II, sold with or alongside the loupes' },
+      { feature: 'Warranty', heliosx: 'Limited lifetime warranty', other: 'Retailers list a 2-year warranty' },
+    ],
+    verdict:
+      'ZEISS is a strong optical brand with a dealer network. HeliosX is the option if you want to see the full price first, need a working distance outside fixed steps, or want an ergonomic prismatic loupe.',
+    proofPoints: [
+      'Every price published; no quote needed.',
+      'Built to your pupillary and working distance.',
+      'Limited lifetime warranty and free shipping.',
+    ],
+    sections: [
+      {
+        title: 'The ZEISS EyeMag range',
+        body:
+          'ZEISS splits its loupes by optical system. EyeMag Smart and EyeMag Classic use Galilean optics, which keep the pair light and the field wide at lower magnification. EyeMag Pro uses Keplerian optics for higher magnification, and comes as Pro F on a titanium spectacle frame or Pro S on a headband.',
+        bullets: [
+          'EyeMag Smart: Galilean, 2.5x.',
+          'EyeMag Pro: Keplerian, 3.2x–6.0x on ZEISS’s product page.',
+          'EyeMag Pro working distance and magnification come as pairs, for example 3.2x or 4.0x at 500 mm, and 4.0x or 5.0x at 300 mm.',
+        ],
+        sourceLabel: 'ZEISS EyeMag medical loupes',
+        sourceHref: 'https://www.zeiss.com/meditec/en/products/zeiss-eyemag-medical-loupes.html',
+      },
+      {
+        title: 'Working distance: fixed steps or built to you',
+        body:
+          'EyeMag Pro comes in fixed working distances from 300 to 500 mm. If your real distance falls between steps, or is longer because you are tall, you lean to stay in focus. HeliosX builds each pair to the distance you measure, and Medusa adjusts from 300 to 600 mm if you switch between seated and standing work.',
+        bullets: ['How to measure working distance: /education/working-distance-for-loupes.'],
+      },
+      {
+        title: 'Price',
+        body:
+          'ZEISS does not list US prices; you buy through a dealer. As a reference point, the ZEISS India med-shop lists EyeMag Pro F 3.2x at 500 mm at ₹1,97,000 and EyeMag Pro S 4.0x at 500 mm at ₹2,34,000. Ask your dealer for a written quote at the same magnification, then compare it with a complete HeliosX order.',
+        bullets: [
+          `HeliosX Kepler (prismatic, 4.0x–6.0x): ${priceRange('kepler')}.`,
+          `HeliosX Apollo (ergonomic prismatic, 3.0x–6.0x): ${priceRange('apollo')}.`,
+          'Price guide: /how-much-do-surgical-loupes-cost.',
+        ],
+      },
+    ],
+    recommendedProducts: ['Kepler', 'Galileo', 'Apollo'],
+    faqs: [
+      { question: 'How much do ZEISS loupes cost?', answer: 'ZEISS does not publish US prices; dealers quote them. The ZEISS India store lists EyeMag Pro F 3.2x at ₹1,97,000 and Pro S 4.0x at ₹2,34,000, which gives a sense of where the Keplerian range sits.' },
+      { question: 'Are ZEISS loupes Galilean or prismatic?', answer: 'Both. EyeMag Smart and Classic are Galilean. EyeMag Pro is Keplerian, which is a prismatic design.' },
+      { question: 'Do ZEISS loupes come with a light?', answer: 'ZEISS sells the EyeMag Light II LED system for its loupes, separately or in a bundle. HeliosX loupes are compatible with LED headlights and battery packs.' },
+      { question: 'What is a good ZEISS loupes alternative?', answer: `For Keplerian-style magnification, HeliosX Kepler (${priceRange('kepler')}). For a more upright posture, Apollo or Medusa. For a light, wide-field Galilean pair, Galileo from ${usd(productStartingPrices.Galileo)}.` },
+    ],
+    datePublished: autocompleteGapDate,
+    dateModified: autocompleteGapDate,
+  },
+  {
+    slug: 'veterinary-dental-loupes',
+    title: 'Veterinary dental loupes',
+    metaTitle: 'Veterinary Dental Loupes: Magnification for Vet Dentistry | HeliosX',
+    description:
+      'Loupes for veterinary dentistry: magnification for cleanings, extractions and oral surgery in dogs and cats, seated working distance, lights and prices.',
+    heroKicker: 'Veterinary dentistry',
+    primaryKeyword: 'veterinary dental loupes',
+    relatedKeywords: ['veterinary dentistry loupes', 'vet loupes', 'veterinary loupes with light', 'best veterinary loupes', 'veterinary magnification loupes', 'loupes for vet techs'],
+    audience: 'veterinarians, veterinary dentists, veterinary technicians and veterinary students',
+    intro:
+      'Veterinary dentistry is where most vets first want magnification. The mouth of a small dog or cat is tight and dark, the structures are small, and the work is seated and close. Loupes make root tips, furcations and fractured crowns easier to see, and a loupe-mounted light puts the light where your head would otherwise block it.',
+    answer: `Most veterinary dental work suits 3.0x–3.5x loupes measured seated at your dental table: wide enough for a full mouth, close enough for extractions in small breeds and cats. Fine endodontic and oral surgery work moves to 4.0x. HeliosX Galileo 3.5x costs ${usd(magnificationPriceByProduct.galileo['3.5x'])}, and the ergonomic Apollo starts at ${usd(productStartingPrices.Apollo)}.`,
+    procedureRows: [
+      { procedure: 'Dental cleaning and charting', magnification: '2.5x–3.0x', distance: 'Seated', pick: `Galileo 2.5x–3.0x, from ${usd(productStartingPrices.Galileo)}` },
+      { procedure: 'Extractions in cats and small breeds', magnification: '3.0x–3.5x', distance: 'Seated, close', pick: 'Galileo 3.5x' },
+      { procedure: 'Root tips and fractured roots', magnification: '3.5x–4.0x', distance: 'Seated', pick: 'Galileo 3.5x or Apollo 4.0x' },
+      { procedure: 'Endodontics and oral surgery', magnification: '4.0x–5.0x', distance: 'Seated', pick: `Apollo or Kepler, from ${usd(productStartingPrices.Kepler)}` },
+      { procedure: 'Dentistry and standing surgery in one pair', magnification: '3.0x–4.0x', distance: 'Seated and standing', pick: 'Medusa, adjustable 300–600 mm' },
+    ],
+    proofPoints: [
+      'Built to your seated working distance at the dental table.',
+      'Compatible with LED headlights and battery packs.',
+      `Verified veterinary students get ${TRAINEE_PERCENT_OFF}% off.`,
+    ],
+    sections: [
+      {
+        title: 'Why magnification matters most in the mouth',
+        body:
+          'In a cat or toy-breed mouth, root tips, fractured roots and furcation lesions are small and close together. At 3.0x–3.5x most of the mouth stays in view, and the detail is large enough to work on with confidence. Higher magnification narrows the field, so keep 4.0x and above for endodontic and surgical work.',
+        bullets: [
+          'Choose for the patients you see most.',
+          'Galilean loupes keep a deep focus range, which helps when the patient’s head moves.',
+        ],
+      },
+      {
+        title: 'Seated working distance',
+        body:
+          'Dentistry is usually seated, with a shorter working distance than standing surgery. Measure in your real chair and table position. If you also operate standing, either buy for the work you do most or choose Medusa, which adjusts from 300 to 600 mm.',
+        bullets: ['How to measure: /measurements.'],
+      },
+      {
+        title: 'Light for veterinary dentistry',
+        body:
+          'Overhead lights struggle in a small open mouth, and your head blocks them as you lean in. A loupe-mounted LED puts the light on your line of sight. HeliosX loupes are compatible with LED headlights and battery packs; plan the light with the loupe, because the mount is fitted to the frame.',
+        bullets: ['Choosing a light: /dental-loupes-with-light.'],
+      },
+      {
+        title: 'Veterinary surgery as well?',
+        body:
+          'If you also do soft tissue and orthopedic surgery, the magnification and working distance change. Our veterinary surgery guide covers spays, TPLOs, urethral work and ophthalmic cases.',
+        bullets: ['Veterinary surgery loupes: /veterinary-surgery-loupes.'],
+      },
+    ],
+    recommendedProducts: ['Galileo', 'Apollo', 'Kepler'],
+    faqs: [
+      { question: 'What magnification is best for veterinary dentistry?', answer: '3.0x–3.5x suits most cleanings and extractions. Move to 4.0x for root tips, endodontics and oral surgery.' },
+      { question: 'Do I need a light with veterinary dental loupes?', answer: 'Most vets doing dentistry use one. A loupe-mounted LED lights the back of a small mouth that overhead lights cannot reach. HeliosX loupes are LED-compatible; lights are bought separately.' },
+      { question: 'Can vet techs use loupes?', answer: 'Yes. Technicians doing cleanings and charting often use 2.5x–3.0x Galilean loupes, which are light and give a wide field.' },
+      { question: 'How much are veterinary dental loupes?', answer: `HeliosX Galilean loupes cost ${priceRange('newton')} for Newton and ${priceRange('galileo')} for Galileo; ergonomic Apollo is ${priceRange('apollo')}. Verified veterinary students get ${TRAINEE_PERCENT_OFF}% off.` },
+    ],
+    datePublished: autocompleteGapDate,
+    dateModified: autocompleteGapDate,
+  },
+  {
+    slug: 'loupe-accessories',
+    title: 'Loupe accessories: straps, cases and clip-ons',
+    metaTitle: 'Dental & Surgical Loupe Accessories: Straps, Cases, Clip-Ons',
+    description:
+      'A guide to dental and surgical loupe accessories: retainer straps, magnetic straps, hard cases, clip-on loupes, side shields and cleaning, and what to check before you buy.',
+    heroKicker: 'Accessories guide',
+    primaryKeyword: 'dental loupes accessories',
+    relatedKeywords: ['dental loupes strap', 'dental loupes strap magnetic', 'dental loupes case', 'surgical loupes case', 'surgical loupes box', 'surgical loupes clip on'],
+    audience: 'dentists, hygienists, surgeons and students who already own or are buying loupes',
+    intro:
+      'The right accessories keep loupes on your head, protect the optics between patients, and keep your view clean. Most are cheap, but the wrong one can shift the loupes out of alignment or scratch the lenses. Here is what each accessory does and what to check.',
+    answer:
+      'Most loupe owners need three things: a retainer strap so the loupes stay put when you look down, a hard case for transport, and a lens-safe cleaning routine. Clip-on loupes suit occasional use; for daily clinical work, a pair built to your pupillary and working distance gives a steadier view.',
+    proofPoints: [
+      'HeliosX loupes are built to your measurements.',
+      'Compatible with LED headlights and battery packs.',
+      'Limited lifetime warranty on every pair.',
+    ],
+    sections: [
+      {
+        title: 'Straps: standard and magnetic',
+        body:
+          'A retainer strap stops the frame sliding forward when you tilt your head, which matters more as magnification and weight go up. Magnetic straps attach and release quickly, which helps if you take your loupes off between patients.',
+        bullets: [
+          'Choose an adjustable strap that sits below the back of the head, not on top of it.',
+          'Check that magnetic clasps cannot touch the hinges or a light cable.',
+          'Heavier prismatic pairs and loupes with a light benefit most from a strap.',
+        ],
+      },
+      {
+        title: 'Cases and boxes',
+        body:
+          'Loupes go out of alignment when they are crushed or dropped. A hard-shell case with a shaped insert protects the barrels; a soft pouch only stops scratches.',
+        bullets: [
+          'Pick a case deep enough for the loupes with the light mount attached.',
+          'Store the battery pack separately, so its cable does not pull on the frame.',
+          'Keep the case closed in the operatory to keep aerosols off the lenses.',
+        ],
+      },
+      {
+        title: 'Clip-on loupes',
+        body:
+          'Clip-on loupes attach to your own glasses. They are cheap and easy to try, but the eyepieces are set to an average pupillary distance and a generic working distance, so many users end up leaning in to stay in focus.',
+        bullets: [
+          'Fine for occasional or short tasks.',
+          'For daily clinical work, a pair built to your measurements is easier on your posture.',
+          'Need a prescription? Custom loupes can include it: /education/prescription-loupes-guide.',
+        ],
+      },
+      {
+        title: 'Cleaning and side shields',
+        body:
+          'Clean the lenses with a microfiber cloth and a lens cleaner made for coated optics; paper towels and alcohol wipes wear coatings down over time. Side shields add splash protection where your frame leaves gaps.',
+        bullets: [
+          'Wipe the frame with a disinfectant that is safe on plastics; keep it off the lenses unless the maker allows it.',
+          'Check that side shields do not block your peripheral view of the field.',
+        ],
+      },
+      {
+        title: 'Lights',
+        body:
+          'A loupe light is the accessory that changes your view the most. HeliosX loupes are compatible with LED headlights and battery packs; plan the light with the loupe, because the mount is fitted to the frame.',
+        bullets: ['Dental loupes with light: /dental-loupes-with-light.'],
+      },
+    ],
+    recommendedProducts: ['Galileo', 'Newton', 'Apollo'],
+    faqs: [
+      { question: 'Do I need a strap for my loupes?', answer: 'It helps, especially with heavier prismatic loupes or a light. A strap stops the frame sliding forward when you look down.' },
+      { question: 'Are magnetic loupe straps worth it?', answer: 'If you take your loupes on and off often, yes: they release with one hand. Check that the magnets cannot touch the hinges or a light cable.' },
+      { question: 'How should I store my loupes?', answer: 'In a hard-shell case with a shaped insert, with any battery pack stored separately. Dropping or crushing loupes is the most common cause of misalignment.' },
+      { question: 'Are clip-on loupes as good as regular loupes?', answer: 'For occasional use they are fine. For daily clinical work, a pair built to your pupillary and working distance gives a steadier view and better posture.' },
+    ],
+    datePublished: autocompleteGapDate,
+    dateModified: autocompleteGapDate,
+  },
+  {
+    slug: 'amazon-loupes-vs-custom-loupes',
+    title: 'Dental and surgical loupes on Amazon vs custom loupes',
+    metaTitle: 'Dental Loupes on Amazon vs Custom Loupes: Worth It?',
+    description:
+      'Should you buy dental or surgical loupes on Amazon? What $40–$150 loupes with a light get right, where they fall short, and when a custom-fit pair is worth it.',
+    heroKicker: 'Buyer guide',
+    primaryKeyword: 'dental loupes amazon',
+    relatedKeywords: ['surgical loupes amazon', 'dental loupes with light amazon', 'cheap dental loupes', 'are amazon loupes good', 'budget loupes'],
+    audience: 'students, hygienists and clinicians weighing cheap online loupes against a custom pair',
+    intro:
+      'Search Amazon for dental or surgical loupes and you will find 2.5x and 3.5x pairs with an LED light for $40–$150. They are a cheap way to learn whether you like magnification. The catch is fit: they come set to an average pupillary distance and a generic working distance, and reviews often mention lights that dim or fail within a year.',
+    answer: `An Amazon pair is fine for trying magnification. For daily clinical work, a pair built to your own pupillary and working distance lets you sit or stand upright and stay in focus. HeliosX custom loupes start at ${usd(productStartingPrices.Newton)} for Newton and ${usd(productStartingPrices.Galileo)} for Galileo, with free shipping and 30-day returns on non-prescription pairs.`,
+    competitorName: 'Typical Amazon loupes',
+    comparisonRows: [
+      { feature: 'Price', heliosx: `From ${usd(productStartingPrices.Newton)}`, other: 'About $40–$150, often with a light' },
+      { feature: 'Fit', heliosx: 'Built to your pupillary and working distance, reviewed before production', other: 'Sliding eyepieces and one generic working distance' },
+      { feature: 'Optics', heliosx: 'Galilean, prismatic and ergonomic prismatic, multi-layer coated glass', other: 'Galilean, coating and glass quality vary by seller' },
+      { feature: 'Prescription', heliosx: 'Prescription lenses built in, $200', other: 'Usually worn over your own glasses' },
+      { feature: 'Light', heliosx: 'Compatible with LED headlights and battery packs, bought separately', other: 'Often included; durability is a common review complaint' },
+      { feature: 'Warranty and returns', heliosx: 'Limited lifetime warranty; 30-day returns with free return shipping on non-prescription pairs', other: 'Seller returns window; warranty varies' },
+    ],
+    verdict:
+      'Buy an Amazon pair to test magnification if your budget is tight. If you already know you will wear loupes every day, one custom pair usually costs less than buying twice.',
+    proofPoints: [
+      'Custom fit from a published price.',
+      'Limited lifetime warranty on every pair.',
+      `Verified students and residents get ${TRAINEE_PERCENT_OFF}% off.`,
+    ],
+    sections: [
+      {
+        title: 'What Amazon loupes get right',
+        body:
+          'Cheap online loupes let you try magnification for the price of a textbook. Many include an LED light and a case, and buyers often say the view is good for the money.',
+        bullets: [
+          'A low-risk way to learn whether 2.5x or 3.5x suits you.',
+          'Useful as a backup pair while your main loupes are being repaired.',
+        ],
+      },
+      {
+        title: 'Where they fall short',
+        body:
+          'The issue is rarely the glass. It is fit: an eyepiece set to the wrong pupillary distance strains your eyes, and a working distance that does not match your posture makes you lean in to stay in focus. Lights are the other weak point; reviewers report LEDs that dim or flicker within a year.',
+        bullets: [
+          'Check the listed working distance against your own measurement before buying.',
+          'Check that the eyepieces adjust to your pupillary distance.',
+          'Over-glasses designs add weight and fog more easily.',
+        ],
+      },
+      {
+        title: 'When a custom pair is worth it',
+        body: `If you will wear loupes every clinical day, the fit decides whether you keep using them. HeliosX builds each pair to your pupillary and working distance and reviews your numbers before production. Newton costs ${priceRange('newton')} and Galileo ${priceRange('galileo')}.`,
+        bullets: ['Measure at home: /measurements.', 'Compare prices: /dental-loupes-price.'],
+      },
+    ],
+    recommendedProducts: ['Newton', 'Galileo', 'Apollo'],
+    faqs: [
+      { question: 'Are Amazon dental loupes any good?', answer: 'They are good enough to try magnification. For daily use, the generic pupillary and working distance is the main drawback, and many buyers report the included light failing within a year.' },
+      { question: 'Can I get surgical loupes on Amazon?', answer: 'You can buy generic surgical loupes there. Most residents and surgeons who wear loupes daily move to a pair built to their measurements, because fit decides posture and focus.' },
+      { question: 'Are Amazon loupes with a light worth it?', answer: 'The included LEDs are convenient, but durability is the most common complaint. If you buy one, check the battery life and how the light mounts.' },
+      { question: 'What is the cheapest custom-fit loupe?', answer: `HeliosX Newton, from ${usd(productStartingPrices.Newton)}, built to your pupillary and working distance. Verified students and residents get ${TRAINEE_PERCENT_OFF}% off.` },
+    ],
+    datePublished: autocompleteGapDate,
+    dateModified: autocompleteGapDate,
+  },
+]
+
+allSeoLandingPages.push(...autocompleteGapPages)
+
 // Per-page hero tails replace the audit-flagged 'without the guesswork.'
 // suffix that was hardcoded as the second H1 line across 30+ pages.
 // Each tail is 3-6 words, intent-specific, and on brand voice.
@@ -7990,6 +8361,11 @@ const seoLandingHeroTails: Record<string, string> = {
   'heliosx-vs-examvision': 'point by point.',
   'heliosx-vs-admetec': 'the practical comparison.',
   'heliosx-vs-designs-for-vision': 'side by side, prices included.',
+  'heliosx-vs-zeiss': 'optics, fit and price.',
+  'dental-loupes-price': 'every price, published.',
+  'veterinary-dental-loupes': 'for small, dark mouths.',
+  'loupe-accessories': 'what to buy, what to skip.',
+  'amazon-loupes-vs-custom-loupes': 'what you get for the price.',
   'orascoptic-alternatives': 'ranked by clinical fit.',
   'lumadent-alternatives': 'with honest pricing.',
   'surgitel-alternatives': 'vetted for clinicians.',
@@ -8022,6 +8398,7 @@ const comparisonCompetitorNames: Record<string, string> = {
   'heliosx-vs-examvision': 'ExamVision',
   'heliosx-vs-admetec': 'Admetec',
   'heliosx-vs-designs-for-vision': 'Designs for Vision',
+  'heliosx-vs-zeiss': 'ZEISS EyeMag',
   'lumadent-alternatives': 'LumaDent',
   'orascoptic-alternatives': 'Orascoptic',
   'surgitel-alternatives': 'SurgiTel',
@@ -8202,6 +8579,16 @@ const BUYING_DECISION_PAGES: RelatedPage[] = [
     href: '/affordable-loupes',
     label: 'Affordable loupes, honestly assessed',
     blurb: 'What you give up at the bottom of the market, and what you do not.',
+  },
+  {
+    href: '/dental-loupes-price',
+    label: 'Dental loupes price guide',
+    blurb: 'Every price by model, against what other brands charge.',
+  },
+  {
+    href: '/amazon-loupes-vs-custom-loupes',
+    label: 'Amazon loupes vs custom loupes',
+    blurb: 'When a cheap pair is enough, and when fit is worth paying for.',
   },
 ]
 

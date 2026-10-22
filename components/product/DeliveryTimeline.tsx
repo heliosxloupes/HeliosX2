@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 
+import { DELIVERY_ICONS } from './delivery-icons'
 import styles from './DeliveryTimeline.module.css'
 
 // Order-to-door estimate: production 7-10 days, then shipping 7-10 days.
@@ -10,12 +11,7 @@ import styles from './DeliveryTimeline.module.css'
 const BUILD_DAYS: [number, number] = [7, 10]
 const SHIP_DAYS: [number, number] = [7, 10]
 
-const ICONS = {
-  order: ['M6 8.5h12l-1 11.5H7L6 8.5Z', 'M9.5 8.5V7a2.5 2.5 0 0 1 5 0v1.5'],
-  build: ['M3.5 14a4 4 0 1 0 8 0a4 4 0 1 0 -8 0', 'M12.5 14a4 4 0 1 0 8 0a4 4 0 1 0 -8 0', 'M11.5 13.5h1', 'M5 10.5 6.5 6h3l1 4.5M19 10.5 17.5 6h-3l-1 4.5'],
-  ship: ['M3.5 8 12 4.5 20.5 8v8L12 19.5 3.5 16V8Z', 'M3.5 8 12 11.5 20.5 8', 'M12 11.5v8'],
-  receive: ['M4.5 11 12 5l7.5 6v8.5h-15V11Z', 'M10 19.5V15h4v4.5'],
-}
+const ICONS = DELIVERY_ICONS
 
 type Stage = { key: keyof typeof ICONS; label: string; when: string }
 
@@ -75,9 +71,9 @@ export default function DeliveryTimeline({ tone = 'light', className = '' }: Pro
       <ol className={styles.steps}>
         {list.map((s, i) => (
           <li key={s.key} className={styles.step} style={{ '--i': i } as React.CSSProperties}>
-            <svg className={styles.icon} viewBox="0 0 24 24" aria-hidden="true">
-              {ICONS[s.key].map((d) => (
-                <path key={d} d={d} pathLength={1} />
+            <svg className={styles.icon} viewBox="0 0 48 40" aria-hidden="true">
+              {ICONS[s.key].map(([cls, d], j) => (
+                <path key={j} className={styles[cls]} d={d} pathLength={1} />
               ))}
             </svg>
             <span className={styles.label}>{s.label}</span>

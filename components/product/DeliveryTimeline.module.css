@@ -1,0 +1,201 @@
+/* Hairline delivery timeline. Strokes draw in once the block scrolls into view:
+   the track runs left to right and each stage's icon and node land as the
+   line reaches them. Under reduced motion everything is simply drawn. */
+
+.root {
+  --base: rgba(8, 38, 27, 0.14);
+  --line: #0b6b53;
+  --ink: #08261b;
+  --mut: #4d5f54;
+  --node-bg: #eef2ee;
+  --run: 1.5s;
+  --gap: 0.45s;
+  position: relative;
+  padding: 18px 0 0;
+}
+
+.dark {
+  --base: rgba(255, 255, 255, 0.12);
+  --line: #6ee7b7;
+  --ink: #f5f5f5;
+  --mut: #a3a3a3;
+  --node-bg: #171717;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  text-align: center;
+}
+
+.icon {
+  width: 26px;
+  height: 26px;
+  margin-bottom: 26px;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.label {
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.when {
+  margin-top: 3px;
+  color: var(--mut);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+/* Track sits in the gap under the icons, from the first stage's centre to the last's. */
+.track {
+  position: absolute;
+  top: calc(18px + 26px + 13px);
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: var(--base);
+  transform: translateY(-50%);
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  background: var(--line);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.node {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--i) * 33.333%);
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--base);
+  border-radius: 50%;
+  background: var(--node-bg);
+  transform: translate(-50%, -50%) scale(0.85);
+}
+
+.note {
+  margin: 16px 0 0;
+  color: var(--mut);
+  font-size: 11.5px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* In view: draw. */
+.seen .fill {
+  animation: grow var(--run) cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.seen .icon path {
+  animation: draw 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  animation-delay: calc(var(--i) * var(--gap));
+}
+
+.seen .node {
+  animation: land 0.45s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  animation-delay: calc(var(--i) * var(--gap) + 0.1s);
+}
+
+/* The last stage is where the order ends up: it keeps a quiet pulse. */
+.seen .node:last-child::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  opacity: 0;
+  animation: ping 2.4s cubic-bezier(0.23, 1, 0.32, 1) calc(var(--run) + 0.2s) infinite;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes grow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes land {
+  to {
+    border-color: var(--line);
+    background: var(--line);
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes ping {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon path {
+    stroke-dashoffset: 0;
+    animation: none !important;
+  }
+
+  .fill {
+    transform: none;
+    animation: none !important;
+  }
+
+  .node {
+    border-color: var(--line);
+    background: var(--line);
+    transform: translate(-50%, -50%);
+    animation: none !important;
+  }
+
+  .seen .node:last-child::after {
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .label {
+    font-size: 11.5px;
+  }
+
+  .when {
+    font-size: 10.5px;
+  }
+}

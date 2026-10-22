@@ -19,6 +19,7 @@ import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productFaqs } from '@/lib/product-faqs'
 import { magnificationPriceByProduct } from '@/lib/pricing'
 import TraineePricing from '@/components/product/TraineePricing'
+import DeliveryTimeline from '@/components/product/DeliveryTimeline'
 
 // Contextual outbound links per model.
 //
@@ -866,9 +867,10 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                   {isAvailable && <ShoppingCart className="h-4 w-4" strokeWidth={2} aria-hidden="true" />}
                   {isAvailable ? (editIndex !== null ? 'Update cart' : 'Add to cart') : 'Pricing coming soon'}
                 </button>
+                {isAvailable && <DeliveryTimeline tone="dark" className="mt-4 border-t border-white/10" />}
                 <p className="mt-2 text-[0.65rem] leading-relaxed text-neutral-500">
                   {isAvailable
-                    ? `Custom measurement review included. Typical production time is 1–2 weeks. Limited lifetime warranty. Pay over time with Affirm or Klarna at checkout. ${riskFreeCopy}`
+                    ? `Custom measurement review included. Typical production time is 7–10 days, plus 7–10 days shipping. Limited lifetime warranty. Pay over time with Affirm or Klarna at checkout. ${riskFreeCopy}`
                     : 'Medusa is live in the catalogue. Add-to-cart will be enabled once final pricing is set.'}
                 </p>
                 <button

@@ -13,6 +13,7 @@ import Sheet from '@/components/m2/Sheet'
 import { StagePhoto } from '@/components/m2/Photo'
 import { modelBySlug, money, swatchHex } from '@/components/m2/models'
 import { addToCart, getCartEditTarget, getLinkedMagnification, replaceCartItem } from '@/lib/cart'
+import DeliveryTimeline from '@/components/product/DeliveryTimeline'
 import TraineePricing from '@/components/product/TraineePricing'
 import { magnificationPriceByProduct, PRESCRIPTION_PRICE, TRAINEE_PERCENT_OFF } from '@/lib/pricing'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
@@ -320,6 +321,8 @@ export default function MobileProductExperience({
           <div><dt>Shipping</dt><dd>Included, worldwide</dd></div>
         </dl>
 
+        <DeliveryTimeline tone="light" className="mt-2 pb-1" />
+
         <div className="mt-6 rounded-[22px] bg-[#14231d] px-5 py-5 text-[#eef2ee]">
           <strong className="block text-[16px] font-extrabold tracking-[-0.02em]">{config.slug === 'medusa' ? 'Working distance that moves with you.' : 'A working distance made for you.'}</strong>
           <p className="mt-1.5 text-[13px] leading-5 text-[rgba(238,242,238,0.76)]">{workingCopy}</p>
@@ -357,7 +360,7 @@ export default function MobileProductExperience({
           <details className="m2-details">
             <summary>Shipping, fit &amp; warranty <Plus size={18} /></summary>
             <div className="space-y-3 pb-6 text-[14px] leading-6 text-[#26352d]">
-              <p>Custom production usually takes 1-2 weeks after your measurements are approved. Standard worldwide shipping is included.</p>
+              <p>Custom production usually takes 7-10 days after your measurements are approved, then shipping takes another 7-10 days. Standard worldwide shipping is included.</p>
               <p>The limited lifetime warranty covers manufacturer-related defects.</p>
               <p>Non-prescription pairs can be returned within 30 days of delivery for a full refund. Prescription pairs are fully refundable until custom production begins.</p>
             </div>

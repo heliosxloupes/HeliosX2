@@ -1994,11 +1994,11 @@ const priceCeiling = dollars(
 const prismaticFrom = from('kepler')
 const searchSnippets: Record<string, { metaTitle?: string; description?: string }> = {
   'best-surgical-loupe-brands': {
-    metaTitle: 'Best Surgical Loupes 2026: 8 Brands & Prices Compared',
+    metaTitle: 'Best Surgical Loupes 2026: Compare 8 Brands | HeliosX',
     description: `Compare 8 surgical loupe brands, including Orascoptic, SurgiTel and LumaDent, by price, weight and magnification. HeliosX starts at ${from('newton')}, lifetime warranty.`,
   },
   'best-dental-loupe-brands': {
-    metaTitle: 'Best Dental Loupes 2026: 8 Brands & Prices Compared',
+    metaTitle: 'Best Dental Loupes 2026: Compare 8 Brands | HeliosX',
     description: `Compare the best dental loupes from 8 brands, including Orascoptic, SurgiTel and LumaDent, by price, weight and magnification. HeliosX starts at ${from('newton')}.`,
   },
   'best-loupes': {
@@ -2006,7 +2006,7 @@ const searchSnippets: Record<string, { metaTitle?: string; description?: string 
     description: `Which loupes fit your work? Picks for surgery, dentistry, hygiene and training, with the magnification and price for each. HeliosX pairs from ${from('newton')}.`,
   },
   'surgical-loupes': {
-    metaTitle: `Surgical Loupes: Galilean & Prismatic, from ${from('newton')} | HeliosX`,
+    metaTitle: `Surgical Loupes from ${from('newton')}: Types & Magnification | HeliosX`,
     description: `Surgical loupes from ${from('newton')}: Galilean 2.5x–3.5x and prismatic 4x–8.5x, custom-fit to your working distance. Free shipping, 30-day returns, lifetime warranty.`,
   },
   'dental-loupes': {
@@ -2021,7 +2021,7 @@ const searchSnippets: Record<string, { metaTitle?: string; description?: string 
     description: `Dental hygiene loupes for hygienists: 3.0x–3.5x picks, lights and seated posture. Galileo from ${from('galileo')}, free shipping, 30-day returns, ${TRAINEE_PERCENT_OFF}% off for students.`,
   },
   'dental-loupes-with-light': {
-    metaTitle: 'Dental Loupes With Light: How to Choose Both | HeliosX',
+    metaTitle: 'Dental Loupes With Light: Options, Runtime & Price | HeliosX',
     description: `Dental loupes with a light: corded vs cordless, runtime, mount fit and weight. Pair a light with HeliosX loupes from ${from('newton')}, free shipping, 30-day returns.`,
   },
   'loupes-for-dental-assistants': {
@@ -2039,12 +2039,12 @@ const searchSnippets: Record<string, { metaTitle?: string; description?: string 
     description: `Neurosurgery loupes: magnification by procedure, working distance and weight, and where a microscope is the better tool. Prismatic HeliosX pairs from ${prismaticFrom}.`,
   },
   'examvision-alternatives': {
-    metaTitle: 'ExamVision Loupes Price & Alternatives | HeliosX',
-    description: `How ExamVision loupes compare with the alternatives on price, fit, weight and warranty. HeliosX publishes every price, from ${from('newton')}, with a lifetime warranty.`,
+    metaTitle: 'ExamVision Alternatives With Published Prices | HeliosX',
+    description: `How ExamVision loupes compare with the alternatives on fit, weight and warranty. HeliosX publishes every price, from ${from('newton')}, with a lifetime warranty.`,
   },
   'heliosx-vs-surgitel': {
-    metaTitle: 'SurgiTel Loupes vs HeliosX: Price, Fit & Features',
-    description: `SurgiTel loupes compared with HeliosX on price, weight, fit and warranty. HeliosX publishes every price, from ${from('newton')}, with free shipping and 30-day returns.`,
+    metaTitle: 'SurgiTel Loupes vs HeliosX: Fit, Features & Warranty',
+    description: `SurgiTel loupes compared with HeliosX on weight, fit, features and warranty. HeliosX publishes every price, from ${from('newton')}, with free shipping and 30-day returns.`,
   },
   'heliosx-vs-lumadent': { metaTitle: 'LumaDent Loupes vs HeliosX: Price, Fit & Features' },
   'orascoptic-alternatives': { metaTitle: 'Orascoptic Loupes Alternatives: Price & Fit | HeliosX' },

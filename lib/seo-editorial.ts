@@ -1980,6 +1980,144 @@ export function applyEditorialRevisions(
     })
   expandThinGuides(guides)
   expandThinLandingPages(pages)
+  applySearchSnippets(pages, guides)
+}
+
+// Oct 23 2026: search snippets rewritten from 90 days of Search Console
+// queries. Each title leads with the words people type for that page and
+// stays within 60 characters; each description within 160 and names a price.
+// Pages already earning clicks at a healthy rate (hand, urology, ENT,
+// vascular, gynecology, periodontics, microsurgery) are left alone.
+const priceCeiling = dollars(
+  Math.max(...Object.values(magnificationPriceByProduct).flatMap((p) => Object.values(p))),
+)
+const prismaticFrom = from('kepler')
+const searchSnippets: Record<string, { metaTitle?: string; description?: string }> = {
+  'best-surgical-loupe-brands': {
+    metaTitle: 'Best Surgical Loupes 2026: 8 Brands & Prices Compared',
+    description: `Compare 8 surgical loupe brands, including Orascoptic, SurgiTel and LumaDent, by price, weight and magnification. HeliosX starts at ${from('newton')}, lifetime warranty.`,
+  },
+  'best-dental-loupe-brands': {
+    metaTitle: 'Best Dental Loupes 2026: 8 Brands & Prices Compared',
+    description: `Compare the best dental loupes from 8 brands, including Orascoptic, SurgiTel and LumaDent, by price, weight and magnification. HeliosX starts at ${from('newton')}.`,
+  },
+  'best-loupes': {
+    metaTitle: 'Best Loupes by Specialty & Budget: 2026 Picks | HeliosX',
+    description: `Which loupes fit your work? Picks for surgery, dentistry, hygiene and training, with the magnification and price for each. HeliosX pairs from ${from('newton')}.`,
+  },
+  'surgical-loupes': {
+    metaTitle: `Surgical Loupes: Galilean & Prismatic, from ${from('newton')} | HeliosX`,
+    description: `Surgical loupes from ${from('newton')}: Galilean 2.5x–3.5x and prismatic 4x–8.5x, custom-fit to your working distance. Free shipping, 30-day returns, lifetime warranty.`,
+  },
+  'dental-loupes': {
+    metaTitle: `Dental Loupes from ${from('newton')}: Magnification & Posture | HeliosX`,
+  },
+  'how-much-do-surgical-loupes-cost': {
+    metaTitle: `Surgical Loupes Price: ${from('newton')}–${priceCeiling}, Every Model Listed`,
+    description: `Surgical loupe prices for every HeliosX model, ${from('newton')} to ${priceCeiling}, and what to check in another brand's quote: magnification, optics and prescription.`,
+  },
+  'loupes-for-dental-hygiene': {
+    metaTitle: 'Dental Hygiene Loupes: Best Picks for Hygienists | HeliosX',
+    description: `Dental hygiene loupes for hygienists: 3.0x–3.5x picks, lights and seated posture. Galileo from ${from('galileo')}, free shipping, 30-day returns, ${TRAINEE_PERCENT_OFF}% off for students.`,
+  },
+  'dental-loupes-with-light': {
+    metaTitle: 'Dental Loupes With Light: How to Choose Both | HeliosX',
+    description: `Dental loupes with a light: corded vs cordless, runtime, mount fit and weight. Pair a light with HeliosX loupes from ${from('newton')}, free shipping, 30-day returns.`,
+  },
+  'loupes-for-dental-assistants': {
+    metaTitle: 'Dental Assistant Loupes: Picks & Prices | HeliosX',
+    description: `Loupes for dental assistants: which magnification to choose, how to fit them to your reach, and prices from ${from('newton')}. Free shipping and 30-day returns.`,
+  },
+  'prismatic-loupe-comparison': {
+    description: `Prismatic loupes vs Galilean: a sharper image at 4x and up, for more weight. Compare conventional and ergonomic prismatic models, from ${prismaticFrom} at HeliosX.`,
+  },
+  'ergonomic-loupe-comparison': {
+    description: `Ergonomic prismatic loupes keep your neck closer to upright. What the evidence shows, how the models compare, and HeliosX Apollo and Medusa from ${from('apollo')}.`,
+  },
+  'neurosurgery-loupes': {
+    metaTitle: 'Best Surgical Loupes for Neurosurgery: 2026 Guide',
+    description: `Neurosurgery loupes: magnification by procedure, working distance and weight, and where a microscope is the better tool. Prismatic HeliosX pairs from ${prismaticFrom}.`,
+  },
+  'examvision-alternatives': {
+    metaTitle: 'ExamVision Loupes Price & Alternatives | HeliosX',
+    description: `How ExamVision loupes compare with the alternatives on price, fit, weight and warranty. HeliosX publishes every price, from ${from('newton')}, with a lifetime warranty.`,
+  },
+  'heliosx-vs-surgitel': {
+    metaTitle: 'SurgiTel Loupes vs HeliosX: Price, Fit & Features',
+    description: `SurgiTel loupes compared with HeliosX on price, weight, fit and warranty. HeliosX publishes every price, from ${from('newton')}, with free shipping and 30-day returns.`,
+  },
+  'heliosx-vs-lumadent': { metaTitle: 'LumaDent Loupes vs HeliosX: Price, Fit & Features' },
+  'orascoptic-alternatives': { metaTitle: 'Orascoptic Loupes Alternatives: Price & Fit | HeliosX' },
+  'heliosx-loupes-review': {
+    description: `An honest look at HeliosX loupes: five models from ${from('newton')}, what's included, how fitting and returns work, and when another brand suits you better.`,
+  },
+  'affordable-surgical-loupes-reddit': {
+    description: `What Reddit threads say about affordable surgical loupes: cheap Amazon pairs, custom-fit prices, working distance and what to check before you buy.`,
+  },
+  'loupe-accessories': {
+    description: `Dental and surgical loupe accessories: retainer and magnetic straps, hard cases, clip-on loupes, side shields and cleaning, and what to check before buying.`,
+  },
+  'dermatology-mohs-surgery-loupes': {
+    metaTitle: 'Mohs & Dermatologic Surgery Loupes | HeliosX',
+    description: `Loupes for Mohs surgery, excisions and reconstruction: magnification by procedure, seated working distance and posture. HeliosX pairs from ${from('newton')}.`,
+  },
+  'podiatry-foot-ankle-surgery-loupes': {
+    metaTitle: 'Podiatry & Foot and Ankle Surgery Loupes | HeliosX',
+    description: `Loupes for podiatric surgeons: forefoot, rearfoot, ankle and office procedures, with magnification by procedure. HeliosX pairs from ${from('newton')}.`,
+  },
+  'colorectal-surgery-loupes': {
+    metaTitle: 'Colorectal Surgery Loupes: When They Help | HeliosX',
+    description: `Where loupes help in colorectal surgery: anorectal and transanal work, hand-sewn anastomoses and lighting a deep field. Magnification by procedure.`,
+  },
+  'trauma-surgery-loupes': {
+    metaTitle: 'Trauma Surgery Loupes for On-Call Work | HeliosX',
+    description: `Loupes for trauma and acute care surgeons: hand, nerve and vessel repair and facial lacerations. Magnification by procedure, from ${from('newton')}.`,
+  },
+  'veterinary-surgery-loupes': {
+    metaTitle: 'Veterinary Surgical Loupes for Small Animal Surgery',
+    description: `Loupes for veterinary surgeons: small animal soft tissue, orthopedic, ophthalmic and dental work, with magnification by procedure and posture research.`,
+  },
+  'loupes-for-prosthodontics': {
+    metaTitle: 'Prosthodontist Loupes: Margins & Veneers | HeliosX',
+    description: `Loupes for prosthodontists: crown margins, veneer preps, implant prosthetics and shade taking. Magnification by procedure and ergonomic options.`,
+  },
+  'loupes-for-pediatric-dentistry': {
+    metaTitle: 'Loupes for Pediatric Dentists: Wide Field | HeliosX',
+    description: `Loupes for pediatric dentists: why a wide field and low weight matter more than high magnification with small mouths and moving patients.`,
+  },
+  'loupes-for-oral-surgery': {
+    metaTitle: 'Oral Surgery Loupes: Extractions & Implants | HeliosX',
+    description: `Loupes for oral surgery: third molars, bone grafts, implant placement and biopsies. Magnification by procedure, lighting and posture.`,
+  },
+  'loupes-for-general-dentists': {
+    metaTitle: 'Loupes for General Dentists: Magnification Guide',
+    description: `Loupes for general dentists: restorative work, crown preps and caries diagnosis in one day. Magnification by procedure, from ${from('newton')}.`,
+  },
+  'veterinary-dental-loupes': { metaTitle: 'Veterinary Dental Loupes: Magnification | HeliosX' },
+}
+const guideSnippets: Record<string, { metaTitle?: string; description?: string }> = {
+  'best-loupes-for-residents': {
+    metaTitle: 'Best Loupes for Residents 2026: Picks by Specialty',
+    description: `Loupes for surgical and dental residents: which magnification to start with, what programs expect, and prices from ${from('newton')} with ${TRAINEE_PERCENT_OFF}% off for trainees.`,
+  },
+  'best-loupes-for-dental-students': {
+    metaTitle: 'Best Loupes for Dental Students 2026: Picks & Prices',
+    description: `How dental students choose a first pair: program rules, magnification, working distance, lights and total cost. Galileo from ${from('galileo')}, ${TRAINEE_PERCENT_OFF}% off.`,
+  },
+  'best-loupes-for-plastic-surgery': {
+    description: `Loupes for plastic and reconstructive surgery: aesthetic, hand and microsurgery-oriented work, magnification ranges and ergonomics, with HeliosX options.`,
+  },
+  'prescription-loupes-guide': {
+    description: `How prescription lenses work with loupes: who needs them, what to send, contacts vs prescription carriers, and how HeliosX handles your prescription.`,
+  },
+  research: {
+    description: `Plain-language summaries of loupe research: prismatic ergonomics, smartphone pupillary-distance measurement and how specialties use magnification.`,
+  },
+}
+
+function applySearchSnippets(pages: SeoLandingPage[], guides: EducationGuide[]) {
+  for (const page of pages) if (searchSnippets[page.slug]) Object.assign(page, searchSnippets[page.slug])
+  for (const guide of guides) if (guideSnippets[guide.slug]) Object.assign(guide, guideSnippets[guide.slug])
 }
 
 // Sep 14 2026: the compact-template guides rendered under 300 words and

@@ -5,7 +5,7 @@ import Header from '@/components/Header'
 import { buildMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Warranty | HeliosX Loupes',
+  title: 'Limited Lifetime Warranty on Every Pair | HeliosX Loupes',
   description: 'Every HeliosX loupe has a limited lifetime warranty against manufacturer defects in the optics, frame and hinges, for as long as the original buyer owns them.',
   path: '/warranty',
 })

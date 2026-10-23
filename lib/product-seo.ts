@@ -20,7 +20,7 @@ const productSearchTitles: Record<string, string> = {
   apollo: 'Apollo Ergonomic Prismatic Loupes',
   galileo: 'Galileo Lightweight Surgical & Dental Loupes',
   newton: 'Newton Ultra-Light Dental & Student Loupes',
-  kepler: 'Kepler High-Magnification Prismatic Loupes',
+  kepler: 'Kepler 4x–6x Prismatic Surgical Magnifying Loupes',
 }
 
 const productKeywords: Record<string, string[]> = {

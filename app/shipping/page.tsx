@@ -5,7 +5,7 @@ import Header from '@/components/Header'
 import { buildMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Shipping | HeliosX Loupes',
+  title: 'Free Shipping & Delivery Times | HeliosX Loupes',
   description: 'Worldwide shipping, production times, transit estimates, and order tracking for HeliosX surgical and dental loupes.',
   path: '/shipping',
 })

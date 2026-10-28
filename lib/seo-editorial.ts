@@ -1225,7 +1225,7 @@ revisions['surgical-loupes'] = {
     ),
     section(
       'Weight over a long case',
-      'Everything in the loupe rests on your nose and ears for the length of the case, and a headlight adds to it. Galilean pairs suit long lists of shorter cases. Prismatic pairs carry more glass forward of the frame, so nose pad fit and balance matter more.',
+      'Everything in the loupe rests on your nose and ears for the length of the case, and a headlight adds to it. Galilean pairs suit long days of shorter cases. Prismatic pairs carry more glass forward of the frame, so nose pad fit and balance matter more.',
       [
         'Newton: 40 g at 2.5x, 50 g at 3.5x, with frame.',
         'Apollo 55–58.2 g and Medusa 56–65 g, with frame.',

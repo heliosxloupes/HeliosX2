@@ -7668,7 +7668,7 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
       { procedure: 'Restorations on primary teeth', magnification: '2.5x–3.0x', distance: 'Seated', pick: 'Galileo 2.5x–3.0x' },
       { procedure: 'Pulpotomy and stainless steel crowns', magnification: '3.0x', distance: 'Seated', pick: 'Galileo 3.0x' },
       { procedure: 'Knee-to-knee and lap exams', magnification: '2.5x', distance: 'Short and changing', pick: 'Galileo 2.5x, for the deepest focus' },
-      { procedure: 'Cases under general anesthesia', magnification: '3.0x–3.5x', distance: 'Seated, stable', pick: 'Galileo 3.5x, or Apollo for long lists' },
+      { procedure: 'Cases under general anesthesia', magnification: '3.0x–3.5x', distance: 'Seated, stable', pick: 'Galileo 3.5x, or Apollo for long OR days' },
     ],
     proofPoints: [
       'Wide-field Galilean optics for patients who move.',
@@ -7720,7 +7720,7 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
           'HeliosX builds every pair to your measured pupillary and working distance, reviews the numbers before production and publishes every price. Every model’s frame choices are included in the price, and pediatric residents get trainee pricing.',
         bullets: [
           `Galileo: Galilean 2.5x–3.5x, six lightweight frame styles, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
-          `Apollo: ergonomic prismatic, for long lists under general anesthesia, ${priceRange('apollo')}.`,
+          `Apollo: ergonomic prismatic, for long OR days under general anesthesia, ${priceRange('apollo')}.`,
           'General dental loupes: /dental-loupes. Students: /education/best-loupes-for-dental-students.',
         ],
       },

@@ -466,8 +466,11 @@ export function applyOct28GuideRound(guides: EducationGuide[]) {
 // Competitor facts are only those already checked in seo-editorial.ts.
 const allModels = modelTable('HeliosX models and prices', ['newton', 'galileo', 'kepler', 'apollo', 'medusa'])
 const heliosxFirst = `HeliosX publishes the full price of every model and builds each pair to your measured pupillary and working distance: Galilean from ${from('newton')}, conventional prismatic from ${from('kepler')} and ergonomic prismatic from ${from('apollo')}, with frame, shipping and ${terms} included.`
-const vsPage = (answer: string, metaTitle: string | undefined, keywords: string[]): RoundUpdate => ({
+// The brand template's verdict ends with each competitor's selling point, so
+// every comparison page gets a HeliosX-first verdict here.
+const vsPage = (answer: string, metaTitle: string | undefined, keywords: string[], verdict: string): RoundUpdate => ({
   answer,
+  verdict,
   ...(metaTitle ? { metaTitle } : {}),
   specTable: allModels,
   addKeywords: keywords,
@@ -477,32 +480,37 @@ Object.assign(updates, {
     `HeliosX ergonomic prismatic loupes, Apollo and Medusa, start at ${from('apollo')}, below LumaDent's published Ergo Air Ti starting price of $1,995 at 3.0x. Every HeliosX pair is built to your measured pupillary and working distance, with frame, shipping and ${terms} included; Medusa adjusts its working distance from 300 to 600 mm.`,
     undefined,
     ['lumadent loupes', 'lumadent dental loupes', 'lumadent ergo loupes', 'lumadent ergonomic loupes'],
+    `Choose HeliosX for ergonomic prismatic loupes from ${from('apollo')}, below LumaDent's published $1,995 start, built to your measurements, with a lifetime warranty and adjustable working distance on Medusa.`,
   ),
   'heliosx-vs-surgitel': vsPage(
     `${heliosxFirst} SurgiTel sells its ErgoDeflection and other ergonomic families through quotes and demonstrations. HeliosX Apollo and Medusa are ergonomic prismatic loupes with the price on the page, and Medusa adjusts its working distance from 300 to 600 mm.`,
     undefined,
     ['surgitel loupes', 'surgitel loupe', 'surgitel dental loupes', 'surgitel ergo loupes', 'surgitel loupes price'],
+    'Choose HeliosX if you want ergonomic prismatic optics with the price published before you order, a pair built to your measurements, and working distance you can adjust on Medusa.',
   ),
   'heliosx-vs-q-optics': vsPage(
     `${heliosxFirst} Q-Optics quotes ErgoAngle per configuration; HeliosX shows the price of every model and magnification before you order.`,
     'Q-Optics Loupes vs HeliosX: Price, Fit & Features',
     ['q optics loupes', 'loupes q optics', 'q optics dental loupes', 'q optics loupes price', 'q optics ergo loupes'],
+    'Choose HeliosX if you want the price of your exact configuration before you order, a pair built to your measurements, and a lifetime warranty.',
   ),
   'heliosx-vs-admetec': vsPage(
     `${heliosxFirst} Admetec Ergo V is sold through authorized sellers with regional pricing. If you work at one magnification, a HeliosX pair built for it means you do not pay for settings you will not use, and Medusa adjusts working distance from 300 to 600 mm.`,
     'Admetec Loupes vs HeliosX: Price, Fit & Features',
     ['admetec loupes', 'admetec ergo loupes', 'admetec ergo v'],
+    'Choose HeliosX if you work at one magnification and want a pair built for it at a published price, with working distance you can adjust on Medusa.',
   ),
   'heliosx-vs-zeiss': {
     ...vsPage(
       `${heliosxFirst} ZEISS EyeMag is sold through dealers without published US prices, and retailers list a 2-year warranty against HeliosX's lifetime warranty. Medusa also adjusts working distance from 300 to 600 mm instead of fixed steps.`,
       'ZEISS Loupes vs HeliosX: Price, Fit & Warranty',
       ['zeiss dental loupes', 'carl zeiss dental loupes', 'dental loupes zeiss', 'zeiss surgical loupes'],
+    'Choose HeliosX if you want the full price before you order, a pair built to your working distance or adjustable with Medusa, ergonomic prismatic optics, and a lifetime warranty instead of two years.',
     ),
-    verdict: 'Choose HeliosX if you want the full price before you order, a pair built to your working distance or adjustable with Medusa, ergonomic prismatic optics, and a lifetime warranty instead of two years.',
   },
   'heliosx-vs-designs-for-vision': {
     specTable: allModels,
+    verdict: 'Choose HeliosX if you want a custom-built pair with the full price published before you order, ergonomic prismatic options, and a lifetime warranty.',
     metaTitle: 'Designs for Vision Loupes vs HeliosX: Price & Fit',
     addKeywords: ['designs for vision dental loupes', 'designs for vision surgical loupes', 'designs for vision ergo loupes', 'designs for vision loupes'],
   },

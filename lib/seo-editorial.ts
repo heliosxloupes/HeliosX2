@@ -107,7 +107,7 @@ const brands: Brand[] = [
     detail:
       'LumaDent publishes Ergo Air Ti prices starting at $1,995 for 3.0x. Its specification table lists variable working distance, so adjustment is not exclusive to HeliosX.',
     check:
-      'Compare the actual frame and magnification: LumaDent offers several frame choices and sells headlights separately.',
+      'LumaDent sells its headlights separately, so price the loupe and light together and compare that total with a complete HeliosX order.',
     price: 'Ergo Air Ti 3.0x: $1,995 published starting price.',
     distinction:
       'Ergo Air Ti has variable working distance; compare frame and magnification options.',
@@ -122,7 +122,7 @@ const brands: Brand[] = [
     detail:
       'Orascoptic offers student programs and demonstrations. Its student page lists a 45-day trial and benefits with eligibility conditions. Confirm the terms on your specific quote.',
     check:
-      'If a trial or local fitting appointment matters to you, include it in the decision. Compare your eligible student package with the complete HeliosX order.',
+      'Ask for an itemized quote and the trial conditions in writing, then compare the finished price with a complete HeliosX order.',
     price: 'Request an itemized quote; student benefits depend on eligibility.',
     distinction:
       'Student program and demonstration route. Confirm applicable trial and service terms.',
@@ -138,7 +138,7 @@ const brands: Brand[] = [
     detail:
       'SurgiTel offers several ergonomic loupe families, including ErgoDeflection, and a demonstration route. Compare a specific SurgiTel model with Apollo or Medusa, rather than treating the whole brand as one optical design.',
     check:
-      'Ask about the fitted viewing angle, working-distance options, and the cost of later adjustments. We do not have a verified general US retail price to quote here.',
+      'Ask for the fitted viewing angle, working-distance options and the cost of later adjustments in writing. HeliosX publishes every price and includes a lifetime warranty.',
     price: 'Request a model-specific quote and demonstration.',
     distinction:
       'Several ergonomic families; compare the specified viewing angle and fitting options.',
@@ -168,7 +168,7 @@ const brands: Brand[] = [
     detail:
       'ExamVision Kepler Advanced includes four magnifications in one loupe: 4.0x, 5.0x, 6.0x, and 7.0x. HeliosX models are ordered at one magnification. Medusa adjusts working distance, not magnification.',
     check:
-      'If switching magnification during your day is essential, Kepler Advanced offers a feature HeliosX does not currently provide. If one magnification fits your work, compare Kepler, Apollo, and Medusa by optical design and price.',
+      'If you work mainly at one magnification, HeliosX Kepler, Apollo and Medusa are built for that magnification at a published price, with no multi-magnification mechanism to pay for.',
     price: 'Request a regional quote with fitting and service included.',
     distinction:
       'Kepler Advanced switches between four magnifications in one system.',
@@ -183,7 +183,7 @@ const brands: Brand[] = [
     detail:
       'Admetec Ergo V provides three magnification settings in one ergonomic loupe. That is different from choosing one HeliosX magnification at purchase. Medusa changes working distance while keeping its ordered magnification.',
     check:
-      'If variable magnification is a requirement, compare the Ergo V configuration directly. If you mainly need ergonomic viewing at one magnification, shortlist Apollo and Medusa.',
+      'If you mainly need ergonomic viewing at one magnification, Apollo and Medusa give you that at a published price, and Medusa adds adjustable working distance.',
     price: 'Confirm regional pricing and support with the authorized seller.',
     distinction:
       'Ergo V combines ergonomic viewing with three magnification settings.',
@@ -199,7 +199,7 @@ const brands: Brand[] = [
     detail:
       'Designs for Vision builds loupes to each buyer’s measurements at its New York facility and offers a 45-day free trial. Its range runs from 1.7x to 6.0x, including standard and expanded field telescopes and the Infinity VUE ergonomic loupes at 3.0x, 3.5x and 4.5x. Prices are not published; you request a quote or a demonstration.',
     check:
-      'If a long trial and an in-person demonstration matter to you, Designs for Vision offers both. If you want to see the price before you talk to anyone, compare a written quote at the same magnification with a complete HeliosX order.',
+      'Ask for a written quote at the same magnification and compare it with a complete HeliosX order, whose price is published before you talk to anyone.',
     price: 'Request a quote; prices are not published. Student program discounts are offered.',
     distinction: 'Custom-built telescopes with a 45-day free trial; Infinity VUE ergonomic loupes at 3.0x–4.5x.',
     products: ['Galileo', 'Apollo', 'Kepler'],
@@ -250,7 +250,7 @@ for (const brand of brands) {
             'Confirm the fitting process, final specification, service terms, and return eligibility with the seller.',
         },
       ],
-      verdict: `Shortlist HeliosX if its optical design meets your needs and you value a published price. ${brand.check}`,
+      verdict: `Choose HeliosX if you want a pair built to your measurements, a published price for your exact configuration, ergonomic prismatic options and a lifetime warranty.`,
       sections: [
         section(
           `What to know about ${brand.name}`,

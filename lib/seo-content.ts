@@ -5217,14 +5217,14 @@ const buyerQuestionPages: SeoLandingPage[] = [
       {
         title: 'Quick picks by situation',
         body:
-          'If you already know your situation, start here. Where another brand fits better, we say so.',
+          'If you already know your situation, start here. Each pick names the HeliosX model and its price.',
         bullets: [
           `First pair on a tight budget: Newton at 2.5x–3.5x, ${priceRange('newton')}.`,
           `Detail work at 4.0x–6.0x without ergonomic optics: Kepler, ${priceRange('kepler')}.`,
           `Long cases and neck strain: Apollo (3.0x–6.0x, ${priceRange('apollo')}) or Medusa (3.0x–8.5x, ${priceRange('medusa')}).`,
           'You switch between seated and standing work: Medusa, for its 300–600 mm adjustable working distance.',
-          'You need several magnifications in one loupe: HeliosX does not offer that; compare ExamVision Kepler Advanced or Admetec Ergo V.',
-          'You want a no-obligation trial first: look at an eligible Orascoptic student program; HeliosX return terms differ from a trial.',
+          'You work at one magnification most of the day: buy the pair built for it rather than paying for a multi-magnification mechanism.',
+          'You want to try before you commit: non-prescription HeliosX pairs have 30-day returns with free return shipping.',
         ],
       },
     ],
@@ -8060,7 +8060,7 @@ const autocompleteGapPages: SeoLandingPage[] = [
     audience: 'surgeons, dentists and residents comparing HeliosX with ZEISS EyeMag loupes',
     intro:
       'ZEISS makes the EyeMag range: EyeMag Smart and Classic with Galilean optics, and EyeMag Pro with Keplerian (prismatic) optics, on a titanium spectacle frame or a headband. It is sold through dealers, and US prices are not published. HeliosX builds Galilean, prismatic and ergonomic prismatic loupes to your measurements and lists every price on the site.',
-    answer: `Choose ZEISS if you want ZEISS glass and dealer support, and you are happy to get a quote. Choose HeliosX if you want a published price, a custom-fit pair built to your own working distance, or ergonomic prismatic optics: Galileo starts at ${usd(productStartingPrices.Galileo)}, Kepler at ${usd(productStartingPrices.Kepler)} and Apollo at ${usd(productStartingPrices.Apollo)}.`,
+    answer: `Choose HeliosX if you want a published price, a custom-fit pair built to your own working distance, or ergonomic prismatic optics: Galileo starts at ${usd(productStartingPrices.Galileo)}, Kepler at ${usd(productStartingPrices.Kepler)} and Apollo at ${usd(productStartingPrices.Apollo)}.`,
     competitorName: 'ZEISS EyeMag',
     comparisonRows: [
       { feature: 'Galilean optics', heliosx: `Newton and Galileo, 2.5x–3.5x, from ${usd(productStartingPrices.Newton)}`, other: 'EyeMag Smart, 2.5x, for a large field of view and depth of field' },
@@ -8073,7 +8073,7 @@ const autocompleteGapPages: SeoLandingPage[] = [
       { feature: 'Warranty', heliosx: 'Limited lifetime warranty', other: 'Retailers list a 2-year warranty' },
     ],
     verdict:
-      'ZEISS is a strong optical brand with a dealer network. HeliosX is the option if you want to see the full price first, need a working distance outside fixed steps, or want an ergonomic prismatic loupe.',
+      'Choose HeliosX if you want the full price before you order, a working distance built to you or adjustable with Medusa, ergonomic prismatic optics, and a lifetime warranty.',
     proofPoints: [
       'Every price published; no quote needed.',
       'Built to your pupillary and working distance.',

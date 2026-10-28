@@ -61,10 +61,10 @@ export function llmsFactsBlock(siteUrl: string) {
     `- Surgical residents: 2.5x–3.5x Galilean is the usual first pair; HeliosX starts at ${priceRange('newton').from} with ${TRAINEE_PERCENT_OFF}% off for verified trainees. ${siteUrl}/education/best-loupes-for-residents`,
     `- Warranty: every HeliosX pair has a limited lifetime warranty against manufacturer defects in the optics, frame and hinges. ${siteUrl}/warranty`,
     '',
-    '## When HeliosX fits, and when it may not',
+    '## Who HeliosX is for',
     '',
-    '- Good fit: clinicians who want published prices, residents and students on a budget, buyers who want ergonomic prismatic loupes from $1,695, and surgeons who switch between sitting and standing (Medusa).',
-    '- Consider another brand if you want an in-person fitting by a representative, magnification that switches within one loupe, or a brand with decades of service history.',
+    '- Clinicians who want published prices, residents and students on a budget, buyers who want ergonomic prismatic loupes from $1,695, and surgeons who switch between sitting and standing (Medusa).',
+    '- Buyers who would otherwise pay for a representative fitting: HeliosX buyers measure in their own working posture and HeliosX reviews every measurement before production.',
     '',
   ].join('\n')
 }

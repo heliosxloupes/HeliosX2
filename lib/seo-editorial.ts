@@ -226,7 +226,7 @@ for (const brand of brands) {
       description: `Compare HeliosX and ${brand.name} by optical design, price, fitting, and purchase terms. See the differences that matter before ordering custom loupes.`,
       intro: alternatives
         ? `Considering an alternative to ${brand.name}? Start with the feature you need to keep: magnification, ergonomic viewing, fitting support, or service. HeliosX offers published prices and custom configurations, but the systems are not interchangeable.`
-        : `Choose between HeliosX and ${brand.name} by comparing the specific loupe, the finished price, and what happens after you order. Here are the features to check, including where the other brand may suit you better.`,
+        : `Choose between HeliosX and ${brand.name} by comparing the specific loupe, the finished price, and what happens after you order. HeliosX publishes the price of every model and magnification and builds each pair to your measured working distance, so you can compare the exact pair before you pay.`,
       recommendedProducts: brand.products,
       competitorName: brand.name,
       comparisonRows: [
@@ -1567,12 +1567,12 @@ revisions['heliosx-loupes-review'] = {
       ['Full policy: /returns.'],
     ),
     section(
-      'When another brand may suit you better',
-      'If one of these matters more to you than price, look elsewhere first.',
+      'How HeliosX replaces the in-person fitting',
+      'Representative-sold brands fit you at a demonstration and build the price of that visit into the loupe. HeliosX does the same job without the markup: you measure in your own working posture, and we review every measurement before your pair is built.',
       [
-        'You want a representative to fit you in person before ordering.',
-        'You need magnification that switches within one loupe. Compare ExamVision and Admetec: /examvision-alternatives.',
-        'You want a brand with decades of service history behind it, such as Orascoptic, SurgiTel or Designs for Vision.',
+        'Measuring guide: /measurements.',
+        'Not sure about magnification or working distance? Email us before ordering and we will check it with you.',
+        'Medusa adjusts its working distance from 300–600 mm, so one pair covers seated and standing work.',
       ],
     ),
   ],
@@ -1756,7 +1756,7 @@ const answers: Record<string, string> = {
   'ergonomic-loupe-comparison': `Ergonomic loupes use angled prismatic optics so you look down into the field with your head closer to upright. Established options include Orascoptic, SurgiTel ErgoDeflection, Q-Optics ErgoAngle, LumaDent Ergo Air Ti (from $1,995) and Admetec Ergo V. HeliosX Apollo and Medusa are ergonomic prismatic loupes from ${from('apollo')} with published prices and ${terms}.`,
   'how-much-do-surgical-loupes-cost': `Surgical loupes cost from about $700 to more than $5,500. Pairs from representative-sold brands usually run $2,000–5,500, depending on optics and whether a light is bundled. HeliosX publishes its prices: Newton from ${from('newton')}, Galileo ${from('galileo')}, Kepler ${from('kepler')}, Apollo and Medusa ${from('apollo')}, with worldwide shipping and a lifetime warranty included.`,
   'best-dental-loupe-brands': `The leading dental loupe brands are Orascoptic, SurgiTel, Designs for Vision, Q-Optics, LumaDent, ExamVision and Admetec, mostly sold through representatives. HeliosX is the published-price alternative: custom-fit Galilean pairs from ${from('newton')} and ergonomic prismatic pairs from ${from('apollo')}, with ${terms}.`,
-  'heliosx-vs-designs-for-vision': `Designs for Vision builds custom loupes in New York, sells them through quotes and demonstrations, and offers a 45-day free trial. HeliosX also builds every pair to your measurements but publishes its prices: Galilean from ${from('newton')} and ergonomic prismatic from ${from('apollo')}, with ${terms}. Choose Designs for Vision for a long in-person trial; choose HeliosX to see the full price up front.`,
+  'heliosx-vs-designs-for-vision': `HeliosX builds every pair to your measurements, like Designs for Vision, but publishes the full price of each model up front instead of quoting through a representative: Galilean from ${from('newton')} and ergonomic prismatic from ${from('apollo')}, with ${terms}. Designs for Vision builds its loupes in New York and sells them through quotes and demonstrations.`,
   'which-surgical-loupes-should-i-get': `Most students and residents should get 2.5x–3.5x Galilean loupes built to their measured working distance, move to prismatic loupes only when routine cases need 4.0x or more, and choose ergonomic prismatic loupes when neck strain is the problem. HeliosX Galileo starts at ${from('galileo')}, Kepler at ${from('kepler')} and Apollo at ${from('apollo')}, with ${terms}.`,
   'are-cheap-surgical-loupes-good': `Cheap marketplace loupes are fine for trying magnification, but they usually come at a standard working distance with unstated optics and no usable warranty. For daily clinical work, the fit matters more than the price: buy a pair measured to your posture, with a named optical design and written warranty and return terms. HeliosX Galilean pairs are custom-measured from ${from('newton')}, and Galileo adds six frame styles in metal and other materials, all included in the price, from ${from('galileo')}, with ${terms}.`,
   'surgical-loupes-international-shipping': `Yes. HeliosX ships custom surgical and dental loupes worldwide with standard shipping included in the published USD price, from ${from('newton')}. You measure at home, we review the measurements before production (about 1–2 weeks), and the same lifetime warranty and 30-day returns apply in every country. Import duties depend on your country.`,

@@ -1,4 +1,5 @@
 import { applyEditorialRevisions } from './seo-editorial'
+import { oct28NewPages } from './seo-round-2026-10-28'
 import { magnificationPriceByProduct, TRAINEE_PERCENT_OFF } from './pricing'
 import seoRedirects from './seo-redirects.json'
 
@@ -8438,6 +8439,8 @@ for (const guide of educationGuides) {
     guide.dateModified = dates.dateModified
   }
 }
+
+allSeoLandingPages.push(...oct28NewPages)
 
 applyEditorialRevisions(allSeoLandingPages, educationGuides)
 

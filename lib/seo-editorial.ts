@@ -1533,9 +1533,9 @@ revisions['heliosx-loupes-review'] = {
   title: 'HeliosX loupes: an honest overview',
   metaTitle: 'HeliosX Loupes Review: Models, Prices, Pros & Cons',
   description:
-    'An honest overview of HeliosX loupes: the five models and prices, what is included, how ordering and fitting work, the return policy, and when another brand suits you better.',
+    'An honest overview of HeliosX loupes: the five models and prices, what is included, how ordering and fitting work, the return policy and the lifetime warranty.',
   intro:
-    'This is our own overview, not an independent review. HeliosX sells custom-fit surgical and dental loupes directly to clinicians, with published prices from $695. Use this page to check the facts quickly, and to see where another brand may be the better choice for you.',
+    'This is our own overview, not an independent review. HeliosX sells custom-fit surgical and dental loupes directly to clinicians, with published prices from $695. Use this page to check the models, prices, fitting and terms before you order.',
   recommendedProducts: ['Newton', 'Kepler', 'Medusa'],
   comparisonRows: undefined,
   verdict: undefined,
@@ -2052,7 +2052,7 @@ const searchSnippets: Record<string, { metaTitle?: string; description?: string 
   'heliosx-vs-lumadent': { metaTitle: 'LumaDent Loupes vs HeliosX: Price, Fit & Features' },
   'orascoptic-alternatives': { metaTitle: 'Orascoptic Loupes Alternatives: Price & Fit | HeliosX' },
   'heliosx-loupes-review': {
-    description: `An honest look at HeliosX loupes: five models from ${from('newton')}, what's included, how fitting and returns work, and when another brand suits you better.`,
+    description: `An honest look at HeliosX loupes: five models from ${from('newton')}, what's included, how fitting works, 30-day returns and a lifetime warranty.`,
   },
   'affordable-surgical-loupes-reddit': {
     description: `What Reddit threads say about affordable surgical loupes: cheap Amazon pairs, custom-fit prices, working distance and what to check before you buy.`,

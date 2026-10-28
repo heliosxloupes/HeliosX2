@@ -301,6 +301,14 @@
 .procedureTable td {
   color: #d0d9d4;
 }
+/* Models-and-prices tables carry 6-8 columns, so the row header stays narrow. */
+.procedureTable.specTable tbody th {
+  width: auto;
+  white-space: nowrap;
+}
+.procedureTable.specTable td {
+  font-variant-numeric: tabular-nums;
+}
 .procedureTable .mag {
   font-variant-numeric: tabular-nums;
   font-weight: 600;

@@ -136,6 +136,7 @@ export default function SeoLandingExperience({
             </div>
           </header>
           <nav aria-label="On this page" className={styles.nav}>
+            {page.specTable ? <a href="#models-prices">Models &amp; prices</a> : null}
             {page.comparisonRows?.length ? (
               <a href="#comparison">Comparison</a>
             ) : null}
@@ -147,6 +148,38 @@ export default function SeoLandingExperience({
             <a href="#questions">Questions</a>
             <a href="#help-choosing">Ask for help</a>
           </nav>
+          {page.specTable ? (
+            <section id="models-prices" className={styles.section}>
+              <h2>{page.specTable.title}</h2>
+              {page.specTable.lead ? (
+                <p className={styles.lead}>{linkifyText(page.specTable.lead)}</p>
+              ) : null}
+              <table className={`${styles.procedureTable} ${styles.specTable}`}>
+                <thead>
+                  <tr>
+                    {page.specTable.columns.map((column) => (
+                      <th key={column} scope="col">{column}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {page.specTable.rows.map(([head, ...cells]) => (
+                    <tr key={head}>
+                      <th scope="row">{linkifyText(head)}</th>
+                      {cells.map((cell, i) => (
+                        <td key={i} data-label={page.specTable!.columns[i + 1]}>
+                          <span>{linkifyText(cell)}</span>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {page.specTable.note ? (
+                <p className={styles.lead}>{linkifyText(page.specTable.note)}</p>
+              ) : null}
+            </section>
+          ) : null}
           {page.procedureRows?.length ? (
             <section id="by-procedure" className={styles.section}>
               <h2>Magnification by procedure</h2>

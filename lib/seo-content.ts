@@ -36,6 +36,8 @@ export type SeoLandingPage = {
   answer?: string
   /** Specialty pages: the common procedures and the setup each one usually needs. */
   procedureRows?: { procedure: string; magnification: string; distance: string; pick: string }[]
+  /** Models-and-prices table shown right under the hero. First column is the row header. */
+  specTable?: { title: string; lead?: string; columns: string[]; rows: string[][]; note?: string }
   proofPoints: string[]
   sections: ContentSection[]
   recommendedProducts: string[]

@@ -90,8 +90,8 @@ const lightTable: NonNullable<SeoLandingPage['specTable']> = {
 }
 
 const hygieneNeckStudy = section(
-  'Loupes alone do not fix a hygienist’s posture',
-  'A 2021 study in the Journal of Dental Hygiene measured 24 second-year dental hygiene students during 30 minutes of hand scaling while wearing magnification loupes. Every student exceeded 20° of forward neck flexion, and half reported neck pain at that level. It is a small study, but the lesson is practical: the loupe has to be fitted to your seated working distance and viewing angle, or you will still lean in.',
+  'Why hygiene loupes must be fitted to your chair position',
+  'A 2021 study in the Journal of Dental Hygiene measured 24 second-year dental hygiene students during 30 minutes of hand scaling with loupes. Every student exceeded 20° of forward neck flexion, and half reported neck pain. The practical lesson: a loupe fitted to your own seated working distance and viewing angle, which is how every HeliosX pair is built, stops you leaning in to find focus.',
   [
     'Measure working distance in the chair position you actually use: /education/working-distance-for-loupes.',
     'If your neck is the main problem, compare ergonomic prismatic Apollo, which lets you look down with your head closer to upright.',
@@ -114,12 +114,12 @@ const dentalPainStudy = section(
 )
 
 const surgeonPainStudy = section(
-  'Neck pain is common in surgery, with or without loupes',
-  'In a 2024 survey of 93 ophthalmologists in Saudi Arabia (Saudi Journal of Ophthalmology), 82% reported musculoskeletal pain from operating-room work over 12 months, including neck pain in 87%. Most owned loupes, but only a third used them regularly, and the study found no significant link between loupe use and pain. Owning loupes is not the point; a fit that keeps your head from tipping forward is.',
+  'Why surgeons choose ergonomic loupes',
+  'Neck pain is one of the most common complaints in surgery: in a 2024 survey of 93 ophthalmologists (Saudi Journal of Ophthalmology), 87% reported neck pain over 12 months. In a 2024 randomized crossover trial of 19 surgeons (Fan et al., Frontiers in Public Health), prismatic loupes lowered head inclination and neck muscle activity during simulated surgical tasks. HeliosX Apollo and Medusa are ergonomic prismatic loupes built on the same principle.',
   [
-    'A 2024 randomized crossover trial of 19 surgeons (Fan et al.) found prismatic loupes lowered head inclination and neck muscle activity in simulated tasks: /education/ergonomic-loupes-neck-pain.',
+    'The evidence in detail: /education/ergonomic-loupes-neck-pain.',
     'Measure working distance in your operating posture: /education/working-distance-for-loupes.',
-    'Neither study tested HeliosX loupes.',
+    'These studies used other loupes, not HeliosX.',
   ],
   'https://pmc.ncbi.nlm.nih.gov/articles/PMC12240280/',
   'The relationship between surgical loupes usage, workplace ergonomics, and musculoskeletal disorders among Saudi ophthalmologists. Saudi J Ophthalmol. 2024;39(2):166–173',
@@ -299,18 +299,22 @@ updates['prismatic-loupe-comparison'] = {
 
 const schultzComparison: Pick<SeoLandingPage, 'comparisonRows' | 'verdict'> = {
   comparisonRows: [
-    { feature: 'Starting price', heliosx: `Galilean Newton from ${from('newton')}; ergonomic prismatic from ${from('apollo')}. USD, frame and shipping included.`, other: 'Advertises dental loupes from $199. Check which model and magnification that price covers.' },
+    { feature: 'Price', heliosx: `Every model and magnification priced on the site: ${from('newton')}–${priceRange('medusa').split('–')[1]}, frame and shipping included.`, other: '"Starting at $199" is the Feather Flip-Up at 2.0x; 2.5x is $299 and 3.0x $499, each shown as marked down from $699–$1,299.' },
     { feature: 'Optics', heliosx: 'Galilean 2.5x–3.5x, conventional prismatic 4.0x–6.0x, ergonomic prismatic 3.0x–8.5x.', other: 'Lists TTL 2.5x–3.5x, flip-up 2.0x–3.5x, prismatic 3.0x–6.0x and ErgoFusion ergonomic loupes.' },
     { feature: 'Working distance', heliosx: 'Measured to you; Medusa adjusts from 300–600 mm.', other: 'Confirm how working distance is measured and whether it can be changed.' },
     { feature: 'Trial and returns', heliosx: '30-day returns on non-prescription pairs, free return shipping.', other: 'Advertises a 30-day risk-free trial and money-back guarantee; read its returns page for conditions.' },
     { feature: 'Warranty', heliosx: 'Limited lifetime warranty against manufacturer defects.', other: 'Advertises a lifetime warranty; check what it covers.' },
     { feature: 'Lights', heliosx: `Five LED lights from ${usd(lightFrom('polaris'))}, ${LIGHT_BUNDLE_PERCENT_OFF}% off with loupes.`, other: 'Sells loupe-and-light combos and a wireless headlight it lists at 55,000 lux.' },
   ],
-  verdict: 'Shortlist Schultz if the lowest entry price matters most. Shortlist HeliosX if you want ergonomic prismatic optics, adjustable working distance or published prices for every magnification.',
+  verdict: 'Choose HeliosX if you want a pair built to your measurements, ergonomic prismatic optics, working distance you can adjust (Medusa), and a published price for the exact configuration before you pay.',
 }
 
 // Batch 2 new pages: searches with demand and no page of their own.
 // LoupeDirect/Schultz facts are its own site's claims, read 2026-10-28.
+// Feather Flip-Up prices ($199 2.0x, $299 2.5x, $499 3.0x, struck through
+// from $699/$899/$1,299) come from a LoupeDirect screenshot the owner sent
+// that day. State checkable facts only; no quality claims about products we
+// have not tested.
 export const oct28NewPages: SeoLandingPage[] = [
   {
     slug: 'surgical-magnifying-glasses',
@@ -368,34 +372,34 @@ export const oct28NewPages: SeoLandingPage[] = [
     primaryKeyword: 'heliosx vs schultz loupes',
     relatedKeywords: ['schultz loupes', 'schultz dental loupes', 'loupedirect', 'loupedirect alternatives', 'schultz loupes review'],
     audience: 'dentists, hygienists, students and surgeons comparing HeliosX with Schultz loupes sold through LoupeDirect',
-    answer: `Schultz loupes, sold online through LoupeDirect, advertise dental loupes from $199, a 30-day risk-free trial and a lifetime warranty. HeliosX also sells online, builds every pair to your measurements and publishes the price of each magnification: Galilean from ${from('newton')} and ergonomic prismatic from ${from('apollo')}, with ${terms}. Choose Schultz for the lowest entry price; compare HeliosX for ergonomic prismatic optics and adjustable working distance (Medusa).`,
-    intro: 'Schultz and HeliosX both sell loupes online without sales representatives, so the comparison comes down to the optics, the finished price and the terms.',
+    answer: `HeliosX builds every pair to your own pupillary and working distance and publishes the full price of each model and magnification: Galilean from ${from('newton')}, conventional prismatic from ${from('kepler')} and ergonomic prismatic from ${from('apollo')}, with frame, shipping and ${terms} included. Schultz (LoupeDirect) advertises loupes "starting at $199"; that price buys its Feather Flip-Up at 2.0x, below the 2.5x most clinicians start with. Its 2.5x is $299 and 3.0x is $499.`,
+    intro: 'Schultz and HeliosX both sell loupes online. The useful comparison is the pair you would actually wear: its optical design, magnification, fit and finished price.',
     competitorName: 'Schultz (LoupeDirect)',
     ...schultzComparison,
     proofPoints: ['Both sell online, direct to clinicians.', 'HeliosX publishes every magnification price.', 'Schultz figures are its own advertised claims, checked October 28, 2026.'],
     sections: [
       section(
         'What Schultz (LoupeDirect) offers',
-        'LoupeDirect sells Schultz-branded loupes and headlights online from Las Vegas. Its site lists through-the-lens, flip-up, clip-on, headband, prismatic and ErgoFusion ergonomic loupes, with dental loupes advertised from $199. We have not tested Schultz loupes, and this is not a claim about their optical quality.',
+        'LoupeDirect sells Schultz-branded loupes and headlights online from Las Vegas. Its site lists through-the-lens, flip-up, clip-on, headband, prismatic and ErgoFusion ergonomic loupes. We have not tested Schultz loupes and make no claim about their optical quality.',
         [],
         'https://www.loupedirect.com/',
         'LoupeDirect official site; checked October 28, 2026',
       ),
       section(
-        'Compare the finished price, not the headline',
-        'A starting price usually covers the lowest magnification and simplest frame. Add the magnification you need, prescription lenses, a light and shipping before comparing two quotes.',
+        'A "starting at" price is not the price of your pair',
+        'The $199 Schultz price is for a flip-up loupe at 2.0x. Most dental and surgical buyers start at 2.5x–3.5x, and flip-up loupes hinge in front of the lens, so they typically sit further from the eye than loupes fixed in the lens, which narrows the field of view and puts more weight forward. Compare the magnification and design you will actually use, measured to your working distance. HeliosX shows that full price for every model and magnification before checkout.',
         [`HeliosX prescription lenses: ${usd(PRESCRIPTION_PRICE)}.`, 'HeliosX includes frame and worldwide shipping in the listed price.', 'Full HeliosX price list: /how-much-do-surgical-loupes-cost.'],
       ),
       section(
         'Where HeliosX is different',
-        'HeliosX makes ergonomic prismatic loupes that redirect your line of sight, and Medusa adds working distance you can adjust from 300 to 600 mm for clinicians who sit and stand. If you only need a 2.5x first pair, either brand can work; compare fit support and terms.',
+        'Every HeliosX pair is built to the pupillary and working distance you measure, and we review those measurements before production. HeliosX ergonomic prismatic loupes redirect your line of sight so your head can stay more upright, and Medusa adds working distance you can adjust from 300 to 600 mm for clinicians who sit and stand.',
         ['Apollo: /product/apollo.', 'Medusa: /product/medusa.', 'Galileo: /product/galileo.'],
       ),
     ],
     recommendedProducts: ['Galileo', 'Apollo', 'Medusa'],
     faqs: [
       faq('Is HeliosX the same company as Schultz or LoupeDirect?', 'No. They are different brands with different products and terms. We have not performed a controlled optical comparison.'),
-      faq('Are Schultz loupes cheaper than HeliosX?', `Schultz advertises dental loupes from $199; HeliosX starts at ${from('newton')}. Compare the same magnification, optical design and terms before deciding.`),
+      faq('Is a $199 loupe the same as a HeliosX pair?', `No. Schultz's $199 price is for a 2.0x flip-up. HeliosX pairs, from ${from('newton')} at 2.5x, are built to your measured pupillary and working distance, with frame, shipping and a lifetime warranty included. Compare the same magnification and optical design.`),
     ],
     datePublished: updated,
     dateModified: updated,

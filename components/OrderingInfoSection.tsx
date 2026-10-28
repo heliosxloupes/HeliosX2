@@ -206,7 +206,7 @@ function OrderingInfoSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden border-t border-white/10 bg-black"
+      className="relative overflow-hidden border-t border-white/10"
     >
       {/* Ambient orbs */}
       <div className="pointer-events-none absolute -top-32 left-[12%] h-[420px] w-[420px] rounded-full bg-emerald-500/[0.06] blur-3xl" />

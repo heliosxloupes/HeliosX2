@@ -10,6 +10,7 @@ import Header from "@/components/Header";
 import OrderingInfoSection from "@/components/OrderingInfoSection";
 import { useCarouselDots } from "@/components/useCarouselDots";
 import MobileCatalogueExperience from "@/components/mobile/MobileCatalogueExperience";
+import LightsBackdrop from "@/components/lights/LightsBackdrop";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -25,6 +26,8 @@ export default function ProductPage() {
   return (
     <>
       <Header />
+      {/* Ghost Fibers behind the desktop layout (desktop-only, mounts itself), as on /product/lights. */}
+      <LightsBackdrop className="-z-10" />
       <div className="md:hidden">
         <MobileCatalogueExperience />
       </div>
@@ -63,12 +66,7 @@ export default function ProductPage() {
 function ProductLineupHeader() {
   return (
     <section className="relative overflow-hidden px-4 pb-12 pt-10 md:px-8 md:pb-16 md:pt-16">
-      {/* ambient accent glows — premium depth without heavy imagery */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <span className="absolute -top-28 left-1/2 h-[440px] w-[440px] -translate-x-1/2 rounded-full bg-emerald-500/12 blur-[130px]" />
-        <span className="absolute right-[-120px] top-1/4 h-[360px] w-[360px] rounded-full bg-sky-500/10 blur-[130px]" />
-        <span className="absolute bottom-[-100px] left-[-100px] h-[320px] w-[320px] rounded-full bg-amber-400/10 blur-[130px]" />
-      </div>
+      {/* The page-wide Ghost Fibers give this header its depth; its own clipped glows left a hard edge. */}
 
       <motion.div
         initial="hidden"

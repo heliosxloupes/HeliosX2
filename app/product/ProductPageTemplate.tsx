@@ -20,6 +20,7 @@ import { productFaqs } from '@/lib/product-faqs'
 import { magnificationPriceByProduct } from '@/lib/pricing'
 import TraineePricing from '@/components/product/TraineePricing'
 import PromoBadge from '@/components/PromoBadge'
+import LightsBackdrop from '@/components/lights/LightsBackdrop'
 import DeliveryTimeline from '@/components/product/DeliveryTimeline'
 
 // Contextual outbound links per model.
@@ -532,10 +533,12 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   return (
     <>
       <Header />
+      {/* Ghost Fibers behind the desktop layout (desktop-only, mounts itself), as on /product/lights. */}
+      <LightsBackdrop className="-z-10" />
       <div className="md:hidden">
         <MobileProductExperience config={config} frames={frameConfigs} />
       </div>
-      <main className="hidden min-h-screen bg-black pt-16 text-neutral-100 md:block">
+      <main className="hidden min-h-screen bg-transparent pt-16 text-neutral-100 md:block">
         {/* HERO + CONFIG */}
         <section className="w-full pt-4 pb-20 lg:pb-28">
           <motion.div
@@ -893,7 +896,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
         {/* TECHNICAL DETAIL / SPECS */}
         <section
           ref={techRef}
-          className="border-t border-white/10 bg-black pb-24 pt-16"
+          className="border-t border-white/10 pb-24 pt-16"
         >
           <div className="mx-auto flex max-w-[1200px] flex-col gap-10 px-4 lg:px-10 xl:px-16">
             <motion.div
@@ -970,7 +973,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
         </section>
 
         {productFaqList.length > 0 && (
-          <section className="relative border-t border-white/10 bg-neutral-950/80 px-5 py-20 md:px-12 md:py-24">
+          <section className="relative border-t border-white/10 bg-neutral-950/40 px-5 py-20 md:px-12 md:py-24">
             <div className="mx-auto max-w-5xl">
               <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-emerald-200/80">
                 Common questions

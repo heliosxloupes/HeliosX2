@@ -37,7 +37,7 @@ export type Light = {
 export const BATTERIES: BatteryOption[] = [
   { id: 'clip-4h', label: 'Clip-on', detail: 'Small pack that clips to your scrubs', hours: 4 },
   { id: 'slim-6h', label: 'Slim', detail: 'Thin pack for a pocket or waistband', hours: 6 },
-  { id: 'pack-10h', label: 'Extended', detail: 'Larger pack for long lists', hours: 10 },
+  { id: 'pack-10h', label: 'Extended', detail: 'Larger pack for long days in the OR', hours: 10 },
   { id: 'neck-4h', label: 'Neckband', detail: 'Rests around your neck, nothing at the waist', hours: 4 },
 ]
 

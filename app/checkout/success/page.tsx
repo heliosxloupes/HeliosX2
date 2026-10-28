@@ -22,6 +22,8 @@ function CheckoutSuccessContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [order, setOrder] = useState<any>(null)
+  // Lights-only orders skip measurements and go straight to fulfilment (lib/order-confirmation.ts).
+  const lightsOnly = order?.status === 'in_production'
 
   useEffect(() => {
     const sessionId = searchParams.get('session_id')
@@ -127,7 +129,9 @@ function CheckoutSuccessContent() {
               </div>
 
               <p className="text-sm leading-6 text-neutral-300">
-                We&apos;ve recorded your order and payment. Your order status is pending measurements until your PD and fit details are submitted.
+                {lightsOnly
+                  ? 'We’ve recorded your order and payment. Your light needs no measurements, so we’re preparing it for shipping.'
+                  : 'We’ve recorded your order and payment. Your order status is pending measurements until your PD and fit details are submitted.'}
               </p>
               {order && (
                 <div className="mt-4 rounded-2xl border border-white/10 bg-black/40 p-4 text-xs text-neutral-300 print:border-black print:bg-white print:text-black">
@@ -149,10 +153,12 @@ function CheckoutSuccessContent() {
                   <span className="mt-[2px] h-[6px] w-[6px] rounded-full bg-neutral-200" />
                   <span>Check your email for your receipt and order confirmation.</span>
                 </li>
+                {lightsOnly ? null : (
                 <li className="flex gap-3">
                   <span className="mt-[2px] h-[6px] w-[6px] rounded-full bg-neutral-200" />
                   <span>Submit your pupillary distance, working distance, and any prescription notes from the secure link in your confirmation email.</span>
                 </li>
+                )}
                 <li className="flex gap-3">
                   <span className="mt-[2px] h-[6px] w-[6px] rounded-full bg-neutral-200" />
                   <span>Non-prescription pairs can be returned within 30 days of delivery, and prescription orders are fully refundable until custom production begins. Once your fit details are verified and production starts, we&apos;ll send order and shipping updates.</span>

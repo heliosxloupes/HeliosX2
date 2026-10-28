@@ -10,7 +10,7 @@ import CopyEmail from '@/components/Contact/CopyEmail'
 import Header from '@/components/Header'
 import { getCart } from '@/lib/cart'
 import { getEffectiveConsent } from '@/lib/consent'
-import { PRESCRIPTION_PRICE } from '@/lib/pricing'
+import { PRESCRIPTION_PRICE, lineUnitPrice } from '@/lib/pricing'
 
 type CartItem = {
   productSlug: string
@@ -26,6 +26,9 @@ type CartItem = {
   selectedMagnification?: string
   isAddon?: boolean
   hasPrescriptionLenses?: boolean
+  isLight?: boolean
+  lightOption?: string
+  lightOptionName?: string
 }
 
 declare global {
@@ -75,7 +78,7 @@ export default function CheckoutPage() {
           const prescriptionQuantity = Number.isFinite(flags.prescriptionQuantity)
             ? Math.max(0, Math.floor(flags.prescriptionQuantity ?? 0))
             : flags.prescription
-              ? cart.reduce((sum, item) => sum + (item.hasPrescriptionLenses ? item.quantity : 0), 0) || 1
+              ? cart.reduce((sum, item) => sum + (item.hasPrescriptionLenses && !item.isLight ? item.quantity : 0), 0) || 1
               : 0
 
           if (prescriptionQuantity > 0) {
@@ -102,8 +105,9 @@ export default function CheckoutPage() {
     setItems(mergedItems)
   }, [router])
 
+  // Lights show their loupe-bundle price here; the server charges the same (create-checkout-session).
   const subtotal = items.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + lineUnitPrice(item, items) * item.quantity,
     0
   )
 
@@ -163,6 +167,8 @@ export default function CheckoutPage() {
             frameColor: frameColor || item.frameColor,
             magnification: item.magnification || item.selectedMagnification || undefined,
             isAddon: item.isAddon || false,
+            isLight: item.isLight || false,
+            lightOption: item.lightOption || undefined,
           }
         })
 
@@ -336,7 +342,12 @@ export default function CheckoutPage() {
                           : item.shortName ?? item.productSlug}
                       </p>
                       <p className="mt-1 text-sm font-medium">{item.name}</p>
-                      {!item.isAddon && (
+                      {item.isLight ? (
+                        <div className="mt-1 text-[0.7rem] text-neutral-300">
+                          {item.lightOptionName}
+                          {lineUnitPrice(item, items) !== item.price ? <span className="ml-2 text-emerald-200">10% off with loupes</span> : null}
+                        </div>
+                      ) : !item.isAddon && (
                         <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-[0.7rem] text-neutral-300">
                           {(item.magnification || item.selectedMagnification) && (
                             <span>Mag: {item.magnification || item.selectedMagnification}</span>
@@ -352,7 +363,7 @@ export default function CheckoutPage() {
                       <div className="mt-2 flex items-center justify-between text-xs text-neutral-300">
                         <span>Qty: {item.quantity}</span>
                         <span className="text-sm font-semibold text-neutral-50">
-                          {usd(item.price * item.quantity)}
+                          {usd(lineUnitPrice(item, items) * item.quantity)}
                         </span>
                       </div>
                     </div>
@@ -381,7 +392,7 @@ export default function CheckoutPage() {
               </p>
             </div>
 
-            <AfterCheckoutSteps className="mt-6 border-t border-white/10 pt-5" />
+            <AfterCheckoutSteps lightsOnly={items.length > 0 && items.every((item) => item.isLight)} className="mt-6 border-t border-white/10 pt-5" />
 
             <div className="mt-6 rounded-2xl border border-white/10 bg-black/35 p-4">
               <p className="text-sm font-medium text-neutral-50">Questions before you pay?</p>

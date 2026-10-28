@@ -19,6 +19,7 @@ import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
 import { productFaqs } from '@/lib/product-faqs'
 import { magnificationPriceByProduct } from '@/lib/pricing'
 import TraineePricing from '@/components/product/TraineePricing'
+import PromoBadge from '@/components/PromoBadge'
 import DeliveryTimeline from '@/components/product/DeliveryTimeline'
 
 // Contextual outbound links per model.
@@ -845,6 +846,7 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 variants={cardVariants}
                 className="rounded-3xl border border-white/10 bg-neutral-900/95 p-4 shadow-[0_24px_90px_rgba(0,0,0,0.8)]"
               >
+                <PromoBadge tone="dark" className="mb-3" />
                 <div className="flex items-center justify-between text-sm text-neutral-200">
                   <span>{isAvailable ? 'Subtotal' : 'Pricing'}</span>
                   <span className="font-semibold">

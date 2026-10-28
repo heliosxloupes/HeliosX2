@@ -7,6 +7,7 @@ import { useMemo, useState } from 'react'
 
 import { MODELS, modelBySlug, money, startingPrice } from '@/components/m2/models'
 import { PhotoThumb, StagePhoto } from '@/components/m2/Photo'
+import PromoBadge from '@/components/PromoBadge'
 import { magnificationPriceByProduct, TRAINEE_PERCENT_OFF } from '@/lib/pricing'
 
 type Filter = 'all' | 'ergonomic' | 'lightweight' | 'high-mag'
@@ -57,6 +58,7 @@ export default function MobileCatalogueExperience() {
         <p className="m2-lede mt-4">
           Custom-fit surgical and dental loupes from {money(startingPrice('newton'))}, shipping included. Choose by posture, magnification, and the work in front of you.
         </p>
+        <PromoBadge className="mt-4" />
         <ul className="mt-4 flex flex-wrap gap-1.5 text-[12px] font-bold">
           <li><Link href="/warranty" className="flex min-h-9 items-center gap-1.5 rounded-full bg-[#f7f9f7] px-3 active:scale-[0.98]"><Check size={14} className="text-[#0b6b53]" /> Limited lifetime warranty</Link></li>
           <li><Link href="/returns" className="flex min-h-9 items-center gap-1.5 rounded-full bg-[#f7f9f7] px-3 active:scale-[0.98]"><Check size={14} className="text-[#0b6b53]" /> 30-day returns</Link></li>

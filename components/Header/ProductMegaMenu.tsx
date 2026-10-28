@@ -120,6 +120,9 @@ export default function ProductMegaMenu({ open, top, onNavigate, onMouseEnter, o
             <div className="relative flex items-center justify-between border-t border-white/[0.07] px-6 py-3 text-[0.65rem] font-medium uppercase tracking-[0.2em]">
               <span className="text-neutral-500">Published prices. Measurements reviewed before production.</span>
               <div className="flex items-center gap-6">
+                <Link href="/product/lights" onClick={onNavigate} className="text-neutral-400 transition-colors hover:text-white">
+                  LED loupe lights
+                </Link>
                 <Link href="/loupe-comparisons" onClick={onNavigate} className="text-neutral-400 transition-colors hover:text-white">
                   Compare models
                 </Link>

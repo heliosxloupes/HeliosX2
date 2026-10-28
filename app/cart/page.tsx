@@ -13,7 +13,7 @@ import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 import type { CartItem } from '@/lib/cart'
 import { cartItemsToGA4Items, newEventId, trackBeginCheckout, trackViewCart } from '@/lib/analytics'
 import Noise from '@/components/Noise'
-import { PRESCRIPTION_PRICE } from '@/lib/pricing'
+import { PRESCRIPTION_PRICE, lineUnitPrice } from '@/lib/pricing'
 import MobileCartExperience from '@/components/mobile/MobileCartExperience'
 
 // Displayed here, charged from the same source in the checkout API.
@@ -105,22 +105,24 @@ export default function CartPage() {
   }
 
   const prescriptionPairCount = items.reduce(
-    (sum, item) => sum + (item.hasPrescriptionLenses ? item.quantity : 0),
+    (sum, item) => sum + (item.hasPrescriptionLenses && !item.isLight ? item.quantity : 0),
     0
   )
-  const includePrescription = items.length > 0 && items.every((item) => item.hasPrescriptionLenses)
+  // Prescription lenses only apply to loupes, never to lights.
+  const loupeItems = items.filter((item) => !item.isLight)
+  const includePrescription = loupeItems.length > 0 && loupeItems.every((item) => item.hasPrescriptionLenses)
 
   const togglePrescriptionForAll = () => {
     const nextValue = !includePrescription
     setItems((prev) => {
-      const next = prev.map((item) => ({ ...item, hasPrescriptionLenses: nextValue }))
+      const next = prev.map((item) => (item.isLight ? item : { ...item, hasPrescriptionLenses: nextValue }))
       saveCart(next)
       return next
     })
   }
 
   const baseSubtotal = items.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + lineUnitPrice(item, items) * item.quantity,
     0
   )
 
@@ -322,17 +324,32 @@ export default function CartPage() {
                               {item.shortName ?? item.productSlug}
                             </p>
                             <span className="text-sm font-semibold tabular-nums text-neutral-50">
-                              ${(item.price * item.quantity).toFixed(2)}
+                              ${(lineUnitPrice(item, items) * item.quantity).toFixed(2)}
                             </span>
                           </div>
                           <p className="mt-1 text-sm font-medium text-neutral-50">
                             {item.name}
                           </p>
                           <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[0.78rem]">
-                            <dt className="text-neutral-500">Magnification</dt>
-                            <dd className="text-neutral-200">{item.selectedMagnification ?? 'Not selected'}</dd>
-                            <dt className="text-neutral-500">Frame</dt>
-                            <dd className="truncate text-neutral-200">{item.selectedFrameName ?? 'Not selected'}</dd>
+                            {item.isLight ? (
+                              <>
+                                <dt className="text-neutral-500">Battery</dt>
+                                <dd className="text-neutral-200">{item.lightOptionName ?? 'Included'}</dd>
+                                {lineUnitPrice(item, items) !== item.price ? (
+                                  <>
+                                    <dt className="text-neutral-500">Bundle</dt>
+                                    <dd className="text-emerald-200">10% off with loupes</dd>
+                                  </>
+                                ) : null}
+                              </>
+                            ) : (
+                              <>
+                                <dt className="text-neutral-500">Magnification</dt>
+                                <dd className="text-neutral-200">{item.selectedMagnification ?? 'Not selected'}</dd>
+                                <dt className="text-neutral-500">Frame</dt>
+                                <dd className="truncate text-neutral-200">{item.selectedFrameName ?? 'Not selected'}</dd>
+                              </>
+                            )}
                             <dt className="text-neutral-500">Qty</dt>
                             <dd className="text-neutral-200">{item.quantity}</dd>
                           </dl>
@@ -356,7 +373,8 @@ export default function CartPage() {
               )}
             </motion.div>
 
-            {/* Add-ons */}
+            {/* Add-ons: prescription lenses only apply to loupes */}
+            {loupeItems.length > 0 && (
             <motion.div
               variants={cardVariants}
               className="rounded-[32px] border border-white/10 bg-gradient-to-b from-neutral-900/90 to-neutral-950 p-6 shadow-[0_0_40px_rgba(0,0,0,0.7)] backdrop-blur-xl"
@@ -413,6 +431,7 @@ export default function CartPage() {
 
               </div>
             </motion.div>
+            )}
 
             {/* Totals + CTA */}
             <motion.div
@@ -465,7 +484,7 @@ export default function CartPage() {
               >
                 Proceed to payment
               </button>
-              <AfterCheckoutSteps className="mt-5 border-t border-white/10 pt-5" />
+              <AfterCheckoutSteps lightsOnly={items.length > 0 && loupeItems.length === 0} className="mt-5 border-t border-white/10 pt-5" />
               <AskSpecialistButton
                 source="cart_summary"
                 className="mt-4 flex min-h-11 w-full items-center justify-between border-t border-white/10 pt-3 text-left text-xs text-neutral-300 transition hover:text-white"

@@ -60,6 +60,7 @@ function MobileNav() {
 
   const navItems = [
     { href: "/product", label: "Shop now" },
+    { href: "/product/lights", label: "Lights" },
     { href: "/surgical-loupes", label: "Surgical" },
     { href: "/dental-loupes", label: "Dental" },
     { href: "/education", label: "Education" },
@@ -291,6 +292,7 @@ function MobileNav() {
 
 const desktopNavItems = [
   { href: '/product', label: 'Product' },
+  { href: '/product/lights', label: 'Lights' },
   { href: '/surgical-loupes', label: 'Surgical' },
   { href: '/dental-loupes', label: 'Dental' },
   { href: '/education', label: 'Education' },
@@ -419,8 +421,10 @@ export default function Header() {
         {/* Center: nav */}
         <nav className="hidden items-center gap-5 text-[0.7rem] font-medium uppercase tracking-[0.18em] md:flex">
           {desktopNavItems.map(({ href, label }) => {
-            const active = pathname === href || pathname.startsWith(href + '/')
             const isProduct = href === '/product'
+            // Lights live under /product but have their own nav item.
+            const active =
+              (pathname === href || pathname.startsWith(href + '/')) && !(isProduct && pathname.startsWith('/product/lights'))
             return (
               <Link
                 key={href}

@@ -1,0 +1,165 @@
+/* Dust drifting through the beam. Each mote's travel and timing come from
+   inline custom properties so one keyframe serves them all. */
+.mote {
+  opacity: 0;
+  animation: mote var(--dur, 7s) linear var(--delay, 0s) infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes mote {
+  0% { opacity: 0; transform: translate(0, 0); }
+  18% { opacity: var(--peak, 0.7); }
+  82% { opacity: var(--peak, 0.7); }
+  100% { opacity: 0; transform: translate(var(--dx, 0px), var(--dy, 24px)); }
+}
+
+/* The LED breathing very slightly, the way a real lamp's glow never sits still. */
+.lens {
+  animation: lens 4.2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes lens {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+/* Ambient glows behind the glass panels, drifting slowly. */
+.glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+  animation: drift 26s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(var(--gx, 40px), var(--gy, -30px), 0) scale(1.08); }
+}
+
+/* ── Smoked glass ─────────────────────────────────────────────────────────
+   After the GlassFolder on the Charlie Riccio results page: a tint that
+   deepens toward the bottom, a rim lit from above, a highlight that follows
+   the cursor (--px/--py, -1…1, written by the page), and a spring on hover. */
+.glass {
+  --px: 0;
+  --py: 0;
+  --spring: cubic-bezier(0.34, 1.36, 0.5, 1);
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  isolation: isolate;
+  /* light frost so the fibers read through; the tint still deepens where text sits */
+  -webkit-backdrop-filter: blur(12px) saturate(1.5);
+  backdrop-filter: blur(12px) saturate(1.5);
+  background: linear-gradient(180deg, rgba(18, 22, 21, 0.08) 0%, rgba(12, 16, 15, 0.26) 48%, rgba(7, 9, 9, 0.46) 100%);
+  box-shadow:
+    0 34px 60px -28px rgba(0, 0, 0, 0.78),
+    0 12px 24px -14px rgba(0, 0, 0, 0.5);
+  transition: transform 0.9s var(--ease), translate 0.6s var(--spring), box-shadow 0.6s var(--ease);
+}
+
+.glass > :not(:global(.sr-only)) {
+  position: relative;
+  z-index: 1;
+}
+
+/* rim: bright along the top edge, fading down the sides */
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.16) 30%, rgba(255, 255, 255, 0.05) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* specular highlight, following the cursor */
+.glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    420px 300px at calc(50% + var(--px) * 46%) calc(24% + var(--py) * 40%),
+    rgba(255, 255, 255, 0.13),
+    rgba(255, 255, 255, 0) 70%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  transition: opacity 0.6s var(--ease);
+  pointer-events: none;
+}
+
+.glass:hover::after {
+  opacity: 1;
+}
+
+/* big panels lean toward the cursor a little */
+.tilt {
+  transform: perspective(1400px) rotateX(calc(var(--py) * -1.6deg)) rotateY(calc(var(--px) * 2deg));
+}
+
+.lift:hover {
+  translate: 0 -3px;
+  box-shadow:
+    0 44px 70px -30px rgba(0, 0, 0, 0.85),
+    0 16px 28px -14px rgba(0, 0, 0, 0.55);
+}
+
+/* Options: the same glass at chip scale. */
+.chip {
+  position: relative;
+  isolation: isolate;
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  backdrop-filter: blur(10px) saturate(1.4);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.07), 0 10px 22px -12px rgba(0, 0, 0, 0.7);
+  transition: translate 0.45s cubic-bezier(0.34, 1.36, 0.5, 1), box-shadow 0.35s ease, background 0.35s ease;
+}
+
+.chip:hover {
+  translate: 0 -2px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.14), 0 16px 28px -14px rgba(0, 0, 0, 0.8);
+}
+
+.chip:active {
+  translate: 0 0;
+  scale: 0.98;
+  transition-duration: 0.12s;
+}
+
+.chip[aria-checked='true'],
+.chip[aria-pressed='true'] {
+  background: linear-gradient(180deg, rgba(52, 211, 153, 0.2), rgba(23, 176, 143, 0.07));
+  box-shadow: inset 0 1px 0 rgba(209, 250, 229, 0.35), 0 0 0 1px rgba(52, 211, 153, 0.55), 0 14px 30px -14px rgba(23, 176, 143, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mote,
+  .lens,
+  .glow {
+    animation: none;
+  }
+
+  .tilt {
+    transform: none;
+  }
+
+  .glass,
+  .chip {
+    transition: none;
+  }
+
+  .mote {
+    opacity: var(--peak, 0.5);
+  }
+}

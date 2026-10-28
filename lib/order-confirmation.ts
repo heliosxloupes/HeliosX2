@@ -28,6 +28,13 @@ After measuring, reply directly to this email with a screenshot of your PDCheck 
 
 Prescription orders remain fully refundable until custom production begins. Non-prescription pairs can be returned within 30 days of delivery for a full refund.`
 
+// Sent when the order is lights only: nothing is custom-built, so no measurements are needed.
+const LIGHTS_ONLY_POST_PURCHASE_BODY = `Thanks for your order. We have received your payment and are preparing your HeliosX loupe light for shipping.
+
+Your receipt and shipping details are below. Lights are not custom-built, so there is nothing you need to send us. We will email you when your order ships.
+
+Questions about mounting the light on your frame, or choosing a battery? Reply to this email and our team will help.`
+
 function compactDetails(details: Array<string | null | undefined>) {
   return details
     .map((detail) => String(detail ?? '').trim())
@@ -51,6 +58,12 @@ function getProductMetadata(item: Stripe.LineItem) {
   const product = item.price?.product
   if (!product || typeof product !== 'object' || 'deleted' in product) return {}
   return product.metadata ?? {}
+}
+
+/** True when every product in the order is a light (add-ons aside): no measurements to collect. */
+function isLightsOnly(lineItems: Stripe.ApiList<Stripe.LineItem>) {
+  const products = lineItems.data.map(getProductMetadata).filter((metadata) => metadata.isAddon !== 'true')
+  return products.length > 0 && products.every((metadata) => metadata.isLight === 'true')
 }
 
 function buildOrderSummary({
@@ -95,6 +108,8 @@ function buildOrderSummary({
             metadata?.magnification ? `Magnification: ${metadata.magnification}` : '',
             metadata?.frameStyle ? `Frame: ${metadata.frameStyle}` : '',
             metadata?.frameColor ? `Color: ${metadata.frameColor}` : '',
+            metadata?.battery ? `Battery: ${metadata.battery}` : '',
+            metadata?.bundled === 'true' ? 'Loupe bundle: 10% off' : '',
           ]),
         }
       }),
@@ -109,6 +124,7 @@ async function sendPostPurchaseEmail({
   customerName,
   orderSummary,
   measurementUrl,
+  needsMeasurements = true,
 }: {
   to: string
   subject: string
@@ -116,6 +132,7 @@ async function sendPostPurchaseEmail({
   customerName: string
   orderSummary: OrderEmailSummary
   measurementUrl?: string
+  needsMeasurements?: boolean
 }) {
   return sendEmail({
     to,
@@ -131,10 +148,12 @@ async function sendPostPurchaseEmail({
           url: measurementUrl,
         }
       : undefined,
-    secondaryCta: {
-      label: 'Download PDCheck AR',
-      url: PDCHECK_AR_IOS_URL,
-    },
+    secondaryCta: needsMeasurements
+      ? {
+          label: 'Download PDCheck AR',
+          url: PDCHECK_AR_IOS_URL,
+        }
+      : undefined,
   })
 }
 
@@ -157,17 +176,21 @@ async function sendInternalOrderNotification({
   customerName,
   orderSummary,
   measurementUrl,
+  needsMeasurements = true,
 }: {
   customerName: string
   orderSummary: OrderEmailSummary
   measurementUrl?: string
+  needsMeasurements?: boolean
 }) {
   const totalLabel = formatTotalLabel(orderSummary)
   const who = customerName || orderSummary.customerEmail || 'a customer'
   const body = [
     `New order from ${who}${totalLabel ? ` — ${totalLabel}` : ''}.`,
     '',
-    'Action needed: this customer still needs to submit their fit measurements before we move into production. Their order is marked pending measurements — full order details are below.',
+    needsMeasurements
+      ? 'Action needed: this customer still needs to submit their fit measurements before we move into production. Their order is marked pending measurements — full order details are below.'
+      : 'Lights only: no measurements needed. Ship the items below. The order is marked in production.',
   ].join('\n')
 
   return sendEmail({
@@ -178,7 +201,7 @@ async function sendInternalOrderNotification({
     title: 'New order received',
     body,
     orderSummary,
-    cta: measurementUrl
+    cta: measurementUrl && needsMeasurements
       ? {
           label: 'Open measurement page',
           url: measurementUrl,
@@ -206,7 +229,8 @@ export async function sendStandaloneCheckoutConfirmation({
     expand: ['data.price.product'],
   })
   const { customerName, orderSummary } = buildOrderSummary({ session, lineItems })
-  const body = renderTemplate(DEFAULT_POST_PURCHASE_BODY, {
+  const needsMeasurements = !isLightsOnly(lineItems)
+  const body = renderTemplate(needsMeasurements ? DEFAULT_POST_PURCHASE_BODY : LIGHTS_ONLY_POST_PURCHASE_BODY, {
     measurement_url: `mailto:${HELIOSX_SUPPORT_EMAIL}`,
     pdcheck_ios_url: PDCHECK_AR_IOS_URL,
     support_email: HELIOSX_SUPPORT_EMAIL,
@@ -218,10 +242,12 @@ export async function sendStandaloneCheckoutConfirmation({
     body,
     customerName,
     orderSummary,
+    needsMeasurements,
   })
   const internalResult: any = await sendInternalOrderNotification({
     customerName,
     orderSummary,
+    needsMeasurements,
   })
 
   return {
@@ -313,6 +339,9 @@ export async function processCheckoutSessionCompleted({
     session,
     lineItems,
   })
+  // Lights are stock items: nothing to measure, so they go straight to fulfilment.
+  const needsMeasurements = !isLightsOnly(lineItems)
+  const initialStatus = needsMeasurements ? 'pending_measurements' : 'in_production'
   const paidAt = new Date().toISOString()
   const shippingDetails = {
     name: (session as any).shipping_details?.name ?? customerName,
@@ -342,7 +371,7 @@ export async function processCheckoutSessionCompleted({
       currency: session.currency ?? 'usd',
       payment_status: session.payment_status ?? 'paid',
       paid_at: paidAt,
-      status: 'pending_measurements',
+      status: initialStatus,
     },
   })
 
@@ -350,7 +379,7 @@ export async function processCheckoutSessionCompleted({
 
   await supabase.from('order_status_events').insert({
     order_id: order.id,
-    status: 'pending_measurements',
+    status: initialStatus,
     payment_status: session.payment_status ?? 'paid',
     note: 'Stripe checkout session completed',
     metadata: {
@@ -404,14 +433,18 @@ export async function processCheckoutSessionCompleted({
     site_url: baseUrl,
   }
   const subject = renderTemplate(template?.subject ?? DEFAULT_POST_PURCHASE_SUBJECT, templateValues)
-  const body = renderTemplate(template?.body ?? DEFAULT_POST_PURCHASE_BODY, templateValues)
+  // The editable template asks for measurements, so lights-only orders use their own copy.
+  const body = needsMeasurements
+    ? renderTemplate(template?.body ?? DEFAULT_POST_PURCHASE_BODY, templateValues)
+    : renderTemplate(LIGHTS_ONLY_POST_PURCHASE_BODY, templateValues)
   const result: any = await sendPostPurchaseEmail({
     to: email,
     subject,
     body,
     customerName,
     orderSummary,
-    measurementUrl,
+    measurementUrl: needsMeasurements ? measurementUrl : undefined,
+    needsMeasurements,
   })
 
   const status = result?.error ? 'error' : result?.skipped ? 'skipped' : 'sent'
@@ -429,6 +462,7 @@ export async function processCheckoutSessionCompleted({
     customerName,
     orderSummary,
     measurementUrl,
+    needsMeasurements,
   })
   const internalStatus = internalResult?.error
     ? 'error'

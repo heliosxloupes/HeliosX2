@@ -16,6 +16,7 @@ import pricing from '@/lib/pricing.json'
 
 const menuLinks = [
   ['Shop all loupes', '/product'],
+  ['LED loupe lights', '/product/lights'],
   ['Compare the collection', '/loupe-comparisons'],
   ['Why HeliosX', '/#mission'],
   ['Your custom fit', '/measurements'],

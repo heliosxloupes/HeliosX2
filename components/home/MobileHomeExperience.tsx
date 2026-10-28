@@ -8,6 +8,7 @@ import { useEffect, useMemo, useRef, useState, type RefObject } from 'react'
 
 import { MODELS, money, startingPrice, type M2Model } from '@/components/m2/models'
 import { PhotoThumb, StagePhoto } from '@/components/m2/Photo'
+import PromoBadge from '@/components/PromoBadge'
 import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 import SpecialtySection from '@/components/home/SpecialtySection'
 import HairlineFigure from '@/components/m2/HairlineFigure'
@@ -297,6 +298,7 @@ export default function MobileHomeExperience() {
         <p className="mt-3 text-[13px] text-[#4d5f54]">
           Custom loupes from <strong className="tab font-extrabold text-[#08261b]">{money(startingPrice('newton'))}</strong> USD
         </p>
+        <PromoBadge className="mt-2" />
       </section>
 
       {/* COLLECTION */}

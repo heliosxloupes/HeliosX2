@@ -29,6 +29,7 @@ const staticPathLastModified: Record<string, string> = {
   '/product/galileo': '2026-10-17',
   '/product/newton': '2026-10-17',
   '/product/kepler': '2026-10-17',
+  '/product/lights': '2026-10-27',
   '/education': '2026-09-09',
   '/measurements': '2026-09-09',
   '/faq': '2026-09-10',

@@ -15,6 +15,10 @@ export type CartItem = {
   hasPrescriptionLenses?: boolean
   hasExtendedWarranty?: boolean
   stripeProductId?: string | null
+  /** LED loupe light line: battery option id from lib/lights.ts ('wireless' for cordless lights). */
+  isLight?: boolean
+  lightOption?: string | null
+  lightOptionName?: string | null
 }
 
 const CART_STORAGE_KEY = 'heliosx_cart'
@@ -62,6 +66,8 @@ function sameConfiguration(a: CartItem, b: CartItem): boolean {
 
 // Link from the cart back to a product page to change one bagged line.
 export function cartEditHref(item: CartItem, index: number): string {
+  // Lights share one page; their option is changed there and re-added.
+  if (item.isLight) return '/product/lights'
   return `/product/${item.productSlug}?edit=${index}`
 }
 

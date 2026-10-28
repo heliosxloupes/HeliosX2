@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 import ProductReviews from '@/components/ProductReviews'
+import PromoBadge from '@/components/PromoBadge'
 import { useContact } from '@/components/Contact/ContactProvider'
 import Sheet from '@/components/m2/Sheet'
 import { StagePhoto } from '@/components/m2/Photo'
@@ -193,6 +194,7 @@ export default function MobileProductExperience({
 
       {/* SHEET */}
       <section className="m2-sheet">
+        <PromoBadge className="mb-3" />
         <div className="flex items-end justify-between gap-3">
           <div className="min-w-0">
             <div className="m2-cap">Price <span className="tab">{mag}</span></div>

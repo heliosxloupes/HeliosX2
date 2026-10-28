@@ -2,11 +2,17 @@ import { sendMetaEvent } from '@/lib/meta-conversions'
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
+import { BATTERIES, lightBySlug } from '@/lib/lights'
 import {
+  LIGHT_BUNDLE_PERCENT_OFF,
   MAX_LINE_ITEMS,
   MAX_QUANTITY_PER_LINE,
+  bundledLightPrice,
+  cartHasLoupes,
+  lightPriceBySlug,
   productNameBySlug,
   resolveAddOn,
+  resolveLightPrice,
   resolveProductPrice,
 } from '@/lib/pricing'
 import { getSiteUrl } from '@/lib/site-url'
@@ -32,6 +38,9 @@ type IncomingItem = {
   frameColor?: string
   magnification?: string
   isAddon?: boolean
+  isLight?: boolean
+  /** Battery option id for a light ('wireless' for cordless lights). */
+  lightOption?: string
 }
 
 /**
@@ -64,6 +73,8 @@ export async function POST(req: Request) {
     }
 
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = []
+    // A light bought with a pair of loupes is 10% off; decided here, not by the client.
+    const withLoupes = cartHasLoupes(items.map((item) => ({ price: 0, isLight: Boolean(item.isLight), isAddon: Boolean(item.isAddon) })))
 
     for (const item of items) {
       const slug = String(item.productSlug ?? '').trim()
@@ -93,6 +104,41 @@ export async function POST(req: Request) {
             product_data: {
               name: addOn.name,
               metadata: { productSlug: slug, isAddon: 'true' },
+            },
+          },
+        })
+        continue
+      }
+
+      if (item.isLight) {
+        const option = String(item.lightOption ?? '').trim()
+        const listPrice = resolveLightPrice(slug, option)
+        const light = lightBySlug(slug)
+        if (listPrice === null || !light) {
+          console.error('Rejected unpriceable light', { slug, option })
+          return NextResponse.json({ error: `We could not price the ${slug} light.` }, { status: 400 })
+        }
+        const battery = BATTERIES.find((entry) => entry.id === option)
+        const optionLabel = battery
+          ? `${battery.label} battery, ${battery.hours} hrs`
+          : `${light.wireless?.batteries ?? 1} batteries included`
+        const unitPrice = withLoupes ? bundledLightPrice(listPrice) : listPrice
+
+        line_items.push({
+          quantity,
+          price_data: {
+            currency: 'usd',
+            unit_amount: unitPrice * 100,
+            product_data: {
+              name: lightPriceBySlug[slug]?.name ?? `${light.name} LED Loupe Light`,
+              description: withLoupes ? `${optionLabel}. ${LIGHT_BUNDLE_PERCENT_OFF}% off with loupes.` : optionLabel,
+              metadata: {
+                productSlug: slug,
+                isLight: 'true',
+                lightOption: option,
+                battery: optionLabel,
+                bundled: withLoupes ? 'true' : 'false',
+              },
             },
           },
         })

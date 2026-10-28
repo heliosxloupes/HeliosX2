@@ -22,6 +22,18 @@
       "prices": { "4.0x": 1195, "5.0x": 1225, "6.0x": 1255 }
     }
   },
+  "lights": {
+    "_comment": "LED loupe lights. Corded lights are priced per battery option; wireless lights have one price. Each light and battery is priced at about 1.75x landed cost, rounded to end in 5 (2026-10-27).",
+    "polaris": { "name": "Polaris LED Loupe Light", "prices": { "clip-4h": 265, "slim-6h": 335, "pack-10h": 375, "neck-4h": 465 } },
+    "vega": { "name": "Vega LED Loupe Light", "prices": { "clip-4h": 365, "slim-6h": 435, "pack-10h": 515, "neck-4h": 605 } },
+    "rigel": { "name": "Rigel LED Loupe Light", "prices": { "clip-4h": 565, "slim-6h": 615, "pack-10h": 675, "neck-4h": 755 } },
+    "sirius": { "name": "Sirius LED Loupe Light", "prices": { "clip-4h": 645, "slim-6h": 695, "pack-10h": 755, "neck-4h": 875 } },
+    "nova": { "name": "Nova Wireless Loupe Light", "prices": { "wireless": 815 } }
+  },
+  "lightBundle": {
+    "_comment": "Percent off each light when the same order includes a pair of loupes.",
+    "percentOff": 10
+  },
   "addOns": {
     "prescription-lenses": { "name": "Prescription Lenses", "price": 200 }
   },

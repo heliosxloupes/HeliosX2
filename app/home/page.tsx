@@ -17,6 +17,7 @@ import Header from "@/components/Header";
 import ResidentDiscountBadge from "@/components/home/ResidentDiscountBadge";
 import LazyVideo from "@/components/LazyVideo";
 import MobileHomeExperience from "@/components/home/MobileHomeExperience";
+import LightsBackdrop from "@/components/lights/LightsBackdrop";
 import SpecialtySection from "@/components/home/SpecialtySection";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -153,6 +154,8 @@ export default function HomePage() {
             <MobileHomeExperience />
           </div>
         ) : null}
+        {/* Trial: the Lights page's Ghost Fibers behind the desktop homepage (desktop-only, mounts itself). */}
+        <LightsBackdrop className="-z-10" />
         {isMobile === true ? null : (
         <main className={`space-y-20 pb-16 md:space-y-28 md:pb-24 ${isMobile === null ? "max-md:hidden" : ""}`}>
           <HeroSection />
@@ -161,7 +164,8 @@ export default function HomePage() {
           <HorizontalStorySection />
 
           <section className="relative">
-            <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black via-[#050814] to-black">
+            {/* Trial: solid black→navy→black gradient removed so the Ghost Fibers show through. Was: bg-gradient-to-b from-black via-[#050814] to-black */}
+            <div className="pointer-events-none absolute inset-0 -z-10">
               <div className="absolute -top-40 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-emerald-500/18 blur-3xl" />
               <div className="absolute top-1/3 right-0 h-80 w-80 translate-x-1/4 rounded-full bg-sky-500/16 blur-3xl" />
               <div className="absolute bottom-[-140px] left-0 h-80 w-80 -translate-x-1/3 rounded-full bg-orange-400/14 blur-3xl" />

@@ -1,4 +1,6 @@
+import { LIGHTS, lightFrom } from './lights'
 import {
+  LIGHT_BUNDLE_PERCENT_OFF,
   magnificationPriceByProduct,
   PRESCRIPTION_PRICE,
   TRAINEE_PERCENT_OFF,
@@ -46,6 +48,7 @@ export function llmsFactsBlock(siteUrl: string) {
     '- Included with every pair: your choice of frame style and finish for that model, worldwide shipping, a limited lifetime warranty against manufacturer defects, and a review of the buyer\'s measurements before production.',
     `- Trainee pricing: verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off. They email proof of training status and receive a discount code for checkout.`,
     `- Prescription lenses: ${usd(PRESCRIPTION_PRICE)} per pair.`,
+    `- LED loupe lights: ${LIGHTS.map((l) => `${l.name} (${l.kind}, ${l.lux.toLocaleString('en-US')} lux, from ${usd(lightFrom(l.slug))})`).join('; ')}. Every light fits every HeliosX frame; ${LIGHT_BUNDLE_PERCENT_OFF}% off any light ordered with loupes. ${siteUrl}/product/lights`,
     '- Payment: card, Affirm or Klarna through Stripe checkout.',
     '- Timing: production usually takes 1–2 weeks after measurements are approved, then shipping time depends on the destination.',
     '- Returns: non-prescription pairs can be returned within 30 days of delivery for a full refund, with free return shipping. Prescription pairs can be cancelled for a full refund until production starts; after that, defects and fit corrections are covered.',

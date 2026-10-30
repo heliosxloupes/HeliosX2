@@ -132,6 +132,11 @@ type Spec = {
   light: string
   /** Who the trainee section speaks to; omit for non-training fields. */
   trainees?: string
+  /** Link for the trainee section. */
+  traineeLink?: string
+  /** 'surgeon' by default; 'dentist', 'hygienist', 'clinician'... */
+  wearer?: string
+  lightLink?: string
   extraFaqs?: ContentFaq[]
   related?: string[]
 }
@@ -142,14 +147,14 @@ const specialty = (s: Spec): Rewrite => ({
   description: s.description,
   heroKicker: `${s.field[0].toUpperCase()}${s.field.slice(1)} loupes`,
   authorityAudience: s.audience,
-  answer: `HeliosX is ${s.claim}, supplied to ${s.audience} in more than 110 countries. ${s.audience[0].toUpperCase()}${s.audience.slice(1)} favor ${modelName(s.favored.model)} at ${s.favored.mag}: ${s.favored.why} Every pair is custom-built to the surgeon, with a lifetime warranty.`,
-  intro: `${s.demand} HeliosX has supplied its premium ergonomic loupes, optics and headlights to ${s.audience} worldwide, and every pair is custom-tailored to the surgeon’s working distance, posture and case mix.`,
+  answer: `HeliosX is ${s.claim}, supplied to ${s.audience} in more than 110 countries. ${s.audience[0].toUpperCase()}${s.audience.slice(1)} favor ${modelName(s.favored.model)} at ${s.favored.mag}: ${s.favored.why} Every pair is custom-built to the ${s.wearer ?? 'surgeon'}, with a lifetime warranty.`,
+  intro: `${s.demand} HeliosX has supplied its premium ergonomic loupes, optics and headlights to ${s.audience} worldwide, and every pair is custom-tailored to the ${s.wearer ?? 'surgeon'}’s working distance, posture and case mix.`,
   procedureRows: s.procedures,
   proofPoints: [`Supplied to ${s.audience} in 110+ countries.`, 'Custom-built, lifetime warranty.', 'Every price published.'],
   sections: [
     section(
       `The standard in ${s.field} optics`,
-      `HeliosX is ${s.claim}. We have supplied ${s.audience}, teaching hospitals and training programs worldwide for a decade, and that experience is built into every pair: high-grade optical glass for a sharp, true-color image, premium lightweight metals that stay comfortable through the longest case, and optics custom-tailored to the surgeon who wears them.`,
+      `HeliosX is ${s.claim}. We have supplied ${s.audience}, teaching hospitals and training programs worldwide for a decade, and that experience is built into every pair: high-grade optical glass for a sharp, true-color image, premium lightweight metals that stay comfortable through the longest case, and optics custom-tailored to the ${s.wearer ?? 'surgeon'} who wears them.`,
     ),
     section(
       `Why ${s.audience} favor ${modelName(s.favored.model)}`,
@@ -165,14 +170,14 @@ const specialty = (s: Spec): Rewrite => ({
     section(
       `Light for ${s.field}`,
       `${s.light} Every HeliosX light fits every HeliosX frame and carries a ${LIGHT_WARRANTY_YEARS}-year warranty.`,
-      ['Surgical loupes with light, by magnification: /surgical-loupes-with-light.', `Lights and headlights from ${usd(lightFrom('polaris'))}: /product/lights.`],
+      [s.lightLink ?? 'Surgical loupes with light, by magnification: /surgical-loupes-with-light.', `Lights and headlights from ${usd(lightFrom('polaris'))}: /product/lights.`],
     ),
     ...(s.trainees
       ? [
           section(
             `For ${s.trainees}`,
-            `Your first pair should grow with you. Start in the lower half of the range for your field, measured at your own table height, and step up as your cases do. Verified residents, fellows and students receive ${TRAINEE_PERCENT_OFF}% off every HeliosX loupe.`,
-            ['Best loupes for residents: /education/best-loupes-for-residents.'],
+            `Your first pair should grow with you. Start in the lower half of the range for your field, measured in your own working posture, and step up as your cases do. Verified residents, fellows and students receive ${TRAINEE_PERCENT_OFF}% off every HeliosX loupe.`,
+            [s.traineeLink ?? 'Best loupes for residents: /education/best-loupes-for-residents.'],
           ),
         ]
       : []),
@@ -664,7 +669,318 @@ const surgicalSpecs: Spec[] = [
     trainees: 'veterinary surgery residents and interns',
   },
 ]
-for (const s of surgicalSpecs) rewrites[s.slug] = specialty(s)
+const dentalLight = 'Dental loupes with light, by setup: /dental-loupes-with-light.'
+const dentalTrainee = 'Best loupes for dental students: /education/best-loupes-for-dental-students.'
+const dentalSpecs: Spec[] = [
+  {
+    slug: 'loupes-for-endodontics',
+    field: 'endodontics',
+    audience: 'endodontists',
+    wearer: 'dentist',
+    lightLink: dentalLight,
+    traineeLink: dentalTrainee,
+    title: 'Loupes for endodontics: the HeliosX standard for canal work',
+    metaTitle: 'Best Loupes for Endodontics: The HeliosX Standard',
+    description: `HeliosX endodontic loupes: high-magnification ergonomic prismatic optics for access, canal location and retreatment, supplied in 110+ countries. From ${from('kepler')}.`,
+    claim: 'the standard in endodontic loupes, built for access, canal location and retreatment at high magnification',
+    demand: 'Endodontics is the most magnification-hungry work in dentistry: finding a calcified canal is a matter of fractions of a millimeter.',
+    favored: { model: 'medusa', mag: '5.0x', why: 'endodontists need 4.5x and above, and Medusa delivers ergonomic prismatic optics up to 8.5x with a working distance that adjusts to your chair position.' },
+    alternates: [
+      { model: 'kepler', why: 'conventional prismatic 4x–6x at the best HeliosX prismatic price.' },
+      { model: 'apollo', why: 'the upright-head standard at a fixed seated distance.' },
+    ],
+    procedures: [
+      { procedure: 'Access cavity preparation', magnification: '4.0x–5.0x', distance: '350–450 mm, seated', pick: '/product/kepler at 4.0x' },
+      { procedure: 'Locating canals (MB2, calcified)', magnification: '5.0x–6.0x', distance: '350–450 mm', pick: '/product/medusa at 5.0x' },
+      { procedure: 'Retreatment and instrument removal', magnification: '6.0x–8.5x', distance: '350–450 mm', pick: '/product/medusa at 6.0x' },
+      { procedure: 'Apical and periradicular surgery', magnification: '4.0x–6.0x', distance: '350–450 mm', pick: '/product/apollo at 5.0x' },
+    ],
+    challenge: {
+      title: 'Loupes and the dental microscope',
+      body: 'Many endodontists work with both. HeliosX high-magnification loupes cover access, shaping and much of the case with no setup time and full freedom of movement; the microscope takes over for the finest steps where a practice has one.',
+      bullets: ['Measure seated at your own chair height.', 'Higher magnification narrows the field: choose the lowest power that finds the canal.'],
+    },
+    light: 'At 5x and above, light decides what you can see in the pulp chamber. Sirius (150,000 lux, adjustable spot) is the endodontic favorite; Rigel (100,000 lux) suits 4x–6x.',
+    trainees: 'endodontic residents and dental students',
+  },
+  {
+    slug: 'loupes-for-periodontics',
+    field: 'periodontics',
+    audience: 'periodontists',
+    wearer: 'dentist',
+    lightLink: dentalLight,
+    traineeLink: dentalTrainee,
+    title: 'Loupes for periodontics: HeliosX optics for soft-tissue precision',
+    metaTitle: 'Best Loupes for Periodontics: The HeliosX Standard',
+    description: `HeliosX periodontal loupes for grafting, regenerative and implant surgery: ergonomic prismatic optics supplied to periodontists in 110+ countries. From ${from('apollo')}.`,
+    claim: 'the standard in periodontal loupes, for grafting, regenerative and implant surgery',
+    demand: 'Periodontal surgery is fine soft-tissue work, where suture placement and flap handling decide the result.',
+    favored: { model: 'apollo', mag: '4.0x', why: 'Apollo’s ergonomic prismatic optics hold an upright head through long grafting cases at 3.0x–6.0x.' },
+    alternates: [
+      { model: 'medusa', why: 'adjustable working distance and up to 8.5x for microsurgical grafting.' },
+      { model: 'galileo', why: 'lightweight Galilean optics for scaling and maintenance.' },
+    ],
+    procedures: [
+      { procedure: 'Connective tissue and gingival grafts', magnification: '4.0x–5.0x', distance: '350–450 mm, seated', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Microsurgical root coverage', magnification: '5.0x–6.0x', distance: '350–450 mm', pick: '/product/medusa at 5.0x' },
+      { procedure: 'Regenerative and osseous surgery', magnification: '3.5x–4.5x', distance: '350–450 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Scaling and root planing', magnification: '2.5x–3.5x', distance: '350–450 mm', pick: '/product/galileo at 3.0x' },
+    ],
+    challenge: {
+      title: 'Fine sutures, long cases',
+      body: 'Periodontal surgery asks for high magnification over long seated cases. Ergonomic prismatic optics let you look down into the field with your head near neutral, so the precision lasts to the last suture.',
+      bullets: ['Implant surgery: /loupes-for-dental-implants.'],
+    },
+    light: 'Rigel (100,000 lux) for 4x–6x surgery; Polaris (50,000 lux) for maintenance at 2.5x–3.5x.',
+    trainees: 'periodontics residents',
+  },
+  {
+    slug: 'loupes-for-dental-implants',
+    field: 'implant dentistry',
+    audience: 'implant surgeons',
+    wearer: 'dentist',
+    lightLink: dentalLight,
+    traineeLink: dentalTrainee,
+    title: 'Loupes for implant dentistry: HeliosX optics for placement and grafting',
+    metaTitle: 'Best Loupes for Dental Implants | HeliosX',
+    description: `HeliosX implant dentistry loupes for placement, grafting and sinus lifts: ergonomic prismatic optics supplied to implant surgeons in 110+ countries. From ${from('galileo')}.`,
+    claim: 'the standard in implant dentistry loupes, for placement, grafting and sinus augmentation',
+    demand: 'Implant surgery moves between osteotomy, grafting and prosthetic work, each with its own magnification.',
+    favored: { model: 'apollo', mag: '4.0x', why: 'Apollo’s ergonomic prismatic optics give implant surgeons 3.0x–6.0x with an upright head through long surgical sessions.' },
+    alternates: [
+      { model: 'galileo', why: 'a wide Galilean field at 2.5x–3.5x for placement and restorative steps.' },
+      { model: 'medusa', why: 'adjustable working distance for seated and standing surgery.' },
+    ],
+    procedures: [
+      { procedure: 'Implant placement', magnification: '3.0x–4.0x', distance: '350–450 mm, seated', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Bone grafting and ridge augmentation', magnification: '3.5x–4.5x', distance: '350–450 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Sinus augmentation', magnification: '4.0x–5.0x', distance: '350–450 mm', pick: '/product/medusa at 5.0x' },
+      { procedure: 'Implant restoration', magnification: '2.5x–3.5x', distance: '350–450 mm', pick: '/product/galileo at 3.0x' },
+    ],
+    challenge: {
+      title: 'Surgery and restoration in one pair',
+      body: 'Implant work spans surgical and restorative magnifications. Many implant surgeons choose Apollo 4.0x for surgery, or Medusa to cover both postures in one pair.',
+      bullets: ['Periodontics: /loupes-for-periodontics.', 'Oral surgery: /loupes-for-oral-surgery.'],
+    },
+    light: 'A sinus window or a deep osteotomy needs light on the line of sight. Rigel (100,000 lux) or Sirius (150,000 lux, adjustable spot).',
+    trainees: 'implant and prosthodontic residents',
+  },
+  {
+    slug: 'loupes-for-oral-surgery',
+    field: 'oral surgery',
+    audience: 'oral surgeons',
+    wearer: 'surgeon',
+    lightLink: dentalLight,
+    title: 'Loupes for oral surgery: HeliosX optics for extraction and grafting',
+    metaTitle: 'Best Loupes for Oral Surgery: The HeliosX Standard',
+    description: `HeliosX oral surgery loupes for third molars, grafting and implant surgery: adjustable ergonomic optics supplied to oral surgeons in 110+ countries. From ${from('galileo')}.`,
+    claim: 'the standard in oral surgery loupes, for third molars, grafting and implant surgery',
+    demand: 'Oral surgeons stand, sit and lean through the same day, in the darkest field in medicine.',
+    favored: { model: 'medusa', mag: '3.0x', why: 'Medusa’s working distance adjusts from 300 to 600 mm, so one pair follows you from a seated extraction to a standing graft.' },
+    alternates: [
+      { model: 'galileo', why: 'a wide, light Galilean field for extractions.' },
+      { model: 'apollo', why: 'the upright-head standard at one chair height.' },
+    ],
+    procedures: [
+      { procedure: 'Third molar extraction', magnification: '2.5x–3.5x', distance: '350–500 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Bone grafting', magnification: '3.5x–4.5x', distance: '350–450 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Implant surgery', magnification: '3.0x–4.0x', distance: '350–450 mm', pick: '/product/medusa at 3.0x' },
+      { procedure: 'Nerve repositioning and fine work', magnification: '4.0x–6.0x', distance: '350–450 mm', pick: '/product/medusa at 5.0x' },
+    ],
+    challenge: {
+      title: 'The darkest field in medicine',
+      body: 'The posterior mouth is deep, narrow and shadowed by your own hands. That is why oral surgeons pair HeliosX loupes with a high-output light, and why so many choose a working distance that adapts.',
+      bullets: ['Maxillofacial surgery: /maxillofacial-surgery-loupes.'],
+    },
+    light: 'Sirius (150,000 lux, adjustable spot) on the loupe, or the Canopus headlight at 198,000 lux, reaches the posterior molars.',
+    trainees: 'OMFS residents',
+  },
+  {
+    slug: 'loupes-for-orthodontics',
+    field: 'orthodontics',
+    audience: 'orthodontists',
+    wearer: 'dentist',
+    lightLink: dentalLight,
+    traineeLink: dentalTrainee,
+    title: 'Loupes for orthodontics: HeliosX optics for bracket placement',
+    metaTitle: 'Best Loupes for Orthodontics: The HeliosX Standard',
+    description: `HeliosX orthodontic loupes for bracket placement, bonding and wire work: lightweight Galilean optics supplied to orthodontists in 110+ countries. From ${from('newton')}.`,
+    claim: 'the standard in orthodontic loupes, for precise bracket placement, bonding and wire work',
+    demand: 'Orthodontics is repetitive precision: hundreds of brackets a week, each placed to a fraction of a millimeter.',
+    favored: { model: 'galileo', mag: '2.5x', why: 'Galilean 2.5x–3.0x shows the whole arch with enough detail for exact bracket placement, and Galileo is light enough for back-to-back patients.' },
+    alternates: [
+      { model: 'newton', why: 'the lightest HeliosX loupe for a full chairside day.' },
+      { model: 'apollo', why: 'ergonomic prismatic for orthodontists whose neck is the limit.' },
+    ],
+    procedures: [
+      { procedure: 'Bracket placement and bonding', magnification: '2.5x–3.0x', distance: '350–450 mm', pick: '/product/galileo at 2.5x' },
+      { procedure: 'Wire bending and adjustments', magnification: '2.5x–3.5x', distance: '350–450 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Debonding and cleanup', magnification: '2.5x–3.0x', distance: '350–450 mm', pick: '/product/newton at 2.5x' },
+      { procedure: 'Long chair days', magnification: '3.0x', distance: '350–450 mm', pick: '/product/apollo at 3.0x' },
+    ],
+    challenge: {
+      title: 'The whole arch, all day',
+      body: 'Orthodontists need to see the full arch, not just one tooth, and wear their loupes through dozens of patients. That is why the orthodontic standard is a wide, lightweight Galilean loupe.',
+      bullets: ['Lightweight loupes compared: /lightweight-dental-loupes.'],
+    },
+    light: 'Polaris (50,000 lux, widest spot at 140 mm) lights the whole arch and adds only 10 g to the frame.',
+    trainees: 'orthodontic residents',
+  },
+  {
+    slug: 'loupes-for-prosthodontics',
+    field: 'prosthodontics',
+    audience: 'prosthodontists',
+    wearer: 'dentist',
+    lightLink: dentalLight,
+    traineeLink: dentalTrainee,
+    title: 'Loupes for prosthodontics: HeliosX optics for crown and veneer margins',
+    metaTitle: 'Best Loupes for Prosthodontics: The HeliosX Standard',
+    description: `HeliosX prosthodontic loupes for crown, veneer and implant restoration margins: ergonomic prismatic optics supplied in 110+ countries. From ${from('apollo')}.`,
+    claim: 'the standard in prosthodontic loupes, for crown, veneer and implant-restoration margins',
+    demand: 'A restoration is only as good as its margin, and margins are judged at magnification.',
+    favored: { model: 'apollo', mag: '4.0x', why: 'Apollo’s ergonomic prismatic optics at 3.5x–5.0x show margins clearly while keeping the head upright through long preparation appointments.' },
+    alternates: [
+      { model: 'medusa', why: 'up to 8.5x and adjustable working distance for the finest margins.' },
+      { model: 'galileo', why: 'a lightweight Galilean option for general restorative work.' },
+    ],
+    procedures: [
+      { procedure: 'Crown preparation and margins', magnification: '3.5x–4.5x', distance: '350–450 mm, seated', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Veneer preparation', magnification: '4.0x–5.0x', distance: '350–450 mm', pick: '/product/apollo at 5.0x' },
+      { procedure: 'Implant restoration', magnification: '3.0x–4.0x', distance: '350–450 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Shade and finishing', magnification: '2.5x–3.5x', distance: '350–450 mm', pick: '/product/galileo at 3.0x' },
+    ],
+    challenge: {
+      title: 'Margins and true color',
+      body: 'Prosthodontists judge both fit and color. HeliosX high-grade optical glass delivers a true-color image, so shade and margin decisions hold up outside the loupe too.',
+      bullets: ['Implant dentistry: /loupes-for-dental-implants.'],
+    },
+    light: 'Choose a neutral-temperature light for shade work. Vega (70,000 lux) for preparation; Rigel (100,000 lux) at 4x and above.',
+    trainees: 'prosthodontic residents',
+  },
+  {
+    slug: 'loupes-for-pediatric-dentistry',
+    field: 'pediatric dentistry',
+    audience: 'pediatric dentists',
+    wearer: 'dentist',
+    lightLink: dentalLight,
+    traineeLink: dentalTrainee,
+    title: 'Loupes for pediatric dentistry: HeliosX optics for small mouths',
+    metaTitle: 'Best Loupes for Pediatric Dentistry | HeliosX',
+    description: `HeliosX pediatric dentistry loupes: lightweight and adjustable optics for small mouths and moving patients, supplied in 110+ countries. From ${from('newton')}.`,
+    claim: 'the standard in pediatric dentistry loupes, for small mouths, moving patients and fast appointments',
+    demand: 'Pediatric dentistry means small mouths, short appointments and patients who rarely stay still.',
+    favored: { model: 'medusa', mag: '3.0x', why: 'children move, and Medusa’s working distance adjusts from 300 to 600 mm so you stay in focus without repositioning, with ergonomic optics for an upright head.' },
+    alternates: [
+      { model: 'galileo', why: 'a wide, deep Galilean field that forgives movement.' },
+      { model: 'newton', why: 'the lightest HeliosX loupe for back-to-back appointments.' },
+    ],
+    procedures: [
+      { procedure: 'Restorations and stainless steel crowns', magnification: '2.5x–3.5x', distance: '350–450 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Pulpotomy', magnification: '3.0x–4.0x', distance: '350–450 mm', pick: '/product/medusa at 3.0x' },
+      { procedure: 'Sealants and exams', magnification: '2.5x', distance: '350–450 mm', pick: '/product/newton at 2.5x' },
+      { procedure: 'Special-needs and sedation cases', magnification: '2.5x–3.5x', distance: '300–600 mm, adjustable', pick: '/product/medusa at 3.0x' },
+    ],
+    challenge: {
+      title: 'Patients who move',
+      body: 'A wide depth of field and an adaptable working distance matter more in pediatric dentistry than anywhere else. HeliosX Galilean loupes give a deep field; Medusa adjusts when the patient does.',
+      bullets: ['Pediatric surgery: /pediatric-surgery-loupes.'],
+    },
+    light: 'Polaris (50,000 lux, widest spot) keeps a small, moving field lit without glare in a child’s eyes.',
+    trainees: 'pediatric dentistry residents',
+  },
+  {
+    slug: 'loupes-for-general-dentists',
+    field: 'general dentistry',
+    audience: 'general dentists',
+    wearer: 'dentist',
+    lightLink: dentalLight,
+    traineeLink: dentalTrainee,
+    title: 'Loupes for general dentists: the HeliosX everyday standard',
+    metaTitle: 'Best Loupes for General Dentists: The HeliosX Standard',
+    description: `HeliosX loupes for general dentists: lightweight Galilean and ergonomic prismatic optics for restorative, endo and hygiene work, supplied in 110+ countries. From ${from('newton')}.`,
+    claim: 'the everyday standard for general dentists, from restorative and crown work to endodontics and exams',
+    demand: 'General dentists do everything, often in one day: exams, fillings, crowns, extractions and the occasional root canal.',
+    favored: { model: 'galileo', mag: '3.0x', why: 'Galilean 3.0x–3.5x is the general-practice sweet spot: enough detail for margins and caries, a wide field for the quadrant, and light enough for a full schedule.' },
+    alternates: [
+      { model: 'apollo', why: 'ergonomic prismatic for dentists whose neck and back are the limit.' },
+      { model: 'kepler', why: '4x–6x for endodontics and fine margins.' },
+    ],
+    procedures: [
+      { procedure: 'Restorative and caries removal', magnification: '2.5x–3.5x', distance: '350–450 mm, seated', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Crown and bridge preparation', magnification: '3.0x–4.0x', distance: '350–450 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Endodontics', magnification: '4.0x–6.0x', distance: '350–450 mm', pick: '/product/kepler at 4.0x' },
+      { procedure: 'Exams and hygiene checks', magnification: '2.5x', distance: '350–450 mm', pick: '/product/newton at 2.5x' },
+    ],
+    challenge: {
+      title: 'One pair for a whole practice day',
+      body: 'Most general dentists start with Galileo at 3.0x–3.5x and add a prismatic pair as their endo and crown work grows. HeliosX ergonomic prismatic Apollo is the upgrade dentists choose when posture becomes the priority.',
+      bullets: ['Dental loupes by model: /dental-loupes.', 'Dental loupe prices: /dental-loupes-price.'],
+    },
+    light: 'Vega (70,000 lux) suits general dentistry up to 4x; choose a neutral color temperature for shade matching.',
+  },
+  {
+    slug: 'loupes-for-dental-assistants',
+    field: 'dental assisting',
+    audience: 'dental assistants',
+    wearer: 'assistant',
+    lightLink: dentalLight,
+    traineeLink: dentalTrainee,
+    title: 'Loupes for dental assistants: HeliosX optics for four-handed dentistry',
+    metaTitle: 'Best Loupes for Dental Assistants: The HeliosX Standard',
+    description: `HeliosX loupes for dental assistants: lightweight Galilean optics for suction, retraction and four-handed dentistry, supplied in 110+ countries. From ${from('newton')}.`,
+    claim: 'the standard in loupes for dental assistants, built for suction, retraction and four-handed dentistry',
+    demand: 'Assistants see the same field as the dentist from a different angle and a longer reach, all day.',
+    favored: { model: 'newton', mag: '2.5x', why: 'Newton gives assistants a wide 2.5x field from a longer working distance, at the lightest weight and price in the HeliosX range.' },
+    alternates: [
+      { model: 'galileo', why: 'a step up in field and frame choice at 2.5x–3.5x.' },
+      { model: 'apollo', why: 'ergonomic prismatic for assistants with neck strain.' },
+    ],
+    procedures: [
+      { procedure: 'Suction and retraction', magnification: '2.5x', distance: '450–550 mm', pick: '/product/newton at 2.5x' },
+      { procedure: 'Instrument transfer and setup', magnification: '2.5x', distance: '450–550 mm', pick: '/product/newton at 2.5x' },
+      { procedure: 'Expanded-function restorative', magnification: '2.5x–3.0x', distance: '400–500 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Long surgical days', magnification: '2.5x–3.0x', distance: '400–500 mm', pick: '/product/apollo at 3.0x' },
+    ],
+    challenge: {
+      title: 'A longer reach than the dentist',
+      body: 'Assistants work farther from the mouth than the operator, so their working distance is longer. HeliosX measures every assistant pair in the assistant’s own position, not the dentist’s.',
+      bullets: ['Hygienists: /loupes-for-dental-hygiene.'],
+    },
+    light: 'Polaris (50,000 lux, widest spot) lights the field from the assistant’s side, at only 10 g.',
+    trainees: 'dental assisting students',
+  },
+  {
+    slug: 'veterinary-dental-loupes',
+    field: 'veterinary dentistry',
+    audience: 'veterinary dentists',
+    wearer: 'veterinarian',
+    lightLink: dentalLight,
+    title: 'Veterinary dental loupes: HeliosX optics for small, dark mouths',
+    metaTitle: 'Best Veterinary Dental Loupes: The HeliosX Standard',
+    description: `HeliosX veterinary dental loupes for extractions, periodontal and endodontic work in small, dark mouths: supplied to veterinary dentists in 110+ countries. From ${from('galileo')}.`,
+    claim: 'the standard in veterinary dental loupes, for extractions, periodontal and endodontic work in small, dark mouths',
+    demand: 'Veterinary dentistry combines tiny teeth, deep roots and patients under anesthesia in a mouth that is hard to light.',
+    favored: { model: 'galileo', mag: '3.5x', why: 'Galilean 3.5x gives enough detail for feline and small-breed teeth with a wide, deep field for extractions.' },
+    alternates: [
+      { model: 'kepler', why: '4x–6x for endodontics and feline resorptive lesions.' },
+      { model: 'medusa', why: 'adjustable working distance for patients of every size.' },
+    ],
+    procedures: [
+      { procedure: 'Periodontal therapy and cleaning', magnification: '2.5x–3.5x', distance: '400–450 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Surgical extractions', magnification: '3.0x–4.0x', distance: '400–450 mm', pick: '/product/galileo at 3.5x' },
+      { procedure: 'Feline resorptive lesions', magnification: '4.0x–5.0x', distance: '350–450 mm', pick: '/product/kepler at 4.0x' },
+      { procedure: 'Veterinary endodontics', magnification: '4.0x–6.0x', distance: '350–450 mm', pick: '/product/medusa at 5.0x' },
+    ],
+    challenge: {
+      title: 'Small mouths, deep roots',
+      body: 'A cat’s premolar or a toy breed’s incisor is smaller than any human tooth, with a root that runs deep. Veterinary dentists choose HeliosX for the magnification and light that make those extractions predictable.',
+      bullets: ['Veterinary surgery: /veterinary-surgery-loupes.'],
+    },
+    light: 'Animal mouths are long and dark. Vega (70,000 lux) suits most work; Rigel (100,000 lux) for 4x and above.',
+  },
+]
+
+for (const s of [...surgicalSpecs, ...dentalSpecs]) rewrites[s.slug] = specialty(s)
 
 export function applySpecialtyRewrites(pages: SeoLandingPage[]) {
   for (const page of pages) {

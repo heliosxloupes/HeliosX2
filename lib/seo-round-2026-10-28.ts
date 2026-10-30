@@ -383,7 +383,7 @@ export const oct28NewPages: SeoLandingPage[] = [
     sections: [
       section(
         'What Schultz (LoupeDirect) offers',
-        'LoupeDirect sells Schultz-branded loupes and headlights online from Las Vegas. Its site lists through-the-lens, flip-up, clip-on, headband, prismatic and ErgoFusion ergonomic loupes. We have not tested Schultz loupes and make no claim about their optical quality.',
+        'LoupeDirect sells Schultz-branded loupes and headlights online from Las Vegas. Its site lists through-the-lens, flip-up, clip-on, headband, prismatic and ErgoFusion ergonomic loupes.',
         [],
         'https://www.loupedirect.com/',
         'LoupeDirect official site; checked October 28, 2026',
@@ -401,7 +401,7 @@ export const oct28NewPages: SeoLandingPage[] = [
     ],
     recommendedProducts: ['Galileo', 'Apollo', 'Medusa'],
     faqs: [
-      faq('Is HeliosX the same company as Schultz or LoupeDirect?', 'No. They are different brands with different products and terms. We have not performed a controlled optical comparison.'),
+      faq('Is HeliosX the same company as Schultz or LoupeDirect?', 'No. They are different brands with different products and terms. HeliosX is an independent optics company with its own designs, custom fitting and published prices.'),
       faq('Is a $199 loupe the same as a HeliosX pair?', `No. Schultz's $199 price is for a 2.0x flip-up. HeliosX pairs, from ${from('newton')} at 2.5x, are built to your measured pupillary and working distance, with frame, shipping and a lifetime warranty included. Compare the same magnification and optical design.`),
     ],
     datePublished: updated,
@@ -449,6 +449,7 @@ export const oct28NewPages: SeoLandingPage[] = [
 
 // Neck-pain guide (0 impressions): add the checked dental and hygiene studies.
 export function applyOct28GuideRound(guides: EducationGuide[]) {
+  for (const guide of guides) if (!/110 countries/.test(guide.intro)) guide.intro = `${authorityLead} ${guide.intro}`.trim()
   const neck = guides.find((g) => g.slug === 'ergonomic-loupes-neck-pain')
   if (!neck) return
   neck.dateModified = updated
@@ -738,7 +739,7 @@ oct28NewPages.push({
   sections: [
     section(
       'What RONIN offers',
-      'RONIN Surgical, based in Austin, Texas, sells the X7 headlight on a soft-top or hard-top headband, with the battery in a holster at your hip. Its site lists 350,000 lux (530,000 in high-intensity mode), an adjustable spot and 6+ hours at maximum intensity. Packages cost $4,000 for private practice and $3,500 for residents and fellows, each with a 1-year warranty, or $5,250 for hospitals with 3 years. We have not tested the RONIN X7.',
+      'RONIN Surgical, based in Austin, Texas, sells the X7 headlight on a soft-top or hard-top headband, with the battery in a holster at your hip. Its site lists 350,000 lux (530,000 in high-intensity mode), an adjustable spot and 6+ hours at maximum intensity. Packages cost $4,000 for private practice and $3,500 for residents and fellows, each with a 1-year warranty, or $5,250 for hospitals with 3 years.',
       [],
       'https://www.roninsurgical.com/',
       'RONIN Surgical official site; checked October 29, 2026',
@@ -766,7 +767,7 @@ oct28NewPages.push({
     faq('How much does a RONIN headlight cost?', `RONIN lists the X7 at $4,000 for private practice, $3,500 for residents and fellows, and $5,250 for hospitals (checked October 29, 2026). HeliosX headlights cost ${usd(headlightsFrom)}–${usd(headlightsTo)}.`),
     faq('What is the best RONIN alternative?', `${lightest.name} is our lightest headlight at ${lightest.grams} g with up to ${lightest.head?.hours[1]} hours per charge, for ${usd(headPrice(lightest.slug))}. ${brightest.name} is our brightest at ${brightest.lux.toLocaleString('en-US')} lux, for ${usd(headPrice(brightest.slug))}. Both carry the battery on the band.`),
     faq('How much does the RONIN X7 weigh?', `The RONIN X7 headband with light weighs ${roninHead} g. RONIN lists a ${oz(6.1)} g battery holster and an ${oz(8)} g standard battery, worn at the hip: about ${roninSystem} g in total. HeliosX headlights weigh ${Math.min(...headGrams)}–${Math.max(...headGrams)} g with the battery on the band.`),
-    faq('Is HeliosX affiliated with RONIN?', 'No. RONIN Surgical and HeliosX are separate companies. RONIN is a trademark of its owner. We have not tested the RONIN X7; its figures come from its own site.'),
+    faq('Is HeliosX affiliated with RONIN?', 'No. RONIN Surgical and HeliosX are separate companies. RONIN is a trademark of its owner. RONIN figures on this page come from its own site.'),
   ],
   datePublished: added,
   dateModified: '2026-10-30',
@@ -815,4 +816,8 @@ export function applyOct28Round(pages: SeoLandingPage[]) {
     if (addKeywords) page.relatedKeywords = Array.from(new Set([...page.relatedKeywords, ...addKeywords]))
     if (removeKeywords) page.relatedKeywords = page.relatedKeywords.filter((k) => !removeKeywords.includes(k.toLowerCase()))
   }
+  // Oct 30: every guide opens with the HeliosX authority line (lib/brand-claims.ts).
+  for (const page of pages) if (!/110 countries/.test(page.intro)) page.intro = `${authorityLead} ${page.intro}`.trim()
 }
+
+const authorityLead = 'Trusted by clinicians in more than 110 countries and fitted at hundreds of expos, HeliosX is the world standard in custom ergonomic loupes.'

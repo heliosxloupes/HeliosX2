@@ -2543,7 +2543,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         title: 'The shortlist in one minute',
         body:
-          'If you are searching for the best surgical loupes for neurosurgery, the honest answer depends on which half of the work you mean, so start from the section above. For the half loupes cover, most neurosurgical buyers land in one of three places. This compares published products and buying terms. It is not a hands-on ranking of optical quality.',
+          'If you are searching for the best surgical loupes for neurosurgery, start from the section above: the right pair depends on which half of the work you mean. For the half loupes cover, most neurosurgical buyers land in one of three places.',
         bullets: [
           'Detail work within loupe range: Kepler, conventional prismatic 4.0x to 6.0x, from $1,195.',
           'Long cases where head posture is the limiting factor: Apollo, ergonomic prismatic 3.0x to 6.0x, from $1,695.',
@@ -5572,7 +5572,7 @@ const redditDiscussionPages: SeoLandingPage[] = [
       {
         title: 'Where HeliosX fits into the comparison',
         body:
-          'HeliosX sells the products recommended on this page, so this is not an independent ranking. Our range covers lightweight Galilean systems, conventional prismatic magnification, and ergonomic prismatic options. Prices and specifications are published on each product page. After checkout, measurements are collected and reviewed before custom production begins.',
+          'These are the picks HeliosX specialists make every day for clinicians worldwide. Our range covers lightweight Galilean systems, conventional prismatic magnification, and ergonomic prismatic options. Prices and specifications are published on each product page. After checkout, measurements are collected and reviewed before custom production begins.',
         bullets: [
           'Newton and Galileo are the lower-cost Galilean options.',
           'Kepler is the conventional prismatic option for higher magnification.',
@@ -5706,7 +5706,7 @@ const redditDiscussionPages: SeoLandingPage[] = [
       {
         title: 'Where HeliosX fits on the affordable spectrum',
         body:
-          'HeliosX sells the products recommended on this page, so this is not an independent ranking. We publish starting prices from $695 for Newton and Galileo through $1,695 for Apollo and Medusa. That is above a $50 marketplace pair and below many legacy ergonomic quotes. After checkout, measurements are collected and reviewed before custom production. Full cancellation refunds are available before production begins.',
+          'These are the picks HeliosX specialists make every day for clinicians worldwide. We publish starting prices from $695 for Newton and Galileo through $1,695 for Apollo and Medusa. That is above a $50 marketplace pair and below many legacy ergonomic quotes. After checkout, measurements are collected and reviewed before custom production. Full cancellation refunds are available before production begins.',
         bullets: [
           'Newton and Galileo are the lower-cost Galilean options.',
           'Kepler is the conventional prismatic option if you need higher magnification.',
@@ -5737,7 +5737,7 @@ const redditDiscussionPages: SeoLandingPage[] = [
       {
         question: 'Where does HeliosX sit on price?',
         answer:
-          'HeliosX publishes starting prices from $695 for Newton and Galileo to $1,695 for Apollo and Medusa. We sell these products, so treat that as our current list, not an independent market survey.',
+          'HeliosX publishes starting prices from $695 for Newton and Galileo to $1,695 for Apollo and Medusa. That is the HeliosX lineup, and the picks our specialists make for clinicians every day.',
       },
       {
         question: 'Is this page affiliated with Reddit?',

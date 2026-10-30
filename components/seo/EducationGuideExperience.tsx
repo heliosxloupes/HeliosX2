@@ -10,6 +10,7 @@ import ParallaxMedia from '@/components/motion/ParallaxMedia'
 import Reveal from '@/components/motion/Reveal'
 import ScrollProgressBar from '@/components/motion/ScrollProgressBar'
 import SectionNav from '@/components/motion/SectionNav'
+import AuthorityBand from './AuthorityBand'
 import styles from './BuyerGuide.module.css'
 
 type Diagram = { src: string; alt: string; photo?: boolean; aspect?: string } | null
@@ -215,6 +216,7 @@ export default function EducationGuideExperience({
               </div>
             </section>
           ) : null}
+          <AuthorityBand />
           <section className={styles.section}>
             <h2>Common questions</h2>
             <div className={styles.faq}>

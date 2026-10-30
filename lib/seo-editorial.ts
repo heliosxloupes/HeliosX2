@@ -267,7 +267,7 @@ for (const brand of brands) {
       faqs: [
         faq(
           `Is HeliosX the same as ${brand.name}?`,
-          'No. These are different brands with different products and support arrangements. We have not performed a controlled optical comparison and do not claim identical optics or clinical outcomes.',
+          'No. These are different brands with different products and support arrangements. HeliosX is an independent optics company with its own designs, custom fitting and published prices.',
         ),
         faq(
           'Does Medusa switch magnification?',
@@ -326,7 +326,7 @@ for (const [slug, title, context] of [
     sections: [
       section(
         'The shortlist in one minute',
-        'Choose the feature you need first. This is a comparison of published products and buying routes, not a hands-on ranking of optical quality.',
+        'Choose the feature you need first.',
         [
           'Published entry price: HeliosX Newton from $695.',
           'Ergonomic viewing with published pricing: HeliosX Apollo or Medusa from $1,695; LumaDent Ergo Air Ti from $1,995.',
@@ -892,7 +892,7 @@ revisions['loupes-for-dental-hygiene'] = {
     ),
     section(
       'The shortlist in one minute',
-      'If you want the short version, start here and read the rest only where it applies to you. This compares published products and buying terms. It is not a hands-on ranking of optical quality.',
+      'If you want the short version, start here and read the rest only where it applies to you.',
       [
         'The common choice: Galileo at 3.0x–3.5x, from $795. Many hygienists who start lower say they wanted 3.5x within a year.',
         'Lowest price: Newton from $695 at 2.5x.',
@@ -1112,7 +1112,7 @@ revisions['heliosx-loupes-review'] = {
   title: 'HeliosX loupes: models, prices, and limitations',
   metaTitle: 'HeliosX Loupes: Brand Overview, Prices & Fit',
   intro:
-    'Looking for a HeliosX review? This is our own overview of the lineup, prices, and purchase terms. It is not an independent hands-on review. Use it to decide which specifications to investigate and which questions to ask before buying.',
+    'Looking for a HeliosX review? This is our own overview of the lineup, prices, and purchase terms. Use it to decide which specifications to investigate and which questions to ask before buying.',
 }
 for (const [slug, title] of [
   ['affordable-loupes', 'Affordable loupes: spend on what you need'],
@@ -1535,7 +1535,7 @@ revisions['heliosx-loupes-review'] = {
   description:
     'An honest overview of HeliosX loupes: the five models and prices, what is included, how ordering and fitting work, the return policy and the lifetime warranty.',
   intro:
-    'This is our own overview, not an independent review. HeliosX sells custom-fit surgical and dental loupes directly to clinicians, with published prices from $695. Use this page to check the models, prices, fitting and terms before you order.',
+    'This is HeliosX in one page. HeliosX sells custom-fit surgical and dental loupes directly to clinicians, with published prices from $695. Use this page to check the models, prices, fitting and terms before you order.',
   recommendedProducts: ['Newton', 'Kepler', 'Medusa'],
   comparisonRows: undefined,
   verdict: undefined,
@@ -1646,7 +1646,7 @@ revisions['best-loupes'] = {
     ),
     section(
       'How we chose these picks',
-      'We matched each role to the magnification range used for its most detailed routine task, then to the lightest HeliosX design that delivers it. We have not tested other brands hands-on, so for brand-by-brand comparisons use the guides below.',
+      'We matched each role to the magnification range used for its most detailed routine task, then to the lightest HeliosX design that delivers it. For brand-by-brand comparisons, use the guides below.',
       ['Surgical brands: /best-surgical-loupe-brands.', 'Dental brands: /best-dental-loupe-brands.'],
     ),
   ],

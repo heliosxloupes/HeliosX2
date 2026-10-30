@@ -419,9 +419,6 @@ export default function MobileHomeExperience() {
           <p className="mt-4 text-[15px] leading-6 text-[rgba(238,242,238,0.74)]">
             We watched residents delay buying loupes because rent mattered more, and students borrow gear because their budget had limits. The problem was never the craftsmanship. It was the gatekeeping. So we built an alternative.
           </p>
-          <p className="mt-4 text-[13px] leading-5 text-[rgba(238,242,238,0.6)]">
-            A note on the name: HeliosX Loupes is a direct-to-clinician medical-device brand for surgical and dental loupes. We are not affiliated with the UK healthtech company also called HeliosX.
-          </p>
           <Link href="/how-much-do-surgical-loupes-cost" className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#d1fae5] px-4 text-[14px] font-extrabold text-[#08261b]">
             Why loupes cost what they do <ArrowRight size={16} />
           </Link>

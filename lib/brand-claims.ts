@@ -25,6 +25,7 @@ export const claims = {
   missions: 'HeliosX has sponsored surgeons on medical mission trips across South America and Asia, bringing elite optics to operating rooms that treat children born with congenital conditions.',
   custom: 'Every HeliosX loupe is custom-tailored to the clinician who wears it: pupillary distance, working distance, magnification, frame and light.',
   specialists: 'Ask a HeliosX loupe specialist anything, from the right magnification for your specialty to weight, working distance and lighting. We have answered it at hundreds of expos.',
+  materials: 'HeliosX loupes are built from the highest-grade optical glass and premium lightweight metals: bright, true-color optics in frames that stay light and form-fitting through the longest case.',
   mission: 'We decided not to gatekeep this tool. Residents, students and physicians should not have to spend a month’s salary on the instrument they use every day.',
 } as const
 

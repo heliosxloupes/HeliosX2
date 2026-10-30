@@ -10,6 +10,7 @@ import {
   productStartingPrices,
 } from '@/lib/seo-content'
 import type { SeoLandingPage } from '@/lib/seo-content'
+import AuthorityBand from './AuthorityBand'
 import styles from './BuyerGuide.module.css'
 import { modelBySlug } from '@/components/m2/models'
 
@@ -233,6 +234,7 @@ export default function SeoLandingExperience({
               ) : null}
             </section>
           ) : null}
+          <AuthorityBand />
           <section id="model-shortlist" className={styles.section}>
             <p className={styles.kicker}>Your HeliosX shortlist</p>
             <h2 className="mt-3">Start with the work you do.</h2>

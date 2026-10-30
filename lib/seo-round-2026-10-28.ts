@@ -1,5 +1,5 @@
 import type { ContentFaq, ContentSection, EducationGuide, SeoLandingPage } from './seo-content'
-import { LIGHT_WARRANTY_YEARS, LIGHTS, lightFrom } from './lights'
+import { HEADLIGHTS, headHours, LIGHT_WARRANTY_YEARS, LIGHTS, lightFrom } from './lights'
 import {
   LIGHT_BUNDLE_PERCENT_OFF,
   lightPriceBySlug,
@@ -673,87 +673,99 @@ oct28NewPages.push(
 
 // RONIN X7 facts from roninsurgical.com, read 2026-10-29: $4,000 private
 // practice, $3,500 resident/fellow, $5,250 hospital; 1-year warranty on the
-// first two; headband with luminaire 4.9 oz soft-top / 5.5 oz hard-top;
-// luminaire 1.7 oz; battery holster 6.1 oz, standard battery 8 oz, extended
-// 16 oz; 350,000 lux (530,000 high-intensity); 6+ h at max intensity. No
+// first two; headband with luminaire 4.9 oz soft-top / 5.5 oz hard-top; the
+// battery rides at the hip: holster 6.1 oz, standard battery 8 oz, extended
+// 16 oz; 350,000 lux (530,000 high-intensity); 6+ h at max intensity.
+// Rewritten 2026-10-30 to compare headlight with headlight now that HeliosX
+// sells head-mounted lights (lib/lights.ts HEADLIGHTS, battery on the band).
 // HeliosX light warranty: 5 years (owner decision 2026-10-29), see /warranty.
 const oz = (value: number) => Math.round(value * 28.35)
+const roninSoftTop = oz(4.9)
+const roninSystem = oz(4.9) + oz(6.1) + oz(8)
+const headPrice = (slug: string) => lightFrom(slug)
+const headlightsFrom = Math.min(...HEADLIGHTS.map((h) => headPrice(h.slug)))
+const headlightsTo = Math.max(...HEADLIGHTS.map((h) => headPrice(h.slug)))
+const headGrams = HEADLIGHTS.map((h) => h.grams)
+const lightest = HEADLIGHTS.reduce((a, b) => (a.grams <= b.grams ? a : b))
+const brightest = HEADLIGHTS.reduce((a, b) => (a.lux >= b.lux ? a : b))
+const longest = HEADLIGHTS.reduce((a, b) => ((a.head?.hours[1] ?? 0) >= (b.head?.hours[1] ?? 0) ? a : b))
 const roninComparison: Pick<SeoLandingPage, 'comparisonRows' | 'verdict'> = {
   comparisonRows: [
-    { feature: 'Price', heliosx: `${usd(lightFrom('polaris'))}–${usd(lightOption('sirius', 'neck-4h'))}, published for every light and battery, ${LIGHT_BUNDLE_PERCENT_OFF}% off with loupes.`, other: 'RONIN X7: $4,000 private practice, $3,500 resident or fellow, $5,250 hospital package.' },
-    { feature: 'How it is worn', heliosx: 'Mounted on your loupe frame; nothing on your head but the loupes.', other: 'Headband, soft-top or hard-top, worn with your loupes.' },
-    { feature: 'Weight on your head', heliosx: '10–12 g light head (corded); 29 g for the wireless Nova with its battery.', other: `${oz(4.9)} g headband with light (soft-top), ${oz(5.5)} g hard-top.` },
-    { feature: 'Battery', heliosx: 'Clip-on, slim, extended or neckband pack, 4–10 hours.', other: `Holster ${oz(6.1)} g plus battery ${oz(8)} g (standard) or ${oz(16)} g (extended); 6+ hours at maximum.` },
-    { feature: 'Brightness', heliosx: '50,000–150,000 lux, matched to loupe magnification; Sirius has an adjustable spot.', other: '350,000 lux, 530,000 in high-intensity mode; adjustable spot.' },
-    { feature: 'Warranty', heliosx: `${LIGHT_WARRANTY_YEARS}-year limited warranty on every light.`, other: '1 year on private-practice and resident packages; 3 years on the $5,250 hospital package.' },
+    { feature: 'Price', heliosx: `Headlights ${usd(headlightsFrom)}–${usd(headlightsTo)}, every price published. Loupe-mounted lights from ${usd(lightFrom('polaris'))}.`, other: 'RONIN X7: $4,000 private practice, $3,500 resident or fellow, $5,250 hospital package.' },
+    { feature: 'Total weight', heliosx: `${Math.min(...headGrams)}–${Math.max(...headGrams)} g, battery included, all on the headband.`, other: `${roninSoftTop} g headband and light (soft-top), plus a ${oz(6.1)} g holster and ${oz(8)} g battery at the hip: about ${roninSystem} g in all.` },
+    { feature: 'Battery', heliosx: `On the headband, no cable or hip pack. ${longest.name} runs up to ${longest.head?.hours[1]} hours; Antares ships with two batteries.`, other: '6+ hours at maximum intensity, on a hip-worn battery connected by cable.' },
+    { feature: 'Brightness', heliosx: `Up to ${brightest.lux.toLocaleString('en-US')} lux (${brightest.name}), with an adjustable spot on every headlight.`, other: '350,000 lux, 530,000 in high-intensity mode; adjustable spot.' },
+    { feature: 'Warranty', heliosx: `${LIGHT_WARRANTY_YEARS}-year limited warranty.`, other: '1 year on private-practice and resident packages; 3 years on the $5,250 hospital package.' },
   ],
-  verdict: `Choose HeliosX if you want a light that rides on your loupes at 10–12 g instead of a headband, a price of ${usd(lightFrom('polaris'))}–${usd(lightOption('sirius', 'neck-4h'))} instead of $3,500–$5,250, a ${LIGHT_WARRANTY_YEARS}-year warranty instead of one, and loupes and light from one maker.`,
+  verdict: `Choose HeliosX for a headlight that costs ${usd(headlightsFrom)}–${usd(headlightsTo)} instead of $3,500–$5,250, carries its battery on the band instead of a cable to your hip, and comes with a ${LIGHT_WARRANTY_YEARS}-year warranty instead of one.`,
 }
 oct28NewPages.push({
   slug: 'ronin-headlight-alternative',
-  title: 'RONIN headlight alternative: HeliosX loupe lights compared',
-  metaTitle: `RONIN Headlight Alternative: Lighter, From ${usd(lightFrom('polaris'))} | HeliosX`,
-  description: `Compare the RONIN X7 surgical headlight ($3,500–$5,250) with HeliosX loupe lights from ${usd(lightFrom('polaris'))}: price, weight on your head, battery, brightness and fit.`,
+  title: 'RONIN headlight alternative: HeliosX headlights compared',
+  metaTitle: `RONIN Headlight Alternative From ${usd(headlightsFrom)} | HeliosX`,
+  description: `Compare the RONIN X7 surgical headlight ($3,500–$5,250) with HeliosX headlights from ${usd(headlightsFrom)}: price, total weight, battery, brightness and warranty.`,
   heroKicker: 'Comparison',
   primaryKeyword: 'ronin headlight alternative',
-  relatedKeywords: ['ronin headlight', 'ronin surgical headlight', 'ronin x7', 'ronin x7 headlight', 'ronin x6', 'ronin headlight price', 'ronin surgical headlight price', 'ronin alternative', 'best surgical headlight', 'surgical headlight alternative'],
-  audience: 'surgeons, residents and dentists comparing the RONIN surgical headlight with a loupe-mounted light',
-  answer: `The RONIN X7 costs $3,500–$5,250 and is worn on a ${oz(4.9)} g headband. HeliosX loupe lights cost ${usd(lightFrom('polaris'))}–${usd(lightOption('sirius', 'neck-4h'))}, mount directly on your loupe frame and add only 10–12 g at the head, with 50,000–150,000 lux matched to your magnification, up to 10 hours per battery and a ${LIGHT_WARRANTY_YEARS}-year warranty against RONIN's 1 year. For the price of one RONIN, you can buy HeliosX Kepler 4x loupes and a Rigel light and still have about ${usd(4000 - loupePrice('kepler', '4.0x') - lightOption('rigel', 'pack-10h'))} left.`,
-  intro: 'RONIN makes a high-output headband light for the operating room. HeliosX takes a different approach: a light built to sit on your loupes, priced at a fraction of a headband system. Here is how they compare on the numbers each company publishes.',
+  relatedKeywords: ['ronin headlight', 'ronin surgical headlight', 'ronin x7', 'ronin x7 headlight', 'ronin x6', 'ronin headlight price', 'ronin surgical headlight price', 'ronin alternative', 'best surgical headlight', 'surgical headlight alternative', 'cordless surgical headlight'],
+  audience: 'surgeons, residents and dentists comparing the RONIN surgical headlight with HeliosX headlights',
+  answer: `HeliosX headlights cost ${usd(headlightsFrom)}–${usd(headlightsTo)}, against $3,500–$5,250 for the RONIN X7. They weigh ${Math.min(...headGrams)}–${Math.max(...headGrams)} g with the battery on the band, while the RONIN X7 pairs a ${roninSoftTop} g headband with a battery and holster at your hip, about ${roninSystem} g in all. ${brightest.name} reaches ${brightest.lux.toLocaleString('en-US')} lux, ${longest.name} runs up to ${longest.head?.hours[1]} hours, and every HeliosX light has a ${LIGHT_WARRANTY_YEARS}-year warranty against RONIN's 1 year.`,
+  intro: 'RONIN makes a high-output headband light with a battery worn at the hip. HeliosX headlights put the light and battery on one band, with no cable to route, at a fraction of the price. Here is how they compare on the numbers each company publishes.',
   competitorName: 'RONIN X7',
   ...roninComparison,
   specTable: {
-    title: 'What $4,000 buys: one RONIN or a full HeliosX setup',
-    lead: 'HeliosX loupe-and-light setups against the RONIN X7 private-practice price. Prices in USD.',
-    columns: setupColumns,
+    title: 'HeliosX headlights against the RONIN X7',
+    lead: `Every HeliosX headlight carries its battery on the band. Weights include the battery. Prices in USD, ${LIGHT_BUNDLE_PERCENT_OFF}% off with a pair of loupes.`,
+    columns: ['Headlight', 'Brightness', 'Total weight', 'Runtime per charge', 'Spot', 'Band', 'Price'],
     rows: [
-      setupRow('General surgery', 'galileo', '3.0x', 'vega', 'slim-6h', '36 g + 10 g light', '6 h'),
-      setupRow('Fine detail at 4x', 'kepler', '4.0x', 'rigel', 'pack-10h', '68 g + 11 g light', '10 h'),
-      setupRow('Upright posture, long cases', 'apollo', '4.0x', 'rigel', 'pack-10h', '55–58 g + 11 g light', '10 h'),
-      setupRow('Brightest light, adjustable spot', 'medusa', '4.0x', 'sirius', 'pack-10h', '56 g + 12 g light', '10 h'),
+      ...[...HEADLIGHTS].sort((a, b) => a.grams - b.grams).map((h) => [
+        h.name,
+        `${h.lux.toLocaleString('en-US')} lux`,
+        `${h.grams} g`,
+        `${headHours(h)}${h.head && h.head.batteries > 1 ? `, ${h.head.batteries} batteries` : ''}`,
+        h.head ? `Adjustable, ${h.head.spotRange[0]}–${h.head.spotRange[1]} mm` : 'Adjustable',
+        h.head?.band ?? '',
+        usd(headPrice(h.slug)),
+      ]),
+      ['RONIN X7 (for comparison)', '350,000 lux (530,000 high-intensity)', `About ${roninSystem} g: ${roninSoftTop} g on the head, the rest at the hip`, '6+ hrs at maximum', 'Adjustable', 'Soft-top or hard-top, battery on a hip cable', '$3,500–$5,250'],
     ],
-    note: `Every HeliosX setup above, loupes included, costs less than the RONIN X7 light alone ($4,000). Prices are before the ${LIGHT_BUNDLE_PERCENT_OFF}% light discount with loupes. RONIN figures are from roninsurgical.com, checked October 29, 2026.`,
+    note: 'RONIN figures are from roninsurgical.com, checked October 29, 2026; its total is the soft-top headband with light, the battery holster and the standard battery. HeliosX figures are from our product specifications.',
   },
-  proofPoints: ['Lights from ' + usd(lightFrom('polaris')) + ', every price published.', '10–12 g on the loupe frame, no headband.', `${LIGHT_WARRANTY_YEARS}-year warranty on every light.`],
+  proofPoints: [`Headlights from ${usd(headlightsFrom)}, every price published.`, 'Battery on the band: no hip pack or cable.', `${LIGHT_WARRANTY_YEARS}-year warranty on every light.`],
   sections: [
     section(
       'What RONIN offers',
-      'RONIN Surgical, based in Austin, Texas, sells the X7 headlight on a soft-top or hard-top headband with a hip-worn battery. Its site lists 350,000 lux (530,000 in high-intensity mode), an adjustable spot and 6+ hours at maximum intensity. Packages cost $4,000 for private practice and $3,500 for residents and fellows, each with a 1-year warranty, or $5,250 for hospitals with 3 years. We have not tested the RONIN X7.',
+      'RONIN Surgical, based in Austin, Texas, sells the X7 headlight on a soft-top or hard-top headband, with the battery in a holster at your hip. Its site lists 350,000 lux (530,000 in high-intensity mode), an adjustable spot and 6+ hours at maximum intensity. Packages cost $4,000 for private practice and $3,500 for residents and fellows, each with a 1-year warranty, or $5,250 for hospitals with 3 years. We have not tested the RONIN X7.',
       [],
       'https://www.roninsurgical.com/',
       'RONIN Surgical official site; checked October 29, 2026',
     ),
     section(
-      'Weight: a headband or 10 grams on your loupes',
-      `A headband light adds a band around your head on top of the loupes you already wear: RONIN lists ${oz(4.9)} g for the soft-top headband with its light. A HeliosX light clips to the loupe frame itself, so the only addition at your head is a 10–12 g light, with the battery at your waist or neck.`,
-      ['No second strap to adjust between cases.', 'The light moves with your loupes, so it stays on your line of sight.', 'Ergonomic loupes compared: /ergonomic-loupe-comparison.'],
+      'Total weight, not just the part on your head',
+      `RONIN lists ${roninSoftTop} g for its soft-top headband with the light, but the battery is separate: a ${oz(6.1)} g holster and an ${oz(8)} g standard battery worn at the hip, connected by cable. HeliosX headlights put everything on the band, from ${lightest.grams} g for ${lightest.name} to ${Math.max(...headGrams)} g for Canopus XL with its top strap.`,
+      ['No battery pack to clip on under a gown.', 'No cable running from your head to your waist.', 'Canopus XL adds a strap over the top to hold it steady on long cases.'],
     ),
     section(
-      'How much light do you actually need?',
-      'Brightness should match your magnification: each step up shows a smaller, darker field. HeliosX lights are sized to loupe work, from 50,000 lux at 2.5x–3.5x to 150,000 lux with an adjustable spot for high magnification and fine work. A loupe-mounted light also sits on your line of sight, so it reaches the same spot you are looking at.',
-      [
-        `Up to 4x: Vega, 70,000 lux, from ${usd(lightFrom('vega'))}.`,
-        `4x–6x and deep fields: Rigel, 100,000 lux, from ${usd(lightFrom('rigel'))}.`,
-        `High magnification: Sirius, 150,000 lux, adjustable spot, from ${usd(lightFrom('sirius'))}.`,
-      ],
-      '/surgical-loupes-with-light',
-      'Surgical loupes with light: setups by magnification',
+      'Brightness and runtime',
+      `RONIN publishes higher peak output. HeliosX headlights are built for a full operating day: ${brightest.name} reaches ${brightest.lux.toLocaleString('en-US')} lux, ${longest.name} runs up to ${longest.head?.hours[1]} hours on a charge, and Antares ships with two batteries so one is always charging. Every HeliosX headlight has an adjustable spot.`,
+      HEADLIGHTS.map((h) => `${h.name}: ${h.lux.toLocaleString('en-US')} lux, ${h.grams} g, ${headHours(h)}, ${usd(headPrice(h.slug))}. ${h.bestFor}`),
+      '/product/lights',
+      'Compare all HeliosX headlights and loupe lights',
     ),
     section(
-      'Runtime and batteries',
-      'Every corded HeliosX light takes the battery you choose: clip-on (4 h), slim (6 h), extended (10 h) or a neckband (4 h) that keeps nothing at the waist when you are gowned.',
-      ['All five lights and batteries: /product/lights.'],
+      'Prefer a light on your loupes?',
+      `If you already wear loupes, a HeliosX loupe light clips to the frame and adds only 10–12 g at the head, with the battery at your waist or neck. Loupe lights start at ${usd(lightFrom('polaris'))}, and Sirius reaches 150,000 lux with an adjustable spot.`,
+      ['Surgical loupes with light, by magnification: /surgical-loupes-with-light.'],
     ),
   ],
   recommendedProducts: ['Kepler', 'Apollo', 'Medusa', 'Galileo'],
   faqs: [
-    faq('How much does a RONIN headlight cost?', 'RONIN lists the X7 at $4,000 for private practice, $3,500 for residents and fellows, and $5,250 for hospitals (checked October 29, 2026). HeliosX loupe lights cost ' + usd(lightFrom('polaris')) + '–' + usd(lightOption('sirius', 'neck-4h')) + '.'),
-    faq('What is the best RONIN alternative?', `If you wear loupes, a light mounted on them avoids a headband entirely. HeliosX Rigel (100,000 lux, from ${usd(lightFrom('rigel'))}) and Sirius (150,000 lux with an adjustable spot, from ${usd(lightFrom('sirius'))}) are built for surgical magnification and add 11–12 g at the head.`),
+    faq('How much does a RONIN headlight cost?', `RONIN lists the X7 at $4,000 for private practice, $3,500 for residents and fellows, and $5,250 for hospitals (checked October 29, 2026). HeliosX headlights cost ${usd(headlightsFrom)}–${usd(headlightsTo)}.`),
+    faq('What is the best RONIN alternative?', `${lightest.name} is our lightest headlight at ${lightest.grams} g with up to ${lightest.head?.hours[1]} hours per charge, for ${usd(headPrice(lightest.slug))}. ${brightest.name} is our brightest at ${brightest.lux.toLocaleString('en-US')} lux, for ${usd(headPrice(brightest.slug))}. Both carry the battery on the band.`),
+    faq('How much does the RONIN X7 weigh?', `RONIN lists ${roninSoftTop} g for the soft-top headband with light (${oz(5.5)} g hard-top). The battery holster (${oz(6.1)} g) and standard battery (${oz(8)} g) are worn at the hip, about ${roninSystem} g in total.`),
     faq('Is HeliosX affiliated with RONIN?', 'No. RONIN Surgical and HeliosX are separate companies. RONIN is a trademark of its owner. We have not tested the RONIN X7; its figures come from its own site.'),
-    faq('Do HeliosX lights fit my loupes?', 'Every HeliosX light fits every HeliosX frame, and lights ordered with a pair of loupes are 10% off.'),
   ],
   datePublished: added,
-  dateModified: added,
+  dateModified: '2026-10-30',
 })
 updates['ronin-headlight-alternative'] = roninComparison
 

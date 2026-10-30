@@ -38,7 +38,7 @@ export default function WarrantyPage() {
               Loupe lights: {LIGHT_WARRANTY_YEARS}-year warranty
             </h2>
             <p className="text-neutral-300">
-              Every HeliosX LED loupe light includes a {LIGHT_WARRANTY_YEARS}-year limited warranty covering manufacturer-related defects in materials and workmanship of the light head, LEDs, cable and mount. Coverage begins on the delivery date, applies to the original purchaser and is not transferable. Batteries are wear parts and are not covered.
+              Every HeliosX LED loupe light and headlight includes a {LIGHT_WARRANTY_YEARS}-year limited warranty covering manufacturer-related defects in materials and workmanship of the light head, LEDs, cable, mount and headband. Coverage begins on the delivery date, applies to the original purchaser and is not transferable. Batteries are wear parts and are not covered.
             </p>
           </section>
 

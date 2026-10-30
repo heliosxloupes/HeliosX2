@@ -63,6 +63,16 @@ const nextConfig = {
         destination: '/loupes-for-dental-hygiene',
         permanent: true,
       },
+      // 2026-10-30: URLs Google keeps trying that 404 (typos and old paths).
+      { source: '/best-dental-loupes', destination: '/best-dental-loupe-brands', permanent: true },
+      { source: '/gynecology-lobes', destination: '/gynecology-loupes', permanent: true },
+      { source: '/urology-loroupes', destination: '/urology-loupes', permanent: true },
+      { source: '/products/:slug', destination: '/product/:slug', permanent: true },
+      {
+        source: '/are-surgical-loupes-worth-it-decision-guide-for-residents-and-surgeons',
+        destination: '/are-surgical-loupes-worth-it',
+        permanent: true,
+      },
       // Near-duplicate pages merged on 2026-10-02; see lib/seo-redirects.json.
       ...seoRedirects.map(({ source, destination }) => ({ source, destination, permanent: true })),
     ]

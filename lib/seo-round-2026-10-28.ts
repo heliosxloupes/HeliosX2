@@ -680,8 +680,10 @@ oct28NewPages.push(
 // sells head-mounted lights (lib/lights.ts HEADLIGHTS, battery on the band).
 // HeliosX light warranty: 5 years (owner decision 2026-10-29), see /warranty.
 const oz = (value: number) => Math.round(value * 28.35)
-const roninSoftTop = oz(4.9)
-const roninSystem = oz(4.9) + oz(6.1) + oz(8)
+// Head weight 233 g as checked by the HeliosX team (2026-10-30), matching the
+// lights page weight scale. Hip battery and holster from RONIN's own site.
+const roninHead = 233
+const roninSystem = roninHead + oz(6.1) + oz(8)
 const headPrice = (slug: string) => lightFrom(slug)
 const headlightsFrom = Math.min(...HEADLIGHTS.map((h) => headPrice(h.slug)))
 const headlightsTo = Math.max(...HEADLIGHTS.map((h) => headPrice(h.slug)))
@@ -692,7 +694,7 @@ const longest = HEADLIGHTS.reduce((a, b) => ((a.head?.hours[1] ?? 0) >= (b.head?
 const roninComparison: Pick<SeoLandingPage, 'comparisonRows' | 'verdict'> = {
   comparisonRows: [
     { feature: 'Price', heliosx: `Headlights ${usd(headlightsFrom)}–${usd(headlightsTo)}, every price published. Loupe-mounted lights from ${usd(lightFrom('polaris'))}.`, other: 'RONIN X7: $4,000 private practice, $3,500 resident or fellow, $5,250 hospital package.' },
-    { feature: 'Total weight', heliosx: `${Math.min(...headGrams)}–${Math.max(...headGrams)} g, battery included, all on the headband.`, other: `${roninSoftTop} g headband and light (soft-top), plus a ${oz(6.1)} g holster and ${oz(8)} g battery at the hip: about ${roninSystem} g in all.` },
+    { feature: 'Total weight', heliosx: `${Math.min(...headGrams)}–${Math.max(...headGrams)} g, battery included, all on the headband.`, other: `${roninHead} g headband and light, plus a ${oz(6.1)} g holster and ${oz(8)} g battery at the hip: about ${roninSystem} g in all.` },
     { feature: 'Battery', heliosx: `On the headband, no cable or hip pack. ${longest.name} runs up to ${longest.head?.hours[1]} hours; Antares ships with two batteries.`, other: '6+ hours at maximum intensity, on a hip-worn battery connected by cable.' },
     { feature: 'Brightness', heliosx: `Up to ${brightest.lux.toLocaleString('en-US')} lux (${brightest.name}), with an adjustable spot on every headlight.`, other: '350,000 lux, 530,000 in high-intensity mode; adjustable spot.' },
     { feature: 'Warranty', heliosx: `${LIGHT_WARRANTY_YEARS}-year limited warranty.`, other: '1 year on private-practice and resident packages; 3 years on the $5,250 hospital package.' },
@@ -708,7 +710,7 @@ oct28NewPages.push({
   primaryKeyword: 'ronin headlight alternative',
   relatedKeywords: ['ronin headlight', 'ronin surgical headlight', 'ronin x7', 'ronin x7 headlight', 'ronin x6', 'ronin headlight price', 'ronin surgical headlight price', 'ronin alternative', 'best surgical headlight', 'surgical headlight alternative', 'cordless surgical headlight'],
   audience: 'surgeons, residents and dentists comparing the RONIN surgical headlight with HeliosX headlights',
-  answer: `HeliosX headlights cost ${usd(headlightsFrom)}–${usd(headlightsTo)}, against $3,500–$5,250 for the RONIN X7. They weigh ${Math.min(...headGrams)}–${Math.max(...headGrams)} g with the battery on the band, while the RONIN X7 pairs a ${roninSoftTop} g headband with a battery and holster at your hip, about ${roninSystem} g in all. ${brightest.name} reaches ${brightest.lux.toLocaleString('en-US')} lux, ${longest.name} runs up to ${longest.head?.hours[1]} hours, and every HeliosX light has a ${LIGHT_WARRANTY_YEARS}-year warranty against RONIN's 1 year.`,
+  answer: `HeliosX headlights cost ${usd(headlightsFrom)}–${usd(headlightsTo)}, against $3,500–$5,250 for the RONIN X7. They weigh ${Math.min(...headGrams)}–${Math.max(...headGrams)} g with the battery on the band, while the RONIN X7 puts ${roninHead} g on your head and its battery and holster at your hip, about ${roninSystem} g in all. ${brightest.name} reaches ${brightest.lux.toLocaleString('en-US')} lux, ${longest.name} runs up to ${longest.head?.hours[1]} hours, and every HeliosX light has a ${LIGHT_WARRANTY_YEARS}-year warranty against RONIN's 1 year.`,
   intro: 'RONIN makes a high-output headband light with a battery worn at the hip. HeliosX headlights put the light and battery on one band, with no cable to route, at a fraction of the price. Here is how they compare on the numbers each company publishes.',
   competitorName: 'RONIN X7',
   ...roninComparison,
@@ -726,9 +728,9 @@ oct28NewPages.push({
         h.head?.band ?? '',
         usd(headPrice(h.slug)),
       ]),
-      ['RONIN X7 (for comparison)', '350,000 lux (530,000 high-intensity)', `About ${roninSystem} g: ${roninSoftTop} g on the head, the rest at the hip`, '6+ hrs at maximum', 'Adjustable', 'Soft-top or hard-top, battery on a hip cable', '$3,500–$5,250'],
+      ['RONIN X7 (for comparison)', '350,000 lux (530,000 high-intensity)', `About ${roninSystem} g: ${roninHead} g on the head, the rest at the hip`, '6+ hrs at maximum', 'Adjustable', 'Soft-top or hard-top, battery on a hip cable', '$3,500–$5,250'],
     ],
-    note: 'RONIN figures are from roninsurgical.com, checked October 29, 2026; its total is the soft-top headband with light, the battery holster and the standard battery. HeliosX figures are from our product specifications.',
+    note: 'RONIN head weight is the headband with light; its battery holster, standard battery, prices and other figures are from roninsurgical.com, checked October 29, 2026. HeliosX figures are from our product specifications.',
   },
   proofPoints: [`Headlights from ${usd(headlightsFrom)}, every price published.`, 'Battery on the band: no hip pack or cable.', `${LIGHT_WARRANTY_YEARS}-year warranty on every light.`],
   sections: [
@@ -741,7 +743,7 @@ oct28NewPages.push({
     ),
     section(
       'Total weight, not just the part on your head',
-      `RONIN lists ${roninSoftTop} g for its soft-top headband with the light, but the battery is separate: a ${oz(6.1)} g holster and an ${oz(8)} g standard battery worn at the hip, connected by cable. HeliosX headlights put everything on the band, from ${lightest.grams} g for ${lightest.name} to ${Math.max(...headGrams)} g for Canopus XL with its top strap.`,
+      `The RONIN X7 headband with its light weighs ${roninHead} g, and the battery is separate: RONIN lists a ${oz(6.1)} g holster and an ${oz(8)} g standard battery worn at the hip, connected by cable. HeliosX headlights put everything, battery included, on the band: ${lightest.name} weighs ${lightest.grams} g, ${roninHead - lightest.grams} g less than the RONIN on your head alone, and even Canopus XL with its top strap is ${Math.max(...headGrams)} g.`,
       ['No battery pack to clip on under a gown.', 'No cable running from your head to your waist.', 'Canopus XL adds a strap over the top to hold it steady on long cases.'],
     ),
     section(
@@ -761,7 +763,7 @@ oct28NewPages.push({
   faqs: [
     faq('How much does a RONIN headlight cost?', `RONIN lists the X7 at $4,000 for private practice, $3,500 for residents and fellows, and $5,250 for hospitals (checked October 29, 2026). HeliosX headlights cost ${usd(headlightsFrom)}–${usd(headlightsTo)}.`),
     faq('What is the best RONIN alternative?', `${lightest.name} is our lightest headlight at ${lightest.grams} g with up to ${lightest.head?.hours[1]} hours per charge, for ${usd(headPrice(lightest.slug))}. ${brightest.name} is our brightest at ${brightest.lux.toLocaleString('en-US')} lux, for ${usd(headPrice(brightest.slug))}. Both carry the battery on the band.`),
-    faq('How much does the RONIN X7 weigh?', `RONIN lists ${roninSoftTop} g for the soft-top headband with light (${oz(5.5)} g hard-top). The battery holster (${oz(6.1)} g) and standard battery (${oz(8)} g) are worn at the hip, about ${roninSystem} g in total.`),
+    faq('How much does the RONIN X7 weigh?', `The RONIN X7 headband with light weighs ${roninHead} g. RONIN lists a ${oz(6.1)} g battery holster and an ${oz(8)} g standard battery, worn at the hip: about ${roninSystem} g in total. HeliosX headlights weigh ${Math.min(...headGrams)}–${Math.max(...headGrams)} g with the battery on the band.`),
     faq('Is HeliosX affiliated with RONIN?', 'No. RONIN Surgical and HeliosX are separate companies. RONIN is a trademark of its owner. We have not tested the RONIN X7; its figures come from its own site.'),
   ],
   datePublished: added,

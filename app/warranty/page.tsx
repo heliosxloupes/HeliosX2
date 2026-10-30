@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
-import { ShieldCheck, Wrench, Glasses, AlertTriangle } from 'lucide-react'
+import { ShieldCheck, Wrench, Glasses, AlertTriangle, Lightbulb } from 'lucide-react'
 
 import Header from '@/components/Header'
+import { LIGHT_WARRANTY_YEARS } from '@/lib/lights'
 import { buildMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Limited Lifetime Warranty on Every Pair | HeliosX Loupes',
-  description: 'Every HeliosX loupe has a limited lifetime warranty against manufacturer defects in the optics, frame and hinges, for as long as the original buyer owns them.',
+  description: `Every HeliosX loupe has a limited lifetime warranty against manufacturer defects in the optics, frame and hinges. HeliosX loupe lights carry a ${LIGHT_WARRANTY_YEARS}-year warranty.`,
   path: '/warranty',
 })
 
@@ -28,6 +29,16 @@ export default function WarrantyPage() {
             </h2>
             <p className="text-neutral-300">
               All HeliosX loupes include a limited lifetime warranty covering manufacturer-related defects in materials and workmanship of the optics, frame and hinges. Coverage begins on the delivery date and lasts for as long as the original purchaser owns the loupes. It is not transferable. If you believe your loupes have a covered issue, contact us with your order information and photos when relevant.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="flex items-center gap-2.5 text-lg font-semibold text-white">
+              <Lightbulb className="h-5 w-5 shrink-0 text-emerald-300" strokeWidth={1.75} aria-hidden="true" />
+              Loupe lights: {LIGHT_WARRANTY_YEARS}-year warranty
+            </h2>
+            <p className="text-neutral-300">
+              Every HeliosX LED loupe light includes a {LIGHT_WARRANTY_YEARS}-year limited warranty covering manufacturer-related defects in materials and workmanship of the light head, LEDs, cable and mount. Coverage begins on the delivery date, applies to the original purchaser and is not transferable. Batteries are wear parts and are not covered.
             </p>
           </section>
 
@@ -61,7 +72,7 @@ export default function WarrantyPage() {
               Outside of warranty
             </h2>
             <p className="text-neutral-300">
-              Normal wear, wear parts such as nose pads, straps and side shields, batteries and lights, accidental damage, misuse, prescription changes, and unauthorized modifications fall outside the limited lifetime warranty. We still try to help. Email{' '}
+              Normal wear, wear parts such as nose pads, straps, side shields and batteries, accidental damage, misuse, prescription changes, and unauthorized modifications fall outside these warranties. We still try to help. Email{' '}
               <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
                 heliosxloupes@gmail.com
               </a>{' '}

@@ -81,12 +81,12 @@ export type EducationGuide = {
 
 export const productPositioning = {
   Medusa:
-    'Ergonomic prismatic loupes with adjustable working distance for clinicians who change posture between seated and standing work.',
+    'The adjustable ergonomic prismatic loupe surgeons in 110+ countries choose when they sit and stand: 3.0x–8.5x, working distance 300–600 mm, custom-built.',
   Apollo:
-    'Ergonomic prismatic loupes for clinicians who want posture-aware clarity and high-magnification options.',
-  Kepler: 'Conventional prismatic loupes for higher-magnification work, available in 4.0x, 5.0x, and 6.0x.',
-  Galileo: 'Lightweight affordable surgical and dental loupes for students, residents, and everyday clinical use.',
-  Newton: 'Our lowest-priced Galilean model, with 2.5x, 3.0x, and 3.5x configurations for everyday magnification.',
+    'The HeliosX ergonomic prismatic standard: angled optics for an upright head, 3.0x–6.0x, custom-built to your working distance and favored worldwide.',
+  Kepler: 'High-magnification prismatic loupes at 4.0x, 5.0x and 6.0x, favored by surgeons worldwide for fine detail. Custom-built, lifetime warranty.',
+  Galileo: 'The lightweight everyday standard, favored by dentists, hygienists and surgeons in 110+ countries: Galilean 2.5x–3.5x, six frame styles included.',
+  Newton: 'The lightest way into HeliosX optics: Galilean 2.5x–3.5x at 40–50 g, favored by students, hygienists and assistants worldwide.',
 }
 
 // Derived from the checkout price list so cards and structured data cannot drift.

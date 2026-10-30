@@ -31,7 +31,7 @@ const rewrites: Record<string, Rewrite> = {
     heroKicker: 'Neurosurgery loupes',
     authorityAudience: 'neurosurgeons',
     answer: `HeliosX is the standard in neurosurgical loupes, trusted by neurosurgeons and spine surgeons in more than 110 countries. Neurosurgeons favor Medusa, ergonomic prismatic up to 8.5x with a working distance that adjusts from 300 to 600 mm through a long case; Apollo for an upright head at a fixed distance; and Kepler, conventional prismatic 4x–6x, for fine detail from ${from('kepler')}. Every pair is custom-built to the surgeon and paired with light up to ${brightestHead.lux.toLocaleString('en-US')} lux.`,
-    intro: 'Neurosurgery asks more of optics than any other specialty: deep corridors, long cases standing at the table, and no room to lose focus at the wrong moment. HeliosX specialists have fitted neurosurgeons and spine surgeons at congresses and expos worldwide, and every pair we build for neurosurgery is custom-tailored to the surgeon’s working distance, posture and case mix.',
+    intro: 'Neurosurgery asks more of optics than any other specialty: deep corridors, long cases standing at the table, and no room to lose focus at the wrong moment. HeliosX has supplied its premium ergonomic loupes, optics and headlights to neurosurgeons and spine surgeons worldwide, and every pair we build for neurosurgery is custom-tailored to the surgeon’s working distance, posture and case mix.',
     procedureRows: [
       { procedure: 'Exposure and closure', magnification: '3.0x–4.0x', distance: '400–500 mm, measured standing', pick: '/product/apollo at 4.0x' },
       { procedure: 'Spine: microdiscectomy, laminectomy, decompression', magnification: '4.0x–5.0x', distance: '400–500 mm', pick: '/product/medusa at 4.0x, with a Rigel light' },
@@ -43,7 +43,7 @@ const rewrites: Record<string, Rewrite> = {
     sections: [
       section(
         'The standard in neurosurgical optics',
-        'Neurosurgeons and spine surgeons in more than 110 countries operate with HeliosX loupes. Our specialists have fitted them at neurosurgical and spine congresses for a decade, and that experience is built into every pair: ergonomic prismatic optics that keep the head upright through a long case, high-grade optical glass that holds a sharp, true-color image at depth, and premium lightweight metals that stay comfortable at hour four.',
+        'Neurosurgeons and spine surgeons in more than 110 countries operate with HeliosX loupes. We have supplied neurosurgical teams, teaching hospitals and spine practices for a decade, and that experience is built into every pair: ergonomic prismatic optics that keep the head upright through a long case, high-grade optical glass that holds a sharp, true-color image at depth, and premium lightweight metals that stay comfortable at hour four.',
         [
           'Ergonomic prismatic optics from 3.0x to 8.5x.',
           'Working distance built to your table, or adjustable with Medusa.',
@@ -96,6 +96,575 @@ const rewrites: Record<string, Rewrite> = {
     dateModified: '2026-10-30',
   },
 }
+
+// ---------------------------------------------------------------------------
+// Specialty pages. Each spec carries the specialty's own claim, the model it
+// favors and why, its procedures, and the challenge that defines its optics.
+// The builder only arranges them; the substance is in each spec.
+
+type Model = 'newton' | 'galileo' | 'kepler' | 'apollo' | 'medusa'
+const modelName = (m: Model) => m[0].toUpperCase() + m.slice(1)
+const modelLine: Record<Model, string> = {
+  newton: `Newton, the lightest way into HeliosX optics: Galilean 2.5x–3.5x, 40–50 g with frame, from ${from('newton')}`,
+  galileo: `Galileo, the lightweight everyday standard: Galilean 2.5x–3.5x with a wide, deep field and six frame styles, from ${from('galileo')}`,
+  kepler: `Kepler, high-magnification detail: conventional prismatic 4.0x–6.0x, from ${from('kepler')}`,
+  apollo: `Apollo, the ergonomic prismatic standard: angled optics for an upright head at a fixed working distance, 3.0x–6.0x, from ${from('apollo')}`,
+  medusa: `Medusa, the adjustable ergonomic loupe surgeons choose when they sit and stand: 3.0x–8.5x, working distance 300–600 mm, from ${from('medusa')}`,
+}
+
+type Spec = {
+  slug: string
+  /** e.g. 'cardiac surgery' */
+  field: string
+  /** e.g. 'cardiac surgeons' */
+  audience: string
+  title: string
+  metaTitle: string
+  description: string
+  /** The owned claim: completes "HeliosX is ..." */
+  claim: string
+  /** What makes optics hard in this field. */
+  demand: string
+  favored: { model: Model; mag: string; why: string }
+  alternates: { model: Model; why: string }[]
+  procedures: { procedure: string; magnification: string; distance: string; pick: string }[]
+  challenge: { title: string; body: string; bullets: string[] }
+  light: string
+  /** Who the trainee section speaks to; omit for non-training fields. */
+  trainees?: string
+  extraFaqs?: ContentFaq[]
+  related?: string[]
+}
+
+const specialty = (s: Spec): Rewrite => ({
+  title: s.title,
+  metaTitle: s.metaTitle,
+  description: s.description,
+  heroKicker: `${s.field[0].toUpperCase()}${s.field.slice(1)} loupes`,
+  authorityAudience: s.audience,
+  answer: `HeliosX is ${s.claim}, supplied to ${s.audience} in more than 110 countries. ${s.audience[0].toUpperCase()}${s.audience.slice(1)} favor ${modelName(s.favored.model)} at ${s.favored.mag}: ${s.favored.why} Every pair is custom-built to the surgeon, with a lifetime warranty.`,
+  intro: `${s.demand} HeliosX has supplied its premium ergonomic loupes, optics and headlights to ${s.audience} worldwide, and every pair is custom-tailored to the surgeon’s working distance, posture and case mix.`,
+  procedureRows: s.procedures,
+  proofPoints: [`Supplied to ${s.audience} in 110+ countries.`, 'Custom-built, lifetime warranty.', 'Every price published.'],
+  sections: [
+    section(
+      `The standard in ${s.field} optics`,
+      `HeliosX is ${s.claim}. We have supplied ${s.audience}, teaching hospitals and training programs worldwide for a decade, and that experience is built into every pair: high-grade optical glass for a sharp, true-color image, premium lightweight metals that stay comfortable through the longest case, and optics custom-tailored to the surgeon who wears them.`,
+    ),
+    section(
+      `Why ${s.audience} favor ${modelName(s.favored.model)}`,
+      `${s.favored.why} It is the HeliosX loupe ${s.audience} choose most, at ${s.favored.mag}.`,
+      [modelLine[s.favored.model] + '.', `/product/${s.favored.model}`],
+    ),
+    section(
+      `The rest of the ${s.field} lineup`,
+      s.alternates.map((a) => `${modelName(a.model)}: ${a.why}`).join(' '),
+      s.alternates.map((a) => modelLine[a.model] + '.'),
+    ),
+    section(s.challenge.title, s.challenge.body, s.challenge.bullets),
+    section(
+      `Light for ${s.field}`,
+      `${s.light} Every HeliosX light fits every HeliosX frame and carries a ${LIGHT_WARRANTY_YEARS}-year warranty.`,
+      ['Surgical loupes with light, by magnification: /surgical-loupes-with-light.', `Lights and headlights from ${usd(lightFrom('polaris'))}: /product/lights.`],
+    ),
+    ...(s.trainees
+      ? [
+          section(
+            `For ${s.trainees}`,
+            `Your first pair should grow with you. Start in the lower half of the range for your field, measured at your own table height, and step up as your cases do. Verified residents, fellows and students receive ${TRAINEE_PERCENT_OFF}% off every HeliosX loupe.`,
+            ['Best loupes for residents: /education/best-loupes-for-residents.'],
+          ),
+        ]
+      : []),
+  ],
+  recommendedProducts: [modelName(s.favored.model), ...s.alternates.map((a) => modelName(a.model))],
+  faqs: [
+    faq(`What are the best loupes for ${s.field}?`, `HeliosX ${modelName(s.favored.model)} is the loupe ${s.audience} choose most, at ${s.favored.mag}. ${s.alternates.map((a) => `${modelName(a.model)}: ${a.why}`).join(' ')}`),
+    faq(`What magnification do ${s.audience} use?`, s.procedures.map((p) => `${p.procedure}: ${p.magnification}.`).join(' ')),
+    faq(`Do ${s.audience} need a loupe light?`, s.light),
+    ...(s.extraFaqs ?? []),
+  ],
+  dateModified: '2026-10-30',
+})
+
+const surgicalSpecs: Spec[] = [
+  {
+    slug: 'cardiac-surgery-loupes',
+    field: 'cardiac surgery',
+    audience: 'cardiac surgeons',
+    title: 'Cardiac surgery loupes: the HeliosX standard for the heart',
+    metaTitle: 'Best Loupes for Cardiac Surgery: The HeliosX Standard',
+    description: `HeliosX loupes for cardiac surgery: ergonomic prismatic optics for coronary anastomosis and valve work, supplied to cardiac surgeons in 110+ countries. From ${from('kepler')}.`,
+    claim: 'the standard in cardiac surgical loupes, built for coronary anastomosis, valve repair and long standing cases',
+    demand: 'Cardiac surgery puts the finest sutures in medicine on a moving target, often after hours on your feet.',
+    favored: { model: 'medusa', mag: '4.0x', why: 'coronary anastomosis needs detail at 3.5x–4.5x, and Medusa holds it while its working distance adjusts from 300 to 600 mm as you move between harvest, sternotomy and graft.' },
+    alternates: [
+      { model: 'apollo', why: 'the upright-head choice for surgeons who operate at one table height.' },
+      { model: 'kepler', why: 'conventional prismatic 4x–6x for the smallest distal targets.' },
+    ],
+    procedures: [
+      { procedure: 'Coronary anastomosis (CABG)', magnification: '3.5x–4.5x', distance: '400–500 mm, standing', pick: '/product/medusa at 4.0x' },
+      { procedure: 'Valve repair and replacement', magnification: '3.0x–4.0x', distance: '400–500 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Conduit harvest', magnification: '2.5x–3.5x', distance: '400–500 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Congenital and pediatric cardiac', magnification: '4.0x–5.0x', distance: '350–450 mm', pick: '/product/kepler at 5.0x' },
+    ],
+    challenge: {
+      title: 'Built for long standing cases',
+      body: 'A cardiac case can keep you at the table for hours with your head held still over the field. HeliosX ergonomic prismatic optics let you look down with your head near neutral, and lightweight metal frames keep the load off the bridge of your nose when it counts most.',
+      bullets: ['Measure standing, at your real table height.', 'Pair a corded light on the extended 10-hour battery for long lists.'],
+    },
+    light: 'Deep pericardial and mediastinal fields need coaxial light. Rigel (100,000 lux) suits 4x–6x; Sirius (150,000 lux, adjustable spot) is the cardiac favorite for the deepest work.',
+    trainees: 'cardiothoracic residents and fellows',
+  },
+  {
+    slug: 'vascular-surgery-loupes',
+    field: 'vascular surgery',
+    audience: 'vascular surgeons',
+    title: 'Vascular surgery loupes: HeliosX precision for every anastomosis',
+    metaTitle: 'Best Loupes for Vascular Surgery: HeliosX Standard',
+    description: `HeliosX vascular surgery loupes: ergonomic prismatic and high-magnification optics for anastomosis and endarterectomy, supplied in 110+ countries. From ${from('kepler')}.`,
+    claim: 'the standard in vascular surgical loupes, chosen for anastomosis, endarterectomy and access surgery',
+    demand: 'Vascular surgery lives on the quality of the suture line, from carotid endarterectomy to a distal bypass.',
+    favored: { model: 'kepler', mag: '4.0x', why: 'Kepler delivers crisp conventional prismatic detail at 4x–6x for distal anastomoses and fine arterial work, at the best price of any HeliosX prismatic loupe.' },
+    alternates: [
+      { model: 'medusa', why: 'ergonomic prismatic with an adjustable working distance for long open cases.' },
+      { model: 'apollo', why: 'an upright head through endarterectomy and access work at one table height.' },
+    ],
+    procedures: [
+      { procedure: 'Carotid endarterectomy', magnification: '3.5x–4.0x', distance: '400–500 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Distal bypass anastomosis', magnification: '4.0x–5.0x', distance: '400–500 mm', pick: '/product/kepler at 4.0x' },
+      { procedure: 'AV fistula creation', magnification: '3.5x–4.5x', distance: '350–450 mm, often seated', pick: '/product/medusa at 4.0x' },
+      { procedure: 'Open aortic work', magnification: '2.5x–3.5x', distance: '450–550 mm', pick: '/product/galileo at 3.0x' },
+    ],
+    challenge: {
+      title: 'Seated access, standing open cases',
+      body: 'Vascular surgeons move between seated access surgery and long standing open cases. A fixed working distance suits one and compromises the other, which is why so many vascular surgeons pair Kepler for detail with Medusa for range.',
+      bullets: ['Medusa adjusts from 300 to 600 mm in one pair.', 'Measure both postures before you order.'],
+    },
+    light: 'A suture line is only as good as the light on it. Vega (70,000 lux) suits up to 4x; Rigel (100,000 lux) is the vascular favorite at 4x–6x.',
+    trainees: 'vascular residents and fellows',
+  },
+  {
+    slug: 'hand-surgery-loupes',
+    field: 'hand surgery',
+    audience: 'hand surgeons',
+    title: 'Hand surgery loupes: HeliosX optics for tendon and nerve',
+    metaTitle: 'Best Loupes for Hand Surgery: The HeliosX Standard',
+    description: `HeliosX hand surgery loupes for tendon, nerve and small-vessel repair: ergonomic prismatic optics for the seated hand table, supplied in 110+ countries. From ${from('kepler')}.`,
+    claim: 'the standard in hand surgery loupes, built for tendon, nerve and small-vessel repair at the hand table',
+    demand: 'Hand surgery is fine work done seated, with the head bent over a small field for hours.',
+    favored: { model: 'apollo', mag: '4.0x', why: 'hand surgeons work seated at one table height, and Apollo’s angled optics keep the head upright over a small field at 3.0x–6.0x.' },
+    alternates: [
+      { model: 'kepler', why: '4x–6x conventional prismatic for digital nerve and vessel detail.' },
+      { model: 'medusa', why: 'adjustable working distance and up to 8.5x for microvascular steps.' },
+    ],
+    procedures: [
+      { procedure: 'Flexor and extensor tendon repair', magnification: '3.5x–4.0x', distance: '350–450 mm, seated', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Digital nerve repair', magnification: '4.0x–5.0x', distance: '350–450 mm, seated', pick: '/product/kepler at 5.0x' },
+      { procedure: 'Small-vessel and replant work', magnification: '5.0x–8.5x', distance: '350–450 mm', pick: '/product/medusa at 6.0x' },
+      { procedure: 'Carpal tunnel and trigger finger', magnification: '2.5x–3.5x', distance: '400–450 mm', pick: '/product/galileo at 3.0x' },
+    ],
+    challenge: {
+      title: 'Seated, close and still',
+      body: 'At the hand table your working distance is short and your head stays still for long stretches. HeliosX measures every pair seated at your own hand table, so the focus point lands where your hands actually are.',
+      bullets: ['Measure seated at the hand table you use.', 'Plastic and reconstructive overlap: /education/best-loupes-for-plastic-surgery.'],
+    },
+    light: 'A small, shadowed field needs a tight spot. Vega (70,000 lux, 90 mm spot) or Sirius (150,000 lux, adjustable spot) keep light on the repair, not the drapes.',
+    trainees: 'hand and plastic surgery fellows',
+  },
+  {
+    slug: 'general-surgery-loupes',
+    field: 'general surgery',
+    audience: 'general surgeons',
+    title: 'General surgery loupes: the HeliosX everyday standard',
+    metaTitle: 'Best Loupes for General Surgery: The HeliosX Standard',
+    description: `HeliosX general surgery loupes: lightweight Galilean and ergonomic prismatic optics for open, hernia and hepatobiliary work, supplied in 110+ countries. From ${from('newton')}.`,
+    claim: 'the everyday standard in general surgery loupes, from open abdominal cases to hernia and hepatobiliary work',
+    demand: 'General surgery covers the widest range of fields in the OR, so the right loupe has to be light, wide and comfortable all day.',
+    favored: { model: 'galileo', mag: '3.0x', why: 'a wide, deep Galilean field at 2.5x–3.5x covers open abdominal, hernia and soft-tissue work, in a frame light enough to wear all day.' },
+    alternates: [
+      { model: 'apollo', why: 'ergonomic prismatic for long open cases where neck posture matters.' },
+      { model: 'medusa', why: 'adjustable working distance for surgeons who move between sitting and standing.' },
+    ],
+    procedures: [
+      { procedure: 'Open abdominal surgery', magnification: '2.5x–3.0x', distance: '450–550 mm, standing', pick: '/product/galileo at 2.5x' },
+      { procedure: 'Hernia repair', magnification: '2.5x–3.5x', distance: '450–500 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Hepatobiliary and pancreatic', magnification: '3.0x–4.0x', distance: '450–550 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Thyroid and parathyroid', magnification: '3.0x–4.0x', distance: '400–450 mm', pick: '/product/apollo at 3.0x' },
+    ],
+    challenge: {
+      title: 'Wide fields, long days',
+      body: 'General surgeons need to see the whole field and the detail inside it. That is why the HeliosX general surgery standard starts at Galilean 2.5x–3.5x, with ergonomic prismatic Apollo for surgeons whose long cases put the neck first.',
+      bullets: ['Measure standing, at your usual table height.', 'Trauma overlap: /trauma-surgery-loupes.'],
+    },
+    light: 'Deep pelvic and abdominal fields need light on the line of sight. Polaris (50,000 lux, widest spot) suits 2.5x–3.5x; Rigel (100,000 lux) handles deep cases.',
+    trainees: 'general surgery residents',
+  },
+  {
+    slug: 'orthopedic-surgery-loupes',
+    field: 'orthopedic surgery',
+    audience: 'orthopedic surgeons',
+    title: 'Orthopedic surgery loupes: HeliosX optics for open orthopedics',
+    metaTitle: 'Best Loupes for Orthopedic Surgery | HeliosX',
+    description: `HeliosX orthopedic surgery loupes: wide Galilean and ergonomic prismatic optics for open fixation, foot, hand and spine work, supplied in 110+ countries. From ${from('newton')}.`,
+    claim: 'the standard in orthopedic loupes, from open fracture fixation to hand, foot and spine work',
+    demand: 'Orthopedic surgery mixes large open fields with fine work on nerves, tendons and small bones.',
+    favored: { model: 'galileo', mag: '2.5x', why: 'a wide Galilean field at 2.5x–3.0x shows the whole fixation and the detail in it, and stays light through a full list.' },
+    alternates: [
+      { model: 'medusa', why: 'adjustable working distance for spine and long standing cases.' },
+      { model: 'kepler', why: '4x–6x for hand and nerve detail.' },
+    ],
+    procedures: [
+      { procedure: 'Open fracture fixation', magnification: '2.5x–3.0x', distance: '450–550 mm, standing', pick: '/product/galileo at 2.5x' },
+      { procedure: 'Foot and ankle', magnification: '2.5x–3.5x', distance: '450–500 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Spine decompression', magnification: '3.5x–4.5x', distance: '400–500 mm', pick: '/product/medusa at 4.0x' },
+      { procedure: 'Hand and nerve', magnification: '3.5x–5.0x', distance: '350–450 mm, seated', pick: '/product/kepler at 4.0x' },
+    ],
+    challenge: {
+      title: 'One pair across the whole list',
+      body: 'An orthopedic list can run from a hip to a hand. Most orthopedic surgeons pair a wide Galileo for open work with a prismatic loupe for fine steps, or choose Medusa to cover both postures in one pair.',
+      bullets: ['Spine: /spine-surgery-loupes.', 'Hand: /hand-surgery-loupes.'],
+    },
+    light: 'Polaris (50,000 lux, 140 mm spot) lights a wide orthopedic field; Rigel (100,000 lux) reaches into deep spine and pelvic approaches.',
+    trainees: 'orthopedic residents',
+  },
+  {
+    slug: 'spine-surgery-loupes',
+    field: 'spine surgery',
+    audience: 'spine surgeons',
+    title: 'Spine surgery loupes: HeliosX optics for decompression and fusion',
+    metaTitle: 'Best Loupes for Spine Surgery: The HeliosX Standard',
+    description: `HeliosX spine surgery loupes: ergonomic prismatic optics with adjustable working distance for decompression and fusion, supplied in 110+ countries. From ${from('apollo')}.`,
+    claim: 'the standard in spine surgery loupes, built for decompression, discectomy and fusion through a deep, narrow field',
+    demand: 'Spine surgery happens through a deep, narrow corridor, where light and depth of field decide the case.',
+    favored: { model: 'medusa', mag: '4.0x', why: 'Medusa’s working distance adjusts from 300 to 600 mm, so one pair stays in focus as the corridor deepens, with ergonomic optics that keep the head upright.' },
+    alternates: [
+      { model: 'apollo', why: 'the upright-head standard at a fixed table height.' },
+      { model: 'kepler', why: '4x–6x conventional prismatic detail.' },
+    ],
+    procedures: [
+      { procedure: 'Microdiscectomy (loupes with a headlight)', magnification: '4.0x–5.0x', distance: '400–500 mm', pick: '/product/medusa at 4.0x' },
+      { procedure: 'Laminectomy and decompression', magnification: '3.5x–4.5x', distance: '400–500 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Fusion and instrumentation', magnification: '2.5x–3.5x', distance: '450–550 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Cervical approaches', magnification: '3.5x–4.5x', distance: '400–500 mm', pick: '/product/kepler at 4.0x' },
+    ],
+    challenge: {
+      title: 'Depth is the whole game',
+      body: 'At depth, light runs out before magnification does, and depth of field narrows with every step up. That is why spine surgeons pair HeliosX ergonomic optics with a high-output light and choose the lowest magnification that resolves the dura.',
+      bullets: ['Clinical references describe magnifying loupes with a headlight as an accepted route for microdiscectomy.', 'Neurosurgery: /neurosurgery-loupes.'],
+    },
+    light: 'Spine is loupe-plus-light work. Rigel (100,000 lux) or Sirius (150,000 lux, adjustable spot) on the loupes, or the Canopus headlight at 198,000 lux.',
+    trainees: 'spine fellows and residents',
+  },
+  {
+    slug: 'ent-otolaryngology-loupes',
+    field: 'ENT',
+    audience: 'ENT surgeons',
+    title: 'ENT and otolaryngology loupes: HeliosX optics for head and neck',
+    metaTitle: 'Best Loupes for ENT & Otolaryngology | HeliosX',
+    description: `HeliosX ENT loupes for head and neck, thyroid, parotid and facial plastics: ergonomic prismatic optics supplied to ENT surgeons in 110+ countries. From ${from('galileo')}.`,
+    claim: 'the standard in otolaryngology loupes for head and neck, thyroid, parotid and facial plastic surgery',
+    demand: 'Head and neck surgery means protecting nerves you can barely see, in fields that change depth constantly.',
+    favored: { model: 'apollo', mag: '3.0x', why: 'Apollo’s ergonomic prismatic optics keep the head upright through long thyroid, parotid and neck dissections while showing the recurrent laryngeal and facial nerves clearly.' },
+    alternates: [
+      { model: 'galileo', why: 'a wide, light Galilean field for neck and soft-tissue work.' },
+      { model: 'medusa', why: 'adjustable working distance and up to 8.5x for fine facial plastic and free-flap steps.' },
+    ],
+    procedures: [
+      { procedure: 'Thyroid and parathyroid', magnification: '3.0x–4.0x', distance: '400–450 mm', pick: '/product/apollo at 3.0x' },
+      { procedure: 'Parotidectomy', magnification: '3.5x–4.0x', distance: '400–450 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Neck dissection', magnification: '2.5x–3.5x', distance: '450–500 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Facial plastics and free flaps', magnification: '4.0x–6.0x', distance: '350–450 mm', pick: '/product/medusa at 5.0x' },
+    ],
+    challenge: {
+      title: 'Nerves first',
+      body: 'In head and neck surgery the structures that matter most are the smallest in the field. ENT surgeons choose HeliosX for crisp, true-color optics that separate nerve from fascia, and for ergonomic designs that hold up over long dissections.',
+      bullets: ['Otologic and laryngeal microsurgery remain microscope work.', 'Maxillofacial overlap: /maxillofacial-surgery-loupes.'],
+    },
+    light: 'Narrow neck and oral fields shadow easily. Vega (70,000 lux) suits most ENT work; Sirius (150,000 lux, adjustable spot) for deep oral and pharyngeal fields.',
+    trainees: 'otolaryngology residents',
+  },
+  {
+    slug: 'maxillofacial-surgery-loupes',
+    field: 'maxillofacial surgery',
+    audience: 'maxillofacial surgeons',
+    title: 'Maxillofacial surgery loupes: HeliosX optics for the face and jaw',
+    metaTitle: 'Best Loupes for Maxillofacial Surgery | HeliosX',
+    description: `HeliosX maxillofacial loupes for trauma, orthognathic and reconstructive surgery: ergonomic prismatic optics supplied to surgeons in 110+ countries. From ${from('galileo')}.`,
+    claim: 'the standard in maxillofacial loupes, for facial trauma, orthognathic, cleft and reconstructive surgery',
+    demand: 'Maxillofacial surgeons work inside the mouth and across the face, often switching between seated and standing in the same case.',
+    favored: { model: 'medusa', mag: '3.0x', why: 'Medusa’s working distance adjusts from 300 to 600 mm, so one pair follows you from intraoral work to facial approaches without losing focus.' },
+    alternates: [
+      { model: 'apollo', why: 'the upright-head standard for long intraoral cases at one height.' },
+      { model: 'galileo', why: 'wide, light Galilean optics for trauma and soft tissue.' },
+    ],
+    procedures: [
+      { procedure: 'Facial fracture fixation', magnification: '2.5x–3.5x', distance: '400–500 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Orthognathic surgery', magnification: '3.0x–4.0x', distance: '350–450 mm', pick: '/product/medusa at 3.0x' },
+      { procedure: 'Cleft lip and palate repair', magnification: '3.5x–4.5x', distance: '350–450 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Free-flap reconstruction', magnification: '4.0x–6.0x', distance: '350–450 mm', pick: '/product/medusa at 5.0x' },
+    ],
+    challenge: {
+      title: 'Intraoral one minute, facial the next',
+      body: 'Maxillofacial surgery changes working distance constantly. HeliosX builds for that reality, and the same optics travel with the surgeons we sponsor on mission trips across South America and Asia.',
+      bullets: ['Surgical missions: /missions.', 'Oral surgery: /loupes-for-oral-surgery.'],
+    },
+    light: 'The mouth is the darkest field in surgery. Sirius (150,000 lux, adjustable spot) or the Canopus headlight (198,000 lux) light the posterior oral cavity.',
+    trainees: 'OMFS residents',
+  },
+  {
+    slug: 'pediatric-surgery-loupes',
+    field: 'pediatric surgery',
+    audience: 'pediatric surgeons',
+    title: 'Pediatric surgery loupes: HeliosX optics for the smallest patients',
+    metaTitle: 'Best Loupes for Pediatric Surgery | HeliosX',
+    description: `HeliosX pediatric surgery loupes: high-magnification prismatic optics for neonatal and congenital repair, supplied to pediatric surgeons in 110+ countries. From ${from('kepler')}.`,
+    claim: 'the standard in pediatric surgical loupes, built for neonatal, congenital and reconstructive surgery on the smallest anatomy',
+    demand: 'Pediatric surgery scales everything down: smaller vessels, finer tissue and less margin for error.',
+    favored: { model: 'kepler', mag: '4.0x', why: 'small anatomy needs higher magnification than adult work, and Kepler delivers crisp prismatic detail at 4x–6x.' },
+    alternates: [
+      { model: 'medusa', why: 'ergonomic prismatic up to 8.5x with adjustable working distance.' },
+      { model: 'apollo', why: 'an upright head through long congenital repairs.' },
+    ],
+    procedures: [
+      { procedure: 'Neonatal abdominal surgery', magnification: '3.5x–4.5x', distance: '400–450 mm', pick: '/product/kepler at 4.0x' },
+      { procedure: 'Hypospadias repair', magnification: '3.5x–4.5x', distance: '350–450 mm, seated', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Congenital and cleft repair', magnification: '4.0x–5.0x', distance: '350–450 mm', pick: '/product/medusa at 4.0x' },
+      { procedure: 'Pyloromyotomy and hernia', magnification: '3.0x–3.5x', distance: '400–450 mm', pick: '/product/galileo at 3.5x' },
+    ],
+    challenge: {
+      title: 'Everything is smaller',
+      body: 'Pediatric surgeons typically work a step higher in magnification than their adult colleagues. HeliosX has equipped pediatric surgeons in teaching hospitals and on surgical missions for children with congenital conditions across South America and Asia.',
+      bullets: ['Surgical missions: /missions.', 'Pediatric dentistry: /loupes-for-pediatric-dentistry.'],
+    },
+    light: 'Small fields need a tight, bright spot. Vega (70,000 lux, 90 mm spot) up to 4x; Rigel (100,000 lux) for 4x–6x.',
+    trainees: 'pediatric surgery fellows',
+  },
+  {
+    slug: 'ophthalmic-surgery-loupes',
+    field: 'ophthalmic surgery',
+    audience: 'ophthalmic surgeons',
+    title: 'Ophthalmic surgery loupes: HeliosX optics for oculoplastics',
+    metaTitle: 'Best Loupes for Ophthalmic & Oculoplastic Surgery | HeliosX',
+    description: `HeliosX ophthalmic loupes for oculoplastic, eyelid, lacrimal and strabismus surgery: lightweight, true-color optics supplied in 110+ countries. From ${from('galileo')}.`,
+    claim: 'the standard in oculoplastic and ophthalmic loupes, for eyelid, orbital, lacrimal and strabismus surgery',
+    demand: 'Oculoplastic surgery is fine, seated work on delicate tissue, where color and clarity matter as much as magnification.',
+    favored: { model: 'galileo', mag: '3.0x', why: 'a wide, true-color Galilean field at 2.5x–3.5x suits eyelid and lacrimal surgery, in a frame light enough for a full clinic and theater day.' },
+    alternates: [
+      { model: 'apollo', why: 'ergonomic prismatic for an upright head at the seated table.' },
+      { model: 'kepler', why: '4x–6x for orbital and fine reconstructive steps.' },
+    ],
+    procedures: [
+      { procedure: 'Blepharoplasty and ptosis repair', magnification: '2.5x–3.5x', distance: '350–450 mm, seated', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Lacrimal surgery', magnification: '3.0x–4.0x', distance: '350–450 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Strabismus surgery', magnification: '3.0x–4.0x', distance: '350–450 mm', pick: '/product/apollo at 3.0x' },
+      { procedure: 'Orbital reconstruction', magnification: '3.5x–5.0x', distance: '350–450 mm', pick: '/product/kepler at 4.0x' },
+    ],
+    challenge: {
+      title: 'Loupes outside the eye, microscope inside it',
+      body: 'Intraocular surgery belongs to the operating microscope. Everything around the eye, from the lids to the orbit and the muscles, is loupe territory, and that is where ophthalmic surgeons choose HeliosX.',
+      bullets: ['Measure seated at your own chair height.', 'Dermatology and Mohs reconstruction: /dermatology-mohs-surgery-loupes.'],
+    },
+    light: 'Polaris (50,000 lux, widest spot) suits eyelid work; Vega (70,000 lux) adds punch for lacrimal and orbital fields.',
+    trainees: 'ophthalmology residents',
+  },
+  {
+    slug: 'urology-loupes',
+    field: 'urology',
+    audience: 'urologists',
+    title: 'Urology loupes: HeliosX optics for open and reconstructive urology',
+    metaTitle: 'Best Loupes for Urology: The HeliosX Standard',
+    description: `HeliosX urology loupes for open, reconstructive and pediatric urology, vasectomy reversal and hypospadias: supplied to urologists in 110+ countries. From ${from('galileo')}.`,
+    claim: 'the standard in urology loupes, for open, reconstructive and pediatric urology',
+    demand: 'Urology runs from large open cases to some of the finest reconstruction in surgery.',
+    favored: { model: 'apollo', mag: '4.0x', why: 'Apollo’s ergonomic prismatic optics cover urethral, ureteral and pediatric reconstruction at 3.0x–6.0x with an upright head.' },
+    alternates: [
+      { model: 'galileo', why: 'wide, light optics for open renal and pelvic work.' },
+      { model: 'medusa', why: 'up to 8.5x and adjustable working distance for vasectomy reversal and microsurgical steps.' },
+    ],
+    procedures: [
+      { procedure: 'Urethroplasty and ureteral reconstruction', magnification: '3.5x–4.5x', distance: '400–450 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Hypospadias repair', magnification: '3.5x–4.5x', distance: '350–450 mm, seated', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Vasectomy reversal', magnification: '6.0x–8.5x', distance: '350–450 mm', pick: '/product/medusa at 8.0x' },
+      { procedure: 'Open renal and pelvic', magnification: '2.5x–3.0x', distance: '450–550 mm', pick: '/product/galileo at 2.5x' },
+    ],
+    challenge: {
+      title: 'From open cases to fine reconstruction',
+      body: 'Most urologists need two strengths: a wide view for open work and real magnification for reconstruction. HeliosX covers both with Galileo and Apollo, or Medusa up to 8.5x for microsurgical steps.',
+      bullets: ['Pediatric surgery: /pediatric-surgery-loupes.'],
+    },
+    light: 'Deep pelvic fields shadow fast. Rigel (100,000 lux) for pelvic work; Sirius (150,000 lux, adjustable spot) for fine reconstruction.',
+    trainees: 'urology residents',
+  },
+  {
+    slug: 'gynecology-loupes',
+    field: 'gynecologic surgery',
+    audience: 'gynecologic surgeons',
+    title: 'Gynecology loupes: HeliosX optics for gynecologic surgery',
+    metaTitle: 'Best Loupes for Gynecologic Surgery | HeliosX',
+    description: `HeliosX gynecology loupes for open, urogynecologic and reconstructive pelvic surgery: lightweight and ergonomic optics supplied in 110+ countries. From ${from('galileo')}.`,
+    claim: 'the standard in gynecologic surgery loupes, for open, urogynecologic and reconstructive pelvic surgery',
+    demand: 'Gynecologic surgery works deep in the pelvis, where light and posture decide how well you see.',
+    favored: { model: 'galileo', mag: '3.0x', why: 'a wide, deep Galilean field at 2.5x–3.5x suits open pelvic and vaginal surgery, and stays light through a full list.' },
+    alternates: [
+      { model: 'apollo', why: 'ergonomic prismatic for long pelvic floor and fistula repairs.' },
+      { model: 'medusa', why: 'adjustable working distance for seated vaginal and standing abdominal work.' },
+    ],
+    procedures: [
+      { procedure: 'Open hysterectomy and myomectomy', magnification: '2.5x–3.0x', distance: '450–550 mm', pick: '/product/galileo at 2.5x' },
+      { procedure: 'Pelvic floor reconstruction', magnification: '3.0x–3.5x', distance: '400–500 mm, often seated', pick: '/product/medusa at 3.0x' },
+      { procedure: 'Fistula repair', magnification: '3.5x–4.5x', distance: '400–450 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Vulvar and vaginal surgery', magnification: '2.5x–3.5x', distance: '400–450 mm, seated', pick: '/product/galileo at 3.0x' },
+    ],
+    challenge: {
+      title: 'Seated and standing in one list',
+      body: 'Gynecologic surgeons sit for vaginal surgery and stand for abdominal cases. Medusa’s adjustable working distance covers both, or pair Galileo for open work with Apollo for reconstruction.',
+      bullets: ['Measure both postures before ordering.'],
+    },
+    light: 'The pelvis is a deep, dark field. Rigel (100,000 lux) or the Canopus headlight (198,000 lux) put light where overhead lamps cannot reach.',
+    trainees: 'OB/GYN residents',
+  },
+  {
+    slug: 'colorectal-surgery-loupes',
+    field: 'colorectal surgery',
+    audience: 'colorectal surgeons',
+    title: 'Colorectal surgery loupes: HeliosX optics for open and anorectal work',
+    metaTitle: 'Best Loupes for Colorectal Surgery | HeliosX',
+    description: `HeliosX colorectal loupes for anorectal, fistula and open colorectal surgery: lightweight, ergonomic optics supplied in 110+ countries. From ${from('galileo')}.`,
+    claim: 'the standard in colorectal surgery loupes, for anorectal, fistula and open colorectal surgery',
+    demand: 'Colorectal surgery combines open abdominal work with fine anorectal surgery in a small, shadowed field.',
+    favored: { model: 'galileo', mag: '3.0x', why: 'Galilean 2.5x–3.5x gives a wide, deep field for anorectal and open work, in a frame light enough for a full list.' },
+    alternates: [
+      { model: 'apollo', why: 'an upright head through long anorectal cases.' },
+      { model: 'medusa', why: 'adjustable working distance for prone and lithotomy positions.' },
+    ],
+    procedures: [
+      { procedure: 'Fistula-in-ano and abscess', magnification: '2.5x–3.5x', distance: '400–450 mm, seated', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Hemorrhoid and fissure surgery', magnification: '2.5x–3.0x', distance: '400–450 mm', pick: '/product/galileo at 2.5x' },
+      { procedure: 'Sphincter repair', magnification: '3.0x–4.0x', distance: '400–450 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Open colectomy', magnification: '2.5x–3.0x', distance: '450–550 mm', pick: '/product/galileo at 2.5x' },
+    ],
+    challenge: {
+      title: 'Small field, poor light',
+      body: 'Anorectal surgery happens in a small, shadowed field where overhead light rarely reaches. A loupe-mounted light matters as much as the loupe.',
+      bullets: ['General surgery: /general-surgery-loupes.'],
+    },
+    light: 'A coaxial light is essential for anorectal work. Vega (70,000 lux) or Rigel (100,000 lux) mounted on the loupe follows your line of sight.',
+    trainees: 'colorectal fellows',
+  },
+  {
+    slug: 'trauma-surgery-loupes',
+    field: 'trauma surgery',
+    audience: 'trauma surgeons',
+    title: 'Trauma surgery loupes: HeliosX optics ready for anything',
+    metaTitle: 'Best Loupes for Trauma Surgery | HeliosX',
+    description: `HeliosX trauma surgery loupes: wide Galilean and adjustable ergonomic optics for vascular, soft-tissue and damage-control work, supplied in 110+ countries. From ${from('galileo')}.`,
+    claim: 'the standard in trauma surgery loupes, ready for vascular, soft-tissue and damage-control surgery at any hour',
+    demand: 'Trauma surgery never knows what is coming: a vessel, a nerve, a hand, an abdomen, all on the same night.',
+    favored: { model: 'medusa', mag: '3.0x', why: 'Medusa’s working distance adjusts from 300 to 600 mm, so one pair handles whatever comes through the door, from a deep abdomen to a hand laceration.' },
+    alternates: [
+      { model: 'galileo', why: 'a wide, light field for damage control and soft tissue.' },
+      { model: 'kepler', why: '4x–6x for vascular repair.' },
+    ],
+    procedures: [
+      { procedure: 'Damage-control laparotomy', magnification: '2.5x–3.0x', distance: '450–550 mm', pick: '/product/galileo at 2.5x' },
+      { procedure: 'Vascular injury repair', magnification: '3.5x–4.5x', distance: '400–500 mm', pick: '/product/kepler at 4.0x' },
+      { procedure: 'Complex soft-tissue and facial wounds', magnification: '2.5x–3.5x', distance: '400–450 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Mixed nights, every posture', magnification: '3.0x–4.0x', distance: '300–600 mm, adjustable', pick: '/product/medusa at 3.0x' },
+    ],
+    challenge: {
+      title: 'One pair for every call',
+      body: 'Trauma surgeons cannot choose their cases. HeliosX trauma loupes are built for range: a wide view to find the injury, enough magnification to repair it, and a working distance that adapts with Medusa.',
+      bullets: ['Vascular surgery: /vascular-surgery-loupes.'],
+    },
+    light: 'Trauma lighting is unpredictable. A headlight such as Arcturus (150,000 lux, up to 12 hours) or a Rigel loupe light keeps you independent of the room.',
+    trainees: 'trauma and acute care fellows',
+  },
+  {
+    slug: 'dermatology-mohs-surgery-loupes',
+    field: 'Mohs and dermatologic surgery',
+    audience: 'Mohs surgeons and dermatologic surgeons',
+    title: 'Mohs and dermatologic surgery loupes: HeliosX optics for reconstruction',
+    metaTitle: 'Best Loupes for Mohs & Dermatologic Surgery | HeliosX',
+    description: `HeliosX loupes for Mohs surgery and dermatologic reconstruction: lightweight Galilean optics for a full day of stages, supplied in 110+ countries. From ${from('newton')}.`,
+    claim: 'the standard in Mohs and dermatologic surgery loupes, built for a full day of stages and fine facial reconstruction',
+    demand: 'Mohs surgeons operate stage after stage all day, then close with fine facial reconstruction.',
+    favored: { model: 'galileo', mag: '3.0x', why: 'Galilean 2.5x–3.5x is the Mohs sweet spot, and Galileo is light enough to wear from the first stage to the last closure.' },
+    alternates: [
+      { model: 'newton', why: 'the lightest HeliosX loupe for all-day wear.' },
+      { model: 'apollo', why: 'ergonomic prismatic for surgeons whose neck is the limit.' },
+    ],
+    procedures: [
+      { procedure: 'Mohs stages', magnification: '2.5x–3.0x', distance: '400–450 mm, seated', pick: '/product/galileo at 2.5x' },
+      { procedure: 'Flap and graft reconstruction', magnification: '3.0x–3.5x', distance: '350–450 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Eyelid and nasal reconstruction', magnification: '3.5x–4.0x', distance: '350–450 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Excisions and closures', magnification: '2.5x', distance: '400–450 mm', pick: '/product/newton at 2.5x' },
+    ],
+    challenge: {
+      title: 'Weight matters by stage ten',
+      body: 'Over a full Mohs day, the loupe you barely notice is the one you keep wearing. HeliosX Galilean loupes are built from premium lightweight metals for exactly that day.',
+      bullets: ['Lightweight loupes compared: /lightweight-dental-loupes.', 'Oculoplastic overlap: /ophthalmic-surgery-loupes.'],
+    },
+    light: 'Polaris (50,000 lux, widest spot) is the Mohs favorite: enough light for 2.5x–3.5x and only 10 g at the frame.',
+  },
+  {
+    slug: 'podiatry-foot-ankle-surgery-loupes',
+    field: 'podiatric and foot and ankle surgery',
+    audience: 'podiatric and foot and ankle surgeons',
+    title: 'Podiatry and foot and ankle loupes: HeliosX optics for the foot',
+    metaTitle: 'Best Loupes for Podiatry & Foot and Ankle Surgery | HeliosX',
+    description: `HeliosX loupes for podiatric and foot and ankle surgery: lightweight Galilean and ergonomic optics for bunion, tendon and nerve work. Supplied in 110+ countries. From ${from('newton')}.`,
+    claim: 'the standard in podiatric and foot and ankle loupes, for bunion, tendon, nerve and forefoot surgery',
+    demand: 'Foot and ankle surgery is detailed work on small bones, tendons and nerves, often done seated at the end of the table.',
+    favored: { model: 'galileo', mag: '3.0x', why: 'Galilean 2.5x–3.5x shows small bones and tendons clearly with a wide field, in a frame light enough for a full clinic and surgery day.' },
+    alternates: [
+      { model: 'apollo', why: 'ergonomic prismatic for an upright head at the foot of the table.' },
+      { model: 'kepler', why: '4x–6x for nerve decompression and fine tendon work.' },
+    ],
+    procedures: [
+      { procedure: 'Bunion and forefoot correction', magnification: '2.5x–3.0x', distance: '400–450 mm, seated', pick: '/product/galileo at 2.5x' },
+      { procedure: 'Tendon repair and transfer', magnification: '3.0x–3.5x', distance: '400–450 mm', pick: '/product/galileo at 3.5x' },
+      { procedure: 'Nerve decompression', magnification: '3.5x–4.5x', distance: '350–450 mm', pick: '/product/apollo at 4.0x' },
+      { procedure: 'Nail and soft-tissue procedures', magnification: '2.5x', distance: '400–450 mm', pick: '/product/newton at 2.5x' },
+    ],
+    challenge: {
+      title: 'Seated at the end of the table',
+      body: 'Most foot surgery is done seated, looking down at a small field. HeliosX measures every pair in that exact posture, and Apollo keeps the head upright when the list is long.',
+      bullets: ['Orthopedic overlap: /orthopedic-surgery-loupes.'],
+    },
+    light: 'Polaris (50,000 lux) suits most foot work; Vega (70,000 lux) adds light for nerve and tendon cases.',
+    trainees: 'podiatric surgery residents',
+  },
+  {
+    slug: 'veterinary-surgery-loupes',
+    field: 'veterinary surgery',
+    audience: 'veterinary surgeons',
+    title: 'Veterinary surgery loupes: HeliosX optics for every patient',
+    metaTitle: 'Best Loupes for Veterinary Surgery | HeliosX',
+    description: `HeliosX veterinary surgery loupes for soft-tissue, orthopedic and exotic-animal surgery: lightweight and ergonomic optics supplied in 110+ countries. From ${from('newton')}.`,
+    claim: 'the standard in veterinary surgery loupes, for soft-tissue, orthopedic, ophthalmic and exotic-animal surgery',
+    demand: 'Veterinary surgeons operate on patients from a hamster to a horse, often in the same week.',
+    favored: { model: 'galileo', mag: '3.0x', why: 'Galilean 2.5x–3.5x covers small-animal soft-tissue and orthopedic surgery with a wide, deep field, and is light enough for a full surgical day.' },
+    alternates: [
+      { model: 'kepler', why: '4x–6x for exotic, ophthalmic and small-vessel work.' },
+      { model: 'medusa', why: 'adjustable working distance for surgeons who move between patients of every size.' },
+    ],
+    procedures: [
+      { procedure: 'Small-animal soft tissue', magnification: '2.5x–3.5x', distance: '400–500 mm', pick: '/product/galileo at 3.0x' },
+      { procedure: 'Orthopedics (TPLO, fracture repair)', magnification: '2.5x–3.0x', distance: '450–550 mm', pick: '/product/galileo at 2.5x' },
+      { procedure: 'Exotic and avian surgery', magnification: '4.0x–6.0x', distance: '350–450 mm', pick: '/product/kepler at 4.0x' },
+      { procedure: 'Ophthalmic and fine work', magnification: '4.0x–6.0x', distance: '350–450 mm', pick: '/product/medusa at 5.0x' },
+    ],
+    challenge: {
+      title: 'Every patient a different size',
+      body: 'Veterinary surgery changes scale from one case to the next. HeliosX equips veterinary surgeons with a wide Galilean pair for everyday surgery and a prismatic pair for the smallest patients, or Medusa to cover both.',
+      bullets: ['Veterinary dentistry: /veterinary-dental-loupes.'],
+    },
+    light: 'Small patients and deep body cavities both need light on the line of sight. Vega (70,000 lux) suits most cases; Rigel (100,000 lux) for exotics and deep fields.',
+    trainees: 'veterinary surgery residents and interns',
+  },
+]
+for (const s of surgicalSpecs) rewrites[s.slug] = specialty(s)
 
 export function applySpecialtyRewrites(pages: SeoLandingPage[]) {
   for (const page of pages) {

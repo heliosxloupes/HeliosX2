@@ -21,6 +21,8 @@ const buyingGuides = new Set([
   'loupes-for-dental-hygiene',
   'surgical-magnifying-glasses',
   'lightweight-dental-loupes',
+  'dental-hygiene-loupes-with-light',
+  'surgical-loupes-with-light',
 ])
 
 function group(slug: string) {

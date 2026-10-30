@@ -155,6 +155,7 @@ type RoundUpdate = Partial<SeoLandingPage> & {
   addFaqs?: ContentFaq[]
   replaceFaq?: Record<string, string>
   addKeywords?: string[]
+  removeKeywords?: string[]
 }
 
 const updates: Record<string, RoundUpdate> = {
@@ -505,7 +506,7 @@ Object.assign(updates, {
       `${heliosxFirst} ZEISS EyeMag is sold through dealers without published US prices, and retailers list a 2-year warranty against HeliosX's lifetime warranty. Medusa also adjusts working distance from 300 to 600 mm instead of fixed steps.`,
       'ZEISS Loupes vs HeliosX: Price, Fit & Warranty',
       ['zeiss dental loupes', 'carl zeiss dental loupes', 'dental loupes zeiss', 'zeiss surgical loupes'],
-    'Choose HeliosX if you want the full price before you order, a pair built to your working distance or adjustable with Medusa, ergonomic prismatic optics, and a lifetime warranty instead of two years.',
+      'Choose HeliosX if you want the full price before you order, a pair built to your working distance or adjustable with Medusa, ergonomic prismatic optics, and a lifetime warranty instead of two years.',
     ),
   },
   'heliosx-vs-designs-for-vision': {
@@ -516,6 +517,183 @@ Object.assign(updates, {
   },
 } satisfies Record<string, RoundUpdate>)
 
+// Oct 29: light pages by audience. 90 days of Search Console showed hygienist
+// light searches (1,820 impressions, position 49) split across three pages
+// with none built for them, and Keyword Planner shows "surgical loupes with
+// light" and "led surgical headlight" at 100–1K a month with no page of ours.
+const added = '2026-10-29'
+const loupePrice = (model: string, mag: string) => magnificationPriceByProduct[model][mag]
+const lightOption = (slug: string, option: string) => lightPriceBySlug[slug].prices[option]
+const setupRow = (setup: string, model: string, mag: string, light: string, option: string, frameWeight: string, runtime: string) => [
+  setup,
+  `${name(model)} ${mag}: /product/${model}`,
+  `${name(light)}, ${optionLabel[option]}`,
+  frameWeight,
+  runtime,
+  `${usd(loupePrice(model, mag) + lightOption(light, option))} (${usd(loupePrice(model, mag))} + ${usd(lightOption(light, option))})`,
+]
+const name = (slug: string) => slug[0].toUpperCase() + slug.slice(1)
+const optionLabel: Record<string, string> = {
+  'clip-4h': 'clip-on battery',
+  'slim-6h': 'slim battery',
+  'pack-10h': 'extended battery',
+  'neck-4h': 'neckband battery',
+  wireless: 'wireless',
+}
+const setupColumns = ['Setup', 'Loupe', 'Light', 'Weight at the frame', 'Light runtime', 'Loupe + light']
+const setupNote = `Prices in USD before the ${LIGHT_BUNDLE_PERCENT_OFF}% light discount you get when the light is ordered with the loupes. Weights are the published loupe weight plus the light head; corded batteries sit at your waist or neck, not on the frame. Every HeliosX light fits every HeliosX frame.`
+
+oct28NewPages.push(
+  {
+    slug: 'dental-hygiene-loupes-with-light',
+    title: 'Dental hygiene loupes with light: the pair and light hygienists need',
+    metaTitle: 'Dental Hygiene Loupes With Light: Setups & Prices | HeliosX',
+    description: `Dental hygiene loupes with a light: 3.0x–3.5x Galilean loupes plus an LED for posterior and sub-gingival work. Five setups with prices, from ${usd(loupePrice('newton', '2.5x') + lightOption('polaris', 'clip-4h'))}.`,
+    heroKicker: 'Hygiene loupes with light',
+    primaryKeyword: 'dental hygiene loupes with light',
+    relatedKeywords: ['dental loupes with light for dental hygienist', 'dental hygienist loupes with light', 'loupes with light for dental hygienist', 'dental hygiene glasses with light', 'best dental hygiene loupes with light', 'headlight for dental hygienist', 'dental hygienist glasses with light'],
+    audience: 'dental hygienists and hygiene students choosing loupes and a light together',
+    answer: `Most hygienists do best with a 3.0x–3.5x Galilean loupe and a corded LED light: HeliosX Galileo 3.0x (${usd(loupePrice('galileo', '3.0x'))}) with a Polaris light (from ${usd(lightFrom('polaris'))}) adds only 10 g at the frame and runs 4–10 hours on a battery at your waist. Order the light with the loupes for ${LIGHT_BUNDLE_PERCENT_OFF}% off; hygiene students get ${TRAINEE_PERCENT_OFF}% off the loupes.`,
+    intro: 'Hygiene asks more of a light than most dentistry: six to eight hours of recalls, posterior and sub-gingival work in the shadow of your own head, and a frame you wear all day. Choose the loupe and the light together, because the light is mounted to the frame you order.',
+    specTable: {
+      title: 'Hygienist setups: loupe and light',
+      lead: 'Five complete setups, from the lowest price to the most upright posture.',
+      columns: setupColumns,
+      rows: [
+        setupRow('Lowest price', 'newton', '2.5x', 'polaris', 'clip-4h', '40 g + 10 g light', '4 h'),
+        setupRow('Most hygienists', 'galileo', '3.0x', 'polaris', 'slim-6h', '36 g + 10 g light', '6 h'),
+        setupRow('Full day of recalls', 'galileo', '3.5x', 'polaris', 'pack-10h', '37 g + 10 g light', '10 h'),
+        setupRow('No cord', 'galileo', '3.0x', 'nova', 'wireless', '36 g + 29 g light with battery', '3 h per battery, 3 batteries'),
+        setupRow('Neck strain', 'apollo', '3.0x', 'vega', 'slim-6h', '55–58 g + 10 g light', '6 h'),
+      ],
+      note: setupNote,
+    },
+    proofPoints: ['Five complete setups with prices.', 'Every light fits every HeliosX frame.', `${LIGHT_BUNDLE_PERCENT_OFF}% off the light with loupes.`],
+    sections: [
+      section(
+        'Why hygienists need a loupe light',
+        'The operatory light sits above and behind you, so your own head blocks it as soon as you lean in. Sub-gingival deposits, distal surfaces and the posterior sextants all sit in that shadow. A light mounted on the loupe points wherever you look, so the field stays lit at every angle.',
+        ['Magnification without a light gives you a bigger view of a darker field.', 'At 2.5x–3.5x, a 50,000-lux light such as Polaris is enough for most hygiene work.'],
+      ),
+      section(
+        'Corded or wireless for a full column of recalls',
+        'A corded light keeps the frame light: the head adds 10 g and the battery rides at your waist or neck for 4–10 hours. The wireless Nova has no cord to catch on the chair or bib, but adds 29 g on the frame and runs about 3 hours per battery, so you swap between patients. Most hygienists notice weight on the nose before they notice a cord.',
+        ['Long days without a break: Polaris on the extended 10-hour battery.', 'Moving between operatories all day: Nova wireless, with three batteries included.'],
+        '/product/lights',
+        'Compare all five HeliosX lights',
+      ),
+      section(
+        'Fit the loupe to your chair, then the light to the loupe',
+        'The light only helps if the loupe is focused where you work. Every HeliosX pair is built to the working distance you measure in your own seated posture, and we review the measurements before production. A 2021 study of hygiene students found that all of them exceeded 20° of neck flexion while scaling, so a pair fitted to your chair position matters as much as the light.',
+        ['Measure your working distance: /education/working-distance-for-loupes.', 'Choosing the loupe first: /loupes-for-dental-hygiene.'],
+        'https://pubmed.ncbi.nlm.nih.gov/33875531/',
+        'J Dent Hyg 2021: neck flexion and pain in 24 dental hygiene students',
+      ),
+      section(
+        'What a hygiene setup costs',
+        `A complete HeliosX hygiene setup runs from ${usd(loupePrice('newton', '2.5x') + lightOption('polaris', 'clip-4h'))} (Newton 2.5x with Polaris) before the ${LIGHT_BUNDLE_PERCENT_OFF}% light discount. Frame, worldwide shipping and a lifetime warranty are included in the loupe price, and hygiene students get ${TRAINEE_PERCENT_OFF}% off the loupes.`,
+        [`Prescription lenses add ${usd(PRESCRIPTION_PRICE)}.`, 'Full loupe price list: /how-much-do-surgical-loupes-cost.'],
+      ),
+    ],
+    recommendedProducts: ['Galileo', 'Newton', 'Apollo'],
+    faqs: [
+      faq('Do dental hygienists need a loupe light?', 'Most do. Posterior and sub-gingival work sits in the shadow of your own head, and a loupe-mounted light keeps the field lit wherever you look.'),
+      faq('Which light is best for hygiene loupes?', `At 2.5x–3.5x, a 50,000-lux corded light such as HeliosX Polaris (from ${usd(lightFrom('polaris'))}) suits most hygienists. Choose the wireless Nova if a cord bothers you more than 29 g on the frame.`),
+      faq('Can I add a light to my HeliosX loupes later?', `Yes. Every HeliosX light fits every HeliosX frame. The ${LIGHT_BUNDLE_PERCENT_OFF}% light discount applies when the light is ordered with the loupes.`),
+      faq('How much do hygiene loupes with a light cost?', `HeliosX setups run from ${usd(loupePrice('newton', '2.5x') + lightOption('polaris', 'clip-4h'))} (Newton 2.5x with Polaris) to about ${usd(loupePrice('apollo', '3.0x') + lightOption('vega', 'slim-6h'))} for ergonomic Apollo with Vega, before the ${LIGHT_BUNDLE_PERCENT_OFF}% light discount.`),
+    ],
+    datePublished: added,
+    dateModified: added,
+  },
+  {
+    slug: 'surgical-loupes-with-light',
+    title: 'Surgical loupes with light: choosing a headlight for the OR',
+    metaTitle: 'Surgical Loupes With Light & LED Headlights | HeliosX',
+    description: `Surgical loupes with a light: match the LED headlight to your magnification and field depth, from 50,000 to 150,000 lux. Setups with prices from ${usd(loupePrice('galileo', '3.0x') + lightOption('vega', 'slim-6h'))}.`,
+    heroKicker: 'Surgical loupes with light',
+    primaryKeyword: 'surgical loupes with light',
+    relatedKeywords: ['led surgical headlight', 'surgical headlight', 'surgical loupes with headlight', 'surgical loupe headlight', 'medical loupes with light', 'best surgical loupes with light', 'cordless surgical headlight', 'ergonomic loupes with light', 'prismatic loupes with light', 'surgical magnifying glasses with light'],
+    audience: 'surgeons, residents and fellows choosing loupes and a headlight for the operating room',
+    answer: `Match the light to your magnification and how deep you work: Vega (70,000 lux) for 2.5x–4x general surgery, Rigel (100,000 lux) for 4x–6x and deep or shadowed fields, and Sirius (150,000 lux, adjustable spot) for high magnification and fine work. HeliosX corded lights add 10–12 g at the frame and run up to 10 hours, every light fits every HeliosX frame, and lights ordered with loupes are ${LIGHT_BUNDLE_PERCENT_OFF}% off.`,
+    intro: 'Overhead theatre lights are aimed at the field, but your head, hands and retractors shadow it as soon as you lean in, and deep cavities stay dark. A loupe-mounted headlight puts the light on your line of sight. The right one depends on your magnification, the depth you work at, and how long your cases run.',
+    specTable: {
+      title: 'Surgical setups: loupe and light',
+      lead: 'Common setups by type of work. Higher magnification shows a smaller, darker field, so it needs more light.',
+      columns: setupColumns,
+      rows: [
+        setupRow('Training and general surgery', 'galileo', '3.0x', 'vega', 'slim-6h', '36 g + 10 g light', '6 h'),
+        setupRow('Plastic, hand and vascular at 4x', 'kepler', '4.0x', 'rigel', 'pack-10h', '68 g + 11 g light', '10 h'),
+        setupRow('Long cases, upright posture', 'apollo', '4.0x', 'rigel', 'pack-10h', '55–58 g + 11 g light', '10 h'),
+        setupRow('Fine detail at 6x', 'medusa', '6.0x', 'sirius', 'pack-10h', '58 g + 12 g light', '10 h'),
+        setupRow('Sitting and standing, no waist pack', 'medusa', '4.0x', 'rigel', 'neck-4h', '56 g + 11 g light', '4 h'),
+      ],
+      note: setupNote,
+    },
+    proofPoints: ['Lights from 50,000 to 150,000 lux.', 'Up to 10 hours on one battery.', `${LIGHT_BUNDLE_PERCENT_OFF}% off the light with loupes.`],
+    sections: [
+      section(
+        'Brightness follows magnification',
+        'Each step up in magnification spreads the same light over a smaller field and darkens the view through the loupe. That is why the light that is plenty at 3.0x feels dim at 5.0x.',
+        [
+          `2.5x–3.5x: Polaris, 50,000 lux, widest spot (140 mm), from ${usd(lightFrom('polaris'))}.`,
+          `Up to 4x: Vega, 70,000 lux, from ${usd(lightFrom('vega'))}.`,
+          `4x–6x and deep fields: Rigel, 100,000 lux, from ${usd(lightFrom('rigel'))}.`,
+          `High magnification and fine work: Sirius, 150,000 lux, adjustable spot, from ${usd(lightFrom('sirius'))}.`,
+        ],
+        '/product/lights',
+        'Compare all five HeliosX lights',
+      ),
+      section(
+        'Runtime for long cases',
+        'Choose the battery for your longest list, not your average one. HeliosX corded lights take a clip-on (4 h), slim (6 h), extended (10 h) or neckband (4 h) battery. The neckband keeps nothing at the waist, which helps if you gown and scrub with a pack in the way.',
+        ['Full day in theatre: extended 10-hour battery.', 'Gowned cases: neckband battery, nothing at the waist.'],
+      ),
+      section(
+        'Ergonomic and prismatic loupes with a light',
+        'Ergonomic prismatic loupes, such as HeliosX Apollo and Medusa, redirect your line of sight downward so your head can stay more upright. The light has to point where you are actually looking, so it is mounted for the loupe you order. Prismatic loupes are heavier than Galilean ones, which makes a 10–12 g corded head the better match than a heavier wireless light.',
+        ['Ergonomic loupes compared: /ergonomic-loupe-comparison.', 'Galilean vs prismatic: /prismatic-loupe-comparison.'],
+      ),
+      section(
+        'What a surgical setup costs',
+        `HeliosX surgical setups run from ${usd(loupePrice('galileo', '3.0x') + lightOption('vega', 'slim-6h'))} (Galileo 3.0x with Vega) before the ${LIGHT_BUNDLE_PERCENT_OFF}% light discount. Loupe prices include the frame, worldwide shipping and a lifetime warranty, and verified residents and fellows get ${TRAINEE_PERCENT_OFF}% off the loupes.`,
+        [`Prescription lenses add ${usd(PRESCRIPTION_PRICE)}.`, 'Every loupe price: /how-much-do-surgical-loupes-cost.'],
+      ),
+    ],
+    recommendedProducts: ['Kepler', 'Apollo', 'Medusa', 'Galileo'],
+    faqs: [
+      faq('Do surgical loupes come with a light?', `HeliosX sells the light separately so you can choose brightness and battery, and every light fits every HeliosX frame. Ordered with loupes, the light is ${LIGHT_BUNDLE_PERCENT_OFF}% off.`),
+      faq('How bright should a surgical headlight be?', 'Around 50,000–70,000 lux suits 2.5x–4x. At 4x–6x, or in deep cavities, 100,000 lux or more helps; HeliosX Sirius reaches 150,000 lux with an adjustable spot.'),
+      faq('Corded or cordless headlight for surgery?', 'Corded lights keep the frame lighter (10–12 g at the head) and run up to 10 hours, which suits long lists. The wireless Nova runs about 3 hours per battery, so it fits shorter cases where you can swap between them.'),
+      faq('Can I add a light to ergonomic loupes?', 'Yes. Every HeliosX light fits every HeliosX frame, including ergonomic prismatic Apollo and Medusa.'),
+    ],
+    datePublished: added,
+    dateModified: added,
+  },
+)
+
+// Send the hygienist-light searches to the new page instead of splitting them.
+const hygieneLightPointer = section(
+  'Dental hygiene loupes with light',
+  'Hygienists have their own light needs: a full column of recalls, posterior and sub-gingival work, and a frame worn all day. We cover complete hygienist setups, with prices, on their own page.',
+  ['Hygienist setups with prices: /dental-hygiene-loupes-with-light.'],
+)
+updates['dental-loupes-with-light'].replaceSection = {
+  ...updates['dental-loupes-with-light'].replaceSection,
+  'Dental hygiene loupes with light: what changes': hygieneLightPointer,
+}
+updates['dental-loupes-with-light'].removeKeywords = ['dental hygiene loupes with light', 'loupes with light for dental hygienist', 'dental loupes with light for dental hygienist', 'dental hygienist loupes with light']
+updates['loupes-for-dental-hygiene'].replaceSection = {
+  'Light matters more in hygiene than most buyers expect': section(
+    'Light matters more in hygiene than most buyers expect',
+    'Sub-gingival work, distal surfaces and the posterior sextants sit in the shadow of your own head, so most hygienists add a loupe-mounted light. Choose it with the loupe, because it is mounted to the frame you order.',
+    ['Five hygienist setups, loupe and light, with prices: /dental-hygiene-loupes-with-light.'],
+  ),
+}
+updates['surgical-loupes'].addFaqs = [
+  ...(updates['surgical-loupes'].addFaqs ?? []),
+  faq('Which light should I use with surgical loupes?', 'Match it to magnification: Vega up to 4x, Rigel at 4x–6x or in deep fields, Sirius for high magnification. Setups with prices: /surgical-loupes-with-light.'),
+]
+
 // applyEditorialRevisions strips comparison tables from pages without a
 // revision, so the Schultz table is restored here.
 updates['heliosx-vs-schultz'] = schultzComparison
@@ -524,7 +702,7 @@ export function applyOct28Round(pages: SeoLandingPage[]) {
   for (const page of pages) {
     const update = updates[page.slug]
     if (!update) continue
-    const { prependSections, replaceSection, addFaqs, replaceFaq, addKeywords, ...fields } = update
+    const { prependSections, replaceSection, addFaqs, replaceFaq, addKeywords, removeKeywords, ...fields } = update
     Object.assign(page, fields, { dateModified: updated })
     if (replaceSection)
       page.sections = page.sections.map((s) => replaceSection[s.title] ?? s)
@@ -533,5 +711,6 @@ export function applyOct28Round(pages: SeoLandingPage[]) {
       page.faqs = page.faqs.map((f) => (replaceFaq[f.question] ? { ...f, answer: replaceFaq[f.question] } : f))
     if (addFaqs) page.faqs = [...page.faqs, ...addFaqs.filter((f) => !page.faqs.some((e) => e.question === f.question))]
     if (addKeywords) page.relatedKeywords = Array.from(new Set([...page.relatedKeywords, ...addKeywords]))
+    if (removeKeywords) page.relatedKeywords = page.relatedKeywords.filter((k) => !removeKeywords.includes(k.toLowerCase()))
   }
 }

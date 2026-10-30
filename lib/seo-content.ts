@@ -8813,13 +8813,15 @@ const editorialLinks: Record<string, string[]> = {
   'best-surgical-loupes-reddit': ['affordable-surgical-loupes-reddit'],
   'best-dental-loupe-brands': ['education/ergonomic-loupes-neck-pain', 'education/prescription-loupes-guide', 'heliosx-vs-lumadent', 'orascoptic-alternatives', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'examvision-alternatives', 'heliosx-vs-admetec', 'heliosx-vs-designs-for-vision'],
   'loupe-comparisons': ['best-surgical-loupe-brands', 'best-dental-loupe-brands', 'student-loupe-comparison', 'ergonomic-loupe-comparison', 'prismatic-loupe-comparison'],
-  'surgical-loupes': ['neurosurgery-loupes', 'cardiac-surgery-loupes', 'pediatric-surgery-loupes', 'maxillofacial-surgery-loupes', 'ent-otolaryngology-loupes', 'ophthalmic-surgery-loupes', 'education/best-loupes-for-plastic-surgery'],
+  'surgical-loupes': ['surgical-loupes-with-light', 'neurosurgery-loupes', 'cardiac-surgery-loupes', 'pediatric-surgery-loupes', 'maxillofacial-surgery-loupes', 'ent-otolaryngology-loupes', 'ophthalmic-surgery-loupes', 'education/best-loupes-for-plastic-surgery'],
   'student-loupe-comparison': ['education/best-loupes-for-dental-students', 'loupes-for-medical-students', 'education/best-loupes-for-residents'],
   'loupes-for-residents': ['loupes-for-medical-students', 'loupes-for-dental-students'],
   'best-loupes-for-residents': ['education/best-loupes-for-plastic-surgery', 'loupes-for-medical-students', 'education/ergonomic-loupes-neck-pain'],
-  'loupes-for-dental-hygiene': ['dental-loupes-with-light', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'education/best-loupes-for-dental-students', 'education/ergonomic-loupes-neck-pain'],
-  'dental-loupes-with-light': ['loupes-for-dental-hygiene', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'dental-loupes'],
+  'loupes-for-dental-hygiene': ['dental-hygiene-loupes-with-light', 'dental-loupes-with-light', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'education/best-loupes-for-dental-students', 'education/ergonomic-loupes-neck-pain'],
+  'dental-loupes-with-light': ['dental-hygiene-loupes-with-light', 'surgical-loupes-with-light', 'loupes-for-dental-hygiene', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'dental-loupes'],
   'loupes-for-dental-assistants': ['loupes-for-dental-hygiene', 'dental-loupes-with-light', 'dental-loupes'],
+  'dental-hygiene-loupes-with-light': ['loupes-for-dental-hygiene', 'dental-loupes-with-light', 'education/working-distance-for-loupes'],
+  'surgical-loupes-with-light': ['surgical-loupes', 'dental-loupes-with-light', 'ergonomic-loupe-comparison'],
   'neurosurgery-loupes': ['spine-surgery-loupes', 'loupes-for-microsurgery', 'best-surgical-loupe-brands', 'surgical-loupes'],
 }
 

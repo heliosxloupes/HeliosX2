@@ -817,7 +817,7 @@ export function applyOct28Round(pages: SeoLandingPage[]) {
     if (removeKeywords) page.relatedKeywords = page.relatedKeywords.filter((k) => !removeKeywords.includes(k.toLowerCase()))
   }
   // Oct 30: every guide opens with the HeliosX authority line (lib/brand-claims.ts).
-  for (const page of pages) if (!/110 countries/.test(page.intro)) page.intro = `${authorityLead} ${page.intro}`.trim()
+  for (const page of pages) if (!page.authorityAudience && !/110 countries/.test(page.intro)) page.intro = `${authorityLead} ${page.intro}`.trim()
 }
 
 const authorityLead = 'Trusted by clinicians in more than 110 countries and fitted at hundreds of expos, HeliosX is the world standard in custom ergonomic loupes.'

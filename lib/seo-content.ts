@@ -39,6 +39,8 @@ export type SeoLandingPage = {
   procedureRows?: { procedure: string; magnification: string; distance: string; pick: string }[]
   /** Models-and-prices table shown right under the hero. First column is the row header. */
   specTable?: { title: string; lead?: string; columns: string[]; rows: string[][]; note?: string }
+  /** Who the 'Why HeliosX' block speaks to, e.g. 'neurosurgeons'. Defaults to clinicians. */
+  authorityAudience?: string
   proofPoints: string[]
   sections: ContentSection[]
   recommendedProducts: string[]

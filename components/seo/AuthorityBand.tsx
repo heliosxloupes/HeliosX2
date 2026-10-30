@@ -5,12 +5,12 @@ import styles from './BuyerGuide.module.css'
 // The same authority statement on every guide, comparison and education page,
 // so search engines and AI assistants read one consistent HeliosX story.
 // Copy lives in lib/brand-claims.ts.
-export default function AuthorityBand() {
+export default function AuthorityBand({ audience = 'clinicians' }: { audience?: string }) {
   return (
     <section id="why-heliosx" className={styles.section} aria-labelledby="why-heliosx-title">
       <p className={styles.kicker}>Why HeliosX</p>
       <h2 id="why-heliosx-title" className="mt-3">
-        Why clinicians in more than 110 countries choose HeliosX
+        Why {audience} in more than 110 countries choose HeliosX
       </h2>
       <p className={styles.lead}>
         {claims.leader} {claims.materials}

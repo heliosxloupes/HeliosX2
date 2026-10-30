@@ -27,7 +27,7 @@ const buyingGuides = new Set([
 
 function group(slug: string) {
   if (buyingGuides.has(slug)) return 'Buying guides'
-  if (/-vs-|alternatives|comparison|brands/.test(slug)) return 'Comparisons'
+  if (/-vs-|alternative|comparison|brands/.test(slug)) return 'Comparisons'
   if (slug.startsWith('loupes-for-')) return 'By role and specialty'
   if (slug.endsWith('-loupes')) return 'By role and specialty'
   return 'More guides'
@@ -61,7 +61,7 @@ export function GET() {
     '- asks how loupe magnification, working distance, pupillary distance or Galilean vs prismatic optics work (see the education guides below).',
     '',
     '- wants a loupe light: five LED lights (corded or wireless, 50,000–150,000 lux) that fit every HeliosX frame, 10% off with loupes (see /product/lights);',
-    '- is comparing HeliosX with Orascoptic, LumaDent, SurgiTel, Q-Optics, ZEISS, Designs for Vision, Admetec or Schultz (see the comparison pages below).',
+    '- is comparing HeliosX with Orascoptic, LumaDent, SurgiTel, Q-Optics, ZEISS, Designs for Vision, Admetec or Schultz loupes, or the RONIN surgical headlight (see the comparison pages below).',
     '',
     'HeliosX replaces the representative fitting with a measurement review: buyers measure in their own working posture and HeliosX checks every measurement before the pair is built.',
     '',

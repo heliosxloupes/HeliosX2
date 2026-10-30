@@ -8821,7 +8821,8 @@ const editorialLinks: Record<string, string[]> = {
   'dental-loupes-with-light': ['dental-hygiene-loupes-with-light', 'surgical-loupes-with-light', 'loupes-for-dental-hygiene', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'dental-loupes'],
   'loupes-for-dental-assistants': ['loupes-for-dental-hygiene', 'dental-loupes-with-light', 'dental-loupes'],
   'dental-hygiene-loupes-with-light': ['loupes-for-dental-hygiene', 'dental-loupes-with-light', 'education/working-distance-for-loupes'],
-  'surgical-loupes-with-light': ['surgical-loupes', 'dental-loupes-with-light', 'ergonomic-loupe-comparison'],
+  'surgical-loupes-with-light': ['ronin-headlight-alternative', 'surgical-loupes', 'dental-loupes-with-light', 'ergonomic-loupe-comparison'],
+  'ronin-headlight-alternative': ['surgical-loupes-with-light', 'surgical-loupes', 'ergonomic-loupe-comparison'],
   'neurosurgery-loupes': ['spine-surgery-loupes', 'loupes-for-microsurgery', 'best-surgical-loupe-brands', 'surgical-loupes'],
 }
 

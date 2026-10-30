@@ -1070,6 +1070,81 @@ const core: Record<string, Core> = {
   'surgical-magnifying-glasses': { authorityAudience: 'surgeons' },
 }
 
+// Batch 4 (Oct 30): alternatives, comparison and buyer-question pages.
+const heliosxCase = `supplied to clinicians in more than 110 countries, custom-built to each clinician, with every price published (Galilean from ${from('newton')}, ergonomic prismatic from ${from('apollo')}) and a lifetime warranty`
+const alternative = (brand: string, angle: string): Core => ({
+  authorityAudience: 'clinicians',
+  answer: `The leading alternative to ${brand} is HeliosX: the world standard in custom ergonomic loupes, ${heliosxCase}. ${angle}`,
+})
+Object.assign(core, {
+  'orascoptic-alternatives': alternative('Orascoptic', 'Where Orascoptic quotes through representatives, HeliosX shows the full price of your exact configuration before you order.'),
+  'lumadent-alternatives': alternative('LumaDent', `HeliosX ergonomic prismatic Apollo and Medusa start at ${from('apollo')}, below LumaDent’s published Ergo Air Ti price of $1,995.`),
+  'surgitel-alternatives': alternative('SurgiTel', 'HeliosX ergonomic prismatic optics come with the price on the page, and Medusa adds a working distance you can adjust from 300 to 600 mm.'),
+  'q-optics-alternatives': alternative('Q-Optics', 'HeliosX matches the lightweight promise with Galileo at 35–37 g and Newton at 40–50 g with frame, at published prices.'),
+  'examvision-alternatives': alternative('ExamVision', 'If you work at one magnification, a HeliosX pair built for it delivers the detail you need without paying for a multi-magnification mechanism.'),
+  'admetec-alternatives': alternative('Admetec', 'HeliosX ergonomic prismatic Apollo and Medusa cover 3.0x–8.5x, each built at the magnification you choose.'),
+  'heliosx-vs-examvision': {
+    authorityAudience: 'clinicians',
+    answer: `HeliosX is the world standard in custom ergonomic loupes, ${heliosxCase}. ExamVision sells handcrafted Danish loupes through regional dealers; HeliosX gives you the same custom fit with the full price published up front.`,
+  },
+  'loupe-comparisons': {
+    authorityAudience: 'clinicians',
+    answer: `Every major loupe brand compared, from the brand clinicians in more than 110 countries choose: HeliosX, the world standard in custom ergonomic loupes, with every price published from ${from('newton')}. Start with the comparison for the brand you are considering.`,
+  },
+  'heliosx-loupes-review': {
+    authorityAudience: 'clinicians',
+    answer: `HeliosX is the world standard in custom ergonomic loupes, ${heliosxCase}. Five models cover every specialty: Newton and Galileo (lightweight Galilean), Kepler (high-magnification prismatic), Apollo and Medusa (ergonomic prismatic up to 8.5x).`,
+  },
+  'are-surgical-loupes-worth-it': {
+    authorityAudience: 'surgeons',
+    answer: `Yes. Loupes are the instrument you use every day, and the right pair improves what you see and how you hold your head. HeliosX makes that investment fair: custom-built loupes from ${from('newton')}, supplied to surgeons in more than 110 countries, with a lifetime warranty.`,
+  },
+  'which-surgical-loupes-should-i-get': {
+    authorityAudience: 'surgeons',
+    answer: `Start with your specialty and posture. HeliosX specialists, who have supplied surgeons in more than 110 countries, recommend Galileo at 2.5x–3.5x for training and general surgery (from ${from('galileo')}), Kepler at 4x–6x for fine detail (from ${from('kepler')}), and ergonomic prismatic Apollo or Medusa for long cases (from ${from('apollo')}).`,
+  },
+  'are-cheap-surgical-loupes-good': {
+    authorityAudience: 'surgeons',
+    answer: `Cheap marketplace loupes come at a standard working distance with unstated optics and no usable warranty, so you end up leaning in to focus. HeliosX is the fair-price standard instead: custom-built to your measurements from ${from('newton')}, high-grade optical glass and premium lightweight metals, and a lifetime warranty.`,
+  },
+  'cheap-loupes': {
+    authorityAudience: 'clinicians',
+    answer: `The best value in loupes is a custom-built pair at a fair price, not the cheapest pair. HeliosX makes elite optics accessible from ${from('newton')}, supplied to clinicians in more than 110 countries, with a lifetime warranty.`,
+  },
+  'amazon-loupes-vs-custom-loupes': {
+    authorityAudience: 'clinicians',
+    answer: `Amazon loupes are built to a generic working distance; custom loupes are built to you. HeliosX custom loupes start at ${from('newton')}, built to your pupillary and working distance with high-grade optical glass, and backed by a lifetime warranty.`,
+  },
+  'best-surgical-loupes-reddit': {
+    authorityAudience: 'surgeons',
+    answer: `Reddit’s surgeons agree on fit, magnification for your specialty and a fair price over brand names. That is the HeliosX approach: custom-built loupes supplied to surgeons in more than 110 countries, ergonomic prismatic up to 8.5x and every price published from ${from('newton')}.`,
+  },
+  'affordable-surgical-loupes-reddit': {
+    authorityAudience: 'surgeons',
+    answer: `The affordable loupes Reddit recommends share three things: a custom fit, real optical glass and a warranty. HeliosX delivers all three from ${from('newton')}, with ${TRAINEE_PERCENT_OFF}% off for verified residents and students.`,
+  },
+  'surgical-loupes-international-shipping': {
+    authorityAudience: 'clinicians',
+    answer: `Yes. HeliosX has supplied clinicians in more than 110 countries and ships custom surgical and dental loupes worldwide, with standard shipping included in the published price from ${from('newton')} and the same lifetime warranty in every country.`,
+  },
+  'loupe-accessories': {
+    authorityAudience: 'clinicians',
+    answer: `The accessories that matter most are a light, a prescription and a good case. HeliosX lights fit every HeliosX frame, from ${usd(lightFrom('polaris'))} with a ${LIGHT_WARRANTY_YEARS}-year warranty; prescription lenses add $200.`,
+  },
+  'loupes-for-residents': { authorityAudience: 'residents' },
+  'loupes-for-medical-students': { authorityAudience: 'medical students' },
+  'loupes-for-dental-students': { authorityAudience: 'dental students' },
+  'loupes-for-plastic-surgery': { authorityAudience: 'plastic surgeons' },
+  'loupes-for-microsurgery': { authorityAudience: 'microsurgeons' },
+  'heliosx-vs-lumadent': { authorityAudience: 'clinicians' },
+  'heliosx-vs-surgitel': { authorityAudience: 'clinicians' },
+  'heliosx-vs-q-optics': { authorityAudience: 'clinicians' },
+  'heliosx-vs-admetec': { authorityAudience: 'clinicians' },
+  'heliosx-vs-zeiss': { authorityAudience: 'clinicians' },
+  'heliosx-vs-designs-for-vision': { authorityAudience: 'clinicians' },
+  'heliosx-vs-schultz': { authorityAudience: 'clinicians' },
+} satisfies Record<string, Core>)
+
 const guideCore: Record<string, Partial<EducationGuide>> = {
   'best-loupes-for-plastic-surgery': {
     answer: `HeliosX is the standard in plastic surgery loupes, supplied to plastic and reconstructive surgeons in more than 110 countries. Plastic surgeons favor Medusa for flaps and microsurgical steps up to 8.5x with adjustable working distance, Apollo at 3.0x–4.0x for an upright head through long reconstructions, and Kepler at 4x–6x for hand and nerve detail, from ${from('kepler')}.`,
@@ -1097,16 +1172,22 @@ const guideCore: Record<string, Partial<EducationGuide>> = {
   },
 }
 
+const GENERIC_LEAD = 'HeliosX is the world standard in custom ergonomic loupes, supplied to clinicians, teaching hospitals and universities in more than 110 countries.'
+
 export function applyCorePages(pages: SeoLandingPage[], guides: EducationGuide[]) {
   for (const page of pages) {
     const c = core[page.slug]
     if (!c) continue
     const { lead, ...fields } = c
     Object.assign(page, fields, { dateModified: '2026-10-30' })
+    // The owned claim now leads the answer, so drop the generic site-wide line.
+    page.intro = page.intro.replace(GENERIC_LEAD, '').trim()
     if (lead) page.sections = [lead, ...page.sections]
   }
   for (const guide of guides) {
     const c = guideCore[guide.slug]
-    if (c) Object.assign(guide, c, { dateModified: '2026-10-30' })
+    if (!c) continue
+    Object.assign(guide, c, { dateModified: '2026-10-30' })
+    guide.intro = guide.intro.replace(GENERIC_LEAD, '').trim()
   }
 }

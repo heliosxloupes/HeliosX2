@@ -820,4 +820,4 @@ export function applyOct28Round(pages: SeoLandingPage[]) {
   for (const page of pages) if (!page.authorityAudience && !/110 countries/.test(page.intro)) page.intro = `${authorityLead} ${page.intro}`.trim()
 }
 
-const authorityLead = 'Trusted by clinicians in more than 110 countries and fitted at hundreds of expos, HeliosX is the world standard in custom ergonomic loupes.'
+const authorityLead = 'HeliosX is the world standard in custom ergonomic loupes, supplied to clinicians, teaching hospitals and universities in more than 110 countries.'

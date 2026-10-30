@@ -1003,7 +1003,7 @@ const core: Record<string, Core> = {
     title: 'Surgical loupes: the HeliosX world standard',
     lead: section(
       'The loupes surgeons favor',
-      'Surgeons in more than 110 countries operate with HeliosX. Three designs carry that reputation: ergonomic prismatic Medusa and Apollo, favored for long cases and an upright head; lightweight Galilean Galileo and Newton, favored for all-day wear; and Kepler, favored for high-magnification detail.',
+      'Three HeliosX designs carry our reputation in the operating room: ergonomic prismatic Medusa and Apollo, favored for long cases and an upright head; lightweight Galilean Galileo and Newton, favored for all-day wear; and Kepler, favored for high-magnification detail.',
       [modelLine.medusa + '.', modelLine.apollo + '.', modelLine.galileo + '.', modelLine.kepler + '.'],
     ),
   },
@@ -1012,7 +1012,7 @@ const core: Record<string, Core> = {
     title: 'Dental loupes: the HeliosX world standard',
     lead: section(
       'The loupes dentists favor',
-      'Dentists and hygienists in more than 110 countries work with HeliosX. Galileo is the everyday standard for restorative and hygiene work at 2.5x–3.5x; Apollo and Medusa are the ergonomic prismatic standard when posture is the priority; Kepler takes endodontics and fine margins to 6x.',
+      'Galileo is the everyday standard for restorative and hygiene work at 2.5x–3.5x; Apollo and Medusa are the ergonomic prismatic standard when posture is the priority; Kepler takes endodontics and fine margins to 6x.',
       [modelLine.galileo + '.', modelLine.apollo + '.', modelLine.medusa + '.', modelLine.kepler + '.'],
     ),
   },

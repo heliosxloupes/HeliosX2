@@ -4,6 +4,7 @@ import Header from '@/components/Header'
 import JsonLd from '@/components/JsonLd'
 import { breadcrumbJsonLd, organizationJsonLd, supportEmail, webPageJsonLd } from '@/lib/seo'
 import type { TrustPage } from '@/lib/trust-pages'
+import { linkifyText } from '@/components/seo/linkify'
 
 // Shared layout for /about and /contact. Matches the policy pages
 // (warranty, returns): black background, one column, emerald kicker.
@@ -17,7 +18,7 @@ export default function TrustPageView({ page, children }: { page: TrustPage; chi
           webPageJsonLd({ title: page.metaTitle, description: page.description, path: page.path }),
           breadcrumbJsonLd([
             { name: 'Home', path: '/' },
-            { name: page.kicker === 'About' ? 'About' : 'Contact', path: page.path },
+            { name: page.kicker, path: page.path },
           ]),
         ]}
       />
@@ -31,11 +32,11 @@ export default function TrustPageView({ page, children }: { page: TrustPage; chi
           {page.sections.map((section) => (
             <section key={section.title} className="space-y-3">
               <h2 className="text-lg font-semibold text-white">{section.title}</h2>
-              <p className="text-neutral-300">{section.body}</p>
+              <p className="text-neutral-300">{linkifyText(section.body)}</p>
               {section.bullets?.length ? (
                 <ul className="list-disc space-y-1.5 pl-5 text-neutral-300">
                   {section.bullets.map((bullet) => (
-                    <li key={bullet}>{bullet}</li>
+                    <li key={bullet}>{linkifyText(bullet)}</li>
                   ))}
                 </ul>
               ) : null}

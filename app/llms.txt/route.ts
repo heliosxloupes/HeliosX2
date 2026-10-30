@@ -81,6 +81,8 @@ export function GET() {
     `- [Measuring guide](${siteUrl}/measurements)`,
     `- [FAQ](${siteUrl}/faq)`,
     `- [About](${siteUrl}/about)`,
+    `- [Hospitals, universities and training programs](${siteUrl}/hospitals-and-universities)`,
+    `- [Surgical missions](${siteUrl}/missions)`,
     `- [Contact](${siteUrl}/contact)`,
     `- [Shipping](${siteUrl}/shipping)`,
     `- [Returns](${siteUrl}/returns)`,

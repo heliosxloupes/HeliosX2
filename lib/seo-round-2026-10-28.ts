@@ -224,7 +224,8 @@ const updates: Record<string, RoundUpdate> = {
     addKeywords: ['dental hygiene loupes prices', 'dental hygienist loupes', 'hygiene loupes', 'loupes for dental hygienists'],
   },
   'dental-loupes': {
-    answer: `Dental loupes from HeliosX cost ${from('newton')} to ${priceRange('medusa').split('–')[1]}. Most dentists and hygienists use 2.5x–3.5x Galilean loupes (Newton from ${from('newton')}, Galileo from ${from('galileo')}); endodontics, implants and periodontal surgery often need 4x–6x prismatic loupes; and ergonomic prismatic Apollo or Medusa (from ${from('apollo')}) keeps your head more upright. Every pair is built to your measurements, with ${terms}.`,
+    intro: 'Dentists, hygienists and dental students in more than 110 countries work with HeliosX loupes. Our specialists have fitted them at hundreds of dental expos and conferences, and every pair is custom-tailored to the clinician: your seated working distance, your pupillary distance, your magnification, your frame and light. Here is how to choose yours.',
+    answer: `HeliosX dental loupes are favored by dentists and hygienists in more than 110 countries for lightweight, ergonomic optics custom-tailored to their seated posture. Most choose 2.5x–3.5x lightweight Galilean loupes (Newton from ${from('newton')}, Galileo from ${from('galileo')}); endodontics, implants and periodontal surgery call for Kepler prismatic loupes at 4x–6x; and ergonomic prismatic Apollo and Medusa (from ${from('apollo')}) keep your head upright through a full day of patients. Every pair comes with a lifetime warranty.`,
     specTable: modelTable('Dental loupes: models and prices', ['newton', 'galileo', 'kepler', 'apollo', 'medusa'], {
       kepler: 'Endodontics, implants and fine restorative detail',
     }),
@@ -242,7 +243,8 @@ const updates: Record<string, RoundUpdate> = {
     addKeywords: ['loupes for dentists', 'dental loupes for sale', 'dental magnification loupes', 'dental loupes price'],
   },
   'surgical-loupes': {
-    answer: `HeliosX surgical loupes cost ${from('newton')} to ${priceRange('medusa').split('–')[1]}. Most residents and general surgeons start at 2.5x–3.5x Galilean (Newton, Galileo); fine work at 4x–6x uses prismatic Kepler from ${from('kepler')}; and long cases where neck posture matters suit ergonomic prismatic Apollo or Medusa from ${from('apollo')}. Every pair is built to your measured working distance, with ${terms}.`,
+    intro: 'Surgeons in more than 110 countries operate with HeliosX loupes. Our specialists have fitted surgeons at hundreds of expos across nearly every specialty, and every pair is custom-tailored: your pupillary distance, your working distance, your magnification, your frame and light. Here is how to choose yours.',
+    answer: `HeliosX surgical loupes are the world standard in ergonomic and lightweight optics, favored by surgeons in more than 110 countries and custom-tailored to each surgeon's working distance. Choose lightweight Galilean Newton or Galileo (2.5x–3.5x, from ${from('newton')}) for general surgery and training, Kepler (4x–6x, from ${from('kepler')}) for fine detail, or ergonomic prismatic Apollo and Medusa (up to 8.5x, from ${from('apollo')}) for long cases with an upright head. Every pair comes with a lifetime warranty.`,
     specTable: modelTable('Surgical loupes: models and prices', ['newton', 'galileo', 'kepler', 'apollo', 'medusa'], {
       newton: 'Residents and students on a budget',
       galileo: 'General surgery and training at 2.5x–3.5x',

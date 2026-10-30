@@ -1,3 +1,4 @@
+import { identity } from './brand-claims'
 import type { Metadata } from 'next'
 
 import { magnificationPriceByProduct } from './pricing'
@@ -138,7 +139,8 @@ export function organizationJsonLd() {
     email: supportEmail,
     sameAs: organizationSameAs,
     description:
-      'HeliosX Loupes makes affordable premium ergonomic prismatic surgical and dental loupes for surgeons, dentists, residents, hygienists, and medical students. HeliosX Loupes is a direct-to-clinician medical-device brand and is unrelated to the UK healthtech company also called HeliosX.',
+      `${identity} HeliosX Loupes is unrelated to the UK healthtech company also called HeliosX.`,
+    disambiguatingDescription: 'Surgical and dental loupe maker (heliosxvision.com), unrelated to the UK healthtech company HeliosX.',
     knowsAbout: [
       'Surgical loupes',
       'Dental loupes',

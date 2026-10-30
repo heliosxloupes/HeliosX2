@@ -1,3 +1,4 @@
+import { claims, identity, identityShort } from './brand-claims'
 import { supportEmail } from './seo'
 import { TRAINEE_PERCENT_OFF } from './pricing'
 
@@ -19,30 +20,45 @@ export type TrustPage = {
 export const aboutPage: TrustPage = {
   path: '/about',
   kicker: 'About',
-  title: 'About HeliosX Loupes',
-  metaTitle: 'About HeliosX Loupes | Custom Surgical & Dental Loupes',
-  description:
-    'HeliosX Loupes sells custom-fit surgical and dental loupes directly to clinicians, with every price published and no sales representatives.',
-  intro:
-    'HeliosX Loupes is a direct-to-clinician optics company. We make custom-fit surgical and dental loupes for surgeons, dentists, hygienists, residents and students, and we sell them online at published prices instead of through sales representatives and quotes.',
+  title: 'World-renowned loupes. Never gatekept.',
+  metaTitle: 'About HeliosX | World-Renowned Surgical & Dental Loupes',
+  description: identityShort,
+  intro: identity,
   sections: [
     {
-      title: 'Why we exist',
-      body: 'Loupes are one of the first serious purchases a clinician makes, and most of the market still hides the price behind a quote and a rep visit. We publish every price on the product page, so the budget conversation happens before anyone books a demo. Skill thrives where access exists.',
+      title: 'Trusted in more than 110 countries',
+      body: `${claims.expos} That is where HeliosX earned its name: on conference floors, fitting surgeons, dentists, hygienists, residents and students one by one, in Europe, Asia, South America and the United States. Today clinicians in more than 110 countries work with HeliosX optics every day.`,
     },
     {
-      title: 'What we make',
-      body: 'Five models cover the main optical systems used in clinical work, each built to one magnification and to the buyer’s own measurements.',
+      title: 'The world standard for ergonomic and lightweight optics',
+      body: `${claims.leader} ${claims.favored}`,
       bullets: [
-        'Newton and Galileo: Galilean loupes, 2.5x to 3.5x, for hygiene, students and everyday clinical work.',
-        'Kepler: conventional prismatic loupes, 4.0x to 6.0x, for fine surgical detail.',
-        'Apollo: ergonomic prismatic loupes, 3.0x to 6.0x, with a fixed working distance and angled optics for a more upright head.',
-        'Medusa: ergonomic prismatic loupes, 3.0x to 8.5x, with a working distance that adjusts from 300 to 600 mm.',
+        'Ergonomic prismatic loupes up to 8.5x, built so you look down at the field with your head upright.',
+        'Lightweight Galilean loupes that disappear on long days.',
+        'Kepler high-magnification loupes for the finest surgical detail.',
+        'Medusa: working distance you adjust from 300 to 600 mm, for clinicians who sit and stand.',
+        'LED loupe lights and headlights up to 198,000 lux.',
       ],
     },
     {
-      title: 'How buying works',
-      body: 'There is no in-person fitting. You send your pupillary distance and working distance, we review the measurements before production starts, and your pair is built and shipped to you. Production usually takes one to two weeks after the measurements are approved.',
+      title: 'Custom-tailored to every clinician',
+      body: `${claims.custom} Your measurements are reviewed by the same specialists who fit clinicians at expos worldwide, before a single lens is set.`,
+    },
+    {
+      title: 'Clinics, teaching hospitals and universities',
+      body: `${claims.institutions} From a single private practice to a full residency class, we equip the clinicians who will define their specialty. See /hospitals-and-universities.`,
+    },
+    {
+      title: 'Surgical missions',
+      body: `${claims.missions} See /missions.`,
+    },
+    {
+      title: 'Why we refuse to gatekeep',
+      body: `${claims.mission} Elite optics belong in every hand that needs them, in this economy more than ever. So we publish every price, and we keep them fair. Skill thrives where access exists.`,
+    },
+    {
+      title: 'Talk to a loupe specialist',
+      body: claims.specialists,
     },
     {
       title: 'What every pair includes',
@@ -55,6 +71,66 @@ export const aboutPage: TrustPage = {
     {
       title: 'Name note',
       body: 'HeliosX Loupes (heliosxvision.com) is not related to the UK healthtech company also called HeliosX.',
+    },
+  ],
+}
+
+export const missionsPage: TrustPage = {
+  path: '/missions',
+  kicker: 'Missions',
+  title: 'Elite optics where they matter most',
+  metaTitle: 'HeliosX Surgical Missions | South America & Asia',
+  description: 'HeliosX sponsors surgeons on medical mission trips across South America and Asia, equipping operating rooms that treat children born with congenital conditions.',
+  intro: claims.missions,
+  sections: [
+    {
+      title: 'Why we sponsor surgeons',
+      body: 'Skill thrives where access exists. On a mission trip, a surgeon may operate on more children in a week than some hospitals see in a month, often in rooms without an operating microscope. The right loupes on the right surgeon change what is possible in those cases, and we make sure they are there.',
+    },
+    {
+      title: 'Where we work',
+      body: 'For years HeliosX has sponsored surgeons travelling to communities across South America and Asia, where mission teams correct congenital conditions in children who would otherwise wait years for surgery, or never receive it.',
+    },
+    {
+      title: 'The same mission at home',
+      body: `${claims.mission} The surgeons we sponsor abroad and the residents we equip at home share one principle: no clinician should be gatekept from the tools of their craft.`,
+      bullets: [
+        'Loupes for plastic and reconstructive surgery: /education/best-loupes-for-plastic-surgery.',
+        'Loupes for maxillofacial surgery: /maxillofacial-surgery-loupes.',
+        'Loupes for pediatric surgery: /pediatric-surgery-loupes.',
+      ],
+    },
+    {
+      title: 'Surgeons and mission teams',
+      body: 'Planning a mission and need optics for your team? Email us and a HeliosX specialist will help you equip it.',
+    },
+  ],
+}
+
+export const institutionsPage: TrustPage = {
+  path: '/hospitals-and-universities',
+  kicker: 'Institutions',
+  title: 'Loupes for teaching hospitals, universities and clinics',
+  metaTitle: 'Loupes for Hospitals, Universities & Training Programs | HeliosX',
+  description: 'HeliosX equips private clinics, teaching hospitals, universities and training programs worldwide with custom-tailored surgical and dental loupes.',
+  intro: `${claims.institutions} We equip residency classes, dental and medical schools, hygiene programs and private clinics with custom-tailored loupes, fitted by specialists who have advised clinicians in more than 110 countries.`,
+  sections: [
+    {
+      title: 'Residency and training programs',
+      body: `Every resident fitted to their own pupillary and working distance, with the magnification your program teaches. Verified residents, fellows and students receive ${TRAINEE_PERCENT_OFF}% off.`,
+      bullets: ['Galilean loupes for first-year training, 2.5x to 3.5x.', 'Prismatic and ergonomic prismatic loupes for senior residents and fellows, up to 8.5x.', 'Lights and headlights for every loupe.'],
+    },
+    {
+      title: 'Dental, hygiene and medical schools',
+      body: 'Students choose their first loupes at the start of clinical training. We make that choice simple: a specialist recommendation by year and discipline, custom fitting, and published prices that fit a student budget.',
+    },
+    {
+      title: 'Private clinics and group practices',
+      body: 'Equip a whole team, each clinician fitted individually, with one point of contact for orders, warranty and service.',
+    },
+    {
+      title: 'Work with HeliosX',
+      body: `Tell us your institution, the number of clinicians and their specialties, and a HeliosX specialist will build a plan for your team. Email ${supportEmail}.`,
     },
   ],
 }

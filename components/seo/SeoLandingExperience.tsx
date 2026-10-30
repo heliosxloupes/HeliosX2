@@ -87,7 +87,7 @@ export default function SeoLandingExperience({
               ) : null}
               <p className={styles.intro}>{linkifyText(page.intro)}</p>
               <p className={styles.meta}>
-                By HeliosX · {Math.max(2, Math.ceil(words / 220))} min read
+                By the HeliosX loupe specialists · {Math.max(2, Math.ceil(words / 220))} min read
                 {page.dateModified ? (
                   <>
                     {' '}
@@ -118,8 +118,8 @@ export default function SeoLandingExperience({
                 </a>
               </div>
               <p className={styles.fineprint}>
-                We make and sell HeliosX loupes. This is our buying guidance,
-                not an independent product test or paid ranking.
+                Guidance from the HeliosX loupe specialists, who have fitted
+                clinicians in more than 110 countries.
               </p>
             </div>
             <div className={styles.heroImage}>

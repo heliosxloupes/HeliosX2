@@ -4,7 +4,7 @@ import { llmsFactsBlock, llmsNameNote, llmsSummary } from './llms-facts'
 import { magnificationPriceByProduct } from './pricing'
 import { allSeoLandingPages, educationGuides, type ContentFaq, type ContentSection } from './seo-content'
 import { siteUrl } from './seo'
-import { aboutPage, contactPage, type TrustPage } from './trust-pages'
+import { aboutPage, contactPage, institutionsPage, missionsPage, type TrustPage } from './trust-pages'
 
 // Markdown versions of the site's pages for agents that send
 // `Accept: text/markdown`. Everything is rendered from the same data the
@@ -175,6 +175,8 @@ export function renderPageMarkdown(rawPath: string): MarkdownPage {
   else if (path.startsWith('/product/')) body = productMarkdown(path.slice('/product/'.length))
   else if (path === '/about') body = trustMarkdown(aboutPage)
   else if (path === '/contact') body = trustMarkdown(contactPage)
+  else if (path === '/missions') body = trustMarkdown(missionsPage)
+  else if (path === '/hospitals-and-universities') body = trustMarkdown(institutionsPage)
   else if (path === '/faq') body = faqMarkdown()
   else if (path === '/education') body = educationHubMarkdown()
   else if (summaryPages[path]) body = `# ${summaryPages[path].title}\n\n${summaryPages[path].summary}\n`

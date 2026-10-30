@@ -1,3 +1,4 @@
+import { identity } from './brand-claims'
 import { HEADLIGHTS, LIGHT_WARRANTY_YEARS, LIGHTS, lightFrom } from './lights'
 import {
   LIGHT_BUNDLE_PERCENT_OFF,
@@ -73,8 +74,7 @@ export function llmsFactsBlock(siteUrl: string) {
   ].join('\n')
 }
 
-export const llmsSummary =
-  'Custom-fit surgical and dental loupes sold direct to clinicians, with published prices from $695. Galilean, conventional prismatic and ergonomic prismatic models from 2.5x to 8.5x.'
+export const llmsSummary = `${identity} Galilean, conventional prismatic and ergonomic prismatic models from 2.5x to 8.5x, LED loupe lights and headlights, with every price published.`
 
 export const llmsNameNote =
   'HeliosX here means HeliosX Loupes (heliosxvision.com), not the unrelated healthtech company of the same name.'

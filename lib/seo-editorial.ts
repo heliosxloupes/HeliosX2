@@ -6,7 +6,7 @@ import type {
 } from './seo-content'
 import { magnificationPriceByProduct, PRESCRIPTION_PRICE, TRAINEE_PERCENT_OFF } from './pricing'
 import { applyOct28GuideRound, applyOct28Round } from './seo-round-2026-10-28'
-import { applySpecialtyRewrites } from './seo-specialty-pages'
+import { applyCorePages, applySpecialtyRewrites } from './seo-specialty-pages'
 
 // Reviewed commercial content. Keep facts separate from brand preference;
 // competitor details below were checked against primary sources on 2026-09-10.
@@ -1986,6 +1986,7 @@ export function applyEditorialRevisions(
   applySpecialtyRewrites(pages)
   applyOct28Round(pages)
   applyOct28GuideRound(guides)
+  applyCorePages(pages, guides)
 }
 
 // Oct 23 2026: search snippets rewritten from 90 days of Search Console

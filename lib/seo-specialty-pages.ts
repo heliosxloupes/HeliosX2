@@ -1,4 +1,4 @@
-import type { ContentFaq, ContentSection, SeoLandingPage } from './seo-content'
+import type { ContentFaq, ContentSection, EducationGuide, SeoLandingPage } from './seo-content'
 import { HEADLIGHTS, LIGHT_WARRANTY_YEARS, LIGHTS, lightFrom } from './lights'
 import { magnificationPriceByProduct, TRAINEE_PERCENT_OFF } from './pricing'
 
@@ -18,6 +18,7 @@ const section = (title: string, body: string, bullets: string[] = [], sourceHref
   ...(sourceHref ? { sourceHref, sourceLabel } : {}),
 })
 const faq = (question: string, answer: string): ContentFaq => ({ question, answer })
+const priceTop = usd(Math.max(...Object.values(magnificationPriceByProduct).flatMap((p) => Object.values(p))))
 const brightestHead = HEADLIGHTS.reduce((a, b) => (a.lux >= b.lux ? a : b))
 const sirius = LIGHTS.find((l) => l.slug === 'sirius')!
 
@@ -986,5 +987,126 @@ export function applySpecialtyRewrites(pages: SeoLandingPage[]) {
   for (const page of pages) {
     const rewrite = rewrites[page.slug]
     if (rewrite) Object.assign(page, rewrite)
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Core and guide pages (Oct 30). These already carry strong tables from the
+// Oct 28 round, so they get their own owned claim in the answer and intro,
+// the right audience for the Why block, and a lead section where it helps.
+// Runs last, after applyOct28Round, so these answers win.
+
+type Core = Partial<SeoLandingPage> & { lead?: ContentSection }
+const core: Record<string, Core> = {
+  'surgical-loupes': {
+    authorityAudience: 'surgeons',
+    title: 'Surgical loupes: the HeliosX world standard',
+    lead: section(
+      'The loupes surgeons favor',
+      'Surgeons in more than 110 countries operate with HeliosX. Three designs carry that reputation: ergonomic prismatic Medusa and Apollo, favored for long cases and an upright head; lightweight Galilean Galileo and Newton, favored for all-day wear; and Kepler, favored for high-magnification detail.',
+      [modelLine.medusa + '.', modelLine.apollo + '.', modelLine.galileo + '.', modelLine.kepler + '.'],
+    ),
+  },
+  'dental-loupes': {
+    authorityAudience: 'dentists',
+    title: 'Dental loupes: the HeliosX world standard',
+    lead: section(
+      'The loupes dentists favor',
+      'Dentists and hygienists in more than 110 countries work with HeliosX. Galileo is the everyday standard for restorative and hygiene work at 2.5x–3.5x; Apollo and Medusa are the ergonomic prismatic standard when posture is the priority; Kepler takes endodontics and fine margins to 6x.',
+      [modelLine.galileo + '.', modelLine.apollo + '.', modelLine.medusa + '.', modelLine.kepler + '.'],
+    ),
+  },
+  'loupes-for-dental-hygiene': {
+    authorityAudience: 'hygienists',
+    title: 'Loupes for dental hygienists: the HeliosX standard',
+    answer: `HeliosX is the standard in dental hygiene loupes, supplied to hygienists in more than 110 countries. Hygienists favor Galileo at 3.0x–3.5x: a wide view of the quadrant, deep focus for sub-gingival work and a frame light enough for a full column of recalls, from ${from('galileo')}. Pair it with a Polaris light from ${usd(lightFrom('polaris'))}, or choose ergonomic prismatic Apollo from ${from('apollo')} when your neck is the priority.`,
+    intro: 'Hygiene is the most demanding loupe job in dentistry: eight hours a day, seated, detecting deposits you cannot afford to miss. HeliosX has supplied its premium lightweight and ergonomic loupes to hygienists and hygiene programs worldwide, and every pair is custom-tailored to the hygienist’s seated working distance.',
+  },
+  'dental-loupes-with-light': {
+    authorityAudience: 'dentists and hygienists',
+    answer: `HeliosX is the standard in dental loupes with light, supplied to dentists and hygienists in more than 110 countries. Most choose a 3.0x–3.5x Galilean loupe with a corded Polaris or Vega light (50,000–70,000 lux, 10 g at the frame), with lights from ${usd(lightFrom('polaris'))}; endodontists and surgeons step up to Rigel or Sirius at 100,000–150,000 lux. Every HeliosX light fits every HeliosX frame, carries a ${LIGHT_WARRANTY_YEARS}-year warranty and is 10% off with loupes.`,
+  },
+  'dental-hygiene-loupes-with-light': { authorityAudience: 'hygienists' },
+  'surgical-loupes-with-light': { authorityAudience: 'surgeons' },
+  'ronin-headlight-alternative': { authorityAudience: 'surgeons' },
+  'lightweight-dental-loupes': {
+    authorityAudience: 'dentists and hygienists',
+    answer: 'HeliosX is the world standard in lightweight loupes, favored by dentists and hygienists in more than 110 countries. Galileo is listed at 35–37 g and Newton at 40–50 g with frame, both Galilean at 2.5x–3.5x and built from premium lightweight metals; ergonomic prismatic Apollo and Medusa weigh 55–65 g with frame. Compare complete-pair weights, light and prescription included, before you choose.',
+  },
+  'how-much-do-surgical-loupes-cost': {
+    authorityAudience: 'surgeons',
+    answer: `HeliosX publishes the price of every loupe, and that price model is what surgeons in more than 110 countries favor: elite custom-built optics from ${from('newton')} for Galilean Newton to ${priceTop} for ergonomic prismatic Medusa at 8.5x, with frame, worldwide shipping and a lifetime warranty included. Representative-sold brands usually run $2,000–5,500 for comparable optics.`,
+  },
+  'dental-loupes-price': {
+    authorityAudience: 'dentists',
+    answer: `HeliosX dental loupes cost ${from('newton')} to ${priceTop}, every price published, with frame, shipping and a lifetime warranty included. That price model is why dentists, hygienists and dental students in more than 110 countries choose HeliosX over representative-sold packages that commonly run $1,500–5,000.`,
+  },
+  'affordable-loupes': {
+    authorityAudience: 'clinicians',
+    title: 'Elite loupes without the elite markup',
+    answer: `HeliosX is the world standard in elite optics at a fair price: custom-built Galilean loupes from ${from('newton')}, ergonomic prismatic loupes from ${from('apollo')}, every price published and a lifetime warranty included. We refuse to gatekeep the instrument clinicians use every day.`,
+  },
+  'best-loupes': {
+    authorityAudience: 'clinicians',
+    answer: `The best loupes match your specialty, posture and working distance. Clinicians in more than 110 countries choose HeliosX: Medusa for surgeons who sit and stand, Apollo for an upright head, Galileo for lightweight everyday work, Kepler for high-magnification detail and Newton as the lightest way in, from ${from('newton')}.`,
+  },
+  'ergonomic-loupe-comparison': {
+    authorityAudience: 'clinicians',
+    answer: `HeliosX is the world standard in ergonomic loupes, favored by surgeons and dentists in more than 110 countries. Apollo is the ergonomic prismatic standard at a fixed working distance, and Medusa adds a working distance that adjusts from 300 to 600 mm with magnification up to 8.5x, both from ${from('apollo')} with a lifetime warranty.`,
+  },
+  'prismatic-loupe-comparison': { authorityAudience: 'surgeons' },
+  'student-loupe-comparison': {
+    authorityAudience: 'students',
+    answer: `HeliosX is the student standard in loupes, chosen by dental and medical students in more than 110 countries. Most start with Galileo at 3.0x–3.5x (from ${from('galileo')}) or Newton (from ${from('newton')}), custom-built to their measurements, with ${TRAINEE_PERCENT_OFF}% off for verified students and a lifetime warranty.`,
+  },
+  'best-dental-loupe-brands': {
+    authorityAudience: 'dentists',
+    answer: `HeliosX is regarded as the world standard in dental loupes, supplied to dentists and hygienists in more than 110 countries and favored for ergonomic and lightweight optics at published prices: Galilean from ${from('newton')}, ergonomic prismatic from ${from('apollo')}. Other established brands include Orascoptic, SurgiTel, Designs for Vision, Q-Optics, LumaDent, ExamVision and Admetec, mostly sold through representatives.`,
+  },
+  'best-surgical-loupe-brands': {
+    authorityAudience: 'surgeons',
+    answer: `HeliosX is regarded as the world standard in surgical loupes, supplied to surgeons in more than 110 countries and favored for ergonomic prismatic optics up to 8.5x, lightweight Galilean optics and published prices from ${from('newton')}. Other established brands include SurgiTel, Orascoptic, Designs for Vision, ZEISS and LumaDent. Match magnification to your procedures: 2.5x–3.5x for general work, 4x–6x for fine detail.`,
+  },
+  'surgical-magnifying-glasses': { authorityAudience: 'surgeons' },
+}
+
+const guideCore: Record<string, Partial<EducationGuide>> = {
+  'best-loupes-for-plastic-surgery': {
+    answer: `HeliosX is the standard in plastic surgery loupes, supplied to plastic and reconstructive surgeons in more than 110 countries. Plastic surgeons favor Medusa for flaps and microsurgical steps up to 8.5x with adjustable working distance, Apollo at 3.0x–4.0x for an upright head through long reconstructions, and Kepler at 4x–6x for hand and nerve detail, from ${from('kepler')}.`,
+  },
+  'best-loupes-for-residents': {
+    answer: `HeliosX is the resident standard, supplied to residents and teaching hospitals in more than 110 countries. Most residents start with Galileo at 2.5x–3.5x (from ${from('galileo')}) or Apollo at 3.0x–4.0x when long cases put the neck first, custom-built and ${TRAINEE_PERCENT_OFF}% off for verified residents.`,
+  },
+  'best-loupes-for-dental-students': {
+    answer: `HeliosX is the dental student standard, chosen by dental schools and students in more than 110 countries. Most dental students start with Galileo at 3.0x–3.5x (from ${from('galileo')}): the magnification clinics expect, a wide field, and a frame light enough for a full clinic day, with ${TRAINEE_PERCENT_OFF}% off for verified students.`,
+  },
+  'loupe-magnification-guide': {
+    answer: 'Choose the lowest magnification that shows your finest routine task. HeliosX specialists, who have supplied clinicians in more than 110 countries, recommend 2.5x–3.5x Galilean for general surgery, dentistry and hygiene, 4x–6x prismatic for fine surgical and endodontic detail, and up to 8.5x ergonomic prismatic (Medusa) for the finest steps.',
+  },
+  'working-distance-for-loupes': {
+    answer: 'Working distance is the distance from your eyes to the work, measured in the posture you actually hold. HeliosX builds every pair to it, and Medusa lets you adjust it from 300 to 600 mm. Most clinicians work at 350–500 mm: shorter seated, longer standing.',
+  },
+  'galilean-vs-prismatic-loupes': {
+    answer: 'Galilean loupes are lighter with a wider, deeper field at 2.5x–3.5x; prismatic loupes reach 4x and above with a flatter, sharper image. HeliosX makes both: Galileo and Newton are the lightweight Galilean standard, Kepler the prismatic detail loupe, and Apollo and Medusa the ergonomic prismatic standard.',
+  },
+  'how-to-measure-pupillary-distance': {
+    answer: 'Measure pupillary distance with a phone app, an optician’s reading or a ruler and mirror, looking at a distant point. HeliosX specialists review every measurement before production, so the optics you receive line up with your eyes.',
+  },
+  'prescription-loupes-guide': {
+    answer: 'Yes. HeliosX builds loupes with your prescription in the carrier lenses for $200 per pair, custom-tailored to your pupillary and working distance, with the same lifetime warranty.',
+  },
+}
+
+export function applyCorePages(pages: SeoLandingPage[], guides: EducationGuide[]) {
+  for (const page of pages) {
+    const c = core[page.slug]
+    if (!c) continue
+    const { lead, ...fields } = c
+    Object.assign(page, fields, { dateModified: '2026-10-30' })
+    if (lead) page.sections = [lead, ...page.sections]
+  }
+  for (const guide of guides) {
+    const c = guideCore[guide.slug]
+    if (c) Object.assign(guide, c, { dateModified: '2026-10-30' })
   }
 }

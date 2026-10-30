@@ -63,51 +63,48 @@ export default function WeightScale({ light, onPick, surface }: { light: Light; 
           </span>
         </div>
 
-        {/* Our headlight against the reference: the hatched remainder is what you don't carry.
-            Loupe lights skip it, since their battery rides at the waist and isn't in the figure. */}
-        {light.kind === 'head' ? (
-          <>
-            <div
-              className="relative mt-5 h-11 overflow-hidden rounded-[12px]"
-              style={{
-                backgroundImage: HATCH,
-                boxShadow: 'inset 0 0 0 1px rgba(238,242,238,0.22)',
-              }}
+        {/* Our light against the reference: the hatched remainder is what you don't carry. */}
+        <div
+          className="relative mt-5 h-11 overflow-hidden rounded-[12px]"
+          style={{
+            backgroundImage: HATCH,
+            boxShadow: 'inset 0 0 0 1px rgba(238,242,238,0.22)',
+          }}
+        >
+          <motion.div
+            className={`absolute inset-y-0 left-0 w-full origin-left rounded-[12px] ${light.kind === 'head' ? 'bg-[#ffa33a]' : 'bg-[#34d399]'}`}
+            initial={false}
+            animate={{
+              transform: `scaleX(${light.grams / REFERENCE.grams})`,
+            }}
+            transition={t}
+          />
+          <span className="absolute inset-y-0 right-3 flex items-center">
+            <motion.span
+              key={light.slug}
+              initial={reduceMotion ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: reduceMotion ? 0 : 0.25 }}
+              className={`tab rounded-full px-2.5 py-1 text-[12.5px] font-extrabold text-[#34d399] ${surface ? 'bg-black/60 backdrop-blur-md' : 'bg-[#14231d]'}`}
             >
-              <motion.div
-                className={`absolute inset-y-0 left-0 w-full origin-left rounded-[12px] ${light.kind === 'head' ? 'bg-[#ffa33a]' : 'bg-[#34d399]'}`}
-                initial={false}
-                animate={{
-                  transform: `scaleX(${light.grams / REFERENCE.grams})`,
-                }}
-                transition={t}
-              />
-              <span className="absolute inset-y-0 right-3 flex items-center">
-                <motion.span
-                  key={light.slug}
-                  initial={reduceMotion ? false : { opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3, delay: reduceMotion ? 0 : 0.25 }}
-                  className={`tab rounded-full px-2.5 py-1 text-[12.5px] font-extrabold text-[#34d399] ${surface ? 'bg-black/60 backdrop-blur-md' : 'bg-[#14231d]'}`}
-                >
-                  {saved} g lighter
-                </motion.span>
-              </span>
-            </div>
-            <div className="mt-2 flex justify-between text-[11.5px] font-semibold text-[rgba(238,242,238,0.66)]">
-              <span>{light.name}</span>
-              <span className="tab">
-                {REFERENCE.name}, {REFERENCE.grams} g
-              </span>
-            </div>
-          </>
-        ) : (
-          <p className="mt-3 text-[13px] leading-5 text-[rgba(238,242,238,0.72)]">
+              {saved} g lighter
+            </motion.span>
+          </span>
+        </div>
+        <div className="mt-2 flex justify-between text-[11.5px] font-semibold text-[rgba(238,242,238,0.66)]">
+          <span>{light.name}</span>
+          <span className="tab">
+            {REFERENCE.name}, {REFERENCE.grams} g
+          </span>
+        </div>
+        {/* Corded weights leave out the battery, so say where it rides. */}
+        {light.kind !== 'head' ? (
+          <p className="mt-3 text-[12.5px] leading-5 text-[rgba(238,242,238,0.66)]">
             {light.kind === 'wireless'
               ? `All ${light.grams} g sits on your loupes, battery included. Nothing at the waist, no cord.`
-              : `Adds ${light.grams} g to your loupes. The battery rides at your waist or neck, on a thin cord.`}
+              : `${light.grams} g at your loupes. The battery rides at your waist or neck, on a thin cord.`}
           </p>
-        )}
+        ) : null}
       </div>
 
       <div className="space-y-4 border-t border-white/[0.08] px-4 py-4">

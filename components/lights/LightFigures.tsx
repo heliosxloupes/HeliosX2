@@ -15,7 +15,7 @@ export function BeamFigure({ light, label = true }: { light: Light; label?: bool
   // Several figures can share a page, so gradient ids must be unique.
   const id = useId().replace(/:/g, '')
   const rx = ((light.spotMm ?? 110) / 140) * 118
-  const strength = 0.35 + (light.lux / MAX_LUX) * 0.65
+  const strength = Math.min(1, 0.35 + (light.lux / MAX_LUX) * 0.65)
   const t = { duration: reduceMotion ? 0 : 0.6, ease: EASE }
   return (
     <svg viewBox="0 0 320 172" className="block h-auto w-full" aria-hidden="true">
@@ -53,9 +53,11 @@ export function BeamFigure({ light, label = true }: { light: Light; label?: bool
       <text x="16" y="24" fill="rgba(238,242,238,0.66)" fontSize="10.5" fontWeight="700" letterSpacing="1.4">
         AT 42 CM
       </text>
-      <text x="304" y="24" textAnchor="end" fill="rgba(238,242,238,0.9)" fontSize="11" fontWeight="800">
-        {light.watts} W
-      </text>
+      {light.watts ? (
+        <text x="304" y="24" textAnchor="end" fill="rgba(238,242,238,0.9)" fontSize="11" fontWeight="800">
+          {light.watts} W
+        </text>
+      ) : null}
         </>
       ) : null}
     </svg>

@@ -2,7 +2,7 @@ import { sendMetaEvent } from '@/lib/meta-conversions'
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-import { BATTERIES, lightBySlug } from '@/lib/lights'
+import { BATTERIES, cordlessOptionName, lightBySlug } from '@/lib/lights'
 import {
   LIGHT_BUNDLE_PERCENT_OFF,
   MAX_LINE_ITEMS,
@@ -121,7 +121,7 @@ export async function POST(req: Request) {
         const battery = BATTERIES.find((entry) => entry.id === option)
         const optionLabel = battery
           ? `${battery.label} battery, ${battery.hours} hrs`
-          : `${light.wireless?.batteries ?? 1} batteries included`
+          : cordlessOptionName(light)
         const unitPrice = withLoupes ? bundledLightPrice(listPrice) : listPrice
 
         line_items.push({

@@ -12,14 +12,22 @@ import PromoBadge from '@/components/PromoBadge'
 import PhotoSwitch from '@/components/lights/PhotoSwitch'
 import Sheet from '@/components/m2/Sheet'
 import { money } from '@/components/m2/models'
-import { BATTERIES, LIGHTS, MAG_GUIDE, lightBySlug, lightFrom, lightPrice } from '@/lib/lights'
+import { ALL_LIGHTS, BATTERIES, MAG_GUIDE, headHours, lightBySlug, lightFrom, lightPrice, type Light } from '@/lib/lights'
 import { LIGHT_BUNDLE_PERCENT_OFF, bundledLightPrice } from '@/lib/pricing'
-import { BatteryRing, BeamFigure } from '@/components/lights/LightFigures'
+import BeamScene from '@/components/lights/BeamScene'
+import { BatteryRing } from '@/components/lights/LightFigures'
 import { useLightSelection } from '@/components/lights/useLightSelection'
+import WeightScale from '@/components/lights/WeightScale'
 import { useStickyBarOffset } from './useStickyBarOffset'
 
 const EASE = [0.23, 1, 0.32, 1] as const
 const fmtLux = (lux: number) => `${(lux / 1000).toLocaleString('en-US')}k`
+const STAGE_MASK = 'linear-gradient(180deg, transparent 0%, #000 30%)'
+// Two ways to wear a light. Loupe-mounted holds the corded range and Nova (wireless).
+const MOUNTS = [
+  { id: 'loupe', label: 'Loupe-mounted', kinds: ['corded', 'wireless'], first: 'corded' },
+  { id: 'head', label: 'Head-mounted', kinds: ['head'], first: 'head' },
+] as const
 
 export default function MobileLightsExperience() {
   const router = useRouter()
@@ -28,7 +36,7 @@ export default function MobileLightsExperience() {
   const barRef = useRef<HTMLDivElement>(null)
   useStickyBarOffset(barRef)
 
-  const { photos, photo, photoIndex, setPhotoIndex, light, setSlug, chooseKind, wireless, batteryId, setBatteryId, battery, option, price, group, optionName, commit } =
+  const { photos, photo, photoIndex, setPhotoIndex, light, setSlug, chooseKind, wireless, head, batteryId, setBatteryId, battery, option, price, optionName, commit } =
     useLightSelection('(max-width: 767px)')
   const [guide, setGuide] = useState(false)
   const [guideMag, setGuideMag] = useState<number | null>(null)
@@ -41,6 +49,8 @@ export default function MobileLightsExperience() {
   }, [toast])
 
   const ask = (source: string) => openContact(`lights_${source}_mobile`)
+  const noun = head ? 'LED headlight' : 'LED loupe light'
+  const mountGroup = ALL_LIGHTS.filter((entry) => (entry.kind === 'head') === head)
 
   const swap = reduceMotion
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }
@@ -52,21 +62,29 @@ export default function MobileLightsExperience() {
 
   return (
     <main className="m2 min-h-screen pb-28">
-      {/* STAGE: the light's name set huge, its photo crossfading beneath */}
-      <section className="m2-stage h-[440px]" style={{ background: '#ffffff' }} aria-label="HeliosX LED loupe lights">
+      {/* STAGE: the light's name set huge, its photo crossfading beneath. Headlights
+          are studio shots, staged like the loupe pages: the photo fills the stage and
+          its wall fades into the stage tone behind a light name. */}
+      <section
+        className={`m2-stage ${head ? 'h-[500px]' : 'h-[440px]'}`}
+        style={{ background: light.head?.stageTone ?? '#ffffff', transition: 'background-color 0.45s cubic-bezier(0.23, 1, 0.32, 1)' }}
+        aria-label="HeliosX LED loupe lights and headlights"
+      >
         <AnimatePresence initial={false}>
           <motion.div
             key={photo}
-            className="absolute inset-x-0 bottom-[30px] top-[186px]"
+            className={head ? 'absolute bottom-0 left-1/2 z-0 aspect-[2400/1792] w-[112%]' : 'absolute inset-x-0 bottom-[30px] top-[186px]'}
+            style={head ? { translate: '-50% 0', WebkitMaskImage: STAGE_MASK, maskImage: STAGE_MASK } : undefined}
             initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.45, ease: EASE }}
           >
-            <Image src={photo} alt={`${light.name} LED loupe light${photoIndex ? `, photo ${photoIndex + 1}` : ''}`} fill priority sizes="100vw" className="object-contain" />
+            <Image src={photo} alt={`${light.name} ${noun}${photoIndex ? `, photo ${photoIndex + 1}` : ''}`} fill priority sizes={head ? '112vw' : '100vw'} className={head ? 'object-cover' : 'object-contain'} />
           </motion.div>
         </AnimatePresence>
-        <PhotoSwitch photos={photos} active={photoIndex} onChange={setPhotoIndex} name={light.name} className="absolute bottom-[52px] left-4" />
+        {head ? <span className="m2-shade" aria-hidden="true" /> : null}
+        <PhotoSwitch photos={photos} active={photoIndex} onChange={setPhotoIndex} name={light.name} className="absolute bottom-[52px] left-4 z-[2]" />
         <div className="absolute inset-x-0 top-[78px] z-[2] text-center">
           <div className="relative h-[min(21vw,6rem)] overflow-hidden">
             <AnimatePresence mode="popLayout" initial={false}>
@@ -74,8 +92,9 @@ export default function MobileLightsExperience() {
                 key={light.name}
                 role="heading"
                 aria-level={1}
-                className="m2-giant"
-                style={{ fontSize: 'min(21vw, 6rem)' }}
+                className={`m2-giant ${head ? 'm2-giant--light' : ''}`}
+                // Names up to seven letters fit at 21vw; longer ones shrink to stay on screen.
+                style={{ fontSize: `min(${Math.min(21, 147 / light.name.length).toFixed(1)}vw, 6rem)` }}
                 {...swap}
                 transition={{ duration: 0.3, ease: EASE }}
               >
@@ -83,7 +102,7 @@ export default function MobileLightsExperience() {
               </motion.p>
             </AnimatePresence>
           </div>
-          <span className="m2-sub mt-3 !text-[#4d5f54]">LED loupe light{wireless ? ', wireless' : ''}</span>
+          <span className={`m2-sub mt-3 ${head ? '' : '!text-[#4d5f54]'}`}>{noun}{wireless ? ', wireless' : ''}</span>
         </div>
         <span className="m2-chip bottom-[52px] right-4 tab">{light.lux.toLocaleString('en-US')} lux</span>
       </section>
@@ -110,22 +129,26 @@ export default function MobileLightsExperience() {
             Which light do I need?
           </button>
         </div>
-        <div className="mt-1.5 grid grid-cols-2 rounded-full bg-[#e4e9e4] p-1" role="group" aria-label="Light type">
-          {(['corded', 'wireless'] as const).map((kind) => (
-            <button
-              key={kind}
-              type="button"
-              aria-pressed={light.kind === kind}
-              onClick={() => chooseKind(kind)}
-              className={`min-h-10 rounded-full text-[13px] font-bold capitalize transition-[background-color,box-shadow] duration-200 ${light.kind === kind ? 'bg-white shadow-[0_1px_3px_rgba(8,38,27,0.14)]' : 'text-[#4d5f54]'}`}
-            >
-              {kind}
-            </button>
-          ))}
+        <div className="mt-1.5 grid grid-cols-2 rounded-full bg-[#e4e9e4] p-1" role="group" aria-label="How the light is worn">
+          {MOUNTS.map((entry) => {
+            const active = (entry.kinds as readonly Light['kind'][]).includes(light.kind)
+            return (
+              <button
+                key={entry.id}
+                type="button"
+                aria-pressed={active}
+                onClick={() => !active && chooseKind(entry.first)}
+                className={`min-h-10 rounded-full text-[13px] font-bold transition-[background-color,box-shadow] duration-200 ${active ? 'bg-white shadow-[0_1px_3px_rgba(8,38,27,0.14)]' : 'text-[#4d5f54]'}`}
+              >
+                {entry.label}
+              </button>
+            )
+          })}
         </div>
-        <div className={`mt-2.5 grid gap-1.5 ${group.length === 4 ? 'grid-cols-4' : 'grid-cols-1'}`} role="radiogroup" aria-label="Light model">
-          {group.map((entry) => {
+        <div className={`mt-2.5 grid gap-1.5 ${head ? 'grid-cols-2' : 'grid-cols-4'}`} role="radiogroup" aria-label="Light model">
+          {mountGroup.map((entry) => {
             const active = entry.slug === light.slug
+            const cordless = entry.kind === 'wireless'
             return (
               <button
                 key={entry.slug}
@@ -133,10 +156,12 @@ export default function MobileLightsExperience() {
                 role="radio"
                 aria-checked={active}
                 onClick={() => setSlug(entry.slug)}
-                className={`flex min-h-[58px] flex-col items-center justify-center rounded-[16px] border-[1.5px] px-1 transition-[background-color,color,border-color,transform] duration-200 active:scale-[0.96] ${active ? 'border-[#08261b] bg-[#08261b] text-[#eef2ee]' : 'border-[rgba(8,38,27,0.12)]'}`}
+                className={`flex min-h-[58px] flex-col items-center justify-center rounded-[16px] border-[1.5px] px-1 transition-[background-color,color,border-color,transform] duration-200 active:scale-[0.96] ${cordless ? 'col-span-4' : ''} ${active ? 'border-[#08261b] bg-[#08261b] text-[#eef2ee]' : 'border-[rgba(8,38,27,0.12)]'}`}
               >
                 <span className="text-[13.5px] font-extrabold">{entry.name}</span>
-                <span className={`tab text-[11.5px] font-semibold ${active ? 'text-[rgba(238,242,238,0.72)]' : 'text-[#4d5f54]'}`}>{fmtLux(entry.lux)} lux</span>
+                <span className={`tab text-[11.5px] font-semibold ${active ? 'text-[rgba(238,242,238,0.72)]' : 'text-[#4d5f54]'}`}>
+                  {fmtLux(entry.lux)} lux{cordless ? ' · wireless, no cord' : ''}
+                </span>
               </button>
             )
           })}
@@ -145,13 +170,15 @@ export default function MobileLightsExperience() {
 
         {/* BEAM: what the brightness and spot look like on the field */}
         <figure className="mt-3 overflow-hidden rounded-[22px] bg-[#14231d] text-[#eef2ee]">
-          <BeamFigure light={light} />
+          <div className="bg-gradient-to-b from-black/35 to-black/10">
+            <BeamScene light={light} />
+          </div>
           <dl className="grid grid-cols-3 border-t border-[rgba(238,242,238,0.12)] px-1 py-3">
             {(
               [
                 ['Brightness', `${fmtLux(light.lux)} lux`],
-                ['Spot at 42 cm', light.spotMm ? `${light.spotMm} mm${light.spotAdjustable ? ', adj.' : ''}` : 'Not listed'],
-                ['Head weight', light.headWeight.replace(' with battery', '')],
+                ['Spot at 42 cm', light.head ? `${light.head.spotRange[0]}–${light.head.spotRange[1]} mm` : light.spotMm ? `${light.spotMm} mm${light.spotAdjustable ? ', adj.' : ''}` : 'Not listed'],
+                [head ? 'Weight' : 'Head weight', light.headWeight.replace(' with battery', '')],
               ] as const
             ).map(([label, value], index) => (
               <div key={label} className={`px-3 ${index ? 'border-l border-[rgba(238,242,238,0.12)]' : ''}`}>
@@ -161,18 +188,35 @@ export default function MobileLightsExperience() {
             ))}
           </dl>
           <figcaption className="sr-only">
-            {light.name} gives {light.lux.toLocaleString('en-US')} lux{light.spotMm ? ` in a ${light.spotMm} mm spot at 42 cm` : ''}.
+            {light.name} gives {light.lux.toLocaleString('en-US')} lux{light.head ? `, with a spot you can set from ${light.head.spotRange[0]} to ${light.head.spotRange[1]} mm at 42 cm` : light.spotMm ? ` in a ${light.spotMm} mm spot at 42 cm` : ''}.
           </figcaption>
         </figure>
 
         {/* BATTERY */}
-        <div className="mt-7 m2-cap">{wireless ? 'Batteries' : 'Battery'}</div>
+        <div className="mt-7 m2-cap">{wireless || (light.head?.batteries ?? 1) > 1 ? 'Batteries' : 'Battery'}</div>
         <div className="mt-2 flex items-center gap-4 rounded-[22px] bg-[#f7f9f7] p-4">
           <BatteryRing
-            segments={wireless ? Array(light.wireless?.batteries ?? 1).fill(light.wireless?.hoursPerBattery ?? 1) : [battery.hours]}
+            segments={
+              light.head
+                ? Array(light.head.batteries).fill(light.head.hours[1])
+                : wireless
+                  ? Array(light.wireless?.batteries ?? 1).fill(light.wireless?.hoursPerBattery ?? 1)
+                  : [battery.hours]
+            }
           />
           <p className="min-w-0 text-[13px] leading-5 text-[#26352d]" aria-live="polite">
-            {wireless ? (
+            {light.head ? (
+              <>
+                <strong className="block text-[15px] text-[#08261b]">
+                  {light.head.hours[0] === light.head.hours[1] ? '' : 'Up to '}
+                  {light.head.hours[1]} hrs per charge
+                </strong>
+                {light.head.batteries > 1
+                  ? `${light.head.batteries} batteries included, so one charges while you work.`
+                  : 'The battery sits at the back of the band, opposite the light.'}{' '}
+                Recharges over USB in {light.head.chargeTime}.
+              </>
+            ) : wireless ? (
               <>
                 <strong className="block text-[15px] text-[#08261b]">{light.wireless?.hoursPerBattery} hr{light.wireless?.hoursPerBattery === 1 ? '' : 's'} per battery</strong>
                 {light.wireless?.batteries} batteries included. Swap one in and keep working. Each recharges in {light.wireless?.chargeTime.toLowerCase()}.
@@ -186,7 +230,7 @@ export default function MobileLightsExperience() {
           </p>
         </div>
 
-        {!wireless ? (
+        {light.kind === 'corded' ? (
           <div className="mt-2 space-y-1.5" role="radiogroup" aria-label="Battery">
             {BATTERIES.map((entry) => {
               const active = entry.id === batteryId
@@ -213,6 +257,12 @@ export default function MobileLightsExperience() {
           </div>
         ) : null}
 
+        {/* WEIGHT: every light on one scale */}
+        <div className="mt-7 m2-cap">Weight</div>
+        <div className="mt-2">
+          <WeightScale light={light} onPick={setSlug} />
+        </div>
+
         {/* ASK */}
         <div className="mt-6 rounded-[22px] bg-[#14231d] px-5 py-5 text-[#eef2ee]">
           <strong className="block text-[16px] font-extrabold tracking-[-0.02em]">Not sure how much light you need?</strong>
@@ -225,10 +275,21 @@ export default function MobileLightsExperience() {
         </div>
       </section>
 
+      {/* GALLERY: headlights show their other photos the way the loupe pages do */}
+      {head && photos.length > 1 ? (
+        <div className="m2-gallery mt-6" aria-label={`${light.name} photos`}>
+          {photos.map((src, index) => (
+            <div key={src}>
+              <Image src={src} alt={`${light.name} ${noun}, view ${index + 1}`} fill sizes="240px" className="object-cover" />
+            </div>
+          ))}
+        </div>
+      ) : null}
+
       <section className="px-5">
         <dl className="m2-facts mt-7 border-y border-[rgba(8,38,27,0.12)]">
-          <div><dt>Fits</dt><dd>Every HeliosX frame</dd></div>
-          <div><dt>Color temperature</dt><dd className="tab">5,000 K</dd></div>
+          <div><dt>{head ? 'Worn' : 'Fits'}</dt><dd>{light.head ? light.head.band : 'Every HeliosX frame'}</dd></div>
+          <div><dt>Color temperature</dt><dd className="tab">{light.head ? light.head.colorTemp : '5,000 K'}</dd></div>
           <div><dt>Brightness</dt><dd>{wireless ? `${light.wireless?.steps} steps, touch control` : 'Adjustable'}</dd></div>
           <div><dt>Spot size</dt><dd>{light.spotAdjustable ? 'Adjustable' : 'Fixed'}</dd></div>
           {!wireless ? <div><dt>LED life</dt><dd className="tab">50,000 hrs</dd></div> : null}
@@ -239,11 +300,22 @@ export default function MobileLightsExperience() {
           <details className="m2-details">
             <summary>Specifications <Plus size={18} /></summary>
             <ul className="list-disc space-y-1.5 pb-6 pl-5 text-[14px] leading-6 text-[#26352d] marker:text-[#0b6b53]">
-              <li>Power: {light.watts} W</li>
+              {light.watts ? <li>Power: {light.watts} W</li> : null}
               <li>Brightness: {light.lux.toLocaleString('en-US')} lux</li>
-              {light.spotMm ? <li>Spot diameter at 42 cm: {light.spotMm} mm</li> : null}
-              <li>Head weight: {light.headWeight}</li>
-              {wireless ? (
+              {light.head ? (
+                <li>Spot diameter at 42 cm: {light.head.spotRange[0]}–{light.head.spotRange[1]} mm, adjustable</li>
+              ) : light.spotMm ? (
+                <li>Spot diameter at 42 cm: {light.spotMm} mm</li>
+              ) : null}
+              <li>{head ? 'Weight' : 'Head weight'}: {light.headWeight}</li>
+              {light.head ? (
+                <>
+                  <li>Color temperature: {light.head.colorTemp}</li>
+                  <li>Battery: {light.head.batteries} included, {headHours(light)} per charge</li>
+                  <li>Charge time: {light.head.chargeTime}, over USB</li>
+                  <li>LED life: 50,000 hrs</li>
+                </>
+              ) : wireless ? (
                 <>
                   <li>Battery: {light.wireless?.batteries} included, {light.wireless?.hoursPerBattery} hr{light.wireless?.hoursPerBattery === 1 ? '' : 's'} each</li>
                   <li>Charge time: {light.wireless?.chargeTime}</li>
@@ -260,14 +332,14 @@ export default function MobileLightsExperience() {
 
         <h2 className="m2-h2 mt-12">Compare the range</h2>
         <ul className="mt-4 divide-y divide-[rgba(8,38,27,0.12)] border-y border-[rgba(8,38,27,0.12)]">
-          {LIGHTS.map((entry) => (
+          {ALL_LIGHTS.map((entry) => (
             <li key={entry.slug}>
               <button type="button" onClick={() => { setSlug(entry.slug); window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }) }} className="flex min-h-[64px] w-full items-center gap-3 text-left">
                 <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-[12px] bg-white">
                   <Image src={entry.image} alt="" fill sizes="44px" className="object-contain p-0.5" />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[14.5px] font-extrabold">{entry.name}{entry.kind === 'wireless' ? <span className="font-semibold text-[#4d5f54]"> · wireless</span> : null}</span>
+                  <span className="block text-[14.5px] font-extrabold">{entry.name}{entry.kind !== 'corded' ? <span className="font-semibold text-[#4d5f54]"> · {entry.kind === 'head' ? 'head-mounted' : 'wireless'}</span> : null}</span>
                   <span className="tab block text-[12.5px] text-[#4d5f54]">{entry.lux.toLocaleString('en-US')} lux{entry.spotMm ? ` · ${entry.spotMm} mm spot` : ''}</span>
                 </span>
                 <span className="tab shrink-0 text-[13px] font-bold">from {money(lightFrom(entry.slug))}</span>

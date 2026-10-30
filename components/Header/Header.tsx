@@ -291,7 +291,7 @@ function MobileNav() {
 }
 
 const desktopNavItems = [
-  { href: '/product', label: 'Product' },
+  { href: '/product', label: 'Loupes' },
   { href: '/product/lights', label: 'Lights' },
   { href: '/surgical-loupes', label: 'Surgical' },
   { href: '/dental-loupes', label: 'Dental' },

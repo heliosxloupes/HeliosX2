@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { useContact } from '@/components/Contact/ContactProvider'
 import { addToCart } from '@/lib/cart'
-import { BATTERIES, LIGHTS, lightBySlug, lightPrice, type Light } from '@/lib/lights'
+import { ALL_LIGHTS, BATTERIES, LIGHTS, cordlessOptionName, lightBySlug, lightPrice, type Light } from '@/lib/lights'
 
 // Selection state shared by the mobile and desktop Lights layouts. Both are in
 // the DOM at once, so only the one matching `media` reports what the visitor is
@@ -22,13 +22,12 @@ export function useLightSelection(media: string) {
   // Each light opens on its main photo.
   useEffect(() => setPhotoIndex(0), [slug])
   const wireless = light.kind === 'wireless'
-  const option = wireless ? 'wireless' : batteryId
+  const head = light.kind === 'head'
+  const option = wireless ? 'wireless' : head ? 'headband' : batteryId
   const battery = BATTERIES.find((entry) => entry.id === batteryId) ?? BATTERIES[0]
   const price = lightPrice(light.slug, option)
-  const group = LIGHTS.filter((entry) => entry.kind === light.kind)
-  const optionName = wireless
-    ? `${light.wireless?.batteries} batteries included`
-    : `${battery.label} battery, ${battery.hours} hrs`
+  const group = ALL_LIGHTS.filter((entry) => entry.kind === light.kind)
+  const optionName = light.kind === 'corded' ? `${battery.label} battery, ${battery.hours} hrs` : cordlessOptionName(light)
 
   useEffect(() => {
     if (!window.matchMedia(media).matches) return
@@ -36,14 +35,14 @@ export function useLightSelection(media: string) {
   }, [media, light.slug, light.name, optionName, setProductContext])
 
   const chooseKind = (kind: Light['kind']) => {
-    if (kind !== light.kind) setSlug(kind === 'corded' ? 'vega' : 'nova')
+    if (kind !== light.kind) setSlug(kind === 'corded' ? 'vega' : kind === 'wireless' ? 'nova' : 'canopus')
   }
 
   const commit = () => {
     if (!price) return false
     addToCart({
       productSlug: light.slug,
-      name: `${light.name} LED Loupe Light`,
+      name: `${light.name} ${head ? 'LED Headlight' : 'LED Loupe Light'}`,
       shortName: light.name,
       price,
       quantity: 1,
@@ -55,5 +54,5 @@ export function useLightSelection(media: string) {
     return true
   }
 
-  return { photos, photo, photoIndex: photos[photoIndex] ? photoIndex : 0, setPhotoIndex, light, setSlug, chooseKind, wireless, batteryId, setBatteryId, battery, option, price, group, optionName, commit }
+  return { photos, photo, photoIndex: photos[photoIndex] ? photoIndex : 0, setPhotoIndex, light, setSlug, chooseKind, wireless, head, batteryId, setBatteryId, battery, option, price, group, optionName, commit }
 }

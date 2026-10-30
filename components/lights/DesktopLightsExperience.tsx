@@ -11,24 +11,35 @@ import { useContact } from '@/components/Contact/ContactProvider'
 import PromoBadge from '@/components/PromoBadge'
 import PhotoSwitch from '@/components/lights/PhotoSwitch'
 import { money } from '@/components/m2/models'
-import { BATTERIES, LIGHTS, MAG_GUIDE, cutout, lightBySlug, lightFrom, lightPrice } from '@/lib/lights'
+import { ALL_LIGHTS, BATTERIES, LIGHTS, MAG_GUIDE, cutout, headHours, lightBySlug, lightFrom, lightPrice, type Light } from '@/lib/lights'
 import { LIGHT_BUNDLE_PERCENT_OFF, bundledLightPrice } from '@/lib/pricing'
 import BeamScene from './BeamScene'
 import LightsBackdrop from './LightsBackdrop'
 import { BatteryRing } from './LightFigures'
 import styles from './lights.module.css'
 import { useLightSelection } from './useLightSelection'
+import WeightScale from './WeightScale'
 
 const EASE = [0.23, 1, 0.32, 1] as const
 const fmtLux = (lux: number) => `${(lux / 1000).toLocaleString('en-US')}k`
+const luxWatts = (light: Light) => `${fmtLux(light.lux)} lux${light.watts ? ` · ${light.watts} W` : ''}`
+
+// Two ways to wear a light. Loupe-mounted holds the corded range and Nova (wireless).
+const MOUNTS = [
+  { id: 'loupe', label: 'Loupe-mounted', kinds: ['corded', 'wireless'], first: 'corded' },
+  { id: 'head', label: 'Head-mounted', kinds: ['head'], first: 'head' },
+] as const
 
 // The corded lights are matte black and need lifting on dark glass, Polaris (shot darker)
 // most of all; Nova is light grey and needs taking down instead.
-const STAGE_BRIGHTNESS: Partial<Record<(typeof LIGHTS)[number]['slug'], number>> = { polaris: 1.42, nova: 0.86 }
-const stageFilter = (slug: (typeof LIGHTS)[number]['slug']) =>
-  slug === 'nova'
+const STAGE_BRIGHTNESS: Partial<Record<Light['slug'], number>> = { polaris: 1.42, nova: 0.86 }
+const stageFilter = (light: Light) =>
+  light.kind === 'head'
+    ? // White headbands glare on dark glass, so they come down; black Arcturus only a touch.
+      `brightness(${light.slug === 'arcturus' ? 0.94 : 0.82}) drop-shadow(0 24px 36px rgba(0,0,0,0.55))`
+    : light.slug === 'nova'
     ? `brightness(${STAGE_BRIGHTNESS.nova}) drop-shadow(0 24px 36px rgba(0,0,0,0.55))`
-    : `brightness(${STAGE_BRIGHTNESS[slug] ?? 1.22}) contrast(1.12) drop-shadow(0 0 3px rgba(255,255,255,0.16)) drop-shadow(0 24px 36px rgba(0,0,0,0.55))`
+    : `brightness(${STAGE_BRIGHTNESS[light.slug] ?? 1.22}) contrast(1.12) drop-shadow(0 0 3px rgba(255,255,255,0.16)) drop-shadow(0 24px 36px rgba(0,0,0,0.55))`
 
 // Smoked glass after the Charlie Riccio results-page folders: see lights.module.css.
 const GLASS = styles.glass
@@ -47,8 +58,13 @@ export default function DesktopLightsExperience() {
   const router = useRouter()
   const { openContact } = useContact()
   const reduceMotion = useReducedMotion()
-  const { photos, photo, photoIndex, setPhotoIndex, light, setSlug, chooseKind, wireless, batteryId, setBatteryId, battery, price, group, commit } =
+  const { photos: allPhotos, photo: anyPhoto, photoIndex, setPhotoIndex, light, setSlug, chooseKind, wireless, head, batteryId, setBatteryId, battery, price, commit } =
     useLightSelection('(min-width: 768px)')
+  // Only the headlights' main photo has a cut-out, so the glass stage shows that one alone.
+  const photos = head ? [light.image] : allPhotos
+  const photo = head ? light.image : anyPhoto
+  const mountGroup = ALL_LIGHTS.filter((entry) => (entry.kind === 'head') === head)
+  const noun = head ? 'LED headlight' : 'LED loupe light'
   const [guideMag, setGuideMag] = useState<number | null>(null)
   const [added, setAdded] = useState(false)
   const mainRef = useRef<HTMLElement>(null)
@@ -104,7 +120,7 @@ export default function DesktopLightsExperience() {
   }, [added])
 
   const ask = (source: string) => openContact(`lights_${source}_desktop`)
-  const pick = (slug: (typeof LIGHTS)[number]['slug']) => {
+  const pick = (slug: Light['slug']) => {
     setSlug(slug)
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })
   }
@@ -161,12 +177,12 @@ export default function DesktopLightsExperience() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5, ease: EASE }}
               >
-                <Image src={cutout(photo)} alt={`${light.name} LED loupe light${photoIndex ? `, photo ${photoIndex + 1}` : ''}`} fill priority sizes="(min-width: 1024px) 55vw, 90vw" className="object-contain" style={{ filter: stageFilter(light.slug) }} />
+                <Image src={cutout(photo)} alt={`${light.name} ${noun}${photoIndex && !head ? `, photo ${photoIndex + 1}` : ''}`} fill priority sizes="(min-width: 1024px) 55vw, 90vw" className="object-contain" style={{ filter: stageFilter(light) }} />
               </motion.div>
             </AnimatePresence>
             <PhotoSwitch photos={photos} active={photoIndex} onChange={setPhotoIndex} name={light.name} glass className="absolute bottom-5 left-5" />
             <span className="tab absolute bottom-5 right-5 z-[3] rounded-full border border-white/15 bg-black/40 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md">
-              {light.lux.toLocaleString('en-US')} lux · {light.watts} W
+              {light.lux.toLocaleString('en-US')} lux{light.watts ? ` · ${light.watts} W` : ''}
             </span>
           </div>
           </div>
@@ -179,8 +195,8 @@ export default function DesktopLightsExperience() {
               {(
                 [
                   ['Brightness', `${light.lux.toLocaleString('en-US')} lux`],
-                  ['Spot at 42 cm', light.spotMm ? `${light.spotMm} mm${light.spotAdjustable ? ', adjustable' : ''}` : 'Not listed'],
-                  ['Head weight', light.headWeight],
+                  ['Spot at 42 cm', light.head ? `${light.head.spotRange[0]}–${light.head.spotRange[1]} mm, adjustable` : light.spotMm ? `${light.spotMm} mm${light.spotAdjustable ? ', adjustable' : ''}` : 'Not listed'],
+                  [head ? 'Weight' : 'Head weight', light.headWeight],
                 ] as const
               ).map(([label, value]) => (
                 <div key={label}>
@@ -198,9 +214,11 @@ export default function DesktopLightsExperience() {
         {/* RIGHT: configure and buy */}
         <div className="flex flex-col gap-7">
           <div>
-            <h1 className="text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.03em] text-white">LED loupe lights</h1>
+            <h1 className="text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.03em] text-white">{head ? 'LED headlights' : 'LED loupe lights'}</h1>
             <p className="mt-3 max-w-[46ch] text-[0.95rem] leading-relaxed text-neutral-300">
-              Corded and wireless lights that clip to every HeliosX frame. Match the brightness to your magnification, then pick the battery that lasts your day.
+              {head
+                ? 'Wireless headlights on a padded band, worn with or without loupes. Brightness and spot size both adjust, and the battery sits at the back.'
+                : 'Corded and wireless lights that clip to every HeliosX frame. Match the brightness to your magnification, then pick the battery that lasts your day.'}
             </p>
             <PromoBadge tone="dark" className="mt-4" />
           </div>
@@ -211,22 +229,26 @@ export default function DesktopLightsExperience() {
               <h2 className="text-sm font-semibold text-white">Light</h2>
               <a href="#light-guide" className="text-xs font-medium text-emerald-300 underline-offset-4 hover:underline">Which light do I need?</a>
             </div>
-            <div className={`mt-3 grid grid-cols-2 rounded-full p-1 ${GLASS}`} role="group" aria-label="Light type">
-              {(['corded', 'wireless'] as const).map((kind) => (
-                <button
-                  key={kind}
-                  type="button"
-                  aria-pressed={light.kind === kind}
-                  onClick={() => chooseKind(kind)}
-                  className={`min-h-10 rounded-full text-sm font-semibold capitalize transition-colors duration-200 ${light.kind === kind ? 'bg-white text-black' : 'text-neutral-400 hover:text-white'}`}
-                >
-                  {kind}
-                </button>
-              ))}
+            <div className={`mt-3 grid grid-cols-2 rounded-full p-1 ${GLASS}`} role="group" aria-label="How the light is worn">
+              {MOUNTS.map((entry) => {
+                const active = (entry.kinds as readonly Light['kind'][]).includes(light.kind)
+                return (
+                  <button
+                    key={entry.id}
+                    type="button"
+                    aria-pressed={active}
+                    onClick={() => !active && chooseKind(entry.first)}
+                    className={`min-h-10 rounded-full text-sm font-semibold transition-colors duration-200 ${active ? 'bg-white text-black' : 'text-neutral-400 hover:text-white'}`}
+                  >
+                    {entry.label}
+                  </button>
+                )
+              })}
             </div>
-            <div className={`mt-3 grid gap-2 ${group.length > 1 ? 'grid-cols-2 xl:grid-cols-4' : 'grid-cols-1'}`} role="radiogroup" aria-label="Light model">
-              {group.map((entry) => {
+            <div className="mt-3 grid grid-cols-2 gap-2 xl:grid-cols-4" role="radiogroup" aria-label="Light model">
+              {mountGroup.map((entry) => {
                 const active = entry.slug === light.slug
+                const cordless = entry.kind === 'wireless'
                 return (
                   <button
                     key={entry.slug}
@@ -234,10 +256,13 @@ export default function DesktopLightsExperience() {
                     role="radio"
                     aria-checked={active}
                     onClick={() => setSlug(entry.slug)}
-                    className={`rounded-2xl px-4 py-3 text-left ${styles.chip}`}
+                    className={`rounded-2xl px-4 py-3 text-left ${cordless ? 'col-span-full' : ''} ${styles.chip}`}
                   >
-                    <span className="block text-[0.95rem] font-semibold text-white">{entry.name}</span>
-                    <span className="tab block text-xs text-neutral-400">{fmtLux(entry.lux)} lux · {entry.watts} W</span>
+                    <span className="block text-[0.95rem] font-semibold text-white">
+                      {entry.name}
+                      {cordless ? <span className="font-normal text-neutral-400"> · wireless, no cord</span> : null}
+                    </span>
+                    <span className="tab block text-xs text-neutral-400">{luxWatts(entry)}</span>
                     <span className="tab mt-2 block text-xs font-medium text-neutral-300">from {money(lightFrom(entry.slug))}</span>
                   </button>
                 )
@@ -248,11 +273,31 @@ export default function DesktopLightsExperience() {
 
           {/* Battery */}
           <div>
-            <h2 className="text-sm font-semibold text-white">{wireless ? 'Batteries' : 'Battery'}</h2>
+            <h2 className="text-sm font-semibold text-white">{wireless || (light.head?.batteries ?? 1) > 1 ? 'Batteries' : 'Battery'}</h2>
             <div className={`mt-3 flex items-center gap-5 rounded-2xl p-4 ${GLASS}`}>
-              <BatteryRing tone="dark" segments={wireless ? Array(light.wireless?.batteries ?? 1).fill(light.wireless?.hoursPerBattery ?? 1) : [battery.hours]} />
+              <BatteryRing
+                tone="dark"
+                segments={
+                  light.head
+                    ? Array(light.head.batteries).fill(light.head.hours[1])
+                    : wireless
+                      ? Array(light.wireless?.batteries ?? 1).fill(light.wireless?.hoursPerBattery ?? 1)
+                      : [battery.hours]
+                }
+              />
               <p className="text-sm leading-relaxed text-neutral-300" aria-live="polite">
-                {wireless ? (
+                {light.head ? (
+                  <>
+                    <strong className="block text-base text-white">
+                      {light.head.hours[0] === light.head.hours[1] ? '' : 'Up to '}
+                      {light.head.hours[1]} hrs per charge
+                    </strong>
+                    {light.head.batteries > 1
+                      ? `${light.head.batteries} batteries included, so one charges while you work.`
+                      : 'The battery sits at the back of the band, opposite the light.'}{' '}
+                    Recharges over USB in {light.head.chargeTime}.
+                  </>
+                ) : wireless ? (
                   <>
                     <strong className="block text-base text-white">{light.wireless?.hoursPerBattery} hrs per battery</strong>
                     {light.wireless?.batteries} batteries included. Swap one in and keep working. Each recharges in {light.wireless?.chargeTime.toLowerCase()}.
@@ -265,7 +310,7 @@ export default function DesktopLightsExperience() {
                 )}
               </p>
             </div>
-            {!wireless ? (
+            {light.kind === 'corded' ? (
               <div className="mt-2 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Battery">
                 {BATTERIES.map((entry) => {
                   const active = entry.id === batteryId
@@ -295,7 +340,7 @@ export default function DesktopLightsExperience() {
           <div className={`rounded-3xl p-5 ${PANEL}`}>
             <div className="flex items-end justify-between gap-4">
               <div>
-                <div className="text-xs text-neutral-400">{light.name}, {wireless ? `${light.wireless?.batteries} batteries` : `${battery.label.toLowerCase()} battery`}</div>
+                <div className="text-xs text-neutral-400">{light.name}, {light.head ? light.head.band.toLowerCase() : wireless ? `${light.wireless?.batteries} batteries` : `${battery.label.toLowerCase()} battery`}</div>
                 <div className="relative mt-1 h-10 overflow-hidden" aria-live="polite">
                   <AnimatePresence mode="popLayout" initial={false}>
                     <motion.div key={price} {...swap} transition={{ duration: 0.22, ease: EASE }} className="tab text-[2rem] font-semibold leading-10 text-white">
@@ -335,6 +380,14 @@ export default function DesktopLightsExperience() {
               <span>Not sure how much light you need? <span className="text-emerald-300">Ask us</span></span>
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </button>
+          </div>
+
+          {/* Weight: every light on one comparison */}
+          <div>
+            <h2 className="text-sm font-semibold text-white">Weight</h2>
+            <div className="mt-3">
+              <WeightScale light={light} onPick={setSlug} surface={`rounded-3xl ${PANEL}`} />
+            </div>
           </div>
         </div>
       </section>
@@ -417,13 +470,13 @@ export default function DesktopLightsExperience() {
             <table className="w-full min-w-[760px] text-left text-sm">
               <thead className="bg-white/[0.03] text-xs text-neutral-400">
                 <tr>
-                  {['Light', 'Type', 'Brightness', 'Spot at 42 cm', 'Head weight', 'Runtime', 'Price'].map((head) => (
+                  {['Light', 'Type', 'Brightness', 'Spot at 42 cm', 'Weight', 'Runtime', 'Price'].map((head) => (
                     <th key={head} scope="col" className="px-5 py-3 font-medium">{head}</th>
                   ))}
                 </tr>
               </thead>
               <tbody className="tab divide-y divide-white/10 text-neutral-200">
-                {LIGHTS.map((entry) => (
+                {ALL_LIGHTS.map((entry) => (
                   <tr key={entry.slug} className={entry.slug === light.slug ? 'bg-emerald-400/[0.06]' : undefined}>
                     <th scope="row" className="px-5 py-4">
                       <button type="button" onClick={() => pick(entry.slug)} className="flex items-center gap-3 font-semibold text-white hover:text-emerald-300">
@@ -433,12 +486,14 @@ export default function DesktopLightsExperience() {
                         {entry.name}
                       </button>
                     </th>
-                    <td className="px-5 py-4 capitalize">{entry.kind}</td>
+                    <td className="px-5 py-4">{entry.kind === 'head' ? 'Head-mounted' : entry.kind === 'wireless' ? 'Wireless' : 'Corded'}</td>
                     <td className="px-5 py-4">{entry.lux.toLocaleString('en-US')} lux</td>
-                    <td className="px-5 py-4">{entry.spotMm ? `${entry.spotMm} mm${entry.spotAdjustable ? ', adjustable' : ''}` : '—'}</td>
+                    <td className="px-5 py-4">{entry.head ? `${entry.head.spotRange[0]}–${entry.head.spotRange[1]} mm, adjustable` : entry.spotMm ? `${entry.spotMm} mm${entry.spotAdjustable ? ', adjustable' : ''}` : '—'}</td>
                     <td className="px-5 py-4">{entry.headWeight}</td>
                     <td className="px-5 py-4">
-                      {entry.wireless
+                      {entry.head
+                        ? `${headHours(entry)}${entry.head.batteries > 1 ? ` × ${entry.head.batteries} batteries` : ''}`
+                        : entry.wireless
                         ? `${entry.wireless.hoursPerBattery} hrs × ${entry.wireless.batteries} batteries`
                         : `${Math.min(...BATTERIES.map((b) => b.hours))}–${Math.max(...BATTERIES.map((b) => b.hours))} hrs`}
                     </td>
@@ -449,7 +504,7 @@ export default function DesktopLightsExperience() {
             </table>
           </div>
 
-          <div className="mt-12 grid gap-10 lg:grid-cols-3">
+          <div className="mt-12 grid gap-10 lg:grid-cols-2 xl:grid-cols-4">
             {[
               {
                 title: 'Every corded light',
@@ -458,6 +513,10 @@ export default function DesktopLightsExperience() {
               {
                 title: 'Nova, wireless',
                 items: ['Battery sits on the light, no cord', '3 batteries included, about 3 hrs each', 'Recharges in under 1 hr', '2 brightness steps, touch control', '29 g with battery'],
+              },
+              {
+                title: 'Every headlight',
+                items: ['Worn on a padded band, with or without loupes', 'Brightness and spot size both adjust', 'Battery at the back of the band, recharges over USB in 4 hrs', 'LED life 50,000 hrs'],
               },
               {
                 title: 'With your loupes',

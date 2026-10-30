@@ -6,7 +6,8 @@ import { useId, type CSSProperties } from 'react'
 import type { Light } from '@/lib/lights'
 import styles from './lights.module.css'
 
-const MAX_LUX = 150000
+// The brightest light we sell (Canopus). Every light's glow is a share of it.
+const MAX_LUX = 198000
 const W = 480
 const H = 270
 const LAMP = { x: 240, y: 40 }
@@ -49,7 +50,8 @@ const COLS = Array.from({ length: 15 }, (_, index) => index - 7)
 export default function BeamScene({ light, label = true }: { light: Light; label?: boolean }) {
   const reduceMotion = useReducedMotion()
   const id = useId().replace(/:/g, '')
-  const strength = 0.4 + (light.lux / MAX_LUX) * 0.6
+  // Linear in lux, so a light with twice the lux glows about twice as strongly.
+  const strength = Math.min(1, light.lux / MAX_LUX)
   const rx = ((light.spotMm ?? 110) / 140) * 150
   const ry = rx * 0.27
   const lensHalf = 9
@@ -115,7 +117,7 @@ export default function BeamScene({ light, label = true }: { light: Light; label
         transition={{ duration: 0.6, times: [0, 0.3, 0.5, 1], ease: 'easeOut' }}
       >
         {/* The grid where the light lands */}
-        <g mask={`url(#${id}-litmask)`} opacity={0.25 + strength * 0.4}>
+        <g mask={`url(#${id}-litmask)`} opacity={0.06 + strength * 0.6}>
           <Grid stroke="rgba(255,236,200,0.55)" />
         </g>
 
@@ -124,19 +126,19 @@ export default function BeamScene({ light, label = true }: { light: Light; label
           d={`M${LAMP.x - lensHalf} ${LAMP.y} L${LAMP.x + lensHalf} ${LAMP.y} L${LAMP.x + rx * 0.92} ${POOL_Y} L${LAMP.x - rx * 0.92} ${POOL_Y} Z`}
           fill={`url(#${id}-cone)`}
           filter={`url(#${id}-soft)`}
-          opacity={0.45 + strength * 0.55}
+          opacity={0.18 + strength * 0.82}
         />
         <path
           d={`M${LAMP.x - 4} ${LAMP.y} L${LAMP.x + 4} ${LAMP.y} L${LAMP.x + rx * 0.4} ${POOL_Y} L${LAMP.x - rx * 0.4} ${POOL_Y} Z`}
           fill={`url(#${id}-core)`}
           filter={`url(#${id}-soft)`}
-          opacity={0.2 + strength * 0.5}
+          opacity={0.04 + strength * 0.76}
         />
 
         {/* Pool of light at 42 cm, with bloom and a hotspot */}
-        <ellipse cx={LAMP.x} cy={POOL_Y} rx={rx * 1.12} ry={ry * 1.2} fill={`url(#${id}-pool)`} filter={`url(#${id}-bloom)`} opacity={0.35 + strength * 0.5} />
-        <ellipse cx={LAMP.x} cy={POOL_Y} rx={rx} ry={ry} fill={`url(#${id}-pool)`} opacity={0.55 + strength * 0.45} />
-        <ellipse cx={LAMP.x} cy={POOL_Y} rx={rx * 0.32} ry={ry * 0.32} fill="#fffdf8" filter={`url(#${id}-soft)`} opacity={0.3 + strength * 0.6} />
+        <ellipse cx={LAMP.x} cy={POOL_Y} rx={rx * 1.12} ry={ry * 1.2} fill={`url(#${id}-pool)`} filter={`url(#${id}-bloom)`} opacity={0.06 + strength * 0.84} />
+        <ellipse cx={LAMP.x} cy={POOL_Y} rx={rx} ry={ry} fill={`url(#${id}-pool)`} opacity={0.3 + strength * 0.7} />
+        <ellipse cx={LAMP.x} cy={POOL_Y} rx={rx * 0.32} ry={ry * 0.32} fill="#fffdf8" filter={`url(#${id}-soft)`} opacity={0.05 + strength * 0.95} />
         <ellipse cx={LAMP.x} cy={POOL_Y} rx={rx} ry={ry} fill="none" stroke="rgba(255,240,214,0.45)" strokeDasharray="1.5 4" />
 
         {/* Dust caught in the beam */}
@@ -157,7 +159,7 @@ export default function BeamScene({ light, label = true }: { light: Light; label
                   '--delay': `${mote.delay.toFixed(2)}s`,
                   '--dx': `${mote.dx.toFixed(1)}px`,
                   '--dy': `${mote.dy.toFixed(1)}px`,
-                  '--peak': (0.35 + strength * 0.5).toFixed(2),
+                  '--peak': (0.15 + strength * 0.75).toFixed(2),
                 } as CSSProperties
               }
             />
@@ -165,7 +167,7 @@ export default function BeamScene({ light, label = true }: { light: Light; label
         })}
 
         {/* Lens glow */}
-        <circle cx={LAMP.x} cy={LAMP.y} r={10 + strength * 14} fill={`url(#${id}-lens)`} filter={`url(#${id}-bloom)`} className={styles.lens} />
+        <circle cx={LAMP.x} cy={LAMP.y} r={6 + strength * 22} fill={`url(#${id}-lens)`} filter={`url(#${id}-bloom)`} className={styles.lens} />
       </motion.g>
 
       {/* Lamp head, seen from above and in front */}
@@ -182,9 +184,9 @@ export default function BeamScene({ light, label = true }: { light: Light; label
           <line x1={LAMP.x - rx} x2={LAMP.x + rx} y1={POOL_Y + ry + 20} y2={POOL_Y + ry + 20} />
           <line x1={LAMP.x - rx} x2={LAMP.x - rx} y1={POOL_Y + ry + 15} y2={POOL_Y + ry + 25} />
           <line x1={LAMP.x + rx} x2={LAMP.x + rx} y1={POOL_Y + ry + 15} y2={POOL_Y + ry + 25} />
-          <rect x={LAMP.x - 30} y={POOL_Y + ry + 12} width="60" height="16" rx="8" fill="#0d1512" stroke="none" />
+          <rect x={LAMP.x - (light.head ? 38 : 30)} y={POOL_Y + ry + 12} width={light.head ? 76 : 60} height="16" rx="8" fill="#0d1512" stroke="none" />
           <text x={LAMP.x} y={POOL_Y + ry + 24} textAnchor="middle" fill="rgba(238,242,238,0.85)" stroke="none" fontSize="11" fontWeight="700">
-            {light.spotMm} mm
+            {light.head ? `${light.head.spotRange[0]}–${light.head.spotRange[1]}` : light.spotMm} mm
           </text>
         </g>
       ) : null}
@@ -194,10 +196,12 @@ export default function BeamScene({ light, label = true }: { light: Light; label
           <text x="20" y="28" fill="rgba(238,242,238,0.6)" fontSize="11" fontWeight="700" letterSpacing="1.4">
             AT 42 CM
           </text>
-          <text x={W - 20} y="28" textAnchor="end" fill="rgba(238,242,238,0.92)" fontSize="12" fontWeight="800">
-            {light.watts} W
-          </text>
-          <text x={W - 20} y="44" textAnchor="end" fill="rgba(238,242,238,0.55)" fontSize="10.5" fontWeight="600">
+          {light.watts ? (
+            <text x={W - 20} y="28" textAnchor="end" fill="rgba(238,242,238,0.92)" fontSize="12" fontWeight="800">
+              {light.watts} W
+            </text>
+          ) : null}
+          <text x={W - 20} y={light.watts ? 44 : 28} textAnchor="end" fill="rgba(238,242,238,0.55)" fontSize="10.5" fontWeight="600">
             {light.lux.toLocaleString('en-US')} lux
           </text>
         </>

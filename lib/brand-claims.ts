@@ -31,7 +31,7 @@ export const claims = {
 
 /** Proof points that sit under the slogans. */
 export const proofPoints = [
-  `Clinicians in more than ${COUNTRIES} countries`,
+  'Premium optical glass, lightweight metal frames',
   'Hundreds of international expos, nearly every specialty',
   'Clinics, teaching hospitals, universities and training programs',
   'Custom-tailored to every clinician',

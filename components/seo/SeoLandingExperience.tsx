@@ -119,8 +119,7 @@ export default function SeoLandingExperience({
                 </a>
               </div>
               <p className={styles.fineprint}>
-                Guidance from the HeliosX loupe specialists, who have fitted
-                clinicians in more than 110 countries.
+                Guidance from the HeliosX loupe specialists.
               </p>
             </div>
             <div className={styles.heroImage}>

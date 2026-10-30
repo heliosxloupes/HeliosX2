@@ -111,7 +111,7 @@ export const institutionsPage: TrustPage = {
   path: '/hospitals-and-universities',
   kicker: 'Institutions',
   title: 'Loupes for teaching hospitals, universities and clinics',
-  metaTitle: 'Loupes for Hospitals, Universities & Training Programs | HeliosX',
+  metaTitle: 'Loupes for Hospitals & Universities | HeliosX',
   description: 'HeliosX equips private clinics, teaching hospitals, universities and training programs worldwide with custom-tailored surgical and dental loupes.',
   intro: `${claims.institutions} We equip residency classes, dental and medical schools, hygiene programs and private clinics with custom-tailored loupes, fitted by specialists who have advised clinicians in more than 110 countries.`,
   sections: [

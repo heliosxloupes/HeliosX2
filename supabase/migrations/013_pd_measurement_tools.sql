@@ -1,0 +1,5 @@
+-- PDCheck AR proved unreliable. Point the post-purchase email at the three
+-- recommended PD tools and the on-site guide.
+update public.email_templates
+set body = E'Thanks for your order. We have received your payment and reserved your HeliosX loupe configuration.\n\nBefore production begins, we need your custom fit measurements so we can build your loupes around the way you work.\n\nPlease send us:\n- Pupillary distance (PD)\n- Working distance\n- Prescription notes or a prescription screenshot, if applicable\n- Any fit notes you want our team to review\n\nFor PD, use two of these three tools and take three readings on each:\n- EyeMeasure iPhone app: wear your glasses for the scan.\n- Warby Parker PD tool: take your glasses off.\n- XREAL browser tool: take your glasses off.\n\nStep-by-step instructions and links for all three: {{pd_guide_url}}\n\nAfter measuring, reply directly to this email with screenshots of your results, or submit your details through your secure measurement page: {{measurement_url}}\n\nYour order remains fully refundable until custom production begins.'
+where key = 'post_purchase';

@@ -3,7 +3,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import {
   HELIOSX_SUPPORT_EMAIL,
-  PDCHECK_AR_IOS_URL,
+  PD_GUIDE_URL,
   type OrderEmailSummary,
   renderTemplate,
   sendEmail,
@@ -22,9 +22,14 @@ Please send us:
 - Prescription notes or a prescription screenshot, if applicable
 - Any fit notes you want our team to review
 
-For PD, we recommend using PDCheck AR by EyeQue on iPhone. Download the app here: {{pdcheck_ios_url}}
+For PD, use two of these three tools and take three readings on each:
+- EyeMeasure iPhone app: wear your glasses for the scan.
+- Warby Parker PD tool: take your glasses off.
+- XREAL browser tool: take your glasses off.
 
-After measuring, reply directly to this email with a screenshot of your PDCheck AR result, or submit your details through your secure measurement page: {{measurement_url}}
+Step-by-step instructions and links for all three: {{pd_guide_url}}
+
+After measuring, reply directly to this email with screenshots of your results, or submit your details through your secure measurement page: {{measurement_url}}
 
 Prescription orders remain fully refundable until custom production begins. Non-prescription pairs can be returned within 30 days of delivery for a full refund.`
 
@@ -150,8 +155,8 @@ async function sendPostPurchaseEmail({
       : undefined,
     secondaryCta: needsMeasurements
       ? {
-          label: 'Download PDCheck AR',
-          url: PDCHECK_AR_IOS_URL,
+          label: 'How to measure your PD',
+          url: PD_GUIDE_URL,
         }
       : undefined,
   })
@@ -232,7 +237,7 @@ export async function sendStandaloneCheckoutConfirmation({
   const needsMeasurements = !isLightsOnly(lineItems)
   const body = renderTemplate(needsMeasurements ? DEFAULT_POST_PURCHASE_BODY : LIGHTS_ONLY_POST_PURCHASE_BODY, {
     measurement_url: `mailto:${HELIOSX_SUPPORT_EMAIL}`,
-    pdcheck_ios_url: PDCHECK_AR_IOS_URL,
+    pd_guide_url: PD_GUIDE_URL,
     support_email: HELIOSX_SUPPORT_EMAIL,
     site_url: getSiteUrl(),
   })
@@ -428,7 +433,9 @@ export async function processCheckoutSessionCompleted({
   const measurementUrl = `${baseUrl}/measurements/${order.measurement_token}`
   const templateValues = {
     measurement_url: measurementUrl,
-    pdcheck_ios_url: PDCHECK_AR_IOS_URL,
+    pd_guide_url: PD_GUIDE_URL,
+    // Keeps a saved template from showing a raw placeholder until migration 013 runs.
+    pdcheck_ios_url: PD_GUIDE_URL,
     support_email: HELIOSX_SUPPORT_EMAIL,
     site_url: baseUrl,
   }

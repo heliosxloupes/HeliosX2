@@ -2640,7 +2640,7 @@ function expandThinGuides(guides: EducationGuide[]) {
         ),
         section(
           'Measuring pupillary distance with a phone',
-          'Han and colleagues compared three smartphone apps with a digital pupilometer in 44 adults (Cureus, 2023). Warby Parker and Eye Measure had a mean absolute error of about 0.5 mm; PDCheck AR averaged about 1.4 mm. The authors noted the small sample and a single examiner.',
+          'Han and colleagues compared three smartphone apps with a digital pupilometer in 44 adults (Cureus, 2023). Warby Parker and Eye Measure had a mean absolute error of about 0.5 mm; the third app averaged about 1.4 mm. The authors noted the small sample and a single examiner.',
           [
             'If you measure with an app, repeat the measurement and compare it with a second method.',
             'An optician or an existing glasses prescription can confirm your pupillary distance.',
@@ -2671,7 +2671,7 @@ function expandThinGuides(guides: EducationGuide[]) {
         ),
         faq(
           'How accurate are smartphone pupillary-distance apps?',
-          'In one 44-person study, the most accurate apps averaged about 0.5 mm of error and PDCheck AR about 1.4 mm, compared with a digital pupilometer. Repeat any app measurement and confirm it if you can.',
+          'In one 44-person study, the most accurate apps averaged about 0.5 mm of error and the third about 1.4 mm, compared with a digital pupilometer. Repeat any app measurement and confirm it if you can.',
         ),
         faq(
           'Has HeliosX published its own clinical studies?',

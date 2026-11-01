@@ -144,7 +144,7 @@ export default function MeasurementPage({ params }: { params: { token: string } 
                     className="rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm outline-none transition focus:border-white/30 disabled:opacity-50"
                   />
                   <details className="rounded-2xl border border-white/10 bg-black p-4">
-                    <summary className="cursor-pointer text-sm font-semibold text-emerald-200">How to measure your PD with an app</summary>
+                    <summary className="cursor-pointer text-sm font-semibold text-emerald-200">How to measure your PD</summary>
                     <div className="mt-6">
                       <PdAppGuide compact />
                     </div>

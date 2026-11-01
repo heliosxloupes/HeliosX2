@@ -155,7 +155,7 @@ function Hero() {
           </div>
           <div>
             <dt className="text-[10px] font-semibold uppercase tracking-[0.24em] text-neutral-500">You need</dt>
-            <dd className="mt-1 text-sm text-neutral-100">Tape, PD app, a colleague</dd>
+            <dd className="mt-1 text-sm text-neutral-100">Tape, a PD tool, a colleague</dd>
           </div>
         </dl>
       </motion.aside>
@@ -333,12 +333,12 @@ export default function MeasurementsExperience({ faqs, steps }: MeasurementsExpe
                 Evidence note
               </p>
               <h2 className="mt-3 text-3xl font-semibold leading-tight text-white md:text-4xl">
-                Smartphone PD apps are accurate enough for your loupe order.
+                Phone measurement is accurate enough for your loupe order.
               </h2>
             </Reveal>
             <Reveal delay={0.1} className="space-y-5 text-base leading-8 text-neutral-300">
               <p>
-                A 2023 peer-reviewed study compared smartphone pupillary distance applications against a digital pupilometer and confirmed that the leading apps measure accurately enough to support a confident loupe order from home. Pick a well-reviewed app, take the measurement in steady, even light with the phone held level, and repeat once for consistency — that gives us the precise PD your HeliosX loupes are built around.
+                A 2023 peer-reviewed study compared smartphone pupillary distance applications against a digital pupilometer and confirmed that the leading apps measure accurately enough to support a confident loupe order from home. Use the tools above in steady, even light, measure with at least two of them, and take three readings on each — that gives us the precise PD your HeliosX loupes are built around.
               </p>
               <Link
                 href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10389117/"

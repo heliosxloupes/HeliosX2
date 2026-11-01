@@ -32,7 +32,7 @@ const faqSections = [
               <li>Pupillary Distance (PD)</li>
               <li>Working Distance</li>
             </ul>
-            <p>The email also includes a QR code to download the PDCheck AR app, along with instructions for submitting your measurements.</p>
+            <p>The email also links to our PD measuring guide, along with instructions for submitting your measurements.</p>
           </div>
         ),
       },
@@ -43,11 +43,16 @@ const faqSections = [
             <p>Shortly after placing your order, look out for an email containing:</p>
             <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem', marginBottom: '1rem' }}>
               <li>Step-by-step PD measurement instructions</li>
-              <li>A QR code linking directly to the PDCheck AR app in the App Store</li>
+              <li>A link to our PD measuring guide</li>
               <li>A link to the customer measurement form where you will submit your results</li>
             </ul>
-            <p><strong>PDCheck AR by EyeQue</strong> is a smartphone-based vision tool that provides quick, accurate PD measurements using augmented reality. We highly recommend using this app for the most precise results.</p>
-            <p style={{ marginTop: '1rem' }}>If you prefer not to use the app, your email will also include simple instructions on how to measure your PD manually with a ruler.</p>
+            <p>We recommend three tools. Measure with at least two and take three readings on each:</p>
+            <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem', marginBottom: '1rem' }}>
+              <li><strong>EyeMeasure</strong> (iPhone app): wear your glasses for the scan.</li>
+              <li><strong>Warby Parker</strong> (PD tool): take your glasses off.</li>
+              <li><strong>XREAL</strong> (browser tool): take your glasses off.</li>
+            </ul>
+            <p style={{ marginTop: '1rem' }}>Full steps for each tool are in our <a href="/measurements/ipd">PD measuring guide</a>.</p>
           </div>
         ),
       },

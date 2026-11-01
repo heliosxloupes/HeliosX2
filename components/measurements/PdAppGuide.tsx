@@ -1,37 +1,60 @@
-// Recommended third-party apps for measuring pupillary distance.
-// Claims are quoted from each app's App Store listing (checked 27 Sep 2026).
+// The three pupillary distance tools HeliosX recommends.
+// Steps come from each tool's own instructions (checked 1 Nov 2026), except the
+// EyeMeasure glasses rule, which comes from HeliosX's own testing.
 // Re-check before editing: store names, owners and availability change.
 
-type PdApp = {
+type PdTool = {
   name: string
   maker: string
   href: string
+  cta: string
   platform: string
-  method: string
-  evidence: string[]
+  steps: string[]
+  note?: string
 }
 
-const APPS: PdApp[] = [
-  {
-    name: 'The Framery (formerly GlassesOn)',
-    maker: 'By 1-800 Contacts, originally developed by 6over6 Vision',
-    href: 'https://apps.apple.com/us/app/the-framery/id1153638659',
-    platform: 'Free · iPhone and iPad (iOS 17 or later)',
-    method:
-      'Hold any card the size of a credit card flat against your forehead for scale. The app uses your front camera and voice prompts to measure your PD in under a minute.',
-    evidence: [
-      'Registered with the FDA as a Class I exempt medical device.',
-      'Clinically tested to the ANSI Z80.17 standard: PD within 2 mm.',
-    ],
-  },
+const TOOLS: PdTool[] = [
   {
     name: 'EyeMeasure',
-    maker: 'By Bonlook',
+    maker: 'iPhone app by Bonlook',
     href: 'https://apps.apple.com/us/app/eyemeasure/id1417435049',
-    platform: 'Free · iPhone X or newer, and iPads with Face ID',
-    method:
-      'Uses the Face ID (TrueDepth) depth camera, so you need no card, mirror or ruler. Hold the phone about 30 cm from your face. It reports near and far PD.',
-    evidence: ['The developer states accuracy to within 0.5 mm.', 'Works only on devices with a Face ID camera.'],
+    cta: 'Get it on the App Store',
+    platform: 'Free · iPhone X or newer',
+    steps: [
+      'Put your glasses on and keep them on for the scan. This app needs them.',
+      'Hold the phone straight in front of your face, about 30 cm away.',
+      'Keep still while it scans. If nothing happens, move the phone a little further away.',
+      'Note the near PD and far PD. Send us both.',
+    ],
+    note: 'No glasses to hand? Use Warby Parker or XREAL instead.',
+  },
+  {
+    name: 'Warby Parker',
+    maker: 'Web tool, plus a card-free iPhone app in the US',
+    href: 'https://www.warbyparker.com/pd',
+    cta: 'Open the Warby Parker PD tool',
+    platform: 'Free · needs a free account',
+    steps: [
+      'Sign in, then take your glasses off.',
+      'Find a well-lit spot with a clean background.',
+      'Set the camera straight on, centre your face and look directly at the camera.',
+      'Hold any credit-card-size card under your nose, touching your face, with the number side hidden. Take the photo.',
+    ],
+    note: 'On a US iPhone X or newer, the Warby Parker app measures PD with no card. Use Measure your PD in the app and allow camera access.',
+  },
+  {
+    name: 'XREAL',
+    maker: 'Browser tool by XREAL',
+    href: 'https://www.xreal.com/ipd/ipd-camera',
+    cta: 'Open the XREAL IPD tool',
+    platform: 'Free · any device with a camera',
+    steps: [
+      'Take your glasses off and go somewhere well lit.',
+      'Open the tool, choose Agree and allow camera access.',
+      'Sit about 40 cm from the screen, facing it directly, and line your face up with the on-screen guide.',
+      'Press Start and hold still for the few seconds it takes.',
+    ],
+    note: 'XREAL calls this an estimate, so compare it with one of the other tools.',
   },
 ]
 
@@ -40,35 +63,34 @@ export default function PdAppGuide({ compact = false }: { compact?: boolean }) {
     <div className="space-y-5">
       {!compact && (
         <p className="max-w-[68ch] text-base leading-8 text-neutral-300">
-          The quickest accurate way to measure PD at home is a dedicated measurement app. We recommend these two:
+          The quickest accurate way to measure PD at home is one of these three tools:
         </p>
       )}
 
-      <div className={`grid gap-4 ${compact ? '' : 'md:grid-cols-2'}`}>
-        {APPS.map((app) => (
+      <div className={`grid gap-4 ${compact ? '' : 'lg:grid-cols-3'}`}>
+        {TOOLS.map((tool) => (
           <article
-            key={app.name}
+            key={tool.name}
             className="flex flex-col rounded-[24px] border border-white/10 bg-[#050b16] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.38)]"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200/80">{app.platform}</p>
-            <h3 className="mt-3 text-xl font-semibold text-white">{app.name}</h3>
-            <p className="mt-1 text-sm text-neutral-500">{app.maker}</p>
-            <p className="mt-4 text-sm leading-7 text-neutral-300">{app.method}</p>
-            <ul className="mt-4 space-y-2 border-t border-white/10 pt-4 text-sm leading-6 text-neutral-300">
-              {app.evidence.map((line) => (
-                <li key={line} className="flex gap-2">
-                  <span aria-hidden="true" className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-emerald-300" />
-                  {line}
-                </li>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200/80">{tool.platform}</p>
+            <h3 className="mt-3 text-xl font-semibold text-white">{tool.name}</h3>
+            <p className="mt-1 text-sm text-neutral-500">{tool.maker}</p>
+            <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm leading-6 text-neutral-300">
+              {tool.steps.map((step) => (
+                <li key={step}>{step}</li>
               ))}
-            </ul>
+            </ol>
+            {tool.note && (
+              <p className="mt-4 border-t border-white/10 pt-4 text-sm leading-6 text-neutral-400">{tool.note}</p>
+            )}
             <a
-              href={app.href}
+              href={tool.href}
               target="_blank"
               rel="noreferrer"
               className="mt-6 inline-flex self-start rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-neutral-200"
             >
-              Get it on the App Store
+              {tool.cta}
             </a>
           </article>
         ))}
@@ -76,16 +98,12 @@ export default function PdAppGuide({ compact = false }: { compact?: boolean }) {
 
       <div className="space-y-2 text-sm leading-7 text-neutral-400">
         <p>
-          Take three readings and use the average. Loupes need PD within about 1 mm, which is tighter than the 2 mm tolerance
-          used for everyday glasses, so repeat readings matter.
+          Measure with at least two tools and take three readings on each. Loupes need PD within about 1 mm. If your results
+          differ by more than that, measure again or send us every result and we will review them before production.
         </p>
         <p>
-          On Android? Neither app is currently on Google Play. Use an optician-measured PD, the PD printed on a recent glasses
-          prescription, or the ruler method described on our{' '}
-          <a href="/measurements#step-1" className="font-semibold text-emerald-200 hover:text-white">
-            measurements page
-          </a>
-          .
+          On Android? Warby Parker and XREAL both run in your browser. An optician-measured PD or the PD printed on a recent
+          glasses prescription also works.
         </p>
       </div>
     </div>

@@ -6305,21 +6305,21 @@ export const educationGuides: EducationGuide[] = [
       {
         title: 'Three ways to measure, in order of reliability',
         body:
-          'An optician-measured PD taken on a digital pupilometer is the most reliable source, and if you have had an eye exam in the last couple of years the number is often printed on your prescription already. A well-reviewed smartphone PD app is the next best option and is what most customers use. A ruler held across the brow works, but it is the least forgiving of a rushed measurement. Whichever route you take, measure three times and average — a single reading is where nearly every PD error originates.',
+          'An optician-measured PD taken on a digital pupilometer is the most reliable source, and if you have had an eye exam in the last couple of years the number is often printed on your prescription already. Our three recommended tools are the next best option and are what most customers use: the EyeMeasure iPhone app, the Warby Parker PD tool and the XREAL browser tool. A ruler held across the brow works, but it is the least forgiving of a rushed measurement. Whichever route you take, measure three times and average — a single reading is where nearly every PD error originates.',
         bullets: [
           'Best: optician or an existing eyeglass prescription.',
-          'Good: a well-reviewed smartphone PD app.',
+          'Good: EyeMeasure, Warby Parker or XREAL, using at least two.',
           'Workable: a millimetre ruler, carefully, in good light.',
         ],
       },
       {
         title: 'What the evidence says about phone apps',
         body:
-          'A 2023 peer-reviewed study compared leading smartphone PD applications against a digital pupilometer and found they measure accurately enough for confident use. That result is what makes ordering custom-fit loupes online reasonable rather than a gamble — the measurement genuinely does not require someone else in the room. It does require care: steady even light, the phone held level at eye height, and a fixed distant point to look at while the reading is taken.',
+          'A 2023 peer-reviewed study compared leading smartphone PD applications against a digital pupilometer and found they measure accurately enough for confident use. That result is what makes ordering custom-fit loupes online reasonable rather than a gamble — the measurement genuinely does not require someone else in the room. It does require care: steady even light, the camera held straight on, and each tool’s own instructions. Wear your glasses for EyeMeasure, and take them off for Warby Parker and XREAL.',
         bullets: [
           'Leading apps perform well against clinical instruments.',
-          'Steady, even light and a level phone matter more than which app you pick.',
-          'Look at a fixed point several metres away, not at the camera.',
+          'Steady, even light and a straight-on camera matter on every tool.',
+          'Follow each tool’s on-screen prompts for where to look.',
         ],
       },
       {
@@ -6335,9 +6335,9 @@ export const educationGuides: EducationGuide[] = [
       {
         title: 'Common mistakes',
         body:
-          'Measuring while looking at the ruler rather than a distant point is the most frequent error, and it shifts the reading inward by converging your eyes. Taking one measurement and trusting it is the second. Measuring in dim light comes third, because pupil dilation moves the apparent centre. None of these are difficult to avoid, and all of them are easier to avoid than to detect afterwards.',
+          'With a ruler, looking at the ruler rather than a distant point is the most frequent error, and it shifts the reading inward by converging your eyes. Taking one measurement and trusting it is the second. Measuring in dim light comes third, because pupil dilation moves the apparent centre. None of these are difficult to avoid, and all of them are easier to avoid than to detect afterwards.',
         bullets: [
-          'Do not look at the ruler or the phone while measuring.',
+          'With a ruler, look at a distant point rather than the ruler.',
           'Never rely on a single reading.',
           'Avoid dim light; dilated pupils shift the apparent centre.',
         ],
@@ -6347,7 +6347,7 @@ export const educationGuides: EducationGuide[] = [
       {
         question: 'Can I use a smartphone app to measure PD?',
         answer:
-          'Yes — a well-reviewed PD app gives a reliable measurement at home, and peer-reviewed research validates the approach against clinical pupilometers. Measure in good light, hold the phone level, look at a fixed distant point, and repeat once for confidence.',
+          'Yes. We recommend the EyeMeasure iPhone app, the Warby Parker PD tool and the XREAL browser tool, and peer-reviewed research validates phone measurement against clinical pupilometers. Measure in good light, use at least two tools, and take three readings on each. Wear your glasses for EyeMeasure and take them off for the other two.',
       },
       {
         question: 'How accurate does my PD need to be?',

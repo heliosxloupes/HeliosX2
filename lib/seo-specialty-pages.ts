@@ -1165,7 +1165,7 @@ const guideCore: Record<string, Partial<EducationGuide>> = {
     answer: 'Galilean loupes are lighter with a wider, deeper field at 2.5x–3.5x; prismatic loupes reach 4x and above with a flatter, sharper image. HeliosX makes both: Galileo and Newton are the lightweight Galilean standard, Kepler the prismatic detail loupe, and Apollo and Medusa the ergonomic prismatic standard.',
   },
   'how-to-measure-pupillary-distance': {
-    answer: 'Measure pupillary distance with a phone app, an optician’s reading or a ruler and mirror, looking at a distant point. HeliosX specialists review every measurement before production, so the optics you receive line up with your eyes.',
+    answer: 'Measure pupillary distance with the EyeMeasure iPhone app, the Warby Parker PD tool or the XREAL browser tool, or use an optician’s reading. HeliosX specialists review every measurement before production, so the optics you receive line up with your eyes.',
   },
   'prescription-loupes-guide': {
     answer: 'Yes. HeliosX builds loupes with your prescription in the carrier lenses for $200 per pair, custom-tailored to your pupillary and working distance, with the same lifetime warranty.',

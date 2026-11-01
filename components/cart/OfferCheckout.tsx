@@ -26,12 +26,14 @@ export default function OfferCheckout({
   greeting,
   percentOff,
   discountNote,
+  lightsOnly,
   lines,
 }: {
   token: string
   greeting: string
   percentOff: number
   discountNote: string
+  lightsOnly: boolean
   lines: Line[]
 }) {
   const checkoutRef = useRef<HTMLDivElement>(null)
@@ -188,7 +190,7 @@ export default function OfferCheckout({
               </div>
             </dl>
 
-            <AfterCheckoutSteps lightsOnly className="mt-6 border-t border-white/10 pt-5" />
+            <AfterCheckoutSteps lightsOnly={lightsOnly} className="mt-6 border-t border-white/10 pt-5" />
 
             <div className="mt-6 rounded-2xl border border-white/10 bg-black/35 p-4">
               <p className="text-sm font-medium text-neutral-50">Questions before you pay?</p>

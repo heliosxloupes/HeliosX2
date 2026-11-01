@@ -22,6 +22,7 @@ export default function OfferPage({ params }: { params: { token: string } }) {
       greeting={offer.greeting}
       percentOff={offer.percentOff}
       discountNote={offer.discountNote}
+      lightsOnly={offer.lightsOnly}
       lines={offer.lines.map(({ name, description, image, price }) => ({ name, description, image, price }))}
     />
   )

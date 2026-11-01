@@ -16,6 +16,7 @@ type Line = {
   description?: string
   image?: string
   price: number
+  percentOff: number
 }
 
 const usd = (amount: number) =>
@@ -24,14 +25,12 @@ const usd = (amount: number) =>
 export default function OfferCheckout({
   token,
   greeting,
-  percentOff,
   discountNote,
   lightsOnly,
   lines,
 }: {
   token: string
   greeting: string
-  percentOff: number
   discountNote: string
   lightsOnly: boolean
   lines: Line[]
@@ -42,7 +41,7 @@ export default function OfferCheckout({
   const [error, setError] = useState<string | null>(null)
 
   const subtotal = lines.reduce((sum, line) => sum + line.price, 0)
-  const discount = (subtotal * percentOff) / 100
+  const discount = lines.reduce((sum, line) => sum + (line.price * line.percentOff) / 100, 0)
   const total = subtotal - discount
 
   useEffect(() => {
@@ -160,9 +159,9 @@ export default function OfferCheckout({
                       <p className="mt-1 text-xs text-neutral-300">{line.description}</p>
                     ) : null}
                     <p className="mt-2 flex flex-wrap items-baseline gap-x-2 text-sm tabular-nums">
-                      <span className="font-semibold text-neutral-50">{usd(line.price * (1 - percentOff / 100))}</span>
+                      <span className="font-semibold text-neutral-50">{usd(line.price * (1 - line.percentOff / 100))}</span>
                       <s className="text-xs text-neutral-400">{usd(line.price)}</s>
-                      <span className="text-xs text-emerald-200">{percentOff}% off</span>
+                      <span className="text-xs text-emerald-200">{line.percentOff}% off</span>
                     </p>
                   </div>
                 </li>
@@ -176,8 +175,8 @@ export default function OfferCheckout({
               </div>
               {lines.map((line) => (
                 <div key={line.name} className="flex items-center justify-between gap-4 text-emerald-200">
-                  <dt>{percentOff}% off {line.name.replace(/ LED Headlight$/, '')}</dt>
-                  <dd className="tabular-nums">-{usd((line.price * percentOff) / 100)}</dd>
+                  <dt>{line.percentOff}% off {line.name.replace(/ LED Headlight$/, '')}</dt>
+                  <dd className="tabular-nums">-{usd((line.price * line.percentOff) / 100)}</dd>
                 </div>
               ))}
               <div className="flex items-center justify-between">

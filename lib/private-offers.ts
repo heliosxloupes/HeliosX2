@@ -7,15 +7,18 @@ export type OfferLine = {
   image?: string
   /** Whole US dollars. */
   price: number
+  percentOff: number
   metadata: Record<string, string>
 }
 
 export type PrivateOffer = {
   id: string
   greeting: string
-  /** Stripe promotion code. Its redemption limit is what makes the offer single-use. */
+  /**
+   * Stripe promotion code. Its redemption limit is what makes the offer single-use,
+   * and its amount must equal the sum of the line discounts below.
+   */
   promotionCode: string
-  percentOff: number
   discountNote: string
   /** Lights need no measurements, so checkout shows shorter next steps. */
   lightsOnly: boolean
@@ -33,9 +36,8 @@ const offers: Record<string, PrivateOffer> = {
   '37l_TqVDqJqH': {
     id: 'canopus-xl-kepler-owner',
     greeting: 'Brandon, your order is ready.',
-    promotionCode: 'KEPLERLIGHT10',
-    percentOff: 10,
-    discountNote: 'As a Kepler owner, you get 10% off your Canopus XL and 10% off your spare battery. Both discounts are already applied.',
+    promotionCode: 'KEPLERCANOPUS',
+    discountNote: 'As a Kepler owner, you get 10% off your Canopus XL and 15% off your spare battery. Both discounts are already applied.',
     lightsOnly: true,
     shippingCountries: ['US'],
     lines: [
@@ -44,6 +46,7 @@ const offers: Record<string, PrivateOffer> = {
         description: canopusXl ? cordlessOptionName(canopusXl) : undefined,
         image: canopusXl?.image,
         price: resolveLightPrice('canopus-xl', 'headband') as number,
+        percentOff: 10,
         metadata: {
           productSlug: 'canopus-xl',
           isLight: 'true',
@@ -55,6 +58,7 @@ const offers: Record<string, PrivateOffer> = {
       {
         name: 'Canopus XL Spare Battery',
         price: 200,
+        percentOff: 15,
         metadata: { productSlug: 'canopus-xl-spare-battery', isAddon: 'true' },
       },
     ],
@@ -63,7 +67,6 @@ const offers: Record<string, PrivateOffer> = {
     id: 'newton-flip-up-resident',
     greeting: 'Dr. Drekic, your order is ready.',
     promotionCode: 'RESIDENTNEWTON15',
-    percentOff: 15,
     discountNote: 'As an ABVP resident, you get 15% off your Newton loupes. Your discount is already applied.',
     lightsOnly: false,
     shippingCountries: ['US'],
@@ -72,6 +75,7 @@ const offers: Record<string, PrivateOffer> = {
         name: 'Newton Flip-Up Loupes',
         description: '3.5x, black sport frame',
         price: resolveProductPrice('newton', '3.5x') as number,
+        percentOff: 15,
         metadata: {
           productSlug: 'newton',
           frameStyle: 'Sport flip-up',

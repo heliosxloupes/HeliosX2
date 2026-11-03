@@ -26,7 +26,7 @@
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font: 16px/1.5 Manrope, system-ui, sans-serif;
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     font-variant-numeric: tabular-nums;
     -webkit-tap-highlight-color: transparent;
   }
@@ -48,20 +48,56 @@
 
   main { max-width: 520px; margin: 0 auto; padding: 0 16px 48px; }
 
+  .modes {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+    padding: 4px; margin: 0 0 12px;
+    background: var(--line); border-radius: 12px;
+  }
+  .modes button {
+    min-height: 40px; padding: 8px; border: 0; border-radius: 9px;
+    background: transparent; color: var(--ink-2); font-size: 15px;
+  }
+  .modes button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); box-shadow: 0 1px 3px rgb(0 0 0 / .18); }
+
   .stage {
     position: relative; overflow: hidden;
     aspect-ratio: 3 / 4; max-height: 56vh; width: 100%;
     border-radius: var(--radius);
     background: #24272a;
   }
-  .stage video, .stage canvas {
+  .stage video, .stage #overlay {
     position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover; transform: scaleX(-1);
+  }
+  .stage #review {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: contain; touch-action: none; background: #24272a;
+  }
+  .stage #mag {
+    position: absolute; top: 10px; right: 10px;
+    width: 130px; height: 130px; border-radius: 50%;
+    border: 2px solid #fff; box-shadow: 0 4px 14px rgb(0 0 0 / .35);
+    pointer-events: none;
   }
   .stage .placeholder {
     position: absolute; inset: 0; display: grid; place-items: center;
     padding: 24px; text-align: center; color: #d9d6d0; font-size: 15px;
   }
+
+  .distance { margin: 12px 0 0; }
+  .distance-track {
+    position: relative; height: 8px; border-radius: 4px; background: var(--line);
+  }
+  .distance-zone {
+    position: absolute; top: 0; bottom: 0; border-radius: 4px;
+    background: color-mix(in srgb, var(--good) 35%, transparent);
+  }
+  .distance-marker {
+    position: absolute; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px;
+    border-radius: 50%; background: var(--ink); border: 2px solid var(--surface);
+    transition: left .12s linear, background-color .15s;
+  }
+  .distance-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-2); margin-top: 4px; }
 
   .status {
     margin: 14px 0 0; min-height: 3em;
@@ -72,8 +108,10 @@
   .status[data-tone="bad"] { color: var(--bad); }
 
   .live { margin: 2px 0 0; font-size: 13px; color: var(--ink-2); }
+  .cal { margin: 8px 0 0; font-size: 14px; color: var(--ink-2); }
+  .cal strong { color: var(--ink); }
 
-  .actions { display: flex; gap: 10px; margin: 16px 0 0; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 0; }
   button {
     font: inherit; font-weight: 600; cursor: pointer;
     border-radius: 12px; padding: 14px 18px; min-height: 52px;
@@ -83,6 +121,9 @@
   }
   button:active { transform: scale(.98); }
   button.primary { flex: 1; background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  button.secondary { flex: 1; }
+  button.icon { flex: 0 0 52px; padding: 0; display: grid; place-items: center; }
+  button.icon svg { width: 22px; height: 22px; }
   button:disabled { opacity: .45; cursor: default; transform: none; }
 
   .progress { height: 4px; margin-top: 12px; background: var(--line); border-radius: 2px; overflow: hidden; }
@@ -112,6 +153,8 @@
   details { margin-top: 28px; border-top: 1px solid var(--line); padding-top: 12px; }
   summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
   label { display: block; margin-top: 14px; font-size: 14px; color: var(--ink-2); }
+  label.check { display: flex; gap: 10px; align-items: center; color: var(--ink); }
+  label.check input { width: 20px; height: 20px; margin: 0; }
   input {
     display: block; width: 100%; margin-top: 4px; padding: 12px;
     font: inherit; font-size: 16px; color: var(--ink);
@@ -128,18 +171,44 @@
   </div>
 
   <main>
+    <div class="modes" role="group" aria-label="Measurement mode">
+      <button id="modeIris" aria-pressed="true">Without card</button>
+      <button id="modeCard" aria-pressed="false">With card</button>
+    </div>
+
     <div class="stage">
       <video id="video" playsinline muted autoplay></video>
       <canvas id="overlay"></canvas>
+      <canvas id="review" hidden></canvas>
+      <canvas id="mag" width="300" height="300" hidden></canvas>
       <div class="placeholder" id="placeholder">Tap “Start camera”. Take glasses off. Face a window or lamp so your eyes are evenly lit.</div>
+    </div>
+
+    <div class="distance" id="distance" hidden aria-hidden="true">
+      <div class="distance-track">
+        <div class="distance-zone" id="distZone"></div>
+        <div class="distance-marker" id="distMarker"></div>
+      </div>
+      <div class="distance-labels"><span>Too close</span><span id="distLabel">–</span><span>Too far</span></div>
     </div>
 
     <p class="status" id="status" aria-live="polite">Hold the phone straight in front of your face, about 30 cm away.</p>
     <p class="live" id="live"></p>
+    <p class="cal" id="calInfo" hidden></p>
 
-    <div class="actions">
+    <div class="actions" id="liveActions">
       <button class="primary" id="startBtn">Start camera</button>
+      <button class="primary" id="cardBtn" hidden disabled>Start card check</button>
       <button class="primary" id="measureBtn" hidden disabled>Measure</button>
+    </div>
+    <div class="actions" id="reviewActions" hidden>
+      <button class="icon" id="nudgeL" aria-label="Move marker left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button class="secondary" id="swapBtn">Switch marker</button>
+      <button class="icon" id="nudgeR" aria-label="Move marker right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+    <div class="actions" id="reviewActions2" hidden>
+      <button class="secondary" id="retakeBtn">Retake</button>
+      <button class="primary" id="confirmBtn">Edges look right</button>
     </div>
     <div class="progress" id="progress" hidden><span id="bar"></span></div>
 
@@ -153,16 +222,18 @@
         <dt>Camera distance</dt><dd id="distOut">–</dd>
         <dt>Spread across 3 rounds</dt><dd id="spreadOut">–</dd>
         <dt>Frames used</dt><dd id="framesOut">–</dd>
+        <dt>Iris edge refined</dt><dd id="refineOut">–</dd>
+        <dt>Scale from</dt><dd id="scaleOut">–</dd>
         <dt id="refRowLabel" hidden>Difference vs reference</dt><dd id="refRowValue" hidden>–</dd>
         <dt id="irisRowLabel" hidden>Iris size that matches reference</dt><dd id="irisRowValue" hidden>–</dd>
       </dl>
       <p class="verdict" id="verdict"></p>
-      <p class="note">Scale comes from the iris-size setting below. Readings repeat closely, but true accuracy is about ±2–3 mm until checked against a pupillometer.</p>
+      <p class="note" id="resultNote"></p>
     </section>
 
     <h2 id="histTitle" hidden>Your readings</h2>
     <table id="histTable" hidden>
-      <thead><tr><th>Time</th><th>PD</th><th>Spread</th><th>Dist.</th></tr></thead>
+      <thead><tr><th>Time</th><th>Mode</th><th>PD</th><th>Spread</th><th>Dist.</th></tr></thead>
       <tbody id="histBody"></tbody>
     </table>
     <p class="hist-summary" id="histSummary"></p>
@@ -174,14 +245,21 @@
         <input id="refPd" type="number" inputmode="decimal" step="0.1" min="40" max="80" placeholder="e.g. 63.5">
       </label>
       <p class="hint">Shows how far off each reading is, and which iris size would make it exact.</p>
-      <label for="irisMm">Assumed iris diameter (mm)
+      <label class="check"><input id="refine" type="checkbox" checked> Refine iris edge</label>
+      <p class="hint">Fits a circle to the real iris edge in the full-resolution image. Turn off to compare against the plain model.</p>
+      <label for="irisMm">Assumed iris diameter, without card (mm)
         <input id="irisMm" type="number" inputmode="decimal" step="0.1" min="10" max="13.5" value="11.7">
       </label>
-      <p class="hint">Population average 11.7 mm, range about 11.2–12.2 mm. This number sets the scale.</p>
+      <p class="hint">Population average 11.7 mm, typical range 11.2–12.2 mm. This sets the scale when no card is used.</p>
+      <label for="cardDepth">Card distance in front of the irises (mm)
+        <input id="cardDepth" type="number" inputmode="decimal" step="1" min="-20" max="30" value="5">
+      </label>
+      <p class="hint">A card resting on the cheekbones sits a few mm closer to the camera than the irises, so it looks slightly larger.</p>
       <label for="fov">Front camera diagonal field of view (degrees)
         <input id="fov" type="number" inputmode="decimal" step="1" min="50" max="110" value="80">
       </label>
-      <p class="hint">Only used to estimate distance for the near-to-far correction. A 10° error shifts PD by about 0.2 mm.</p>
+      <p class="hint">Only used to estimate distance. A 10° error shifts PD by about 0.2 mm.</p>
+      <button class="link-btn" id="clearCalBtn">Forget card check</button>
     </details>
   </main>
 
@@ -198,6 +276,9 @@ const R_LID = { top: 159, bot: 145, in: 133, out: 33 };
 const L_LID = { top: 386, bot: 374, in: 362, out: 263 };
 const BRIDGE = 168;
 
+// ISO/IEC 7810 ID-1 card (bank, ID, gift, hotel key)
+const CARD_W_MM = 85.6;
+
 // Eye geometry for the near-to-far correction
 const PUPIL_TO_ROTATION_MM = 10.5;
 
@@ -209,42 +290,81 @@ const MIN_IRIS_PX = 24;
 const MIN_OPENNESS = 0.2;
 const MIN_DIST_MM = 180;
 const MAX_DIST_MM = 500;
+const ZONE_MM = [250, 400];
 const TARGET_FRAMES = 90;
+const CARD_FRAMES = 15;
 const TIMEOUT_MS = 20000;
 
 const $ = (id) => document.getElementById(id);
 const video = $("video"), canvas = $("overlay"), ctx = canvas.getContext("2d");
+const review = $("review"), rctx = review.getContext("2d");
+const mag = $("mag"), mctx = mag.getContext("2d");
 const statusEl = $("status"), liveEl = $("live");
 
 let landmarker = null;
 let running = false;
-let measuring = null; // { samples: [], start }
+let mode = "iris";        // "iris" | "card"
+let phase = "idle";       // idle | live | measuring | cardCapture | cardReview
+let measuring = null;     // { samples: [], start }
+let cardCapture = null;   // { samples: [], start }
+let cardReview = null;    // { W, H, irisPx, camDist, handles: [{x,y}], sel }
 let lastVideoTime = -1;
+let lastRefineRate = 0;
 
 const settings = {
   get iris() { return parseFloat($("irisMm").value) || 11.7; },
   get fov() { return parseFloat($("fov").value) || 80; },
+  get cardDepth() { const v = parseFloat($("cardDepth").value); return isFinite(v) ? v : 5; },
+  get refine() { return $("refine").checked; },
   get ref() { const v = parseFloat($("refPd").value); return isFinite(v) && v > 0 ? v : null; },
 };
 
+// ---------- storage ----------
+const HKEY = "ipd-test-history";
+const CKEY = "ipd-test-card-cal";
+function readJson(key, fallback) {
+  try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; }
+}
+function writeJson(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+}
+let calibration = readJson(CKEY, null);
+
+function activeCalibration() {
+  return calibration && calibration.refine === settings.refine ? calibration : null;
+}
+function scaleIrisMm() {
+  const cal = activeCalibration();
+  return mode === "card" && cal ? cal.irisMm : settings.iris;
+}
+
+// ---------- helpers ----------
+// Outcome messages (done, timed out, saved) stay up for a few seconds
+// before the live coaching prompts take over again.
+let statusHoldUntil = 0;
+function holdStatus(text, tone) {
+  setStatus(text, tone);
+  statusHoldUntil = performance.now() + 4000;
+}
+function coach(text, tone) {
+  if (performance.now() < statusHoldUntil) return;
+  setStatus(text, tone);
+}
 function setStatus(text, tone) {
   statusEl.textContent = text;
   if (tone) statusEl.dataset.tone = tone; else delete statusEl.dataset.tone;
 }
-
-function dist(p, q, w, h) {
-  return Math.hypot((p.x - q.x) * w, (p.y - q.y) * h);
-}
-
 function median(arr) {
   const s = [...arr].sort((a, b) => a - b);
   const m = s.length >> 1;
   return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
 }
-
 function sd(arr) {
   const m = arr.reduce((a, b) => a + b, 0) / arr.length;
   return Math.sqrt(arr.reduce((a, b) => a + (b - m) ** 2, 0) / Math.max(1, arr.length - 1));
+}
+function focalPx(w, h) {
+  return (Math.hypot(w, h) / 2) / Math.tan((settings.fov / 2) * Math.PI / 180);
 }
 
 // Pupils converge on the camera; undo that to get distance PD.
@@ -269,37 +389,154 @@ function headAngles(matrix) {
   return { yaw, pitch };
 }
 
+// ---------- iris edge refinement ----------
+// The landmark model places the iris ring from a small eye crop. Here we go
+// back to the full-resolution frame, cast rays outward from the model's
+// centre across the left and right sides of the iris (top and bottom are
+// usually under the eyelids), find the dark-to-bright step where iris meets
+// sclera to sub-pixel precision, and fit a circle to those edge points.
+const eyeCanvas = document.createElement("canvas");
+const ectx = eyeCanvas.getContext("2d", { willReadFrequently: true });
+
+function fitCircle(pts) {
+  const n = pts.length;
+  let mx = 0, my = 0;
+  for (const p of pts) { mx += p[0]; my += p[1]; }
+  mx /= n; my /= n;
+  let suu = 0, svv = 0, suv = 0, suuu = 0, svvv = 0, suvv = 0, svuu = 0;
+  for (const p of pts) {
+    const u = p[0] - mx, v = p[1] - my;
+    suu += u * u; svv += v * v; suv += u * v;
+    suuu += u * u * u; svvv += v * v * v; suvv += u * v * v; svuu += v * u * u;
+  }
+  const det = suu * svv - suv * suv;
+  if (Math.abs(det) < 1e-9) return null;
+  const bu = 0.5 * (suuu + suvv), bv = 0.5 * (svvv + svuu);
+  const uc = (bu * svv - bv * suv) / det;
+  const vc = (suu * bv - suv * bu) / det;
+  const r = Math.sqrt(uc * uc + vc * vc + (suu + svv) / n);
+  return { x: uc + mx, y: vc + my, r };
+}
+
+function refineIris(src, cx, cy, r, W, H) {
+  const half = Math.ceil(r * 1.7);
+  const x0 = Math.max(0, Math.round(cx) - half), y0 = Math.max(0, Math.round(cy) - half);
+  const sw = Math.min(W - x0, half * 2), sh = Math.min(H - y0, half * 2);
+  if (sw < 12 || sh < 12) return null;
+  if (eyeCanvas.width !== sw || eyeCanvas.height !== sh) { eyeCanvas.width = sw; eyeCanvas.height = sh; }
+  ectx.drawImage(src, x0, y0, sw, sh, 0, 0, sw, sh);
+  const d = ectx.getImageData(0, 0, sw, sh).data;
+  const g = new Float32Array(sw * sh);
+  for (let i = 0, j = 0; i < g.length; i++, j += 4) g[i] = 0.299 * d[j] + 0.587 * d[j + 1] + 0.114 * d[j + 2];
+
+  // pixel i covers [i, i+1), so its value sits at i + 0.5
+  const sample = (x, y) => {
+    x -= 0.5; y -= 0.5;
+    if (x < 0 || y < 0 || x >= sw - 1 || y >= sh - 1) return NaN;
+    const xi = x | 0, yi = y | 0, fx = x - xi, fy = y - yi, i = yi * sw + xi;
+    return g[i] * (1 - fx) * (1 - fy) + g[i + 1] * fx * (1 - fy) + g[i + sw] * (1 - fx) * fy + g[i + sw + 1] * fx * fy;
+  };
+
+  const lx = cx - x0, ly = cy - y0;
+  const STEP = 0.25, t0 = 0.6 * r, t1 = 1.45 * r;
+  const n = Math.floor((t1 - t0) / STEP) + 1;
+  const prof = new Float32Array(n), smooth = new Float32Array(n);
+  const pts = [];
+  for (const side of [0, Math.PI]) {
+    for (let a = -30; a <= 30; a += 3) {
+      const th = side + a * Math.PI / 180, ux = Math.cos(th), uy = Math.sin(th);
+      // average three parallel rays 1 px apart to cut sensor noise
+      const px = -uy, py = ux;
+      let bad = false;
+      for (let k = 0; k < n; k++) {
+        const t = t0 + k * STEP, bx = lx + ux * t, by = ly + uy * t;
+        const v = (sample(bx, by) + sample(bx + px, by + py) + sample(bx - px, by - py)) / 3;
+        if (Number.isNaN(v)) { bad = true; break; }
+        prof[k] = v;
+      }
+      if (bad) continue;
+      for (let k = 0; k < n; k++) {
+        let s = 0, c = 0;
+        for (let j = -2; j <= 2; j++) { const q = k + j; if (q >= 0 && q < n) { s += prof[q]; c++; } }
+        smooth[k] = s / c;
+      }
+      let best = -Infinity, kb = -1;
+      for (let k = 3; k < n - 3; k++) {
+        const dv = (smooth[k + 2] - smooth[k - 2]) / (4 * STEP);
+        if (dv > best) { best = dv; kb = k; }
+      }
+      if (kb < 4 || kb > n - 5 || best < 3) continue;
+      const dAt = (k) => (smooth[k + 2] - smooth[k - 2]) / (4 * STEP);
+      const y1 = dAt(kb - 1), y2 = best, y3 = dAt(kb + 1);
+      const den = y1 - 2 * y2 + y3;
+      const off = den !== 0 ? Math.max(-1, Math.min(1, 0.5 * (y1 - y3) / den)) : 0;
+      const t = t0 + (kb + off) * STEP;
+      pts.push([lx + ux * t, ly + uy * t, side === 0 ? 1 : 0]);
+    }
+  }
+  if (pts.length < 16) return null;
+
+  let fit = fitCircle(pts);
+  if (!fit) return null;
+  const resid = pts.map((p) => Math.abs(Math.hypot(p[0] - fit.x, p[1] - fit.y) - fit.r));
+  const mad = median(resid);
+  const keep = pts.filter((_, i) => resid[i] <= Math.max(0.75, 2.5 * mad));
+  const right = keep.filter((p) => p[2] === 1).length, left = keep.length - right;
+  if (keep.length < 14 || right < 6 || left < 6) return null;
+  fit = fitCircle(keep);
+  if (!fit) return null;
+
+  const fx = fit.x + x0, fy = fit.y + y0;
+  if (fit.r < 0.8 * r || fit.r > 1.25 * r) return null;
+  if (Math.hypot(fx - cx, fy - cy) > 0.35 * r) return null;
+  return { x: fx, y: fy, r: fit.r, n: keep.length };
+}
+
+// ---------- per-frame analysis ----------
 function analyse(lm, matrix, w, h) {
-  const irisR = dist(lm[R_IRIS.a], lm[R_IRIS.b], w, h);
-  const irisL = dist(lm[L_IRIS.a], lm[L_IRIS.b], w, h);
-  const irisPx = (irisR + irisL) / 2;
-  const asym = Math.abs(irisR - irisL) / irisPx;
+  const P = (i) => ({ x: lm[i].x * w, y: lm[i].y * h });
+  const dist = (p, q) => Math.hypot(p.x - q.x, p.y - q.y);
 
-  const openR = dist(lm[R_LID.top], lm[R_LID.bot], w, h) / dist(lm[R_LID.in], lm[R_LID.out], w, h);
-  const openL = dist(lm[L_LID.top], lm[L_LID.bot], w, h) / dist(lm[L_LID.in], lm[L_LID.out], w, h);
+  let eyeR = { c: P(R_IRIS.c), r: dist(P(R_IRIS.a), P(R_IRIS.b)) / 2 };
+  let eyeL = { c: P(L_IRIS.c), r: dist(P(L_IRIS.a), P(L_IRIS.b)) / 2 };
+  const model = { R: eyeR, L: eyeL };
+  let refined = false;
+  if (settings.refine) {
+    const rr = refineIris(video, eyeR.c.x, eyeR.c.y, eyeR.r, w, h);
+    const rl = refineIris(video, eyeL.c.x, eyeL.c.y, eyeL.r, w, h);
+    if (rr && rl) {
+      eyeR = { c: { x: rr.x, y: rr.y }, r: rr.r };
+      eyeL = { c: { x: rl.x, y: rl.y }, r: rl.r };
+      refined = true;
+    }
+  }
 
-  const pr = lm[R_IRIS.c], pl = lm[L_IRIS.c], br = lm[BRIDGE];
-  const pdPx = dist(pr, pl, w, h);
-  const mmPerPx = settings.iris / irisPx;
+  const irisPx = eyeR.r + eyeL.r; // mean diameter
+  const asym = Math.abs(eyeR.r - eyeL.r) * 2 / irisPx;
+
+  const openR = dist(P(R_LID.top), P(R_LID.bot)) / dist(P(R_LID.in), P(R_LID.out));
+  const openL = dist(P(L_LID.top), P(L_LID.bot)) / dist(P(L_LID.in), P(L_LID.out));
+
+  const pr = eyeR.c, pl = eyeL.c, br = P(BRIDGE);
+  const pdPx = dist(pr, pl);
+  const irisMm = scaleIrisMm();
+  const mmPerPx = irisMm / irisPx;
   const nearPd = pdPx * mmPerPx;
 
-  // Mono PD: project each pupil onto the inter-pupil line, measured from the nose bridge
-  const ux = (pl.x - pr.x) * w / pdPx, uy = (pl.y - pr.y) * h / pdPx;
-  const monoNearR = Math.abs(((br.x - pr.x) * w) * ux + ((br.y - pr.y) * h) * uy) * mmPerPx;
+  // Mono PD: project the nose bridge onto the inter-pupil line
+  const ux = (pl.x - pr.x) / pdPx, uy = (pl.y - pr.y) / pdPx;
+  const monoNearR = Math.abs((br.x - pr.x) * ux + (br.y - pr.y) * uy) * mmPerPx;
   const monoNearL = nearPd - monoNearR;
 
-  const diag = Math.hypot(w, h);
-  const focalPx = (diag / 2) / Math.tan((settings.fov / 2) * Math.PI / 180);
-  const camDist = focalPx * settings.iris / irisPx;
-
+  const camDist = focalPx(w, h) * irisMm / irisPx;
   const farPd = toDistancePd(nearPd, camDist);
   const corr = farPd - nearPd;
-  const angles = headAngles(matrix);
 
   return {
-    irisPx, asym, openR, openL, nearPd, farPd, camDist, angles,
+    irisPx, asym, openR, openL, nearPd, farPd, camDist, refined,
+    angles: headAngles(matrix),
     monoR: monoNearR + corr / 2, monoL: monoNearL + corr / 2,
-    pts: { pr, pl, br, irisR, irisL },
+    eyeR, eyeL, model, bridge: br,
   };
 }
 
@@ -314,52 +551,95 @@ function gate(a) {
   return null;
 }
 
+// ---------- drawing ----------
 function draw(a, w, h, ok) {
-  canvas.width = w; canvas.height = h;
+  if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
   ctx.clearRect(0, 0, w, h);
   if (!a) return;
-  const color = ok ? "#5fd08a" : "#f0b44c";
-  ctx.strokeStyle = color; ctx.fillStyle = color;
-  ctx.lineWidth = Math.max(2, w / 400);
-  for (const [p, r] of [[a.pts.pr, a.pts.irisR], [a.pts.pl, a.pts.irisL]]) {
-    ctx.beginPath(); ctx.arc(p.x * w, p.y * h, r / 2, 0, Math.PI * 2); ctx.stroke();
-    ctx.beginPath(); ctx.arc(p.x * w, p.y * h, Math.max(2, w / 300), 0, Math.PI * 2); ctx.fill();
+  const lw = Math.max(1.5, w / 600);
+  ctx.lineWidth = lw;
+  // model ring, thin and faint
+  ctx.strokeStyle = "rgba(240,180,76,.7)";
+  for (const e of [a.model.R, a.model.L]) {
+    ctx.beginPath(); ctx.arc(e.c.x, e.c.y, e.r, 0, Math.PI * 2); ctx.stroke();
   }
-  ctx.globalAlpha = 0.6;
-  ctx.beginPath();
-  ctx.moveTo(a.pts.pr.x * w, a.pts.pr.y * h);
-  ctx.lineTo(a.pts.pl.x * w, a.pts.pl.y * h);
-  ctx.stroke();
-  ctx.globalAlpha = 1;
+  // refined ring
+  if (a.refined) {
+    ctx.strokeStyle = ok ? "#5fd08a" : "#f0b44c";
+    ctx.lineWidth = lw * 1.4;
+    for (const e of [a.eyeR, a.eyeL]) {
+      ctx.beginPath(); ctx.arc(e.c.x, e.c.y, e.r, 0, Math.PI * 2); ctx.stroke();
+    }
+  }
+  ctx.fillStyle = ok ? "#5fd08a" : "#f0b44c";
+  for (const e of [a.eyeR, a.eyeL]) {
+    ctx.beginPath(); ctx.arc(e.c.x, e.c.y, Math.max(2, w / 400), 0, Math.PI * 2); ctx.fill();
+  }
 }
+
+function updateDistance(mm) {
+  const lo = 150, hi = 600;
+  const pct = (v) => Math.max(0, Math.min(100, ((v - lo) / (hi - lo)) * 100));
+  $("distZone").style.left = `${pct(ZONE_MM[0])}%`;
+  $("distZone").style.width = `${pct(ZONE_MM[1]) - pct(ZONE_MM[0])}%`;
+  const marker = $("distMarker");
+  if (mm == null) { marker.style.opacity = 0; $("distLabel").textContent = "–"; return; }
+  marker.style.opacity = 1;
+  marker.style.left = `${pct(mm)}%`;
+  const inZone = mm >= ZONE_MM[0] && mm <= ZONE_MM[1];
+  marker.style.background = inZone ? "var(--good)" : "var(--ink)";
+  $("distLabel").textContent = `${(mm / 10).toFixed(0)} cm`;
+}
+
+// ---------- main loop ----------
+let refineWindow = [];
 
 function loop() {
   if (!running) return;
-  if (video.readyState >= 2 && video.currentTime !== lastVideoTime) {
+  if (phase !== "cardReview" && video.readyState >= 2 && video.currentTime !== lastVideoTime) {
     lastVideoTime = video.currentTime;
     const w = video.videoWidth, h = video.videoHeight;
     const res = landmarker.detectForVideo(video, performance.now());
     const lm = res.faceLandmarks && res.faceLandmarks[0];
     if (!lm || lm.length < 478) {
       draw(null, w, h);
-      setStatus("No face found. Centre your face in the frame.", "warn");
+      updateDistance(null);
+      coach(phase === "cardCapture" ? "Face not found. Keep the card below your eyes, not over them." : "No face found. Centre your face in the frame.", "warn");
       liveEl.textContent = `Camera ${w}×${h}`;
     } else {
       const a = analyse(lm, res.facialTransformationMatrixes && res.facialTransformationMatrixes[0], w, h);
       const problem = gate(a);
       draw(a, w, h, !problem);
-      const yaw = a.angles ? a.angles.yaw.toFixed(1) : "–";
-      liveEl.textContent = `Live ${a.farPd.toFixed(1)} mm · ${(a.camDist / 10).toFixed(0)} cm · iris ${a.irisPx.toFixed(0)} px · yaw ${yaw}° · camera ${w}×${h}`;
-      if (problem) setStatus(...problem);
-      else setStatus(measuring ? "Hold still, measuring…" : "Good. Tap Measure and keep looking at the camera.", "good");
+      updateDistance(a.camDist);
 
-      if (measuring && !problem) measuring.samples.push(a);
+      refineWindow.push(a.refined ? 1 : 0);
+      if (refineWindow.length > 30) refineWindow.shift();
+      lastRefineRate = refineWindow.reduce((s, v) => s + v, 0) / refineWindow.length;
+
+      const yaw = a.angles ? a.angles.yaw.toFixed(1) : "–";
+      liveEl.textContent = `Live ${a.farPd.toFixed(1)} mm · iris ${a.irisPx.toFixed(1)} px · edge fit ${(lastRefineRate * 100).toFixed(0)}% · yaw ${yaw}° · camera ${w}×${h}`;
+
+      if (problem) coach(...problem);
+      else if (phase === "measuring") coach("Hold still, measuring…", "good");
+      else if (phase === "cardCapture") coach("Hold still with the card in place…", "good");
+      else if (mode === "card" && !activeCalibration()) coach("Good. Hold a card under your eyes, then tap Start card check.", "good");
+      else coach("Good. Tap Measure and keep looking at the camera.", "good");
+
+      if (!problem) {
+        if (phase === "measuring") measuring.samples.push(a);
+        if (phase === "cardCapture") {
+          cardCapture.samples.push(a);
+          if (cardCapture.samples.length >= CARD_FRAMES) enterCardReview(a, w, h);
+        }
+      }
     }
-    if (measuring) tickMeasure();
+    if (phase === "measuring") tickMeasure();
+    if (phase === "cardCapture") tickCardCapture();
   }
   requestAnimationFrame(loop);
 }
 
+// ---------- measuring ----------
 function tickMeasure() {
   const n = measuring.samples.length;
   $("bar").style.width = `${Math.min(100, (n / TARGET_FRAMES) * 100)}%`;
@@ -367,35 +647,39 @@ function tickMeasure() {
   if (performance.now() - measuring.start > TIMEOUT_MS) {
     if (n >= 30) return finishMeasure();
     measuring = null;
-    $("progress").hidden = true;
-    $("measureBtn").disabled = false;
-    setStatus("Not enough steady frames. Follow the prompts and try again.", "bad");
+    phase = "live";
+    updateUI();
+    holdStatus("Not enough steady frames. Follow the prompts and try again.", "bad");
   }
 }
 
 function finishMeasure() {
   const s = measuring.samples;
   measuring = null;
-  $("progress").hidden = true;
-  $("measureBtn").disabled = false;
+  phase = "live";
+  updateUI();
 
   const third = Math.floor(s.length / 3);
   const rounds = [0, 1, 2].map((i) => median(s.slice(i * third, (i + 1) * third).map((x) => x.farPd)));
   const spread = Math.max(...rounds) - Math.min(...rounds);
+  const cal = activeCalibration();
   const r = {
     t: Date.now(),
+    mode: mode === "card" && cal ? "card" : "iris",
     pd: median(s.map((x) => x.farPd)),
     near: median(s.map((x) => x.nearPd)),
     monoR: median(s.map((x) => x.monoR)),
     monoL: median(s.map((x) => x.monoL)),
     dist: median(s.map((x) => x.camDist)),
     sd: sd(s.map((x) => x.farPd)),
-    spread, frames: s.length, iris: settings.iris,
+    refined: s.filter((x) => x.refined).length / s.length,
+    spread, frames: s.length, iris: scaleIrisMm(),
   };
   showResult(r);
-  saveHistory(r);
+  const hist = readJson(HKEY, []);
+  writeJson(HKEY, [...hist, r].slice(-50));
   renderHistory();
-  setStatus(spread <= 1 ? "Done. Measure again a few times to check it repeats." : "Readings moved during the test. Hold steadier and measure again.", spread <= 1 ? "good" : "warn");
+  holdStatus(spread <= 1 ? "Done. Measure again a few times to check it repeats." : "Readings moved during the test. Hold steadier and measure again.", spread <= 1 ? "good" : "warn");
 }
 
 function showResult(r) {
@@ -407,6 +691,11 @@ function showResult(r) {
   $("distOut").textContent = `${(r.dist / 10).toFixed(0)} cm`;
   $("spreadOut").textContent = `${r.spread.toFixed(2)} mm`;
   $("framesOut").textContent = `${r.frames}`;
+  $("refineOut").textContent = `${Math.round(r.refined * 100)}% of frames`;
+  $("scaleOut").textContent = r.mode === "card" ? `Card check (iris ${r.iris.toFixed(2)} mm)` : `Assumed iris ${r.iris.toFixed(1)} mm`;
+  $("resultNote").textContent = r.mode === "card"
+    ? "Scale comes from your card check. Expected accuracy about ±1 mm when the card edges were placed carefully."
+    : "Scale assumes an average iris size. Readings repeat closely, but true accuracy is about ±2–4 mm. Use the card mode for a precise number.";
   const v = $("verdict");
   if (r.spread <= 0.5) { v.textContent = "Very steady reading."; v.style.color = "var(--good)"; }
   else if (r.spread <= 1) { v.textContent = "Steady reading."; v.style.color = "var(--good)"; }
@@ -422,26 +711,273 @@ function showResult(r) {
   $("result").scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
-const HKEY = "ipd-test-history";
-function loadHistory() {
-  try { return JSON.parse(localStorage.getItem(HKEY)) || []; } catch { return []; }
-}
-function saveHistory(r) {
-  try { localStorage.setItem(HKEY, JSON.stringify([...loadHistory(), r].slice(-50))); } catch {}
-}
 function renderHistory() {
-  const h = loadHistory();
+  const h = readJson(HKEY, []);
   const show = h.length > 0;
   $("histTitle").hidden = $("histTable").hidden = $("clearBtn").hidden = !show;
   $("histBody").innerHTML = h.slice().reverse().map((r) => {
     const t = new Date(r.t).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    return `<tr><td>${t}</td><td>${r.pd.toFixed(1)}</td><td>${r.spread.toFixed(2)}</td><td>${(r.dist / 10).toFixed(0)} cm</td></tr>`;
+    const m = r.mode === "card" ? "Card" : "No card";
+    return `<tr><td>${t}</td><td>${m}</td><td>${r.pd.toFixed(1)}</td><td>${r.spread.toFixed(2)}</td><td>${(r.dist / 10).toFixed(0)} cm</td></tr>`;
   }).join("");
-  if (h.length >= 2) {
-    const pds = h.map((r) => r.pd);
-    $("histSummary").textContent = `${h.length} readings · average ${(pds.reduce((a, b) => a + b, 0) / pds.length).toFixed(1)} mm · range ${(Math.max(...pds) - Math.min(...pds)).toFixed(1)} mm · SD ${sd(pds).toFixed(2)} mm`;
+  const parts = [];
+  for (const m of ["iris", "card"]) {
+    const pds = h.filter((r) => (r.mode || "iris") === m).map((r) => r.pd);
+    if (pds.length >= 2) {
+      const avg = pds.reduce((a, b) => a + b, 0) / pds.length;
+      parts.push(`${m === "card" ? "Card" : "No card"}: ${pds.length} readings, average ${avg.toFixed(1)} mm, range ${(Math.max(...pds) - Math.min(...pds)).toFixed(1)} mm, SD ${sd(pds).toFixed(2)} mm`);
+    }
+  }
+  $("histSummary").textContent = parts.join(" · ");
+}
+
+// ---------- card check ----------
+const snap = document.createElement("canvas");   // raw frame
+const snapMir = document.createElement("canvas"); // mirrored, as the user saw it
+
+function tickCardCapture() {
+  const n = cardCapture.samples.length;
+  $("bar").style.width = `${Math.min(100, (n / CARD_FRAMES) * 100)}%`;
+  if (phase === "cardCapture" && performance.now() - cardCapture.start > TIMEOUT_MS) {
+    // slow phones: settle for fewer frames rather than failing
+    const s = cardCapture.samples;
+    if (s.length >= 6) return enterCardReview(s[s.length - 1], video.videoWidth, video.videoHeight);
+    cardCapture = null;
+    phase = "live";
+    updateUI();
+    holdStatus("Couldn't get a steady view. Keep the card below your eyes and try again.", "bad");
+  }
+}
+
+function enterCardReview(a, W, H) {
+  const recent = cardCapture.samples.slice(-10);
+  const irisPx = median(recent.map((x) => x.irisPx));
+  cardCapture = null;
+
+  snap.width = snapMir.width = W;
+  snap.height = snapMir.height = H;
+  snap.getContext("2d").drawImage(video, 0, 0, W, H);
+  const sm = snapMir.getContext("2d");
+  sm.setTransform(-1, 0, 0, 1, W, 0);
+  sm.drawImage(video, 0, 0, W, H);
+  sm.setTransform(1, 0, 0, 1, 0, 0);
+
+  const handles = proposeCardEdges(a, irisPx, W, H);
+  // Crop the review to the card so its edges are big enough to place
+  // precisely; the crop matches the stage's 3:4 shape.
+  const cx = (handles[0].x + handles[1].x) / 2, cy = (handles[0].y + handles[1].y) / 2;
+  const span = Math.hypot(handles[1].x - handles[0].x, handles[1].y - handles[0].y);
+  const vw = Math.min(W, Math.round(span * 1.5)), vh = Math.min(H, Math.round(vw * 4 / 3));
+  const view = {
+    x: Math.round(Math.max(0, Math.min(W - vw, cx - vw / 2))),
+    y: Math.round(Math.max(0, Math.min(H - vh, cy - vh * 0.58))),
+    w: vw, h: vh,
+  };
+  cardReview = { W, H, irisPx, a, handles, sel: 0, view };
+  phase = "cardReview";
+  review.width = vw; review.height = vh;
+  updateUI();
+  drawReview();
+  setStatus("Drag each marker onto a short edge of the card. Use the zoom circle to line it up exactly.", null);
+}
+
+// Find the card's two short edges: in a band below the eyes, look for the
+// pair of strong vertical edges whose spacing matches a card's width at the
+// scale the iris suggests.
+function proposeCardEdges(a, irisPx, W, H) {
+  const mmPerPx = settings.iris / irisPx;
+  const midX = (a.eyeR.c.x + a.eyeL.c.x) / 2;
+  const eyeY = (a.eyeR.c.y + a.eyeL.c.y) / 2;
+  const wExp = CARD_W_MM / mmPerPx;
+  const y0 = Math.round(Math.min(H - 2, eyeY + 12 / mmPerPx));
+  const y1 = Math.round(Math.min(H - 1, eyeY + 38 / mmPerPx));
+  const x0 = Math.max(1, Math.round(midX - 0.8 * wExp));
+  const x1 = Math.min(W - 2, Math.round(midX + 0.8 * wExp));
+  const fallback = [
+    { x: W - (midX - wExp / 2), y: (y0 + y1) / 2 },
+    { x: W - (midX + wExp / 2), y: (y0 + y1) / 2 },
+  ];
+  if (y1 - y0 < 4 || x1 - x0 < 20) return fallback;
+
+  const d = snap.getContext("2d").getImageData(x0 - 1, y0, x1 - x0 + 3, y1 - y0).data;
+  const bw = x1 - x0 + 3, rows = y1 - y0;
+  const lum = (x, y) => { const j = (y * bw + x) * 4; return 0.299 * d[j] + 0.587 * d[j + 1] + 0.114 * d[j + 2]; };
+  const cols = x1 - x0 + 1;
+  const gcol = new Float32Array(cols);
+  for (let c = 0; c < cols; c++) {
+    let s = 0;
+    for (let y = 0; y < rows; y++) s += Math.abs(lum(c + 2, y) - lum(c, y));
+    gcol[c] = s / rows;
+  }
+  const g = gcol.map((_, c) => (gcol[Math.max(0, c - 1)] + gcol[c] + gcol[Math.min(cols - 1, c + 1)]) / 3);
+
+  let best = -1, bl = -1, brr = -1;
+  const wMin = Math.round(0.85 * wExp), wMax = Math.round(1.15 * wExp);
+  for (let l = 0; l < cols; l++) {
+    for (let wd = wMin; wd <= wMax; wd++) {
+      const r = l + wd;
+      if (r >= cols) break;
+      const centre = x0 + l + wd / 2;
+      if (Math.abs(centre - midX) > 0.12 * wExp) continue;
+      const score = g[l] + g[r];
+      if (score > best) { best = score; bl = l; brr = r; }
+    }
+  }
+  if (bl < 0) return fallback;
+  const yMid = (y0 + y1) / 2;
+  // mirrored coordinates, matching what the user sees
+  return [{ x: W - (x0 + bl), y: yMid }, { x: W - (x0 + brr), y: yMid }];
+}
+
+function drawReview() {
+  const { handles, sel, view } = cardReview;
+  rctx.setTransform(1, 0, 0, 1, 0, 0);
+  rctx.clearRect(0, 0, view.w, view.h);
+  rctx.drawImage(snapMir, view.x, view.y, view.w, view.h, 0, 0, view.w, view.h);
+  rctx.setTransform(1, 0, 0, 1, -view.x, -view.y);
+  const [p, q] = handles;
+  const len = Math.hypot(q.x - p.x, q.y - p.y) || 1;
+  const nx = -(q.y - p.y) / len, ny = (q.x - p.x) / len; // perpendicular to the card
+  const half = len * 0.3;
+  const lw = Math.max(2, view.w / 300);
+  rctx.lineWidth = lw;
+  rctx.strokeStyle = "rgba(255,255,255,.55)";
+  rctx.setLineDash([lw * 3, lw * 3]);
+  rctx.beginPath(); rctx.moveTo(p.x, p.y); rctx.lineTo(q.x, q.y); rctx.stroke();
+  rctx.setLineDash([]);
+  handles.forEach((h, i) => {
+    rctx.strokeStyle = i === sel ? "#5fd08a" : "#f0b44c";
+    rctx.lineWidth = lw * 1.5;
+    rctx.beginPath(); rctx.moveTo(h.x - nx * half, h.y - ny * half); rctx.lineTo(h.x + nx * half, h.y + ny * half); rctx.stroke();
+  });
+  rctx.setTransform(1, 0, 0, 1, 0, 0);
+  // keep the zoom circle on the side away from the marker being placed
+  const onRight = handles[sel].x - view.x > view.w / 2;
+  mag.style.left = onRight ? "10px" : "auto";
+  mag.style.right = onRight ? "auto" : "10px";
+  drawMag();
+}
+
+function drawMag() {
+  const { handles, sel } = cardReview;
+  const h = handles[sel];
+  const S = mag.width, R = 22; // R video px either side of the marker
+  mctx.save();
+  mctx.clearRect(0, 0, S, S);
+  mctx.beginPath(); mctx.arc(S / 2, S / 2, S / 2, 0, Math.PI * 2); mctx.clip();
+  mctx.imageSmoothingEnabled = false;
+  mctx.drawImage(snapMir, h.x - R, h.y - R, R * 2, R * 2, 0, 0, S, S);
+  const [p, q] = handles;
+  const len = Math.hypot(q.x - p.x, q.y - p.y) || 1;
+  const nx = -(q.y - p.y) / len, ny = (q.x - p.x) / len;
+  mctx.strokeStyle = "#5fd08a"; mctx.lineWidth = 2;
+  mctx.beginPath();
+  mctx.moveTo(S / 2 - nx * S, S / 2 - ny * S); mctx.lineTo(S / 2 + nx * S, S / 2 + ny * S);
+  mctx.stroke();
+  mctx.restore();
+}
+
+function reviewPoint(e) {
+  const rect = review.getBoundingClientRect();
+  const { view } = cardReview;
+  const s = Math.min(rect.width / view.w, rect.height / view.h);
+  return {
+    s,
+    x: view.x + (e.clientX - rect.left - (rect.width - view.w * s) / 2) / s,
+    y: view.y + (e.clientY - rect.top - (rect.height - view.h * s) / 2) / s,
+  };
+}
+
+let drag = null;
+const DRAG_GAIN = 0.4; // finger moves 1 px, marker moves 0.4 px: fine control
+review.addEventListener("pointerdown", (e) => {
+  if (phase !== "cardReview") return;
+  const pt = reviewPoint(e);
+  const d0 = Math.hypot(pt.x - cardReview.handles[0].x, pt.y - cardReview.handles[0].y);
+  const d1 = Math.hypot(pt.x - cardReview.handles[1].x, pt.y - cardReview.handles[1].y);
+  cardReview.sel = d0 <= d1 ? 0 : 1;
+  drag = { x: e.clientX, y: e.clientY, s: pt.s };
+  review.setPointerCapture(e.pointerId);
+  drawReview();
+});
+review.addEventListener("pointermove", (e) => {
+  if (!drag) return;
+  const h = cardReview.handles[cardReview.sel];
+  h.x += ((e.clientX - drag.x) / drag.s) * DRAG_GAIN;
+  h.y += ((e.clientY - drag.y) / drag.s) * DRAG_GAIN;
+  drag.x = e.clientX; drag.y = e.clientY;
+  drawReview();
+});
+const endDrag = () => { drag = null; };
+review.addEventListener("pointerup", endDrag);
+review.addEventListener("pointercancel", endDrag);
+
+// Nudge the selected marker left or right on screen, in video pixels
+function nudge(dx) {
+  if (phase !== "cardReview") return;
+  cardReview.handles[cardReview.sel].x += dx;
+  drawReview();
+}
+
+function confirmCard() {
+  const { W, H, irisPx, handles } = cardReview;
+  const cardPx = Math.hypot(handles[1].x - handles[0].x, handles[1].y - handles[0].y);
+  // The card sits cardDepth mm closer to the camera than the irises, so it
+  // looks slightly bigger; scale its mm-per-pixel out to the iris plane.
+  const dCard = focalPx(W, H) * CARD_W_MM / cardPx;
+  const dIris = dCard + settings.cardDepth;
+  const mmPerPxIris = (CARD_W_MM / cardPx) * (dIris / dCard);
+  const irisMm = irisPx * mmPerPxIris;
+
+  if (!(irisMm > 10.3 && irisMm < 13.3)) {
+    holdStatus(`That card width gives an iris size of ${irisMm.toFixed(1)} mm, which isn't realistic. Check the markers are on the card's short edges, or retake.`, "bad");
+    return;
+  }
+  calibration = { irisMm, refine: settings.refine, t: Date.now(), cardPx, irisPx };
+  writeJson(CKEY, calibration);
+  cardReview = null;
+  phase = "live";
+  updateUI();
+  holdStatus("Card check saved. Put the card down and tap Measure.", "good");
+}
+
+// ---------- UI state ----------
+function updateUI() {
+  const started = running;
+  const cal = activeCalibration();
+  const reviewing = phase === "cardReview";
+  const busy = phase === "measuring" || phase === "cardCapture";
+
+  $("modeIris").setAttribute("aria-pressed", String(mode === "iris"));
+  $("modeCard").setAttribute("aria-pressed", String(mode === "card"));
+  $("modeIris").disabled = $("modeCard").disabled = busy || reviewing;
+
+  $("startBtn").hidden = started;
+  $("liveActions").hidden = reviewing;
+  $("reviewActions").hidden = $("reviewActions2").hidden = !reviewing;
+
+  $("cardBtn").hidden = !started || mode !== "card";
+  $("cardBtn").textContent = cal ? "Redo card check" : "Start card check";
+  $("cardBtn").disabled = busy;
+  $("cardBtn").className = cal ? "secondary" : "primary";
+
+  $("measureBtn").hidden = !started || (mode === "card" && !cal);
+  $("measureBtn").disabled = busy;
+
+  $("progress").hidden = !busy;
+  $("distance").hidden = !started || reviewing;
+
+  video.hidden = canvas.hidden = reviewing;
+  review.hidden = mag.hidden = !reviewing;
+
+  const info = $("calInfo");
+  if (mode === "card") {
+    info.hidden = false;
+    info.innerHTML = cal
+      ? `Card check: your iris is <strong>${cal.irisMm.toFixed(2)} mm</strong>. Measure without the card from here.`
+      : "Hold any standard-size card (bank, ID, gift or hotel key card), back side out, flat against your cheekbones just under your eyes. Hold it by the bottom edge so both short ends stay visible.";
   } else {
-    $("histSummary").textContent = "";
+    info.hidden = true;
   }
 }
 
@@ -472,10 +1008,9 @@ async function start() {
     catch { landmarker = await FaceLandmarker.createFromOptions(files, opts("CPU")); }
 
     $("placeholder").hidden = true;
-    btn.hidden = true;
-    $("measureBtn").hidden = false;
-    $("measureBtn").disabled = false;
     running = true;
+    phase = "live";
+    updateUI();
     requestAnimationFrame(loop);
   } catch (err) {
     btn.disabled = false;
@@ -488,17 +1023,44 @@ async function start() {
 }
 
 $("startBtn").addEventListener("click", start);
+$("modeIris").addEventListener("click", () => { mode = "iris"; updateUI(); });
+$("modeCard").addEventListener("click", () => { mode = "card"; updateUI(); });
 $("measureBtn").addEventListener("click", () => {
   measuring = { samples: [], start: performance.now() };
-  $("measureBtn").disabled = true;
-  $("progress").hidden = false;
+  phase = "measuring";
   $("bar").style.width = "0%";
+  updateUI();
 });
+$("cardBtn").addEventListener("click", () => {
+  cardCapture = { samples: [], start: performance.now() };
+  phase = "cardCapture";
+  $("bar").style.width = "0%";
+  updateUI();
+});
+$("retakeBtn").addEventListener("click", () => {
+  cardReview = null;
+  phase = "live";
+  updateUI();
+});
+$("confirmBtn").addEventListener("click", confirmCard);
+$("swapBtn").addEventListener("click", () => { cardReview.sel = 1 - cardReview.sel; drawReview(); });
+$("nudgeL").addEventListener("click", () => nudge(-0.5));
+$("nudgeR").addEventListener("click", () => nudge(0.5));
+$("refine").addEventListener("change", updateUI);
 $("clearBtn").addEventListener("click", () => {
   try { localStorage.removeItem(HKEY); } catch {}
   renderHistory();
 });
+$("clearCalBtn").addEventListener("click", () => {
+  calibration = null;
+  try { localStorage.removeItem(CKEY); } catch {}
+  updateUI();
+});
+updateUI();
 renderHistory();
+
+// test hooks for automated checks
+window.__ipd = { refineIris, fitCircle, toDistancePd, state: () => ({ phase, cardReview, calibration }) };
 </script>
 </body>
 </html>

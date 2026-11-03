@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4f1ec">
+<meta name="robots" content="noindex, nofollow">
+<title>IPD Test</title>
+<style>
+  :root {
+    --bg: #f4f1ec;
+    --surface: #fbfaf7;
+    --ink: #1b1d1f;
+    --ink-2: #55595e;
+    --line: #dcd7cf;
+    --accent: #0f5c63;
+    --accent-ink: #ffffff;
+    --good: #1d6b3a;
+    --warn: #8a5a00;
+    --bad: #9b2c2c;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.5 Manrope, system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+    -webkit-tap-highlight-color: transparent;
+  }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+  .fixation {
+    position: sticky; top: 0; z-index: 5;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: calc(env(safe-area-inset-top) + 6px) 16px 8px;
+    background: var(--bg);
+    font-size: 13px; color: var(--ink-2);
+  }
+  .dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+
+  main { max-width: 520px; margin: 0 auto; padding: 0 16px 48px; }
+
+  .stage {
+    position: relative; overflow: hidden;
+    aspect-ratio: 3 / 4; max-height: 56vh; width: 100%;
+    border-radius: var(--radius);
+    background: #24272a;
+  }
+  .stage video, .stage canvas {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; transform: scaleX(-1);
+  }
+  .stage .placeholder {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    padding: 24px; text-align: center; color: #d9d6d0; font-size: 15px;
+  }
+
+  .status {
+    margin: 14px 0 0; min-height: 3em;
+    font-size: 17px; font-weight: 600;
+  }
+  .status[data-tone="good"] { color: var(--good); }
+  .status[data-tone="warn"] { color: var(--warn); }
+  .status[data-tone="bad"] { color: var(--bad); }
+
+  .live { margin: 2px 0 0; font-size: 13px; color: var(--ink-2); }
+
+  .actions { display: flex; gap: 10px; margin: 16px 0 0; }
+  button {
+    font: inherit; font-weight: 600; cursor: pointer;
+    border-radius: 12px; padding: 14px 18px; min-height: 52px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+    transition: transform .12s cubic-bezier(.2,.8,.2,1), background-color .15s;
+    user-select: none; -webkit-user-select: none;
+  }
+  button:active { transform: scale(.98); }
+  button.primary { flex: 1; background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  button:disabled { opacity: .45; cursor: default; transform: none; }
+
+  .progress { height: 4px; margin-top: 12px; background: var(--line); border-radius: 2px; overflow: hidden; }
+  .progress > span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .15s linear; }
+
+  section.result {
+    margin-top: 24px; padding: 20px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  }
+  .pd { font-size: 44px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin: 0; }
+  .pd small { font-size: 18px; font-weight: 600; color: var(--ink-2); margin-left: 4px; }
+  .pd-label { margin: 0 0 4px; font-size: 14px; color: var(--ink-2); }
+  dl { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; margin: 16px 0 0; font-size: 15px; }
+  dt { color: var(--ink-2); }
+  dd { margin: 0; text-align: right; font-weight: 600; }
+  .verdict { margin: 14px 0 0; font-size: 14px; font-weight: 600; }
+  .note { margin: 12px 0 0; font-size: 13px; color: var(--ink-2); }
+
+  h2 { font-size: 17px; margin: 32px 0 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: right; padding: 8px 4px; border-bottom: 1px solid var(--line); }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--ink-2); font-weight: 500; }
+  .hist-summary { font-size: 14px; color: var(--ink-2); margin: 8px 0 0; }
+  .link-btn { border: 0; background: none; padding: 8px 0; min-height: 0; color: var(--accent); font-weight: 600; }
+
+  details { margin-top: 28px; border-top: 1px solid var(--line); padding-top: 12px; }
+  summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
+  label { display: block; margin-top: 14px; font-size: 14px; color: var(--ink-2); }
+  input {
+    display: block; width: 100%; margin-top: 4px; padding: 12px;
+    font: inherit; font-size: 16px; color: var(--ink);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+  }
+  .hint { font-size: 12px; color: var(--ink-2); margin: 4px 0 0; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+  <div class="fixation" aria-hidden="true">
+    <div class="dot"></div>
+    <div>Look at the camera, just above this dot</div>
+  </div>
+
+  <main>
+    <div class="stage">
+      <video id="video" playsinline muted autoplay></video>
+      <canvas id="overlay"></canvas>
+      <div class="placeholder" id="placeholder">Tap “Start camera”. Take glasses off. Face a window or lamp so your eyes are evenly lit.</div>
+    </div>
+
+    <p class="status" id="status" aria-live="polite">Hold the phone straight in front of your face, about 30 cm away.</p>
+    <p class="live" id="live"></p>
+
+    <div class="actions">
+      <button class="primary" id="startBtn">Start camera</button>
+      <button class="primary" id="measureBtn" hidden disabled>Measure</button>
+    </div>
+    <div class="progress" id="progress" hidden><span id="bar"></span></div>
+
+    <section class="result" id="result" hidden>
+      <p class="pd-label">Distance PD</p>
+      <p class="pd" id="pdOut">–</p>
+      <dl>
+        <dt>Right eye (mono)</dt><dd id="monoR">–</dd>
+        <dt>Left eye (mono)</dt><dd id="monoL">–</dd>
+        <dt>PD at camera (uncorrected)</dt><dd id="nearOut">–</dd>
+        <dt>Camera distance</dt><dd id="distOut">–</dd>
+        <dt>Spread across 3 rounds</dt><dd id="spreadOut">–</dd>
+        <dt>Frames used</dt><dd id="framesOut">–</dd>
+        <dt id="refRowLabel" hidden>Difference vs reference</dt><dd id="refRowValue" hidden>–</dd>
+        <dt id="irisRowLabel" hidden>Iris size that matches reference</dt><dd id="irisRowValue" hidden>–</dd>
+      </dl>
+      <p class="verdict" id="verdict"></p>
+      <p class="note">Scale comes from the iris-size setting below. Readings repeat closely, but true accuracy is about ±2–3 mm until checked against a pupillometer.</p>
+    </section>
+
+    <h2 id="histTitle" hidden>Your readings</h2>
+    <table id="histTable" hidden>
+      <thead><tr><th>Time</th><th>PD</th><th>Spread</th><th>Dist.</th></tr></thead>
+      <tbody id="histBody"></tbody>
+    </table>
+    <p class="hist-summary" id="histSummary"></p>
+    <button class="link-btn" id="clearBtn" hidden>Clear readings</button>
+
+    <details>
+      <summary>Test settings</summary>
+      <label for="refPd">Reference PD from a pupillometer (mm, optional)
+        <input id="refPd" type="number" inputmode="decimal" step="0.1" min="40" max="80" placeholder="e.g. 63.5">
+      </label>
+      <p class="hint">Shows how far off each reading is, and which iris size would make it exact.</p>
+      <label for="irisMm">Assumed iris diameter (mm)
+        <input id="irisMm" type="number" inputmode="decimal" step="0.1" min="10" max="13.5" value="11.7">
+      </label>
+      <p class="hint">Population average 11.7 mm, range about 11.2–12.2 mm. This number sets the scale.</p>
+      <label for="fov">Front camera diagonal field of view (degrees)
+        <input id="fov" type="number" inputmode="decimal" step="1" min="50" max="110" value="80">
+      </label>
+      <p class="hint">Only used to estimate distance for the near-to-far correction. A 10° error shifts PD by about 0.2 mm.</p>
+    </details>
+  </main>
+
+<script type="module">
+import { FilesetResolver, FaceLandmarker } from "/ipd-test/vision_bundle.mjs";
+
+const WASM = "/ipd-test/wasm";
+const MODEL = "/ipd-test/face_landmarker.task";
+
+// Landmark indices (MediaPipe Face Mesh with iris refinement)
+const R_IRIS = { c: 468, a: 469, b: 471 };   // subject's right eye
+const L_IRIS = { c: 473, a: 474, b: 476 };   // subject's left eye
+const R_LID = { top: 159, bot: 145, in: 133, out: 33 };
+const L_LID = { top: 386, bot: 374, in: 362, out: 263 };
+const BRIDGE = 168;
+
+// Eye geometry for the near-to-far correction
+const PUPIL_TO_ROTATION_MM = 10.5;
+
+// Frame gates
+const MAX_YAW_DEG = 6;
+const MAX_PITCH_DEG = 15;
+const MAX_IRIS_ASYM = 0.08;
+const MIN_IRIS_PX = 24;
+const MIN_OPENNESS = 0.2;
+const MIN_DIST_MM = 180;
+const MAX_DIST_MM = 500;
+const TARGET_FRAMES = 90;
+const TIMEOUT_MS = 20000;
+
+const $ = (id) => document.getElementById(id);
+const video = $("video"), canvas = $("overlay"), ctx = canvas.getContext("2d");
+const statusEl = $("status"), liveEl = $("live");
+
+let landmarker = null;
+let running = false;
+let measuring = null; // { samples: [], start }
+let lastVideoTime = -1;
+
+const settings = {
+  get iris() { return parseFloat($("irisMm").value) || 11.7; },
+  get fov() { return parseFloat($("fov").value) || 80; },
+  get ref() { const v = parseFloat($("refPd").value); return isFinite(v) && v > 0 ? v : null; },
+};
+
+function setStatus(text, tone) {
+  statusEl.textContent = text;
+  if (tone) statusEl.dataset.tone = tone; else delete statusEl.dataset.tone;
+}
+
+function dist(p, q, w, h) {
+  return Math.hypot((p.x - q.x) * w, (p.y - q.y) * h);
+}
+
+function median(arr) {
+  const s = [...arr].sort((a, b) => a - b);
+  const m = s.length >> 1;
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+
+function sd(arr) {
+  const m = arr.reduce((a, b) => a + b, 0) / arr.length;
+  return Math.sqrt(arr.reduce((a, b) => a + (b - m) ** 2, 0) / Math.max(1, arr.length - 1));
+}
+
+// Pupils converge on the camera; undo that to get distance PD.
+// Each pupil sits PUPIL_TO_ROTATION_MM in front of the eye's rotation centre
+// and swings inward by p*sin(theta), where theta aims the eye at the camera.
+function toDistancePd(nearPd, camDistMm) {
+  const D = camDistMm + PUPIL_TO_ROTATION_MM;
+  let far = nearPd;
+  for (let i = 0; i < 4; i++) {
+    const half = far / 2;
+    const sinT = half / Math.hypot(D, half);
+    far = nearPd + 2 * PUPIL_TO_ROTATION_MM * sinT;
+  }
+  return far;
+}
+
+function headAngles(matrix) {
+  if (!matrix) return null;
+  const m = matrix.data; // column-major 4x4
+  const yaw = Math.atan2(m[8], m[10]) * 180 / Math.PI;
+  const pitch = Math.atan2(-m[9], Math.hypot(m[8], m[10])) * 180 / Math.PI;
+  return { yaw, pitch };
+}
+
+function analyse(lm, matrix, w, h) {
+  const irisR = dist(lm[R_IRIS.a], lm[R_IRIS.b], w, h);
+  const irisL = dist(lm[L_IRIS.a], lm[L_IRIS.b], w, h);
+  const irisPx = (irisR + irisL) / 2;
+  const asym = Math.abs(irisR - irisL) / irisPx;
+
+  const openR = dist(lm[R_LID.top], lm[R_LID.bot], w, h) / dist(lm[R_LID.in], lm[R_LID.out], w, h);
+  const openL = dist(lm[L_LID.top], lm[L_LID.bot], w, h) / dist(lm[L_LID.in], lm[L_LID.out], w, h);
+
+  const pr = lm[R_IRIS.c], pl = lm[L_IRIS.c], br = lm[BRIDGE];
+  const pdPx = dist(pr, pl, w, h);
+  const mmPerPx = settings.iris / irisPx;
+  const nearPd = pdPx * mmPerPx;
+
+  // Mono PD: project each pupil onto the inter-pupil line, measured from the nose bridge
+  const ux = (pl.x - pr.x) * w / pdPx, uy = (pl.y - pr.y) * h / pdPx;
+  const monoNearR = Math.abs(((br.x - pr.x) * w) * ux + ((br.y - pr.y) * h) * uy) * mmPerPx;
+  const monoNearL = nearPd - monoNearR;
+
+  const diag = Math.hypot(w, h);
+  const focalPx = (diag / 2) / Math.tan((settings.fov / 2) * Math.PI / 180);
+  const camDist = focalPx * settings.iris / irisPx;
+
+  const farPd = toDistancePd(nearPd, camDist);
+  const corr = farPd - nearPd;
+  const angles = headAngles(matrix);
+
+  return {
+    irisPx, asym, openR, openL, nearPd, farPd, camDist, angles,
+    monoR: monoNearR + corr / 2, monoL: monoNearL + corr / 2,
+    pts: { pr, pl, br, irisR, irisL },
+  };
+}
+
+function gate(a) {
+  if (a.irisPx < MIN_IRIS_PX) return ["Move the phone closer.", "warn"];
+  if (a.camDist < MIN_DIST_MM) return ["Move the phone a little further away.", "warn"];
+  if (a.camDist > MAX_DIST_MM) return ["Move the phone closer.", "warn"];
+  if (Math.min(a.openR, a.openL) < MIN_OPENNESS) return ["Open your eyes fully.", "warn"];
+  if (a.angles && Math.abs(a.angles.yaw) > MAX_YAW_DEG) return ["Turn your face straight to the phone.", "warn"];
+  if (a.asym > MAX_IRIS_ASYM) return ["Turn your face straight to the phone.", "warn"];
+  if (a.angles && Math.abs(a.angles.pitch) > MAX_PITCH_DEG) return ["Hold the phone level with your eyes.", "warn"];
+  return null;
+}
+
+function draw(a, w, h, ok) {
+  canvas.width = w; canvas.height = h;
+  ctx.clearRect(0, 0, w, h);
+  if (!a) return;
+  const color = ok ? "#5fd08a" : "#f0b44c";
+  ctx.strokeStyle = color; ctx.fillStyle = color;
+  ctx.lineWidth = Math.max(2, w / 400);
+  for (const [p, r] of [[a.pts.pr, a.pts.irisR], [a.pts.pl, a.pts.irisL]]) {
+    ctx.beginPath(); ctx.arc(p.x * w, p.y * h, r / 2, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(p.x * w, p.y * h, Math.max(2, w / 300), 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.globalAlpha = 0.6;
+  ctx.beginPath();
+  ctx.moveTo(a.pts.pr.x * w, a.pts.pr.y * h);
+  ctx.lineTo(a.pts.pl.x * w, a.pts.pl.y * h);
+  ctx.stroke();
+  ctx.globalAlpha = 1;
+}
+
+function loop() {
+  if (!running) return;
+  if (video.readyState >= 2 && video.currentTime !== lastVideoTime) {
+    lastVideoTime = video.currentTime;
+    const w = video.videoWidth, h = video.videoHeight;
+    const res = landmarker.detectForVideo(video, performance.now());
+    const lm = res.faceLandmarks && res.faceLandmarks[0];
+    if (!lm || lm.length < 478) {
+      draw(null, w, h);
+      setStatus("No face found. Centre your face in the frame.", "warn");
+      liveEl.textContent = `Camera ${w}×${h}`;
+    } else {
+      const a = analyse(lm, res.facialTransformationMatrixes && res.facialTransformationMatrixes[0], w, h);
+      const problem = gate(a);
+      draw(a, w, h, !problem);
+      const yaw = a.angles ? a.angles.yaw.toFixed(1) : "–";
+      liveEl.textContent = `Live ${a.farPd.toFixed(1)} mm · ${(a.camDist / 10).toFixed(0)} cm · iris ${a.irisPx.toFixed(0)} px · yaw ${yaw}° · camera ${w}×${h}`;
+      if (problem) setStatus(...problem);
+      else setStatus(measuring ? "Hold still, measuring…" : "Good. Tap Measure and keep looking at the camera.", "good");
+
+      if (measuring && !problem) measuring.samples.push(a);
+    }
+    if (measuring) tickMeasure();
+  }
+  requestAnimationFrame(loop);
+}
+
+function tickMeasure() {
+  const n = measuring.samples.length;
+  $("bar").style.width = `${Math.min(100, (n / TARGET_FRAMES) * 100)}%`;
+  if (n >= TARGET_FRAMES) return finishMeasure();
+  if (performance.now() - measuring.start > TIMEOUT_MS) {
+    if (n >= 30) return finishMeasure();
+    measuring = null;
+    $("progress").hidden = true;
+    $("measureBtn").disabled = false;
+    setStatus("Not enough steady frames. Follow the prompts and try again.", "bad");
+  }
+}
+
+function finishMeasure() {
+  const s = measuring.samples;
+  measuring = null;
+  $("progress").hidden = true;
+  $("measureBtn").disabled = false;
+
+  const third = Math.floor(s.length / 3);
+  const rounds = [0, 1, 2].map((i) => median(s.slice(i * third, (i + 1) * third).map((x) => x.farPd)));
+  const spread = Math.max(...rounds) - Math.min(...rounds);
+  const r = {
+    t: Date.now(),
+    pd: median(s.map((x) => x.farPd)),
+    near: median(s.map((x) => x.nearPd)),
+    monoR: median(s.map((x) => x.monoR)),
+    monoL: median(s.map((x) => x.monoL)),
+    dist: median(s.map((x) => x.camDist)),
+    sd: sd(s.map((x) => x.farPd)),
+    spread, frames: s.length, iris: settings.iris,
+  };
+  showResult(r);
+  saveHistory(r);
+  renderHistory();
+  setStatus(spread <= 1 ? "Done. Measure again a few times to check it repeats." : "Readings moved during the test. Hold steadier and measure again.", spread <= 1 ? "good" : "warn");
+}
+
+function showResult(r) {
+  $("result").hidden = false;
+  $("pdOut").innerHTML = `${r.pd.toFixed(1)}<small>mm</small>`;
+  $("monoR").textContent = `${r.monoR.toFixed(1)} mm`;
+  $("monoL").textContent = `${r.monoL.toFixed(1)} mm`;
+  $("nearOut").textContent = `${r.near.toFixed(1)} mm`;
+  $("distOut").textContent = `${(r.dist / 10).toFixed(0)} cm`;
+  $("spreadOut").textContent = `${r.spread.toFixed(2)} mm`;
+  $("framesOut").textContent = `${r.frames}`;
+  const v = $("verdict");
+  if (r.spread <= 0.5) { v.textContent = "Very steady reading."; v.style.color = "var(--good)"; }
+  else if (r.spread <= 1) { v.textContent = "Steady reading."; v.style.color = "var(--good)"; }
+  else { v.textContent = "Unsteady reading. Don't use it."; v.style.color = "var(--bad)"; }
+
+  const ref = settings.ref;
+  for (const id of ["refRowLabel", "refRowValue", "irisRowLabel", "irisRowValue"]) $(id).hidden = !ref;
+  if (ref) {
+    const diff = r.pd - ref;
+    $("refRowValue").textContent = `${diff > 0 ? "+" : ""}${diff.toFixed(1)} mm`;
+    $("irisRowValue").textContent = `${(r.iris * ref / r.pd).toFixed(2)} mm`;
+  }
+  $("result").scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+const HKEY = "ipd-test-history";
+function loadHistory() {
+  try { return JSON.parse(localStorage.getItem(HKEY)) || []; } catch { return []; }
+}
+function saveHistory(r) {
+  try { localStorage.setItem(HKEY, JSON.stringify([...loadHistory(), r].slice(-50))); } catch {}
+}
+function renderHistory() {
+  const h = loadHistory();
+  const show = h.length > 0;
+  $("histTitle").hidden = $("histTable").hidden = $("clearBtn").hidden = !show;
+  $("histBody").innerHTML = h.slice().reverse().map((r) => {
+    const t = new Date(r.t).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    return `<tr><td>${t}</td><td>${r.pd.toFixed(1)}</td><td>${r.spread.toFixed(2)}</td><td>${(r.dist / 10).toFixed(0)} cm</td></tr>`;
+  }).join("");
+  if (h.length >= 2) {
+    const pds = h.map((r) => r.pd);
+    $("histSummary").textContent = `${h.length} readings · average ${(pds.reduce((a, b) => a + b, 0) / pds.length).toFixed(1)} mm · range ${(Math.max(...pds) - Math.min(...pds)).toFixed(1)} mm · SD ${sd(pds).toFixed(2)} mm`;
+  } else {
+    $("histSummary").textContent = "";
+  }
+}
+
+async function start() {
+  const btn = $("startBtn");
+  btn.disabled = true;
+  btn.textContent = "Loading…";
+  try {
+    if (!window.isSecureContext || !navigator.mediaDevices) {
+      throw new Error("Camera needs HTTPS. Open this page through the https:// link.");
+    }
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: false,
+      video: { facingMode: "user", width: { ideal: 1920 }, height: { ideal: 1080 }, frameRate: { ideal: 30 } },
+    });
+    video.srcObject = stream;
+    await video.play();
+
+    setStatus("Loading face model…");
+    const files = await FilesetResolver.forVisionTasks(WASM);
+    const opts = (delegate) => ({
+      baseOptions: { modelAssetPath: MODEL, delegate },
+      runningMode: "VIDEO",
+      numFaces: 1,
+      outputFacialTransformationMatrixes: true,
+    });
+    try { landmarker = await FaceLandmarker.createFromOptions(files, opts("GPU")); }
+    catch { landmarker = await FaceLandmarker.createFromOptions(files, opts("CPU")); }
+
+    $("placeholder").hidden = true;
+    btn.hidden = true;
+    $("measureBtn").hidden = false;
+    $("measureBtn").disabled = false;
+    running = true;
+    requestAnimationFrame(loop);
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = "Start camera";
+    const msg = err && err.name === "NotAllowedError"
+      ? "Camera access was blocked. Allow it in your browser settings, then try again."
+      : (err && err.message) || "Could not start the camera.";
+    setStatus(msg, "bad");
+  }
+}
+
+$("startBtn").addEventListener("click", start);
+$("measureBtn").addEventListener("click", () => {
+  measuring = { samples: [], start: performance.now() };
+  $("measureBtn").disabled = true;
+  $("progress").hidden = false;
+  $("bar").style.width = "0%";
+});
+$("clearBtn").addEventListener("click", () => {
+  try { localStorage.removeItem(HKEY); } catch {}
+  renderHistory();
+});
+renderHistory();
+</script>
+</body>
+</html>

@@ -39,8 +39,21 @@ export function generateMetadata({ params }: SeoPageProps): Metadata {
     description: page.description,
     path: `/${page.slug}`,
     keywords: [page.primaryKeyword, ...page.relatedKeywords],
-    image: productImages[page.recommendedProducts[0] as keyof typeof productImages],
+    image: leadImage(page),
   })
+}
+
+// The two "best loupes" pages lead with Medusa in search and share previews,
+// whatever their shortlist order.
+const leadImageOverrides: Record<string, keyof typeof productImages> = {
+  'best-surgical-loupe-brands': 'Medusa',
+  'best-dental-loupe-brands': 'Medusa',
+}
+
+function leadImage(page: { slug: string; recommendedProducts: string[] }) {
+  return productImages[
+    leadImageOverrides[page.slug] ?? (page.recommendedProducts[0] as keyof typeof productImages)
+  ]
 }
 
 // Comparison pages include the comparison hub in their breadcrumb.
@@ -113,7 +126,7 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
   })
   const articleNode = articleJsonLd({
     title: page.title, description: page.description, path: `/${page.slug}`,
-    image: productImages[page.recommendedProducts[0] as keyof typeof productImages],
+    image: leadImage(page),
     citations: page.sections.filter(section => section.sourceHref).map(section => ({ label: section.sourceLabel ?? section.title, href: section.sourceHref! })),
     datePublished, dateModified,
   })

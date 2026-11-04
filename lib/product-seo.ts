@@ -137,7 +137,6 @@ export async function getProductJsonLd(slug: string) {
       images: [
         modelBySlug(slug)?.photo.src,
         ...(modelBySlug(slug)?.gallery ?? []),
-        product.cardImageSrc,
         ...product.heroImages.map((image) => image.src),
         ...product.specImages.map((image) => image.src),
       ].filter((image): image is string => Boolean(image)),

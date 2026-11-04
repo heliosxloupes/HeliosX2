@@ -101,7 +101,7 @@ export const productImages: Record<keyof typeof productPositioning, string> = {
   Apollo: '/share/apollo.jpg',
   Kepler: '/share/kepler.jpg',
   Galileo: '/share/galileo.jpg',
-  Newton: '/share/newton.jpg',
+  Newton: '/share/newton-desk.jpg',
 }
 
 const postureSection: ContentSection = {

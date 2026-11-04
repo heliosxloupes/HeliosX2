@@ -20,7 +20,6 @@ function studioImages(slug: string, name: string) {
 export function GET() {
   const urls = fallbackProducts.map((product) => {
     const images = [
-      { src: product.cardImageSrc, alt: product.cardImageAlt },
       ...product.heroImages,
       ...product.specImages,
       // Studio photography used by the mobile storefront (public/m2).

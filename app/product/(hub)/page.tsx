@@ -10,6 +10,7 @@ import Header from "@/components/Header";
 import OrderingInfoSection from "@/components/OrderingInfoSection";
 import { useCarouselDots } from "@/components/useCarouselDots";
 import MobileCatalogueExperience from "@/components/mobile/MobileCatalogueExperience";
+import { modelBySlug } from "@/components/m2/models";
 import LightsBackdrop from "@/components/lights/LightsBackdrop";
 
 const fadeUp = {
@@ -127,9 +128,9 @@ function OurLoupesGrid() {
           tagline: product.cardTagline,
           bullets: product.cardBullets ?? [],
           highlight: product.cardHighlight,
-          imageSrc: product.cardImageSrc,
+          imageSrc: modelBySlug(product.slug)?.photo.src ?? product.cardImageSrc,
           imageAlt: product.cardImageAlt,
-          imagePosition: product.slug === 'medusa' ? '34% center' : product.imagePosition,
+          imagePosition: modelBySlug(product.slug)?.photo.focus ?? product.imagePosition,
         })));
       })
       .catch(() => setCmsProducts(null));
@@ -166,7 +167,7 @@ function OurLoupesGrid() {
         "Tailored fixed IPD",
       ],
       highlight: "Best for posture-flexible precision work.",
-      imageSrc: "/Medusa/MedusaMain.png",
+      imageSrc: "/m2/medusa/stage.webp",
       imageAlt: "HeliosX Medusa loupes product image",
       imagePosition: "34% center",
     },
@@ -182,7 +183,7 @@ function OurLoupesGrid() {
         "Ergonomic frame options",
       ],
       highlight: "Best for fine aesthetic & micro-oriented work.",
-      imageSrc: "/Apollo/ApollomainProduct(Notext).png",
+      imageSrc: "/m2/apollo/stage.webp",
       imageAlt: "HeliosX Apollo loupes product image",
     },
     {
@@ -193,7 +194,7 @@ function OurLoupesGrid() {
       tagline: "Versatile field of view for general and reconstructive work.",
       bullets: ["Lightweight", "Modern frame geometry", "Everyday precision"],
       highlight: "Best for broad use and training.",
-      imageSrc: "/Galileo/GalileoMainProduct(notext).png",
+      imageSrc: "/m2/galileo/stage.webp",
       imageAlt: "HeliosX Galileo loupes product image",
     },
     {
@@ -204,7 +205,7 @@ function OurLoupesGrid() {
       tagline: "Ultra-light performance for long cases and full OR days.",
       bullets: ["Ultra-light chassis", "Comfort-driven design", "Low fatigue"],
       highlight: "Best when comfort is critical.",
-      imageSrc: "/Newton/NewtonMainProduct(notext).png",
+      imageSrc: "/m2/newton/stage-desk.webp",
       imageAlt: "HeliosX Newton loupes product image",
     },
     {
@@ -219,7 +220,7 @@ function OurLoupesGrid() {
         "Designed for advanced users",
       ],
       highlight: "Best for high-level microsurgery.",
-      imageSrc: "/Keppler/KepplerMainProduct(Notext).png",
+      imageSrc: "/m2/kepler/stage.webp",
       imageAlt: "HeliosX Kepler loupes product image",
     },
   ];
@@ -289,7 +290,7 @@ function OurLoupesGrid() {
                     alt={product.imageAlt}
                     fill
                     className="origin-bottom object-cover transition-transform duration-500 group-hover:scale-105"
-                    style={{ objectPosition: product.imagePosition ?? "center" }}
+                    style={{ objectPosition: modelBySlug(product.slug)?.photo.focus ?? product.imagePosition ?? "center" }}
                   />
                   <div className="absolute inset-0 pointer-events-none z-10 mix-blend-mode-overlay opacity-100">
                     <Noise

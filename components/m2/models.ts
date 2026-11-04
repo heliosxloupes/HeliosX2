@@ -122,7 +122,7 @@ export const MODELS: M2Model[] = [
     chip: 'From 40 g',
     focus: 'Ultra-light comfort for long clinical days',
     group: 'Everyday',
-    photo: { src: '/m2/newton/stage.webp', tone: '#fdfffc', shift: '-50%', width: '140%', focus: '52% 58%' },
+    photo: { src: '/m2/newton/stage-desk.webp', tone: '#a19f9a', shift: '-50%', width: '140%', focus: '52% 58%' },
     gallery: [],
     facts: [
       ['Working distance', '300 to 550 mm'],

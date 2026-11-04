@@ -8,11 +8,11 @@ import { ArrowRight } from 'lucide-react'
 import { magnificationPriceByProduct } from '@/lib/pricing'
 
 const lineup = [
-  { slug: 'medusa', name: 'Medusa', type: 'Ergonomic prismatic', note: 'Adjustable distance', image: '/m2/medusa/stage.webp' },
-  { slug: 'apollo', name: 'Apollo', type: 'Ergonomic prismatic', note: 'Posture-aware viewing', image: '/m2/apollo/stage.webp' },
-  { slug: 'kepler', name: 'Kepler', type: 'Conventional prismatic', note: 'Higher magnification', image: '/m2/kepler/stage.webp' },
-  { slug: 'galileo', name: 'Galileo', type: 'Galilean', note: 'Lightweight everyday', image: '/m2/galileo/stage.webp' },
-  { slug: 'newton', name: 'Newton', type: 'Galilean', note: 'Our entry model', image: '/m2/newton/stage-desk.webp' },
+  { slug: 'medusa', name: 'Medusa', type: 'Ergonomic prismatic', note: 'Adjustable distance', image: '/Medusa/MedusaMain.png' },
+  { slug: 'apollo', name: 'Apollo', type: 'Ergonomic prismatic', note: 'Posture-aware viewing', image: '/Apollo/ApollomainProduct(Notext).png' },
+  { slug: 'kepler', name: 'Kepler', type: 'Conventional prismatic', note: 'Higher magnification', image: '/Keppler/KepplerMainProduct(Notext).png' },
+  { slug: 'galileo', name: 'Galileo', type: 'Galilean', note: 'Lightweight everyday', image: '/Galileo/GalileoMainProduct(notext).png' },
+  { slug: 'newton', name: 'Newton', type: 'Galilean', note: 'Our entry model', image: '/Newton/NewtonMainProduct(notext).png' },
 ].map((product) => {
   const table = magnificationPriceByProduct[product.slug]
   const mags = Object.keys(table)
@@ -81,7 +81,7 @@ export default function ProductMegaMenu({ open, top, onNavigate, onMouseEnter, o
                       className="group relative flex h-full flex-col rounded-[20px] border border-transparent p-3 outline-none transition-[background-color,border-color] duration-300 hover:border-white/10 hover:bg-white/[0.045] focus-visible:border-[#48CFC8]/50 focus-visible:bg-white/[0.045]"
                     >
                       <div
-                        className="relative aspect-[4/3] overflow-hidden rounded-[14px] bg-neutral-900 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] transition-[filter,opacity] duration-500"
+                        className="relative aspect-[4/3] overflow-hidden rounded-[14px] bg-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] transition-[filter,opacity] duration-500"
                         style={{ filter: dimmed ? 'blur(2.5px)' : 'blur(0px)', opacity: dimmed ? 0.5 : 1 }}
                       >
                         <Image
@@ -89,7 +89,7 @@ export default function ProductMegaMenu({ open, top, onNavigate, onMouseEnter, o
                           alt={`HeliosX ${product.name} loupes`}
                           fill
                           sizes="240px"
-                          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:scale-[1.06]"
+                          className="object-contain p-2 scale-[1.32] transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:scale-[1.42]"
                         />
                       </div>
 

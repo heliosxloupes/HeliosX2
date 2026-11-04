@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { modelBySlug } from '@/components/m2/models'
 import { getProduct } from '@/lib/commerce'
 import { getProductAggregateRating, getProductReviews } from '@/lib/reviews'
-import { productPositioning } from '@/lib/seo-content'
+import { productImages, productPositioning } from '@/lib/seo-content'
 import { productFaqs } from '@/lib/product-faqs'
 import {
   breadcrumbJsonLd,
@@ -91,7 +91,11 @@ export async function getProductMetadata(slug: string): Promise<Metadata> {
     title: `${productSearchTitles[slug] ?? product.name} | HeliosX`,
     description: positioning,
     path: `/product/${slug}`,
-    image: product.cardImageSrc || product.heroImages[0]?.src || '/HeliosXNew.png',
+    image:
+      productImages[product.shortName as keyof typeof productImages] ||
+      product.cardImageSrc ||
+      product.heroImages[0]?.src ||
+      '/HeliosX-share.jpg',
     keywords: productKeywords[slug] ?? ['surgical loupes', 'dental loupes'],
   })
 }

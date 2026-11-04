@@ -94,12 +94,14 @@ export const productStartingPrices = Object.fromEntries(
   Object.keys(productPositioning).map(name => [name, Math.min(...Object.values(magnificationPriceByProduct[name.toLowerCase()]))])
 ) as Record<keyof typeof productPositioning, number>
 
+// 1200x630 crops of the mobile stage photos. Used for share cards and schema,
+// so Google and social previews show the studio shots, not white cutouts.
 export const productImages: Record<keyof typeof productPositioning, string> = {
-  Medusa: '/Medusa/MedusaMain.png',
-  Apollo: '/Apollo/ApollomainProduct(Notext).png',
-  Kepler: '/Keppler/KepplerMainProduct(Notext).png',
-  Galileo: '/Galileo/GalileoMainProduct(notext).png',
-  Newton: '/Newton/NewtonMainProduct(notext).png',
+  Medusa: '/share/medusa.jpg',
+  Apollo: '/share/apollo.jpg',
+  Kepler: '/share/kepler.jpg',
+  Galileo: '/share/galileo.jpg',
+  Newton: '/share/newton.jpg',
 }
 
 const postureSection: ContentSection = {

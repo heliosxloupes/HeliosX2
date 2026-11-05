@@ -10,6 +10,7 @@ import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 import CopyEmail from '@/components/Contact/CopyEmail'
 import Header from '@/components/Header'
 import { getEffectiveConsent } from '@/lib/consent'
+import { dollarsToCents, formatUsdFromCents, percentOffCents } from '@/lib/money'
 
 type Line = {
   name: string
@@ -17,22 +18,22 @@ type Line = {
   image?: string
   price: number
   percentOff: number
+  discountLabel?: string
 }
-
-const usd = (amount: number) =>
-  amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
 
 export default function OfferCheckout({
   token,
   greeting,
   discountNote,
   lightsOnly,
+  shippingNote,
   lines,
 }: {
   token: string
   greeting: string
   discountNote: string
   lightsOnly: boolean
+  shippingNote?: string
   lines: Line[]
 }) {
   const checkoutRef = useRef<HTMLDivElement>(null)
@@ -40,9 +41,10 @@ export default function OfferCheckout({
   const [mounted, setMounted] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const subtotal = lines.reduce((sum, line) => sum + line.price, 0)
-  const discount = lines.reduce((sum, line) => sum + (line.price * line.percentOff) / 100, 0)
-  const total = subtotal - discount
+  const listCents = (line: Line) => dollarsToCents(line.price)
+  const discountCents = (line: Line) => percentOffCents(line.price, line.percentOff)
+  const subtotalCents = lines.reduce((sum, line) => sum + listCents(line), 0)
+  const totalCents = lines.reduce((sum, line) => sum + listCents(line) - discountCents(line), 0)
 
   useEffect(() => {
     if (!stripeLoaded || !checkoutRef.current) return
@@ -159,9 +161,9 @@ export default function OfferCheckout({
                       <p className="mt-1 text-xs text-neutral-300">{line.description}</p>
                     ) : null}
                     <p className="mt-2 flex flex-wrap items-baseline gap-x-2 text-sm tabular-nums">
-                      <span className="font-semibold text-neutral-50">{usd(line.price * (1 - line.percentOff / 100))}</span>
-                      <s className="text-xs text-neutral-400">{usd(line.price)}</s>
-                      <span className="text-xs text-emerald-200">{line.percentOff}% off</span>
+                      <span className="font-semibold text-neutral-50">{formatUsdFromCents(listCents(line) - discountCents(line))}</span>
+                      <s className="text-xs text-neutral-400">{formatUsdFromCents(listCents(line))}</s>
+                      <span className="text-xs text-emerald-200">{line.discountLabel ?? `${line.percentOff}% off`}</span>
                     </p>
                   </div>
                 </li>
@@ -171,21 +173,21 @@ export default function OfferCheckout({
             <dl className="space-y-2 border-t border-white/10 pt-4 text-sm text-neutral-300">
               <div className="flex items-center justify-between">
                 <dt>Subtotal</dt>
-                <dd className="tabular-nums">{usd(subtotal)}</dd>
+                <dd className="tabular-nums">{formatUsdFromCents(subtotalCents)}</dd>
               </div>
               {lines.map((line) => (
                 <div key={line.name} className="flex items-center justify-between gap-4 text-emerald-200">
-                  <dt>{line.percentOff}% off {line.name.replace(/ LED Headlight$/, '')}</dt>
-                  <dd className="tabular-nums">-{usd((line.price * line.percentOff) / 100)}</dd>
+                  <dt>{line.discountLabel ?? `${line.percentOff}% off ${line.name.replace(/ LED Headlight$/, '')}`}</dt>
+                  <dd className="tabular-nums">-{formatUsdFromCents(discountCents(line))}</dd>
                 </div>
               ))}
               <div className="flex items-center justify-between">
                 <dt>Shipping</dt>
-                <dd className="text-emerald-200">Included</dd>
+                <dd className="text-emerald-200">{shippingNote ? `Included (${shippingNote})` : 'Included'}</dd>
               </div>
               <div className="flex items-center justify-between border-t border-white/10 pt-3 text-neutral-50">
                 <dt className="font-semibold">Total</dt>
-                <dd className="text-lg font-semibold tabular-nums">{usd(total)}</dd>
+                <dd className="text-lg font-semibold tabular-nums">{formatUsdFromCents(totalCents)}</dd>
               </div>
             </dl>
 

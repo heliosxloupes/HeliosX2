@@ -115,6 +115,7 @@ function buildOrderSummary({
             metadata?.frameColor ? `Color: ${metadata.frameColor}` : '',
             metadata?.battery ? `Battery: ${metadata.battery}` : '',
             metadata?.bundled === 'true' ? 'Loupe bundle: 10% off' : '',
+            metadata?.invoiceLine ? metadata.invoiceLine : '',
           ]),
         }
       }),

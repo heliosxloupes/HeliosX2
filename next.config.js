@@ -28,11 +28,11 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://*.js.stripe.com https://checkout.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://news.google.com https://www.clarity.ms https://*.clarity.ms",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://*.js.stripe.com https://checkout.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://news.google.com https://www.clarity.ms https://*.clarity.ms",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https:",
               "font-src 'self'",
-              "connect-src 'self' https://api.stripe.com https://checkout.stripe.com https://m.stripe.network https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://vitals.vercel-analytics.com https://*.supabase.co https://www.facebook.com https://connect.facebook.net https://news.google.com https://*.clarity.ms https://c.bing.com",
+              "connect-src 'self' https://api.stripe.com https://checkout.stripe.com https://m.stripe.network https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://vitals.vercel-analytics.com https://*.supabase.co https://stats.g.doubleclick.net https://news.google.com https://*.clarity.ms https://c.bing.com",
               // Embedded Checkout renders its payment form in an iframe served from checkout.stripe.com.
               // Leaving it out blanked the payment step for every shopper.
               "frame-src https://checkout.stripe.com https://js.stripe.com https://*.js.stripe.com https://hooks.stripe.com https://news.google.com",
@@ -44,6 +44,9 @@ const nextConfig = {
             ].join('; '),
           },
           { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+          // allow-popups keeps Stripe and other payment pop-ups working.
+          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin-allow-popups' },
         ],
       },
     ]

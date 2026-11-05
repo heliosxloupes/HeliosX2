@@ -113,15 +113,16 @@ function StageCarousel() {
           <br />
           Finally accessible.
         </p>
-        <div className="mt-5 flex items-center justify-between gap-3">
-          <Link href={`/product/${current.slug}`} className="flex min-h-[48px] items-center gap-3 rounded-full bg-[#f1f4f1] py-1.5 pl-4 pr-1.5 text-[14px] font-extrabold text-[#08261b] transition-transform active:scale-[0.97]">
-            <span key={current.slug} className="tab m2-swap">{current.name} from {money(startingPrice(current.slug))}</span>
+        {/* Wraps the dots under the button on phones narrower than 375px, so the price never breaks. */}
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
+          <Link href={`/product/${current.slug}`} className="flex min-h-[48px] items-center gap-2 rounded-full bg-[#f1f4f1] py-1.5 pl-3.5 pr-1.5 text-[14px] font-extrabold text-[#08261b] transition-transform active:scale-[0.97]">
+            <span key={current.slug} className="tab m2-swap whitespace-nowrap">{current.name} from {money(startingPrice(current.slug))}</span>
             <span className="grid h-9 w-9 place-items-center rounded-full bg-[#08261b] text-[#f1f4f1]"><ArrowUpRight size={17} /></span>
           </Link>
-          <div className="flex gap-1" role="tablist" aria-label="Choose a model">
+          <div className="flex" role="tablist" aria-label="Choose a model">
             {MODELS.map((model, index) => (
-              <button key={model.slug} type="button" role="tab" aria-selected={active === index} aria-label={model.name} onClick={() => goTo(index)} className="flex h-9 items-center px-0.5">
-                <span className={`block h-[5px] rounded-full transition-[width,background-color] duration-300 ${active === index ? 'w-6 bg-[#f1f4f1]' : 'w-[5px] bg-[rgba(241,244,241,0.45)]'}`} />
+              <button key={model.slug} type="button" role="tab" aria-selected={active === index} aria-label={model.name} onClick={() => goTo(index)} className="flex h-11 min-w-6 items-center justify-center px-0.5">
+                <span className={`block h-[5px] rounded-full transition-[width,background-color] duration-300 ${active === index ? 'w-5 bg-[#f1f4f1]' : 'w-[5px] bg-[rgba(241,244,241,0.45)]'}`} />
               </button>
             ))}
           </div>
@@ -219,9 +220,9 @@ function MissionCarousel() {
           </div>
         ))}
       </div>
-      <div className="absolute inset-x-0 bottom-3 flex justify-center gap-1">
+      <div className="absolute inset-x-0 bottom-2 flex justify-center">
         {MISSION_PHOTOS.map(([src], index) => (
-          <button key={src} type="button" aria-label={`Show photo ${index + 1}`} aria-current={active === index} onClick={() => goTo(index)} className="flex h-9 items-center px-0.5">
+          <button key={src} type="button" aria-label={`Show photo ${index + 1}`} aria-current={active === index} onClick={() => goTo(index)} className="flex h-11 min-w-6 items-center justify-center px-0.5">
             <span className={`block h-[5px] rounded-full transition-[width,background-color] duration-300 ${active === index ? 'w-6 bg-[#f1f4f1]' : 'w-[5px] bg-[rgba(241,244,241,0.55)]'}`} />
           </button>
         ))}
@@ -436,7 +437,7 @@ export default function MobileHomeExperience() {
           {STEPS.map(([number, heading, body, figure]) => (
             <li key={number} className="flex min-h-[220px] w-[78%] shrink-0 snap-start flex-col justify-between rounded-[22px] bg-[#f7f9f7] p-5">
               <span className="flex items-start justify-between gap-3">
-                <span className="tab text-[3.4rem] font-extrabold leading-none tracking-[-0.06em] text-[#cfc5bb]">{number}</span>
+                <span className="tab text-[3.4rem] font-extrabold leading-none tracking-[-0.06em] text-[#978a7d]">{number}</span>
                 <CustomHairline name={figure} tone="card" className="-mr-1 -mt-1 w-[120px]" />
               </span>
               <span>

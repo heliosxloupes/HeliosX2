@@ -9,10 +9,8 @@ import { CONSENT_KEY, getEffectiveConsent, isOptOutRegion } from '@/lib/consent'
 
 const CONSENT_EVENT = 'heliosx:open-privacy-choices'
 const configuredGaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
-const configuredMetaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1802043734283628'
 const configuredClarityId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || 'yn19o4h2si'
 const gaId = configuredGaId && /^G-[A-Z0-9]+$/i.test(configuredGaId) ? configuredGaId : null
-const metaPixelId = /^\d+$/.test(configuredMetaPixelId) ? configuredMetaPixelId : null
 const clarityId = /^[a-z0-9]+$/i.test(configuredClarityId) ? configuredClarityId : null
 
 type ConsentState = 'loading' | 'unset' | 'granted' | 'denied'
@@ -39,7 +37,6 @@ function PageViewTracker({ enabled }: { enabled: boolean }) {
       page_path: pathname,
       page_title: document.title,
     })
-    window.fbq?.('track', 'PageView')
   }, [enabled, pathname])
 
   return null
@@ -54,7 +51,6 @@ function revokeTrackingConsent() {
     ad_user_data: 'denied',
     ad_personalization: 'denied',
   })
-  window.fbq?.('consent', 'revoke')
   // Clarity stops recording and drops its cookies for the rest of the session.
   window.clarity?.('consent', false)
 }
@@ -91,7 +87,6 @@ export default function AnalyticsScripts() {
         ad_user_data: 'granted',
         ad_personalization: 'granted',
       })
-      window.fbq?.('consent', 'grant')
       window.clarity?.('consent')
     }
 
@@ -118,19 +113,6 @@ export default function AnalyticsScripts() {
         hxInternal = window.localStorage.getItem('heliosx_internal') === '1';
       } catch (e) {}
       window.gtag('config', ${JSON.stringify(gaId)}, hxInternal ? { send_page_view: true, traffic_type: 'internal' } : { send_page_view: true });
-    ` : ''}
-    ${metaPixelId ? `
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-      (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      var hxEmail = '';
-      try { hxEmail = window.localStorage.getItem('heliosx_customer_email') || ''; } catch (e) {}
-      // Advanced matching: fbq hashes this before it leaves the browser.
-      window.fbq('init', ${JSON.stringify(metaPixelId)}, hxEmail ? { em: hxEmail } : {});
-      window.fbq('consent', 'grant');
-      window.fbq('track', 'PageView');
     ` : ''}
     ${clarityId ? `
       (function(c,l,a,r,i,t,y){
@@ -192,8 +174,8 @@ export default function AnalyticsScripts() {
               </span>
               <span className="hidden md:inline">
                 {optOutRegion
-                  ? 'HeliosX uses Google Analytics, Microsoft Clarity and Meta Pixel to understand site use and measure advertising. You can opt out of this tracking at any time. Essential site functions always remain available. Read our '
-                  : 'With your permission, HeliosX uses Google Analytics, Microsoft Clarity and Meta Pixel to understand site use and measure advertising. Essential site functions always remain available. Read our '}
+                  ? 'HeliosX uses Google Analytics and Microsoft Clarity to understand site use and measure advertising. You can opt out of this tracking at any time. Essential site functions always remain available. Read our '
+                  : 'With your permission, HeliosX uses Google Analytics and Microsoft Clarity to understand site use and measure advertising. Essential site functions always remain available. Read our '}
                 <Link href="/privacy" className="text-emerald-200 underline underline-offset-4">
                   privacy policy
                 </Link>
@@ -204,12 +186,6 @@ export default function AnalyticsScripts() {
           <div className="mt-3 flex shrink-0 gap-2 md:mt-0">
             <button
               type="button"
-              // The Pixel's automatic click tracking would otherwise report
-              // this very click, so revoke before the click event fires.
-              onPointerDown={() => window.fbq?.('consent', 'revoke')}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') window.fbq?.('consent', 'revoke')
-              }}
               onClick={() => chooseConsent('denied')}
               className="flex-1 rounded-full border border-white/20 px-4 py-2 text-xs font-semibold text-neutral-200 transition hover:border-white/40 hover:text-white md:flex-none"
             >

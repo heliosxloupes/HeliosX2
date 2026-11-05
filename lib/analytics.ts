@@ -14,7 +14,6 @@ declare global {
   interface Window {
     dataLayer?: unknown[]
     gtag?: (...args: any[]) => void
-    fbq?: (...args: any[]) => void
     clarity?: (...args: any[]) => void
     __heliosxAnalyticsReady?: boolean
     __heliosxAnalyticsConsentGranted?: boolean
@@ -38,30 +37,11 @@ function sendGA4(event: string, parameters: Record<string, unknown>): void {
   window.gtag?.('event', event, parameters)
 }
 
-function sendMeta(
-  event: string,
-  parameters: Record<string, unknown>,
-  eventId?: string
-): void {
-  if (!window.fbq) return
-  if (eventId) {
-    window.fbq('track', event, parameters, { eventID: eventId })
-    return
-  }
-  window.fbq('track', event, parameters)
-}
 
 export function trackCustomEvent(event: string, parameters: Record<string, unknown>): void {
   sendWhenReady(() => sendGA4(event, parameters))
 }
 
-function metaContents(items: GA4Item[]) {
-  return items.map((item) => ({
-    id: item.item_id,
-    quantity: item.quantity ?? 1,
-    item_price: item.price,
-  }))
-}
 
 export function trackViewItem(input: {
   itemId: string
@@ -84,15 +64,6 @@ export function trackViewItem(input: {
 
   sendWhenReady(() => {
     sendGA4('view_item', { currency, value: input.price, items: [item] })
-    sendMeta('ViewContent', {
-      content_ids: [input.itemId],
-      content_name: input.itemName,
-      content_category: input.category ?? 'Loupes',
-      content_type: 'product',
-      contents: metaContents([item]),
-      currency,
-      value: input.price,
-    })
   })
 }
 
@@ -119,14 +90,6 @@ export function trackAddToCart(input: {
 
   sendWhenReady(() => {
     sendGA4('add_to_cart', { currency, value, items: [item] })
-    sendMeta('AddToCart', {
-      content_ids: [input.itemId],
-      content_name: input.itemName,
-      content_type: 'product',
-      contents: metaContents([item]),
-      currency,
-      value,
-    })
   })
 }
 
@@ -134,7 +97,7 @@ export function trackViewCart(items: GA4Item[], value: number, currency = 'USD')
   sendWhenReady(() => sendGA4('view_cart', { currency, value, items }))
 }
 
-/** Returns the eventID used for Meta, so the server can send the same event once. */
+/** Unique ID for one event, shared with any server-side copy of it. */
 export function newEventId(): string {
   return typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `hx-${Date.now()}-${Math.random().toString(16).slice(2)}`
 }
@@ -142,14 +105,6 @@ export function newEventId(): string {
 export function trackBeginCheckout(items: GA4Item[], value: number, currency = 'USD', eventId?: string): void {
   sendWhenReady(() => {
     sendGA4('begin_checkout', { currency, value, items })
-    sendMeta('InitiateCheckout', {
-      content_ids: items.map((item) => item.item_id),
-      content_type: 'product',
-      contents: metaContents(items),
-      currency,
-      num_items: items.reduce((total, item) => total + (item.quantity ?? 1), 0),
-      value,
-    }, eventId)
   })
 }
 
@@ -170,25 +125,12 @@ export function trackPurchase(input: {
       shipping: 0,
       items,
     })
-    sendMeta(
-      'Purchase',
-      {
-        content_ids: items.map((item) => item.item_id),
-        content_type: 'product',
-        contents: metaContents(items),
-        currency,
-        num_items: items.reduce((total, item) => total + (item.quantity ?? 1), 0),
-        value: input.value,
-      },
-      input.transactionId
-    )
   })
 }
 
 export function trackGenerateLead(source: string, extras: Record<string, unknown> = {}, eventId?: string): void {
   sendWhenReady(() => {
     sendGA4('generate_lead', { form_source: source, ...extras })
-    sendMeta('Lead', { content_name: source, ...extras }, eventId)
   })
 }
 

@@ -5,6 +5,7 @@ import { ArrowUpRight, Mail } from 'lucide-react'
 import CookiePreferencesButton from '@/components/CookiePreferencesButton'
 import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 import CopyEmail from '@/components/Contact/CopyEmail'
+import PreferredSourceButton from './PreferredSourceButton'
 
 const exploreLinks = [
   { label: 'All loupes', href: '/product' },
@@ -103,12 +104,7 @@ export default function Footer() {
             </h2>
           </div>
           <div className="grid w-full gap-3 md:w-[285px]">
-            <div
-              {...{ 'google-add-preferred-source-btn': '' }}
-              data-theme="dark"
-              data-lang="en"
-              suppressHydrationWarning
-            />
+            <PreferredSourceButton />
             <AskSpecialistButton
               source="footer"
               className="group flex min-h-14 w-full items-center justify-between gap-6 border border-emerald-200/30 bg-emerald-200/10 px-5 text-sm font-semibold text-white transition hover:border-emerald-200/60 hover:bg-emerald-200/15"

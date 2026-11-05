@@ -27,6 +27,7 @@ export type PrivateOffer = {
 }
 
 const canopusXl = lightBySlug('canopus-xl')
+const sirius = lightBySlug('sirius')
 
 /**
  * Hand-built checkouts sent to one customer. The key is the URL token, so keep
@@ -64,10 +65,12 @@ const offers: Record<string, PrivateOffer> = {
     ],
   },
   czqh4dx8Sie_: {
-    id: 'newton-flip-up-resident',
-    greeting: 'Dr. Drekic, your order is ready.',
-    promotionCode: 'RESIDENTNEWTON15',
-    discountNote: 'As an ABVP resident, you get 15% off your Newton loupes. Your discount is already applied.',
+    id: 'newton-sirius-resident',
+    greeting: 'Dr. Drekic, your loupes and light are ready.',
+    // Replaced RESIDENTNEWTON15 on 2026-11-05 when the Sirius was added: $108.75 + $75.50.
+    promotionCode: 'RESIDENTNEWTONSIRIUS',
+    discountNote:
+      'As an ABVP resident, you get 15% off your Newton loupes and 10% off your Sirius light. Both discounts are already applied.',
     lightsOnly: false,
     shippingCountries: ['US'],
     lines: [
@@ -81,6 +84,20 @@ const offers: Record<string, PrivateOffer> = {
           frameStyle: 'Sport flip-up',
           frameColor: 'Black',
           magnification: '3.5x',
+        },
+      },
+      {
+        name: lightPriceBySlug.sirius.name,
+        description: 'Coaxial, 150,000 lux. Extended battery pack, 10 hrs',
+        image: sirius?.image,
+        price: resolveLightPrice('sirius', 'pack-10h') as number,
+        percentOff: 10,
+        metadata: {
+          productSlug: 'sirius',
+          isLight: 'true',
+          lightOption: 'pack-10h',
+          battery: 'Extended battery, 10 hrs',
+          bundled: 'true',
         },
       },
     ],

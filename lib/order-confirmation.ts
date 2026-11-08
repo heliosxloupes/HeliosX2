@@ -49,6 +49,11 @@ function compactDetails(details: Array<string | null | undefined>) {
     .filter(Boolean)
 }
 
+/** Newer Stripe API versions move shipping details under collected_information. */
+function stripeShipping(session: Stripe.Checkout.Session): { name?: string | null; address?: Stripe.Address | null } | undefined {
+  return (session as any).shipping_details ?? (session as any).collected_information?.shipping_details ?? undefined
+}
+
 function formatStripeAddress(address?: Stripe.Address | null) {
   if (!address) return ''
   return [
@@ -87,7 +92,7 @@ function buildOrderSummary({
     session.metadata?.customerEmail ??
     ''
   const customerName = session.customer_details?.name ?? ''
-  const shippingAddress = formatStripeAddress((session as any).shipping_details?.address)
+  const shippingAddress = formatStripeAddress(stripeShipping(session)?.address)
   const billingAddress = formatStripeAddress(session.customer_details?.address)
 
   return {
@@ -151,7 +156,7 @@ export function buildSupplierInvoice({
   orderId: string
   needsMeasurements: boolean
 }): SupplierInvoice {
-  const shipping = (session as any).shipping_details ?? (session as any).collected_information?.shipping_details
+  const shipping = stripeShipping(session)
 
   return {
     poNumber: buildPoNumber(orderId),
@@ -205,18 +210,7 @@ async function sendPostPurchaseEmail({
     eyebrow: 'Order confirmed',
     title: 'Your HeliosX order is confirmed',
     orderSummary,
-    cta: measurementUrl
-      ? {
-          label: 'Open measurement page',
-          url: measurementUrl,
-        }
-      : undefined,
-    secondaryCta: needsMeasurements
-      ? {
-          label: 'How to measure your PD',
-          url: PD_GUIDE_URL,
-        }
-      : undefined,
+    confirmation: { customerName, needsMeasurements, measurementUrl },
   })
 }
 
@@ -413,8 +407,8 @@ export async function processCheckoutSessionCompleted({
   const initialStatus = needsMeasurements ? 'pending_measurements' : 'in_production'
   const paidAt = new Date().toISOString()
   const shippingDetails = {
-    name: (session as any).shipping_details?.name ?? customerName,
-    address: (session as any).shipping_details?.address ?? null,
+    name: stripeShipping(session)?.name ?? customerName,
+    address: stripeShipping(session)?.address ?? null,
     shippingCost: session.total_details?.amount_shipping ?? 0,
   }
   const billingDetails = {

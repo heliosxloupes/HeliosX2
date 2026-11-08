@@ -28,6 +28,27 @@ export type OrderEmailSummary = {
   items?: OrderEmailItem[]
 }
 
+/**
+ * Supplier purchase order. Built for forwarding to the factory, so it carries
+ * no prices, no HeliosX branding and no customer email: only what the
+ * supplier needs to build and ship the order.
+ */
+export type SupplierInvoiceSpec = { label: string; value: string }
+
+export type SupplierInvoice = {
+  poNumber: string
+  date: string
+  recipientName?: string
+  recipientPhone?: string
+  shippingAddress?: string
+  needsMeasurements?: boolean
+  items: Array<{
+    model: string
+    quantity: number
+    specs: SupplierInvoiceSpec[]
+  }>
+}
+
 export type RecoveryEmailSummary = {
   imageUrl?: string | null
   total?: number | null
@@ -59,6 +80,7 @@ export async function sendEmail({
   secondaryCta,
   orderSummary,
   recoverySummary,
+  supplierInvoice,
   bcc,
   replyTo = HELIOSX_SUPPORT_EMAIL,
 }: {
@@ -80,6 +102,7 @@ export async function sendEmail({
   }
   orderSummary?: OrderEmailSummary
   recoverySummary?: RecoveryEmailSummary
+  supplierInvoice?: SupplierInvoice
   bcc?: string | string[]
 }) {
   const client = getResend()
@@ -90,13 +113,23 @@ export async function sendEmail({
     return { skipped: true }
   }
 
+  const supplierText = supplierInvoice ? `\n\n${renderSupplierInvoiceText(supplierInvoice)}` : ''
+
   return client.emails.send({
     from,
     to,
     bcc,
     subject,
     replyTo,
-    text: `${renderTextEmail(body, orderSummary)}${cta ? `\n\n${cta.label}: ${cta.url}` : ''}`,
+    attachments: supplierInvoice
+      ? [
+          {
+            filename: `${supplierInvoice.poNumber}.html`,
+            content: Buffer.from(renderSupplierInvoiceDocument(supplierInvoice), 'utf8'),
+          },
+        ]
+      : undefined,
+    text: `${renderTextEmail(body, orderSummary)}${cta ? `\n\n${cta.label}: ${cta.url}` : ''}${supplierText}`,
     html: recoverySummary ? renderRecoveryEmail({
       preview: preview ?? subject,
       title: title ?? subject,
@@ -111,8 +144,150 @@ export async function sendEmail({
       cta,
       secondaryCta,
       orderSummary,
+      supplierInvoice,
     }),
   })
+}
+
+// ---------------------------------------------------------------------------
+// Supplier purchase order (English, unbranded, no prices)
+// ---------------------------------------------------------------------------
+
+const SUPPLIER_INSTRUCTIONS = [
+  'Build to the specifications above. Please confirm PD and working distance with us on WeChat before production.',
+  'Do not include any price, invoice or receipt in the package.',
+  'Send us the tracking number on WeChat as soon as it ships.',
+  'Please communicate all questions and updates about this order with us on WeChat.',
+]
+
+const PO_STYLE = {
+  ink: '#0b1f17',
+  accent: '#0b6b53',
+  muted: '#5d6d65',
+  line: '#cfdad4',
+  head: '#f1f6f3',
+  note: '#f7faf8',
+}
+
+const isPrescriptionItem = (item: SupplierInvoice['items'][number]) => /prescription|\brx\b/i.test(item.model)
+
+/** Prescription lenses are an add-on, so the supplier sees "Yes" rather than a count. */
+function quantityRow(item: SupplierInvoice['items'][number]): [string, string] {
+  return isPrescriptionItem(item) ? ['Prescription lenses', 'Yes'] : ['Quantity', String(item.quantity)]
+}
+
+function poHeading(label: string) {
+  return `<div style="margin:18px 0 6px;color:${PO_STYLE.accent};font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;">${escapeHtml(label)}</div>`
+}
+
+function poRow(label: string, value: string) {
+  return `<tr>
+    <th align="left" valign="top" style="width:42%;padding:7px 9px;border:1px solid ${PO_STYLE.line};background:${PO_STYLE.head};color:${PO_STYLE.ink};font-size:12px;font-weight:700;">${escapeHtml(label)}</th>
+    <td valign="top" style="padding:7px 9px;border:1px solid ${PO_STYLE.line};color:${PO_STYLE.ink};font-size:13px;font-weight:700;">${escapeHtml(value).replaceAll('\n', '<br />')}</td>
+  </tr>`
+}
+
+function poTable(rows: string) {
+  return `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%;border-collapse:collapse;">${rows}</table>`
+}
+
+/** Inner purchase-order markup, shared by the email section and the attachment. */
+function renderSupplierInvoiceInner(po: SupplierInvoice) {
+  const items = po.items
+    .map((item, index) => {
+      const rows = [
+        poRow('Model', item.model),
+        ...item.specs.map((spec) => poRow(spec.label, spec.value)),
+        poRow(...quantityRow(item)),
+      ].join('')
+      return `${poHeading(`Item ${index + 1}`)}${poTable(rows)}`
+    })
+    .join('')
+
+  const hasPrescription = po.items.some(isPrescriptionItem)
+  const measurements = po.needsMeasurements
+    ? `${poHeading('Fit measurements')}${poTable(
+        poRow(
+          hasPrescription ? 'PD, working distance and prescription' : 'PD and working distance',
+          'To follow on WeChat'
+        )
+      )}`
+    : ''
+
+  const shipTo = poTable(
+    [
+      po.recipientName ? poRow('Recipient', po.recipientName) : '',
+      po.recipientPhone ? poRow('Phone', po.recipientPhone) : '',
+      po.shippingAddress ? poRow('Address', po.shippingAddress) : '',
+    ].join('')
+  )
+
+  const instructions = SUPPLIER_INSTRUCTIONS.map(
+    (line, index) => `<div style="margin:0 0 6px;">${index + 1}. ${escapeHtml(line)}</div>`
+  ).join('')
+
+  return `<div style="font-family:Arial,Helvetica,sans-serif;color:${PO_STYLE.ink};">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%;border-collapse:collapse;border-bottom:3px solid ${PO_STYLE.accent};">
+      <tr><td style="padding:0 0 10px;">
+        <div style="font-size:20px;font-weight:800;color:${PO_STYLE.ink};">Purchase Order</div>
+        <div style="margin-top:4px;color:${PO_STYLE.muted};font-size:12px;">PO No. <b style="color:${PO_STYLE.ink};">${escapeHtml(po.poNumber)}</b> &nbsp;·&nbsp; Date: ${escapeHtml(po.date)}</div>
+      </td></tr>
+    </table>
+    ${items}
+    ${measurements}
+    ${poHeading('Ship to')}${shipTo}
+    ${poHeading('Instructions')}
+    <div style="padding:10px 12px;border:1px solid ${PO_STYLE.line};background:${PO_STYLE.note};font-size:12px;line-height:1.55;color:${PO_STYLE.ink};">${instructions}</div>
+  </div>`
+}
+
+/** Standalone, printable purchase order (attached to the internal email). */
+export function renderSupplierInvoiceDocument(po: SupplierInvoice) {
+  return `<!doctype html>
+<html>
+  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>Purchase Order ${escapeHtml(po.poNumber)}</title>
+  <style>@page{size:A4;margin:12mm}body{margin:0;background:#fff}</style></head>
+  <body><div style="max-width:720px;margin:0 auto;padding:24px;">${renderSupplierInvoiceInner(po)}</div></body>
+</html>`
+}
+
+function renderSupplierInvoiceSection(po: SupplierInvoice) {
+  return `
+    <tr><td style="padding:34px 28px 0;">
+      <div style="color:${BRAND.mint};font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;">Supplier invoice · forward as is</div>
+      <div style="margin-top:8px;color:${BRAND.muted};font-size:12px;line-height:1.6;">No prices and no HeliosX branding. Screenshot the white panel, or send the attached ${escapeHtml(po.poNumber)}.html (open it and print to PDF).</div>
+    </td></tr>
+    <tr><td style="padding:14px 28px 0;">
+      <div style="background:#ffffff;padding:22px 20px;">${renderSupplierInvoiceInner(po)}</div>
+    </td></tr>`
+}
+
+function renderSupplierInvoiceText(po: SupplierInvoice) {
+  const lines = [
+    '------------------------------',
+    'SUPPLIER INVOICE (forward as is)',
+    `PO No. ${po.poNumber}`,
+    `Date: ${po.date}`,
+    '',
+    ...po.items.flatMap((item, index) => {
+      const [label, value] = quantityRow(item)
+      return [
+        `Item ${index + 1}: ${item.model}`,
+        ...item.specs.map((spec) => `  ${spec.label}: ${spec.value}`),
+        `  ${label}: ${value}`,
+      ]
+    }),
+    po.needsMeasurements ? '\nFit measurements: To follow on WeChat' : '',
+    '',
+    'Ship to',
+    po.recipientName ? `Recipient: ${po.recipientName}` : '',
+    po.recipientPhone ? `Phone: ${po.recipientPhone}` : '',
+    po.shippingAddress ? `Address:\n${po.shippingAddress}` : '',
+    '',
+    'Instructions',
+    ...SUPPLIER_INSTRUCTIONS.map((line, index) => `${index + 1}. ${line}`),
+  ]
+  return lines.filter((line) => line !== '').join('\n')
 }
 
 function renderRecoveryEmail({
@@ -400,7 +575,7 @@ function renderOrderSummary(summary?: OrderEmailSummary) {
     </td></tr>`
 }
 
-function renderHeliosEmail({
+export function renderHeliosEmail({
   preview,
   eyebrow,
   title,
@@ -408,6 +583,7 @@ function renderHeliosEmail({
   cta,
   secondaryCta,
   orderSummary,
+  supplierInvoice,
 }: {
   preview: string
   eyebrow: string
@@ -416,6 +592,7 @@ function renderHeliosEmail({
   cta?: { label: string; url: string }
   secondaryCta?: { label: string; url: string }
   orderSummary?: OrderEmailSummary
+  supplierInvoice?: SupplierInvoice
 }) {
   const kicker = orderSummary?.orderNumber ? `Order ${orderSummary.orderNumber}` : ''
   return `<!doctype html>
@@ -440,6 +617,7 @@ function renderHeliosEmail({
           ${renderOrderSummary(orderSummary)}
           ${cta ? `<tr><td style="padding:22px 28px 0;">${renderButton(cta.label, cta.url, 'primary')}</td></tr>` : ''}
           ${secondaryCta ? `<tr><td style="padding:10px 28px 0;">${renderButton(secondaryCta.label, secondaryCta.url, 'secondary')}</td></tr>` : ''}
+          ${supplierInvoice ? renderSupplierInvoiceSection(supplierInvoice) : ''}
           <tr><td style="padding:26px 28px 6px;">
             <div style="color:${BRAND.heading};font-size:14px;font-weight:700;">Team HeliosX</div>
             <div style="margin-top:4px;color:${BRAND.muted};font-size:12px;line-height:1.6;">Questions about fit, magnification or your order? Reply directly to this email.</div>

@@ -5,11 +5,14 @@ import {
   HELIOSX_SUPPORT_EMAIL,
   PD_GUIDE_URL,
   type OrderEmailSummary,
+  type SupplierInvoice,
+  type SupplierInvoiceSpec,
   renderTemplate,
   sendEmail,
 } from '@/lib/email'
 import { upsertCrmContact } from '@/lib/commerce'
 import { getSiteUrl } from '@/lib/site-url'
+import { getSupplierSeries } from '@/lib/supplier-series'
 
 const DEFAULT_POST_PURCHASE_SUBJECT = 'Your HeliosX order is confirmed'
 const DEFAULT_POST_PURCHASE_BODY = `Thanks for your order. We have received your payment and reserved your HeliosX loupe configuration.
@@ -122,6 +125,61 @@ function buildOrderSummary({
   }
 }
 
+/** Strips our brand from product names so the supplier sheet stays unbranded. */
+function unbrandedName(name: string) {
+  return name.replace(/helios\s*x/gi, '').replace(/\s{2,}/g, ' ').replace(/^[\s\-–—·]+|[\s\-–—·]+$/g, '') || 'Item'
+}
+
+function formatPoDate(date = new Date()) {
+  return new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(date)
+}
+
+/** PO number convention: "PO-" + first 8 characters of the order id. */
+function buildPoNumber(id: string) {
+  const core = id.replace(/^cs_(live|test)_/, '').replace(/-/g, '')
+  return `PO-${core.slice(0, 8).toUpperCase()}`
+}
+
+export function buildSupplierInvoice({
+  session,
+  lineItems,
+  orderId,
+  needsMeasurements,
+}: {
+  session: Stripe.Checkout.Session
+  lineItems: Stripe.ApiList<Stripe.LineItem>
+  orderId: string
+  needsMeasurements: boolean
+}): SupplierInvoice {
+  const shipping = (session as any).shipping_details ?? (session as any).collected_information?.shipping_details
+
+  return {
+    poNumber: buildPoNumber(orderId),
+    date: formatPoDate(),
+    recipientName: shipping?.name ?? session.customer_details?.name ?? '',
+    recipientPhone: session.customer_details?.phone ?? '',
+    shippingAddress:
+      formatStripeAddress(shipping?.address) || formatStripeAddress(session.customer_details?.address),
+    needsMeasurements,
+    items: lineItems.data.map((item) => {
+      const metadata = getProductMetadata(item)
+      const specs: SupplierInvoiceSpec[] = []
+      const series = getSupplierSeries(item.description ?? '')
+      if (metadata.magnification) specs.push({ label: 'Magnification', value: metadata.magnification })
+      if (metadata.frameStyle) specs.push({ label: 'Frame', value: metadata.frameStyle })
+      if (metadata.frameColor)
+        specs.push({ label: 'Frame color', value: metadata.frameColor })
+      if (metadata.battery) specs.push({ label: 'Battery', value: metadata.battery })
+      return {
+        // The supplier knows products by series number, never by our product name.
+        model: series || unbrandedName(item.description ?? 'Item'),
+        quantity: item.quantity ?? 1,
+        specs,
+      }
+    }),
+  }
+}
+
 async function sendPostPurchaseEmail({
   to,
   subject,
@@ -177,16 +235,20 @@ function formatTotalLabel(summary: OrderEmailSummary) {
 // Internal "new order" notification sent to the HeliosX team. This is distinct
 // from the customer receipt — it's framed as an ops alert with the action the
 // team needs to take (collect fit measurements before production).
-async function sendInternalOrderNotification({
+export async function sendInternalOrderNotification({
   customerName,
   orderSummary,
   measurementUrl,
   needsMeasurements = true,
+  supplierInvoice,
+  subjectPrefix = '',
 }: {
   customerName: string
   orderSummary: OrderEmailSummary
   measurementUrl?: string
   needsMeasurements?: boolean
+  supplierInvoice?: SupplierInvoice
+  subjectPrefix?: string
 }) {
   const totalLabel = formatTotalLabel(orderSummary)
   const who = customerName || orderSummary.customerEmail || 'a customer'
@@ -200,12 +262,13 @@ async function sendInternalOrderNotification({
 
   return sendEmail({
     to: HELIOSX_SUPPORT_EMAIL,
-    subject: `New order — ${who}${totalLabel ? ` (${totalLabel})` : ''}`,
+    subject: `${subjectPrefix}New order — ${who}${totalLabel ? ` (${totalLabel})` : ''}`,
     preview: `New HeliosX order from ${who}${totalLabel ? ` for ${totalLabel}` : ''}.`,
     eyebrow: 'Internal · New order',
     title: 'New order received',
     body,
     orderSummary,
+    supplierInvoice,
     cta: measurementUrl && needsMeasurements
       ? {
           label: 'Open measurement page',
@@ -253,6 +316,7 @@ export async function sendStandaloneCheckoutConfirmation({
     customerName,
     orderSummary,
     needsMeasurements,
+    supplierInvoice: buildSupplierInvoice({ session, lineItems, orderId: session.id, needsMeasurements }),
   })
 
   return {
@@ -470,6 +534,7 @@ export async function processCheckoutSessionCompleted({
     orderSummary,
     measurementUrl,
     needsMeasurements,
+    supplierInvoice: buildSupplierInvoice({ session, lineItems, orderId: order.id, needsMeasurements }),
   })
   const internalStatus = internalResult?.error
     ? 'error'

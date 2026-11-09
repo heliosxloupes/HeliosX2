@@ -23,6 +23,8 @@ const recoveryProductImages: Record<string, string> = {
   kepler: '/mobile-home/kepler-v2.png',
 }
 
+const recoveryStep = (key: unknown) => Number(String(key ?? '').split('_').pop()) || 1
+
 const cartActivityTime = (cart: any) =>
   new Date(cart.reached_checkout_at ?? cart.added_to_cart_at).getTime()
 
@@ -48,7 +50,13 @@ export async function GET(req: Request) {
     .select('*')
     .eq('is_active', true)
   const carts = cartRows ?? []
-  const templates = templateRows ?? []
+  // "A personal note about your ..." (step 1) is switched off at the owner's
+  // request (Nov 2026). Only the later "How the fit works" step can send.
+  const templates = (templateRows ?? []).filter((template: any) => recoveryStep(template.key) >= 2)
+
+  // Never send recovery emails to anyone who has already bought.
+  const { data: buyerRows } = await supabase.from('orders').select('customer_email')
+  const buyers = new Set((buyerRows ?? []).map((row: any) => normalizeEmail(row.customer_email)))
 
   let processed = 0
   const now = Date.now()
@@ -82,7 +90,7 @@ export async function GET(req: Request) {
   const latestCartByCustomer = new Map<string, any>()
   for (const cart of carts as any[]) {
     const email = normalizeEmail(cart.email)
-    if (!email || latestCartByCustomer.has(email)) continue
+    if (!email || buyers.has(email) || latestCartByCustomer.has(email)) continue
     latestCartByCustomer.set(email, cart)
   }
 
@@ -127,7 +135,7 @@ export async function GET(req: Request) {
     // identical email twice. Step 1 stays the personal note; step 2 answers
     // the question buyers actually raise in replies: how can a custom pair
     // fit if they never try it on?
-    const step = Number(String(template.key).split('_').pop()) || 1
+    const step = recoveryStep(template.key)
     const subject = step >= 2
       ? `How the fit works for your ${productReference}`
       : `A personal note about your ${productReference}`

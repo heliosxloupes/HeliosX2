@@ -132,7 +132,7 @@ function educationHubMarkdown() {
 const summaryPages: Record<string, { title: string; summary: string }> = {
   '/measurements': {
     title: 'Measuring guide and measurement form',
-    summary: 'How to measure your pupillary distance (PD) and working distance for custom loupes, and the form to submit them. Recommended PD tools: EyeMeasure (wear your glasses), Warby Parker and XREAL (glasses off). Loupes need PD within about 1 mm, so use at least two tools and take three readings on each.',
+    summary: 'How to measure your pupillary distance (PD) and working distance for custom loupes, and the form to submit them. Recommended PD tools: PDCheck AR (first pick), EyeMeasure (wear your glasses), Warby Parker and XREAL (glasses off). Loupes need PD within about 1 mm, so use at least two tools and take three readings on each.',
   },
   '/shipping': {
     title: 'Shipping',

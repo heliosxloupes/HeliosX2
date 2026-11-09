@@ -22,7 +22,7 @@ export const faqSchemaItems: { question: string; answer: string }[] = [
   {
     question: 'How do I measure my pupillary distance (PD)?',
     answer:
-      'Use one of our three recommended tools: the EyeMeasure iPhone app (wear your glasses for the scan), the Warby Parker PD tool, or the XREAL browser tool (take your glasses off for both). Measure with at least two and take three readings on each. Your order email links to the step-by-step guide at /measurements/ipd.',
+      'Start with the PDCheck AR iPhone app, our first pick. Our other recommended tools are the EyeMeasure iPhone app (wear your glasses for the scan), the Warby Parker PD tool and the XREAL browser tool (take your glasses off for both). Measure with at least two and take three readings on each. Your order email links to the step-by-step guide at /measurements/ipd.',
   },
   {
     question: 'How do I measure my working distance?',

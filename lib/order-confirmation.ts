@@ -25,12 +25,13 @@ Please send us:
 - Prescription notes or a prescription screenshot, if applicable
 - Any fit notes you want our team to review
 
-For PD, use two of these three tools and take three readings on each:
+For PD, use two of these tools and take three readings on each:
+- PDCheck AR iPhone app (our first pick): follow the on-screen guide.
 - EyeMeasure iPhone app: wear your glasses for the scan.
 - Warby Parker PD tool: take your glasses off.
 - XREAL browser tool: take your glasses off.
 
-Step-by-step instructions and links for all three: {{pd_guide_url}}
+Step-by-step instructions and links for each tool: {{pd_guide_url}}
 
 After measuring, reply directly to this email with screenshots of your results, or submit your details through your secure measurement page: {{measurement_url}}
 

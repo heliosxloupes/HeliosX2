@@ -24,7 +24,7 @@ const faqs = [
   {
     question: 'Can I use a smartphone app for pupillary distance?',
     answer:
-      'Yes, and most customers do. We recommend three tools: the EyeMeasure iPhone app, the Warby Parker PD tool and the XREAL browser tool. Wear your glasses for EyeMeasure, and take them off for the other two. Measure with at least two tools, take three readings on each, and send us the average. An optician-measured PD or the PD on a recent glasses prescription works too.',
+      'Yes, and most customers do. Start with the PDCheck AR iPhone app, our first pick. The EyeMeasure iPhone app, the Warby Parker PD tool and the XREAL browser tool also work. Wear your glasses for EyeMeasure, and take them off for Warby Parker and XREAL. Measure with at least two tools, take three readings on each, and send us the average. An optician-measured PD or the PD on a recent glasses prescription works too.',
   },
   {
     question: 'What happens if my working distance is wrong?',
@@ -67,7 +67,7 @@ const steps = [
   {
     title: 'Measure pupillary distance',
     body:
-      'Pupillary distance is the gap between the centres of your pupils, in millimetres. It determines where the two optical barrels converge, so it carries the least tolerance of any measurement here — aim to be within 1 mm. Use the tools below: the EyeMeasure iPhone app, the Warby Parker PD tool or the XREAL browser tool. Measure with at least two of them and take three readings on each; a single reading is where most errors come from. If you have an eyeglass prescription from the last couple of years, the PD is often printed on it already, and an optician-measured PD is the most reliable source of all.',
+      'Pupillary distance is the gap between the centres of your pupils, in millimetres. It determines where the two optical barrels converge, so it carries the least tolerance of any measurement here — aim to be within 1 mm. Use the tools below: the PDCheck AR iPhone app (our first pick), the EyeMeasure iPhone app, the Warby Parker PD tool or the XREAL browser tool. Measure with at least two of them and take three readings on each; a single reading is where most errors come from. If you have an eyeglass prescription from the last couple of years, the PD is often printed on it already, and an optician-measured PD is the most reliable source of all.',
     image: {
       src: '/images/measurements/pupillary-distance-ruler.jpg',
       alt: 'Clinician in a surgical cap holding a millimetre ruler across her brow, with pupil centres marked 63 mm apart',
@@ -136,7 +136,7 @@ export default function MeasurementsPage() {
       'Measure pupillary distance, working distance, posture, and prescription requirements before final loupe production.',
     totalTime: 'PT10M',
     supply: [
-      { '@type': 'HowToSupply', name: 'EyeMeasure, Warby Parker or XREAL pupillary distance tool' },
+      { '@type': 'HowToSupply', name: 'PDCheck AR, EyeMeasure, Warby Parker or XREAL pupillary distance tool' },
       { '@type': 'HowToSupply', name: 'Tape measure' },
       {
         '@type': 'HowToSupply',

@@ -6,7 +6,7 @@ import PdAppGuide from '@/components/measurements/PdAppGuide'
 export const metadata: Metadata = {
   title: 'Measure your PD at home | HeliosX',
   description:
-    'Three recommended tools for measuring pupillary distance at home for surgical and dental loupes: EyeMeasure, Warby Parker and XREAL.',
+    'Recommended tools for measuring pupillary distance at home for surgical and dental loupes: PDCheck AR, EyeMeasure, Warby Parker and XREAL.',
   alternates: { canonical: '/measurements/ipd' },
 }
 

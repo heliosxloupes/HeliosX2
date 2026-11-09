@@ -1,4 +1,4 @@
-// The three pupillary distance tools HeliosX recommends.
+// The pupillary distance tools HeliosX recommends, PDCheck AR first.
 // Steps come from each tool's own instructions (checked 1 Nov 2026), except the
 // EyeMeasure glasses rule, which comes from HeliosX's own testing.
 // Re-check before editing: store names, owners and availability change.
@@ -14,6 +14,21 @@ type PdTool = {
 }
 
 const TOOLS: PdTool[] = [
+  {
+    // Reinstated first (Nov 2026): the owner's PDCheck AR reading matched an
+    // in-person optician measurement. Requirements from the App Store listing.
+    name: 'PDCheck AR',
+    maker: 'iPhone app by EyeQue',
+    href: 'https://apps.apple.com/us/app/pdcheck-ar/id1563806777',
+    cta: 'Get it on the App Store',
+    platform: 'Our first pick · iPhone X or newer',
+    steps: [
+      'Install PDCheck AR on an iPhone with Face ID (iPhone X or newer).',
+      'Open it and follow the on-screen guide. No card or ruler is needed.',
+      'Note your far PD and your near PD. Send us both.',
+    ],
+    note: 'In our own testing, PDCheck AR matched an optician’s in-person measurement.',
+  },
   {
     name: 'EyeMeasure',
     maker: 'iPhone app by Bonlook',
@@ -63,11 +78,11 @@ export default function PdAppGuide({ compact = false }: { compact?: boolean }) {
     <div className="space-y-5">
       {!compact && (
         <p className="max-w-[68ch] text-base leading-8 text-neutral-300">
-          The quickest accurate way to measure PD at home is one of these three tools:
+          The quickest accurate way to measure PD at home is one of these tools. Start with PDCheck AR if you have an iPhone:
         </p>
       )}
 
-      <div className={`grid gap-4 ${compact ? '' : 'lg:grid-cols-3'}`}>
+      <div className={`grid gap-4 ${compact ? '' : 'md:grid-cols-2'}`}>
         {TOOLS.map((tool) => (
           <article
             key={tool.name}

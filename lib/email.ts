@@ -795,7 +795,7 @@ function renderProgress(needsMeasurements: boolean, content: OrderConfirmationCo
 
 function renderMeasurementStep(content: OrderConfirmationContent, prescription: boolean) {
   const rows = [
-    ['Pupillary distance (PD)', 'Use two of the three tools in our guide and take three readings on each.'],
+    ['Pupillary distance (PD)', 'Start with PDCheck AR on iPhone, then check it with a second tool from our guide.'],
     ['Working distance', 'The distance from your eyes to the surgical field in your usual operating posture.'],
     prescription
       ? ['Prescription', 'A photo or screenshot of your current glasses prescription.']
@@ -1025,7 +1025,7 @@ export function renderOrderConfirmationText(summary: OrderEmailSummary, content:
     ...(content.needsMeasurements
       ? [
           'YOUR NEXT STEP: SEND YOUR FIT MEASUREMENTS',
-          '1. Pupillary distance (PD): use two of the three tools in our guide, three readings on each.',
+          '1. Pupillary distance (PD): start with PDCheck AR on iPhone, then check it with a second tool from our guide.',
           '2. Working distance: from your eyes to the surgical field in your usual operating posture.',
           prescription
             ? '3. Prescription: a photo or screenshot of your current glasses prescription.'

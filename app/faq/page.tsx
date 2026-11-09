@@ -46,8 +46,9 @@ const faqSections = [
               <li>A link to our PD measuring guide</li>
               <li>A link to the customer measurement form where you will submit your results</li>
             </ul>
-            <p>We recommend three tools. Measure with at least two and take three readings on each:</p>
+            <p>We recommend these tools, starting with PDCheck AR. Measure with at least two and take three readings on each:</p>
             <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem', marginBottom: '1rem' }}>
+              <li><strong>PDCheck AR</strong> (iPhone app, our first pick): follow the on-screen guide.</li>
               <li><strong>EyeMeasure</strong> (iPhone app): wear your glasses for the scan.</li>
               <li><strong>Warby Parker</strong> (PD tool): take your glasses off.</li>
               <li><strong>XREAL</strong> (browser tool): take your glasses off.</li>

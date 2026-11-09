@@ -759,7 +759,7 @@ function assetSrc(content: OrderConfirmationContent, file: string) {
 }
 
 /** Images embedded in the confirmation so they show even when a client blocks remote images. */
-export const CONFIRMATION_INLINE_IMAGES = ['heliosx-mark.png', 'progress-measurements.gif', 'progress-lights.gif'] as const
+export const CONFIRMATION_INLINE_IMAGES = ['heliosx-mark-tile.png', 'progress-measurements.gif', 'progress-lights.gif'] as const
 
 function renderProgress(needsMeasurements: boolean, content: OrderConfirmationContent) {
   const steps: Array<{ label: string; state: 'done' | 'current' | 'next' }> = needsMeasurements
@@ -828,7 +828,7 @@ function renderMeasurementStep(content: OrderConfirmationContent, prescription: 
     : 'Reply to this email with screenshots of your results.'
 
   return `<tr><td class="inset" style="padding:8px 36px 32px;">
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" bgcolor="${STONE.panel}" style="border-collapse:separate;background-color:${STONE.panel};background-image:linear-gradient(150deg,#e3f0e9 0%,#f3efeb 55%,#f6efe6 100%);border:1px solid #d9e3dc;border-radius:14px;box-shadow:0 18px 40px -24px rgba(11,107,83,.35);">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" bgcolor="#eaf2ed" style="border-collapse:separate;background-color:#eaf2ed;border:1px solid #d9e3dc;border-radius:14px;box-shadow:0 18px 40px -24px rgba(11,107,83,.35);">
       <tr><td style="padding:24px 24px 22px;">
         <h2 style="margin:0 0 6px;font-family:${FONT_STACK};font-size:20px;line-height:1.3;font-weight:600;color:${STONE.ink};">Your next step: send your fit measurements</h2>
         <p style="margin:0 0 6px;font-family:${FONT_STACK};font-size:14px;line-height:1.65;color:${STONE.text};">Every pair is built to your measurements. Production starts as soon as we have them.</p>
@@ -964,14 +964,14 @@ export function renderOrderConfirmationEmail({
 <!--[if mso]><table role="presentation" width="620"><tr><td><![endif]-->
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="${STONE.card}" style="width:100%;max-width:620px;border-collapse:collapse;background-color:${STONE.card};border:1px solid ${STONE.line};">
 
-<tr><td bgcolor="${STONE.band}" style="padding:0;background-color:${STONE.band};background-image:linear-gradient(155deg,#dcebe3 0%,#ebe6df 42%,#f1e6d8 78%,#f4e2cf 100%);border-bottom:1px solid ${STONE.bandLine};">
+<tr><td bgcolor="#e4ece6" style="padding:0;background-color:#e4ece6;border-bottom:1px solid ${STONE.bandLine};">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;">
   <tr><td class="inset" style="padding:28px 36px 0;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"><tr>
       <td valign="middle">
         <a href="${HELIOSX_SITE_URL}" style="color:${STONE.ink};text-decoration:none;">
         <table role="presentation" cellspacing="0" cellpadding="0" border="0"><tr>
-          <td width="34" valign="middle"><img src="${assetSrc(content, 'heliosx-mark.png')}" width="27" height="31" alt="HeliosX logo" style="display:block;border:0;width:27px;height:31px;" /></td>
+          <td width="40" valign="middle"><img src="${assetSrc(content, 'heliosx-mark-tile.png')}" width="40" height="40" alt="HeliosX logo" style="display:block;border:0;width:40px;height:40px;border-radius:10px;" /></td>
           <td valign="middle" style="padding-left:10px;font-family:${FONT_STACK};font-size:18px;line-height:22px;font-weight:700;letter-spacing:3px;color:${STONE.ink};">HELIOSX<span style="display:block;font-size:8px;line-height:13px;font-weight:400;letter-spacing:2.6px;">SURGICAL &amp; DENTAL LOUPES</span></td>
         </tr></table></a>
       </td>

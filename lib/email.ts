@@ -59,6 +59,25 @@ export type RecoveryEmailSummary = {
   }>
 }
 
+async function loadInlineImages(files: readonly string[]) {
+  const loaded = await Promise.all(
+    files.map(async (file) => {
+      try {
+        const response = await fetch(`${HELIOSX_SITE_URL}/email/${file}`)
+        if (!response.ok) return null
+        return {
+          filename: file,
+          content: Buffer.from(await response.arrayBuffer()),
+          contentId: file.replace(/[^a-z0-9]/gi, '-'),
+        }
+      } catch {
+        return null
+      }
+    })
+  )
+  return loaded.filter((image): image is NonNullable<typeof image> => image !== null)
+}
+
 function getResend() {
   if (!process.env.RESEND_API_KEY) return null
   if (!resend) resend = new Resend(process.env.RESEND_API_KEY)
@@ -118,26 +137,46 @@ export async function sendEmail({
 
   const supplierText = supplierInvoice ? `\n\n${renderSupplierInvoiceText(supplierInvoice)}` : ''
 
-  return client.emails.send({
-    from,
-    to,
-    bcc,
-    subject,
-    replyTo,
-    attachments: supplierInvoice
+  // The confirmation embeds its logo and progress bar so they show even when
+  // the inbox blocks remote images. If a fetch fails, the hosted URL is used.
+  // Only the images this email shows: an unreferenced inline image can surface as a stray attachment.
+  const inline = confirmation
+    ? await loadInlineImages(
+        CONFIRMATION_INLINE_IMAGES.filter((file) =>
+          file.startsWith('progress-')
+            ? file === (confirmation.needsMeasurements ? 'progress-measurements.gif' : 'progress-lights.gif')
+            : true
+        )
+      )
+    : []
+  const confirmationContent = confirmation
+    ? { ...confirmation, imageSrc: Object.fromEntries(inline.map((image) => [image.filename, `cid:${image.contentId}`])) }
+    : undefined
+  const attachments = [
+    ...(supplierInvoice
       ? [
           {
             filename: `${supplierInvoice.poNumber}.html`,
             content: Buffer.from(renderSupplierInvoiceDocument(supplierInvoice), 'utf8'),
           },
         ]
-      : undefined,
+      : []),
+    ...inline,
+  ]
+
+  return client.emails.send({
+    from,
+    to,
+    bcc,
+    subject,
+    replyTo,
+    attachments: attachments.length ? attachments : undefined,
     text:
       confirmation && orderSummary
         ? renderOrderConfirmationText(orderSummary, confirmation)
         : `${renderTextEmail(body, orderSummary)}${cta ? `\n\n${cta.label}: ${cta.url}` : ''}${supplierText}`,
     html: confirmation && orderSummary
-      ? renderOrderConfirmationEmail({ preview: preview ?? subject, summary: orderSummary, content: confirmation })
+      ? renderOrderConfirmationEmail({ preview: preview ?? subject, summary: orderSummary, content: confirmationContent ?? confirmation })
       : recoverySummary ? renderRecoveryEmail({
       preview: preview ?? subject,
       title: title ?? subject,
@@ -640,10 +679,16 @@ export function renderHeliosEmail({
 
 // ---------------------------------------------------------------------------
 // Customer order confirmation
+//
+// Light stone layout, matching the customer-reply template. Every background
+// is decorative: Gmail and some clients strip them, so all text stays dark on
+// light and the button reads as a button even without its fill.
 // ---------------------------------------------------------------------------
 
 /** What the customer confirmation needs beyond the receipt itself. */
 export type OrderConfirmationContent = {
+  /** Image sources keyed by asset file name, e.g. cid: references for inline images. */
+  imageSrc?: Record<string, string>
   customerName?: string
   /** False for lights-only orders: nothing is custom-built. */
   needsMeasurements: boolean
@@ -651,21 +696,31 @@ export type OrderConfirmationContent = {
   measurementUrl?: string
 }
 
-const EMAIL_LOGO_URL = `${HELIOSX_SITE_URL}/email/heliosx-logo-white.png`
 const FONT_STACK = `-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif`
+const EMAIL_ASSET_URL = `${HELIOSX_SITE_URL}/email`
 
-const CONFIRM = {
-  page: '#0d1310',
-  card: '#060a08',
-  panel: '#0c1410',
-  line: '#1c2a23',
-  rule: '#22322a',
-  mint: '#78e8bd',
-  heading: '#f3f6f4',
-  text: '#c3ccc7',
-  muted: '#8c9a93',
-  faint: '#6b7972',
+const STONE = {
+  page: '#f3efeb',
+  card: '#faf8f5',
+  band: '#e7e1db',
+  panel: '#f3efeb',
+  line: '#e1d9d0',
+  bandLine: '#d6cdc3',
+  ink: '#11161c',
+  text: '#383733',
+  muted: '#6f675e',
+  green: '#0b6b53',
+  greenInk: '#084c3b',
+  greenWash: '#dcece4',
 }
+
+/** Product photography per loupe model, served from /public/email. */
+const MODEL_HEADERS: Array<{ model: string; file: string; path: string }> = [
+  { model: 'Medusa', file: 'medusa.jpg', path: '/product/medusa' },
+  { model: 'Galileo', file: 'galileo.jpg', path: '/product/galileo' },
+  { model: 'Newton', file: 'newton.jpg', path: '/product/newton' },
+  { model: 'Apollo', file: 'apollo.jpg', path: '/product/apollo' },
+]
 
 /** Short, human order reference: the first 8 characters of the order id, uppercased. */
 export function shortOrderReference(orderNumber?: string) {
@@ -680,45 +735,62 @@ function firstName(name?: string) {
   return (name ?? '').trim().split(/\s+/)[0] ?? ''
 }
 
+function orderedModel(summary: OrderEmailSummary) {
+  for (const item of summary.items ?? []) {
+    const match = MODEL_HEADERS.find(({ model }) => new RegExp(`\\b${model}\\b`, 'i').test(item.name))
+    if (match) return match
+  }
+  return undefined
+}
+
 function formatLongDate(value?: string | null) {
   const date = value ? new Date(value) : new Date()
   if (Number.isNaN(date.getTime())) return ''
   return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).format(date)
 }
 
-function confirmHeading(text: string) {
-  return `<h2 style="margin:0 0 14px;color:${CONFIRM.heading};font-family:${FONT_STACK};font-size:19px;line-height:1.3;font-weight:600;">${escapeHtml(text)}</h2>`
+function sectionLabel(text: string) {
+  return `<p style="margin:0 0 12px;font-family:${FONT_STACK};font-size:11px;line-height:16px;letter-spacing:2.2px;color:${STONE.muted};text-transform:uppercase;">${escapeHtml(text)}</p>`
 }
 
-function renderProgress(needsMeasurements: boolean) {
+/** Inline (cid:) source when the sender attached the image, else the hosted URL. */
+function assetSrc(content: OrderConfirmationContent, file: string) {
+  return content.imageSrc?.[file] ?? `${EMAIL_ASSET_URL}/${file}`
+}
+
+/** Images embedded in the confirmation so they show even when a client blocks remote images. */
+export const CONFIRMATION_INLINE_IMAGES = ['heliosx-logo-email.png', 'progress-measurements.gif', 'progress-lights.gif'] as const
+
+function renderProgress(needsMeasurements: boolean, content: OrderConfirmationContent) {
   const steps: Array<{ label: string; state: 'done' | 'current' | 'next' }> = needsMeasurements
     ? [
         { label: 'Paid', state: 'done' },
         { label: 'Measurements', state: 'current' },
-        { label: 'Built for you', state: 'next' },
-        { label: 'Shipped', state: 'next' },
+        { label: 'We build your loupes', state: 'next' },
+        { label: 'Shipping', state: 'next' },
       ]
     : [
         { label: 'Paid', state: 'done' },
         { label: 'Preparing', state: 'current' },
-        { label: 'Shipped', state: 'next' },
+        { label: 'Shipping', state: 'next' },
       ]
+  // The bar itself is an animated GIF (Gmail ignores CSS animation but plays GIFs).
+  // Labels stay as live text underneath so they read, translate and scale.
   const width = `${Math.floor(100 / steps.length)}%`
+  const gif = needsMeasurements ? 'progress-measurements.gif' : 'progress-lights.gif'
+  const alt = `Order progress: ${steps.map((s) => s.label).join(', ')}. Current step: ${steps.find((s) => s.state === 'current')?.label}.`
   const cells = steps
-    .map((step, index) => {
-      const bar = step.state === 'done' ? CONFIRM.mint : step.state === 'current' ? '#3f7a63' : CONFIRM.rule
-      const color = step.state === 'next' ? CONFIRM.faint : CONFIRM.heading
-      const weight = step.state === 'current' ? 700 : 500
-      const pad = index === 0 ? '0 3px 0 0' : index === steps.length - 1 ? '0 0 0 3px' : '0 3px'
-      return `<td width="${width}" valign="top" style="padding:${pad};">
-        <div style="height:4px;line-height:4px;font-size:0;background:${bar};border-radius:2px;">&nbsp;</div>
-        <div style="padding-top:9px;color:${color};font-family:${FONT_STACK};font-size:12px;line-height:1.35;font-weight:${weight};">${escapeHtml(step.label)}${
-          step.state === 'current' ? `<br /><span style="color:${CONFIRM.mint};font-weight:500;">Now</span>` : ''
+    .map((step) => {
+      const color = step.state === 'next' ? STONE.muted : STONE.ink
+      return `<td width="${width}" valign="top" style="padding:8px 6px 0 0;">
+        <div style="font-family:${FONT_STACK};font-size:12px;line-height:1.4;color:${color};font-weight:${step.state === 'current' ? 700 : 400};">${escapeHtml(step.label)}${
+          step.state === 'current' ? `<br /><span style="color:${STONE.green};font-weight:600;">You are here</span>` : ''
         }</div>
       </td>`
     })
     .join('')
-  return `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;"><tr>${cells}</tr></table>`
+  return `<img src="${assetSrc(content, gif)}" width="548" alt="${escapeHtml(alt)}" style="display:block;width:100%;max-width:548px;height:auto;border:0;" />
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;"><tr>${cells}</tr></table>`
 }
 
 function renderMeasurementStep(content: OrderConfirmationContent, prescription: boolean) {
@@ -731,32 +803,38 @@ function renderMeasurementStep(content: OrderConfirmationContent, prescription: 
   ]
   const list = rows
     .map(([label, detail], index) => {
-      const border = index ? `border-top:1px solid ${CONFIRM.rule};` : ''
+      const border = index ? `border-top:1px solid ${STONE.line};` : ''
       return `<tr>
-        <td valign="top" width="26" style="padding:12px 0;${border}color:${CONFIRM.mint};font-family:${FONT_STACK};font-size:14px;line-height:1.4;font-weight:700;">${index + 1}</td>
-        <td valign="top" style="padding:12px 0;${border}">
-          <div style="color:${CONFIRM.heading};font-family:${FONT_STACK};font-size:14px;line-height:1.4;font-weight:600;">${escapeHtml(label)}</div>
-          <div style="margin-top:3px;color:${CONFIRM.muted};font-family:${FONT_STACK};font-size:13px;line-height:1.55;">${escapeHtml(detail)}</div>
+        <td valign="top" width="36" style="padding:14px 0;${border}">
+          <div style="width:24px;height:24px;line-height:24px;border:1px solid ${STONE.green};border-radius:12px;text-align:center;font-family:${FONT_STACK};font-size:12px;font-weight:700;color:${STONE.green};">${index + 1}</div>
+        </td>
+        <td valign="top" style="padding:14px 0;${border}">
+          <div style="font-family:${FONT_STACK};font-size:15px;line-height:1.4;font-weight:600;color:${STONE.ink};">${escapeHtml(label)}</div>
+          <div style="margin-top:3px;font-family:${FONT_STACK};font-size:14px;line-height:1.6;color:${STONE.text};">${escapeHtml(detail)}</div>
         </td>
       </tr>`
     })
     .join('')
 
-  const primary = content.measurementUrl
-    ? `<a href="${escapeHtml(content.measurementUrl)}" style="display:block;background:${CONFIRM.mint};color:#06100b;padding:16px 20px;text-align:center;text-decoration:none;font-family:${FONT_STACK};font-size:15px;font-weight:700;border-radius:8px;">Submit your measurements</a>`
+  const button = content.measurementUrl
+    ? `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:separate;margin-top:22px;"><tr>
+        <td align="center" bgcolor="#fbfdfc" style="background-color:rgba(255,255,255,.72);border:1px solid ${STONE.green};border-radius:999px;">
+          <a href="${escapeHtml(content.measurementUrl)}" style="display:block;padding:15px 24px;text-align:center;font-family:${FONT_STACK};font-size:15px;line-height:20px;font-weight:600;letter-spacing:0.2px;color:${STONE.green};text-decoration:none;">Submit your measurements</a>
+        </td>
+      </tr></table>`
     : ''
   const replyLine = content.measurementUrl
     ? 'Prefer email? Reply with screenshots of your results.'
     : 'Reply to this email with screenshots of your results.'
 
-  return `<tr><td style="padding:0 32px 36px;">
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:separate;background:${CONFIRM.panel};border:1px solid ${CONFIRM.line};border-radius:12px;">
+  return `<tr><td class="inset" style="padding:8px 36px 32px;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" bgcolor="${STONE.panel}" style="border-collapse:separate;background-color:${STONE.panel};background-image:linear-gradient(150deg,#e3f0e9 0%,#f3efeb 55%,#f6efe6 100%);border:1px solid #d9e3dc;border-radius:14px;box-shadow:0 18px 40px -24px rgba(11,107,83,.35);">
       <tr><td style="padding:24px 24px 22px;">
-        ${confirmHeading('Your next step: send your fit measurements')}
-        <p style="margin:0 0 8px;color:${CONFIRM.text};font-family:${FONT_STACK};font-size:14px;line-height:1.6;">Every pair is built to your measurements. Production starts as soon as we have them.</p>
+        <h2 style="margin:0 0 6px;font-family:${FONT_STACK};font-size:20px;line-height:1.3;font-weight:600;color:${STONE.ink};">Your next step: send your fit measurements</h2>
+        <p style="margin:0 0 6px;font-family:${FONT_STACK};font-size:14px;line-height:1.65;color:${STONE.text};">Every pair is built to your measurements. Production starts as soon as we have them.</p>
         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">${list}</table>
-        ${primary ? `<div style="margin-top:16px;">${primary}</div>` : ''}
-        <p style="margin:14px 0 0;color:${CONFIRM.muted};font-family:${FONT_STACK};font-size:13px;line-height:1.6;text-align:center;"><a href="${PD_GUIDE_URL}" style="color:${CONFIRM.mint};text-decoration:underline;">How to measure your PD</a><br />${escapeHtml(replyLine)}</p>
+        ${button}
+        <p style="margin:14px 0 0;text-align:center;font-family:${FONT_STACK};font-size:13px;line-height:1.7;color:${STONE.muted};"><a href="${PD_GUIDE_URL}" style="color:${STONE.green};font-weight:600;text-decoration:underline;">How to measure your PD</a><br />${escapeHtml(replyLine)}</p>
       </td></tr>
     </table>
   </td></tr>`
@@ -764,51 +842,52 @@ function renderMeasurementStep(content: OrderConfirmationContent, prescription: 
 
 function renderConfirmationReceipt(summary: OrderEmailSummary) {
   const currency = summary.currency ?? 'usd'
+  const cell = (extra = '') => `font-family:${FONT_STACK};${extra}`
   const items = (summary.items ?? [])
-    .map((item) => {
+    .map((item, index) => {
       const details = item.details?.filter(Boolean) ?? []
       const quantity = item.quantity ?? 1
+      const border = index ? `border-top:1px solid ${STONE.line};` : ''
       return `<tr>
-        <td valign="top" style="padding:14px 0;border-top:1px solid ${CONFIRM.rule};">
-          <div style="color:${CONFIRM.heading};font-family:${FONT_STACK};font-size:15px;line-height:1.4;font-weight:600;">${escapeHtml(item.name)}${
-            quantity > 1 ? `<span style="color:${CONFIRM.muted};font-weight:400;"> &times; ${quantity}</span>` : ''
-          }</div>
-          ${
-            details.length
-              ? `<div style="margin-top:4px;color:${CONFIRM.muted};font-family:${FONT_STACK};font-size:13px;line-height:1.5;">${details.map(escapeHtml).join(' &nbsp;&middot;&nbsp; ')}</div>`
-              : ''
-          }
-        </td>
-        <td valign="top" align="right" style="padding:14px 0 14px 16px;border-top:1px solid ${CONFIRM.rule};color:${CONFIRM.heading};font-family:${FONT_STACK};font-size:15px;font-weight:600;white-space:nowrap;">${escapeHtml(formatMoney(item.amountTotal, currency))}</td>
+        <td valign="top" style="padding:16px 18px;${border}${cell(`font-size:15px;line-height:1.4;font-weight:600;color:${STONE.ink};`)}">${escapeHtml(item.name)}${
+          quantity > 1 ? `<span style="font-weight:400;color:${STONE.muted};"> &times; ${quantity}</span>` : ''
+        }${
+          details.length
+            ? `<div style="margin-top:4px;font-size:13px;line-height:1.5;font-weight:400;color:${STONE.muted};">${details.map(escapeHtml).join(' &nbsp;&middot;&nbsp; ')}</div>`
+            : ''
+        }</td>
+        <td valign="top" align="right" style="padding:16px 18px;${border}white-space:nowrap;${cell(`font-size:15px;font-weight:600;color:${STONE.ink};`)}">${escapeHtml(formatMoney(item.amountTotal, currency))}</td>
       </tr>`
     })
     .join('')
 
-  const line = (label: string, value: string, first = false) => `<tr>
-    <td style="padding:${first ? '14px' : '4px'} 0 4px;${first ? `border-top:1px solid ${CONFIRM.rule};` : ''}color:${CONFIRM.muted};font-family:${FONT_STACK};font-size:14px;">${escapeHtml(label)}</td>
-    <td align="right" style="padding:${first ? '14px' : '4px'} 0 4px;${first ? `border-top:1px solid ${CONFIRM.rule};` : ''}color:${CONFIRM.heading};font-family:${FONT_STACK};font-size:14px;white-space:nowrap;">${escapeHtml(value)}</td>
-  </tr>`
-
   const subtotal = summary.subtotal
   const total = summary.total
   const discount = subtotal != null && total != null && subtotal > total ? subtotal - total : 0
-  const lines = [
-    discount && subtotal != null ? ['Subtotal', formatMoney(subtotal, currency)] : null,
-    discount ? ['Discount', `-${formatMoney(discount, currency)}`] : null,
-    ['Shipping', 'Free'],
-  ].filter(Boolean) as Array<[string, string]>
-  const totals = lines.map(([label, value], index) => line(label, value, index === 0)).join('')
+  const lines: Array<[string, string, string?]> = []
+  if (discount && subtotal != null) lines.push(['Subtotal', formatMoney(subtotal, currency)])
+  if (discount) lines.push(['Discount', `-${formatMoney(discount, currency)}`, STONE.green])
+  lines.push(['Shipping', 'Included', STONE.green])
+  lines.push(['Limited lifetime warranty', 'Included', STONE.green])
+  const extra = lines
+    .map(
+      ([label, value, color]) => `<tr>
+        <td style="padding:11px 18px;border-top:1px solid ${STONE.line};${cell(`font-size:14px;color:${STONE.muted};`)}">${escapeHtml(label)}</td>
+        <td align="right" style="padding:11px 18px;border-top:1px solid ${STONE.line};white-space:nowrap;${cell(`font-size:14px;font-weight:600;color:${color ?? STONE.ink};`)}">${escapeHtml(value)}</td>
+      </tr>`
+    )
+    .join('')
   const totalRow =
     total != null
       ? `<tr>
-    <td style="padding:12px 0 0;border-top:1px solid ${CONFIRM.rule};color:${CONFIRM.heading};font-family:${FONT_STACK};font-size:15px;font-weight:700;">Total paid</td>
-    <td align="right" style="padding:12px 0 0;border-top:1px solid ${CONFIRM.rule};color:${CONFIRM.heading};font-family:${FONT_STACK};font-size:20px;font-weight:700;white-space:nowrap;">${escapeHtml(formatMoney(total, currency))}</td>
-  </tr>`
+        <td style="padding:15px 18px;border-top:1px solid ${STONE.bandLine};${cell(`font-size:15px;font-weight:700;color:${STONE.ink};`)}">Total paid</td>
+        <td align="right" style="padding:15px 18px;border-top:1px solid ${STONE.bandLine};white-space:nowrap;${cell(`font-size:19px;font-weight:700;color:${STONE.ink};`)}">${escapeHtml(formatMoney(total, currency))}</td>
+      </tr>`
       : ''
 
-  return `<tr><td style="padding:0 32px;">
-    ${confirmHeading('Order summary')}
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">${items}${totals}<tr><td colspan="2" style="height:8px;font-size:0;line-height:0;">&nbsp;</td></tr>${totalRow}</table>
+  return `<tr><td class="inset" style="padding:0 36px;">
+    ${sectionLabel('Your order')}
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" bgcolor="#ffffff" style="border-collapse:collapse;background-color:#ffffff;border:1px solid ${STONE.line};">${items}${extra}${totalRow}</table>
   </td></tr>`
 }
 
@@ -822,12 +901,12 @@ function renderConfirmationAddresses(summary: OrderEmailSummary) {
   const cells = panels
     .map(
       ([label, value]) => `<td valign="top" width="${panels.length > 1 ? '50%' : '100%'}">
-        <div style="color:${CONFIRM.muted};font-family:${FONT_STACK};font-size:13px;line-height:1.4;">${escapeHtml(label)}</div>
-        <div style="margin-top:6px;color:${CONFIRM.heading};font-family:${FONT_STACK};font-size:14px;line-height:1.6;">${escapeHtml(value).replaceAll('\n', '<br />')}</div>
+        ${sectionLabel(label)}
+        <div style="font-family:${FONT_STACK};font-size:14px;line-height:1.65;color:${STONE.ink};">${escapeHtml(value).replaceAll('\n', '<br />')}</div>
       </td>`
     )
     .join('<td width="20" style="font-size:0;">&nbsp;</td>')
-  return `<tr><td style="padding:32px 32px 0;">
+  return `<tr><td class="inset" style="padding:28px 36px 0;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;"><tr>${cells}</tr></table>
   </td></tr>`
 }
@@ -844,64 +923,87 @@ export function renderOrderConfirmationEmail({
   const name = firstName(content.customerName ?? summary.customerName)
   const reference = shortOrderReference(summary.orderNumber)
   const prescription = hasPrescriptionItem(summary)
+  const model = orderedModel(summary)
+  const headline = content.needsMeasurements
+    ? model
+      ? `Your ${model.model} loupes are reserved.`
+      : 'Your loupes are reserved.'
+    : 'Your light is being prepared.'
+  const welcome =
+    'Thank you for trusting us with your vision. HeliosX exists to bring elite surgical loupes and instruments to clinicians around the world at a fair price, with no gatekeeping and no sales-chain markup. We will be here for you long after your pair arrives.'
   const intro = content.needsMeasurements
-    ? 'Your payment is in and your loupe configuration is reserved. One step remains before we start building.'
-    : 'Your payment is in and your light is being prepared for shipping. Lights are not custom-built, so there is nothing you need to send us. We will email you when it ships.'
+    ? 'Your payment is in and your configuration is held for you. Only one small step remains before we start building your pair.'
+    : 'Your payment is in and your light is being prepared for shipping. Lights are not custom-built, so there is nothing you need to send us. We will email you a tracking number as soon as it is on its way.'
   const reassurance = content.needsMeasurements
     ? prescription
       ? 'Your order stays fully refundable until custom production begins.'
       : 'Your order stays fully refundable until custom production begins. Non-prescription pairs can also be returned within 30 days of delivery.'
-    : 'Questions about mounting the light on your frame or choosing a battery? Reply to this email and our team will help.'
+    : 'Questions about mounting the light on your frame or choosing a battery? Just reply to this email.'
+
 
   return `<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="color-scheme" content="dark" />
-    <meta name="supported-color-schemes" content="dark" />
-    <title>Your HeliosX order is confirmed</title>
-  </head>
-  <body style="margin:0;padding:0;background:${CONFIRM.page};font-family:${FONT_STACK};">
-    <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">${escapeHtml(preview)}</div>
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%;background:${CONFIRM.page};border-collapse:collapse;">
-      <tr><td align="center" style="padding:32px 12px;">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%;max-width:600px;background:${CONFIRM.card};border:1px solid ${CONFIRM.line};border-radius:16px;border-collapse:separate;">
-          <tr><td style="padding:28px 32px 0;">
-            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;"><tr>
-              <td valign="middle"><a href="${HELIOSX_SITE_URL}" style="text-decoration:none;"><img src="${EMAIL_LOGO_URL}" width="118" height="45" alt="HeliosX" style="display:block;border:0;width:118px;height:45px;" /></a></td>
-              ${
-                reference
-                  ? `<td valign="middle" align="right" style="color:${CONFIRM.muted};font-family:${FONT_STACK};font-size:13px;line-height:1.5;">Order <span style="color:${CONFIRM.heading};font-weight:600;">#${escapeHtml(reference)}</span><br />${escapeHtml(formatLongDate(summary.paidAt))}</td>`
-                  : ''
-              }
-            </tr></table>
-          </td></tr>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="light" />
+<meta name="supported-color-schemes" content="light" />
+<title>Your HeliosX order is confirmed</title>
+<style>
+@media only screen and (max-width:480px) {
+  .outer { padding:0 !important; }
+  .inset { padding-left:22px !important; padding-right:22px !important; }
+  .headline { font-size:26px !important; }
+}
+</style>
+</head>
+<body style="margin:0;padding:0;background-color:${STONE.page};color:${STONE.ink};font-family:${FONT_STACK};">
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">${escapeHtml(preview)}</div>
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="${STONE.page}" style="width:100%;border-collapse:collapse;background-color:${STONE.page};">
+<tr><td class="outer" align="center" style="padding:28px 12px;">
+<!--[if mso]><table role="presentation" width="620"><tr><td><![endif]-->
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="${STONE.card}" style="width:100%;max-width:620px;border-collapse:collapse;background-color:${STONE.card};border:1px solid ${STONE.line};">
 
-          <tr><td style="padding:40px 32px 36px;">
-            <h1 style="margin:0 0 12px;color:${CONFIRM.heading};font-family:${FONT_STACK};font-size:30px;line-height:1.2;font-weight:600;letter-spacing:-.02em;">${escapeHtml(name ? `Thank you, ${name}.` : 'Thank you for your order.')}<br /><span style="color:${CONFIRM.mint};">Your order is confirmed.</span></h1>
-            <p style="margin:0 0 28px;color:${CONFIRM.text};font-family:${FONT_STACK};font-size:15px;line-height:1.65;">${escapeHtml(intro)}</p>
-            ${renderProgress(content.needsMeasurements)}
-          </td></tr>
+<tr><td bgcolor="${STONE.band}" style="padding:0;background-color:${STONE.band};background-image:linear-gradient(155deg,#dcebe3 0%,#ebe6df 42%,#f1e6d8 78%,#f4e2cf 100%);border-bottom:1px solid ${STONE.bandLine};">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;">
+  <tr><td class="inset" style="padding:28px 36px 0;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"><tr>
+      <td valign="middle"><a href="${HELIOSX_SITE_URL}" style="text-decoration:none;"><img src="${assetSrc(content, 'heliosx-logo-email.png')}" width="112" height="43" alt="HeliosX" style="display:block;border:0;width:112px;height:43px;" /></a></td>
+      ${
+        reference
+          ? `<td valign="middle" align="right" style="font-family:${FONT_STACK};font-size:12px;line-height:1.6;color:${STONE.muted};">Order <strong style="color:${STONE.ink};">#${escapeHtml(reference)}</strong><br />${escapeHtml(formatLongDate(summary.paidAt))}</td>`
+          : ''
+      }
+    </tr></table>
+  </td></tr>
+  <tr><td class="inset" style="padding:40px 36px 34px;">
+    <h1 class="headline" style="margin:0 0 18px;font-family:${FONT_STACK};font-size:32px;line-height:1.18;font-weight:400;letter-spacing:-0.6px;color:${STONE.ink};">${escapeHtml(name ? `Welcome to the family, ${name}.` : 'Welcome to the HeliosX family.')}<br /><span style="color:${STONE.green};">${escapeHtml(headline)}</span></h1>
+    <p style="margin:0 0 14px;font-family:${FONT_STACK};font-size:15px;line-height:1.75;color:${STONE.text};">${escapeHtml(welcome)}</p>
+    <p style="margin:0;font-family:${FONT_STACK};font-size:15px;line-height:1.75;color:${STONE.text};">${escapeHtml(intro)}</p>
+  </td></tr>
+  </table>
+</td></tr>
+<tr><td class="inset" style="padding:30px 36px 30px;">${renderProgress(content.needsMeasurements, content)}</td></tr>
 
-          ${content.needsMeasurements ? renderMeasurementStep(content, prescription) : ''}
-          ${renderConfirmationReceipt(summary)}
-          ${renderConfirmationAddresses(summary)}
+${content.needsMeasurements ? renderMeasurementStep(content, prescription) : ''}
+${renderConfirmationReceipt(summary)}
+${renderConfirmationAddresses(summary)}
 
-          <tr><td style="padding:32px 32px 32px;">
-            <p style="margin:0 0 14px;color:${CONFIRM.text};font-family:${FONT_STACK};font-size:14px;line-height:1.65;">${escapeHtml(reassurance)}</p>
-            <p style="margin:0;color:${CONFIRM.text};font-family:${FONT_STACK};font-size:14px;line-height:1.65;">Questions about fit, magnification or your order? Reply to this email and our team will answer.</p>
-            <p style="margin:18px 0 0;color:${CONFIRM.heading};font-family:${FONT_STACK};font-size:14px;font-weight:600;">Team HeliosX</p>
-          </td></tr>
+<tr><td class="inset" style="padding:30px 36px 32px;font-family:${FONT_STACK};font-size:15px;line-height:1.75;color:${STONE.text};">
+  <p style="margin:0 0 14px;">${escapeHtml(reassurance)}</p>
+  <p style="margin:0 0 22px;">Questions about fit, magnification or your order? Just reply to this email. A real person on our team reads every message.</p>
+  <p style="margin:0;">Warm regards,<br /><strong style="font-weight:600;color:${STONE.ink};">The HeliosX Team</strong><br /><a href="${HELIOSX_SITE_URL}" style="color:#514940;text-decoration:underline;">heliosxvision.com</a></p>
+</td></tr>
 
-          <tr><td style="padding:20px 32px 24px;border-top:1px solid ${CONFIRM.line};color:${CONFIRM.faint};font-family:${FONT_STACK};font-size:12px;line-height:1.7;">
-            Surgical precision, finally accessible.<br />
-            <a href="${HELIOSX_SITE_URL}" style="color:${CONFIRM.muted};text-decoration:none;">heliosxvision.com</a> &nbsp;&middot;&nbsp; <a href="${HELIOSX_SITE_URL}/returns" style="color:${CONFIRM.muted};text-decoration:none;">Returns</a> &nbsp;&middot;&nbsp; <a href="${HELIOSX_SITE_URL}/warranty" style="color:${CONFIRM.muted};text-decoration:none;">Warranty</a>
-          </td></tr>
-        </table>
-      </td></tr>
-    </table>
-  </body>
+<tr><td class="inset" bgcolor="${STONE.band}" style="padding:19px 36px;background-color:${STONE.band};border-top:1px solid ${STONE.bandLine};">
+  <p style="margin:0;font-family:${FONT_STACK};font-size:10px;line-height:18px;letter-spacing:2px;color:#5b5650;">SURGICAL PRECISION, FINALLY ACCESSIBLE.</p>
+  <p style="margin:4px 0 0;font-family:${FONT_STACK};font-size:11px;line-height:18px;color:${STONE.muted};"><a href="${HELIOSX_SITE_URL}/returns" style="color:#5b5650;text-decoration:underline;">Returns</a> &nbsp;&middot;&nbsp; <a href="${HELIOSX_SITE_URL}/warranty" style="color:#5b5650;text-decoration:underline;">Warranty</a> &nbsp;&middot;&nbsp; <a href="${HELIOSX_SITE_URL}/shipping" style="color:#5b5650;text-decoration:underline;">Shipping</a></p>
+</td></tr>
+
+</table>
+<!--[if mso]></td></tr></table><![endif]-->
+</td></tr></table>
+</body>
 </html>`
 }
 
@@ -928,7 +1030,7 @@ export function renderOrderConfirmationText(summary: OrderEmailSummary, content:
           '',
         ]
       : ['Your light is being prepared for shipping. Nothing else is needed from you.', '']),
-    'ORDER SUMMARY',
+    'YOUR ORDER',
     ...(summary.items ?? []).map((item) => {
       const details = item.details?.length ? ` (${item.details.join(', ')})` : ''
       const qty = (item.quantity ?? 1) > 1 ? ` x ${item.quantity}` : ''
@@ -939,8 +1041,8 @@ export function renderOrderConfirmationText(summary: OrderEmailSummary, content:
     summary.shippingAddress ? `Shipping to:\n${summary.shippingAddress}` : '',
     !summary.shippingAddress && summary.billingAddress ? `Billing address:\n${summary.billingAddress}` : '',
     '',
-    'Questions? Reply to this email.',
-    'Team HeliosX',
+    'Questions? Just reply to this email.',
+    'The HeliosX Team',
   ]
   return lines
     .filter((line, index, all) => line !== '' || (index > 0 && all[index - 1] !== ''))

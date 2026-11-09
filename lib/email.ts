@@ -759,7 +759,7 @@ function assetSrc(content: OrderConfirmationContent, file: string) {
 }
 
 /** Images embedded in the confirmation so they show even when a client blocks remote images. */
-export const CONFIRMATION_INLINE_IMAGES = ['heliosx-logo-email.png', 'progress-measurements.gif', 'progress-lights.gif'] as const
+export const CONFIRMATION_INLINE_IMAGES = ['heliosx-mark.png', 'progress-measurements.gif', 'progress-lights.gif'] as const
 
 function renderProgress(needsMeasurements: boolean, content: OrderConfirmationContent) {
   const steps: Array<{ label: string; state: 'done' | 'current' | 'next' }> = needsMeasurements
@@ -968,7 +968,13 @@ export function renderOrderConfirmationEmail({
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;">
   <tr><td class="inset" style="padding:28px 36px 0;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"><tr>
-      <td valign="middle"><a href="${HELIOSX_SITE_URL}" style="text-decoration:none;"><img src="${assetSrc(content, 'heliosx-logo-email.png')}" width="112" height="43" alt="HeliosX" style="display:block;border:0;width:112px;height:43px;" /></a></td>
+      <td valign="middle">
+        <a href="${HELIOSX_SITE_URL}" style="color:${STONE.ink};text-decoration:none;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0"><tr>
+          <td width="34" valign="middle"><img src="${assetSrc(content, 'heliosx-mark.png')}" width="27" height="31" alt="HeliosX logo" style="display:block;border:0;width:27px;height:31px;" /></td>
+          <td valign="middle" style="padding-left:10px;font-family:${FONT_STACK};font-size:18px;line-height:22px;font-weight:700;letter-spacing:3px;color:${STONE.ink};">HELIOSX<span style="display:block;font-size:8px;line-height:13px;font-weight:400;letter-spacing:2.6px;">SURGICAL &amp; DENTAL LOUPES</span></td>
+        </tr></table></a>
+      </td>
       ${
         reference
           ? `<td valign="middle" align="right" style="font-family:${FONT_STACK};font-size:12px;line-height:1.6;color:${STONE.muted};">Order <strong style="color:${STONE.ink};">#${escapeHtml(reference)}</strong><br />${escapeHtml(formatLongDate(summary.paidAt))}</td>`

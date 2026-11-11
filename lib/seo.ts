@@ -2,6 +2,7 @@ import { identity } from './brand-claims'
 import type { Metadata } from 'next'
 
 import { magnificationPriceByProduct } from './pricing'
+import { languageAlternates, localeOfPath, ogLocaleFor } from './i18n'
 
 export const siteUrl = 'https://heliosxvision.com'
 export const siteName = 'HeliosX Loupes'
@@ -27,6 +28,12 @@ type SeoMetadataInput = {
   image?: string | null
   keywords?: string[]
   noIndex?: boolean
+  /**
+   * Emit hreflang links when `path` has translations (lib/i18n.ts). Off only
+   * for the root layout, whose metadata every page without its own
+   * `alternates` inherits.
+   */
+  hreflang?: boolean
 }
 
 export function buildMetadata({
@@ -36,8 +43,10 @@ export function buildMetadata({
   image = '/HeliosX-share.jpg',
   keywords = [],
   noIndex = false,
+  hreflang = true,
 }: SeoMetadataInput): Metadata {
   const url = absoluteUrl(path)
+  const languages = hreflang ? languageAlternates(path, absoluteUrl) : undefined
   const imageUrl = image === null ? null : absoluteUrl(image)
 
   const openGraph: NonNullable<Metadata['openGraph']> = {
@@ -46,6 +55,7 @@ export function buildMetadata({
     title,
     description,
     url,
+    locale: ogLocaleFor[localeOfPath(path)],
   }
   if (imageUrl) {
     openGraph.images = [
@@ -71,9 +81,7 @@ export function buildMetadata({
     title,
     description,
     keywords,
-    alternates: {
-      canonical: url,
-    },
+    alternates: languages ? { canonical: url, languages } : { canonical: url },
     robots: noIndex
       ? {
           index: false,

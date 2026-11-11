@@ -7,6 +7,10 @@ import SmoothScroll from '@/components/SmoothScroll/SmoothScroll'
 import AmbientBackground from '@/components/AmbientBackground'
 import AnalyticsScripts from '@/components/AnalyticsScripts'
 import Footer from '@/components/Footer/Footer'
+import FooterIntl from '@/components/Footer/FooterIntl'
+import LocaleFooter from '@/components/Footer/LocaleFooter'
+import LanguageSuggest from '@/components/intl/LanguageSuggest'
+import LocaleHtmlLang from '@/components/intl/LocaleHtmlLang'
 import ContactProvider from '@/components/Contact/ContactProvider'
 import { buildMetadata, siteUrl } from '@/lib/seo'
 
@@ -38,6 +42,7 @@ export const metadata: Metadata = {
       'affordable loupes',
       'best loupes',
     ],
+    hreflang: false,
   }),
 }
 
@@ -64,16 +69,22 @@ export default function RootLayout({
     <html lang="en" className={`${syne.variable} ${manrope.variable}`}>
       <body>
         <AnalyticsScripts />
+        <LocaleHtmlLang />
         <ContactProvider>
           <div className="site-shell">
             <AmbientBackground />
             <div className="site-content">
               <SmoothScroll>
                 {children}
-                <Footer />
+                <LocaleFooter
+                  en={<Footer />}
+                  es={<FooterIntl locale="es" />}
+                  pt={<FooterIntl locale="pt" />}
+                />
               </SmoothScroll>
             </div>
           </div>
+          <LanguageSuggest />
         </ContactProvider>
       </body>
     </html>

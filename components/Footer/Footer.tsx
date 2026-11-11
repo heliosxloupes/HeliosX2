@@ -5,6 +5,7 @@ import { ArrowUpRight, Mail } from 'lucide-react'
 import CookiePreferencesButton from '@/components/CookiePreferencesButton'
 import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 import CopyEmail from '@/components/Contact/CopyEmail'
+import LanguageSwitcher from '@/components/intl/LanguageSwitcher'
 import PreferredSourceButton from './PreferredSourceButton'
 
 const exploreLinks = [
@@ -153,7 +154,8 @@ export default function Footer() {
 
         <div className="flex flex-col gap-3 border-t border-white/10 pt-6 text-[11px] text-neutral-600 md:flex-row md:items-center md:justify-between">
           <p>&copy; {new Date().getFullYear()} HeliosX Loupes. Engineered for excellence. Perfect focus, every detail.</p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
+            <LanguageSwitcher />
             <CookiePreferencesButton />
             <p className="uppercase tracking-[0.16em]">No gate keeping. Just fair pricing.</p>
           </div>

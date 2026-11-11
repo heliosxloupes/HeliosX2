@@ -21,6 +21,13 @@ const nextConfig = {
           { key: 'Link', value: '<https://heliosxvision.com/spine-surgery-loupes>; rel="canonical"' },
         ],
       },
+      // Language of the /es and /pt sections. The root <html lang> is "en"
+      // for every page (one root layout keeps the site statically rendered),
+      // so this header and the lang wrapper in app/es|pt/layout.tsx carry it.
+      { source: '/es', headers: [{ key: 'Content-Language', value: 'es' }] },
+      { source: '/es/:path*', headers: [{ key: 'Content-Language', value: 'es' }] },
+      { source: '/pt', headers: [{ key: 'Content-Language', value: 'pt-BR' }] },
+      { source: '/pt/:path*', headers: [{ key: 'Content-Language', value: 'pt-BR' }] },
       {
         source: '/(.*)',
         headers: [

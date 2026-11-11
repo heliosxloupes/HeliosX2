@@ -2,7 +2,8 @@ import type { MetadataRoute } from 'next'
 
 import contentDates from '@/lib/content-dates.json'
 import { allSeoLandingPages, educationGuides } from '@/lib/seo-content'
-import { siteUrl } from '@/lib/seo'
+import { absoluteUrl, siteUrl } from '@/lib/seo'
+import { languageAlternates } from '@/lib/i18n'
 
 // When each landing page / guide last had its own content changed, from git
 // history (`npm run content-dates`). Accurate lastmod is what makes Google
@@ -44,6 +45,11 @@ const staticPathLastModified: Record<string, string> = {
   '/terms': '2026-09-09',
   '/surgical-loupes-latin-america': '2026-10-02',
   '/research/intraoperative-magnification-who-uses-it.pdf': '2026-05-22',
+  // Spanish and Portuguese pages (lib/i18n.ts).
+  '/es': '2026-11-11',
+  '/es/lupas-dentales': '2026-11-11',
+  '/pt': '2026-11-11',
+  '/pt/lupa-odontologica': '2026-11-11',
 }
 
 const staticPaths = Object.keys(staticPathLastModified)
@@ -53,7 +59,7 @@ function toDate(iso: string): Date {
 }
 
 function priorityFor(path: string): number {
-  if (path === '') return 1
+  if (path === '' || path === '/es' || path === '/pt') return 1
   if (path.startsWith('/product')) return 0.9
   if (path.startsWith('/education')) return 0.8
   return 0.75
@@ -110,6 +116,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: changeFrequencyFor(path),
       priority: priorityFor(path),
     })
+  }
+
+  // hreflang in the sitemap as well as in each page's <head>: every language
+  // version lists all versions, so Google pairs them even before it crawls.
+  for (const entry of entries) {
+    const path = entry.url.slice(siteUrl.length) || '/'
+    const languages = languageAlternates(path, absoluteUrl)
+    if (languages) entry.alternates = { languages }
   }
 
   return entries

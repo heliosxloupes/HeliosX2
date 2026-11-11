@@ -25,6 +25,7 @@ export type IntlSection =
   | { kind: 'list'; title: string; items: { lead: string; text: string }[]; after?: string }
   | { kind: 'steps'; title: string; items: string[]; after?: string }
   | { kind: 'cta'; title: string; text: string; link: { label: string; href: string } }
+  | { kind: 'table'; title: string; intro?: string; headers: string[]; rows: string[][]; note?: string }
 
 export type IntlPageContent = {
   locale: IntlLocale
@@ -89,7 +90,7 @@ const productShot = { src: '/share/medusa.jpg', width: 1200, height: 630 }
 
 const es = (v: number) => formatUsd('es', v)
 
-const esShared = {
+export const esShared = {
   shipping: {
     question: '¿Hacen envíos a México, Colombia, Argentina, Chile, Perú y el resto de Latinoamérica?',
     answer:
@@ -197,6 +198,9 @@ const esLanding: IntlPageContent = {
   ],
   related: [
     { label: 'Lupas dentales', href: '/es/lupas-dentales' },
+    { label: 'Lupas quirúrgicas', href: '/es/lupas-quirurgicas' },
+    { label: 'Mejores lupas dentales', href: '/es/mejores-lupas-dentales' },
+    { label: 'Mejores lupas quirúrgicas', href: '/es/mejores-lupas-quirurgicas' },
     { label: 'Envíos (en inglés)', href: '/surgical-loupes-latin-america' },
     { label: 'Garantía (en inglés)', href: '/warranty' },
     { label: 'Devoluciones (en inglés)', href: '/returns' },
@@ -306,10 +310,11 @@ const esDental: IntlPageContent = {
     esShared.measure,
   ],
   related: [
-    { label: 'HeliosX en español', href: '/es' },
-    { label: 'Luces LED (en inglés)', href: '/product/lights' },
+    { label: 'Mejores lupas dentales', href: '/es/mejores-lupas-dentales' },
+    { label: 'Lupas dentales con luz', href: '/es/lupas-dentales-con-luz' },
+    { label: 'Precio de las lupas dentales', href: '/es/precio-lupas-dentales' },
+    { label: 'Lupas quirúrgicas', href: '/es/lupas-quirurgicas' },
     { label: 'Guía de medidas (en inglés)', href: '/measurements' },
-    { label: 'Envíos a Latinoamérica (en inglés)', href: '/surgical-loupes-latin-america' },
   ],
 }
 
@@ -319,7 +324,7 @@ const esDental: IntlPageContent = {
 
 const pt = (v: number) => formatUsd('pt', v)
 
-const ptShared = {
+export const ptShared = {
   shipping: {
     question: 'Vocês enviam para o Brasil?',
     answer:
@@ -427,6 +432,9 @@ const ptLanding: IntlPageContent = {
   ],
   related: [
     { label: 'Lupa odontológica', href: '/pt/lupa-odontologica' },
+    { label: 'Lupa cirúrgica', href: '/pt/lupa-cirurgica' },
+    { label: 'Melhor lupa odontológica', href: '/pt/melhor-lupa-odontologica' },
+    { label: 'Melhor lupa cirúrgica', href: '/pt/melhor-lupa-cirurgica' },
     { label: 'Envio internacional (em inglês)', href: '/surgical-loupes-latin-america' },
     { label: 'Garantia (em inglês)', href: '/warranty' },
     { label: 'Devoluções (em inglês)', href: '/returns' },
@@ -535,10 +543,11 @@ const ptDental: IntlPageContent = {
     ptShared.measure,
   ],
   related: [
-    { label: 'HeliosX em português', href: '/pt' },
-    { label: 'Fotóforos LED (em inglês)', href: '/product/lights' },
+    { label: 'Melhor lupa odontológica', href: '/pt/melhor-lupa-odontologica' },
+    { label: 'Lupa com fotóforo', href: '/pt/lupa-odontologica-com-fotoforo' },
+    { label: 'Preço da lupa odontológica', href: '/pt/lupa-odontologica-preco' },
+    { label: 'Lupa cirúrgica', href: '/pt/lupa-cirurgica' },
     { label: 'Guia de medidas (em inglês)', href: '/measurements' },
-    { label: 'Envio internacional (em inglês)', href: '/surgical-loupes-latin-america' },
   ],
 }
 
@@ -586,6 +595,11 @@ export const ui: Record<IntlLocale, {
     footerLocalLinks: [
       { label: 'Inicio', href: '/es' },
       { label: 'Lupas dentales', href: '/es/lupas-dentales' },
+      { label: 'Lupas quirúrgicas', href: '/es/lupas-quirurgicas' },
+      { label: 'Mejores lupas dentales', href: '/es/mejores-lupas-dentales' },
+      { label: 'Mejores lupas quirúrgicas', href: '/es/mejores-lupas-quirurgicas' },
+      { label: 'Lupas dentales con luz', href: '/es/lupas-dentales-con-luz' },
+      { label: 'Precio de las lupas', href: '/es/precio-lupas-dentales' },
     ],
     languageLabel: 'Idioma',
   },
@@ -615,6 +629,11 @@ export const ui: Record<IntlLocale, {
     footerLocalLinks: [
       { label: 'Início', href: '/pt' },
       { label: 'Lupa odontológica', href: '/pt/lupa-odontologica' },
+      { label: 'Lupa cirúrgica', href: '/pt/lupa-cirurgica' },
+      { label: 'Melhor lupa odontológica', href: '/pt/melhor-lupa-odontologica' },
+      { label: 'Melhor lupa cirúrgica', href: '/pt/melhor-lupa-cirurgica' },
+      { label: 'Lupa com fotóforo', href: '/pt/lupa-odontologica-com-fotoforo' },
+      { label: 'Preço da lupa', href: '/pt/lupa-odontologica-preco' },
     ],
     languageLabel: 'Idioma',
   },

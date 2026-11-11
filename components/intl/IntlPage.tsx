@@ -25,7 +25,7 @@ export function intlMetadata(content: IntlPageContent): Metadata {
     description: content.description,
     path: content.path,
     keywords: content.keywords,
-    image: content.image.src === '/share/medusa.jpg' ? '/share/medusa.jpg' : undefined,
+    image: content.image.src.startsWith('/share/') ? content.image.src : undefined,
   })
 }
 
@@ -106,6 +106,38 @@ function Section({ section, content }: { section: IntlSection; content: IntlPage
             ))}
           </ol>
           {section.after ? <p className="leading-7 text-neutral-300">{section.after}</p> : null}
+        </section>
+      )
+    case 'table':
+      return (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold text-balance md:text-3xl">{section.title}</h2>
+          {section.intro ? <p className="leading-7 text-neutral-300">{section.intro}</p> : null}
+          <div className="-mx-4 overflow-x-auto px-4 md:mx-0 md:px-0">
+            <table className={`w-full border-collapse text-left text-sm ${section.headers.length > 2 ? 'min-w-[560px]' : ''}`}>
+              <thead>
+                <tr className="border-b border-white/15">
+                  {section.headers.map((h) => (
+                    <th key={h} scope="col" className="py-3 pr-4 font-semibold text-white">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {section.rows.map((row) => (
+                  <tr key={row[0]} className="border-b border-white/10 align-top">
+                    {row.map((cell, i) =>
+                      i === 0 ? (
+                        <th key={i} scope="row" className="py-3 pr-4 font-semibold text-white">{cell}</th>
+                      ) : (
+                        <td key={i} className="py-3 pr-4 leading-6 text-neutral-300 tabular-nums">{cell}</td>
+                      ),
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {section.note ? <p className="text-sm leading-6 text-neutral-400">{section.note}</p> : null}
         </section>
       )
     case 'cta':

@@ -50,6 +50,16 @@ const staticPathLastModified: Record<string, string> = {
   '/es/lupas-dentales': '2026-11-11',
   '/pt': '2026-11-11',
   '/pt/lupa-odontologica': '2026-11-11',
+  '/es/mejores-lupas-dentales': '2026-11-11',
+  '/es/mejores-lupas-quirurgicas': '2026-11-11',
+  '/es/lupas-quirurgicas': '2026-11-11',
+  '/es/lupas-dentales-con-luz': '2026-11-11',
+  '/es/precio-lupas-dentales': '2026-11-11',
+  '/pt/melhor-lupa-odontologica': '2026-11-11',
+  '/pt/melhor-lupa-cirurgica': '2026-11-11',
+  '/pt/lupa-cirurgica': '2026-11-11',
+  '/pt/lupa-odontologica-com-fotoforo': '2026-11-11',
+  '/pt/lupa-odontologica-preco': '2026-11-11',
 }
 
 const staticPaths = Object.keys(staticPathLastModified)

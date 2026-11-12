@@ -526,7 +526,7 @@ export default function CheckoutPage() {
               <p className="mt-2 text-[0.72rem] leading-5 text-neutral-400">
                 Taxes, if any, are shown by Stripe before you pay.
               </p>
-              <PayOverTime amount={subtotal} stripeReady={stripeLoaded} />
+              <PayOverTime amount={subtotal} />
             </div>
 
             <AfterCheckoutSteps lightsOnly={items.length > 0 && items.every((item) => item.isLight)} className="mt-6 border-t border-white/10 pt-5" />

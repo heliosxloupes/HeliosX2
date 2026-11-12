@@ -1,5 +1,6 @@
 import { applyEditorialRevisions } from './seo-editorial'
 import { oct28NewPages } from './seo-round-2026-10-28'
+import { beautyPagesNov2026 } from './seo-beauty-pages'
 import { magnificationPriceByProduct, TRAINEE_PERCENT_OFF } from './pricing'
 import seoRedirects from './seo-redirects.json'
 
@@ -8371,6 +8372,10 @@ const seoLandingHeroTails: Record<string, string> = {
   'heliosx-vs-zeiss': 'optics, fit and price.',
   'dental-loupes-price': 'every price, published.',
   'veterinary-dental-loupes': 'for small, dark mouths.',
+  'loupes-for-estheticians': 'for fine work on skin.',
+  'loupes-for-lash-artists': 'light enough for a full book.',
+  'loupes-for-permanent-makeup': 'for brows, lips and liner.',
+  'hair-transplant-loupes': 'for FUE, grafts and placement.',
   'loupe-accessories': 'what to buy, what to skip.',
   'amazon-loupes-vs-custom-loupes': 'what you get for the price.',
   'orascoptic-alternatives': 'ranked by clinical fit.',
@@ -8445,6 +8450,7 @@ for (const guide of educationGuides) {
 }
 
 allSeoLandingPages.push(...oct28NewPages)
+allSeoLandingPages.push(...beautyPagesNov2026)
 
 applyEditorialRevisions(allSeoLandingPages, educationGuides)
 

@@ -609,7 +609,7 @@ const surgicalSpecs: Spec[] = [
     challenge: {
       title: 'Weight matters by stage ten',
       body: 'Over a full Mohs day, the loupe you barely notice is the one you keep wearing. HeliosX Galilean loupes are built from premium lightweight metals for exactly that day.',
-      bullets: ['Lightweight loupes compared: /lightweight-dental-loupes.', 'Oculoplastic overlap: /ophthalmic-surgery-loupes.'],
+      bullets: ['Lightweight loupes compared: /lightweight-dental-loupes.', 'Oculoplastic overlap: /ophthalmic-surgery-loupes.', 'Hair restoration: /hair-transplant-loupes.'],
     },
     light: 'Polaris (50,000 lux, widest spot) is the Mohs favorite: enough light for 2.5x–3.5x and only 10 g at the frame.',
   },

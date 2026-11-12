@@ -51,6 +51,15 @@ const GROUPS = [
       ['/podiatry-foot-ankle-surgery-loupes', 'Podiatry & foot and ankle surgery'],
     ],
   },
+  {
+    title: 'Beauty & hair restoration',
+    links: [
+      ['/loupes-for-estheticians', 'Estheticians'],
+      ['/loupes-for-lash-artists', 'Lash artists'],
+      ['/loupes-for-permanent-makeup', 'Permanent makeup & microblading'],
+      ['/hair-transplant-loupes', 'Hair restoration'],
+    ],
+  },
 ] as const
 
 const STAGES = [

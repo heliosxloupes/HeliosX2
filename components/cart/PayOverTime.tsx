@@ -42,9 +42,15 @@ export default function PayOverTime({ amount, stripeReady }: { amount: number; s
       })
       element.on('ready', () => {
         // Give the iframe a beat to size itself; an empty one means no offer.
-        window.setTimeout(() => {
-          if (!cancelled && node.offsetHeight > 8) setLive(true)
-        }, 250)
+        // The mount node is collapsed until then, so measure the iframe itself.
+        let tries = 0
+        const check = () => {
+          if (cancelled) return
+          const frame = node.querySelector('iframe')
+          if (frame && frame.offsetHeight > 20) setLive(true)
+          else if (++tries < 12) window.setTimeout(check, 250)
+        }
+        window.setTimeout(check, 250)
       })
       element.mount(node)
     } catch {

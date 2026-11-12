@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Script from 'next/script'
 import Image from 'next/image'
+import { ArrowRight, Check, Lock } from 'lucide-react'
 import AfterCheckoutSteps from '@/components/cart/AfterCheckoutSteps'
 import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 import CopyEmail from '@/components/Contact/CopyEmail'
@@ -40,6 +41,41 @@ declare global {
 const usd = (amount: number) =>
   amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
 
+// Two short steps. With an email the first step is done and shows the address.
+function CheckoutSteps({ email, onChange }: { email?: string; onChange?: () => void }) {
+  const done = Boolean(email)
+  return (
+    <ol className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.8rem] font-medium">
+      <li className="flex min-w-0 items-center gap-2 text-neutral-100">
+        <span className="hx-step-dot grid h-5 w-5 shrink-0 place-items-center rounded-full bg-emerald-300 text-[0.68rem] font-semibold tabular-nums text-neutral-950">
+          {done ? <Check aria-hidden="true" className="h-3 w-3" strokeWidth={3} /> : '1'}
+        </span>
+        <span className="truncate">{done ? email : 'Email'}</span>
+        {done && onChange && (
+          <button
+            type="button"
+            onClick={onChange}
+            className="text-neutral-400 underline decoration-white/25 underline-offset-4 transition-colors duration-150 hover:text-neutral-100"
+          >
+            Change
+          </button>
+        )}
+      </li>
+      <li aria-hidden="true" className="h-px w-8 bg-current text-neutral-500 opacity-50" />
+      <li className={`flex items-center gap-2 ${done ? 'text-neutral-100' : 'text-neutral-500'}`}>
+        <span
+          className={`hx-step-dot grid h-5 w-5 place-items-center rounded-full text-[0.68rem] font-semibold tabular-nums ${
+            done ? 'bg-emerald-300 text-neutral-950' : 'hx-step-dot-idle border border-white/25'
+          }`}
+        >
+          2
+        </span>
+        Payment
+      </li>
+    </ol>
+  )
+}
+
 export default function CheckoutPage() {
   const router = useRouter()
   const checkoutRef = useRef<HTMLDivElement>(null)
@@ -50,6 +86,28 @@ export default function CheckoutPage() {
   const [error, setError] = useState<string | null>(null)
   // null until read from storage; '' means the shopper skipped the email.
   const [customerEmail, setCustomerEmail] = useState<string | null>(null)
+  const [emailDraft, setEmailDraft] = useState('')
+  const [emailError, setEmailError] = useState('')
+
+  // Email comes first so a shopper who leaves at the payment form can still be
+  // sent their saved checkout. Stripe then opens with it already filled in.
+  const submitEmail = (event: React.FormEvent) => {
+    event.preventDefault()
+    const normalized = emailDraft.trim().toLowerCase()
+    if (!/^\S+@\S+\.\S+$/.test(normalized)) {
+      setEmailError('Check your email address.')
+      return
+    }
+    setEmailError('')
+    window.localStorage.setItem('heliosx_customer_email', normalized)
+    setCustomerEmail(normalized)
+  }
+
+  const changeEmail = () => {
+    setEmailDraft(customerEmail ?? '')
+    window.localStorage.removeItem('heliosx_customer_email')
+    setCustomerEmail('')
+  }
 
   useEffect(() => {
     const cart = getCart() as CartItem[] | undefined
@@ -112,7 +170,7 @@ export default function CheckoutPage() {
   )
 
   useEffect(() => {
-    if (!items.length || !stripeLoaded || !checkoutRef.current || customerEmail === null) {
+    if (!items.length || !stripeLoaded || !checkoutRef.current || !customerEmail) {
       if (!items.length) {
         setLoading(false)
       }
@@ -272,7 +330,7 @@ export default function CheckoutPage() {
       <main className="hx-mobile-checkout pt-24 min-h-screen bg-transparent text-neutral-100">
         <section className="mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-16 pt-10 lg:flex-row lg:px-8">
           {/* Left Column - Stripe Embedded Checkout */}
-          <div className="flex-1 rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(24,24,27,0.96),rgba(10,10,12,0.98))] p-6 shadow-[0_30px_100px_rgba(0,0,0,0.55)] md:p-8">
+          <div className={`flex-1 rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,19,32,0.96),rgba(5,8,14,0.98))] p-6 shadow-[0_30px_100px_rgba(0,0,0,0.55)] md:p-8 ${customerEmail === '' ? 'lg:self-start' : ''}`}>
             <p className="text-xs uppercase tracking-[0.22em] text-neutral-400">
               Payment
             </p>
@@ -292,7 +350,79 @@ export default function CheckoutPage() {
                   <p className="text-red-400 font-semibold mb-2">Error loading checkout</p>
                   <p className="text-red-300 text-sm">{error}</p>
                 </div>
-              ) : loading ? (
+              ) : customerEmail === '' ? (
+                <form
+                  onSubmit={submitEmail}
+                  noValidate
+                  className="relative isolate border-t border-white/10 pt-7 md:overflow-hidden md:rounded-3xl md:border md:border-white/10 md:bg-[#04070d] md:px-9 md:pb-10 md:pt-9 md:shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_28px_60px_-28px_rgba(0,0,0,0.9)]"
+                >
+                  {/* Desktop only: the pair being bought, fading into the panel, lit from the corner. */}
+                  {items[0]?.image && (
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[68%] md:block"
+                      style={{
+                        WebkitMaskImage: 'linear-gradient(to left, #000 18%, transparent 92%)',
+                        maskImage: 'linear-gradient(to left, #000 18%, transparent 92%)',
+                      }}
+                    >
+                      <Image src={items[0].image} alt="" fill sizes="480px" className="object-cover opacity-60" />
+                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,7,13,0.55),rgba(4,7,13,0)_38%,rgba(4,7,13,0.85))]" />
+                    </div>
+                  )}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -left-24 -top-28 -z-10 hidden h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(23,176,143,0.34),transparent)] md:block"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -bottom-32 right-10 -z-10 hidden h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(72,136,255,0.22),transparent)] md:block"
+                  />
+                  <CheckoutSteps />
+                  <label
+                    htmlFor="checkout-email"
+                    className="mt-7 block max-w-[20ch] text-balance text-[1.65rem] font-semibold leading-[1.12] tracking-[-0.02em] text-neutral-50 md:mt-9 md:text-[2.1rem]"
+                  >
+                    Where should we send your order confirmation?
+                  </label>
+                  <div className="mt-6 max-w-xl sm:relative">
+                    <input
+                      id="checkout-email"
+                      type="email"
+                      autoComplete="email"
+                      inputMode="email"
+                      autoCapitalize="none"
+                      enterKeyHint="next"
+                      autoFocus
+                      value={emailDraft}
+                      onChange={(event) => {
+                        setEmailDraft(event.target.value)
+                        if (emailError) setEmailError('')
+                      }}
+                      placeholder="you@example.com"
+                      aria-invalid={emailError ? true : undefined}
+                      aria-describedby="checkout-email-note"
+                      className="h-14 w-full rounded-full border border-white/20 bg-white/[0.04] px-6 text-base text-white caret-emerald-300 outline-none transition-[border-color,box-shadow] duration-150 ease-out placeholder:text-neutral-500 focus:border-emerald-300/80 focus:shadow-[0_0_0_4px_rgba(52,211,153,0.14)] sm:pr-44 md:h-16 md:border-white/15 md:bg-[rgba(3,5,8,0.62)] md:shadow-[inset_0_2px_10px_rgba(0,0,0,0.65),0_1px_0_rgba(255,255,255,0.06)] md:backdrop-blur-md md:placeholder:text-neutral-400 md:focus:shadow-[inset_0_2px_10px_rgba(0,0,0,0.65),0_0_0_4px_rgba(34,197,156,0.18)]"
+                    />
+                    <button
+                      type="submit"
+                      className="hx-ask-cta group mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-emerald-300 px-6 text-sm font-semibold text-neutral-950 transition-[transform,background-color,box-shadow] duration-150 ease-out hover:bg-emerald-200 active:scale-[0.98] sm:absolute sm:right-1.5 sm:top-1.5 sm:mt-0 sm:h-11 sm:w-auto md:right-2 md:top-2 md:h-12 md:px-7 md:shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_10px_26px_-8px_rgba(23,176,143,0.75)] md:hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_14px_32px_-8px_rgba(23,176,143,0.9)]"
+                    >
+                      Continue
+                      <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-150 ease-out group-hover:translate-x-0.5 motion-reduce:transition-none" />
+                    </button>
+                  </div>
+                  {emailError && (
+                    <p role="alert" className="mt-3 text-sm text-red-300">{emailError}</p>
+                  )}
+                  <p id="checkout-email-note" className="mt-5 flex max-w-xl items-start gap-2.5 text-[0.8rem] leading-5 text-neutral-400">
+                    <Lock aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                    <span className="text-pretty">
+                      For your receipt and order updates. If you step away, we email this checkout back to you. No newsletter.
+                    </span>
+                  </p>
+                </form>
+              ) : loading || customerEmail === null ? (
                 <div className="space-y-4 py-10">
                   <div className="h-5 w-36 animate-pulse rounded-full bg-white/8" />
                   <div className="grid gap-3">
@@ -303,11 +433,16 @@ export default function CheckoutPage() {
                   <div className="text-sm text-neutral-500">Loading secure Stripe checkout...</div>
                 </div>
               ) : (
-                <div 
-                  id="checkout" 
-                  ref={checkoutRef}
-                  className="min-h-[600px] overflow-hidden rounded-[28px] border border-white/8 bg-[#f4eeea]"
-                ></div>
+                <>
+                  <div className="mb-5 border-t border-white/10 pt-7">
+                    <CheckoutSteps email={customerEmail ?? ''} onChange={changeEmail} />
+                  </div>
+                  <div
+                    id="checkout"
+                    ref={checkoutRef}
+                    className="min-h-[600px] overflow-hidden rounded-[28px] border border-white/8 bg-[#f4eeea]"
+                  ></div>
+                </>
               )}
             </div>
           </div>

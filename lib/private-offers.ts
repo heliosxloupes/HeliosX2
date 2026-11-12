@@ -1,5 +1,7 @@
+import type Stripe from 'stripe'
+
 import { cordlessOptionName, lightBySlug } from '@/lib/lights'
-import { lightPriceBySlug, resolveLightPrice, resolveProductPrice } from '@/lib/pricing'
+import { PRESCRIPTION_PRICE, lightPriceBySlug, resolveLightPrice, resolveProductPrice } from '@/lib/pricing'
 
 export type OfferLine = {
   name: string
@@ -16,13 +18,14 @@ export type PrivateOffer = {
   greeting: string
   /**
    * Stripe promotion code. Its redemption limit is what makes the offer single-use,
-   * and its amount must equal the sum of the line discounts below.
+   * and its amount must equal the sum of the line discounts below. Omit it for a
+   * list-price offer (every percentOff 0); that link stays reusable.
    */
-  promotionCode: string
+  promotionCode?: string
   discountNote: string
   /** Lights need no measurements, so checkout shows shorter next steps. */
   lightsOnly: boolean
-  shippingCountries: ['US']
+  shippingCountries: Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry[]
   lines: OfferLine[]
 }
 
@@ -99,6 +102,35 @@ const offers: Record<string, PrivateOffer> = {
           battery: 'Extended battery, 10 hrs',
           bundled: 'true',
         },
+      },
+    ],
+  },
+  RhWb_mEPEhg7: {
+    id: 'galileo-rx-evans',
+    greeting: 'Sally, your Galileo loupes are ready.',
+    discountNote:
+      'Your Galileo 3.0× loupes with prescription lenses built in. Before production we confirm your prescription, working distance and frame fit with you, and you can cancel for a full refund until then.',
+    lightsOnly: false,
+    shippingCountries: ['GB'],
+    lines: [
+      {
+        name: 'Galileo Surgical Loupes',
+        description: '3.0×, JJ23 Grey frame',
+        price: resolveProductPrice('galileo', '3.0x') as number,
+        percentOff: 0,
+        metadata: {
+          productSlug: 'galileo',
+          frameStyle: 'JJ23',
+          frameColor: 'Grey',
+          magnification: '3.0x',
+        },
+      },
+      {
+        name: 'Prescription Lenses',
+        description: 'Prescription in the left lens, balance lens on the right',
+        price: PRESCRIPTION_PRICE,
+        percentOff: 0,
+        metadata: { productSlug: 'prescription-lenses', isAddon: 'true' },
       },
     ],
   },

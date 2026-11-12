@@ -160,8 +160,12 @@ export default function OfferCheckout({
                     ) : null}
                     <p className="mt-2 flex flex-wrap items-baseline gap-x-2 text-sm tabular-nums">
                       <span className="font-semibold text-neutral-50">{usd(line.price * (1 - line.percentOff / 100))}</span>
-                      <s className="text-xs text-neutral-400">{usd(line.price)}</s>
-                      <span className="text-xs text-emerald-200">{line.percentOff}% off</span>
+                      {line.percentOff > 0 ? (
+                        <>
+                          <s className="text-xs text-neutral-400">{usd(line.price)}</s>
+                          <span className="text-xs text-emerald-200">{line.percentOff}% off</span>
+                        </>
+                      ) : null}
                     </p>
                   </div>
                 </li>
@@ -173,7 +177,7 @@ export default function OfferCheckout({
                 <dt>Subtotal</dt>
                 <dd className="tabular-nums">{usd(subtotal)}</dd>
               </div>
-              {lines.map((line) => (
+              {lines.filter((line) => line.percentOff > 0).map((line) => (
                 <div key={line.name} className="flex items-center justify-between gap-4 text-emerald-200">
                   <dt>{line.percentOff}% off {line.name.replace(/ LED Headlight$/, '')}</dt>
                   <dd className="tabular-nums">-{usd((line.price * line.percentOff) / 100)}</dd>

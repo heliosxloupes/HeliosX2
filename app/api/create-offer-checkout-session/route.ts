@@ -22,17 +22,21 @@ export async function POST(req: Request) {
     const stripe = new Stripe(secretKey, { apiVersion: '2024-06-20' as any })
 
     // An exhausted code stops being active, which closes the offer after one payment.
-    const promotionCodes = await stripe.promotionCodes.list({
-      code: offer.promotionCode,
-      active: true,
-      limit: 1,
-    })
-    const promotionCode = promotionCodes.data[0]
-    if (!promotionCode) {
-      return NextResponse.json(
-        { error: 'This private checkout has already been used. Reply to our email and we will sort it out.' },
-        { status: 410 }
-      )
+    let promotionCodeId: string | null = null
+    if (offer.promotionCode) {
+      const promotionCodes = await stripe.promotionCodes.list({
+        code: offer.promotionCode,
+        active: true,
+        limit: 1,
+      })
+      const promotionCode = promotionCodes.data[0]
+      if (!promotionCode) {
+        return NextResponse.json(
+          { error: 'This private checkout has already been used. Reply to our email and we will sort it out.' },
+          { status: 410 }
+        )
+      }
+      promotionCodeId = promotionCode.id
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -50,7 +54,7 @@ export async function POST(req: Request) {
           },
         },
       })),
-      discounts: [{ promotion_code: promotionCode.id }],
+      ...(promotionCodeId ? { discounts: [{ promotion_code: promotionCodeId }] } : {}),
       billing_address_collection: 'required',
       phone_number_collection: { enabled: true },
       shipping_address_collection: { allowed_countries: offer.shippingCountries },

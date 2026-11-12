@@ -59,9 +59,9 @@ export default function PayOverTime({ amount }: { amount: number }) {
   }, [amount])
 
   return (
-    <div className="hx-pay-over-time mt-4 rounded-2xl border border-emerald-300/30 bg-emerald-300/10 px-4 py-4">
+    <div className="hx-pay-over-time mt-4 rounded-2xl border border-white/10 bg-black/35 p-4">
       <div className="flex items-center justify-between gap-3">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-200">Or pay over time</p>
+        <p className="text-[0.7rem] uppercase tracking-[0.2em] text-neutral-400">Or pay over time</p>
         <p className="text-[11px] font-medium text-neutral-300">Klarna · Affirm</p>
       </div>
 
@@ -90,7 +90,7 @@ export default function PayOverTime({ amount }: { amount: number }) {
             href={offer.plansUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-emerald-200 underline underline-offset-2"
+            className="font-medium text-neutral-100 underline underline-offset-2"
           >
             See plans
           </a>

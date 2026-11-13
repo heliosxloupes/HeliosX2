@@ -31,12 +31,38 @@ export type PrivateOffer = {
 
 const canopusXl = lightBySlug('canopus-xl')
 const sirius = lightBySlug('sirius')
+const vega = lightBySlug('vega')
+
+/** One Vega line at list price with the chosen battery. */
+function vegaLine(option: 'slim-6h' | 'pack-10h' | 'neck-4h', battery: string): OfferLine {
+  return {
+    name: lightPriceBySlug.vega.name,
+    description: `70,000 lux. ${battery}`,
+    image: vega?.image,
+    price: resolveLightPrice('vega', option) as number,
+    percentOff: 0,
+    metadata: { productSlug: 'vega', isLight: 'true', lightOption: option, battery, bundled: 'false' },
+  }
+}
+
+// Dr. Taheri (Hollywood Smile Dental) picks one of three Vega batteries. List price, no code.
+const taheriVega = (option: 'slim-6h' | 'pack-10h' | 'neck-4h', battery: string): PrivateOffer => ({
+  id: `vega-${option}-taheri`,
+  greeting: 'Dr. Taheri, your Vega light is ready.',
+  discountNote: `Your Vega LED Loupe Light with the ${battery}. It clips into your Medusa Sport frame.`,
+  lightsOnly: true,
+  shippingCountries: ['US'],
+  lines: [vegaLine(option, battery)],
+})
 
 /**
  * Hand-built checkouts sent to one customer. The key is the URL token, so keep
  * it unguessable. Amounts are decided here and on Stripe, never by the browser.
  */
 const offers: Record<string, PrivateOffer> = {
+  VqMPihHpDgDe: taheriVega('slim-6h', 'Slim battery pack, 6 hrs'),
+  cLBpBvxq4rGb: taheriVega('pack-10h', 'Extended battery pack, 10 hrs'),
+  'kFdPBb8ha-7J': taheriVega('neck-4h', 'Neckband battery, 4 hrs'),
   '37l_TqVDqJqH': {
     id: 'canopus-xl-kepler-owner',
     greeting: 'Brandon, your order is ready.',

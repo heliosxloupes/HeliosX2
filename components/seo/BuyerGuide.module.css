@@ -268,6 +268,268 @@
 .compareRow .ours {
   color: #d0f2df;
 }
+/* Buyer pages: task -> model rows, ruled like the comparison grid. */
+.picks {
+  display: grid;
+  gap: 1px;
+  background: #334139;
+  border: 1px solid #334139;
+  margin-top: 24px;
+}
+.pickRow {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 24px;
+  padding: 16px 20px;
+  background: #101715;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.pickRow dt {
+  color: #e6efe9;
+  font-weight: 600;
+}
+.pickRow dd {
+  margin: 0;
+  color: #c7d1cb;
+}
+.pickRow a {
+  color: #c5f1dc;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+/* Buyer pages: one entry per model or brand, same shape every time. */
+.items {
+  max-width: 760px;
+  margin-top: 8px;
+}
+.item {
+  padding: 32px 0;
+  border-bottom: 1px solid #29372f;
+  scroll-margin-top: 110px;
+}
+.item:last-child {
+  border-bottom: 0;
+}
+.itemHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+}
+.itemHead h3 {
+  font-size: 21px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+.itemHead h3 a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.itemTag {
+  font-size: 13px;
+  color: #c5f1dc;
+  font-variant-numeric: tabular-nums;
+}
+.itemTag span {
+  color: #afc2b6;
+}
+.item > p:not(.bestFor):not(.itemCta),
+.itemBody > p:not(.bestFor):not(.itemCta):not(.meter) {
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #c7d1cb;
+  max-width: 68ch;
+}
+.item a {
+  color: #c5f1dc;
+}
+.bestFor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  font-size: 13px;
+}
+.bestFor > span:first-child {
+  color: #afc2b6;
+  margin-right: 4px;
+}
+.chip {
+  padding: 4px 12px;
+  border: 1px solid #3a4b42;
+  border-radius: 999px;
+  color: #dbe6df;
+}
+.itemCta {
+  margin-top: 20px;
+  padding: 14px 18px;
+  background: #101715;
+  border: 1px solid #304038;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #d0d9d4;
+}
+.itemCta a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  white-space: nowrap;
+}
+/* Buyer pages: why-it-matters lead and numbered tips. */
+.why {
+  max-width: 68ch;
+  margin-top: 14px;
+}
+.why p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #c7d1cb;
+}
+.why p + p {
+  margin-top: 14px;
+}
+.tips {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 24px;
+  padding: 0;
+  list-style: none;
+  counter-reset: tip;
+  background: #334139;
+  border: 1px solid #334139;
+}
+.tips li {
+  position: relative;
+  padding: 18px 20px 18px 62px;
+  background: #101715;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #c7d1cb;
+  counter-increment: tip;
+}
+.tips li::before {
+  content: counter(tip);
+  position: absolute;
+  left: 20px;
+  top: 18px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid #a7edcf;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 26px;
+  text-align: center;
+  color: #a7edcf;
+}
+.tips strong {
+  color: #f2f7f4;
+  font-weight: 600;
+}
+.tips a {
+  color: #c5f1dc;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+/* Entries with a photo: image beside the text, sides alternating down the list. */
+.items:has(.itemWithImage) {
+  max-width: 1040px;
+}
+.itemWithImage {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 36px;
+  align-items: start;
+}
+.itemFlip {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+}
+.itemFlip .itemImage {
+  order: 2;
+}
+.itemImage {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #101715;
+}
+.itemImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.itemImageContain {
+  background: #fff;
+}
+.itemImageContain img {
+  object-fit: contain;
+  padding: 8%;
+}
+.itemBody {
+  min-width: 0;
+}
+.meter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #afc2b6;
+}
+.meterBars {
+  display: inline-flex;
+  gap: 3px;
+}
+.meterBars i {
+  display: block;
+  width: 18px;
+  height: 6px;
+  border-radius: 3px;
+  background: #29372f;
+}
+.meterBars .meterOn {
+  background: #a7edcf;
+}
+.rowJump {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: #3a4b42;
+  text-underline-offset: 4px;
+}
+.rowJump:hover {
+  text-decoration-color: #a7edcf;
+}
+.rowJump span {
+  color: #afc2b6;
+  font-weight: 400;
+}
+@media (max-width: 767px) {
+  .pickRow {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .itemWithImage,
+  .itemFlip {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .itemFlip .itemImage {
+    order: 0;
+  }
+  .tips {
+    grid-template-columns: 1fr;
+  }
+}
 /* Specialty pages: magnification by procedure. A real table on desktop,
    stacked label/value rows on phones. */
 .procedureTable {
@@ -317,7 +579,8 @@
 }
 .verdict {
   padding: 22px;
-  border-left: 3px solid #a7edcf;
+  border: 1px solid #304038;
+  border-radius: 3px;
   background: #14221b;
   margin-top: 24px;
   font-size: 16px;
@@ -581,7 +844,7 @@
   .procedureTable .mag { color: #0b6b53; white-space: normal; }
   .compareRow strong { color: #56665d; }
   .compareRow .ours { color: #0b6b53; }
-  .verdict { background: #e2f3ea; border-left: 0; border-radius: 16px; color: #08261b; }
+  .verdict { background: #e2f3ea; border: 0; border-radius: 16px; color: #08261b; }
   .article { border-color: rgba(8, 38, 27, 0.12); }
   .article a, .fineprint a, .aside a { color: #0b6b53; }
   .article figure img { border-radius: 18px; }
@@ -592,4 +855,145 @@
   .faq, .faq details { border-color: rgba(8, 38, 27, 0.12); }
   .related a { border-color: rgba(8, 38, 27, 0.12); color: #08261b; }
   .closing { background: #d1fae5; border-color: transparent; border-radius: 24px; color: #08261b; }
+}
+
+/* Mobile v2 colours for the buyer-page blocks (why, quick picks, entries, tips). */
+@media (max-width: 767px) {
+  .why p, .item .itemBody > p:not(.bestFor):not(.itemCta):not(.meter) { color: #2b3a32; }
+  .picks, .tips { background: rgba(8, 38, 27, 0.1); border-color: rgba(8, 38, 27, 0.1); border-radius: 18px; overflow: hidden; }
+  .pickRow, .tips li { background: #f8f9f6; }
+  .pickRow dt, .tips strong { color: #08261b; }
+  .pickRow dd, .tips li { color: #2b3a32; }
+  .pickRow a, .tips a, .item a, .rowJump span { color: #0b6b53; }
+  .tips li::before { border-color: #0b6b53; color: #0b6b53; }
+  .item { border-color: rgba(8, 38, 27, 0.12); }
+  .itemHead h3 a { color: #08261b; }
+  .itemTag { color: #0b6b53; }
+  .itemTag span, .bestFor > span:first-child, .meter { color: #56665d; }
+  .chip { border-color: rgba(8, 38, 27, 0.2); color: #08261b; }
+  .meterBars i { background: rgba(8, 38, 27, 0.14); }
+  .meterBars .meterOn { background: #0b6b53; }
+  .itemCta { background: #f8f9f6; border-color: rgba(8, 38, 27, 0.12); border-radius: 16px; color: #2b3a32; }
+  .itemImage { border-radius: 18px; background: #d9d0c7; }
+  .itemImageContain { background: #fff; }
+  .rowJump { text-decoration-color: rgba(8, 38, 27, 0.3); }
+}
+
+/* Tiered chart: low to high, every chip jumps to its entry below. */
+.tierChart {
+  margin-top: 24px;
+  border: 1px solid #334139;
+  border-radius: 3px;
+  background: #101715;
+}
+.tierScale {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #334139;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #afc2b6;
+}
+.tierScale span:last-child::before {
+  content: '';
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  margin-right: 10px;
+  vertical-align: middle;
+  background: #a7edcf;
+}
+.tiers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tier {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr);
+  gap: 24px;
+  align-items: center;
+  padding: 18px 20px;
+}
+.tier + .tier {
+  border-top: 1px solid #253129;
+}
+.tierHead {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.tierHead strong {
+  color: #e6efe9;
+  font-size: 16px;
+}
+.tierHead > span:last-child:not(.meterBars) {
+  color: #afc2b6;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.tierPicks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tierChip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  min-height: 40px;
+  padding: 9px 16px;
+  border: 1px solid #3a4b42;
+  border-radius: 999px;
+  color: #e6efe9;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+.tierChip span {
+  color: #afc2b6;
+  font-weight: 400;
+}
+.tierChip i {
+  font-style: normal;
+  color: #a7edcf;
+}
+.tierChip:hover {
+  border-color: #a7edcf;
+  background: rgba(167, 237, 207, 0.06);
+}
+.tierChip:focus-visible {
+  outline: 2px solid #a7edcf;
+  outline-offset: 2px;
+}
+.subhead {
+  font-size: 20px;
+  color: #e6efe9;
+}
+@media (max-width: 767px) {
+  .tier {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .tierChart { background: #f8f9f6; border-color: rgba(8, 38, 27, 0.12); border-radius: 18px; overflow: hidden; }
+  .tierScale { border-color: rgba(8, 38, 27, 0.12); color: #56665d; }
+  .tierScale span:last-child::before { background: #0b6b53; }
+  .tier + .tier { border-color: rgba(8, 38, 27, 0.1); }
+  .tierHead strong, .subhead { color: #08261b; }
+  .tierHead > span:last-child:not(.meterBars) { color: #56665d; }
+  .tierChip { border-color: rgba(8, 38, 27, 0.2); color: #08261b; }
+  .tierChip span { color: #56665d; }
+  .tierChip i { color: #0b6b53; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tierChip { transition: none; }
 }

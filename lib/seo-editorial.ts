@@ -1809,7 +1809,8 @@ export function applyEditorialRevisions(
   for (const page of pages) {
     const revision = revisions[page.slug]
     if (revision) Object.assign(page, revision, { dateModified: reviewed })
-    else if (page.comparisonRows?.length) {
+    // Buyer pages (with items) carry sourced, dated competitor rows; leave them.
+    else if (page.comparisonRows?.length && !page.items) {
       // The old specialty tables compared against unnamed "legacy" products
       // with unverifiable prices and specifications. Keep the specialty advice.
       page.comparisonRows = undefined

@@ -1,6 +1,7 @@
 import { applyEditorialRevisions } from './seo-editorial'
 import { oct28NewPages } from './seo-round-2026-10-28'
 import { beautyPagesNov2026 } from './seo-beauty-pages'
+import { bofuPagesNov2026 } from './seo-bofu-pages'
 import { magnificationPriceByProduct, TRAINEE_PERCENT_OFF } from './pricing'
 import seoRedirects from './seo-redirects.json'
 
@@ -62,6 +63,46 @@ export type SeoLandingPage = {
    * hub pages where no single competitor applies).
    */
   competitorName?: string
+  /**
+   * Buyer pages: "what are you doing?" rows that send each task straight to
+   * a model, shown right under the models-and-prices table.
+   */
+  quickPicks?: { title: string; rows: { task: string; picks: { label: string; href: string }[] }[] }
+  /**
+   * Buyer pages: one entry per model, light or brand, each with a fixed shape
+   * (name, short tag, two short paragraphs, best-for list) and its own anchor.
+   */
+  items?: {
+    title: string
+    lead?: string
+    entries: {
+      id: string
+      name: string
+      tag: string
+      price?: string
+      body: string[]
+      bestFor: string[]
+      href?: string
+      cta?: { text: string; label: string; href: string }
+      /** Product photo beside the entry. `contain` for cut-outs on white. */
+      image?: { src: string; alt: string; width: number; height: number; fit?: 'cover' | 'contain' }
+      /** Where the entry sits on the chart's scale, e.g. brightness or price, 1–4. */
+      meter?: { value: number; label: string }
+    }[]
+  }
+  /** Two short paragraphs before the chart: why the choice matters. */
+  why?: { title: string; body: string[] }
+  /** Numbered buying tips after the entries. */
+  tips?: { title: string; items: { title: string; body: string }[] }
+  /** Overrides the hero, share and Article image; alt should lead with the main keyword. */
+  heroImage?: { src: string; alt: string; caption: string }
+  /** Tiered chart (low to high) whose chips jump to entries, shown above the spec table. */
+  tierChart?: {
+    title: string
+    lead?: string
+    scale: [string, string]
+    tiers: { label: string; note?: string; picks: { label: string; href: string; detail?: string }[] }[]
+  }
 }
 
 export type EducationGuide = {
@@ -8451,6 +8492,7 @@ for (const guide of educationGuides) {
 
 allSeoLandingPages.push(...oct28NewPages)
 allSeoLandingPages.push(...beautyPagesNov2026)
+allSeoLandingPages.push(...bofuPagesNov2026)
 
 applyEditorialRevisions(allSeoLandingPages, educationGuides)
 

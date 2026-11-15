@@ -50,7 +50,8 @@ const leadImageOverrides: Record<string, keyof typeof productImages> = {
   'best-dental-loupe-brands': 'Medusa',
 }
 
-function leadImage(page: { slug: string; recommendedProducts: string[] }) {
+function leadImage(page: { slug: string; recommendedProducts: string[]; heroImage?: { src: string } }) {
+  if (page.heroImage) return page.heroImage.src
   return productImages[
     leadImageOverrides[page.slug] ?? (page.recommendedProducts[0] as keyof typeof productImages)
   ]

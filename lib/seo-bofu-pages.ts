@@ -37,7 +37,7 @@ const modified = '2026-11-14'
 
 // Entry photos. Files are named for what they show and the search they serve.
 type EntryImage = { src: string; alt: string; width: number; height: number; fit?: 'cover' | 'contain' }
-const loupePhoto = (file: string, alt: string): EntryImage => ({ src: `/guides/${file}`, alt, width: 1200, height: 670 })
+const loupePhoto = (file: string, alt: string): EntryImage => ({ src: `/guides/${file}`, alt, width: 1600, height: 893 })
 const lightPhoto = (file: string, alt: string, width: number, height: number): EntryImage => ({ src: `/guides/${file}`, alt, width, height, fit: 'contain' })
 const photo: Record<string, EntryImage> = {
   newton: loupePhoto('newton-galilean-loupes.webp', 'HeliosX Newton Galilean loupes on a black wraparound frame'),

@@ -137,6 +137,7 @@ export default function SeoLandingExperience({
                 fill
                 priority
                 sizes="(max-width: 767px) calc(100vw - 40px), 440px"
+                quality={90}
               />
               <p className={styles.heroCaption}>{hero.caption}</p>
             </div>
@@ -291,6 +292,7 @@ export default function SeoLandingExperience({
                           width={entry.image.width}
                           height={entry.image.height}
                           sizes="(max-width: 767px) calc(100vw - 40px), 320px"
+                          quality={90}
                         />
                       </figure>
                     ) : null}
@@ -425,6 +427,7 @@ export default function SeoLandingExperience({
                         alt={`HeliosX ${row.name} loupes`}
                         fill
                         sizes="(max-width: 767px) calc(100vw - 40px), 355px"
+                        quality={90}
                       />
                     </Link>
                     <div className={styles.cardBody}>
@@ -496,6 +499,7 @@ export default function SeoLandingExperience({
                         width={section.image.width ?? 1200}
                         height={section.image.height ?? 700}
                         sizes="(max-width: 767px) calc(100vw - 40px), 740px"
+                        quality={90}
                       />
                       {section.image.caption ? (
                         <figcaption>{section.image.caption}</figcaption>

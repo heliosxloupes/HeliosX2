@@ -10,8 +10,17 @@ import Header from "@/components/Header";
 import OrderingInfoSection from "@/components/OrderingInfoSection";
 import { useCarouselDots } from "@/components/useCarouselDots";
 import MobileCatalogueExperience from "@/components/mobile/MobileCatalogueExperience";
-import { modelBySlug } from "@/components/m2/models";
 import LightsBackdrop from "@/components/lights/LightsBackdrop";
+
+// White-background product cutouts for the desktop cards. Keyed by slug so
+// the CMS feed shows the same images as the fallback list.
+const CUTOUTS: Record<string, string> = {
+  medusa: "/Medusa/MedusaMain.png",
+  apollo: "/Apollo/ApollomainProduct(Notext).png",
+  galileo: "/Galileo/GalileoMainProduct(notext).png",
+  newton: "/Newton/NewtonMainProduct(notext).png",
+  kepler: "/Keppler/KepplerMainProduct(Notext).png",
+};
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -128,9 +137,9 @@ function OurLoupesGrid() {
           tagline: product.cardTagline,
           bullets: product.cardBullets ?? [],
           highlight: product.cardHighlight,
-          imageSrc: modelBySlug(product.slug)?.photo.src ?? product.cardImageSrc,
+          imageSrc: CUTOUTS[product.slug] ?? product.cardImageSrc,
           imageAlt: product.cardImageAlt,
-          imagePosition: modelBySlug(product.slug)?.photo.focus ?? product.imagePosition,
+          imagePosition: product.slug === 'medusa' ? '34% center' : product.imagePosition,
         })));
       })
       .catch(() => setCmsProducts(null));
@@ -167,7 +176,7 @@ function OurLoupesGrid() {
         "Tailored fixed IPD",
       ],
       highlight: "Best for posture-flexible precision work.",
-      imageSrc: "/m2/medusa/stage.webp",
+      imageSrc: "/Medusa/MedusaMain.png",
       imageAlt: "HeliosX Medusa loupes product image",
       imagePosition: "34% center",
     },
@@ -183,7 +192,7 @@ function OurLoupesGrid() {
         "Ergonomic frame options",
       ],
       highlight: "Best for fine aesthetic & micro-oriented work.",
-      imageSrc: "/m2/apollo/stage.webp",
+      imageSrc: "/Apollo/ApollomainProduct(Notext).png",
       imageAlt: "HeliosX Apollo loupes product image",
     },
     {
@@ -194,7 +203,7 @@ function OurLoupesGrid() {
       tagline: "Versatile field of view for general and reconstructive work.",
       bullets: ["Lightweight", "Modern frame geometry", "Everyday precision"],
       highlight: "Best for broad use and training.",
-      imageSrc: "/m2/galileo/stage.webp",
+      imageSrc: "/Galileo/GalileoMainProduct(notext).png",
       imageAlt: "HeliosX Galileo loupes product image",
     },
     {
@@ -205,7 +214,7 @@ function OurLoupesGrid() {
       tagline: "Ultra-light performance for long cases and full OR days.",
       bullets: ["Ultra-light chassis", "Comfort-driven design", "Low fatigue"],
       highlight: "Best when comfort is critical.",
-      imageSrc: "/m2/newton/stage-desk.webp",
+      imageSrc: "/Newton/NewtonMainProduct(notext).png",
       imageAlt: "HeliosX Newton loupes product image",
     },
     {
@@ -220,7 +229,7 @@ function OurLoupesGrid() {
         "Designed for advanced users",
       ],
       highlight: "Best for high-level microsurgery.",
-      imageSrc: "/m2/kepler/stage.webp",
+      imageSrc: "/Keppler/KepplerMainProduct(Notext).png",
       imageAlt: "HeliosX Kepler loupes product image",
     },
   ];
@@ -290,7 +299,7 @@ function OurLoupesGrid() {
                     alt={product.imageAlt}
                     fill
                     className="origin-bottom object-cover transition-transform duration-500 group-hover:scale-105"
-                    style={{ objectPosition: modelBySlug(product.slug)?.photo.focus ?? product.imagePosition ?? "center" }}
+                    style={{ objectPosition: product.imagePosition ?? "center" }}
                   />
                   <div className="absolute inset-0 pointer-events-none z-10 mix-blend-mode-overlay opacity-100">
                     <Noise

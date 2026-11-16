@@ -2,6 +2,7 @@ import { applyEditorialRevisions } from './seo-editorial'
 import { oct28NewPages } from './seo-round-2026-10-28'
 import { beautyPagesNov2026 } from './seo-beauty-pages'
 import { bofuPagesNov2026 } from './seo-bofu-pages'
+import { bofuPagesNov16 } from './seo-bofu-pages-2026-11-16'
 import { magnificationPriceByProduct, TRAINEE_PERCENT_OFF } from './pricing'
 import seoRedirects from './seo-redirects.json'
 
@@ -8493,6 +8494,7 @@ for (const guide of educationGuides) {
 allSeoLandingPages.push(...oct28NewPages)
 allSeoLandingPages.push(...beautyPagesNov2026)
 allSeoLandingPages.push(...bofuPagesNov2026)
+allSeoLandingPages.push(...bofuPagesNov16)
 
 applyEditorialRevisions(allSeoLandingPages, educationGuides)
 
@@ -8974,9 +8976,59 @@ const buyerLinks: Record<string, RelatedPage[]> = {
   'loupes-payment-plans': [B.buy, B.priceGuide, B.student],
 }
 
+// --- Wave 4 buyer pages (16 Nov 2026), kept separate from buyerLinks so no
+// key repeats. Same rule: the label is the target's own search.
+const W = {
+  galilean: relatedLink('/galilean-loupes', 'Galilean loupes', 'Light 2.5x–3.5x loupes with the widest field, and their prices.'),
+  x4: relatedLink('/4x-loupes', '4x loupes', 'Every 4.0x option and price.'),
+  x6: relatedLink('/6x-loupes', '6x loupes', 'High magnification, up to 8.5x, with prices.'),
+  wireless: relatedLink('/wireless-loupe-light', 'Wireless loupe light', 'No cord: battery life, brightness and price.'),
+  rx: relatedLink('/prescription-loupes', 'Prescription loupes', 'Your prescription built in, and what it adds.'),
+  canada: relatedLink('/surgical-loupes-canada', 'Surgical loupes in Canada', 'Prices, GST/HST and delivery.'),
+  uk: relatedLink('/surgical-loupes-uk', 'Surgical loupes in the UK', 'Prices, import VAT and delivery.'),
+  lumadentPrice: relatedLink('/lumadent-loupes-price', 'LumaDent loupes price', 'Every LumaDent line, priced, with the HeliosX match.'),
+  ergoPrice: relatedLink('/ergonomic-loupes-price', 'Ergonomic loupes price', 'Published ergonomic prices from every brand.'),
+  x25vs35: relatedLink('/2-5x-vs-3-5x-loupes', '2.5x vs 3.5x loupes', 'Which first magnification to buy.'),
+}
+const wave4Links: Record<string, RelatedPage[]> = {
+  'surgical-loupes': [W.galilean, W.x4, W.x6],
+  'dental-loupes': [W.galilean, W.x25vs35, W.x4],
+  'galilean-vs-prismatic-loupes': [W.galilean],
+  'loupe-magnification-guide': [W.x25vs35, W.x4, W.x6],
+  'loupes-for-endodontics': [W.x4],
+  'vascular-surgery-loupes': [W.x4],
+  'neurosurgery-loupes': [W.x6],
+  'spine-surgery-loupes': [W.x6],
+  'best-dental-loupe-lights': [W.wireless],
+  'dental-loupes-with-light': [W.wireless],
+  'lumadent-light-alternative': [W.wireless, W.lumadentPrice],
+  'orascoptic-light-alternative': [W.wireless],
+  'prescription-loupes-guide': [W.rx],
+  'buy-surgical-loupes': [W.rx],
+  'how-much-do-surgical-loupes-cost': [W.rx, W.ergoPrice],
+  'surgical-loupes-international-shipping': [W.canada, W.uk],
+  'dental-loupes-australia': [W.canada, W.uk],
+  'heliosx-vs-lumadent': [W.lumadentPrice],
+  'dental-loupes-price': [W.lumadentPrice, W.ergoPrice],
+  'ergonomic-loupe-comparison': [W.ergoPrice],
+  'q-optics-loupes-price': [W.ergoPrice],
+  'student-loupe-comparison': [W.x25vs35, W.galilean],
+  // The new pages link up and across.
+  'galilean-loupes': [B.dentalHub, B.surgicalHub, W.x25vs35, W.x4],
+  '4x-loupes': [W.galilean, W.x6, B.surgicalHub],
+  '6x-loupes': [W.x4, B.surgicalHub],
+  'wireless-loupe-light': [B.lights, B.withLight, B.headlights],
+  'prescription-loupes': [B.buy, B.dentalHub, B.surgicalHub],
+  'surgical-loupes-canada': [B.shipping, B.australia, W.uk, B.buy],
+  'surgical-loupes-uk': [B.shipping, B.australia, W.canada, B.buy],
+  'lumadent-loupes-price': [B.priceGuide, B.vs('LumaDent', 'lumadent'), B.lumadentLight, W.ergoPrice],
+  'ergonomic-loupes-price': [B.bestErgo, B.priceGuide, B.plans, W.lumadentPrice],
+  '2-5x-vs-3-5x-loupes': [W.galilean, W.x4, B.dentalHub],
+}
+
 export function getRelatedPages(slug: string): RelatedPage[] {
   const links = [...(relatedPagesBySlug[slug] ?? [])]
-  for (const link of buyerLinks[slug] ?? []) {
+  for (const link of [...(buyerLinks[slug] ?? []), ...(wave4Links[slug] ?? [])]) {
     if (!links.some((l) => l.href === link.href)) links.push(link)
   }
   const targets = [...(editorialLinks[slug] ?? [])]

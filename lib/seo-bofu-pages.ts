@@ -182,7 +182,7 @@ const qo = {
   light: 945,
 }
 // Shared with the category pages (seo-hubs-2026-11-16.ts).
-export { photo, loupeEntry, modelRows, modelColumns, allModels, modelName, leadTime, returns, shipping }
+export { photo, loupeEntry, lightEntry, modelRows, modelColumns, allModels, modelName, modelTag, leadTime, returns, shipping, priceTiers, priceScale, priceLevel, light, lux }
 export type { Cta, Tier }
 
 // Payment plans: an even split over 12 months at 0% APR, for illustration only.

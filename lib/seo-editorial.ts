@@ -482,6 +482,58 @@ for (const [slug, title, context] of [
   ]
 }
 
+// Nov 16 2026, page-two push for "best dental loupes": 780 impressions in 90
+// days at 18.8, against 8.9 for "best surgical loupes" on the surgical twin.
+// Same recipe that moved the surgical page from 19.6 to about 9: name the
+// search in the H1 and first sentence, answer it by type of loupe, and cover
+// the question variants in the FAQ. Lights stay on /best-dental-loupe-lights
+// and /dental-loupes-with-light (see Sep 20 above), and the general ergonomic
+// search goes to /ergonomic-loupe-comparison, so both get a pointer, not a section.
+{
+  const dental = revisions['best-dental-loupe-brands']
+  dental.title = 'Best dental loupes: 8 brands compared'
+  dental.intro =
+    'The best dental loupes show the detail your procedures need at your seated working distance, light enough to wear through a full schedule, in a posture you can hold all day. Dental loupes are also called dental magnifying glasses or dental telescopes. There is no single best brand for every dentist or hygienist, so below you can match a type of loupe to your work, then compare eight brands by the features and buying terms that change the decision.'
+  const [shortlist, byRole, ...rest] = dental.sections ?? []
+  dental.sections = [
+    shortlist,
+    byRole,
+    section(
+      'Best dental loupes by type',
+      'Choose the optical design first, then the brand. These pairings are starting points; compare the view at your own working distance before you buy.',
+      [
+        `Everyday restorative work, hygiene and students: Galilean loupes at 2.5x–3.5x, light and with a wide field. HeliosX Newton from ${dollars(Math.min(...Object.values(magnificationPriceByProduct.newton)))} or Galileo from ${dollars(Math.min(...Object.values(magnificationPriceByProduct.galileo)))}.`,
+        `Endodontics, implants and fine margins: prismatic loupes at 4.0x–6.0x. HeliosX Kepler, ${range('kepler')}.`,
+        `Neck or shoulder strain: ergonomic prismatic loupes, which bend the view down so your head stays closer to upright. HeliosX Apollo, ${range('apollo')}. Every brand's ergonomic line, compared: /ergonomic-loupe-comparison.`,
+        `Moving between seated and standing work: adjustable working distance, 300–600 mm. HeliosX Medusa, ${range('medusa')}.`,
+        'Buying a light with them: compare brightness and battery life on /best-dental-loupe-lights.',
+      ],
+      '/education/galilean-vs-prismatic-loupes',
+      'Galilean vs prismatic loupes',
+    ),
+    ...rest,
+  ].filter((s): s is ContentSection => !!s)
+  dental.faqs = [
+    faq(
+      'What are the best dental loupes?',
+      'The best dental loupes match your procedures, working distance and posture: Galilean 2.5x–3.5x for general dentistry, hygiene and students, prismatic 4.0x–6.0x for endodontics and implants, and ergonomic prismatic designs if neck strain is the problem. Compare field of view, weight and fit at your own chair, not only the magnification number.',
+    ),
+    faq(
+      'What magnification is best for dental loupes?',
+      'Most dentists and hygienists work at 2.5x–3.5x. Endodontists and implant surgeons often move to 4.0x–6.0x. Choose the lowest magnification that shows the detail you need, because field of view and depth of field shrink as magnification rises.',
+    ),
+    faq(
+      'What are the best ergonomic dental loupes?',
+      `Ergonomic prismatic loupes, which angle the view downward so you can sit closer to upright. Established options include Orascoptic Ergo Series, SurgiTel Ergo IQ, Q-Optics ErgoAngle and LumaDent Ergo Air Ti (from $1,995). HeliosX Apollo and Medusa start at ${dollars(Math.min(...Object.values(magnificationPriceByProduct.apollo)))} with published prices.`,
+    ),
+    faq(
+      'What are the best dental loupes for hygienists?',
+      'Light Galilean loupes at 3.0x–3.5x suit most hygiene work, because you wear them for a full day of recall appointments. If your neck is the problem, an ergonomic prismatic pair is worth the extra weight. Hygiene picks and prices: /loupes-for-dental-hygiene.',
+    ),
+    ...(dental.faqs ?? []),
+  ]
+}
+
 revisions['how-much-do-surgical-loupes-cost'] = {
   title: 'How much do surgical loupes cost?',
   metaTitle: 'Surgical Loupe Prices: $695–$2,075 | HeliosX',
@@ -1530,6 +1582,62 @@ revisions['ergonomic-loupe-comparison'] = {
   ],
 }
 
+// Nov 16 2026: no page answered "best ergonomic loupes" (Google showed the
+// dental brands page at 18 and this one at 62). Make this the page for that
+// search, the way the surgical brands page owns "best surgical loupes": the
+// search in the H1 and first sentence, every brand's ergonomic line with its
+// own facts, and the question variants in the FAQ. Brand facts match the
+// sourced price pages from 15 Nov.
+{
+  const ergo = revisions['ergonomic-loupe-comparison']
+  ergo.title = 'Best ergonomic loupes: 8 brands compared'
+  ergo.intro =
+    'The best ergonomic loupes let you see the working field with your head closer to upright, at a weight you can wear all day and a price you can justify. Most use angled prismatic optics; some rely on a steeper declination angle. Below: every major brand’s ergonomic line, which type of work each suits, and what the research does and does not show.'
+  ergo.sections = [
+    section(
+      'The best ergonomic loupes, brand by brand',
+      'Every major brand now sells an ergonomic line. Prices below are the ones each brand publishes; where a brand quotes through representatives, ask for an itemized quote at the same magnification.',
+      [
+        `HeliosX Apollo: ergonomic prismatic, 3.0x–6.0x, 55–58 g with frame, ${range('apollo')}, published price. /product/apollo.`,
+        `HeliosX Medusa: ergonomic prismatic, 3.0x–8.5x, working distance adjustable from 300 to 600 mm, ${range('medusa')}. /product/medusa.`,
+        'LumaDent Ergo Air Ti: from $1,995 at 3.0x, published price, variable working distance. /heliosx-vs-lumadent.',
+        'Q-Optics ErgoAngle: $2,090 at 3.0x to $2,690 at 4.5x at retail, fitted to your viewing angle. /q-optics-loupes-price.',
+        'Orascoptic Ergo Series: price by dealer quote. /orascoptic-loupes-price.',
+        'SurgiTel Ergo IQ: 3x, 3.5x and 4.5x, price through a representative. /surgitel-loupes-price.',
+        'ExamVision Kepler Reflekt: ergonomic at 4x and 6x, price by dealer quote. /examvision-loupes-price.',
+        'Admetec Ergo V: three magnification settings in one ergonomic loupe; Designs for Vision Infinity VUE: 3.0x–4.5x. Both priced by quote.',
+      ],
+    ),
+    section(
+      'Best ergonomic loupes by type of work',
+      'The right ergonomic loupe depends on how long you hold one posture and whether your working distance changes.',
+      [
+        `Dentists with long chairside days: Apollo at 3.0x–4.0x, ${range('apollo')}. The best ergonomic dental loupes, brand by brand: /best-dental-loupe-brands.`,
+        'Hygienists: ergonomic optics help most on a full day of recalls; keep the magnification at 3.0x–3.5x. /loupes-for-dental-hygiene.',
+        'Surgeons in long or deep cases: Apollo, or Medusa up to 8.5x for fine detail. /best-surgical-loupe-brands.',
+        'Sitting for some cases and standing for others: Medusa, because the working distance adjusts.',
+        'Comparing prices across brands: /dental-loupes-price.',
+      ],
+    ),
+    ...(ergo.sections ?? []),
+  ]
+  ergo.faqs = [
+    faq(
+      'What are the best ergonomic loupes?',
+      `The best ergonomic loupes are prismatic loupes with an angled light path, so you look down with your eyes while your head stays closer to upright. Established lines include Orascoptic Ergo Series, SurgiTel Ergo IQ, Q-Optics ErgoAngle, LumaDent Ergo Air Ti and ExamVision Kepler Reflekt. HeliosX Apollo and Medusa are ergonomic prismatic loupes with published prices from ${dollars(Math.min(...Object.values(magnificationPriceByProduct.apollo)))}.`,
+    ),
+    faq(
+      'Are ergonomic loupes worth it?',
+      'They are worth it when your work holds you in one bent posture for long stretches, as in hygiene, restorative dentistry and long surgical cases. A randomized crossover trial found high-tilt prismatic loupes reduced head inclination by 22–26° compared with traditional loupes. They cost more and weigh more than Galilean loupes, so a short list of brief cases may not justify them.',
+    ),
+    faq(
+      'How much do ergonomic loupes cost?',
+      `At HeliosX, Apollo costs ${range('apollo')} and Medusa ${range('medusa')}. LumaDent lists Ergo Air Ti from $1,995 and Q-Optics lists ErgoAngle from $2,090 at retail; Orascoptic, SurgiTel and ExamVision quote through dealers.`,
+    ),
+    ...(ergo.faqs ?? []),
+  ]
+}
+
 revisions['heliosx-loupes-review'] = {
   title: 'HeliosX loupes: an honest overview',
   metaTitle: 'HeliosX Loupes Review: Models, Prices, Pros & Cons',
@@ -2039,7 +2147,8 @@ const searchSnippets: Record<string, { metaTitle?: string; description?: string 
     description: `Prismatic loupes vs Galilean: a sharper image at 4x and up, for more weight. Compare conventional and ergonomic prismatic models, from ${prismaticFrom} at HeliosX.`,
   },
   'ergonomic-loupe-comparison': {
-    description: `Ergonomic prismatic loupes keep your neck closer to upright. What the evidence shows, how the models compare, and HeliosX Apollo and Medusa from ${from('apollo')}.`,
+    metaTitle: 'Best Ergonomic Loupes 2026: 8 Brands Compared | HeliosX',
+    description: `The best ergonomic loupes compared: Orascoptic, SurgiTel, Q-Optics, LumaDent and more, by price and design. HeliosX Apollo and Medusa from ${from('apollo')}.`,
   },
   'neurosurgery-loupes': {
     metaTitle: 'Best Surgical Loupes for Neurosurgery: 2026 Guide',

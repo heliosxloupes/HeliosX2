@@ -8878,8 +8878,92 @@ const editorialLinks: Record<string, string[]> = {
   'neurosurgery-loupes': ['spine-surgery-loupes', 'loupes-for-microsurgery', 'best-surgical-loupe-brands', 'surgical-loupes'],
 }
 
+// --- Buyer pages (15 Nov 2026). Each link uses the target's own search term
+// as its label, and no two targets share a label, so a hub never competes
+// with the page it links to. Hubs and brand pages link down to the matching
+// buyer page; each buyer page links back up to its parent and across to its
+// nearest siblings.
+const relatedLink = (href: string, label: string, blurb: string): RelatedPage => ({ href, label, blurb })
+const B = {
+  lights: relatedLink('/best-dental-loupe-lights', 'Dental loupe lights compared', 'Brightness, battery life and price for every light.'),
+  custom: relatedLink('/custom-loupes', 'Custom loupes', 'Built to your pupillary distance, working distance and angle.'),
+  buy: relatedLink('/buy-surgical-loupes', 'Buy loupes online', 'Every model and price, in one place.'),
+  hygienePrice: relatedLink('/dental-hygiene-loupes-price', 'Dental hygiene loupes prices', 'Every hygiene pair by budget, on one chart.'),
+  examvisionPrice: relatedLink('/examvision-loupes-price', 'ExamVision loupes price', 'Each ExamVision line, and the HeliosX pair that matches it.'),
+  orascopticPrice: relatedLink('/orascoptic-loupes-price', 'Orascoptic loupes price', 'Each Orascoptic series, and the HeliosX pair that matches it.'),
+  qopticsPrice: relatedLink('/q-optics-loupes-price', 'Q-Optics loupes price', 'Q-Optics models side by side with HeliosX.'),
+  surgitelPrice: relatedLink('/surgitel-loupes-price', 'SurgiTel loupes price', 'Each SurgiTel line, and the HeliosX surgical pair for it.'),
+  dfvPrice: relatedLink('/designs-for-vision-loupes-price', 'Designs for Vision loupes price', 'What the same loupe costs at HeliosX.'),
+  zeissPrice: relatedLink('/zeiss-loupes-price', 'Zeiss loupes price', 'Zeiss prismatic optics, and the HeliosX pair for less.'),
+  headlights: relatedLink('/dental-headlights', 'Dental headlights', 'Headlights for loupes and glasses, by brightness and price.'),
+  sparkAlt: relatedLink('/orascoptic-light-alternative', 'Orascoptic Spark alternative', 'Cordless loupe lights against the Spark, with prices.'),
+  lumadentLight: relatedLink('/lumadent-light-alternative', 'LumaDent light alternative', 'airLUX against HeliosX lights, with prices.'),
+  australia: relatedLink('/dental-loupes-australia', 'Dental loupes in Australia', 'Prices in AUD, delivery times and import costs.'),
+  plans: relatedLink('/loupes-payment-plans', 'Loupes payment plans', 'Monthly cost for each model.'),
+  // Parents and siblings the buyer pages link back to.
+  priceGuide: relatedLink('/dental-loupes-price', 'Dental loupes price guide', 'Every price by model, against what other brands charge.'),
+  withLight: relatedLink('/dental-loupes-with-light', 'Dental loupes with a light', 'Mounts, runtime, beam alignment and cure-light filtering.'),
+  surgicalWithLight: relatedLink('/surgical-loupes-with-light', 'Surgical loupes with a light', 'Coaxial lights for long operating days.'),
+  hygieneWithLight: relatedLink('/dental-hygiene-loupes-with-light', 'Hygiene loupes with a light', 'Lights sized for a full day of scaling.'),
+  hygiene: relatedLink('/loupes-for-dental-hygiene', 'Loupes for dental hygiene', 'Full-day scaling, where weight and posture matter most.'),
+  measurements: relatedLink('/measurements', 'Measurement guide', 'Pupillary distance, working distance and declination, measured at home.'),
+  amazonVsCustom: relatedLink('/amazon-loupes-vs-custom-loupes', 'Amazon loupes vs custom loupes', 'When a cheap pair is enough, and when fit is worth paying for.'),
+  shipping: relatedLink('/surgical-loupes-international-shipping', 'International shipping', 'Delivery, duties and returns outside the US.'),
+  student: relatedLink('/student-loupe-comparison', 'Student pricing', 'What the discount covers and who qualifies.'),
+  vs: (brand: string, slug: string) => relatedLink(`/heliosx-vs-${slug}`, `HeliosX vs ${brand}`, `${brand} and HeliosX, spec by spec.`),
+  alternatives: (brand: string, slug: string) => relatedLink(`/${slug}-alternatives`, `${brand} alternatives`, `Other loupes worth comparing with ${brand}.`),
+}
+
+const buyerLinks: Record<string, RelatedPage[]> = {
+  // Old pages link down.
+  'dental-loupes': [B.buy, B.custom, B.lights],
+  'surgical-loupes': [B.buy, B.custom],
+  'best-loupes': [B.buy, B.custom],
+  'dental-loupes-price': [B.examvisionPrice, B.orascopticPrice, B.qopticsPrice, B.surgitelPrice, B.dfvPrice, B.zeissPrice, B.hygienePrice, B.plans, B.australia],
+  'how-much-do-surgical-loupes-cost': [B.plans, B.buy, B.dfvPrice],
+  'affordable-loupes': [B.plans, B.buy],
+  'cheap-loupes': [B.plans],
+  'student-loupe-comparison': [B.plans],
+  'amazon-loupes-vs-custom-loupes': [B.custom, B.buy],
+  'how-to-measure-pupillary-distance': [B.custom],
+  'best-dental-loupe-brands': [B.lights],
+  'examvision-alternatives': [B.examvisionPrice],
+  'orascoptic-alternatives': [B.orascopticPrice, B.sparkAlt],
+  'heliosx-vs-q-optics': [B.qopticsPrice],
+  'heliosx-vs-surgitel': [B.surgitelPrice],
+  'heliosx-vs-designs-for-vision': [B.dfvPrice],
+  'heliosx-vs-zeiss': [B.zeissPrice],
+  'heliosx-vs-lumadent': [B.lumadentLight],
+  'dental-loupes-with-light': [B.lights, B.headlights, B.sparkAlt, B.lumadentLight],
+  'dental-hygiene-loupes-with-light': [B.lights, B.hygienePrice],
+  'surgical-loupes-with-light': [B.headlights],
+  'ronin-headlight-alternative': [B.headlights],
+  'loupes-for-dental-hygiene': [B.hygienePrice],
+  'surgical-loupes-international-shipping': [B.australia],
+
+  // Buyer pages link up to their parent and across to siblings.
+  'best-dental-loupe-lights': [B.withLight, B.headlights, B.sparkAlt, B.lumadentLight],
+  'custom-loupes': [B.measurements, B.amazonVsCustom, B.buy],
+  'buy-surgical-loupes': [B.priceGuide, B.custom, B.plans, B.australia],
+  'dental-hygiene-loupes-price': [B.hygiene, B.hygieneWithLight, B.priceGuide, B.plans],
+  'examvision-loupes-price': [B.priceGuide, B.alternatives('ExamVision', 'examvision'), B.plans],
+  'orascoptic-loupes-price': [B.priceGuide, B.alternatives('Orascoptic', 'orascoptic'), B.sparkAlt],
+  'q-optics-loupes-price': [B.priceGuide, B.vs('Q-Optics', 'q-optics'), B.plans],
+  'surgitel-loupes-price': [B.priceGuide, B.vs('SurgiTel', 'surgitel'), B.plans],
+  'designs-for-vision-loupes-price': [B.priceGuide, B.vs('Designs for Vision', 'designs-for-vision'), B.plans],
+  'zeiss-loupes-price': [B.priceGuide, B.vs('Zeiss', 'zeiss'), B.plans],
+  'dental-headlights': [B.lights, B.withLight, B.surgicalWithLight],
+  'orascoptic-light-alternative': [B.orascopticPrice, B.lights, B.alternatives('Orascoptic', 'orascoptic')],
+  'lumadent-light-alternative': [B.lights, B.vs('LumaDent', 'lumadent')],
+  'dental-loupes-australia': [B.shipping, B.buy, B.plans],
+  'loupes-payment-plans': [B.buy, B.priceGuide, B.student],
+}
+
 export function getRelatedPages(slug: string): RelatedPage[] {
   const links = [...(relatedPagesBySlug[slug] ?? [])]
+  for (const link of buyerLinks[slug] ?? []) {
+    if (!links.some((l) => l.href === link.href)) links.push(link)
+  }
   const targets = [...(editorialLinks[slug] ?? [])]
   if (slug.startsWith('heliosx-vs-')) targets.push(`${slug.replace('heliosx-vs-', '')}-alternatives`)
   if (slug.endsWith('-alternatives')) targets.push(`heliosx-vs-${slug.replace('-alternatives', '')}`)

@@ -181,6 +181,10 @@ const qo = {
   prism: { '3.5x': 2260, '4.0x': 2360, '4.5x': 2460 } as Record<string, number>,
   light: 945,
 }
+// Shared with the category pages (seo-hubs-2026-11-16.ts).
+export { photo, loupeEntry, modelRows, modelColumns, allModels, modelName, leadTime, returns, shipping }
+export type { Cta, Tier }
+
 // Payment plans: an even split over 12 months at 0% APR, for illustration only.
 const perMonth = (total: number, months = 12) => `$${(total / months).toFixed(2)}`
 

@@ -10,6 +10,7 @@ import ParallaxMedia from '@/components/motion/ParallaxMedia'
 import Reveal from '@/components/motion/Reveal'
 import ScrollProgressBar from '@/components/motion/ScrollProgressBar'
 import SectionNav from '@/components/motion/SectionNav'
+import SectionRail from '@/components/motion/SectionRail'
 import AuthorityBand from './AuthorityBand'
 import styles from './BuyerGuide.module.css'
 
@@ -57,6 +58,7 @@ export default function EducationGuideExperience({
       <ScrollProgressBar />
       <Header />
       <SeoAnalytics pageType="education" pageName={guide.title} />
+      <SectionRail items={guide.sections.map((s) => ({ id: id(s.title), label: s.title }))} />
       <main className={styles.page}>
         <div className={styles.wrap}>
           <nav aria-label="Breadcrumb" className={styles.crumbs}>

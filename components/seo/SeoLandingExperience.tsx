@@ -11,6 +11,7 @@ import {
 } from '@/lib/seo-content'
 import type { SeoLandingPage } from '@/lib/seo-content'
 import AuthorityBand from './AuthorityBand'
+import SectionRail from '@/components/motion/SectionRail'
 import styles from './BuyerGuide.module.css'
 import { modelBySlug } from '@/components/m2/models'
 
@@ -73,11 +74,25 @@ export default function SeoLandingExperience({
   ]
     .join(' ')
     .split(/\s+/).length
+  const railItems = [
+    page.tierChart && { id: 'chart', label: 'Chart' },
+    page.specTable && { id: 'models-prices', label: 'Models & prices' },
+    page.quickPicks && { id: 'quick-picks', label: 'Quick picks' },
+    page.items && { id: 'side-by-side', label: 'Side by side' },
+    page.tips && { id: 'buying-tips', label: 'Buying tips' },
+    page.procedureRows?.length && { id: 'by-procedure', label: 'By procedure' },
+    page.comparisonRows?.length && { id: 'comparison', label: 'Comparison' },
+    !page.items && { id: 'model-shortlist', label: 'HeliosX options' },
+    { id: 'buying-advice', label: 'What to look for' },
+    { id: 'questions', label: 'Questions' },
+    { id: 'help-choosing', label: 'Ask for help' },
+  ].filter((item): item is { id: string; label: string } => !!item)
   const email = `mailto:${supportEmail}?subject=${encodeURIComponent(`Help choosing loupes: ${page.title}`)}&body=${encodeURIComponent('Hi HeliosX,\n\nMy specialty / training stage:\nThe procedures I do most:\nMy current loupes and magnification (if any):\nMy budget:\nMy question:\n')}`
   return (
     <>
       <Header />
       <SeoAnalytics pageType="seo_landing" pageName={page.title} />
+      <SectionRail items={railItems} />
       <main className={styles.page}>
         <div className={styles.wrap}>
           <nav aria-label="Breadcrumb" className={styles.crumbs}>

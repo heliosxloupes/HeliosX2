@@ -50,7 +50,7 @@ export default function ProductPage() {
             <Link href="/prismatic-loupe-comparison" className="transition hover:text-white">
               Prismatic loupes
             </Link>
-            <Link href="/ergonomic-loupe-comparison" className="transition hover:text-white">
+            <Link href="/ergonomic-loupes" className="transition hover:text-white">
               Ergonomic loupes
             </Link>
             <Link href="/affordable-loupes" className="transition hover:text-white">

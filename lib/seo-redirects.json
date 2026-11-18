@@ -1,13 +1,13 @@
 {
-  "_comment": "Pages merged into a stronger sibling. next.config.js turns these into 301s, and lib/seo-content.ts drops the source slugs so they leave the sitemap, llms-full.txt and static params. Added 2026-10-02: each pair below was 78-96% identical text and the source page had little or no search data. Added 2026-10-17: four more pairs where the source page had under 25 impressions in 90 days and Google had never crawled it (GSC 'Discovered - currently not indexed'); the destination is the sibling with the search data. Also 2026-10-17: GSC 'Not found (404)' URLs (education guides linked without the /education/ prefix, and bare /dental) now 301 to the live page. Added 2026-11-13: GSC 'Not found (404)' URLs with a stray '-0'/'-1' suffix, redirected to the real page.",
+  "_comment": "Pages merged into a stronger sibling. next.config.js turns these into 301s, and lib/seo-content.ts drops the source slugs so they leave the sitemap, llms-full.txt and static params. Added 2026-10-02: each pair below was 78-96% identical text and the source page had little or no search data. Added 2026-10-17: four more pairs where the source page had under 25 impressions in 90 days and Google had never crawled it (GSC 'Discovered - currently not indexed'); the destination is the sibling with the search data. Also 2026-10-17: GSC 'Not found (404)' URLs (education guides linked without the /education/ prefix, and bare /dental) now 301 to the live page. Added 2026-11-13: GSC 'Not found (404)' URLs with a stray '-0'/'-1' suffix, redirected to the real page. Added 2026-11-18: the ergonomic hub moved to /ergonomic-loupes (URL matches its H1 and the main search); /ergonomic-loupe-comparison, the merged /ergonomic-loupes-price and /best-ergonomic-loupes (a 404 from our indexing list) all 301 there.",
   "redirects": [
     {
       "source": "/prismatic-loupes",
       "destination": "/prismatic-loupe-comparison"
     },
     {
-      "source": "/ergonomic-loupes",
-      "destination": "/ergonomic-loupe-comparison"
+      "source": "/ergonomic-loupe-comparison",
+      "destination": "/ergonomic-loupes"
     },
     {
       "source": "/cheap-loupes",
@@ -108,6 +108,14 @@
     {
       "source": "/education/galilean-vs-prismatic-loupes-0",
       "destination": "/education/galilean-vs-prismatic-loupes"
+    },
+    {
+      "source": "/ergonomic-loupes-price",
+      "destination": "/ergonomic-loupes"
+    },
+    {
+      "source": "/best-ergonomic-loupes",
+      "destination": "/ergonomic-loupes"
     }
   ]
 }

@@ -777,7 +777,7 @@ export const bofuPagesNov16: SeoLandingPage[] = [
     sections: [
       section('LumaDent and HeliosX in one line each', 'Both publish prices. LumaDent offers Vario and through-the-lens options and a switching-magnification Ergo Trinity; HeliosX builds each pair to your measurements at one magnification, with Medusa adding an adjustable working distance.', [
         'Full comparison: /heliosx-vs-lumadent.',
-        'Ergonomic loupes from every brand: /ergonomic-loupe-comparison.',
+        'Ergonomic loupes from every brand: /ergonomic-loupes.',
         'Every brand’s prices in one place: /dental-loupes-price.',
       ]),
     ],
@@ -804,7 +804,7 @@ export const bofuPagesNov16: SeoLandingPage[] = [
     relatedKeywords: ['ergonomic loupes cost', 'ergo loupes price', 'ergonomic dental loupes price', 'how much are ergonomic loupes'],
     audience: 'Dentists, hygienists and surgeons pricing ergonomic loupes',
     intro:
-      'Ergonomic loupes cost more than standard ones because the angled prism optics are harder to make. How much more depends on the brand, and most do not publish prices at all. Here is every published ergonomic loupe price we could find, side by side, and what the brands that quote usually ask you to do. For which ergonomic loupe is best, see /ergonomic-loupe-comparison.',
+      'Ergonomic loupes cost more than standard ones because the angled prism optics are harder to make. How much more depends on the brand, and most do not publish prices at all. Here is every published ergonomic loupe price we could find, side by side, and what the brands that quote usually ask you to do. For which ergonomic loupe is best, see /ergonomic-loupes.',
     answer: `Published ergonomic loupe prices: HeliosX Apollo ${range('apollo')} and Medusa ${range('medusa')}; LumaDent Ergo Air Ti $${luma.ergoAirTiVario['3.0x'].toLocaleString('en-US')}–$${luma.ergoAirTiTtl['8.0x'].toLocaleString('en-US')}; Q-Optics ErgoAngle $${qoErgo['3.0x'].toLocaleString('en-US')}–$${qoErgo['4.5x'].toLocaleString('en-US')} at retail. Orascoptic, SurgiTel, ExamVision, Admetec and Designs for Vision quote through representatives.`,
     why: {
       title: 'Why ergonomic loupes cost more',
@@ -871,7 +871,7 @@ export const bofuPagesNov16: SeoLandingPage[] = [
     },
     proofPoints: [`Ergonomic from ${from('apollo')}`, 'Every price published', 'Custom-built to your measurements', 'Limited lifetime warranty'],
     sections: [
-      section('Which ergonomic loupe is best?', 'Price is one part. For how each brand’s ergonomic line works and who it suits, see the best ergonomic loupes compared: /ergonomic-loupe-comparison.', [
+      section('Which ergonomic loupe is best?', 'Price is one part. For how each brand’s ergonomic line works and who it suits, see the best ergonomic loupes compared: /ergonomic-loupes.', [
         'Posture research and what it shows: /education/ergonomic-loupes-neck-pain.',
         'LumaDent line by line: /lumadent-loupes-price.',
         'Q-Optics line by line: /q-optics-loupes-price.',

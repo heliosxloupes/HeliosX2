@@ -489,7 +489,7 @@ for (const [slug, title, context] of [
 // search in the H1 and first sentence, answer it by type of loupe, and cover
 // the question variants in the FAQ. Lights stay on /best-dental-loupe-lights
 // and /dental-loupes-with-light (see Sep 20 above), and the general ergonomic
-// search goes to /ergonomic-loupe-comparison, so both get a pointer, not a section.
+// search goes to /ergonomic-loupes, so both get a pointer, not a section.
 {
   const dental = revisions['best-dental-loupe-brands']
   dental.title = 'Best dental loupes: 8 brands compared'
@@ -505,7 +505,7 @@ for (const [slug, title, context] of [
       [
         `Everyday restorative work, hygiene and students: Galilean loupes at 2.5x–3.5x, light and with a wide field. HeliosX Newton from ${dollars(Math.min(...Object.values(magnificationPriceByProduct.newton)))} or Galileo from ${dollars(Math.min(...Object.values(magnificationPriceByProduct.galileo)))}.`,
         `Endodontics, implants and fine margins: prismatic loupes at 4.0x–6.0x. HeliosX Kepler, ${range('kepler')}.`,
-        `Neck or shoulder strain: ergonomic prismatic loupes, which bend the view down so your head stays closer to upright. HeliosX Apollo, ${range('apollo')}. Every brand's ergonomic line, compared: /ergonomic-loupe-comparison.`,
+        `Neck or shoulder strain: ergonomic prismatic loupes, which bend the view down so your head stays closer to upright. HeliosX Apollo, ${range('apollo')}. Every brand's ergonomic line, compared: /ergonomic-loupes.`,
         `Moving between seated and standing work: adjustable working distance, 300–600 mm. HeliosX Medusa, ${range('medusa')}.`,
         'Buying a light with them: compare brightness and battery life on /best-dental-loupe-lights.',
       ],
@@ -663,7 +663,7 @@ revisions['loupe-comparisons'] = {
       [
         'Brand shortlist: /best-surgical-loupe-brands and /best-dental-loupe-brands.',
         'Buying for school: /student-loupe-comparison.',
-        'Ergonomic designs: /ergonomic-loupe-comparison.',
+        'Ergonomic designs: /ergonomic-loupes.',
         'Conventional and ergonomic prisms: /prismatic-loupe-comparison.',
         'Costs and extras: /how-much-do-surgical-loupes-cost.',
       ],
@@ -1752,7 +1752,7 @@ revisions['best-loupes'] = {
     section(
       'Best ergonomic loupes',
       'If your neck is the problem, compare ergonomic prismatic designs first. Apollo is built at one working distance; Medusa adjusts from 300 to 600 mm.',
-      ['How ergonomic loupes compare, with the posture evidence: /ergonomic-loupe-comparison.'],
+      ['How ergonomic loupes compare, with the posture evidence: /ergonomic-loupes.'],
     ),
     section(
       'How we chose these picks',

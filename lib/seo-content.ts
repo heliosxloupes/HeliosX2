@@ -1,4 +1,5 @@
 import { applyEditorialRevisions } from './seo-editorial'
+import { applyErgonomicHub } from './seo-ergonomic-hub-2026-11-18'
 import { oct28NewPages } from './seo-round-2026-10-28'
 import { beautyPagesNov2026 } from './seo-beauty-pages'
 import { bofuPagesNov2026 } from './seo-bofu-pages'
@@ -3058,7 +3059,7 @@ const competitorPages: SeoLandingPage[] = [
         bullets: [
           'Head-to-head: /heliosx-vs-lumadent, /heliosx-vs-surgitel, /heliosx-vs-q-optics, /heliosx-vs-admetec.',
           'Alternatives: /orascoptic-alternatives, /examvision-alternatives.',
-          'By type: /prismatic-loupe-comparison, /ergonomic-loupe-comparison, /student-loupe-comparison.',
+          'By type: /prismatic-loupe-comparison, /ergonomic-loupes, /student-loupe-comparison.',
           'By audience: /best-dental-loupe-brands, /best-surgical-loupe-brands.',
         ],
       },
@@ -8497,6 +8498,8 @@ allSeoLandingPages.push(...bofuPagesNov2026)
 allSeoLandingPages.push(...bofuPagesNov16)
 
 applyEditorialRevisions(allSeoLandingPages, educationGuides)
+// Nov 18 2026: the merged ergonomic page goes on last, over every earlier layer.
+applyErgonomicHub(allSeoLandingPages)
 
 // Merged pages 301 to a sibling (next.config.js); remove them here so they
 // drop out of the sitemap, llms-full.txt, static params and related links.
@@ -8682,7 +8685,7 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
       blurb: 'Where prismatic optics earn their price over Galilean.',
     },
     {
-      href: '/ergonomic-loupe-comparison',
+      href: '/ergonomic-loupes',
       label: 'Best ergonomic loupes',
       blurb: 'Optics that refract the view down so your neck stays neutral.',
     },
@@ -8702,7 +8705,7 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
       blurb: 'The group most affected by posture load over a career.',
     },
     {
-      href: '/ergonomic-loupe-comparison',
+      href: '/ergonomic-loupes',
       label: 'Best ergonomic loupes',
       blurb: 'How declination and refracted optics change neck flexion.',
     },
@@ -8866,7 +8869,7 @@ const editorialLinks: Record<string, string[]> = {
   'how-much-do-surgical-loupes-cost': ['affordable-surgical-loupes-reddit', 'student-loupe-comparison', 'education/prescription-loupes-guide'],
   'best-surgical-loupes-reddit': ['affordable-surgical-loupes-reddit'],
   'best-dental-loupe-brands': ['education/ergonomic-loupes-neck-pain', 'education/prescription-loupes-guide', 'heliosx-vs-lumadent', 'orascoptic-alternatives', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'examvision-alternatives', 'heliosx-vs-admetec', 'heliosx-vs-designs-for-vision'],
-  'loupe-comparisons': ['best-surgical-loupe-brands', 'best-dental-loupe-brands', 'student-loupe-comparison', 'ergonomic-loupe-comparison', 'prismatic-loupe-comparison'],
+  'loupe-comparisons': ['best-surgical-loupe-brands', 'best-dental-loupe-brands', 'student-loupe-comparison', 'ergonomic-loupes', 'prismatic-loupe-comparison'],
   'surgical-loupes': ['surgical-loupes-with-light', 'neurosurgery-loupes', 'cardiac-surgery-loupes', 'pediatric-surgery-loupes', 'maxillofacial-surgery-loupes', 'ent-otolaryngology-loupes', 'ophthalmic-surgery-loupes', 'education/best-loupes-for-plastic-surgery'],
   'student-loupe-comparison': ['education/best-loupes-for-dental-students', 'loupes-for-medical-students', 'education/best-loupes-for-residents'],
   'loupes-for-residents': ['loupes-for-medical-students', 'loupes-for-dental-students'],
@@ -8875,8 +8878,8 @@ const editorialLinks: Record<string, string[]> = {
   'dental-loupes-with-light': ['dental-hygiene-loupes-with-light', 'surgical-loupes-with-light', 'loupes-for-dental-hygiene', 'loupes-for-dental-assistants', 'best-dental-loupe-brands', 'dental-loupes'],
   'loupes-for-dental-assistants': ['loupes-for-dental-hygiene', 'dental-loupes-with-light', 'dental-loupes'],
   'dental-hygiene-loupes-with-light': ['loupes-for-dental-hygiene', 'dental-loupes-with-light', 'education/working-distance-for-loupes'],
-  'surgical-loupes-with-light': ['ronin-headlight-alternative', 'surgical-loupes', 'dental-loupes-with-light', 'ergonomic-loupe-comparison'],
-  'ronin-headlight-alternative': ['surgical-loupes-with-light', 'surgical-loupes', 'ergonomic-loupe-comparison'],
+  'surgical-loupes-with-light': ['ronin-headlight-alternative', 'surgical-loupes', 'dental-loupes-with-light', 'ergonomic-loupes'],
+  'ronin-headlight-alternative': ['surgical-loupes-with-light', 'surgical-loupes', 'ergonomic-loupes'],
   'neurosurgery-loupes': ['spine-surgery-loupes', 'loupes-for-microsurgery', 'best-surgical-loupe-brands', 'surgical-loupes'],
 }
 
@@ -8914,7 +8917,7 @@ const B = {
   student: relatedLink('/student-loupe-comparison', 'Student pricing', 'What the discount covers and who qualifies.'),
   // 16 Nov: the two "best" pages being pushed. Labels are the search itself.
   bestDental: relatedLink('/best-dental-loupe-brands', 'Best dental loupes', 'Eight brands compared by price, weight and magnification.'),
-  bestErgo: relatedLink('/ergonomic-loupe-comparison', 'Best ergonomic loupes', 'Every major brand’s ergonomic line, compared.'),
+  bestErgo: relatedLink('/ergonomic-loupes', 'Best ergonomic loupes', 'Every major brand’s ergonomic line, compared.'),
   surgicalHub: relatedLink('/surgical-loupes', 'Surgical loupes', 'Types, magnification chart and every price.'),
   dentalHub: relatedLink('/dental-loupes', 'Dental loupes', 'Types, magnification chart and every price.'),
   vs: (brand: string, slug: string) => relatedLink(`/heliosx-vs-${slug}`, `HeliosX vs ${brand}`, `${brand} and HeliosX, spec by spec.`),
@@ -8932,7 +8935,7 @@ const buyerLinks: Record<string, RelatedPage[]> = {
   'surgical-loupes-with-light': [B.surgicalHub, B.headlights],
   'dental-loupes-with-light': [B.dentalHub, B.lights, B.headlights, B.sparkAlt, B.lumadentLight],
   'prismatic-loupe-comparison': [B.bestErgo],
-  'ergonomic-loupe-comparison': [B.bestDental],
+  'ergonomic-loupes': [B.bestDental],
   'loupes-for-endodontics': [B.bestDental],
   'loupes-for-periodontics': [B.bestDental],
   'loupes-for-orthodontics': [B.bestDental],
@@ -8979,6 +8982,8 @@ const buyerLinks: Record<string, RelatedPage[]> = {
 // --- Wave 4 buyer pages (16 Nov 2026), kept separate from buyerLinks so no
 // key repeats. Same rule: the label is the target's own search.
 const W = {
+  // /ergonomic-loupes-price merged into the ergonomic page on Nov 18 2026.
+  ergoPrice: relatedLink('/ergonomic-loupes#models-prices', 'Ergonomic loupes price', 'Published ergonomic prices from every brand.'),
   galilean: relatedLink('/galilean-loupes', 'Galilean loupes', 'Light 2.5x–3.5x loupes with the widest field, and their prices.'),
   x4: relatedLink('/4x-loupes', '4x loupes', 'Every 4.0x option and price.'),
   x6: relatedLink('/6x-loupes', '6x loupes', 'High magnification, up to 8.5x, with prices.'),
@@ -8987,7 +8992,6 @@ const W = {
   canada: relatedLink('/surgical-loupes-canada', 'Surgical loupes in Canada', 'Prices, GST/HST and delivery.'),
   uk: relatedLink('/surgical-loupes-uk', 'Surgical loupes in the UK', 'Prices, import VAT and delivery.'),
   lumadentPrice: relatedLink('/lumadent-loupes-price', 'LumaDent loupes price', 'Every LumaDent line, priced, with the HeliosX match.'),
-  ergoPrice: relatedLink('/ergonomic-loupes-price', 'Ergonomic loupes price', 'Published ergonomic prices from every brand.'),
   x25vs35: relatedLink('/2-5x-vs-3-5x-loupes', '2.5x vs 3.5x loupes', 'Which first magnification to buy.'),
 }
 const wave4Links: Record<string, RelatedPage[]> = {
@@ -9010,7 +9014,6 @@ const wave4Links: Record<string, RelatedPage[]> = {
   'dental-loupes-australia': [W.canada, W.uk],
   'heliosx-vs-lumadent': [W.lumadentPrice],
   'dental-loupes-price': [W.lumadentPrice, W.ergoPrice],
-  'ergonomic-loupe-comparison': [W.ergoPrice],
   'q-optics-loupes-price': [W.ergoPrice],
   'student-loupe-comparison': [W.x25vs35, W.galilean],
   // The new pages link up and across.
@@ -9022,7 +9025,6 @@ const wave4Links: Record<string, RelatedPage[]> = {
   'surgical-loupes-canada': [B.shipping, B.australia, W.uk, B.buy],
   'surgical-loupes-uk': [B.shipping, B.australia, W.canada, B.buy],
   'lumadent-loupes-price': [B.priceGuide, B.vs('LumaDent', 'lumadent'), B.lumadentLight, W.ergoPrice],
-  'ergonomic-loupes-price': [B.bestErgo, B.priceGuide, B.plans, W.lumadentPrice],
   '2-5x-vs-3-5x-loupes': [W.galilean, W.x4, B.dentalHub],
 }
 

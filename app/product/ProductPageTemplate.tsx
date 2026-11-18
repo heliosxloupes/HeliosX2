@@ -46,7 +46,7 @@ const PRODUCT_RELATED_LINKS: Record<
       blurb: 'Why this is chosen before magnification.',
     },
     {
-      href: '/ergonomic-loupe-comparison',
+      href: '/ergonomic-loupes',
       label: 'Ergonomic loupes',
       blurb: 'How refracted optics keep the neck neutral.',
     },

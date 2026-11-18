@@ -36,7 +36,7 @@ const GUIDES = [
   ['/education/loupe-magnification-guide', 'Which magnification do I need?'],
   ['/education/galilean-vs-prismatic-loupes', 'Galilean vs prismatic loupes'],
   ['/education/working-distance-for-loupes', 'How to measure working distance'],
-  ['/ergonomic-loupe-comparison', 'Ergonomic loupes compared'],
+  ['/ergonomic-loupes', 'Ergonomic loupes compared'],
   ['/how-much-do-surgical-loupes-cost', 'What surgical loupes cost'],
   ['/student-loupe-comparison', 'Loupes for students and residents'],
 ] as const

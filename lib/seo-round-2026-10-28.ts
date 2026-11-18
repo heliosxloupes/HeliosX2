@@ -434,7 +434,7 @@ export const oct28NewPages: SeoLandingPage[] = [
       section(
         'Light is not the same as ergonomic',
         'Low weight and a redirected viewing angle are different features. A lighter Galilean pair still has you tilt your head; ergonomic prismatic Apollo and Medusa weigh a little more but let you look down with your head more upright.',
-        ['Ergonomic loupes compared: /ergonomic-loupe-comparison.'],
+        ['Ergonomic loupes compared: /ergonomic-loupes.'],
       ),
     ],
     recommendedProducts: ['Galileo', 'Newton', 'Apollo'],
@@ -654,7 +654,7 @@ oct28NewPages.push(
       section(
         'Ergonomic and prismatic loupes with a light',
         'Ergonomic prismatic loupes, such as HeliosX Apollo and Medusa, redirect your line of sight downward so your head can stay more upright. The light has to point where you are actually looking, so it is mounted for the loupe you order. Prismatic loupes are heavier than Galilean ones, which makes a 10–12 g corded head the better match than a heavier wireless light.',
-        ['Ergonomic loupes compared: /ergonomic-loupe-comparison.', 'Galilean vs prismatic: /prismatic-loupe-comparison.'],
+        ['Ergonomic loupes compared: /ergonomic-loupes.', 'Galilean vs prismatic: /prismatic-loupe-comparison.'],
       ),
       section(
         'What a surgical setup costs',

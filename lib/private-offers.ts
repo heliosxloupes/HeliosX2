@@ -2,6 +2,7 @@ import type Stripe from 'stripe'
 
 import { cordlessOptionName, lightBySlug } from '@/lib/lights'
 import { PRESCRIPTION_PRICE, lightPriceBySlug, resolveLightPrice, resolveProductPrice } from '@/lib/pricing'
+import { WORLDWIDE_SHIPPING_COUNTRIES } from '@/lib/shipping-countries'
 
 export type OfferLine = {
   name: string
@@ -44,6 +45,57 @@ function vegaLine(option: 'slim-6h' | 'pack-10h' | 'neck-4h', battery: string): 
     metadata: { productSlug: 'vega', isLight: 'true', lightOption: option, battery, bundled: 'false' },
   }
 }
+
+/** Sirius on the 10-hour pack at the 10% loupe-bundle discount. */
+const siriusBundledLine: OfferLine = {
+  name: lightPriceBySlug.sirius.name,
+  description: 'Coaxial, 150,000 lux, adjustable spot. Extended battery pack, 10 hrs',
+  image: sirius?.image,
+  price: resolveLightPrice('sirius', 'pack-10h') as number,
+  percentOff: 10,
+  metadata: {
+    productSlug: 'sirius',
+    isLight: 'true',
+    lightOption: 'pack-10h',
+    battery: 'Extended battery, 10 hrs',
+    bundled: 'true',
+  },
+}
+
+// Dr. Roshan (cardiovascular surgery resident, FMIC): congenital plus adult CABG and valves.
+// Two options, Galileo 3.5x (his pick) and Kepler 4.0x, each with its own single-use code.
+const roshanOffer = (
+  id: string,
+  promotionCode: string,
+  model: 'galileo' | 'kepler',
+  magnification: '3.5x' | '4.0x',
+  name: string,
+  description: string,
+  frameStyle: string
+): PrivateOffer => ({
+  id,
+  greeting: 'Dr. Roshan, your loupes and light are ready.',
+  promotionCode,
+  discountNote:
+    'As a verified resident, you get 15% off your loupes and 10% off your Sirius light. Both discounts are already applied. We confirm your PD, working distance and frame with you before anything is built.',
+  lightsOnly: false,
+  shippingCountries: WORLDWIDE_SHIPPING_COUNTRIES,
+  lines: [
+    {
+      name,
+      description,
+      price: resolveProductPrice(model, magnification) as number,
+      percentOff: 15,
+      metadata: {
+        productSlug: model,
+        frameStyle,
+        frameColor: 'Black',
+        magnification,
+      },
+    },
+    siriusBundledLine,
+  ],
+})
 
 // Dr. Taheri (Hollywood Smile Dental) picks one of three Vega batteries. List price, no code.
 const taheriVega = (option: 'slim-6h' | 'pack-10h' | 'neck-4h', battery: string): PrivateOffer => ({
@@ -131,6 +183,26 @@ const offers: Record<string, PrivateOffer> = {
       },
     ],
   },
+  // $179.25 + $75.50 = $254.75 off. Created 2026-11-21.
+  sDBJWOnPoIHu: roshanOffer(
+    'kepler-sirius-resident-roshan',
+    'RESIDENTKEPLERSIRIUS',
+    'kepler',
+    '4.0x',
+    'Kepler Surgical Loupes',
+    '4.0×, conventional prismatic, 68 g with frame',
+    'Confirmed at fitting'
+  ),
+  // $123.75 + $75.50 = $199.25 off. Created 2026-11-21 (replaced a Medusa option never sent).
+  DqXXRoRbgCls: roshanOffer(
+    'galileo-sirius-resident-roshan',
+    'RESIDENTGALILEOSIRIUS',
+    'galileo',
+    '3.5x',
+    'Galileo Surgical Loupes',
+    '3.5×, JJ04 Black frame, 37 g with frame',
+    'JJ04'
+  ),
   RhWb_mEPEhg7: {
     id: 'galileo-rx-evans',
     greeting: 'Sally, your Galileo loupes are ready.',

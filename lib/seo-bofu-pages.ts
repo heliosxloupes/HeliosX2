@@ -1436,7 +1436,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
     slug: 'dental-headlights',
     title: 'Dental headlights for loupes and glasses: brightness chart and prices',
     metaTitle: 'Dental Headlights + Brightness Chart & Prices | HeliosX',
-    description: `HeliosX dental and surgical headlights, ${usd(lightFrom('antares'))}–${usd(lightFrom('arcturus'))}: brightness, weight, battery life and spot size, with every price shown. Work with any loupes or glasses.`,
+    description: `HeliosX dental headlights, ${usd(lightFrom('antares'))}–${usd(lightFrom('arcturus'))}: brightness, weight, battery life and spot size, with every price shown. Work with any loupes or glasses.`,
     heroKicker: 'Dental headlights',
     why: {
       title: 'Why choose a headlight instead of a loupe light',
@@ -1447,7 +1447,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
     },
     heroImage: { src: photo.canopus.src, alt: 'Dental headlights: HeliosX Canopus headlight on a single padded band', caption: `Canopus · ${usd(lightFrom('canopus'))} USD` },
     primaryKeyword: 'dental headlight',
-    relatedKeywords: ['dental led headlight', 'headlight for dental hygienist', 'dental headlight for loupes', 'dental headlight for glasses', 'surgical headlight'],
+    relatedKeywords: ['dental led headlight', 'headlight for dental hygienist', 'dental headlight for loupes', 'dental headlight for glasses', 'best dental headlight'],
     audience: 'Dentists, hygienists and surgeons buying a headlight, with or without loupes',
     intro:
       'Most people looking for a dental headlight want one of two things: light without mounting anything on their loupes, or one light that works across pairs and glasses. Here are the four HeliosX headlights, with brightness, weight, battery life and price for each. If you would rather have a light on the loupe frame, compare them at /best-dental-loupe-lights.',
@@ -1481,6 +1481,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
         { task: 'Oral surgery, deep cavities, most light', picks: [{ label: 'Canopus', href: '#canopus' }] },
         { task: 'Long cases where the band must not move', picks: [{ label: 'Canopus XL', href: '#canopus-xl' }] },
         { task: 'You would rather have a light on the loupe', picks: [{ label: 'Loupe lights', href: '/best-dental-loupe-lights' }] },
+        { task: 'Buying for surgery, not dentistry', picks: [{ label: 'Surgical headlights', href: '/surgical-headlights' }] },
       ],
     },
     items: {
@@ -1527,6 +1528,133 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
     ],
     datePublished: published2,
     dateModified: published2,
+  },
+
+  // 11b. Surgical headlights (2026-11-23): "surgical headlight", "surgical headlamp", "surgeon headlight",
+  // "ENT headlight" are each 100–1K/mo in Keyword Planner, and no page targeted them (965 GSC impressions
+  // over 90 days for headlight searches, spread across 8 pages, 1 click). Same buyer format as /dental-headlights
+  // and /ronin-headlight-alternative. Facts only from lib/lights.ts; RONIN figures as on the RONIN page (checked Oct 29).
+  {
+    slug: 'surgical-headlights',
+    title: 'Surgical headlights: brightness chart, battery life and prices',
+    metaTitle: `Surgical Headlights, Every Price Shown, From ${usd(lightFrom('antares'))} | HeliosX`,
+    description: `Surgical headlights with every price published, ${usd(lightFrom('antares'))}–${usd(lightFrom('arcturus'))}, no quote or sales call: up to ${lux('canopus')}, battery on the band, ${LIGHT_WARRANTY_YEARS}-year warranty. Brightness chart and brand comparison.`,
+    heroKicker: 'Surgical headlights',
+    why: {
+      title: 'Why surgeons choose a headlight, and why ours has a price on it',
+      body: [
+        'Overhead lights are aimed at the table, not at where you are looking. When you lean in, change angle or work in a deep or narrow field, your head and hands shade the site. A headlight sends the light along your line of sight, so the field stays lit wherever you turn.',
+        'Every HeliosX headlight carries its battery on the band. There is no cable to a pack at your hip and nothing to clip under a gown. It works with any loupes, with glasses, or with no eyewear at all.',
+        'Most surgical headlight makers do not show a price. You fill in a form, wait for a rep and get a quote. HeliosX sells direct, so every headlight below has its price on the page, the same price for every surgeon, and you can order it today.',
+      ],
+    },
+    heroImage: { src: photo.canopus.src, alt: 'Surgical headlight: HeliosX Canopus, 198,000 lux, on a single padded band', caption: `Canopus · ${usd(lightFrom('canopus'))} USD` },
+    primaryKeyword: 'surgical headlight',
+    relatedKeywords: ['surgical headlamp', 'surgical head lamp', 'surgeon headlight', 'ent headlight', 'surgical loupes with headlight', 'cordless surgical headlight', 'led surgical headlight', 'best surgical headlight', 'surgical headlight price', 'brightest surgical headlight'],
+    audience: 'Surgeons, residents and ENT, plastic, general and oral surgeons buying a headlight, with or without loupes',
+    intro:
+      'Surgical headlights range from a few hundred dollars to several thousand. Price mostly follows peak brightness, the battery setup and the warranty. Here are the four HeliosX headlights for surgery, with brightness, weight, battery life, spot size and price for each. Compared with the RONIN X7: /ronin-headlight-alternative.',
+    answer: `HeliosX makes four surgical headlights, ${usd(lightFrom('antares'))}–${usd(lightFrom('arcturus'))}, each with its battery on the band and an adjustable spot. Canopus is the brightest at ${lux('canopus')}, for ${usd(lightFrom('canopus'))}; Canopus XL is the same light with a strap over the top for long cases, ${usd(lightFrom('canopus-xl'))}; Arcturus is the lightest at 164 g and runs up to 12 hours, ${usd(lightFrom('arcturus'))}; Antares ships with two batteries, ${usd(lightFrom('antares'))}. Each has a ${LIGHT_WARRANTY_YEARS}-year limited warranty and is ${LIGHT_BUNDLE_PERCENT_OFF}% off ordered with loupes.`,
+    tierChart: {
+      title: 'Surgical headlight brightness chart',
+      lead: 'From the least light to the most. Tap a headlight to jump to it.',
+      scale: luxScale,
+      tiers: [
+        { label: '45,000 lux', note: 'Minor procedures and exams', picks: [{ label: 'Antares', href: '#antares', detail: `180 g · ${usd(lightFrom('antares'))}` }] },
+        { label: '150,000 lux', note: 'Long lists, up to 12 hours', picks: [{ label: 'Arcturus', href: '#arcturus', detail: `164 g · ${usd(lightFrom('arcturus'))}` }] },
+        { label: '198,000 lux', note: 'Deep or narrow fields', picks: [{ label: 'Canopus', href: '#canopus', detail: `175 g · ${usd(lightFrom('canopus'))}` }, { label: 'Canopus XL', href: '#canopus-xl', detail: `231 g · ${usd(lightFrom('canopus-xl'))}` }] },
+      ],
+    },
+    specTable: {
+      title: 'Surgical headlight specs and prices',
+      columns: ['Headlight', 'Brightness', 'Weight with battery', 'Battery', 'Spot size', 'Color temperature', 'Band', 'Price (USD)'],
+      rows: [
+        ['Antares', lux('antares'), '180 g', '5 hr, 2 batteries', '20–100 mm', '4,500–5,500 K', 'Headband with top strap', usd(lightFrom('antares'))],
+        ['Arcturus', lux('arcturus'), '164 g', '5–12 hr', '20–95 mm', '4,500–5,500 K', 'Single padded band', usd(lightFrom('arcturus'))],
+        ['Canopus', lux('canopus'), '175 g', '4 hr', '10–90 mm', '5,500–6,500 K', 'Single padded band', usd(lightFrom('canopus'))],
+        ['Canopus XL', lux('canopus-xl'), '231 g', '4 hr', '10–90 mm', '5,500–6,500 K', 'Headband with top strap', usd(lightFrom('canopus-xl'))],
+      ],
+      note: `Every battery charges in about 4 hours. ${LIGHT_WARRANTY_YEARS}-year limited warranty on the light head, LEDs and mount. ${bundle}. All lights: /product/lights.`,
+    },
+    quickPicks: {
+      title: 'Quick picks: what kind of surgery?',
+      rows: [
+        { task: 'Deep or narrow fields: ENT, oral, plastic', picks: [{ label: 'Canopus', href: '#canopus' }] },
+        { task: 'Long cases where the band must not move', picks: [{ label: 'Canopus XL', href: '#canopus-xl' }] },
+        { task: 'Long lists, lightest on the head', picks: [{ label: 'Arcturus', href: '#arcturus' }] },
+        { task: 'Minor procedures, clinic and exams', picks: [{ label: 'Antares', href: '#antares' }] },
+        { task: 'You would rather have a light on your loupes', picks: [{ label: 'Surgical loupes with light', href: '/surgical-loupes-with-light' }] },
+      ],
+    },
+    items: {
+      title: 'The four HeliosX surgical headlights',
+      entries: [
+        lightEntry('canopus', 'Canopus', [
+          `Our brightest light, ${lux('canopus')}, with the tightest spot, down to 10 mm, for deep or narrow fields. It sits on a single padded band at 175 g, battery included, for ${usd(lightFrom('canopus'))}.`,
+          'The battery runs about 4 hours, so it suits single cases more than a full list. The light is cooler, 5,500–6,500 K.',
+        ], ['Deep fields', 'Most light', 'Tightest spot']),
+        lightEntry('canopus-xl', 'Canopus XL', [
+          'The same light as Canopus, on a headband with a strap over the top. The extra strap holds it steady when you look down for a long case.',
+          `The strap adds weight: 231 g against 175 g. It costs ${usd(lightFrom('canopus-xl'))}.`,
+        ], ['Long cases', 'Steadiest fit'], { text: `Ordering loupes too? The headlight is ${LIGHT_BUNDLE_PERCENT_OFF}% off with them.`, label: 'Build Kepler', href: '/product/kepler' }),
+        lightEntry('arcturus', 'Arcturus', [
+          `Our lightest headlight at 164 g, with ${lux('arcturus')} and 5 to 12 hours on a charge, so one battery can cover a full list.`,
+          'It costs more than Canopus and is less bright. You are paying for the lower weight and the longer battery.',
+        ], ['Long lists', 'Lightest headlight']),
+        lightEntry('antares', 'Antares', [
+          `Our lowest-cost headlight, ${usd(lightFrom('antares'))}, with ${lux('antares')}. Two batteries ship with it, about 5 hours each, so one is always charging.`,
+          'It is the least bright of the four. It suits minor procedures, clinic work and exams more than deep surgical fields.',
+        ], ['Minor procedures', 'Two batteries']),
+      ],
+    },
+    tips: {
+      title: 'How to choose a surgical headlight',
+      items: [
+        { title: 'Match brightness to the field.', body: 'Deep or narrow cavities and higher loupe magnification need more light. Superficial and minor work needs less.' },
+        { title: 'Check runtime against your longest case.', body: 'Arcturus runs up to 12 hours. Antares swaps two 5-hour batteries. Canopus runs about 4 hours.' },
+        { title: 'Count total weight, not just the head unit.', body: 'Some surgical headlights put the battery at your hip on a cable. Ours carry it on the band, and the weights above include it.' },
+        { title: 'Look at the spot size.', body: 'A spot that closes down to 10–20 mm keeps light in a small field without glare off the drapes.' },
+        { title: 'Order it with loupes if you can.', body: `It is ${LIGHT_BUNDLE_PERCENT_OFF}% off that way.` },
+      ],
+    },
+    proofPoints: ['Every price published, no quote', 'Sold direct, ordered online', 'Battery on the band, no hip pack', `${LIGHT_WARRANTY_YEARS}-year limited warranty`],
+    sections: [
+      section(
+        'Surgical headlight prices: published here, quote-only elsewhere',
+        'We checked the product pages of the headlights that rank for surgical headlight searches on November 23, 2026. Two publish a price. The rest ask you to request a quote or contact sales, so the price you pay depends on who is asking and what else your hospital buys.',
+        [
+          'STERIS MedLED Spectra: no price on the product page, "Request a quote". STERIS lists 100,000, 200,000 or 300,000 lux and 10, 8 or 5 hours with both batteries on the head strap.',
+          'Stryker Qosmic: no price, a contact form for your hospital and specialty. Stryker lists 90,000+ lux at 16 inches and 4+ hours at the highest setting, with the battery pack clipped to you on a cable.',
+          'Enova: prices published on its store, $1,595–$3,795 for its LED headlight systems.',
+          'RONIN X7: prices published, $3,500–$5,250 by package.',
+          `HeliosX: every price published, ${usd(lightFrom('antares'))}–${usd(lightFrom('arcturus'))}, ordered online, with a ${LIGHT_WARRANTY_YEARS}-year limited warranty and ${LIGHT_BUNDLE_PERCENT_OFF}% off with loupes.`,
+        ],
+      ),
+      section(
+        'Where HeliosX fits against hospital headlights',
+        `High-output operating-room headlights such as the RONIN X7 publish more peak light: RONIN lists 350,000 lux, or 530,000 in high-intensity mode, with the battery at the hip. They cost $3,500–$5,250 with a 1-year warranty on the private-practice and resident packages (RONIN site, checked October 29, 2026). HeliosX headlights cost ${usd(lightFrom('antares'))}–${usd(lightFrom('arcturus'))}, keep the battery on the band and carry a ${LIGHT_WARRANTY_YEARS}-year warranty. If you need the very highest output, those lights are built for it. If you want a light you own outright, wear all day and can move between rooms, ours are built for that.`,
+        ['Full side-by-side with the RONIN X7: /ronin-headlight-alternative.'],
+      ),
+      section(
+        'Headlight or a light on your loupes?',
+        'A light clipped to the loupe frame weighs 10–12 g and always points where you look, but it needs a mount that fits your frame. A headlight needs no mount and works with any eyewear, but weighs 164–231 g on your head. If you wear one pair of loupes all day, a frame light is usually lighter. If you switch between pairs, wear glasses, or operate without loupes, a headlight is simpler.',
+        ['Loupe lights for surgery, by magnification: /surgical-loupes-with-light.', 'Headlights for dentistry and hygiene: /dental-headlights.'],
+      ),
+      section('If the light is not right', returns),
+    ],
+    recommendedProducts: ['Kepler', 'Apollo', 'Medusa'],
+    faqs: [
+      faq('How much does a surgical headlight cost?', `HeliosX surgical headlights cost ${usd(lightFrom('antares'))}–${usd(lightFrom('arcturus'))}, and ${LIGHT_BUNDLE_PERCENT_OFF}% less ordered with loupes. High-output operating-room headlights such as the RONIN X7 are listed at $3,500–$5,250.`),
+      faq('What is the brightest HeliosX surgical headlight?', `Canopus and Canopus XL, at ${lux('canopus')}, with a spot that closes down to 10 mm.`),
+      faq('Which surgical headlight is best for long cases?', 'Arcturus for the longest battery, up to 12 hours at 164 g. Canopus XL if you need the most light and a strap over the top to hold it steady.'),
+      faq('Why don’t most surgical headlight brands show a price?', 'Many sell through hospital sales reps and quote each buyer separately. STERIS and Stryker, for example, ask you to request a quote or contact them. HeliosX sells direct, so the price on this page is the price you pay.'),
+      faq('Do I need a quote to buy a HeliosX headlight?', `No. Every headlight is priced on the page, ${usd(lightFrom('antares'))}–${usd(lightFrom('arcturus'))}, and you can order it online.`),
+      faq('Is a surgical headlamp the same as a surgical headlight?', 'Yes. Surgeons use both names for a light worn on a headband that shines along the line of sight.'),
+      faq('Do HeliosX headlights work with other brands’ loupes or with glasses?', 'Yes. The headlight sits on its own band, so it works with any loupes, with glasses or with no eyewear.'),
+      faq('Is there a cable or a battery pack at the hip?', 'No. Every HeliosX headlight carries its battery on the band.'),
+    ],
+    datePublished: '2026-11-23',
+    dateModified: '2026-11-23',
   },
 
   // 12. Orascoptic Spark alternative: "orascoptic spark light" 100–1K/mo at $7.75.

@@ -1,5 +1,6 @@
 'use client'
 
+import RegularPrice from '@/components/promo/RegularPrice'
 import { ArrowRight, ArrowUpRight, Check } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -114,6 +115,7 @@ export default function MobileCatalogueExperience() {
                   </div>
                   <span className="shrink-0 text-right">
                     <small className="block text-[10px] font-bold uppercase tracking-[0.14em] text-[#4d5f54]">From</small>
+                    <RegularPrice price={startingPrice(model.slug)} tone="paper" className="block text-[12px]" />
                     <strong className="tab text-[1.35rem] font-extrabold">{money(startingPrice(model.slug))}</strong>
                   </span>
                 </div>

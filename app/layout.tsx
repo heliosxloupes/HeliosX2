@@ -12,6 +12,7 @@ import LocaleFooter from '@/components/Footer/LocaleFooter'
 import LanguageSuggest from '@/components/intl/LanguageSuggest'
 import LocaleHtmlLang from '@/components/intl/LocaleHtmlLang'
 import ContactProvider from '@/components/Contact/ContactProvider'
+import BlackFridayDock from '@/components/promo/BlackFridayDock'
 import { buildMetadata, siteUrl } from '@/lib/seo'
 
 const syne = Syne({
@@ -82,6 +83,9 @@ export default function RootLayout({
                   pt={<FooterIntl locale="pt" />}
                 />
               </SmoothScroll>
+              {/* Outside SmoothScroll, inside site-content: shares the page's
+                  stacking context so headers, menus and sheets stay above it. */}
+              <BlackFridayDock />
             </div>
           </div>
           <LanguageSuggest />

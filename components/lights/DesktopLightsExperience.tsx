@@ -1,5 +1,6 @@
 'use client'
 
+import RegularPrice from '@/components/promo/RegularPrice'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowUpRight, Check, ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
@@ -348,6 +349,7 @@ export default function DesktopLightsExperience() {
                     </motion.div>
                   </AnimatePresence>
                 </div>
+                <RegularPrice price={price} className="mt-0.5 block text-sm" />
               </div>
               <p className="max-w-[15rem] text-right text-xs leading-relaxed text-neutral-400">
                 <span className="tab font-semibold text-emerald-300">{money(bundledLightPrice(price))}</span> with any pair of HeliosX loupes, {LIGHT_BUNDLE_PERCENT_OFF}% off.

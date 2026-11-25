@@ -1,5 +1,6 @@
 "use client";
 
+import RegularPrice from '@/components/promo/RegularPrice'
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -407,6 +408,7 @@ function OurLoupesGrid() {
                               textShadow: `0 0 14px rgba(${getGlowColor(product.slug)}, 0.5)`,
                             }}
                           >
+                            <RegularPrice price={product.basePrice} className="mr-1.5 text-xs [text-shadow:none]" />
                             ${product.basePrice.toLocaleString('en-US')}
                           </span>
                         </div>

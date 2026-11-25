@@ -1,0 +1,507 @@
+/* Sitewide Black Friday dock. One motion language: a slow beam of loupe light
+   across black glass, an iris that turns inside a knurled lens barrel, digits
+   that roll. Transform and opacity only; everything still stops under
+   prefers-reduced-motion. */
+
+.wrap {
+  position: fixed;
+  z-index: 38; /* under headers (40/50), menus and sheets; over page content */
+  left: 0;
+  right: 0;
+  bottom: calc(var(--hx-sticky-bar, env(safe-area-inset-bottom, 0px)) + 10px);
+  display: flex;
+  justify-content: center;
+  padding: 0 10px;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .wrap {
+    bottom: 22px;
+    padding: 0 20px;
+  }
+}
+
+.collapsedWrap {
+  justify-content: flex-end;
+}
+
+.dock {
+  pointer-events: auto;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 480px;
+  padding: 8px;
+  border-radius: 26px;
+  background:
+    radial-gradient(120% 140% at 0% 50%, rgb(255 163 58 / 0.12), transparent 55%),
+    linear-gradient(180deg, rgb(14 16 22 / 0.96), rgb(3 4 8 / 0.96));
+  border: 1px solid rgb(255 255 255 / 0.08);
+  box-shadow:
+    0 24px 60px -16px rgb(0 0 0 / 0.75),
+    0 10px 28px -10px rgb(255 163 58 / 0.22),
+    inset 0 1px 0 rgb(255 255 255 / 0.07),
+    inset 0 -1px 0 rgb(0 0 0 / 0.6);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  color: #f4f1ea;
+}
+
+@media (min-width: 768px) {
+  .dock {
+    width: auto;
+    max-width: none;
+    gap: 20px;
+    padding: 10px 10px 10px 10px;
+    border-radius: 999px;
+  }
+}
+
+/* Amber hairline that fades in from the left, like light catching an edge. */
+.dock::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg, rgb(255 178 90 / 0.8), rgb(255 163 58 / 0.12) 40%, rgb(255 255 255 / 0.05) 70%, rgb(255 255 255 / 0.12));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* The beam: a soft band of warm light crossing the glass every few seconds. */
+.dock::after {
+  content: '';
+  position: absolute;
+  inset: -20% auto -20% 0;
+  z-index: -1;
+  width: 34%;
+  background: linear-gradient(100deg, transparent, rgb(255 205 140 / 0.12) 42%, rgb(255 240 220 / 0.22) 50%, rgb(255 205 140 / 0.12) 58%, transparent);
+  transform: translateX(-120%) skewX(-14deg);
+  animation: beam 7s cubic-bezier(0.77, 0, 0.175, 1) 1.8s infinite;
+  pointer-events: none;
+}
+
+.quiet::after {
+  animation: none;
+  display: none;
+}
+
+@keyframes beam {
+  0% { transform: translateX(-120%) skewX(-14deg); }
+  30%, 100% { transform: translateX(340%) skewX(-14deg); }
+}
+
+/* Iris: the visual anchor. An amber lens with a turning aperture, seated in a
+   knurled barrel that turns the other way, slower. */
+.iris {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 3px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 34% 28%, #ffe0ad, #ffa33a 52%, #c9620f 100%);
+  color: #1a0d02;
+  box-shadow:
+    inset 0 -3px 6px rgb(120 50 0 / 0.45),
+    inset 0 2px 2px rgb(255 255 255 / 0.45),
+    0 10px 24px -8px rgb(255 163 58 / 0.7);
+}
+
+@media (min-width: 768px) {
+  .iris {
+    width: 56px;
+    height: 56px;
+    margin: 4px;
+  }
+}
+
+/* Specular glint on the glass. */
+.iris::after {
+  content: '';
+  position: absolute;
+  top: 12%;
+  left: 18%;
+  width: 34%;
+  height: 22%;
+  border-radius: 999px;
+  background: radial-gradient(closest-side, rgb(255 255 255 / 0.7), transparent);
+  transform: rotate(-28deg);
+  pointer-events: none;
+}
+
+.irisRing {
+  position: absolute;
+  inset: -4px;
+  border-radius: 999px;
+  background: repeating-conic-gradient(rgb(255 200 140 / 0.55) 0deg 2deg, rgb(255 200 140 / 0) 2deg 10deg);
+  -webkit-mask: radial-gradient(closest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
+  mask: radial-gradient(closest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
+  animation: turn 40s linear infinite reverse;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .irisRing {
+    inset: -5px;
+  }
+}
+
+.irisIcon {
+  position: relative;
+  z-index: 1;
+  width: 25px;
+  height: 25px;
+  animation: turn 14s linear infinite;
+}
+
+@media (min-width: 768px) {
+  .irisIcon {
+    width: 29px;
+    height: 29px;
+  }
+}
+
+.quiet .irisIcon,
+.quiet .irisRing {
+  animation: none;
+}
+
+@keyframes turn {
+  to { transform: rotate(360deg); }
+}
+
+.copy {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+@media (min-width: 768px) {
+  .copy {
+    flex: none;
+    gap: 5px;
+  }
+}
+
+.title {
+  font-family: var(--font-syne), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1.05;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 18px;
+  }
+}
+
+.save {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #ffc98a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 768px) {
+  .save {
+    font-size: 14px;
+  }
+}
+
+.rule {
+  display: none;
+  width: 1px;
+  align-self: stretch;
+  margin: 8px 0;
+  background: linear-gradient(180deg, transparent, rgb(255 255 255 / 0.14), transparent);
+}
+
+@media (min-width: 768px) {
+  .rule {
+    display: block;
+  }
+}
+
+/* Countdown */
+.clock {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.clockLabel {
+  display: none;
+  margin-right: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(244 241 234 / 0.55);
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+  .clockLabel {
+    display: inline;
+  }
+}
+
+.cell {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.cell + .cell {
+  margin-left: 6px;
+}
+
+/* On desktop each unit sits in a recessed tile, like a mechanical counter. */
+@media (min-width: 768px) {
+  .cell {
+    padding: 6px 8px 5px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.03), rgb(255 255 255 / 0.07));
+    box-shadow:
+      inset 0 1px 2px rgb(0 0 0 / 0.6),
+      inset 0 0 0 1px rgb(255 255 255 / 0.06),
+      0 1px 0 rgb(255 255 255 / 0.05);
+  }
+  .cell + .cell {
+    margin-left: 5px;
+  }
+}
+
+.digits {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: 1.15em;
+  line-height: 1.15em;
+  font-family: var(--font-syne), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .digits {
+    font-size: 23px;
+  }
+}
+
+.slot {
+  position: relative;
+  display: inline-block;
+  width: 0.68em;
+  text-align: center;
+}
+
+.digit {
+  display: inline-block;
+  text-align: center;
+}
+
+.unit {
+  margin-left: 2px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: rgb(255 201 138 / 0.75);
+}
+
+@media (min-width: 768px) {
+  .unit {
+    font-size: 11.5px;
+  }
+}
+
+.desktopClock {
+  display: none;
+}
+
+.mobileLine {
+  display: flex;
+  height: 18px;
+  align-items: center;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .desktopClock {
+    display: flex;
+    align-items: center;
+  }
+  .mobileLine {
+    display: none;
+  }
+}
+
+/* Actions */
+.cta {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 48px;
+  min-width: 48px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffffff, #ece8e1);
+  color: #050608;
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    0 8px 22px -8px rgb(255 255 255 / 0.45);
+  transition:
+    box-shadow 200ms ease,
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 768px) {
+  .cta {
+    height: 56px;
+    padding: 0 22px 0 26px;
+  }
+}
+
+.ctaText {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .ctaText {
+    display: inline;
+  }
+}
+
+.ctaArrow {
+  width: 18px;
+  height: 18px;
+  transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.cta:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cta:hover {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.9),
+      0 10px 30px -6px rgb(255 163 58 / 0.6);
+  }
+  .cta:hover .ctaArrow {
+    transform: translateX(3px);
+  }
+}
+
+.min {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-left: -6px;
+  border-radius: 999px;
+  color: rgb(244 241 234 / 0.55);
+  transition: color 160ms ease, background-color 160ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .min:hover {
+    color: #fff;
+    background: rgb(255 255 255 / 0.08);
+  }
+}
+
+.cta:focus-visible,
+.min:focus-visible,
+.chip:focus-visible {
+  outline: 2px solid #ffa33a;
+  outline-offset: 3px;
+}
+
+/* Collapsed: the iris alone, with the time left on a tab. */
+.chip {
+  pointer-events: auto;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgb(14 16 22 / 0.96), rgb(3 4 8 / 0.96));
+  border: 1px solid rgb(255 163 58 / 0.35);
+  box-shadow: 0 16px 38px -10px rgb(0 0 0 / 0.75), 0 8px 20px -8px rgb(255 163 58 / 0.4);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.chip .iris {
+  width: 46px;
+  height: 46px;
+  margin: 0;
+}
+
+.chip .irisIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.chipTag {
+  position: absolute;
+  top: -7px;
+  right: -10px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: #fff;
+  color: #050608;
+  font-size: 10.5px;
+  font-weight: 800;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px -4px rgb(0 0 0 / 0.6);
+}
+
+.spacer {
+  height: 104px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock::after {
+    animation: none;
+    display: none;
+  }
+  .irisIcon,
+  .irisRing {
+    animation: none;
+  }
+}

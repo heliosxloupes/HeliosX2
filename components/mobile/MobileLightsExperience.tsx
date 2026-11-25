@@ -1,5 +1,6 @@
 'use client'
 
+import RegularPrice from '@/components/promo/RegularPrice'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Check, ChevronRight, Mail, Plus, ShoppingBag } from 'lucide-react'
 import Image from 'next/image'
@@ -110,7 +111,7 @@ export default function MobileLightsExperience() {
       {/* SHEET */}
       <section className="m2-sheet">
         <PromoBadge className="mb-3" />
-        <div className="m2-cap">Price</div>
+        <div className="m2-cap">Price <RegularPrice price={price} tone="paper" className="ml-1 normal-case tracking-normal" /></div>
         <div className="relative h-[36px] overflow-hidden" aria-live="polite">
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.div key={price} {...swap} transition={{ duration: 0.22, ease: EASE }} className="m2-price">

@@ -1,5 +1,6 @@
 'use client'
 
+import RegularPrice from '@/components/promo/RegularPrice'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Check, ChevronRight, Plus, Ruler, ShoppingBag } from 'lucide-react'
 import Image from 'next/image'
@@ -197,7 +198,7 @@ export default function MobileProductExperience({
         <PromoBadge className="mb-3" />
         <div className="flex items-end justify-between gap-3">
           <div className="min-w-0">
-            <div className="m2-cap">Price <span className="tab">{mag}</span></div>
+            <div className="m2-cap">Price <span className="tab">{mag}</span> <RegularPrice price={basePrice} extra={prescription ? PRESCRIPTION_PRICE : 0} tone="paper" className="ml-1 normal-case tracking-normal" /></div>
             <div className="relative h-[36px] overflow-hidden" aria-live="polite">
               <AnimatePresence mode="popLayout" initial={false}>
                 <motion.div key={total} {...swap} transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }} className="m2-price">

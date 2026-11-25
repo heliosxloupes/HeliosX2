@@ -1,5 +1,6 @@
 'use client'
 
+import RegularPrice from '@/components/promo/RegularPrice'
 import Image from 'next/image'
 import Link from 'next/link'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
@@ -243,7 +244,7 @@ function CollectionRow({ model }: { model: M2Model }) {
         <span className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#4d5f54]">{model.category}</span>
         <span className="flex items-baseline justify-between gap-2">
           <span className="text-[19px] font-extrabold tracking-[-0.03em]">{model.name}</span>
-          <span className="tab text-[14px] font-extrabold">{money(startingPrice(model.slug))}</span>
+          <span className="tab text-[14px] font-extrabold"><RegularPrice price={startingPrice(model.slug)} tone="paper" className="mr-1.5 text-[11.5px]" />{money(startingPrice(model.slug))}</span>
         </span>
         <span className="mt-0.5 line-clamp-2 text-[12.5px] leading-[1.35] text-[#26352d]"><span className="tab font-bold">{model.range.replace('-', '–')}</span> · {model.focus}</span>
       </span>

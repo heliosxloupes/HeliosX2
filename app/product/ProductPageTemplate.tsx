@@ -1,5 +1,6 @@
 'use client'
 
+import RegularPrice from '@/components/promo/RegularPrice'
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -852,8 +853,11 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
                 <PromoBadge tone="dark" className="mb-3" />
                 <div className="flex items-center justify-between text-sm text-neutral-200">
                   <span>{isAvailable ? 'Subtotal' : 'Pricing'}</span>
-                  <span className="font-semibold">
-                    {isAvailable ? `$${subtotal.toLocaleString('en-US')}.00` : priceLabel}
+                  <span className="flex items-baseline gap-2">
+                    {isAvailable && <RegularPrice price={currentUnitPrice} quantity={quantity} className="text-xs" />}
+                    <span className="font-semibold">
+                      {isAvailable ? `$${subtotal.toLocaleString('en-US')}.00` : priceLabel}
+                    </span>
                   </span>
                 </div>
                 {isAvailable && (

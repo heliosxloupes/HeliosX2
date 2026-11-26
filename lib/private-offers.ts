@@ -107,6 +107,53 @@ const taheriVega = (option: 'slim-6h' | 'pack-10h' | 'neck-4h', battery: string)
   lines: [vegaLine(option, battery)],
 })
 
+// Beverlyn: Medusa Ergo (factory "Ergo TTL") with swappable magnification lenses, one prescription for the frame.
+// Frame is $1,447; lens pairs and the prescription are at cost. Quoted 2026-11-26.
+const ERGO_TTL_LENSES = {
+  '3.5x': { price: 118, detail: '3.5×, 70–90 mm field, 150 mm depth of field' },
+  '4.5x': { price: 198, detail: '4.5×, 60–80 mm field, 100 mm depth of field' },
+  '5.5x': { price: 285, detail: '5.5×, 50–70 mm field, 90 mm depth of field' },
+  '6.5x': { price: 395, detail: '6.5×, 50–70 mm field, 80 mm depth of field' },
+} as const
+
+type ErgoTtlMag = keyof typeof ERGO_TTL_LENSES
+
+const ergoTtlOffer = (id: string, mags: ErgoTtlMag[]): PrivateOffer => ({
+  id,
+  greeting: `Beverlyn, your Medusa with ${mags.length} interchangeable magnifications is ready.`,
+  discountNote:
+    'One prescription frame with magnetic lenses you swap in seconds. Before production we confirm your full prescription, PD and working distance with you, and you can cancel for a full refund until then.',
+  lightsOnly: false,
+  shippingCountries: WORLDWIDE_SHIPPING_COUNTRIES,
+  lines: [
+    {
+      name: 'Medusa Ergonomic Prismatic Loupes',
+      description: 'Interchangeable-magnification frame with magnetic lens mount',
+      image: '/offers/ergo-ttl/frame.jpg',
+      price: 1447,
+      percentOff: 0,
+      metadata: { productSlug: 'ergo-ttl', frameStyle: 'Medusa Ergo interchangeable', magnification: mags.join(' / ') },
+    },
+    ...mags.map(
+      (mag): OfferLine => ({
+        name: `${mag.replace('x', '×')} Magnification Lenses`,
+        description: ERGO_TTL_LENSES[mag].detail,
+        image: `/offers/ergo-ttl/lens-${mag}.jpg`,
+        price: ERGO_TTL_LENSES[mag].price,
+        percentOff: 0,
+        metadata: { productSlug: 'ergo-ttl-lens', magnification: mag, isAddon: 'true' },
+      })
+    ),
+    {
+      name: 'Prescription Lenses',
+      description: 'Built into the frame once, works with every magnification',
+      price: PRESCRIPTION_PRICE,
+      percentOff: 0,
+      metadata: { productSlug: 'prescription-lenses', isAddon: 'true' },
+    },
+  ],
+})
+
 /**
  * Hand-built checkouts sent to one customer. The key is the URL token, so keep
  * it unguessable. Amounts are decided here and on Stripe, never by the browser.
@@ -203,6 +250,10 @@ const offers: Record<string, PrivateOffer> = {
     '3.5×, JJ04 Black frame, 37 g with frame',
     'JJ04'
   ),
+  // $1,447 + $601 lenses + $200 Rx = $2,248.
+  'dVgb-hxcXlsZ': ergoTtlOffer('ergo-ttl-3mag-rx-beverlyn', ['3.5x', '4.5x', '5.5x']),
+  // $1,447 + $996 lenses + $200 Rx = $2,643.
+  FRq3OYoX9qCZ: ergoTtlOffer('ergo-ttl-4mag-rx-beverlyn', ['3.5x', '4.5x', '5.5x', '6.5x']),
   RhWb_mEPEhg7: {
     id: 'galileo-rx-evans',
     greeting: 'Sally, your Galileo loupes are ready.',

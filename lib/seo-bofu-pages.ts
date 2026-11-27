@@ -120,7 +120,7 @@ const hygHighNova = price('galileo', '3.5x') + novaBundled
 const modelRows = (models: string[]): string[][] => {
   const row: Record<string, string[]> = {
     newton: ['Newton', 'Galilean', '2.5x–3.5x', '40–50 g', range('newton')],
-    galileo: ['Galileo', 'Galilean', '2.5x–3.5x', '—', range('galileo')],
+    galileo: ['Galileo', 'Galilean', '2.5x–3.5x', '35–37 g', range('galileo')],
     kepler: ['Kepler', 'Prismatic', '4.0x–6.0x', '68–85 g', range('kepler')],
     apollo: ['Apollo', 'Ergonomic prismatic', '3.0x–6.0x', '55–58 g', range('apollo')],
     medusa: ['Medusa', 'Ergonomic prismatic, adjustable distance', '3.0x–8.5x', '56–65 g', range('medusa')],

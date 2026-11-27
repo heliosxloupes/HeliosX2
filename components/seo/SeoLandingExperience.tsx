@@ -66,6 +66,9 @@ export default function SeoLandingExperience({
     alt: `HeliosX ${imageKey} loupes`,
     caption: `${imageKey} · From ${usd(productStartingPrices[imageKey])} USD`,
   }
+  // "Galileo · From $795 USD": shoppers tap the model name, so it opens that product.
+  const heroModel = hero.caption.split(' ')[0]?.toLowerCase()
+  const heroProduct = heroModel && modelBySlug(heroModel) ? heroModel : null
   const words = [
     page.intro,
     page.answer ?? '',
@@ -154,7 +157,13 @@ export default function SeoLandingExperience({
                 sizes="(max-width: 767px) calc(100vw - 40px), 440px"
                 quality={90}
               />
-              <p className={styles.heroCaption}>{hero.caption}</p>
+              {heroProduct ? (
+                <Link href={`/product/${heroProduct}`} className={`${styles.heroCaption} ${styles.heroCaptionLink}`}>
+                  {hero.caption} <span aria-hidden="true">→</span>
+                </Link>
+              ) : (
+                <p className={styles.heroCaption}>{hero.caption}</p>
+              )}
             </div>
           </header>
           <nav aria-label="On this page" className={styles.nav}>

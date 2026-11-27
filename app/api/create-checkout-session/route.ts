@@ -2,6 +2,8 @@ import { sendMetaEvent } from '@/lib/meta-conversions'
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
+import { gaClientIdFromCookie, gaSessionIdFromCookies } from '@/lib/ga4-server'
+
 import { BATTERIES, cordlessOptionName, lightBySlug } from '@/lib/lights'
 import {
   LIGHT_BUNDLE_PERCENT_OFF,
@@ -209,6 +211,9 @@ export async function POST(req: Request) {
         clientUserAgent,
         fbp: String(cookies._fbp ?? '').slice(0, 200),
         fbc: String(cookies._fbc ?? '').slice(0, 200),
+        // GA4 ids, so the server-side purchase (lib/ga4-server.ts) joins this visit.
+        gaClientId: gaClientIdFromCookie(cookies._ga),
+        gaSessionId: gaSessionIdFromCookies(cookies),
       },
       return_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     })

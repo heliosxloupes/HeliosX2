@@ -106,12 +106,14 @@ export const MODELS: M2Model[] = [
     facts: [
       ['Working distance', '300 to 580 mm'],
       ['Depth of field', '200 mm'],
+      ['Weight', '35 to 37 g with frame'],
       ['Pupil distance range', '54 to 72 mm'],
     ],
+    // Weights as published in lib/product-faqs.ts ("Galileo with frame is 35–37 g").
     optics: {
-      '2.5x': { field: '150 to 170 mm', depth: '200 mm' },
-      '3.0x': { field: '130 to 150 mm', depth: '200 mm' },
-      '3.5x': { field: '110 to 130 mm', depth: '200 mm' },
+      '2.5x': { field: '150 to 170 mm', depth: '200 mm', weight: '35 g' },
+      '3.0x': { field: '130 to 150 mm', depth: '200 mm', weight: '36 g' },
+      '3.5x': { field: '110 to 130 mm', depth: '200 mm', weight: '37 g' },
     },
   },
   {

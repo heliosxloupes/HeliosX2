@@ -3,6 +3,7 @@ import Stripe from 'stripe'
 
 import { processCheckoutSessionCompleted } from '@/lib/order-confirmation'
 import { sendMetaPurchase } from '@/lib/meta-conversions'
+import { sendGa4Purchase } from '@/lib/ga4-server'
 import { getSupabaseServiceClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
@@ -48,5 +49,13 @@ export async function POST(req: Request) {
       })
     : { sent: false, reason: 'order_not_available' }
 
-  return NextResponse.json({ received: true, ...result, meta })
+  const ga4 = result.order
+    ? await sendGa4Purchase({
+        session,
+        orderId: String(result.order.id),
+        items: Array.isArray(result.order.items) ? result.order.items : [],
+      })
+    : { sent: false, reason: 'order_not_available' }
+
+  return NextResponse.json({ received: true, ...result, meta, ga4 })
 }

@@ -42,7 +42,7 @@ const faq = (question: string, answer: string): ContentFaq => ({ question, answe
 type ModelRow = { model: string; optics: string; mags: string; weight: string; distance: string; bestFor: string }
 const models: ModelRow[] = [
   { model: 'newton', optics: 'Galilean', mags: '2.5x–3.5x', weight: '40–50 g with frame', distance: 'Fixed, measured to you', bestFor: 'Lowest-priced first pair' },
-  { model: 'galileo', optics: 'Galilean', mags: '2.5x–3.5x', weight: '35–37 g', distance: 'Fixed, measured to you', bestFor: 'Everyday dental and surgical work; six frame styles included' },
+  { model: 'galileo', optics: 'Galilean', mags: '2.5x–3.5x', weight: '35–37 g with frame', distance: 'Fixed, measured to you', bestFor: 'Everyday dental and surgical work; six frame styles included' },
   { model: 'kepler', optics: 'Conventional prismatic', mags: '4.0x–6.0x', weight: '68–85 g with frame', distance: 'Fixed, measured to you', bestFor: 'Fine detail at higher magnification' },
   { model: 'apollo', optics: 'Ergonomic prismatic', mags: '3.0x–6.0x', weight: '55–58.2 g with frame', distance: 'Fixed: 420, 450, 500 or 550 mm', bestFor: 'A more upright head in one working position' },
   { model: 'medusa', optics: 'Ergonomic prismatic', mags: '3.0x–8.5x', weight: '56–65 g with frame', distance: 'Adjustable, 300–600 mm', bestFor: 'Switching between sitting and standing' },
@@ -67,7 +67,7 @@ const modelTable = (
       bestFor[row.model] ?? row.bestFor,
       priceRange(row.model),
     ]),
-  note: `Prescription lenses add ${usd(PRESCRIPTION_PRICE)}. Verified students, residents and fellows get ${TRAINEE_PERCENT_OFF}% off. Weights are as published on each product page; Galileo's figure does not state whether the frame is included.`,
+  note: `Prescription lenses add ${usd(PRESCRIPTION_PRICE)}. Verified students, residents and fellows get ${TRAINEE_PERCENT_OFF}% off. Weights are for the complete pair with frame, as published on each product page.`,
 })
 
 const lightTable: NonNullable<SeoLandingPage['specTable']> = {
@@ -416,7 +416,7 @@ export const oct28NewPages: SeoLandingPage[] = [
     primaryKeyword: 'lightweight dental loupes',
     relatedKeywords: ['lightest dental loupes', 'lightweight surgical loupes', 'dental loupe weight comparison', 'lightweight loupes', 'lightweight ergonomic loupes'],
     audience: 'dentists, hygienists and students who wear loupes for long days',
-    answer: `The lightest dental loupes are Galilean pairs at 2.5x–3.5x. HeliosX Newton weighs 40–50 g with frame and Galileo is listed at 35–37 g; ergonomic prismatic Apollo and Medusa weigh 55–65 g with frame, and conventional prismatic Kepler 68–85 g. Before comparing any brand, check whether the figure includes the frame, a light and prescription lenses.`,
+    answer: `The lightest dental loupes are Galilean pairs at 2.5x–3.5x. HeliosX Newton weighs 40–50 g with frame and Galileo weighs 35–37 g with frame; ergonomic prismatic Apollo and Medusa weigh 55–65 g with frame, and conventional prismatic Kepler 68–85 g. Before comparing any brand, check whether the figure includes the frame, a light and prescription lenses.`,
     intro: 'Weight decides whether you keep loupes on through a full day. The catch is that brands quote weight on different bases, so a lower number is not always a lighter pair on your face.',
     specTable: modelTable('Dental loupe weights by model', ['newton', 'galileo', 'kepler', 'apollo', 'medusa']),
     proofPoints: ['Weights as published for each HeliosX model.', 'Galilean pairs are the lightest.', 'Lights add 10–29 g.'],
@@ -424,7 +424,7 @@ export const oct28NewPages: SeoLandingPage[] = [
       section(
         'What a published weight includes',
         'Some brands quote one eyepiece, some the optics without a frame, and some the whole pair. Ask for the weight of the complete pair you would wear: frame, both barrels, prescription lenses and any light.',
-        ['Optic-only figures can look half the size of a full-pair figure.', 'Prescription lenses add weight, more for strong prescriptions.', "Galileo's listed 35–37 g does not state whether it includes the frame."],
+        ['Optic-only figures can look half the size of a full-pair figure.', 'Prescription lenses add weight, more for strong prescriptions.'],
       ),
       section(
         'A light changes the total',
@@ -439,7 +439,7 @@ export const oct28NewPages: SeoLandingPage[] = [
     ],
     recommendedProducts: ['Galileo', 'Newton', 'Apollo'],
     faqs: [
-      faq('What are the lightest HeliosX loupes?', 'Galileo is listed at 35–37 g and Newton at 40–50 g with frame. Both are Galilean, 2.5x–3.5x.'),
+      faq('What are the lightest HeliosX loupes?', 'Galileo weighs 35–37 g and Newton 40–50 g, both with frame. Both are Galilean, 2.5x–3.5x.'),
       faq('How much do dental loupes weigh?', 'Galilean pairs usually weigh around 35–50 g and prismatic pairs more, depending on magnification, frame and whether a light is attached. Compare complete-pair weights.'),
     ],
     datePublished: updated,

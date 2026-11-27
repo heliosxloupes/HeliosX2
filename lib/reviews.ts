@@ -676,8 +676,16 @@ export const reviews: Review[] = [
   },
 ]
 
+/**
+ * Reviews are off sitewide (owner decision, 26 Nov 2026): the entries above are
+ * not from verified HeliosX buyers, so no page shows them and no structured data
+ * carries a rating. Real buyer reviews (Google Customer Reviews / Trustpilot)
+ * replace them later; add those to `publishedReviews` only once confirmed.
+ */
+const publishedReviews: Review[] = []
+
 export function getProductReviews(slug: string): Review[] {
-  return reviews
+  return publishedReviews
     .filter((review) => review.productSlug === slug)
     .sort((a, b) => b.datePublished.localeCompare(a.datePublished))
 }

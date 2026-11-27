@@ -1,13 +1,14 @@
-import { getSupabaseServiceClient } from '@/lib/supabase/server'
+import Stripe from 'stripe'
 import { productNameBySlug } from '@/lib/pricing'
 import { HEADLIGHTS, lightBySlug } from '@/lib/lights'
 
 /**
- * Real recent orders for the sitewide "recent order" toast.
+ * Real recent orders for the sitewide "recent order" toast, read straight
+ * from Stripe: the record of what was actually paid.
  *
  * Only what the toast shows leaves the server: product, magnification,
  * shipping country (ISO code) and the day it was paid. No name, email, city,
- * order id or amount. Paid orders only; cancelled and refunded ones are skipped.
+ * order id or amount. Paid, live checkouts only; refunded ones are skipped.
  */
 
 export type RecentPurchase = {
@@ -39,27 +40,27 @@ const LOUPE_IMAGES: Record<string, string> = {
 }
 const headlightSlugs = new Set<string>(HEADLIGHTS.map((light) => light.slug))
 
-type OrderRow = {
-  paid_at: string | null
-  created_at: string
-  items: Array<{ productMetadata?: Record<string, string> }> | null
-  shipping_details: { address?: { country?: string | null } | null } | null
-  billing_details: { address?: { country?: string | null } | null } | null
+type Meta = Record<string, string | undefined>
+
+function productMeta(item: Stripe.LineItem): Meta {
+  const product = item.price?.product
+  if (!product || typeof product !== 'object' || 'deleted' in product) return {}
+  return product.metadata ?? {}
 }
 
-function toPurchase(order: OrderRow): RecentPurchase | null {
-  const country = (
-    order.shipping_details?.address?.country ??
-    order.billing_details?.address?.country ??
-    ''
+function toPurchase(session: Stripe.Checkout.Session, lineItems: Stripe.LineItem[]): RecentPurchase | null {
+  const shipping =
+    (session as any).shipping_details ?? (session as any).collected_information?.shipping_details ?? null
+  const country = String(
+    shipping?.address?.country ?? session.customer_details?.address?.country ?? '',
   ).toUpperCase()
   if (!/^[A-Z]{2}$/.test(country)) return null
 
   // The headline is the main product, not an add-on or a bundled light.
-  const items = (order.items ?? []).map((item) => item.productMetadata ?? {})
+  const metas = lineItems.map(productMeta)
   const main =
-    items.find((meta) => meta.isAddon !== 'true' && meta.isLight !== 'true' && meta.productSlug) ??
-    items.find((meta) => meta.isAddon !== 'true' && meta.productSlug)
+    metas.find((meta) => meta.isAddon !== 'true' && meta.isLight !== 'true' && meta.productSlug) ??
+    metas.find((meta) => meta.isAddon !== 'true' && meta.productSlug)
   if (!main?.productSlug) return null
 
   const slug = main.productSlug
@@ -78,29 +79,48 @@ function toPurchase(order: OrderRow): RecentPurchase | null {
     kind: !isLight ? 'loupes' : headlightSlugs.has(slug) ? 'headlight' : 'light',
     image,
     country,
-    day: (order.paid_at ?? order.created_at).slice(0, 10),
+    day: new Date(session.created * 1000).toISOString().slice(0, 10),
   }
 }
 
+function isRefunded(session: Stripe.Checkout.Session) {
+  const intent = session.payment_intent
+  if (!intent || typeof intent !== 'object') return false
+  const charge = intent.latest_charge
+  return Boolean(charge && typeof charge === 'object' && charge.amount_refunded > 0)
+}
+
 export async function getRecentPurchases(): Promise<RecentPurchase[]> {
-  const supabase = getSupabaseServiceClient()
-  if (!supabase) return []
+  const key = process.env.STRIPE_SECRET_KEY
+  if (!key) return []
+  const stripe = new Stripe(key, { apiVersion: '2024-06-20' as any })
 
-  const since = new Date(Date.now() - WINDOW_DAYS * 86_400_000).toISOString()
-  const { data, error } = await supabase
-    .from('orders')
-    .select('paid_at,created_at,items,shipping_details,billing_details')
-    .eq('payment_status', 'paid')
-    .not('status', 'in', '(cancelled,refunded)')
-    .gt('total', 0)
-    .gte('created_at', since)
-    .order('created_at', { ascending: false })
-    .limit(MAX_ITEMS * 3)
+  try {
+    const since = Math.floor((Date.now() - WINDOW_DAYS * 86_400_000) / 1000)
+    const sessions = await stripe.checkout.sessions.list({
+      status: 'complete',
+      created: { gte: since },
+      limit: MAX_ITEMS * 2,
+      expand: ['data.payment_intent.latest_charge'],
+    })
 
-  if (error || !data) return []
+    const paid = sessions.data
+      .filter((session) => session.livemode && session.payment_status === 'paid' && (session.amount_total ?? 0) > 0)
+      .filter((session) => !isRefunded(session))
 
-  return (data as OrderRow[])
-    .map(toPurchase)
-    .filter((purchase): purchase is RecentPurchase => purchase !== null)
-    .slice(0, MAX_ITEMS)
+    const purchases = await Promise.all(
+      paid.map(async (session) => {
+        const items = await stripe.checkout.sessions.listLineItems(session.id, {
+          limit: 20,
+          expand: ['data.price.product'],
+        })
+        return toPurchase(session, items.data)
+      }),
+    )
+
+    return purchases.filter((purchase): purchase is RecentPurchase => purchase !== null).slice(0, MAX_ITEMS)
+  } catch (error) {
+    console.error('recent-purchases: Stripe read failed', error)
+    return []
+  }
 }

@@ -8919,7 +8919,7 @@ const B = {
   // 16 Nov: the two "best" pages being pushed. Labels are the search itself.
   bestDental: relatedLink('/best-dental-loupe-brands', 'Best dental loupes', 'Eight brands compared by price, weight and magnification.'),
   bestErgo: relatedLink('/ergonomic-loupes', 'Best ergonomic loupes', 'Every major brand’s ergonomic line, compared.'),
-  surgicalHub: relatedLink('/surgical-loupes', 'Surgical loupes', 'Types, magnification chart and every price.'),
+  surgicalHub: relatedLink('/best-surgical-loupe-brands', 'Best surgical loupes: 8 brands compared', 'Price, weight and magnification, brand by brand.'),
   dentalHub: relatedLink('/dental-loupes', 'Dental loupes', 'Types, magnification chart and every price.'),
   vs: (brand: string, slug: string) => relatedLink(`/heliosx-vs-${slug}`, `HeliosX vs ${brand}`, `${brand} and HeliosX, spec by spec.`),
   alternatives: (brand: string, slug: string) => relatedLink(`/${slug}-alternatives`, `${brand} alternatives`, `Other loupes worth comparing with ${brand}.`),
@@ -8930,7 +8930,7 @@ const buyerLinks: Record<string, RelatedPage[]> = {
   'dental-loupes': [B.bestDental, B.bestErgo, B.buy, B.custom, B.lights],
   'surgical-loupes': [B.buy, B.custom, B.bestErgo],
   'best-loupes': [B.bestDental, B.bestErgo, B.buy, B.custom],
-  'best-surgical-loupe-brands': [B.surgicalHub, B.bestDental, B.bestErgo],
+  'best-surgical-loupe-brands': [B.bestDental, B.bestErgo],
   'how-much-do-surgical-loupes-cost': [B.surgicalHub, B.dentalHub, B.plans, B.buy, B.dfvPrice],
   'are-surgical-loupes-worth-it': [B.surgicalHub],
   'surgical-loupes-with-light': [B.surgicalHub, B.surgicalHeadlights, B.headlights],

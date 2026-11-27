@@ -50,7 +50,8 @@ export const translatedPages: Partial<Record<Locale, string>>[] = [
   // Wave 2 (2026-11-11): the highest-impression English pages.
   { en: '/best-dental-loupe-brands', es: '/es/mejores-lupas-dentales', pt: '/pt/melhor-lupa-odontologica' },
   { en: '/best-surgical-loupe-brands', es: '/es/mejores-lupas-quirurgicas', pt: '/pt/melhor-lupa-cirurgica' },
-  { en: '/surgical-loupes', es: '/es/lupas-quirurgicas', pt: '/pt/lupa-cirurgica' },
+  // /surgical-loupes merged into /best-surgical-loupe-brands (2026-11-26); its twins pair only with each other.
+  { es: '/es/lupas-quirurgicas', pt: '/pt/lupa-cirurgica' },
   { en: '/dental-loupes-with-light', es: '/es/lupas-dentales-con-luz', pt: '/pt/lupa-odontologica-com-fotoforo' },
   { en: '/dental-loupes-price', es: '/es/precio-lupas-dentales', pt: '/pt/lupa-odontologica-preco' },
 ]

@@ -86,7 +86,7 @@ describe('Markdown route', () => {
   })
 
   it('renders products, guides, trust pages and the FAQ', () => {
-    for (const path of ['/product', '/product/medusa', '/about', '/contact', '/faq', '/education', '/surgical-loupes', '/education/loupe-magnification-guide']) {
+    for (const path of ['/product', '/product/medusa', '/about', '/contact', '/faq', '/education', '/best-surgical-loupe-brands', '/education/loupe-magnification-guide']) {
       const page = renderPageMarkdown(path)
       expect(page.status, path).toBe(200)
       expect(page.body.length, path).toBeGreaterThan(200)

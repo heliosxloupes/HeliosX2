@@ -10,7 +10,6 @@ export const dynamic = 'force-static'
 // pages that now redirect, and described every model as ergonomic prismatic.
 
 const buyingGuides = new Set([
-  'surgical-loupes',
   'dental-loupes',
   'best-loupes',
   'affordable-loupes',

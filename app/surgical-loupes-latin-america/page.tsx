@@ -221,7 +221,7 @@ export default function LatinAmericaPage() {
           </section>
 
           <p className="text-sm text-neutral-500">
-            More guides: <Link href="/surgical-loupes" className="underline underline-offset-4">surgical loupes</Link>,{' '}
+            More guides: <Link href="/best-surgical-loupe-brands" className="underline underline-offset-4">surgical loupes</Link>,{' '}
             <Link href="/dental-loupes" className="underline underline-offset-4">dental loupes</Link>,{' '}
             <Link href="/surgical-loupes-international-shipping" className="underline underline-offset-4">international shipping</Link>,{' '}
             <Link href="/returns" className="underline underline-offset-4">returns</Link>.

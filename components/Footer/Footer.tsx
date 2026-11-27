@@ -10,7 +10,7 @@ import PreferredSourceButton from './PreferredSourceButton'
 
 const exploreLinks = [
   { label: 'All loupes', href: '/product' },
-  { label: 'Surgical loupes', href: '/surgical-loupes' },
+  { label: 'Surgical loupes', href: '/best-surgical-loupe-brands' },
   { label: 'Dental loupes', href: '/dental-loupes' },
   { label: 'Affordable loupes', href: '/affordable-loupes' },
   { label: 'Best loupes', href: '/best-loupes' },

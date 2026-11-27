@@ -21,7 +21,7 @@ import { educationGuides, getEducationGuide } from '@/lib/seo-content'
 const shopByLinks: ShopByLink[] = [
   {
     label: 'Surgical loupes',
-    href: '/surgical-loupes',
+    href: '/best-surgical-loupe-brands',
     description: 'Ergonomic prismatic systems built for surgeons, residents, and procedural specialists.',
   },
   {

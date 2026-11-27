@@ -61,7 +61,7 @@ function MobileNav() {
   const navItems = [
     { href: "/product", label: "Shop now" },
     { href: "/product/lights", label: "Lights" },
-    { href: "/surgical-loupes", label: "Surgical" },
+    { href: "/best-surgical-loupe-brands", label: "Surgical" },
     { href: "/dental-loupes", label: "Dental" },
     { href: "/education", label: "Education" },
     { href: "/loupe-comparisons", label: "Compare" },
@@ -239,7 +239,7 @@ function MobileNav() {
                     </li>
                     <li>
                       <Link
-                        href="/surgical-loupes"
+                        href="/best-surgical-loupe-brands"
                         onClick={() => setOpen(false)}
                         className="hover:text-white transition"
                       >
@@ -293,7 +293,7 @@ function MobileNav() {
 const desktopNavItems = [
   { href: '/product', label: 'Loupes' },
   { href: '/product/lights', label: 'Lights' },
-  { href: '/surgical-loupes', label: 'Surgical' },
+  { href: '/best-surgical-loupe-brands', label: 'Surgical' },
   { href: '/dental-loupes', label: 'Dental' },
   { href: '/education', label: 'Education' },
   { href: '/loupe-comparisons', label: 'Compare' },

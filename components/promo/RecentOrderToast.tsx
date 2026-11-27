@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useAnimationControls, useReducedMotion } from 'framer-motion'
 import { MapPin, X } from 'lucide-react'
 import { FaStripe } from 'react-icons/fa'
 
@@ -271,8 +271,10 @@ export default function RecentOrderToast() {
     return () => document.removeEventListener('visibilitychange', onVisibility)
   }, [])
 
-  // Swipe up on a phone: no more cards this visit (the desktop X hides them for days).
+  // Swipe up (or sideways) on a phone: no more cards this visit, like clearing
+  // an iPhone banner. The desktop X hides them for days.
   const dragged = useRef(false)
+  const swipe = useAnimationControls()
   const skip = () => {
     window.clearTimeout(timer.current)
     const state = readJSON<{ next: number }>('session', STATE_KEY) ?? { next: 0 }
@@ -347,17 +349,29 @@ export default function RecentOrderToast() {
           {/* Inner layer owns the swipe, so it never fights the enter/exit transform. */}
           <motion.div
             className={`${styles.card} ${paused ? styles.paused : ''}`}
-            drag={isPhone ? 'y' : false}
-            dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={{ top: 0.7, bottom: 0.06 }}
-            dragSnapToOrigin
+            animate={swipe}
+            drag={isPhone}
+            dragDirectionLock
+            dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+            dragElastic={{ top: 0.9, bottom: 0.08, left: 0.9, right: 0.9 }}
             onDragStart={() => {
               dragged.current = true
               setPaused(true)
             }}
             onDragEnd={(_, info) => {
-              if (info.offset.y < -28 || info.velocity.y < -260) skip()
-              else setPaused(false)
+              const { offset, velocity } = info
+              const up = offset.y < -24 || velocity.y < -250
+              const side = Math.abs(offset.x) > 70 || Math.abs(velocity.x) > 400
+              if (up || side) {
+                // Throw it off-screen at the finger's speed, then clear it.
+                const to = up
+                  ? { y: -160, x: offset.x * 0.3, transition: { type: 'spring', bounce: 0, duration: 0.32, velocity: velocity.y } }
+                  : { x: Math.sign(offset.x || velocity.x) * 460, transition: { type: 'spring', bounce: 0, duration: 0.34, velocity: velocity.x } }
+                swipe.start({ ...to, opacity: 0 } as any).then(skip)
+              } else {
+                swipe.start({ x: 0, y: 0, transition: { type: 'spring', bounce: 0.25, duration: 0.4 } })
+                setPaused(false)
+              }
               window.setTimeout(() => (dragged.current = false), 0)
             }}
             onPointerEnter={(e) => e.pointerType === 'mouse' && setPaused(true)}

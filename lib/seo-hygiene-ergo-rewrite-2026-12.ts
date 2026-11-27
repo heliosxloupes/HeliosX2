@@ -115,7 +115,7 @@ const hygiene: Partial<SeoLandingPage> = {
           `The trade-off: about twice the price of Galileo (${at('medusa', '3.0x')} at 3.0x), and most hygienists do not need more than 3.5x. Choose it for posture and flexibility, not for magnification.`,
         ],
         bestFor: ['Neck strain', 'Changing operatories', 'Ergonomic-first buyers'],
-        cta: { text: 'Frames, magnifications and prices:', label: 'Medusa', href: '/product/medusa' },
+        cta: { text: 'See Medusa', label: 'Medusa', href: '/product/medusa' },
       },
     ],
   },
@@ -206,8 +206,6 @@ const ergonomic = (current: SeoLandingPage): Partial<SeoLandingPage> => {
     metaTitle: 'Ergonomic Loupes Compared: Head Angle, Weight & Price | HeliosX',
     description: `Look down without bending your neck. Ergonomic loupes compared by head angle, weight and price, with the research. Medusa adjusts 300–600 mm, from ${from('medusa')}.`,
     answer: `Ergonomic loupes angle the image inside the barrel, so you look down at the field while your head stays close to upright. They come as deflection prisms, angled prismatic loupes, or conventional loupes with a steep declination angle. Most dentists choose 3.0x–4.0x. If you switch between sitting and standing, choose an adjustable working distance: HeliosX Medusa adjusts from 300 to 600 mm.`,
-    intro:
-      'Every ergonomic loupe here is compared the same way: how upright it keeps your head, what it weighs with the frame, and what it costs. Start with your day, then the two HeliosX pairs, then every other brand side by side.',
     compact: true,
     why: {
       title: 'Why ergonomic loupes matter',
@@ -218,12 +216,6 @@ const ergonomic = (current: SeoLandingPage): Partial<SeoLandingPage> => {
     },
     comparisonRows: undefined,
     verdict: undefined,
-    // Owner preference (27 Nov): Medusa is the suggested ergonomic pair.
-    procedureRows: current.procedureRows?.map((row) =>
-      row.pick.startsWith('/product/apollo')
-        ? { ...row, pick: row.pick.replace(/\/product\/apollo at ([^,]+).*/, (_m, mag: string) => `/product/medusa at ${mag}, from ${from('medusa')}`) }
-        : row,
-    ),
     quickPicks: {
       title: 'What does your day look like?',
       rows: [
@@ -250,7 +242,7 @@ const ergonomic = (current: SeoLandingPage): Partial<SeoLandingPage> => {
             `The trade-off: the highest price in the range (${range('medusa')}), and more adjustment than you need if you always work at one distance.`,
           ],
           bestFor: ['Sitting and standing', 'Shared OR tables', 'High magnification up to 8.5x'],
-          cta: { text: 'Frames, magnifications and prices:', label: 'Medusa', href: '/product/medusa' },
+          cta: { text: 'See Medusa', label: 'Medusa', href: '/product/medusa' },
         },
         {
           id: 'apollo',
@@ -265,7 +257,7 @@ const ergonomic = (current: SeoLandingPage): Partial<SeoLandingPage> => {
             'The trade-off: if you change position between cases, a fixed distance cannot follow you, and you lean again to find focus.',
           ],
           bestFor: ['Seated dentistry', 'Endodontics and restorative', 'One working distance'],
-          cta: { text: 'Frames, magnifications and prices:', label: 'Apollo', href: '/product/apollo' },
+          cta: { text: 'See Apollo', label: 'Apollo', href: '/product/apollo' },
         },
       ],
     },

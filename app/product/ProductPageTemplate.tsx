@@ -499,7 +499,11 @@ export default function ProductPageTemplate({ config }: { config: ProductPageCon
   // No email wall here: the bag asks for it right before payment (as on
   // phones) and saves it to the CRM through /api/cart-session.
   const handleAddToCart = async () => {
-    if (await addConfiguredItem(capturedEmail)) router.push('/cart')
+    if (!(await addConfiguredItem(capturedEmail))) return
+    // Edits opened from checkout ("Change frame or colour") go straight back there.
+    const backToCheckout =
+      editIndex !== null && new URLSearchParams(window.location.search).get('return') === 'checkout'
+    router.push(backToCheckout ? '/checkout' : '/cart')
   }
 
   const scrollToTech = () => {

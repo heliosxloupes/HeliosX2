@@ -11,7 +11,8 @@ import TrustRow from '@/components/cart/TrustRow'
 import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 import CopyEmail from '@/components/Contact/CopyEmail'
 import Header from '@/components/Header'
-import { getCart } from '@/lib/cart'
+import Link from 'next/link'
+import { cartEditHref, getCart } from '@/lib/cart'
 import { getEffectiveConsent } from '@/lib/consent'
 import { PRESCRIPTION_PRICE, lineUnitPrice } from '@/lib/pricing'
 
@@ -489,13 +490,25 @@ export default function CheckoutPage() {
                           {(item.magnification || item.selectedMagnification) && (
                             <span>Mag: {item.magnification || item.selectedMagnification}</span>
                           )}
-                          {item.frameStyle && (
+                          {item.frameStyle ? (
                             <span>Frame: {item.frameStyle}</span>
-                          )}
+                          ) : item.selectedFrameName ? (
+                            <span>Frame: {item.selectedFrameName.replace(' - ', ', ')}</span>
+                          ) : null}
                           {item.frameColor && (
                             <span>Color: {item.frameColor}</span>
                           )}
                         </div>
+                      )}
+                      {/* Google Shopping checkout links bag the default frame, so
+                          make it easy to pick another before paying. */}
+                      {!item.isAddon && !item.isLight && (
+                        <Link
+                          href={`${cartEditHref(item as Parameters<typeof cartEditHref>[0], idx)}&return=checkout`}
+                          className="mt-1.5 inline-block text-[0.7rem] text-emerald-200 underline decoration-emerald-200/30 underline-offset-4 transition-colors duration-150 hover:text-emerald-100"
+                        >
+                          Change frame or colour
+                        </Link>
                       )}
                       <div className="mt-2 flex items-center justify-between text-xs text-neutral-300">
                         <span>Qty: {item.quantity}</span>

@@ -156,7 +156,11 @@ export default function MobileProductExperience({
   }
 
   const buyNow = () => {
-    if (commit()) router.push('/cart')
+    if (!commit()) return
+    // Edits opened from checkout ("Change frame or colour") go straight back there.
+    const backToCheckout =
+      editIndex !== null && new URLSearchParams(window.location.search).get('return') === 'checkout'
+    router.push(backToCheckout ? '/checkout' : '/cart')
   }
 
   const swap = reduceMotion

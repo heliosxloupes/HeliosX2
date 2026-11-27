@@ -649,6 +649,41 @@
   margin-top: 12px;
   line-height: 1.6;
 }
+/* Clinician quote: a quiet left rule, no card. */
+.article .quote {
+  margin-top: 32px;
+  padding-left: 22px;
+  border-left: 2px solid rgba(34, 197, 156, 0.55);
+}
+.article .quote blockquote p {
+  margin-top: 14px;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #e4ebe6;
+}
+.article .quote blockquote p:first-child {
+  margin-top: 0;
+}
+.article .quote .quoteHead {
+  font-size: 19px;
+  font-weight: 600;
+  color: #f2f5f3;
+}
+.article .quote figcaption {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #c7d1cb;
+}
+.article .quote figcaption strong {
+  color: #f2f5f3;
+  font-weight: 600;
+}
+.article .quote .quoteNote {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #9eb0a3;
+}
 .aside {
   align-self: start;
   position: sticky;
@@ -857,6 +892,11 @@
   .article { border-color: rgba(8, 38, 27, 0.12); }
   .article a, .fineprint a, .aside a { color: #0b6b53; }
   .article figure img { border-radius: 18px; }
+  .article .quote { border-color: rgba(11, 107, 83, 0.45); }
+  .article .quote blockquote p { color: #14231d; }
+  .article .quote .quoteHead, .article .quote figcaption strong { color: #08261b; }
+  .article .quote figcaption { color: #2b3a32; }
+  .article .quote .quoteNote { color: #56665d; }
   .aside { background: #14231d; border-color: transparent; border-radius: 22px; color: #eef0ec; }
   .aside h2 { color: #eef0ec; }
   .aside p { color: rgba(238, 240, 236, 0.78); }

@@ -13,6 +13,14 @@ export type ContentSection = {
   bullets: string[]
   sourceLabel?: string
   sourceHref?: string
+  /** A clinician's own words, shown as plain text (no Review schema: Google ignores self-published reviews). */
+  quote?: {
+    heading?: string
+    paragraphs: string[]
+    name: string
+    role: string
+    disclosure: string
+  }
   image?: {
     src: string
     alt: string

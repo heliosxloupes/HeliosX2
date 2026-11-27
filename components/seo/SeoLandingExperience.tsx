@@ -515,6 +515,22 @@ export default function SeoLandingExperience({
                       </a>
                     </p>
                   ) : null}
+                  {section.quote ? (
+                    <figure className={styles.quote}>
+                      <blockquote>
+                        {section.quote.heading ? (
+                          <p className={styles.quoteHead}>{section.quote.heading}</p>
+                        ) : null}
+                        {section.quote.paragraphs.map((p) => (
+                          <p key={p}>{p}</p>
+                        ))}
+                      </blockquote>
+                      <figcaption>
+                        <strong>{section.quote.name}</strong>, {section.quote.role}
+                        <span className={styles.quoteNote}>{section.quote.disclosure}</span>
+                      </figcaption>
+                    </figure>
+                  ) : null}
                   {section.image ? (
                     <figure>
                       <Image

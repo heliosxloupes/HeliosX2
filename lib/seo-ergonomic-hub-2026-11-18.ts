@@ -162,6 +162,23 @@ export const ergonomicHub: Partial<SeoLandingPage> = {
         'Specifications, frames and prices: /product/medusa.',
       ],
     ),
+    {
+      ...section(
+        'A plastic surgery resident on ergonomic loupes',
+        'An unpaid review from a surgeon who works with both an ergonomic pair and a conventional Galilean pair, in the surgeon’s own words, lightly edited for length.',
+      ),
+      // Owner-supplied review, Nov 27 2026: unpaid, no connection to HeliosX (owner-confirmed).
+      quote: {
+        heading: '“Night and day for downward-looking cases.”',
+        paragraphs: [
+          'Switching to ergonomic loupes was life-changing. On cases where I look down, such as rhinoplasty, palate and other intraoral surgery, facial surgery and blepharoplasty, my neck pain dropped dramatically. I still keep a traditional Galilean pair for cases where I look straight ahead or operate seated, but when I wear them I feel a strain on my neck that I don’t feel at all with the ergonomic pair. For that reason alone, I recommend them.',
+          'I shopped around, and most brands charge very high prices for loupes. HeliosX Medusa is fairly priced, with a high-quality titanium frame and adjustable working distance. As surgeons we aren’t always standing: sometimes we sit, and attendings or colleagues prefer a different table height, so we adjust to the team. In those situations they’re a lifesaver.',
+        ],
+        name: 'Iakov Efimenko, MD',
+        role: 'PGY-5, Plastic Surgery',
+        disclosure: 'Unpaid review. One clinician’s experience; results vary.',
+      },
+    },
     section(
       'One ergonomic loupe for every table height on your team',
       'In a shared operating room the table is usually set for the lead surgeon. Assistants, residents and fellows of different heights then work at a distance their loupes were not built for, and lean in or stoop to find focus. A fixed-distance loupe cannot follow; Medusa’s working distance can be turned to match the table you are given, case by case.',

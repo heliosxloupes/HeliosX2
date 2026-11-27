@@ -29,7 +29,7 @@ const section = (title: string, body: string, bullets: string[] = [], sourceHref
   ...(sourceHref ? { sourceHref, sourceLabel } : {}),
 })
 const faq = (question: string, answer: string): ContentFaq => ({ question, answer })
-const MODIFIED = '2026-12-10'
+const MODIFIED = '2026-11-27'
 
 // ---------------------------------------------------------------- hygiene
 

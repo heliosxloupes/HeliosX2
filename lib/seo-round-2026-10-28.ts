@@ -1,6 +1,7 @@
 import type { ContentFaq, ContentSection, EducationGuide, SeoLandingPage } from './seo-content'
 import { HEADLIGHTS, headHours, LIGHT_WARRANTY_YEARS, LIGHTS, lightFrom } from './lights'
 import {
+  bundledLightPrice,
   LIGHT_BUNDLE_PERCENT_OFF,
   lightPriceBySlug,
   magnificationPriceByProduct,
@@ -149,6 +150,26 @@ const wirelessTradeoff = section(
   ],
 )
 
+// Nov 27 2026: the full price of loupes plus a light, in one place. Light
+// prices are after the bundle discount checkout applies with loupes.
+const withBundle = (slug: string, option: string) => bundledLightPrice(lightPriceBySlug[slug].prices[option])
+const setup = (label: string, model: 'galileo' | 'kepler', mag: string, light: string, option: string, lightLabel: string) => {
+  const loupe = magnificationPriceByProduct[model][mag]
+  const lamp = withBundle(light, option)
+  return `${label}: ${model === 'galileo' ? 'Galileo' : 'Kepler'} ${mag} (${usd(loupe)}) with ${lightLabel} (${usd(lamp)} with loupes) = ${usd(loupe + lamp)}.`
+}
+const allInCost = section(
+  'Loupes and light together: the full price',
+  `What a complete setup costs at HeliosX, loupes plus light, with shipping included and the light ${LIGHT_BUNDLE_PERCENT_OFF}% off because it is ordered with the loupes. Many brands price the light separately: LumaDent, for example, lists its airLUX wireless light package at $695 on top of the loupes (lumadent.com, checked November 15, 2026).`,
+  [
+    setup('Hygiene and general dentistry', 'galileo', '3.0x', 'polaris', 'clip-4h', 'Polaris, clip-on 4 h battery'),
+    setup('Restorative at 3.5x, full clinic day', 'galileo', '3.5x', 'vega', 'slim-6h', 'Vega, slim 6 h battery'),
+    setup('Endodontics and implants', 'kepler', '4.0x', 'rigel', 'pack-10h', 'Rigel, 10 h battery pack'),
+    setup('No cord at all', 'galileo', '3.0x', 'nova', 'wireless', 'Nova wireless'),
+    'LumaDent lights compared with ours: /lumadent-light-alternative.',
+  ],
+)
+
 type RoundUpdate = Partial<SeoLandingPage> & {
   prependSections?: ContentSection[]
   replaceSection?: Record<string, ContentSection>
@@ -164,7 +185,7 @@ const updates: Record<string, RoundUpdate> = {
     description: `Dental loupes with a light: 5 HeliosX LED lights, corded or wireless, 50,000–150,000 lux, from ${usd(lightFrom('polaris'))}. ${LIGHT_BUNDLE_PERCENT_OFF}% off with any pair of loupes.`,
     answer: `For most dentists and hygienists, a 3.0x–3.5x Galilean loupe with a corded LED of 50,000–70,000 lux is enough; brighter lights help at 4x and above. HeliosX sells five lights that fit every HeliosX frame, from Polaris at ${usd(lightFrom('polaris'))} to the 150,000-lux Sirius, plus the wireless Nova at ${usd(lightFrom('nova'))}, with ${LIGHT_BUNDLE_PERCENT_OFF}% off any light ordered with loupes. Loupes start at ${from('newton')}.`,
     specTable: lightTable,
-    prependSections: [lightPick, wirelessTradeoff],
+    prependSections: [lightPick, wirelessTradeoff, allInCost],
     replaceSection: {
       'Where HeliosX fits': section(
         'Where HeliosX fits',

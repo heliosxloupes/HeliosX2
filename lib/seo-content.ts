@@ -8927,9 +8927,9 @@ const B = {
 
 const buyerLinks: Record<string, RelatedPage[]> = {
   // Old pages link down.
-  'dental-loupes': [B.bestDental, B.bestErgo, B.buy, B.custom, B.lights],
-  'surgical-loupes': [B.buy, B.custom, B.bestErgo],
-  'best-loupes': [B.bestDental, B.bestErgo, B.buy, B.custom],
+  'dental-loupes': [B.bestDental, B.bestErgo, B.buy, B.amazonVsCustom, B.lights],
+  'surgical-loupes': [B.buy, B.amazonVsCustom, B.bestErgo],
+  'best-loupes': [B.bestDental, B.bestErgo, B.buy, B.amazonVsCustom],
   'best-surgical-loupe-brands': [B.bestDental, B.bestErgo],
   'how-much-do-surgical-loupes-cost': [B.surgicalHub, B.dentalHub, B.plans, B.buy, B.dfvPrice],
   'are-surgical-loupes-worth-it': [B.surgicalHub],
@@ -8947,8 +8947,8 @@ const buyerLinks: Record<string, RelatedPage[]> = {
   'affordable-loupes': [B.plans, B.buy],
   'cheap-loupes': [B.plans],
   'student-loupe-comparison': [B.plans, B.bestDental],
-  'amazon-loupes-vs-custom-loupes': [B.custom, B.buy],
-  'how-to-measure-pupillary-distance': [B.custom],
+  'amazon-loupes-vs-custom-loupes': [B.buy],
+  'how-to-measure-pupillary-distance': [B.amazonVsCustom],
   'best-dental-loupe-brands': [B.bestErgo, B.lights],
   'examvision-alternatives': [B.examvisionPrice],
   'orascoptic-alternatives': [B.orascopticPrice, B.sparkAlt],
@@ -8966,7 +8966,7 @@ const buyerLinks: Record<string, RelatedPage[]> = {
   // Buyer pages link up to their parent and across to siblings.
   'best-dental-loupe-lights': [B.withLight, B.headlights, B.sparkAlt, B.lumadentLight],
   'custom-loupes': [B.measurements, B.amazonVsCustom, B.buy],
-  'buy-surgical-loupes': [B.priceGuide, B.custom, B.plans, B.australia],
+  'buy-surgical-loupes': [B.priceGuide, B.amazonVsCustom, B.plans, B.australia],
   'dental-hygiene-loupes-price': [B.hygiene, B.hygieneWithLight, B.priceGuide, B.plans],
   'examvision-loupes-price': [B.priceGuide, B.alternatives('ExamVision', 'examvision'), B.plans],
   'orascoptic-loupes-price': [B.priceGuide, B.alternatives('Orascoptic', 'orascoptic'), B.sparkAlt, B.bestErgo],

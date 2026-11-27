@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Header from '@/components/Header'
@@ -79,24 +80,73 @@ export default function SeoLandingExperience({
     .split(/\s+/).length
   const railItems = [
     page.tierChart && { id: 'chart', label: 'Chart' },
-    page.specTable && { id: 'models-prices', label: 'Models & prices' },
+    page.specTable && !page.compact && { id: 'models-prices', label: 'Models & prices' },
     page.quickPicks && { id: 'quick-picks', label: 'Quick picks' },
     page.items && { id: 'side-by-side', label: 'Side by side' },
     page.tips && { id: 'buying-tips', label: 'Buying tips' },
     page.procedureRows?.length && { id: 'by-procedure', label: 'By procedure' },
     page.comparisonRows?.length && { id: 'comparison', label: 'Comparison' },
+    page.specTable && page.compact && { id: 'models-prices', label: 'All brands' },
     !page.items && { id: 'model-shortlist', label: 'HeliosX options' },
     { id: 'buying-advice', label: 'What to look for' },
     { id: 'questions', label: 'Questions' },
     { id: 'help-choosing', label: 'Ask for help' },
   ].filter((item): item is { id: string; label: string } => !!item)
   const email = `mailto:${supportEmail}?subject=${encodeURIComponent(`Help choosing loupes: ${page.title}`)}&body=${encodeURIComponent('Hi HeliosX,\n\nMy specialty / training stage:\nThe procedures I do most:\nMy current loupes and magnification (if any):\nMy budget:\nMy question:\n')}`
+  const specTableSection = page.specTable ? (
+            <section id="models-prices" className={styles.section}>
+              {page.tierChart ? (
+                <h3 className={styles.subhead}>{page.specTable.title}</h3>
+              ) : (
+                <h2>{page.specTable.title}</h2>
+              )}
+              {page.specTable.lead ? (
+                <p className={styles.lead}>{linkifyText(page.specTable.lead)}</p>
+              ) : null}
+              <table className={`${styles.procedureTable} ${styles.specTable}`}>
+                <thead>
+                  <tr>
+                    {page.specTable.columns.map((column) => (
+                      <th key={column} scope="col">{column}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {page.specTable.rows.map(([head, ...cells]) => (
+                    <tr key={head} className={page.compact && head.startsWith('HeliosX') ? styles.ourRow : undefined}>
+                      <th scope="row">
+                        {entryAnchor(head) ? (
+                          <a href={`#${entryAnchor(head)}`} className={styles.rowJump}>
+                            {head} <span aria-hidden="true">↓</span>
+                          </a>
+                        ) : (
+                          linkifyText(head)
+                        )}
+                      </th>
+                      {cells.map((cell, i) => (
+                        <td
+                          key={i}
+                          data-label={page.specTable!.columns[i + 1]}
+                          className={page.compact && /^(—|Ask the (seller|dealer)|Dealer quote|Representative quote|Quote)$/.test(cell) ? styles.mutedCell : undefined}
+                        >
+                          <span>{linkifyText(cell)}</span>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {page.specTable.note ? (
+                <p className={page.compact ? styles.fineprint : styles.lead}>{linkifyText(page.specTable.note)}</p>
+              ) : null}
+            </section>
+  ) : null
   return (
     <>
       <Header />
       <SeoAnalytics pageType="seo_landing" pageName={page.title} />
-      <SectionRail items={railItems} />
-      <main className={styles.page}>
+      <SectionRail items={railItems} numbered={!page.compact} />
+      <main className={`${styles.page} ${page.compact ? styles.v2 : ''}`}>
         <div className={styles.wrap}>
           <nav aria-label="Breadcrumb" className={styles.crumbs}>
             <Link href="/">Home</Link>
@@ -105,7 +155,7 @@ export default function SeoLandingExperience({
           </nav>
           <header className={styles.hero}>
             <div>
-              <p className={styles.kicker}>{page.heroKicker}</p>
+              {page.compact ? null : <p className={styles.kicker}>{page.heroKicker}</p>}
               <h1>{page.title}</h1>
               {page.answer ? (
                 <p className={styles.answer}>
@@ -168,7 +218,7 @@ export default function SeoLandingExperience({
           </header>
           <nav aria-label="On this page" className={styles.nav}>
             {page.tierChart ? <a href="#chart">Chart</a> : null}
-            {page.specTable ? <a href="#models-prices">Models &amp; prices</a> : null}
+            {page.specTable && !page.compact ? <a href="#models-prices">Models &amp; prices</a> : null}
             {page.quickPicks ? <a href="#quick-picks">Quick picks</a> : null}
             {page.items ? <a href="#side-by-side">Side by side</a> : null}
             {page.tips ? <a href="#buying-tips">Buying tips</a> : null}
@@ -178,6 +228,7 @@ export default function SeoLandingExperience({
             {page.procedureRows?.length ? (
               <a href="#by-procedure">By procedure</a>
             ) : null}
+            {page.specTable && page.compact ? <a href="#models-prices">All brands</a> : null}
             {page.items ? null : <a href="#model-shortlist">HeliosX options</a>}
             <a href="#buying-advice">What to look for</a>
             <a href="#questions">Questions</a>
@@ -233,50 +284,7 @@ export default function SeoLandingExperience({
               </div>
             </section>
           ) : null}
-          {page.specTable ? (
-            <section id="models-prices" className={styles.section}>
-              {page.tierChart ? (
-                <h3 className={styles.subhead}>{page.specTable.title}</h3>
-              ) : (
-                <h2>{page.specTable.title}</h2>
-              )}
-              {page.specTable.lead ? (
-                <p className={styles.lead}>{linkifyText(page.specTable.lead)}</p>
-              ) : null}
-              <table className={`${styles.procedureTable} ${styles.specTable}`}>
-                <thead>
-                  <tr>
-                    {page.specTable.columns.map((column) => (
-                      <th key={column} scope="col">{column}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {page.specTable.rows.map(([head, ...cells]) => (
-                    <tr key={head}>
-                      <th scope="row">
-                        {entryAnchor(head) ? (
-                          <a href={`#${entryAnchor(head)}`} className={styles.rowJump}>
-                            {head} <span aria-hidden="true">↓</span>
-                          </a>
-                        ) : (
-                          linkifyText(head)
-                        )}
-                      </th>
-                      {cells.map((cell, i) => (
-                        <td key={i} data-label={page.specTable!.columns[i + 1]}>
-                          <span>{linkifyText(cell)}</span>
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              {page.specTable.note ? (
-                <p className={styles.lead}>{linkifyText(page.specTable.note)}</p>
-              ) : null}
-            </section>
-          ) : null}
+          {page.compact ? null : specTableSection}
           {page.quickPicks ? (
             <section id="quick-picks" className={styles.section}>
               <h2>{page.quickPicks.title}</h2>
@@ -287,8 +295,11 @@ export default function SeoLandingExperience({
                     <dd>
                       {row.picks.map((pick, i) => (
                         <span key={pick.href + pick.label}>
-                          {i > 0 ? ', ' : null}
-                          <a href={pick.href}>{pick.label}</a>
+                          {i > 0 && !page.compact ? ', ' : null}
+                          <a href={pick.href} className={page.compact ? styles.pickLink : undefined}>
+                            {pick.label}
+                            {page.compact ? <ArrowRight aria-hidden="true" size={15} strokeWidth={2} /> : null}
+                          </a>
                         </span>
                       ))}
                     </dd>
@@ -426,6 +437,7 @@ export default function SeoLandingExperience({
               ) : null}
             </section>
           ) : null}
+          {page.compact ? specTableSection : null}
           {page.compact ? null : <AuthorityBand audience={page.authorityAudience} />}
           {page.items ? null : (
           <section id="model-shortlist" className={styles.section}>

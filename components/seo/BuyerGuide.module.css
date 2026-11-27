@@ -653,7 +653,7 @@
 .article .quote {
   margin-top: 32px;
   padding-left: 22px;
-  border-left: 2px solid rgba(34, 197, 156, 0.55);
+  border-left: 1px solid rgba(167, 237, 207, 0.4);
 }
 .article .quote blockquote p {
   margin-top: 14px;
@@ -1045,4 +1045,187 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .tierChip { transition: none; }
+}
+
+/* ------------------------------------------------------------------
+   v2 reading layout (compact pages only: /ergonomic-loupes, hygiene).
+   Same world, calmer rhythm: bigger body, tighter groups, more air
+   above headings, our models before the brand table.
+   ------------------------------------------------------------------ */
+.v2 ::selection {
+  background: rgba(167, 237, 207, 0.28);
+  color: #ffffff;
+}
+.v2 .hero h1 {
+  margin-top: 4px;
+  text-wrap: balance;
+}
+.v2 h2,
+.v2 h3 {
+  text-wrap: balance;
+}
+.v2 .answer {
+  font-size: 18px;
+  line-height: 1.65;
+  padding: 20px 22px;
+  border-radius: 12px;
+}
+.v2 .intro {
+  font-size: 16px;
+  color: #b9c7bf;
+}
+.v2 .section {
+  padding: 72px 0 56px;
+}
+.v2 .section + .section {
+  border-top-color: rgba(41, 55, 47, 0.6);
+}
+.v2 .page h2,
+.v2 h2 {
+  font-size: clamp(26px, 3vw, 36px);
+  letter-spacing: -0.025em;
+}
+.v2 .lead,
+.v2 .why p,
+.v2 .article p,
+.v2 .article li {
+  font-size: 17px;
+  line-height: 1.75;
+  letter-spacing: 0.002em;
+  color: #cdd8d1;
+}
+.v2 .lead {
+  max-width: 64ch;
+}
+.v2 .article p,
+.v2 .article ul {
+  max-width: 66ch;
+}
+.v2 .article h2 {
+  font-size: clamp(22px, 2.4vw, 28px);
+}
+
+/* Quick picks: a task, then the model as a clear tappable target. */
+.v2 .picks {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid #29372f;
+  gap: 0;
+}
+.v2 .pickRow {
+  background: transparent;
+  border-bottom: 1px solid #29372f;
+  padding: 18px 0;
+  align-items: center;
+  font-size: 16px;
+}
+.v2 .pickRow dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.v2 .pickLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid #3a4d44;
+  border-radius: 999px;
+  color: #e6f6ee;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 180ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.v2 .pickLink svg {
+  transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.v2 .pickLink:hover {
+  border-color: #a7edcf;
+  background: rgba(167, 237, 207, 0.06);
+}
+.v2 .pickLink:hover svg {
+  transform: translateX(3px);
+}
+
+/* Brand table: HeliosX rows read first, "ask the seller" cells step back. */
+.v2 .specTable .ourRow th,
+.v2 .specTable .ourRow td {
+  background: rgba(167, 237, 207, 0.05);
+}
+.v2 .specTable .ourRow th {
+  color: #f2f7f4;
+}
+.v2 .specTable .mutedCell span {
+  color: #7f9288;
+}
+.v2 .items {
+  max-width: none;
+}
+.v2 .itemBody > p:not(.bestFor):not(.itemCta):not(.meter) {
+  font-size: 16px;
+  line-height: 1.75;
+}
+/* No eyebrow labels on reading pages: the heading carries itself. */
+.v2 .aside .kicker {
+  display: none;
+}
+.v2 .aside h2 {
+  margin-top: 0;
+}
+
+@media (max-width: 767px) {
+  .v2 ::selection {
+    background: rgba(11, 107, 83, 0.18);
+    color: #08261b;
+  }
+  .v2 .section {
+    padding: 48px 0 40px;
+  }
+  .v2 .answer {
+    font-size: 17px;
+  }
+  .v2 .lead,
+  .v2 .why p,
+  .v2 .article p,
+  .v2 .article li {
+    font-size: 16px;
+    color: #2b3a32;
+  }
+  .v2 .intro {
+    color: #3a4a41;
+  }
+  .v2 .picks,
+  .v2 .pickRow {
+    border-color: rgba(8, 38, 27, 0.12);
+  }
+  .v2 .pickRow {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .v2 .pickLink {
+    border-color: rgba(8, 38, 27, 0.22);
+    color: #08261b;
+  }
+  .v2 .pickLink:hover {
+    border-color: #0b6b53;
+    background: rgba(11, 107, 83, 0.06);
+  }
+  .v2 .specTable .ourRow th,
+  .v2 .specTable .ourRow td {
+    background: rgba(11, 107, 83, 0.06);
+  }
+  .v2 .specTable .ourRow th {
+    color: #08261b;
+  }
+  .v2 .specTable .mutedCell span {
+    color: #6b7b72;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v2 .pickLink,
+  .v2 .pickLink svg {
+    transition: none;
+  }
 }

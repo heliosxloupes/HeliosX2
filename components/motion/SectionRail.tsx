@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 
 type SectionRailProps = {
   items: { id: string; label: string }[]
+  /** Section numbers carry no information on reading pages; off there. */
+  numbered?: boolean
 }
 
 const pad = (n: number) => String(n).padStart(2, '0')
@@ -12,7 +14,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
 // highlighted, and a line that fills as the reader moves through them.
 // Matches the step rail on /measurements. Only shown where the gutter is wide
 // enough (2xl); smaller screens keep the inline "On this page" links.
-export default function SectionRail({ items }: SectionRailProps) {
+export default function SectionRail({ items, numbered = true }: SectionRailProps) {
   const [active, setActive] = useState(0)
   const [visible, setVisible] = useState(false)
   const fillRef = useRef<HTMLDivElement>(null)
@@ -82,13 +84,15 @@ export default function SectionRail({ items }: SectionRailProps) {
                   active === index ? 'text-white' : 'text-neutral-500 hover:text-neutral-300'
                 }`}
               >
-                <span
-                  className={`mr-2 font-semibold tabular-nums transition-colors duration-300 ${
-                    active === index ? 'text-emerald-300' : ''
-                  }`}
-                >
-                  {pad(index + 1)}
-                </span>
+                {numbered ? (
+                  <span
+                    className={`mr-2 font-semibold tabular-nums transition-colors duration-300 ${
+                      active === index ? 'text-emerald-300' : ''
+                    }`}
+                  >
+                    {pad(index + 1)}
+                  </span>
+                ) : null}
                 {item.label}
               </a>
             </li>

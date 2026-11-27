@@ -76,8 +76,8 @@ export const bofuPagesNov16: SeoLandingPage[] = [
   {
     slug: 'galilean-loupes',
     title: 'Galilean Loupes: A Complete Guide, With Prices',
-    metaTitle: 'Galilean Loupes Guide + Field of View Chart & Prices | HeliosX',
-    description: `Galilean loupes explained: what 2.5x–3.5x Galilean optics do well, field of view by model, and every price. HeliosX Galilean loupes from ${from('newton')}.`,
+    metaTitle: 'Galilean Loupes: Field of View Chart & Prices | HeliosX',
+    description: `Pick 2.5x, 3x or 3.5x by what you actually see: field of view chart, weights and prices from ${from('newton')}. Free shipping, 30-day returns.`,
     heroKicker: 'Galilean loupes',
     heroImage: { src: photo.galileo.src, alt: 'Galilean loupes: HeliosX Galileo loupes on a black frame', caption: `Galileo · From ${from('galileo')} USD` },
     primaryKeyword: 'galilean loupes',

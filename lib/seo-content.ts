@@ -6495,7 +6495,7 @@ educationGuides.push({
 educationGuides.push({
   slug: 'best-loupes-for-residents',
   title: 'Loupes for Residents: Your First Pair',
-  metaTitle: 'Loupes for Residents: Magnification, Timing & Price | HeliosX',
+  metaTitle: 'Resident Loupes: What to Buy First (15% Off) | HeliosX',
   description:
     'How residents should pick a first pair of loupes: magnification by training stage, specialty recommendations, and models that fit each.',
   kicker: 'Resident buying guide',
@@ -8869,7 +8869,7 @@ const editorialLinks: Record<string, string[]> = {
   'how-much-do-surgical-loupes-cost': ['affordable-surgical-loupes-reddit', 'student-loupe-comparison', 'education/prescription-loupes-guide'],
   'best-surgical-loupes-reddit': ['affordable-surgical-loupes-reddit'],
   'best-dental-loupe-brands': ['education/ergonomic-loupes-neck-pain', 'education/prescription-loupes-guide', 'heliosx-vs-lumadent', 'orascoptic-alternatives', 'heliosx-vs-surgitel', 'heliosx-vs-q-optics', 'examvision-alternatives', 'heliosx-vs-admetec', 'heliosx-vs-designs-for-vision'],
-  'loupe-comparisons': ['best-surgical-loupe-brands', 'best-dental-loupe-brands', 'student-loupe-comparison', 'ergonomic-loupes', 'prismatic-loupe-comparison'],
+  'loupe-comparisons': ['best-surgical-loupe-brands', 'best-dental-loupe-brands', 'student-loupe-comparison', 'ergonomic-loupes', 'education/galilean-vs-prismatic-loupes', 'heliosx-vs-zeiss', 'heliosx-vs-schultz'],
   'surgical-loupes': ['surgical-loupes-with-light', 'neurosurgery-loupes', 'cardiac-surgery-loupes', 'pediatric-surgery-loupes', 'maxillofacial-surgery-loupes', 'ent-otolaryngology-loupes', 'ophthalmic-surgery-loupes', 'education/best-loupes-for-plastic-surgery'],
   'student-loupe-comparison': ['education/best-loupes-for-dental-students', 'loupes-for-medical-students', 'education/best-loupes-for-residents'],
   'loupes-for-residents': ['loupes-for-medical-students', 'loupes-for-dental-students'],

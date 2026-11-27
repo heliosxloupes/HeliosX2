@@ -38,7 +38,7 @@ export const beautyPagesNov2026: SeoLandingPage[] = [
     slug: 'loupes-for-estheticians',
     title: 'Loupes for estheticians: surgical-grade magnification for skin work',
     metaTitle: 'Loupes for Estheticians: Magnification Guide | HeliosX',
-    description: `Esthetician loupes for extractions, dermaplaning, electrolysis and brow work: magnification by service, loupes versus a mag lamp, and published prices from ${from('newton')}.`,
+    description: `Extractions, dermaplaning and brows without leaning in. Loupes vs a mag lamp, magnification by service, from ${from('newton')} with 30-day returns.`,
     heroKicker: 'Esthetician loupes',
     primaryKeyword: 'loupes for estheticians',
     relatedKeywords: [
@@ -129,8 +129,8 @@ export const beautyPagesNov2026: SeoLandingPage[] = [
   {
     slug: 'loupes-for-lash-artists',
     title: 'Loupes for lash artists: see every lash without leaning in',
-    metaTitle: 'Loupes for Lash Artists: Lash Extension Magnification | HeliosX',
-    description: `Lash extension loupes for classic, volume and mega volume sets: magnification by set type, working distance at the lash bed, and published prices from ${from('newton')}.`,
+    metaTitle: 'Loupes for Lash Artists: See Every Lash Clearly | HeliosX',
+    description: `See every isolation clearly without hunching over the bed. Which magnification lash artists use, from ${from('newton')}, with 30-day returns.`,
     heroKicker: 'Lash artist loupes',
     primaryKeyword: 'loupes for lash artists',
     relatedKeywords: [
@@ -297,7 +297,7 @@ export const beautyPagesNov2026: SeoLandingPage[] = [
     slug: 'hair-transplant-loupes',
     title: 'Hair transplant loupes: magnification for FUE, grafts and placement',
     metaTitle: 'Hair Transplant Loupes: FUE & Graft Placement | HeliosX',
-    description: `Loupes for hair restoration surgeons and technicians: magnification for FUE extraction, graft dissection, site making and placement, with published prices from ${from('galileo')}.`,
+    description: `Loupes for FUE extraction, graft dissection and placement, by step. See which magnification hair restoration teams use. From ${from('galileo')}.`,
     heroKicker: 'Hair restoration loupes',
     primaryKeyword: 'hair transplant loupes',
     relatedKeywords: [

@@ -871,7 +871,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
     slug: 'orascoptic-loupes-price',
     title: 'Orascoptic loupes price, and the HeliosX pair for each series',
     metaTitle: 'Orascoptic Loupes Price + Comparison Chart | HeliosX',
-    description: `Orascoptic does not list loupe prices online; dealers quote them. What drives the quote, and the HeliosX pair for each Orascoptic series with its price, from ${from('newton')}.`,
+    description: `Orascoptic won't show prices online; you get a dealer quote. See what drives it, and the HeliosX match for each series with its price, from ${from('newton')}.`,
     heroKicker: 'Orascoptic price',
     why: {
       title: 'Why compare before you sign an Orascoptic quote',
@@ -1107,7 +1107,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
     slug: 'surgitel-loupes-price',
     title: 'SurgiTel loupes price, and the HeliosX surgical pair for each line',
     metaTitle: 'SurgiTel Loupes Price + Surgeon Comparison Chart | HeliosX',
-    description: `SurgiTel does not list prices; local representatives quote them. The HeliosX surgical pair for each SurgiTel line, with every price published, from ${from('kepler')} for prismatic.`,
+    description: `SurgiTel prices come only from a rep's quote. Ours are published: the HeliosX surgical pair for each SurgiTel line, prismatic from ${from('kepler')}.`,
     heroKicker: 'SurgiTel price',
     why: {
       title: 'Why surgeons should see the number first',
@@ -1544,7 +1544,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
     slug: 'surgical-headlights',
     title: 'Surgical headlights: brightness chart, battery life and prices',
     metaTitle: `Surgical Headlights, Every Price Shown, From ${usd(lightFrom('antares'))} | HeliosX`,
-    description: `Surgical headlights with every price published, ${usd(lightFrom('antares'))}–${usd(lightFrom('arcturus'))}, no quote or sales call: up to ${lux('canopus')}, battery on the band, ${LIGHT_WARRANTY_YEARS}-year warranty. Brightness chart and brand comparison.`,
+    description: `Every surgical headlight price published, ${usd(lightFrom('antares'))}–${usd(lightFrom('arcturus'))}, no sales call. Up to ${lux('canopus')}, battery on the band, ${LIGHT_WARRANTY_YEARS}-year warranty.`,
     heroKicker: 'Surgical headlights',
     why: {
       title: 'Why surgeons choose a headlight, and why ours has a price on it',
@@ -1670,7 +1670,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
     slug: 'orascoptic-light-alternative',
     title: 'Orascoptic Spark light alternative, with prices',
     metaTitle: 'Orascoptic Spark Alternative: Light Chart & Prices | HeliosX',
-    description: `An Orascoptic Spark alternative: HeliosX wireless, corded and headband lights with brightness, battery life and price, from ${usd(lightFrom('polaris'))}. Spark specs as Orascoptic lists them.`,
+    description: `Looking at the Orascoptic Spark? Compare HeliosX wireless and corded lights by brightness, battery and weight, every price shown. From ${usd(lightFrom('polaris'))}.`,
     heroKicker: 'Spark alternative',
     why: {
       title: 'Why compare the Spark before you order it',
@@ -1871,8 +1871,8 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
   {
     slug: 'dental-loupes-australia',
     title: 'Dental loupes in Australia: prices, delivery and import costs',
-    metaTitle: 'Dental Loupes Australia: Price Chart & Delivery | HeliosX',
-    description: `Custom dental loupes delivered to Australia from ${from('newton')} USD with shipping included. Prices, GST and import costs, delivery times and warranty, with every price shown.`,
+    metaTitle: 'Dental Loupes Australia: AUD Prices, No Surprises | HeliosX',
+    description: `Know your landed cost before you order: loupes from about ${aud(Math.min(...prices('newton')))}, shipping included, GST explained. Custom fit, lifetime warranty.`,
     heroKicker: 'Dental loupes Australia',
     why: {
       title: 'Why the total matters more than the sticker price in Australia',

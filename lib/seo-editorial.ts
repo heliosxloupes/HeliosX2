@@ -2167,8 +2167,8 @@ const searchSnippets: Record<string, { metaTitle?: string; description?: string 
 }
 const guideSnippets: Record<string, { metaTitle?: string; description?: string }> = {
   'best-loupes-for-residents': {
-    metaTitle: 'Loupes for Residents: Magnification, Timing & Price | HeliosX',
-    description: `Loupes for surgical and dental residents: which magnification to start with, what programs expect, and prices from ${from('newton')} with ${TRAINEE_PERCENT_OFF}% off for trainees.`,
+    metaTitle: 'Resident Loupes: What to Buy First (15% Off) | HeliosX',
+    description: `Don't overbuy in residency. The magnification your specialty needs, when to buy, and custom pairs from ${from('newton')} with ${TRAINEE_PERCENT_OFF}% off for residents.`,
   },
   'best-loupes-for-dental-students': {
     metaTitle: 'Best Loupes for Dental Students 2026: Picks & Prices',

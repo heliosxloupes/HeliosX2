@@ -16,7 +16,7 @@ import { magnificationPriceByProduct, PRESCRIPTION_PRICE, TRAINEE_PERCENT_OFF } 
 const PATH = '/surgical-loupes-latin-america'
 const TITLE = 'Surgical & Dental Loupes for Latin America | HeliosX'
 const DESCRIPTION =
-  'Custom-fit surgical and dental loupes from a US brand, shipped to Colombia, Brazil, Venezuela, Mexico, Peru, Chile, Argentina and all of Latin America. From $695 USD, shipping included.'
+  'Custom surgical and dental loupes shipped to Mexico, Brazil, Colombia, Venezuela, Chile, Peru, Argentina and more. From $695 USD, shipping included.'
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,

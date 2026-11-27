@@ -6,7 +6,7 @@ import { buildMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Returns & Refunds | HeliosX Loupes',
-  description: 'Return any non-prescription HeliosX loupes within 30 days of delivery for a full refund. Prescription pairs are refundable until production starts. Limited lifetime warranty on every pair.',
+  description: 'Try your loupes in your own clinic. Not right? Return non-prescription pairs within 30 days of delivery for a full refund, return shipping on us.',
   path: '/returns',
 })
 

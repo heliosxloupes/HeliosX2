@@ -582,8 +582,8 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
   // Magnification guidance matches the existing hygiene pages: 3.0x default, 2.5x common for a first pair.
   {
     slug: 'dental-hygiene-loupes-price',
-    title: 'Dental hygiene loupes prices: chart and best picks by budget',
-    metaTitle: 'Dental Hygiene Loupes Price Chart + Best Picks | HeliosX',
+    title: 'Dental hygiene loupes prices: chart by budget, with a light',
+    metaTitle: 'Dental Hygiene Loupes Prices: Full Setup Price Chart | HeliosX',
     description: `Dental hygiene loupes price chart: HeliosX hygiene pairs from ${from('newton')}, totals with a light, student pricing and payment plans. Every price shown up front.`,
     heroKicker: 'Hygiene loupes',
     why: {
@@ -880,7 +880,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
     audience: 'Dentists, hygienists and surgeons comparing an Orascoptic quote',
     competitorName: 'Orascoptic',
     intro:
-      'Orascoptic makes three loupe series and sells them through dental dealers. Its website describes the loupes but does not show what they cost. If you are holding a quote, or could not find a number at all, this page sets out what Orascoptic says publicly, what moves the price, and the HeliosX pair that matches each series, with every price on the page. For the full brand comparison, see /heliosx-vs-orascoptic.',
+      'Orascoptic makes three loupe series and sells them through dental dealers. Its website describes the loupes but does not show what they cost. If you are holding a quote, or could not find a number at all, this page sets out what Orascoptic says publicly, what moves the price, and the HeliosX pair that matches each series, with every price on the page. For the full brand comparison, see /orascoptic-alternatives.',
     answer: `Orascoptic does not publish loupe prices on its website; a dental dealer quotes them. HeliosX publishes every price: Galilean pairs from ${from('newton')}, prismatic from ${from('kepler')} and ergonomic prismatic from ${from('apollo')}, with standard worldwide shipping included.`,
     tierChart: {
       title: 'Orascoptic loupes price chart: the HeliosX match for each series',
@@ -1030,7 +1030,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
       title: 'Quick picks: what were you looking at?',
       rows: [
         { task: 'Q-Optics Galilean, hygiene or general dentistry', picks: [{ label: 'Galileo', href: '#galileo' }, { label: 'Newton', href: '#newton' }] },
-        { task: 'Q-Optics light, wired or cordless', picks: [{ label: 'Polaris', href: '#polaris' }, { label: 'Nova', href: '/best-dental-loupe-lights#nova' }] },
+        { task: 'Q-Optics light, wired or cordless', picks: [{ label: 'Polaris', href: '#polaris' }, { label: 'Nova', href: '/dental-loupes-with-light' }] },
         { task: 'Q-Optics ErgoAngle', picks: [{ label: 'Apollo', href: '#apollo' }, { label: 'Medusa', href: '#medusa' }] },
         { task: 'Q-Optics Prismatic at 4x', picks: [{ label: 'Kepler', href: '#kepler' }] },
       ],
@@ -1450,7 +1450,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
     relatedKeywords: ['dental led headlight', 'headlight for dental hygienist', 'dental headlight for loupes', 'dental headlight for glasses', 'best dental headlight'],
     audience: 'Dentists, hygienists and surgeons buying a headlight, with or without loupes',
     intro:
-      'Most people looking for a dental headlight want one of two things: light without mounting anything on their loupes, or one light that works across pairs and glasses. Here are the four HeliosX headlights, with brightness, weight, battery life and price for each. If you would rather have a light on the loupe frame, compare them at /best-dental-loupe-lights.',
+      'Most people looking for a dental headlight want one of two things: light without mounting anything on their loupes, or one light that works across pairs and glasses. Here are the four HeliosX headlights, with brightness, weight, battery life and price for each. If you would rather have a light on the loupe frame, compare them at /dental-loupes-with-light.',
     answer: `HeliosX makes four headlights: Antares (${lux('antares')}, two batteries, ${usd(lightFrom('antares'))}), Arcturus (${lux('arcturus')}, up to 12 hours, ${usd(lightFrom('arcturus'))}), Canopus (${lux('canopus')}, ${usd(lightFrom('canopus'))}) and Canopus XL (the same light with a top strap, ${usd(lightFrom('canopus-xl'))}). Each works with any loupes or glasses, and is ${LIGHT_BUNDLE_PERCENT_OFF}% off ordered with loupes.`,
     tierChart: {
       title: 'Dental headlight brightness chart',
@@ -1480,7 +1480,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
         { task: 'Long lists, longest battery', picks: [{ label: 'Arcturus', href: '#arcturus' }] },
         { task: 'Oral surgery, deep cavities, most light', picks: [{ label: 'Canopus', href: '#canopus' }] },
         { task: 'Long cases where the band must not move', picks: [{ label: 'Canopus XL', href: '#canopus-xl' }] },
-        { task: 'You would rather have a light on the loupe', picks: [{ label: 'Loupe lights', href: '/best-dental-loupe-lights' }] },
+        { task: 'You would rather have a light on the loupe', picks: [{ label: 'Loupe lights', href: '/dental-loupes-with-light' }] },
         { task: 'Buying for surgery, not dentistry', picks: [{ label: 'Surgical headlights', href: '/surgical-headlights' }] },
       ],
     },
@@ -1679,7 +1679,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
     audience: 'Dentists and hygienists comparing the Orascoptic Spark with other loupe lights',
     competitorName: 'Orascoptic',
     intro:
-      'If you were offered the Orascoptic Spark, you are probably after a cordless light. Here is what Orascoptic lists for the Spark, and the HeliosX lights that do the same job, wireless, corded or on a headband, with brightness, battery and price for each. For the full guide to loupe lights, see /best-dental-loupe-lights.',
+      'If you were offered the Orascoptic Spark, you are probably after a cordless light. Here is what Orascoptic lists for the Spark, and the HeliosX lights that do the same job, wireless, corded or on a headband, with brightness, battery and price for each. For the full guide to loupe lights, see /dental-loupes-with-light.',
     answer: `Orascoptic lists the Spark at 40 lumens, with 6 hours from 2 batteries and up to 2 hours to charge; the price comes from a dealer. The closest HeliosX light is Nova: wireless, ${lux('nova')}, three batteries of about 3 hours each, ${usd(lightFrom('nova'))}, or ${usd(bundled('nova'))} with loupes. Corded Polaris starts at ${usd(lightFrom('polaris'))}.`,
     tierChart: {
       title: 'Spark alternatives: brightness chart',
@@ -1775,7 +1775,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
     audience: 'Dentists and hygienists comparing LumaDent lights with other loupe lights',
     competitorName: 'LumaDent',
     intro:
-      'LumaDent sells loupes and lights online with prices shown, including the airLUX wireless light. Here are the airLUX specs as LumaDent lists them, next to the HeliosX lights that do the same job, with brightness, weight, battery and price for each. The full guide to loupe lights is at /best-dental-loupe-lights.',
+      'LumaDent sells loupes and lights online with prices shown, including the airLUX wireless light. Here are the airLUX specs as LumaDent lists them, next to the HeliosX lights that do the same job, with brightness, weight, battery and price for each. The full guide to loupe lights is at /dental-loupes-with-light.',
     answer: `LumaDent lists the airLUX package at $695: 22 g, two batteries of 3+ hours each, recharging in 2 hours. HeliosX Nova is wireless too, at ${lux('nova')} and 29 g with battery, with three batteries, for ${usd(lightFrom('nova'))}. If a cord is fine, Polaris puts 10 g on the frame from ${usd(lightFrom('polaris'))}.`,
     tierChart: {
       title: 'LumaDent airLUX alternatives: brightness chart',
@@ -1847,7 +1847,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
     },
     proofPoints: ['Every light price published', `${bundle}`, `${LIGHT_WARRANTY_YEARS}-year limited warranty`],
     sections: [
-      section('Will a HeliosX light fit LumaDent loupes?', 'Frame-mounted HeliosX lights are made for HeliosX frames, and a mount made for one brand rarely transfers to another. If you are keeping LumaDent loupes, a headlight needs no mount; or email us a photo of your frame and we will tell you honestly. LumaDent loupes are compared at /lumadent-alternatives.'),
+      section('Will a HeliosX light fit LumaDent loupes?', 'Frame-mounted HeliosX lights are made for HeliosX frames, and a mount made for one brand rarely transfers to another. If you are keeping LumaDent loupes, a headlight needs no mount; or email us a photo of your frame and we will tell you honestly. LumaDent loupes are compared at /heliosx-vs-lumadent.'),
       section('If the light is not right', returns),
     ],
     recommendedProducts: ['Galileo', 'Newton', 'Kepler'],

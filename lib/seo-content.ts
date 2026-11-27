@@ -445,7 +445,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
         body:
           'Magnification needs, posture demands and budget all shift by role and specialty. These pages go deeper on each — read the one that matches your work before you commit to a brand.',
         bullets: [
-          'Dental students and hygienists: 2.5x–3.5x Galilean is usually right. See /education/best-loupes-for-dental-students and /dental-loupes.',
+          'Dental students and hygienists: 2.5x–3.5x Galilean is usually right. See /student-loupe-comparison and /dental-loupes.',
           'Residents and medical students: prioritise durability and price. See /education/best-loupes-for-residents and /student-loupe-comparison.',
           'Cardiac surgery: see /cardiac-surgery-loupes for magnification and posture guidance.',
           'ENT and otolaryngology: see /ent-otolaryngology-loupes.',
@@ -3059,7 +3059,7 @@ const competitorPages: SeoLandingPage[] = [
         bullets: [
           'Head-to-head: /heliosx-vs-lumadent, /heliosx-vs-surgitel, /heliosx-vs-q-optics, /heliosx-vs-admetec.',
           'Alternatives: /orascoptic-alternatives, /examvision-alternatives.',
-          'By type: /prismatic-loupe-comparison, /ergonomic-loupes, /student-loupe-comparison.',
+          'By type: /education/galilean-vs-prismatic-loupes, /ergonomic-loupes, /student-loupe-comparison.',
           'By audience: /best-dental-loupe-brands, /best-surgical-loupe-brands.',
         ],
       },
@@ -3076,7 +3076,7 @@ const competitorPages: SeoLandingPage[] = [
           'Pediatric surgery: /pediatric-surgery-loupes.',
           'Ophthalmic surgery: /ophthalmic-surgery-loupes.',
           'Hygienists and dental hygiene workflows: /loupes-for-dental-hygiene.',
-          'Dental students: /education/best-loupes-for-dental-students.',
+          'Dental students: /student-loupe-comparison.',
           'Medical students: /loupes-for-medical-students.',
           'Residents: /education/best-loupes-for-residents.',
         ],
@@ -4401,7 +4401,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
         bullets: [
           'OMFS and surgical crossover: see /maxillofacial-surgery-loupes.',
           'Hygienist workflows: see /loupes-for-dental-hygiene.',
-          'Dental students: see /education/best-loupes-for-dental-students.',
+          'Dental students: see /student-loupe-comparison.',
           'Magnification selection by specialty: see /education/loupe-magnification-guide.',
           'Posture and neck strain in dental work: see /education/ergonomic-loupes-neck-pain.',
         ],
@@ -7769,7 +7769,7 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
         bullets: [
           `Galileo: Galilean 2.5x–3.5x, six lightweight frame styles, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
           `Apollo: ergonomic prismatic, for long OR days under general anesthesia, ${priceRange('apollo')}.`,
-          'General dental loupes: /dental-loupes. Students: /education/best-loupes-for-dental-students.',
+          'General dental loupes: /dental-loupes. Students: /student-loupe-comparison.',
         ],
       },
     ],
@@ -8680,7 +8680,7 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
   'galilean-vs-prismatic-loupes': [
     ...MEASUREMENT_PAGES.slice(0, 2),
     {
-      href: '/prismatic-loupe-comparison',
+      href: '/education/galilean-vs-prismatic-loupes',
       label: 'Prismatic loupes',
       blurb: 'Where prismatic optics earn their price over Galilean.',
     },
@@ -8738,7 +8738,7 @@ export const relatedPagesBySlug: Record<string, RelatedPage[]> = {
   ],
   'surgical-loupes': [
     {
-      href: '/prismatic-loupe-comparison',
+      href: '/education/galilean-vs-prismatic-loupes',
       label: 'Prismatic loupes',
       blurb: 'Ergonomic 3.0x–8.5x systems for posture and higher magnification.',
     },
@@ -8890,7 +8890,7 @@ const editorialLinks: Record<string, string[]> = {
 // nearest siblings.
 const relatedLink = (href: string, label: string, blurb: string): RelatedPage => ({ href, label, blurb })
 const B = {
-  lights: relatedLink('/best-dental-loupe-lights', 'Dental loupe lights compared', 'Brightness, battery life and price for every light.'),
+  lights: relatedLink('/dental-loupes-with-light', 'Dental loupe lights compared', 'Brightness, battery life and price for every light.'),
   custom: relatedLink('/custom-loupes', 'Custom loupes', 'Built to your pupillary distance, working distance and angle.'),
   buy: relatedLink('/buy-surgical-loupes', 'Buy loupes online', 'Every model and price, in one place.'),
   hygienePrice: relatedLink('/dental-hygiene-loupes-price', 'Dental hygiene loupes prices', 'Every hygiene pair by budget, on one chart.'),

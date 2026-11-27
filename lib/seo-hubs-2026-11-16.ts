@@ -71,8 +71,8 @@ const ordering = section(
 const hubs: Record<string, Partial<SeoLandingPage>> = {
   'surgical-loupes': {
     title: 'Surgical Loupes: A Complete Guide to Choosing the Right Pair',
-    metaTitle: 'Surgical Loupes Guide + Magnification Chart & Prices | HeliosX',
-    description: `Surgical loupes explained: Galilean, prismatic and ergonomic types, a magnification chart by specialty, and every price. HeliosX pairs from ${from('newton')}.`,
+    metaTitle: 'Surgical Loupes Guide + Magnification Chart by Specialty | HeliosX',
+    description: `Surgical loupes explained: Galilean, prismatic and ergonomic types, a magnification chart by specialty, and how to get the fit right. HeliosX pairs from ${from('newton')}.`,
     heroKicker: 'Surgical loupes',
     heroImage: {
       src: photo.medusa.src,
@@ -81,7 +81,7 @@ const hubs: Record<string, Partial<SeoLandingPage>> = {
     },
     authorityAudience: 'surgeons',
     intro:
-      'Surgical loupes are the magnifying telescopes surgeons wear on a frame, focused at their working distance, so fine structures look bigger without leaning in. Surgeons in more than 110 countries wear HeliosX, and choosing the right pair is the question we answer most. Here is the complete guide: the types of surgical loupes, which magnification suits each specialty, what each pair costs, and how to get the fit right.',
+      'Surgical loupes are the magnifying telescopes surgeons wear on a frame, focused at their working distance, so fine structures look bigger without leaning in. Surgeons in more than 110 countries wear HeliosX, and choosing the right pair is the question we answer most. Here is the complete guide: the types of surgical loupes, which magnification suits each specialty, and how to get the fit right.',
     answer: `The right surgical loupes match your procedures, working distance and posture. Galilean loupes at 2.5x–3.5x suit general surgery and training (Newton from ${from('newton')}, Galileo from ${from('galileo')}); prismatic loupes at 4x–6x suit fine work (Kepler from ${from('kepler')}); ergonomic prismatic loupes keep your head upright in long cases (Apollo and Medusa from ${from('apollo')}).`,
     why: {
       title: 'Why the type of surgical loupe matters',
@@ -105,7 +105,7 @@ const hubs: Record<string, Partial<SeoLandingPage>> = {
       ],
     },
     specTable: {
-      title: 'Surgical loupes: models and prices',
+      title: 'HeliosX surgical loupes at a glance',
       columns: modelColumns,
       rows: modelRows(allModels),
       note: `${shipping} Prescription lenses add ${usd(PRESCRIPTION_PRICE)}. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off. Full catalog: /product.`,
@@ -272,7 +272,7 @@ const hubs: Record<string, Partial<SeoLandingPage>> = {
       items: [
         { title: 'Measure your seated working distance.', body: 'Sit in your normal position with the patient where you treat them, and measure from your eyes to the tooth. Guide: /measurements.' },
         { title: 'Do not overbuy magnification.', body: 'Higher magnification narrows the field. 2.5x–3.5x covers most hygiene and restorative work; 4x and above is for endo, implants and fine margins.' },
-        { title: 'Choose the light with the loupes.', body: `The mount is fitted to the frame, and any HeliosX light is ${LIGHT_BUNDLE_PERCENT_OFF}% off with loupes. Compare lights: /best-dental-loupe-lights.` },
+        { title: 'Choose the light with the loupes.', body: `The mount is fitted to the frame, and any HeliosX light is ${LIGHT_BUNDLE_PERCENT_OFF}% off with loupes. Compare lights: /dental-loupes-with-light.` },
         { title: 'Students: check what your program allows.', body: `Then verify your status for ${TRAINEE_PERCENT_OFF}% off before checkout.` },
         { title: 'Look after them.', body: 'Keep them in the case, clean the lenses with a microfiber cloth and lens spray, wipe the frame with a disinfectant your clinic approves, and never autoclave them.' },
       ],
@@ -285,7 +285,7 @@ const hubs: Record<string, Partial<SeoLandingPage>> = {
         'General dentists: 3.0x–3.5x, ergonomic if posture is the problem. /loupes-for-general-dentists.',
         'Endodontics: 4.0x–6.0x prismatic with a light. /loupes-for-endodontics.',
         'Implants and periodontics: 3.5x–5.0x. /loupes-for-dental-implants and /loupes-for-periodontics.',
-        'Dental students: 2.5x–3.5x Galilean. /education/best-loupes-for-dental-students.',
+        'Dental students: 2.5x–3.5x Galilean. /student-loupe-comparison.',
         'Comparing brands as well: the best dental loupes, 8 brands compared. /best-dental-loupe-brands.',
       ]),
       section('What dental loupes cost', `HeliosX dental loupes cost ${from('newton')} to ${top('medusa')}, by model and magnification, with standard worldwide shipping included. Most established brands quote through representatives. Every model and brand side by side: /dental-loupes-price.`, [

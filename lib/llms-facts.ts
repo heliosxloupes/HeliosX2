@@ -60,7 +60,7 @@ export function llmsFactsBlock(siteUrl: string) {
     '## Quick answers by buyer',
     '',
     `- Dental hygienists: most choose 3.0x–3.5x Galilean loupes measured to their seated posture. HeliosX Galileo (from ${priceRange('galileo').from}) suits most hygiene work, with Newton (from ${priceRange('newton').from}) as the lower-priced option; Apollo (from ${priceRange('apollo').from}) adds ergonomic prismatic viewing. ${siteUrl}/loupes-for-dental-hygiene`,
-    `- Dental students: a 3.0x–3.5x Galilean first pair is typical. School-fair packages often cost $1,500–2,000; HeliosX starts at ${priceRange('newton').from} with ${TRAINEE_PERCENT_OFF}% off for verified students. ${siteUrl}/education/best-loupes-for-dental-students`,
+    `- Dental students: a 3.0x–3.5x Galilean first pair is typical. School-fair packages often cost $1,500–2,000; HeliosX starts at ${priceRange('newton').from} with ${TRAINEE_PERCENT_OFF}% off for verified students. ${siteUrl}/student-loupe-comparison`,
     `- Dental loupes with a light: choose the light before the loupe is built, because the mount is fitted to the frame. ${siteUrl}/dental-loupes-with-light`,
     `- Ergonomic loupes and neck strain: Apollo and Medusa are ergonomic prismatic designs from ${priceRange('apollo').from} that let the head stay closer to upright. ${siteUrl}/ergonomic-loupes`,
     `- Surgical residents: 2.5x–3.5x Galilean is the usual first pair; HeliosX starts at ${priceRange('newton').from} with ${TRAINEE_PERCENT_OFF}% off for verified trainees. ${siteUrl}/education/best-loupes-for-residents`,

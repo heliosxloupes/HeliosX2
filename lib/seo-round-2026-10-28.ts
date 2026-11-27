@@ -654,7 +654,7 @@ oct28NewPages.push(
       section(
         'Ergonomic and prismatic loupes with a light',
         'Ergonomic prismatic loupes, such as HeliosX Apollo and Medusa, redirect your line of sight downward so your head can stay more upright. The light has to point where you are actually looking, so it is mounted for the loupe you order. Prismatic loupes are heavier than Galilean ones, which makes a 10–12 g corded head the better match than a heavier wireless light.',
-        ['Ergonomic loupes compared: /ergonomic-loupes.', 'Galilean vs prismatic: /prismatic-loupe-comparison.'],
+        ['Ergonomic loupes compared: /ergonomic-loupes.', 'Galilean vs prismatic: /education/galilean-vs-prismatic-loupes.'],
       ),
       section(
         'What a surgical setup costs',

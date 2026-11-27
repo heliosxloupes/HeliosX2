@@ -235,7 +235,7 @@ export const ergonomicHub: Partial<SeoLandingPage> = {
         'Ergonomic prismatic (deflection): the optics do more of the work. HeliosX Apollo and Medusa use this design.',
         'Prismatic does not automatically mean ergonomic: HeliosX Kepler is prismatic but keeps the usual head tilt.',
       ],
-      '/prismatic-loupe-comparison',
+      '/education/galilean-vs-prismatic-loupes',
       'Galilean, prismatic and ergonomic prismatic loupes compared',
     ),
     section(

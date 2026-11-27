@@ -429,7 +429,7 @@ for (const [slug, title, context] of [
     ),
     faq(
       'What are the best surgical loupes for neurosurgery?',
-      'For the work loupes cover in neurosurgery (exposure, closure, much spine and peripheral nerve surgery), most surgeons choose prismatic loupes between 3.5x and 6.0x with a headlight. HeliosX Kepler covers 4.0x–6.0x from $1,195; Apollo and Medusa add ergonomic viewing from $1,695. Where the operating microscope is indicated, loupes do not replace it.',
+      'Most neurosurgeons choose prismatic loupes between 3.5x and 6.0x with a headlight. Magnification by procedure, working distance and the HeliosX picks are in the neurosurgery guide: /neurosurgery-loupes.',
     ),
     faq(
       'What are the best loupes for plastic surgery?',
@@ -464,7 +464,7 @@ for (const [slug, title, context] of [
       [
         'Dental students: 3.0x–3.5x Galilean covers preclinical lab and clinic. Many students who start at 2.5x say they outgrow it within a year. Galileo from $795, with ' +
           TRAINEE_PERCENT_OFF +
-          '% off for verified students. /education/best-loupes-for-dental-students.',
+          '% off for verified students. /student-loupe-comparison.',
         'Dental hygienists: 3.0x–3.5x for scaling and calculus detection, light enough for a full day of recalls. /loupes-for-dental-hygiene.',
         'General and restorative dentists: 3.0x–4.0x; ergonomic prismatic Apollo or Medusa from $1,695 if posture is the problem. /dental-loupes.',
         'Endodontics and implants: 4.0x–6.0x prismatic, Kepler from $1,195. /loupes-for-endodontics.',
@@ -487,7 +487,7 @@ for (const [slug, title, context] of [
 // days at 18.8, against 8.9 for "best surgical loupes" on the surgical twin.
 // Same recipe that moved the surgical page from 19.6 to about 9: name the
 // search in the H1 and first sentence, answer it by type of loupe, and cover
-// the question variants in the FAQ. Lights stay on /best-dental-loupe-lights
+// the question variants in the FAQ. Lights stay on /dental-loupes-with-light
 // and /dental-loupes-with-light (see Sep 20 above), and the general ergonomic
 // search goes to /ergonomic-loupes, so both get a pointer, not a section.
 {
@@ -507,7 +507,7 @@ for (const [slug, title, context] of [
         `Endodontics, implants and fine margins: prismatic loupes at 4.0x–6.0x. HeliosX Kepler, ${range('kepler')}.`,
         `Neck or shoulder strain: ergonomic prismatic loupes, which bend the view down so your head stays closer to upright. HeliosX Apollo, ${range('apollo')}. Every brand's ergonomic line, compared: /ergonomic-loupes.`,
         `Moving between seated and standing work: adjustable working distance, 300–600 mm. HeliosX Medusa, ${range('medusa')}.`,
-        'Buying a light with them: compare brightness and battery life on /best-dental-loupe-lights.',
+        'Buying a light with them: compare brightness and battery life on /dental-loupes-with-light.',
       ],
       '/education/galilean-vs-prismatic-loupes',
       'Galilean vs prismatic loupes',
@@ -664,7 +664,7 @@ revisions['loupe-comparisons'] = {
         'Brand shortlist: /best-surgical-loupe-brands and /best-dental-loupe-brands.',
         'Buying for school: /student-loupe-comparison.',
         'Ergonomic designs: /ergonomic-loupes.',
-        'Conventional and ergonomic prisms: /prismatic-loupe-comparison.',
+        'Conventional and ergonomic prisms: /education/galilean-vs-prismatic-loupes.',
         'Costs and extras: /how-much-do-surgical-loupes-cost.',
       ],
     ),
@@ -691,7 +691,7 @@ revisions['student-loupe-comparison'] = {
         'Lowest published entry price: HeliosX Newton from $695 at 2.5x, no code needed.',
         'You want a trial and an in-person fitting: look at the Orascoptic student program and confirm your eligibility.',
         'You will keep this pair into practice: compare ergonomic prismatic viewing from $1,695 before buying twice.',
-        'Dental students specifically: /education/best-loupes-for-dental-students. Medical students: /loupes-for-medical-students.',
+        'Dental students specifically: /student-loupe-comparison. Medical students: /loupes-for-medical-students.',
       ],
     ),
     section(
@@ -1202,7 +1202,7 @@ for (const [slug, title] of [
       [
         'Hygiene, where weight and a full day of recalls decide the choice: /loupes-for-dental-hygiene.',
         'Adding a light, which has to be settled before the loupe is made: /dental-loupes-with-light.',
-        'Choosing a first pair in dental school: /education/best-loupes-for-dental-students.',
+        'Choosing a first pair in dental school: /student-loupe-comparison.',
         'Canal location and access at higher magnification: /loupes-for-endodontics.',
         'General dentists choosing a practice pair: /loupes-for-general-dentists.',
         'Crown, bridge and veneer work: /loupes-for-prosthodontics.',
@@ -1356,7 +1356,7 @@ revisions['dental-loupes'] = {
       'Start from the most detailed task you do every day, then pick the lowest magnification that shows it. More magnification narrows the field, so a hygienist who wants a full quadrant in view needs a different pair from an endodontist locating a canal.',
       [
         'Hygiene: 2.5x–3.0x for scaling, probing and calculus detection across a full day. /loupes-for-dental-hygiene.',
-        'Dental school: 2.5x is the usual first pair, but check your program’s requirements. /education/best-loupes-for-dental-students.',
+        'Dental school: 2.5x is the usual first pair, but check your program’s requirements. /student-loupe-comparison.',
         'General and restorative dentistry: 2.5x–3.5x for preparations, margins and caries.',
         'Endodontics: 4.5x–6.0x for canal location and access, alongside the microscope. /loupes-for-endodontics.',
         'Periodontics and implants: 3.0x–5.0x for surgery and placement. /loupes-for-periodontics and /loupes-for-dental-implants.',
@@ -1744,7 +1744,7 @@ revisions['best-loupes'] = {
       'Best loupes for students and residents',
       `A first pair should be forgiving: wide field, generous depth and a price that does not need a loan. Verified students, residents and fellows get ${TRAINEE_PERCENT_OFF}% off any HeliosX model.`,
       [
-        'Dental students: Newton or Galileo at 2.5x. /education/best-loupes-for-dental-students.',
+        'Dental students: Newton or Galileo at 2.5x. /student-loupe-comparison.',
         'Medical students and junior residents: Galileo at 2.5x–3.0x. /loupes-for-medical-students.',
         'Surgical residents moving into finer work: Kepler at 4.0x. /education/best-loupes-for-residents.',
       ],

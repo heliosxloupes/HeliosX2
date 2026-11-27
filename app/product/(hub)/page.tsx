@@ -48,7 +48,7 @@ export default function ProductPage() {
         <OrderingInfoSection />
         <section className="px-4 pb-16 md:px-8 md:pb-24">
           <div className="mx-auto grid max-w-6xl gap-4 border-t border-white/10 pt-8 text-sm text-neutral-300 md:grid-cols-4">
-            <Link href="/prismatic-loupe-comparison" className="transition hover:text-white">
+            <Link href="/education/galilean-vs-prismatic-loupes" className="transition hover:text-white">
               Prismatic loupes
             </Link>
             <Link href="/ergonomic-loupes" className="transition hover:text-white">

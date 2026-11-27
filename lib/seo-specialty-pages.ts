@@ -671,7 +671,7 @@ const surgicalSpecs: Spec[] = [
   },
 ]
 const dentalLight = 'Dental loupes with light, by setup: /dental-loupes-with-light.'
-const dentalTrainee = 'Best loupes for dental students: /education/best-loupes-for-dental-students.'
+const dentalTrainee = 'Best loupes for dental students: /student-loupe-comparison.'
 const dentalSpecs: Spec[] = [
   {
     slug: 'loupes-for-endodontics',

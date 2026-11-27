@@ -19,7 +19,6 @@ const buyingGuides = new Set([
   'heliosx-loupes-review',
   'dental-loupes-with-light',
   'loupes-for-dental-hygiene',
-  'surgical-magnifying-glasses',
   'lightweight-dental-loupes',
   'dental-hygiene-loupes-with-light',
   'surgical-loupes-with-light',

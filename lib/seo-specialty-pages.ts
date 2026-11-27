@@ -178,7 +178,7 @@ const specialty = (s: Spec): Rewrite => ({
           section(
             `For ${s.trainees}`,
             `Your first pair should grow with you. Start in the lower half of the range for your field, measured in your own working posture, and step up as your cases do. Verified residents, fellows and students receive ${TRAINEE_PERCENT_OFF}% off every HeliosX loupe.`,
-            [s.traineeLink ?? 'Best loupes for residents: /education/best-loupes-for-residents.'],
+            [s.traineeLink ?? 'Loupes for residents: /education/best-loupes-for-residents.'],
           ),
         ]
       : []),

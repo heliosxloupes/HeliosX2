@@ -10,10 +10,10 @@ import PreferredSourceButton from './PreferredSourceButton'
 
 const exploreLinks = [
   { label: 'All loupes', href: '/product' },
-  { label: 'Surgical loupes', href: '/best-surgical-loupe-brands' },
+  { label: 'Best surgical loupes', href: '/best-surgical-loupe-brands' },
   { label: 'Dental loupes', href: '/dental-loupes' },
   { label: 'Affordable loupes', href: '/affordable-loupes' },
-  { label: 'Best loupes', href: '/best-loupes' },
+  { label: 'Best dental loupes', href: '/best-dental-loupe-brands' },
   { label: 'Loupe comparisons', href: '/loupe-comparisons' },
 ]
 

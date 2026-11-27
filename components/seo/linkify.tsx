@@ -44,6 +44,23 @@ function emphasizeFigures(text: string, keyPrefix: string): ReactNode {
   return nodes
 }
 
+// Link text normally comes from the URL slug. Where a slug names a search
+// another page owns, the text is set here instead (26 Nov 2026): the slug
+// "best-loupes-for-residents" put "Best loupes for residents" on every link,
+// and those guides were then shown for "best surgical loupes" instead of the
+// brands page. The brands pages get the exact searches they rank for.
+const LINK_TEXT: Record<string, string> = {
+  '/best-surgical-loupe-brands': 'Best surgical loupes',
+  '/best-dental-loupe-brands': 'Best dental loupes',
+  '/best-loupes': 'Loupes by specialty and budget',
+  '/education/best-loupes-for-residents': 'Loupes for residents',
+  '/education/best-loupes-for-plastic-surgery': 'Loupes for plastic surgery',
+}
+
+function linkText(path: string) {
+  return LINK_TEXT[path] ?? path.split('/').filter(Boolean).pop()?.replaceAll('-', ' ').replace(/^[a-z]/, (letter) => letter.toUpperCase())
+}
+
 export function linkifyText(text: string): ReactNode {
   const matches = [...text.matchAll(INTERNAL_PATH_REGEX)]
   if (matches.length === 0) return emphasizeFigures(text, 'plain')
@@ -62,7 +79,7 @@ export function linkifyText(text: string): ReactNode {
         href={path}
         className="text-emerald-200 underline decoration-emerald-200/30 underline-offset-4 transition hover:text-white hover:decoration-emerald-200"
       >
-        {path.split('/').filter(Boolean).pop()?.replaceAll('-', ' ').replace(/^[a-z]/, (letter) => letter.toUpperCase())}
+        {linkText(path)}
       </Link>,
     )
     cursor = start + path.length

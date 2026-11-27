@@ -31,13 +31,11 @@ export type RecentPurchase = {
 const MAX_ITEMS = 10
 const WINDOW_DAYS = 60
 
-const LOUPE_IMAGES: Record<string, string> = {
-  medusa: '/Medusa/MedusaStudioCloseup.png',
-  apollo: '/Apollo/Apollofinal.png',
-  galileo: '/Galileo/galileoproduct.png',
-  newton: '/Newton/NewtonMain.png',
-  kepler: '/Keppler/KepplerNewmain.png',
-}
+// Square product thumbnails cropped tight on the product (public/recent/<slug>.webp).
+const THUMBNAILS = new Set([
+  'medusa', 'apollo', 'galileo', 'newton', 'kepler',
+  'polaris', 'vega', 'rigel', 'sirius', 'nova', 'antares', 'arcturus', 'canopus', 'canopus-xl',
+])
 const headlightSlugs = new Set<string>(HEADLIGHTS.map((light) => light.slug))
 
 type Meta = Record<string, string | undefined>
@@ -67,7 +65,7 @@ function toPurchase(session: Stripe.Checkout.Session, lineItems: Stripe.LineItem
   const isLight = main.isLight === 'true'
   const light = isLight ? lightBySlug(slug) : undefined
   const product = isLight ? light?.name : productNameBySlug[slug]
-  const image = isLight ? light?.image : LOUPE_IMAGES[slug]
+  const image = THUMBNAILS.has(slug) ? `/recent/${slug}.webp` : undefined
   if (!product || !image) return null
 
   const magnification = !isLight && main.magnification ? main.magnification.trim() : undefined

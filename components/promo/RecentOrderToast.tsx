@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { MapPin, X } from 'lucide-react'
+import { FaStripe } from 'react-icons/fa'
 
 import { localeOfPath, type Locale } from '@/lib/i18n'
 import type { RecentPurchase } from '@/lib/recent-purchases'
@@ -25,7 +26,8 @@ import styles from './RecentOrderToast.module.css'
 const EASE_OUT = [0.23, 1, 0.32, 1] as const
 
 const FIRST_DELAY = 9_000 // after the page settles
-const DWELL = 6_500 // card on screen
+const DWELL = 6_500 // card on screen (desktop)
+const DWELL_PHONE = 5_000 // phones: a glance, like a system alert
 const GAP = 14_000 // between cards
 const MAX_PER_VISIT = 6
 const DISMISS_DAYS = 3
@@ -35,10 +37,10 @@ const STATE_KEY = 'hx-recent-state' // { next, shown, lastAt } per tab session
 
 const HIDDEN_PREFIXES = ['/checkout', '/cart', '/admin', '/auth', '/measurements', '/offer']
 
-const COPY: Record<Locale, { eyebrow: string; paid: string; region: string; close: string; loupes: string; light: string; headlight: string }> = {
-  en: { eyebrow: 'Recent order', paid: 'Paid via Stripe', region: 'Recent orders', close: 'Hide recent orders', loupes: 'loupes', light: 'loupe light', headlight: 'headlight' },
-  es: { eyebrow: 'Pedido reciente', paid: 'Pagado con Stripe', region: 'Pedidos recientes', close: 'Ocultar pedidos recientes', loupes: 'lupas', light: 'luz para lupas', headlight: 'luz frontal' },
-  pt: { eyebrow: 'Pedido recente', paid: 'Pago via Stripe', region: 'Pedidos recentes', close: 'Ocultar pedidos recentes', loupes: 'lupas', light: 'luz para lupas', headlight: 'fotóforo' },
+const COPY: Record<Locale, { eyebrow: string; paid: string; ordered: string; paidVia: string; region: string; close: string; loupes: string; light: string; headlight: string }> = {
+  en: { eyebrow: 'Recent order', paid: 'Paid via Stripe', ordered: 'Ordered', paidVia: 'Paid via', region: 'Recent orders', close: 'Hide recent orders', loupes: 'loupes', light: 'loupe light', headlight: 'headlight' },
+  es: { eyebrow: 'Pedido reciente', paid: 'Pagado con Stripe', ordered: 'Pedido', paidVia: 'Pagado con', region: 'Pedidos recientes', close: 'Ocultar pedidos recientes', loupes: 'lupas', light: 'luz para lupas', headlight: 'luz frontal' },
+  pt: { eyebrow: 'Pedido recente', paid: 'Pago via Stripe', ordered: 'Pedido', paidVia: 'Pago via', region: 'Pedidos recentes', close: 'Ocultar pedidos recentes', loupes: 'lupas', light: 'luz para lupas', headlight: 'fotóforo' },
 }
 
 /* ------------------------------------------------------------------ data */
@@ -52,16 +54,16 @@ function devDemo(): RecentPurchase[] | null {
   const day = (ago: number) => new Date(Date.now() - ago * 86_400_000).toISOString().slice(0, 10)
   if (mode === 'worst') {
     return [
-      { slug: 'medusa', product: 'Medusa Ultra Wide Field Prismatic Extended', magnification: '8.5x', kind: 'loupes', image: '/Medusa/MedusaStudioCloseup.png', country: 'GS', day: day(0) },
-      { slug: 'canopus-xl', product: 'Canopus XL', kind: 'headlight', image: '/lights/light-7.webp', country: 'CD', day: day(45) },
-      { slug: 'x', product: 'X', kind: 'loupes', image: '/Galileo/galileoproduct.png', country: 'ZZ', day: day(400) },
+      { slug: 'medusa', product: 'Medusa Ultra Wide Field Prismatic Extended', magnification: '8.5x', kind: 'loupes', image: '/recent/medusa.webp', country: 'GS', day: day(0) },
+      { slug: 'canopus-xl', product: 'Canopus XL', kind: 'headlight', image: '/recent/canopus-xl.webp', country: 'CD', day: day(45) },
+      { slug: 'x', product: 'X', kind: 'loupes', image: '/recent/galileo.webp', country: 'ZZ', day: day(400) },
     ]
   }
   return [
-    { slug: 'medusa', product: 'Medusa', magnification: '3.5x', kind: 'loupes', image: '/Medusa/MedusaStudioCloseup.png', country: 'BR', day: day(0) },
-    { slug: 'galileo', product: 'Galileo', magnification: '3.0x', kind: 'loupes', image: '/Galileo/galileoproduct.png', country: 'DE', day: day(1) },
-    { slug: 'polaris', product: 'Polaris', kind: 'light', image: '/lights/light-7.webp', country: 'MX', day: day(3) },
-    { slug: 'apollo', product: 'Apollo', magnification: '4.0x', kind: 'loupes', image: '/Apollo/Apollofinal.png', country: 'US', day: day(9) },
+    { slug: 'medusa', product: 'Medusa', magnification: '3.5x', kind: 'loupes', image: '/recent/medusa.webp', country: 'BR', day: day(0) },
+    { slug: 'galileo', product: 'Galileo', magnification: '3.0x', kind: 'loupes', image: '/recent/galileo.webp', country: 'DE', day: day(1) },
+    { slug: 'polaris', product: 'Polaris', kind: 'light', image: '/recent/polaris.webp', country: 'MX', day: day(3) },
+    { slug: 'apollo', product: 'Apollo', magnification: '4.0x', kind: 'loupes', image: '/recent/apollo.webp', country: 'US', day: day(9) },
   ]
 }
 
@@ -227,7 +229,7 @@ export default function RecentOrderToast() {
         if (state.shown >= Math.min(MAX_PER_VISIT, items.length)) return
         const item = items[state.next % items.length]
         writeJSON('session', STATE_KEY, { next: state.next + 1, shown: state.shown + 1, lastAt: Date.now() })
-        dwellLeft.current = DWELL
+        dwellLeft.current = window.matchMedia('(max-width: 767px)').matches ? DWELL_PHONE : DWELL
         setCurrent(item)
       }, delay)
     },
@@ -289,19 +291,24 @@ export default function RecentOrderToast() {
   if (dismissed || hiddenRoute || !items?.length) return null
 
   // Desktop rises from the corner; phones drop from under the header.
-  const from = isPhone ? -18 : 16
+  // Phones skip the blur: a filter on the parent would switch off the card's
+  // frosted-glass backdrop. The glass itself materialises through opacity.
   const enter = reduce
     ? { opacity: 0 }
-    : { opacity: 0, transform: `translateY(${from}px) scale(0.96)`, filter: 'blur(6px)' }
+    : isPhone
+      ? { opacity: 0, transform: 'translateY(-18px) scale(0.96)' }
+      : { opacity: 0, transform: 'translateY(16px) scale(0.96)', filter: 'blur(6px)' }
   const shown = reduce
     ? { opacity: 1 }
-    : { opacity: 1, transform: 'translateY(0px) scale(1)', filter: 'blur(0px)' }
+    : isPhone
+      ? { opacity: 1, transform: 'translateY(0px) scale(1)' }
+      : { opacity: 1, transform: 'translateY(0px) scale(1)', filter: 'blur(0px)' }
   const leave = reduce
     ? { opacity: 0, transition: { duration: 0.2 } }
     : {
         opacity: 0,
         transform: `translateY(${isPhone ? -14 : 10}px) scale(0.98)`,
-        filter: 'blur(2px)',
+        ...(isPhone ? {} : { filter: 'blur(2px)' }),
         transition: { duration: 0.24, ease: EASE_OUT },
       }
 
@@ -357,7 +364,7 @@ export default function RecentOrderToast() {
             onPointerLeave={(e) => e.pointerType === 'mouse' && setPaused(false)}
             onFocus={() => setPaused(true)}
             onBlur={() => setPaused(false)}
-            style={{ ['--dwell' as string]: `${DWELL}ms` }}
+            style={{ ['--dwell' as string]: `${isPhone ? DWELL_PHONE : DWELL}ms` }}
           >
             <Link
               href={hrefFor(current)}
@@ -380,8 +387,11 @@ export default function RecentOrderToast() {
                 <motion.span className={styles.eyebrow} {...line(0)}>
                   <span className={styles.dot} aria-hidden="true" />
                   {copy.eyebrow}
-                  <span className={styles.paid}>{copy.paid}</span>
-                  <span className={styles.whenTop}>{ago(current.day, locale)}</span>
+                  <span className={styles.paid}>
+                    {copy.paidVia}
+                    <FaStripe className={styles.stripeMark} aria-hidden="true" />
+                    <span className={styles.srOnly}>Stripe</span>
+                  </span>
                 </motion.span>
                 <motion.span className={styles.product} {...line(1)}>
                   <span className={styles.productName}>{label}</span>
@@ -393,6 +403,25 @@ export default function RecentOrderToast() {
                   <span className={styles.sep} aria-hidden="true">·</span>
                   <span className={styles.when}>{ago(current.day, locale)}</span>
                 </motion.span>
+
+                {/* Phones: two lines, no label. What and where, then when and how it was paid. */}
+                <motion.span className={styles.phoneTop} {...line(0)}>
+                  <span className={styles.productName}>{label}</span>
+                  {current.magnification && <span className={styles.mag}>{current.magnification}</span>}
+                  <span className={styles.phoneCountry}>
+                    <MapPin className={styles.pin} strokeWidth={2.2} aria-hidden="true" />
+                    <span className={styles.country}>{countryName(current.country, locale)}</span>
+                  </span>
+                </motion.span>
+                <motion.span className={styles.phoneSub} {...line(1)}>
+                  {copy.ordered} {ago(current.day, locale)}
+                  <span className={styles.sep} aria-hidden="true">·</span>
+                  <span className={styles.phonePaid}>
+                    {copy.paidVia}
+                    <FaStripe className={styles.stripeMark} aria-hidden="true" />
+                    <span className={styles.srOnly}>Stripe</span>
+                  </span>
+                </motion.span>
               </span>
             </Link>
 
@@ -401,7 +430,6 @@ export default function RecentOrderToast() {
             </button>
 
             <span className={styles.progress} aria-hidden="true" />
-            <span className={styles.grabber} aria-hidden="true" />
           </motion.div>
           </motion.div>
         )}

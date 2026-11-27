@@ -1,5 +1,6 @@
 import { applyEditorialRevisions } from './seo-editorial'
 import { applyErgonomicHub } from './seo-ergonomic-hub-2026-11-18'
+import { applyHygieneErgoRewrite } from './seo-hygiene-ergo-rewrite-2026-12'
 import { oct28NewPages } from './seo-round-2026-10-28'
 import { beautyPagesNov2026 } from './seo-beauty-pages'
 import { bofuPagesNov2026 } from './seo-bofu-pages'
@@ -51,6 +52,8 @@ export type SeoLandingPage = {
   procedureRows?: { procedure: string; magnification: string; distance: string; pick: string }[]
   /** Models-and-prices table shown right under the hero. First column is the row header. */
   specTable?: { title: string; lead?: string; columns: string[]; rows: string[][]; note?: string }
+  /** Rewritten one-job pages: hide the shared 'Why HeliosX in 110+ countries' band. */
+  compact?: boolean
   /** Who the 'Why HeliosX' block speaks to, e.g. 'neurosurgeons'. Defaults to clinicians. */
   authorityAudience?: string
   proofPoints: string[]
@@ -8508,6 +8511,8 @@ allSeoLandingPages.push(...bofuPagesNov16)
 applyEditorialRevisions(allSeoLandingPages, educationGuides)
 // Nov 18 2026: the merged ergonomic page goes on last, over every earlier layer.
 applyErgonomicHub(allSeoLandingPages)
+// Dec 2026 draft: hygiene and ergonomic rewrite, one search per page. Applied last.
+applyHygieneErgoRewrite(allSeoLandingPages)
 
 // Merged pages 301 to a sibling (next.config.js); remove them here so they
 // drop out of the sitemap, llms-full.txt, static params and related links.

@@ -426,7 +426,7 @@ export default function SeoLandingExperience({
               ) : null}
             </section>
           ) : null}
-          <AuthorityBand audience={page.authorityAudience} />
+          {page.compact ? null : <AuthorityBand audience={page.authorityAudience} />}
           {page.items ? null : (
           <section id="model-shortlist" className={styles.section}>
             <p className={styles.kicker}>Your HeliosX shortlist</p>

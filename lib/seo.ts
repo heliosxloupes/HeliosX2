@@ -751,7 +751,6 @@ export function catalogItemListJsonLd(
       return {
         '@type': 'ListItem',
         position: index + 1,
-        url: itemUrl,
         item: itemNode,
       }
     }),
@@ -769,7 +768,6 @@ export function resourceItemListJsonLd(
       return {
         '@type': 'ListItem',
         position: index + 1,
-        url: itemUrl,
         item: {
           '@type': 'Article',
           '@id': `${itemUrl}#article`,

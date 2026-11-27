@@ -776,7 +776,7 @@ updates['ronin-headlight-alternative'] = roninComparison
 
 // Send the hygienist-light searches to the new page instead of splitting them.
 const hygieneLightPointer = section(
-  'Dental hygiene loupes with light',
+  'Setups for hygienists',
   'Hygienists have their own light needs: a full column of recalls, posterior and sub-gingival work, and a frame worn all day. We cover complete hygienist setups, with prices, on their own page.',
   ['Hygienist setups with prices: /dental-hygiene-loupes-with-light.'],
 )

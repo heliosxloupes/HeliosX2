@@ -189,8 +189,8 @@ const hubs: Record<string, Partial<SeoLandingPage>> = {
 
   'dental-loupes': {
     title: 'Dental Loupes: A Complete Guide to Choosing the Right Pair',
-    metaTitle: 'Dental Loupes Guide + Magnification Chart & Prices | HeliosX',
-    description: `Dental loupes explained: Galilean, prismatic and ergonomic types, a magnification chart for dentists and hygienists, and every price. HeliosX from ${from('newton')}.`,
+    metaTitle: 'Dental Loupes Guide + Magnification Chart for Dentists | HeliosX',
+    description: `Dental loupes explained: Galilean, prismatic and ergonomic types, a magnification chart for dentists and hygienists, and how to get the fit right. HeliosX from ${from('newton')}.`,
     heroKicker: 'Dental loupes',
     heroImage: {
       src: photo.galileo.src,
@@ -199,7 +199,7 @@ const hubs: Record<string, Partial<SeoLandingPage>> = {
     },
     authorityAudience: 'dentists',
     intro:
-      'Dental loupes are the magnifying telescopes dentists, hygienists and assistants wear on a frame, focused at their seated working distance, so margins, calculus and canals look bigger without leaning over the chair. Dental teams in more than 110 countries wear HeliosX, and choosing the right pair is the question we answer most. Here is the complete guide: the types of dental loupes, which magnification suits each role and procedure, what each pair costs, and how to get the fit right.',
+      'Dental loupes are the magnifying telescopes dentists, hygienists and assistants wear on a frame, focused at their seated working distance, so margins, calculus and canals look bigger without leaning over the chair. Dental teams in more than 110 countries wear HeliosX, and choosing the right pair is the question we answer most. Here is the complete guide: the types of dental loupes, which magnification suits each role and procedure, and how to get the fit right.',
     answer: `The right dental loupes match your procedures, seated working distance and posture. Most dentists and hygienists work at 2.5x–3.5x Galilean (Newton from ${from('newton')}, Galileo from ${from('galileo')}); endodontics and implants use 4x–6x prismatic (Kepler from ${from('kepler')}); ergonomic prismatic loupes keep your head upright through a full schedule (Apollo and Medusa from ${from('apollo')}).`,
     why: {
       title: 'Why the type of dental loupe matters',
@@ -223,7 +223,7 @@ const hubs: Record<string, Partial<SeoLandingPage>> = {
       ],
     },
     specTable: {
-      title: 'Dental loupes: models and prices',
+      title: 'HeliosX dental loupes at a glance',
       columns: modelColumns,
       rows: modelRows(allModels),
       note: `${shipping} Prescription lenses add ${usd(PRESCRIPTION_PRICE)}. Verified dental students get ${TRAINEE_PERCENT_OFF}% off. Full catalog: /product.`,

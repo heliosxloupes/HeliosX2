@@ -2134,7 +2134,7 @@ const searchSnippets: Record<string, { metaTitle?: string; description?: string 
     description: `Surgical loupe prices for every HeliosX model, ${from('newton')} to ${priceCeiling}, and what to check in another brand's quote: magnification, optics and prescription.`,
   },
   'loupes-for-dental-hygiene': {
-    metaTitle: 'Dental Hygiene Loupes: Best Picks for Hygienists | HeliosX',
+    metaTitle: 'Dental Hygiene Loupes: Fit, Magnification & Light | HeliosX',
     description: `Dental hygiene loupes for hygienists: 3.0x–3.5x picks, lights and seated posture. Galileo from ${from('galileo')}, free shipping, 30-day returns, ${TRAINEE_PERCENT_OFF}% off for students.`,
   },
   'dental-loupes-with-light': {

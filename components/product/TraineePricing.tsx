@@ -4,7 +4,7 @@ import { ChevronDown } from 'lucide-react'
 import { TRAINEE_PERCENT_OFF } from '@/lib/pricing'
 import CopyEmail from '@/components/Contact/CopyEmail'
 
-const EMAIL = 'heliosxloupes@gmail.com'
+const EMAIL = 'support@heliosxvision.com'
 
 type Props = {
   model: string

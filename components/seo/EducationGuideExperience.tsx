@@ -239,7 +239,7 @@ export default function EducationGuideExperience({
             </p>
             <div className={styles.actions}>
               <a
-                href={`mailto:heliosxloupes@gmail.com?subject=${encodeURIComponent(`Question about ${guide.title}`)}`}
+                href={`mailto:support@heliosxvision.com?subject=${encodeURIComponent(`Question about ${guide.title}`)}`}
                 className={styles.primary}
                 data-seo-event="education_fit_email"
               >

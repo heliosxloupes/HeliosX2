@@ -140,7 +140,7 @@ export default function LatinAmericaPage() {
                 See the models
               </Link>
               <a
-                href="mailto:heliosxloupes@gmail.com?subject=Question%20from%20Latin%20America"
+                href="mailto:support@heliosxvision.com?subject=Question%20from%20Latin%20America"
                 className="inline-flex items-center gap-2 rounded-full border border-white/25 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/50"
               >
                 <Mail size={16} aria-hidden="true" /> Email us
@@ -196,7 +196,7 @@ export default function LatinAmericaPage() {
             </ol>
             <p className="text-neutral-300">
               Want to know the total cost including import taxes before you buy? Email{' '}
-              <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline underline-offset-4">heliosxloupes@gmail.com</a>{' '}
+              <a href="mailto:support@heliosxvision.com" className="text-emerald-200 underline underline-offset-4">support@heliosxvision.com</a>{' '}
               with your country and the model you are considering.
             </p>
           </section>

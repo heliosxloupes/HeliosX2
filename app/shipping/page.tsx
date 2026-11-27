@@ -48,8 +48,8 @@ export default function ShippingPage() {
             </h2>
             <p className="text-neutral-300">
               Once your order ships, you receive an email with carrier and tracking information. Address changes are possible before the carrier takes possession of the package. Contact{' '}
-              <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
-                heliosxloupes@gmail.com
+              <a href="mailto:support@heliosxvision.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
+                support@heliosxvision.com
               </a>{' '}
               as soon as possible to update an address before shipment.
             </p>

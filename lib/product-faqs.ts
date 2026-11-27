@@ -26,7 +26,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'Are there discounts for residents and students?',
       answer:
-        `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+        `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
     },
     {
       question: 'What happens if my Medusa loupes get damaged?',
@@ -53,7 +53,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'Are there discounts for residents and students?',
       answer:
-        `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+        `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
     },
   ],
   kepler: [
@@ -75,7 +75,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'Are there discounts for residents and fellows?',
       answer:
-        'Yes. Resident- and fellowship-friendly pricing is documented across the HeliosX lineup. Email heliosxloupes@gmail.com with your training program details to confirm.',
+        'Yes. Resident- and fellowship-friendly pricing is documented across the HeliosX lineup. Email support@heliosxvision.com with your training program details to confirm.',
     },
   ],
   galileo: [
@@ -119,7 +119,7 @@ export const productFaqs: Record<string, { question: string; answer: string }[]>
     {
       question: 'Are there discounts for residents and students?',
       answer:
-        `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+        `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
     },
   ],
 }

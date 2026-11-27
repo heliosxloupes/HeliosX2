@@ -638,7 +638,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'Do residents, medical students, and dental students get discounts?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'Is a $5,000 loupe meaningfully better than a $1,500 loupe?',
@@ -950,7 +950,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
         body:
           'Eligibility confirmation is short and does not require uploading documents or completing a separate form. The goal is to make access pricing low-friction, not to gate it behind paperwork.',
         bullets: [
-          'Email heliosxloupes@gmail.com from your training-program email address (.edu, hospital domain, or program-issued) with the model you are considering.',
+          'Email support@heliosxvision.com from your training-program email address (.edu, hospital domain, or program-issued) with the model you are considering.',
           'Alternatively, ask a program coordinator or chief resident to send a one-line confirmation of your training status.',
           'HeliosX confirms eligibility and order details within one business day.',
           'No income verification, no FAFSA paperwork, no financial-need disclosure.',
@@ -1001,7 +1001,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
     ],
     competitorName: 'Typical legacy student program',
     verdict:
-      'HeliosX access pricing exists because the founding premise of the brand is that surgical optics should not be gated by training-stage budgets. If you are a medical student, dental student, hygienist student, resident, or fellow, email heliosxloupes@gmail.com from your training-program email with the model you are considering and HeliosX will confirm eligibility within one business day.',
+      'HeliosX access pricing exists because the founding premise of the brand is that surgical optics should not be gated by training-stage budgets. If you are a medical student, dental student, hygienist student, resident, or fellow, email support@heliosxvision.com from your training-program email with the model you are considering and HeliosX will confirm eligibility within one business day.',
     faqs: [
       {
         question: 'Do medical students get a HeliosX loupes discount?',
@@ -1021,7 +1021,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'Do hygiene students and hygienists get a discount?',
         answer:
-          'Yes for hygiene students and program-coordinated hygienist programs. Practicing hygienists outside a training program are not formally part of the access program but should email heliosxloupes@gmail.com to discuss; HeliosX supports practitioners across the dental hygiene path.',
+          'Yes for hygiene students and program-coordinated hygienist programs. Practicing hygienists outside a training program are not formally part of the access program but should email support@heliosxvision.com to discuss; HeliosX supports practitioners across the dental hygiene path.',
       },
       {
         question: 'How much is the student discount worth?',
@@ -1031,7 +1031,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'Can my program order loupes for a whole cohort?',
         answer:
-          'Yes. Dental schools, residency programs, and hygiene programs can order for cohorts with bulk pricing and consolidated billing. On-site measurement support is available for larger cohorts. Program coordinators should email heliosxloupes@gmail.com to set up.',
+          'Yes. Dental schools, residency programs, and hygiene programs can order for cohorts with bulk pricing and consolidated billing. On-site measurement support is available for larger cohorts. Program coordinators should email support@heliosxvision.com to set up.',
       },
       {
         question: 'What documents do I need to send to qualify?',
@@ -1156,7 +1156,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'Which HeliosX model is best for endodontic residents?',
         answer:
-          'Kepler at $1,195 covers the 4.0x–6.0x range most endodontic residents need without committing to the ergonomic prismatic premium. Resident access pricing applies. Email heliosxloupes@gmail.com with your program details to confirm eligibility.',
+          'Kepler at $1,195 covers the 4.0x–6.0x range most endodontic residents need without committing to the ergonomic prismatic premium. Resident access pricing applies. Email support@heliosxvision.com with your program details to confirm eligibility.',
       },
       {
         question: 'Can the same loupes handle endo and restorative work?',
@@ -1279,7 +1279,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'What loupes do periodontal residents need?',
         answer:
-          'A starting pair that covers routine perio through grafting — Apollo at $1,695 ergonomic prismatic or Galileo at $795 as a more affordable entry. Resident access pricing applies across the lineup. Email heliosxloupes@gmail.com with program details to confirm eligibility.',
+          'A starting pair that covers routine perio through grafting — Apollo at $1,695 ergonomic prismatic or Galileo at $795 as a more affordable entry. Resident access pricing applies across the lineup. Email support@heliosxvision.com with program details to confirm eligibility.',
       },
       {
         question: 'Do I need a microscope for periodontal microsurgery?',
@@ -1656,7 +1656,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'Do hygiene students get a discount?',
         answer:
-          'Yes. HeliosX runs documented access pricing for hygiene students enrolled in accredited programs. Email heliosxloupes@gmail.com from your training-program email address to confirm eligibility.',
+          'Yes. HeliosX runs documented access pricing for hygiene students enrolled in accredited programs. Email support@heliosxvision.com from your training-program email address to confirm eligibility.',
       },
       {
         question: 'Will loupes fix the neck and shoulder pain I have from hygiene work?',
@@ -1781,7 +1781,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'Which HeliosX model is best for vascular fellows?',
         answer:
-          'Apollo at $1,695 covers the full vascular range with ergonomic posture support. Fellow access pricing applies. Email heliosxloupes@gmail.com with program details to confirm eligibility.',
+          'Apollo at $1,695 covers the full vascular range with ergonomic posture support. Fellow access pricing applies. Email support@heliosxvision.com with program details to confirm eligibility.',
       },
       {
         question: 'Can the same loupes handle microvascular replantation?',
@@ -2031,7 +2031,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'Which HeliosX loupe is best for hand fellows?',
         answer:
-          'Apollo at $1,695 covers routine hand work with ergonomic posture support. Kepler at $1,195 is the more affordable specialist pick. Fellow access pricing applies on both. Email heliosxloupes@gmail.com to confirm eligibility.',
+          'Apollo at $1,695 covers routine hand work with ergonomic posture support. Kepler at $1,195 is the more affordable specialist pick. Fellow access pricing applies on both. Email support@heliosxvision.com to confirm eligibility.',
       },
       {
         question: 'Can one pair of loupes handle hand and arthroplasty for a mixed practice?',
@@ -2280,7 +2280,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
       {
         question: 'Which HeliosX loupe is best for spine fellows?',
         answer:
-          'Apollo at $1,695 covers routine spine work with ergonomic posture support. Fellow access pricing applies. Email heliosxloupes@gmail.com with program details to confirm eligibility.',
+          'Apollo at $1,695 covers routine spine work with ergonomic posture support. Fellow access pricing applies. Email support@heliosxvision.com with program details to confirm eligibility.',
       },
       {
         question: 'Can the same loupes handle spine surgery and other specialties?',
@@ -3249,7 +3249,7 @@ const competitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or dental-student discounts?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or need lens updates?',
@@ -3366,12 +3366,12 @@ const competitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes get damaged or lost?',
         answer:
-          'Every order is covered by a warranty including replacement and lens-update paths. Optional protection coverage for loss, damage, and accidental drops is available at order. Damage outside warranty is supported case-by-case — email heliosxloupes@gmail.com to start.',
+          'Every order is covered by a warranty including replacement and lens-update paths. Optional protection coverage for loss, damage, and accidental drops is available at order. Damage outside warranty is supported case-by-case — email support@heliosxvision.com to start.',
       },
     ],
   },
@@ -3470,7 +3470,7 @@ const competitorPages: SeoLandingPage[] = [
       {
         question: 'What is a good Orascoptic alternative for residents?',
         answer:
-          'For residents, Medusa or Apollo cover ergonomic prismatic needs; Galileo and Newton cover affordable daily-use entries from $695. All four are eligible for HeliosX resident and student pricing — email heliosxloupes@gmail.com with training program details to confirm eligibility.',
+          'For residents, Medusa or Apollo cover ergonomic prismatic needs; Galileo and Newton cover affordable daily-use entries from $695. All four are eligible for HeliosX resident and student pricing — email support@heliosxvision.com with training program details to confirm eligibility.',
       },
       {
         question: 'Why does HeliosX cost less than Orascoptic without cutting quality?',
@@ -3589,7 +3589,7 @@ const competitorPages: SeoLandingPage[] = [
       {
         question: 'What is a good LumaDent alternative for dental students?',
         answer:
-          'Galileo and Newton for accessible daily clinical use starting at $695, then Medusa or Apollo if ergonomic prismatic posture support is the priority. All four are eligible for HeliosX student pricing — email heliosxloupes@gmail.com with your school details to confirm eligibility.',
+          'Galileo and Newton for accessible daily clinical use starting at $695, then Medusa or Apollo if ergonomic prismatic posture support is the priority. All four are eligible for HeliosX student pricing — email support@heliosxvision.com with your school details to confirm eligibility.',
       },
       {
         question: 'Why does HeliosX cost less than LumaDent across many configurations?',
@@ -3724,7 +3724,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -3841,7 +3841,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -3958,7 +3958,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -4075,7 +4075,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -4196,7 +4196,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -4316,7 +4316,7 @@ const secondaryCompetitorPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -4437,7 +4437,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident and student discounts?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'Why does HeliosX cost less than legacy dental brands?',
@@ -4565,7 +4565,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident and student discounts?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'Why does HeliosX cost less than legacy surgical brands?',
@@ -4684,7 +4684,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident and student discounts?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'Should a student buy a prismatic loupe or wait?',
@@ -5054,7 +5054,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         question: 'Does HeliosX offer resident or student discounts?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -5169,7 +5169,7 @@ const authorityComparisonPages: SeoLandingPage[] = [
       {
         question: 'Are there discounts for residents and students?',
         answer:
-          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email heliosxloupes@gmail.com with proof of your training status and we send a code to use at checkout.`,
+          `Yes. Verified residents, fellows and students get ${TRAINEE_PERCENT_OFF}% off any HeliosX model. Email support@heliosxvision.com with proof of your training status and we send a code to use at checkout.`,
       },
       {
         question: 'What happens if my HeliosX loupes are damaged or lost?',
@@ -5301,7 +5301,7 @@ const buyerQuestionPages: SeoLandingPage[] = [
       {
         question: 'Can someone help me choose before I order?',
         answer:
-          'Yes. Email heliosxloupes@gmail.com with your specialty, current magnification, typical procedures, and budget, and we will help narrow the configuration before you pay.',
+          'Yes. Email support@heliosxvision.com with your specialty, current magnification, typical procedures, and budget, and we will help narrow the configuration before you pay.',
       },
     ],
     datePublished: buyerQuestionDate,
@@ -5333,7 +5333,7 @@ const buyerQuestionPages: SeoLandingPage[] = [
           `Newton ${priceRange('newton')}, Galileo ${priceRange('galileo')}, Kepler ${priceRange('kepler')}.`,
           `Apollo ${priceRange('apollo')}, Medusa ${priceRange('medusa')}.`,
           'Prescription lenses add $200.',
-          'Ask us about your destination before ordering: heliosxloupes@gmail.com.',
+          'Ask us about your destination before ordering: support@heliosxvision.com.',
         ],
         sourceLabel: 'Shipping policy',
         sourceHref: '/shipping',
@@ -5373,7 +5373,7 @@ const buyerQuestionPages: SeoLandingPage[] = [
           'Some loupe brands sell through regional dealers and quote prices by country, so availability and cost can vary with where you live. HeliosX publishes one USD price list and ships direct, so you can see the price and configuration before you order, then add your country\'s import charges.',
         bullets: [
           'The same models and prices are available to every country we ship to.',
-          'Email support replaces the local dealer visit: heliosxloupes@gmail.com.',
+          'Email support replaces the local dealer visit: support@heliosxvision.com.',
         ],
       },
     ],
@@ -5403,7 +5403,7 @@ const buyerQuestionPages: SeoLandingPage[] = [
       {
         question: 'What if my loupes arrive with a defect?',
         answer:
-          'Email heliosxloupes@gmail.com with your order number, a short description, and photos. Manufacturing defects are covered by the limited lifetime warranty, and we respond within one business day.',
+          'Email support@heliosxvision.com with your order number, a short description, and photos. Manufacturing defects are covered by the limited lifetime warranty, and we respond within one business day.',
       },
     ],
     datePublished: buyerQuestionDate,

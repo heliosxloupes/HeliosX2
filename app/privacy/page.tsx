@@ -23,7 +23,7 @@ export default function PrivacyPage() {
             We may collect email, phone, shipping/payment metadata from Stripe, cart activity, order details, measurements, and support messages. Payments are processed by Stripe; HeliosX does not store full card numbers.
           </p>
           <p className="text-neutral-300">
-            We use Supabase for operational data and Resend for transactional and abandoned-cart email. You can contact us at heliosxloupes@gmail.com for privacy questions or data requests.
+            We use Supabase for operational data and Resend for transactional and abandoned-cart email. You can contact us at support@heliosxvision.com for privacy questions or data requests.
           </p>
           <p className="text-neutral-300">
             We use Google Analytics, Microsoft Clarity and Meta Pixel to understand website activity, measure advertising performance, and improve our campaigns. Microsoft Clarity records how pages are used, such as clicks, taps and scrolling, with form entries masked. These tools may use cookies or similar browser storage.

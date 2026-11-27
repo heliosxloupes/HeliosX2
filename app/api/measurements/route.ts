@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 import { upsertCrmContact } from '@/lib/commerce'
-import { HELIOSX_SUPPORT_EMAIL, sendEmail, type OrderEmailSummary } from '@/lib/email'
+import { HELIOSX_INBOX, HELIOSX_SUPPORT_EMAIL, sendEmail, type OrderEmailSummary } from '@/lib/email'
 import { getSupabaseServiceClient } from '@/lib/supabase/server'
 import { getSiteUrl } from '@/lib/site-url'
 
@@ -122,7 +122,7 @@ async function sendMeasurementEmails({
 
   // 1) Internal review email to the HeliosX team.
   await sendEmail({
-    to: HELIOSX_SUPPORT_EMAIL,
+    to: HELIOSX_INBOX,
     subject: `Measurements submitted — ${who}`,
     preview: `${who} submitted fit measurements — ready for review.`,
     eyebrow: 'Internal · Measurements',

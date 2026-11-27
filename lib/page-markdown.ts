@@ -144,7 +144,7 @@ const summaryPages: Record<string, { title: string; summary: string }> = {
   },
   '/warranty': {
     title: 'Limited lifetime warranty',
-    summary: 'All HeliosX loupes include a limited lifetime warranty covering manufacturer-related defects in materials and workmanship, starting on the delivery date. Email heliosxloupes@gmail.com with your order number to start a claim.',
+    summary: 'All HeliosX loupes include a limited lifetime warranty covering manufacturer-related defects in materials and workmanship, starting on the delivery date. Email support@heliosxvision.com with your order number to start a claim.',
   },
   '/privacy': {
     title: 'Privacy policy',

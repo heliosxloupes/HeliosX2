@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 import { upsertCrmContact } from '@/lib/commerce'
-import { HELIOSX_SUPPORT_EMAIL, sendEmail } from '@/lib/email'
+import { HELIOSX_INBOX, HELIOSX_SUPPORT_EMAIL, sendEmail } from '@/lib/email'
 import { metaContextFromRequest, sendMetaEvent } from '@/lib/meta-conversions'
 
 const clip = (value: unknown, max: number) => String(value ?? '').trim().slice(0, max)
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       },
     }),
     sendEmail({
-      to: HELIOSX_SUPPORT_EMAIL,
+      to: HELIOSX_INBOX,
       replyTo: email,
       subject: `Website question: ${topic}${product ? ` (${product})` : ''} from ${name || email}`,
       eyebrow: 'New website question',

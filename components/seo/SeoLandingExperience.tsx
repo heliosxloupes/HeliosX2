@@ -589,7 +589,7 @@ export default function SeoLandingExperience({
               </Link>
             </div>
             <p className={styles.fineprint}>
-              Email opens in your mail app: heliosxloupes@gmail.com ·{' '}
+              Email opens in your mail app: support@heliosxvision.com ·{' '}
               <Link href="/warranty">Limited lifetime warranty</Link>
             </p>
           </section>

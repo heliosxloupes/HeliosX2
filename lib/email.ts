@@ -4,7 +4,9 @@ let resend: Resend | null = null
 
 const HELIOSX_SITE_URL = 'https://heliosxvision.com'
 export const PD_GUIDE_URL = `${HELIOSX_SITE_URL}/measurements/ipd`
-export const HELIOSX_SUPPORT_EMAIL = 'heliosxloupes@gmail.com'
+export const HELIOSX_SUPPORT_EMAIL = 'support@heliosxvision.com'
+/** Where the site's own notifications (contact form, measurements) are delivered. support@ forwards here too, but sending straight to the inbox avoids a forwarding hop. */
+export const HELIOSX_INBOX = 'heliosxloupes@gmail.com'
 
 export type OrderEmailItem = {
   name: string

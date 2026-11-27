@@ -76,7 +76,7 @@ const costs = section(
 const baseFaqs = [
   faq(
     'Can I get help before placing an order?',
-    'Yes. Email heliosxloupes@gmail.com with your specialty, current magnification, typical procedures, and budget. Ask us to help narrow the configuration before you pay.',
+    'Yes. Email support@heliosxvision.com with your specialty, current magnification, typical procedures, and budget. Ask us to help narrow the configuration before you pay.',
   ),
   faq(
     'Can I return loupes if I change my mind?',

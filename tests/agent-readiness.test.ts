@@ -102,14 +102,14 @@ describe('trust pages', () => {
   it('have at least 500 characters of real content', () => {
     expect(text(aboutPage).length).toBeGreaterThanOrEqual(500)
     expect(text(contactPage).length).toBeGreaterThanOrEqual(500)
-    expect(text(contactPage)).toContain('heliosxloupes@gmail.com')
+    expect(text(contactPage)).toContain('support@heliosxvision.com')
   })
 })
 
 describe('structured data', () => {
   it('Organization has contactPoint and sameAs profiles', () => {
     const org = organizationJsonLd() as Record<string, any>
-    expect(org.contactPoint.email).toBe('heliosxloupes@gmail.com')
+    expect(org.contactPoint.email).toBe('support@heliosxvision.com')
     expect(org.contactPoint.contactType).toBeTruthy()
     expect(org.sameAs).toContain('https://www.instagram.com/heliosxloupes/')
     expect(org.sameAs).toContain('https://www.facebook.com/profile.php?id=61594420101254')

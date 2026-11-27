@@ -49,8 +49,8 @@ export default function WarrantyPage() {
             </h2>
             <p className="text-neutral-300">
               We assess covered claims and provide the appropriate authorized return, repair, replacement, or exchange path. Email us at{' '}
-              <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
-                heliosxloupes@gmail.com
+              <a href="mailto:support@heliosxvision.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
+                support@heliosxvision.com
               </a>{' '}
               with your order number and a description of the issue, including photos when relevant.
             </p>
@@ -73,8 +73,8 @@ export default function WarrantyPage() {
             </h2>
             <p className="text-neutral-300">
               Normal wear, wear parts such as nose pads, straps, side shields and batteries, accidental damage, misuse, prescription changes, and unauthorized modifications fall outside these warranties. We still try to help. Email{' '}
-              <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
-                heliosxloupes@gmail.com
+              <a href="mailto:support@heliosxvision.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
+                support@heliosxvision.com
               </a>{' '}
               and we will share repair and replacement options.
             </p>

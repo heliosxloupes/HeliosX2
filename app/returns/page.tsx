@@ -54,8 +54,8 @@ export default function ReturnsPage() {
             </h2>
             <p className="text-neutral-300">
               Every pair is covered by a limited lifetime warranty against manufacturer defects in materials and workmanship. Confirmed defects are eligible for repair, replacement or exchange. Reach out to{' '}
-              <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
-                heliosxloupes@gmail.com
+              <a href="mailto:support@heliosxvision.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
+                support@heliosxvision.com
               </a>{' '}
               and we will help work out the right fix.
             </p>
@@ -68,8 +68,8 @@ export default function ReturnsPage() {
             </h2>
             <p className="text-neutral-300">
               Email{' '}
-              <a href="mailto:heliosxloupes@gmail.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
-                heliosxloupes@gmail.com
+              <a href="mailto:support@heliosxvision.com" className="text-emerald-200 underline decoration-emerald-200/40 underline-offset-4 transition hover:text-white">
+                support@heliosxvision.com
               </a>{' '}
               with your order number and whether you are returning the pair or reporting an issue, with photos when relevant. We reply within one business day with return instructions.
             </p>

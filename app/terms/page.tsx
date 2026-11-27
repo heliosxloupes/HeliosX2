@@ -23,7 +23,7 @@ export default function TermsPage() {
             Non-prescription pairs may be returned within 30 days of delivery, in their original condition with the case, for a full refund of the loupes. Prescription pairs may be cancelled for a full refund at any time before custom production begins; once production begins they are not returnable for a change of mind, and pairs that do not match the approved measurements are corrected or remade. Manufacturer-related defects are covered by the limited lifetime warranty.
           </p>
           <p className="text-neutral-300">
-            Shipping updates are provided by email when tracking is available. Contact heliosxloupes@gmail.com for order, refund, or support questions.
+            Shipping updates are provided by email when tracking is available. Contact support@heliosxvision.com for order, refund, or support questions.
           </p>
         </article>
       </main>

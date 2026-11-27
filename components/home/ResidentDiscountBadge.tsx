@@ -7,7 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowUpRight, GraduationCap } from 'lucide-react'
 import { TRAINEE_PERCENT_OFF } from '@/lib/pricing'
 
-const EMAIL = 'heliosxloupes@gmail.com'
+const EMAIL = 'support@heliosxvision.com'
 const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent('Resident / student discount verification')}&body=${encodeURIComponent(
   'Hi HeliosX,\n\nI would like to verify my training status for the resident/student discount.\n\nName:\nProgram / school:\nYear of training and expected graduation:\nModel and magnification I am considering:\n\nProof of status attached (program ID, enrollment letter, or a screenshot of my program profile).\n\nThanks,',
 )}`

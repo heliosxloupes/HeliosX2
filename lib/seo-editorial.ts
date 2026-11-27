@@ -483,57 +483,9 @@ for (const [slug, title, context] of [
   ]
 }
 
-// Nov 16 2026, page-two push for "best dental loupes": 780 impressions in 90
-// days at 18.8, against 8.9 for "best surgical loupes" on the surgical twin.
-// Same recipe that moved the surgical page from 19.6 to about 9: name the
-// search in the H1 and first sentence, answer it by type of loupe, and cover
-// the question variants in the FAQ. Lights stay on /dental-loupes-with-light
-// and /dental-loupes-with-light (see Sep 20 above), and the general ergonomic
-// search goes to /ergonomic-loupes, so both get a pointer, not a section.
-{
-  const dental = revisions['best-dental-loupe-brands']
-  dental.title = 'Best dental loupes: 8 brands compared'
-  dental.intro =
-    'The best dental loupes show the detail your procedures need at your seated working distance, light enough to wear through a full schedule, in a posture you can hold all day. Dental loupes are also called dental magnifying glasses or dental telescopes. There is no single best brand for every dentist or hygienist, so below you can match a type of loupe to your work, then compare eight brands by the features and buying terms that change the decision.'
-  const [shortlist, byRole, ...rest] = dental.sections ?? []
-  dental.sections = [
-    shortlist,
-    byRole,
-    section(
-      'Best dental loupes by type',
-      'Choose the optical design first, then the brand. These pairings are starting points; compare the view at your own working distance before you buy.',
-      [
-        `Everyday restorative work, hygiene and students: Galilean loupes at 2.5x–3.5x, light and with a wide field. HeliosX Newton from ${dollars(Math.min(...Object.values(magnificationPriceByProduct.newton)))} or Galileo from ${dollars(Math.min(...Object.values(magnificationPriceByProduct.galileo)))}.`,
-        `Endodontics, implants and fine margins: prismatic loupes at 4.0x–6.0x. HeliosX Kepler, ${range('kepler')}.`,
-        `Neck or shoulder strain: ergonomic prismatic loupes, which bend the view down so your head stays closer to upright. HeliosX Apollo, ${range('apollo')}. Every brand's ergonomic line, compared: /ergonomic-loupes.`,
-        `Moving between seated and standing work: adjustable working distance, 300–600 mm. HeliosX Medusa, ${range('medusa')}.`,
-        'Buying a light with them: compare brightness and battery life on /dental-loupes-with-light.',
-      ],
-      '/education/galilean-vs-prismatic-loupes',
-      'Galilean vs prismatic loupes',
-    ),
-    ...rest,
-  ].filter((s): s is ContentSection => !!s)
-  dental.faqs = [
-    faq(
-      'What are the best dental loupes?',
-      'The best dental loupes match your procedures, working distance and posture: Galilean 2.5x–3.5x for general dentistry, hygiene and students, prismatic 4.0x–6.0x for endodontics and implants, and ergonomic prismatic designs if neck strain is the problem. Compare field of view, weight and fit at your own chair, not only the magnification number.',
-    ),
-    faq(
-      'What magnification is best for dental loupes?',
-      'Most dentists and hygienists work at 2.5x–3.5x. Endodontists and implant surgeons often move to 4.0x–6.0x. Choose the lowest magnification that shows the detail you need, because field of view and depth of field shrink as magnification rises.',
-    ),
-    faq(
-      'What are the best ergonomic dental loupes?',
-      `Ergonomic prismatic loupes, which angle the view downward so you can sit closer to upright. Established options include Orascoptic Ergo Series, SurgiTel Ergo IQ, Q-Optics ErgoAngle and LumaDent Ergo Air Ti (from $1,995). HeliosX Apollo and Medusa start at ${dollars(Math.min(...Object.values(magnificationPriceByProduct.apollo)))} with published prices.`,
-    ),
-    faq(
-      'What are the best dental loupes for hygienists?',
-      'Light Galilean loupes at 3.0x–3.5x suit most hygiene work, because you wear them for a full day of recall appointments. If your neck is the problem, an ergonomic prismatic pair is worth the extra weight. Hygiene picks and prices: /loupes-for-dental-hygiene.',
-    ),
-    ...(dental.faqs ?? []),
-  ]
-}
+// Nov 16 2026 push for "best dental loupes" (new H1, intro, by-type section and
+// four FAQs) removed on Nov 26: the search fell from 20.5 to 26.2 after it, and two
+// of the FAQs answered searches other pages own. The page is back to its earlier version.
 
 revisions['how-much-do-surgical-loupes-cost'] = {
   title: 'How much do surgical loupes cost?',

@@ -9,6 +9,7 @@ import Header from '@/components/Header'
 import { cartEditHref, getCart } from '@/lib/cart'
 import { CartEditButton, CartRemoveButton } from '@/components/cart/CartLineActions'
 import AfterCheckoutSteps from '@/components/cart/AfterCheckoutSteps'
+import TrustRow from '@/components/cart/TrustRow'
 import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 import type { CartItem } from '@/lib/cart'
 import { cartItemsToGA4Items, newEventId, trackBeginCheckout, trackViewCart } from '@/lib/analytics'
@@ -472,10 +473,8 @@ export default function CartPage() {
                   className="w-full rounded-full border border-white/15 bg-black/50 px-4 py-3 text-sm text-white outline-none transition focus:border-emerald-300"
                 />
                 {emailError && <p className="text-xs text-red-300">{emailError}</p>}
-                <p className="text-[0.65rem] text-neutral-500">
-                  30-day returns on non-prescription pairs. Prescription pairs are fully refundable until production begins.
-                </p>
               </div>
+              <TrustRow omit={items.length > 0 && loupeItems.length === 0 ? ['warranty', 'build'] : []} className="mb-4" />
 
               <button
                 disabled={!items.length}

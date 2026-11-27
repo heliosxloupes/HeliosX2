@@ -7,6 +7,7 @@ import Script from 'next/script'
 import Image from 'next/image'
 import { ArrowRight, Check, Lock } from 'lucide-react'
 import AfterCheckoutSteps from '@/components/cart/AfterCheckoutSteps'
+import TrustRow from '@/components/cart/TrustRow'
 import AskSpecialistButton from '@/components/Contact/AskSpecialistButton'
 import CopyEmail from '@/components/Contact/CopyEmail'
 import Header from '@/components/Header'
@@ -526,6 +527,7 @@ export default function CheckoutPage() {
               <p className="mt-2 text-[0.72rem] leading-5 text-neutral-400">
                 Taxes, if any, are shown by Stripe before you pay.
               </p>
+              <TrustRow omit={items.length > 0 && items.every((item) => item.isLight) ? ['returns', 'warranty', 'build'] : ['returns']} className="mt-3" />
               <PayOverTime amount={subtotal} />
             </div>
 

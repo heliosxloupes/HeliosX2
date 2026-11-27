@@ -26,6 +26,12 @@ const usd = (value: number) => `$${value.toLocaleString('en-US')}`
 const prices = (model: string) => Object.values(magnificationPriceByProduct[model])
 const from = (model: string) => usd(Math.min(...prices(model)))
 const top = (model: string) => usd(Math.max(...prices(model)))
+// Approximate AUD for Australian buyers: ECB reference rate on the date below,
+// rounded to the nearest A$10. The card issuer's rate on the day decides the
+// real charge; update both values together.
+const AUD_PER_USD = 1.5071
+const AUD_RATE_DATE = '26 Nov 2026'
+const aud = (value: number) => `A$${(Math.round((value * AUD_PER_USD) / 10) * 10).toLocaleString('en-US')}`
 const range = (model: string) => `${from(model)}–${top(model)}`
 const price = (model: string, mag: string) => magnificationPriceByProduct[model][mag]
 const section = (title: string, body: string, bullets: string[] = []): ContentSection => ({ title, body, bullets })
@@ -1884,7 +1890,7 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
     answer: `HeliosX loupes cost ${from('newton')}–${top('medusa')} USD with shipping to Australia included. Because most pairs come to more than A$1,000, they go through a formal import, and you pay 10% GST plus any duty and clearance charges at the border, per the ATO. ${leadTime}`,
     tierChart: {
       title: 'Dental loupes price chart for Australian buyers',
-      lead: 'Prices in USD, shipping to Australia included. Tap a model to jump to it.',
+      lead: `Prices in USD, shipping to Australia included; one US dollar is about ${AUD_PER_USD.toFixed(2)} Australian dollars (${AUD_RATE_DATE}). Tap a model to jump to it.`,
       scale: priceScale,
       tiers: priceTiers(allModels),
     },
@@ -1893,6 +1899,8 @@ export const bofuPagesNov2026: SeoLandingPage[] = [
       columns: ['Cost', 'How it works', 'Amount'],
       rows: [
         ['Loupes', 'Published USD price; your card converts to AUD', `${from('newton')}–${top('medusa')} USD`],
+        ['Loupes in AUD', `Approximate, at ${AUD_PER_USD.toFixed(2)} Australian dollars per US dollar (ECB, ${AUD_RATE_DATE})`, `${aud(Math.min(...prices('newton')))}–${aud(Math.max(...prices('medusa')))}`],
+        ['Example: Galileo, landed', `From ${from('galileo')} USD, about ${aud(Math.min(...prices('galileo')))}, plus 10% GST`, `About ${aud(Math.min(...prices('galileo')) * 1.1)} before any duty and clearance`],
         ['Shipping', 'Standard shipping included in the price', 'Included'],
         ['GST', 'For a consignment over A$1,000, charged at the border on import', '10%'],
         ['Duty and clearance', 'Assessed by Australian Border Force on formal import', 'Depends on the goods; check with ABF'],

@@ -2215,7 +2215,7 @@ const searchSnippets: Record<string, { metaTitle?: string; description?: string 
 }
 const guideSnippets: Record<string, { metaTitle?: string; description?: string }> = {
   'best-loupes-for-residents': {
-    metaTitle: 'Best Loupes for Residents 2026: Picks by Specialty',
+    metaTitle: 'Loupes for Residents: Magnification, Timing & Price | HeliosX',
     description: `Loupes for surgical and dental residents: which magnification to start with, what programs expect, and prices from ${from('newton')} with ${TRAINEE_PERCENT_OFF}% off for trainees.`,
   },
   'best-loupes-for-dental-students': {
@@ -2492,7 +2492,7 @@ function expandThinGuides(guides: EducationGuide[]) {
   if (plastic)
     Object.assign(plastic, {
       dateModified: expanded,
-      metaTitle: 'Best Loupes for Plastic Surgery | Magnification & Fit',
+      metaTitle: 'Loupes for Plastic Surgery: Magnification & Fit | HeliosX',
       description:
         'Choosing loupes for plastic and reconstructive surgery: aesthetic, reconstructive, hand, and microsurgery-oriented work, magnification ranges, ergonomics, and HeliosX options.',
       intro:

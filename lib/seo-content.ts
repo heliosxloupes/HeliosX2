@@ -6494,8 +6494,8 @@ educationGuides.push({
 
 educationGuides.push({
   slug: 'best-loupes-for-residents',
-  title: 'Best Loupes for Residents',
-  metaTitle: 'Best Loupes for Residents | Magnification, Specialty, Budget',
+  title: 'Loupes for Residents: Your First Pair',
+  metaTitle: 'Loupes for Residents: Magnification, Timing & Price | HeliosX',
   description:
     'How residents should pick a first pair of loupes: magnification by training stage, specialty recommendations, and models that fit each.',
   kicker: 'Resident buying guide',
@@ -6619,7 +6619,7 @@ educationGuides.push({
 
 const compactGuideData: [string, string, string][] = [
   ['best-loupes-for-dental-students', 'Best Loupes for Dental Students', 'Dental student guide to magnification, working distance, ergonomics, and affordable loupe choices.'],
-  ['best-loupes-for-plastic-surgery', 'Best Loupes for Plastic Surgery', 'Plastic surgery loupe guide for aesthetics, reconstruction, hand, and microsurgery-oriented workflows.'],
+  ['best-loupes-for-plastic-surgery', 'Loupes for Plastic Surgery', 'Plastic surgery loupe guide for aesthetics, reconstruction, hand, and microsurgery-oriented workflows.'],
   ['how-to-choose-surgical-loupes', 'How to Choose Surgical Loupes', 'A practical buying guide covering magnification, prismatic optics, working distance, fit, budget, and specialty.'],
   ['prescription-loupes-guide', 'Prescription Loupes Guide', 'Learn how prescription lenses work with surgical and dental loupes and what information HeliosX needs after checkout.'],
   ['research', 'Loupe Research Library', 'A HeliosX research library collecting PubMed and peer-reviewed work on magnification, ergonomics, diagnosis, and measurement accuracy.'],

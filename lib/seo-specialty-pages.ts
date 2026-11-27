@@ -915,7 +915,7 @@ const dentalSpecs: Spec[] = [
     challenge: {
       title: 'One pair for a whole practice day',
       body: 'Most general dentists start with Galileo at 3.0x–3.5x and add a prismatic pair as their endo and crown work grows. HeliosX ergonomic prismatic Apollo is the upgrade dentists choose when posture becomes the priority.',
-      bullets: ['Dental loupes by model: /dental-loupes.', 'Dental loupe prices: /dental-loupes-price.'],
+      bullets: ['Dental loupes by model: /best-dental-loupe-brands.', 'Dental loupe prices: /dental-loupes-price.'],
     },
     light: 'Vega (70,000 lux) suits general dentistry up to 4x; choose a neutral color temperature for shade matching.',
   },

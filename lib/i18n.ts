@@ -46,7 +46,8 @@ export const localeName: Record<Locale, string> = {
  */
 export const translatedPages: Partial<Record<Locale, string>>[] = [
   { en: '/', es: '/es', pt: '/pt' },
-  { en: '/dental-loupes', es: '/es/lupas-dentales', pt: '/pt/lupa-odontologica' },
+  // /dental-loupes merged into /best-dental-loupe-brands (2026-11-26); its twins pair only with each other.
+  { es: '/es/lupas-dentales', pt: '/pt/lupa-odontologica' },
   // Wave 2 (2026-11-11): the highest-impression English pages.
   { en: '/best-dental-loupe-brands', es: '/es/mejores-lupas-dentales', pt: '/pt/melhor-lupa-odontologica' },
   { en: '/best-surgical-loupe-brands', es: '/es/mejores-lupas-quirurgicas', pt: '/pt/melhor-lupa-cirurgica' },

@@ -466,7 +466,7 @@ for (const [slug, title, context] of [
           TRAINEE_PERCENT_OFF +
           '% off for verified students. /student-loupe-comparison.',
         'Dental hygienists: 3.0x–3.5x for scaling and calculus detection, light enough for a full day of recalls. /loupes-for-dental-hygiene.',
-        'General and restorative dentists: 3.0x–4.0x; ergonomic prismatic Apollo or Medusa from $1,695 if posture is the problem. /dental-loupes.',
+        'General and restorative dentists: 3.0x–4.0x; ergonomic prismatic Apollo or Medusa from $1,695 if posture is the problem. /best-dental-loupe-brands.',
         'Endodontics and implants: 4.0x–6.0x prismatic, Kepler from $1,195. /loupes-for-endodontics.',
         'Dental loupes with a light: decide the light before the loupe is made, because the mount is fitted to it. /dental-loupes-with-light.',
       ],

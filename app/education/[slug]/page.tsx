@@ -26,7 +26,7 @@ const shopByLinks: ShopByLink[] = [
   },
   {
     label: 'Dental loupes',
-    href: '/dental-loupes',
+    href: '/best-dental-loupe-brands',
     description: 'Posture-forward optics for dentists, hygienists, and dental students.',
   },
   {

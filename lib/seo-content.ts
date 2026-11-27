@@ -445,7 +445,7 @@ export const allSeoLandingPages: SeoLandingPage[] = [
         body:
           'Magnification needs, posture demands and budget all shift by role and specialty. These pages go deeper on each — read the one that matches your work before you commit to a brand.',
         bullets: [
-          'Dental students and hygienists: 2.5x–3.5x Galilean is usually right. See /student-loupe-comparison and /dental-loupes.',
+          'Dental students and hygienists: 2.5x–3.5x Galilean is usually right. See /student-loupe-comparison and /best-dental-loupe-brands.',
           'Residents and medical students: prioritise durability and price. See /education/best-loupes-for-residents and /student-loupe-comparison.',
           'Cardiac surgery: see /cardiac-surgery-loupes for magnification and posture guidance.',
           'ENT and otolaryngology: see /ent-otolaryngology-loupes.',
@@ -7769,7 +7769,7 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
         bullets: [
           `Galileo: Galilean 2.5x–3.5x, six lightweight frame styles, ${priceRange('galileo')}. Newton is the lower-priced Galilean option.`,
           `Apollo: ergonomic prismatic, for long OR days under general anesthesia, ${priceRange('apollo')}.`,
-          'General dental loupes: /dental-loupes. Students: /student-loupe-comparison.',
+          'General dental loupes: /best-dental-loupe-brands. Students: /student-loupe-comparison.',
         ],
       },
     ],
@@ -7975,7 +7975,7 @@ const specialtyPagesOct2026: SeoLandingPage[] = [
         body:
           'HeliosX builds every pair to your measured pupillary and working distance, reviews the numbers before production and publishes every price. Every model’s frame choices are included in the price.',
         bullets: [
-          'All dental loupes, compared: /dental-loupes.',
+          'All dental loupes, compared: /best-dental-loupe-brands.',
           'Brand by brand: /best-dental-loupe-brands.',
           'Fixed and veneer work in more depth: /loupes-for-prosthodontics.',
         ],
@@ -8055,7 +8055,7 @@ const autocompleteGapPages: SeoLandingPage[] = [
           `Medusa (ergonomic prismatic, 3.0x–8.5x, adjustable 300–600 mm): ${priceRange('medusa')}.`,
         ],
         sourceLabel: 'See all models',
-        sourceHref: '/dental-loupes',
+        sourceHref: '/best-dental-loupe-brands',
       },
       {
         title: 'What changes the price',
@@ -8920,7 +8920,7 @@ const B = {
   bestDental: relatedLink('/best-dental-loupe-brands', 'Best dental loupes', 'Eight brands compared by price, weight and magnification.'),
   bestErgo: relatedLink('/ergonomic-loupes', 'Best ergonomic loupes', 'Every major brand’s ergonomic line, compared.'),
   surgicalHub: relatedLink('/best-surgical-loupe-brands', 'Best surgical loupes: 8 brands compared', 'Price, weight and magnification, brand by brand.'),
-  dentalHub: relatedLink('/dental-loupes', 'Dental loupes', 'Types, magnification chart and every price.'),
+  dentalHub: relatedLink('/best-dental-loupe-brands', 'Best dental loupes: 8 brands compared', 'Price, weight and magnification, brand by brand.'),
   vs: (brand: string, slug: string) => relatedLink(`/heliosx-vs-${slug}`, `HeliosX vs ${brand}`, `${brand} and HeliosX, spec by spec.`),
   alternatives: (brand: string, slug: string) => relatedLink(`/${slug}-alternatives`, `${brand} alternatives`, `Other loupes worth comparing with ${brand}.`),
 }
@@ -8949,7 +8949,7 @@ const buyerLinks: Record<string, RelatedPage[]> = {
   'student-loupe-comparison': [B.plans, B.bestDental],
   'amazon-loupes-vs-custom-loupes': [B.custom, B.buy],
   'how-to-measure-pupillary-distance': [B.custom],
-  'best-dental-loupe-brands': [B.dentalHub, B.bestErgo, B.lights],
+  'best-dental-loupe-brands': [B.bestErgo, B.lights],
   'examvision-alternatives': [B.examvisionPrice],
   'orascoptic-alternatives': [B.orascopticPrice, B.sparkAlt],
   'heliosx-vs-q-optics': [B.qopticsPrice],

@@ -66,7 +66,7 @@ const STAGES = [
   ['/student-loupe-comparison', 'Medical & dental students'],
   ['/education/best-loupes-for-residents', 'Residents & fellows'],
   ['/best-surgical-loupe-brands', 'Attending surgeons'],
-  ['/dental-loupes', 'Dentists'],
+  ['/best-dental-loupe-brands', 'Dentists'],
   ['/loupes-for-dental-hygiene', 'Dental hygienists'],
 ] as const
 

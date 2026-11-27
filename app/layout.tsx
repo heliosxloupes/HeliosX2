@@ -13,6 +13,7 @@ import LanguageSuggest from '@/components/intl/LanguageSuggest'
 import LocaleHtmlLang from '@/components/intl/LocaleHtmlLang'
 import ContactProvider from '@/components/Contact/ContactProvider'
 import BlackFridayDock from '@/components/promo/BlackFridayDock'
+import RecentOrderToast from '@/components/promo/RecentOrderToast'
 import { buildMetadata, siteUrl } from '@/lib/seo'
 
 const syne = Syne({
@@ -86,6 +87,7 @@ export default function RootLayout({
               {/* Outside SmoothScroll, inside site-content: shares the page's
                   stacking context so headers, menus and sheets stay above it. */}
               <BlackFridayDock />
+              <RecentOrderToast />
             </div>
           </div>
           <LanguageSuggest />

@@ -189,7 +189,7 @@ export default function BlackFridayDock() {
   return (
     <>
       <div className={styles.spacer} aria-hidden="true" />
-      <div className={`${styles.wrap} ${isCollapsed ? styles.collapsedWrap : ''}`}>
+      <div className={`${styles.wrap} ${isCollapsed ? styles.collapsedWrap : ''}`} data-hx-bottom-dock="">
         <AnimatePresence mode="wait" initial={firstVisit}>
           {isCollapsed ? (
             <motion.button

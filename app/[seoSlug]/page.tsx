@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import JsonLd from '@/components/JsonLd'
-import SeoLandingExperience from '@/components/seo/SeoLandingExperience'
+import { getGuide } from '@/components/seo/swiss/content'
+import SwissGuide from '@/components/seo/swiss/SwissGuide'
 import {
   articleJsonLd,
   breadcrumbJsonLd,
@@ -75,11 +76,8 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
   const page = getSeoLandingPage(params.seoSlug)
   if (!page) notFound()
 
-  const modelRows = Object.entries(productPositioning).map(([name, positioning]) => ({
-    name,
-    href: `/product/${name.toLowerCase()}`,
-    positioning,
-  }))
+  const guide = getGuide(page.slug)
+  if (!guide) notFound()
 
   const recommendedItems = page.recommendedProducts
     .map((shortName) => {
@@ -146,7 +144,10 @@ export default function SeoLandingPage({ params }: SeoPageProps) {
           ...(recommendedItems.length > 0 ? [catalogItemListJsonLd(recommendedItems)] : []),
         ]}
       />
-      <SeoLandingExperience page={page} modelRows={modelRows} />
+      {/* Swiss guide template, live 28 Nov 2026 (seo/swiss-redesign-2026-11-28).
+          Same words, headings and links as SeoLandingExperience, which stays in
+          the repo: to roll back, render it here again with modelRows. */}
+      <SwissGuide g={guide} />
     </>
   )
 }
